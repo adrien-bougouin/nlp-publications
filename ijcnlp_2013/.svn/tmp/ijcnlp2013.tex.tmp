@@ -1,0 +1,60 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File ijcnlp2013.tex
+%
+% Contact  sudeshna@cse.iitkgp.ernet.in
+%
+% Based on the style files for IJCNLP-2011...
+%
+% Based on the style files for EACL 2006 by
+% e.agirre@ehu.es or Sergi.Balari@uab.es
+%
+% Based on the style files for ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt]{article}
+\usepackage{ijcnlp2013}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{relsize}
+\usepackage{xfrac}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{todonotes}
+
+\title{Graph Based Ranking of Phrase Clusters for Keyphrase Extraction}
+\author{
+  Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
+  LINA, University of Nantes, France\\
+{\tt \{adrien.bougouin, florian.boudin, beatrice.daille\}@univ-nantes.fr}
+}
+\date{}
+
+\begin{document}
+  \maketitle
+
+  \begin{abstract}
+    This paper presents ClusterRank, a new graph-based ranking approach for
+    automatic keyphrase extraction. ClusterRank's aim is to improve the coverage
+    of a document's subjects by ranking them and extracting one keyphrase for
+    each. The document is expressed as a graph representing its subjects and
+    their semantic relations. Subjects are groups of similar phrases, they are
+    ranked by significance and one keyphrase per subject is extracted and ranked
+    by its belonging subject's rank. Evaluations performed using four varied
+    datasets show a significant improvement against the state-of-the-art
+    graph-based ranking approaches for keyphrase extraction on three datasets
+    over four.
+  \end{abstract}
+
+  \input{input/clusterrank.tex}
+
+%  \section*{Acknowledgments}
+%    This work was supported by the French National Research Agency (TermITH
+%    project ANR-12-CORD-0029).
+
+  \bibliographystyle{acl}
+  \bibliography{biblio}
+\end{document}
+
