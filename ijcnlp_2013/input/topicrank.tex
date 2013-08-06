@@ -33,8 +33,8 @@
   select a keyphrase candidate from each of the top-ranked clusters. Clustering
   keyphrase candidates into topics also eliminates redundancy while reinforcing
   edges. This is very important because the ranking performance strongly depends
-  on the compactness of the graph, as well as its ability to precisely represent
-  semantic relations among a document. Hence, another advantage of our approach
+  on the conciseness of the graph, as well as its ability to precisely represent
+  semantic relations within a document. Hence, another advantage of our approach
   is the use of a complete graph that better captures the semantic relations
   between topics.
 
@@ -86,11 +86,11 @@
   long but non important phrases. For example, ``nash equilibrium'', from the
   file \textit{J-14.txt} of our evaluation dataset named SemEval, is a keyphrase
   composed of the two most significant words in the document, according to
-  SingleRank. Therefore, SingleRank succeed to extract it, but candidates such
-  as ``unique nash equilibrium'', ``payoff-maximizing nash equilibrium'' or
-  ``exact nash equilibrium'' have a better score and are extracted too. With
-  TopicRank, we aim to circumvent this by ranking clusters of single and
-  multi-word expressions instead of words.
+  SingleRank. Therefore, SingleRank succeeds to extract it, but candidates such
+  as ``unique nash equilibrium'' or ``exact nash equilibrium'' which are longer,
+  then have a better score, are extracted too. With TopicRank, we aim to
+  circumvent this by ranking clusters of single and multi-word expressions
+  instead of words.
 
   \newcite{wan2008expandrank} use a small number of nearest neighbor documents
   to compute more accurate word co-occurrences and reinforce edge weights in the
@@ -101,7 +101,7 @@
   \newcite{tsatsaronis2010semanticrank} propose to connect vertices using
   semantic relations computed using WordNet~\cite{miller1995wordnet} or
   Wikipedia. They also experiment with different random walk algorithms, such as
-  HITS~\cite{kleinberg1999hits} or modified PageRanks.
+  HITS~\cite{kleinberg1999hits} or modified PageRank.
 
   \newcite{liu2010topicalpagerank} consider the topics of words using a Latent
   Dirichlet Allocation model~\cite[LDA]{blei2003lda}. As done by
@@ -141,13 +141,13 @@
     \newcite{hulth2003keywordextraction} stated that most keyphrases assigned
     by human readers are noun phrases. Hence, the most important topics of a
     document can be found by extracting their most significant noun phrases.
-    Therefore, we follow \newcite{wan2008expandrank} and extract the longest
-    sequences of nouns and adjectives from the document as keyphrase
-    candidates. Other methods use syntactically filtered n-grams that are most
-    likely to contain a larger number of candidates matching with reference
-    keyphrases, but the n-gram restricted length is a problem. Indeed, n-grams
-    do not always capture as much information as the longest noun phrases. Also,
-    they are less likely to be grammatically correct.
+    We follow \newcite{wan2008expandrank} and extract the longest sequences of
+    nouns and adjectives from the document as keyphrase candidates. Other
+    methods use syntactically filtered n-grams that are most likely to contain a
+    larger number of candidates matching with reference keyphrases, but the
+    n-gram restricted length is a problem. Indeed, n-grams do not always capture
+    as much information as the longest noun phrases. Also, they are less likely
+    to be grammatically correct.
 
     In a document, a topic is usually conveyed by more than one noun phrase.
     Consequently, some keyphrase candidates are redundant in regard to the topic
@@ -181,7 +181,7 @@
 
     \begin{figure*}
       \centering
-      \includegraphics[width=.9\textwidth]{include/2040_full.eps}
+      \includegraphics[width=\textwidth]{include/2040_full.eps}
       \caption{Sample graph build by TopicRank from Inspec, file
                \textit{2040.abstr}. \label{fig:topicrank}}
     \end{figure*}
@@ -189,13 +189,13 @@
     \subsubsection{Graph Construction}
     \label{subsubsec:graph_construction}
       Formally, let $G = (V, E)$ be a complete and undirected graph where $V$ is
-      a set of vertices and the edges $E$ a subset of
-      $V \times V$\footnote{$E = \{(v_1, v_2)\ |\ \forall v_1, v_2 \in V,\ v_1 \neq v_2\}$}.
-      Vertices are topics and the edge between two topics $t_i$ and $t_j$ is
-      weighted according to the strength of their semantic relation. $t_i$ and
-      $t_j$ have a strong semantic relation if their keyphrase candidates often
-      appear close to each other in the document. Therefore, the weight
-      $w_{i, j}$ of their edge is defined as follows:
+      a set of vertices and the edges $E$ a
+      subset\footnote{$E = \{(v_1, v_2)\ |\ \forall v_1, v_2 \in V,\ v_1 \neq v_2\}$}
+      of $V \times V$. Vertices are topics and the edge between two topics $t_i$
+      and $t_j$ is weighted according to the strength of their semantic
+      relation. $t_i$ and $t_j$ have a strong semantic relation if their
+      keyphrase candidates often appear close to each other in the document.
+      Therefore, the weight $w_{i, j}$ of their edge is defined as follows:
       \begin{align}
         w_{i, j} &= \mathlarger{\sum}_{c_i \in t_i}\ \mathlarger{\sum}_{c_j \in t_j} \text{dist}(c_i, c_j) \label{math:semantic_relatedness}\\
         \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
@@ -214,15 +214,14 @@
       (TextRank, SingleRank, etc).
 
       Figure~\ref{fig:topicrank} shows a sample graph built for an abstract from
-      one of our evaluation dataset (Inspec). Vertices are topics, represented
+      one of our evaluation datasets (Inspec). Vertices are topics, represented
       as clusters of lexically similar keyphrase candidates, and connected with
       all the others. In the example, we see the naivety of our clustering
       approach. Indeed, the clustering succeeds to group ``ion exchanger'',
       ``ion exchanger compression'' and ``compressible ion exchanger'', but the
       clustering of ``methods'' with ``numerical solution methods'' and
       ``model'' with ``mathematical model'' may be ambiguous as ``methods'' and
-      ``model'' can be used to refer to other methods or models than the ones
-      presented in the document.
+      ``model'' can be used to refer to other methods or models.
 
     \subsubsection{Subject Ranking}
     \label{subsubsec:ranking}
@@ -254,19 +253,16 @@
     between two candidates is computed with the stem overlap measure used by the
     clustering algorithm.}.
 
-    According to the results in section~\ref{sec:results}, the selection of the
-    first appearing candidate of each topic gives the best results.
-
 \section{Experimental Settings}
 \label{sec:experimental_settings}
   \subsection{Datasets}
   \label{subsec:datasets}
     \begin{table*}
       \centering
-      \begin{tabular}{rccccccc}
+      \begin{tabular}{@{ }rccccccc@{ }}
         \toprule
         \multirow{2}{*}[-2pt]{\textbf{Corpus}} & \multicolumn{4}{c}{\textbf{Documents}} & \multicolumn{3}{c}{\textbf{Keyphrases}}\\
-        \cmidrule(lr){2-5}\cmidrule(lr){6-8}
+        \cmidrule(lr){2-5}\cmidrule(l){6-8}
         & Type & Language & Number & Tokens average & Total & Average & Missing\\
         \midrule
         Inspec & Abstracts & English & 500 & $~~$136.3 & 4913 & $~~$9.8 & 21.8\%\\
@@ -303,12 +299,12 @@
     keyphrases provided by \newcite{kim2010semeval}.
 
     The third dataset is a French corpus that we created from the French version
-    of WikiNews\footnote{The whole dataset is available on
-    \url{https://github.com/adrien-bougouin/TopicRank}.}. It contains 100 news
-    articles published between May 2012 and December 2012. Each document has
-    been annotated by at least three students. We combined the annotations of
-    each documents and removed the lexical redundancies. All of the 100
-    documents are used in our experiments.
+    of WikiNews\footnote{The WikiNews dataset is available for free at the given
+    url: \url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}.}. It
+    contains 100 news articles published between May 2012 and December 2012.
+    Each document has been annotated by at least three students. We combined the
+    annotations of each documents and removed the lexical redundancies. All of
+    the 100 documents are used in our experiments.
 
     The fourth dataset is a French corpus made for the keyphrase extraction task
     of the DEFT 2012 evaluation campaign~\cite{paroubek2012deft}. It contains
@@ -317,7 +313,7 @@
     documents each. In our experiments we use the test set of the second task
     dataset. It contains 93 documents provided with author keyphrases.
 
-    Table~\ref{tab:corpora} gives statistics about the datasets. These are
+    Table~\ref{tab:corpora} gives statistics about the datasets. They are
     different in terms of document sizes and number of assigned keyphrases. The
     Inspec and WikiNews datasets have shorter documents (abstract and news
     articles) compared to SemEval and DEFT that both contain full-text
@@ -343,33 +339,32 @@
     POS-tagger~\cite{toutanova2003stanfordpostagger} for English and
     MElt~\cite{denis2009melt} for French.
 
-  \begin{table*}
-    \centering
-    \begin{tabular}{rcccccccccccc}
-      \toprule
-      \multirow{2}{*}[-2pt]{\textbf{Methods}} & \multicolumn{3}{c}{\textbf{Inspec}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-      \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(l){11-13}
-      & P & R & F & P & R & F & P & R & F & P & R & F\\
-      \midrule
-      TF-IDF & 32.6 & 38.3 & 33.2$^{~}$ & 13.2 & $~~$8.9 & 10.5$^{~}$ & 33.9 & 35.9 & 34.3$^{~}$ & 10.3 & 19.1 & 13.2$^{~}$\\
-      TextRank & 14.2 & 12.5 & 12.7$^{~}$ & $~~$7.9 & $~~$4.5 & $~~$5.6$^{~}$ & $~~$9.3 & $~~$8.3 & $~~$8.6$^{~}$ & $~~$4.9 & $~~$7.1 & $~~$5.7$^{~}$\\
-      SingleRank & 34.6 & 40.1 & \textbf{35.0}$^{~}$ & $~~$4.6 & $~~$3.2 & $~~$3.7$^{~}$ & 19.4 & 20.7 & 19.7$^{~}$ & $~~$4.5 & $~~$9.0 & $~~$5.9$^{~}$\\
-      TopicRank & 27.6 & 31.4 & 27.8  & 14.9 & 10.3 & \textbf{12.1}$^\dagger$ & 35.0 & 37.5 & \textbf{35.6}$^\dagger$ & 11.7 & 21.7 & \textbf{15.1}$^\dagger$\\
-      \bottomrule
-    \end{tabular}
-    \caption{Comparison results of TF-IDF, TextRank, SingleRank and
-             TopicRank methods, when extracting a maximum of 10 keyphrases
-             ($k = 10$). The results are expressed as a percentage of
-             precision (\text{P}), recall (\text{R}) and f-score (\text{F}).
-             $\dagger$ indicates TopicRank's significant improvement over
-             TextRank and SingleRank at 0.001 level using Student's t-test.
-             \label{tab:results}}
-  \end{table*}
-
   \subsection{Baselines}
   \label{subsec:baselines}
+    \begin{table*}
+      \centering
+      \begin{tabular}{@{ }rcccccccccccc@{ }}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Methods}} & \multicolumn{3}{c}{\textbf{Inspec}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(l){11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
+        \midrule
+        TF-IDF & 32.6 & 38.3 & 33.2$^{~}$ & 13.2 & $~~$8.9 & 10.5$^{~}$ & 33.9 & 35.9 & 34.3$^{~}$ & 10.3 & 19.1 & 13.2$^{~}$\\
+        TextRank & 14.2 & 12.5 & 12.7$^{~}$ & $~~$7.9 & $~~$4.5 & $~~$5.6$^{~}$ & $~~$9.3 & $~~$8.3 & $~~$8.6$^{~}$ & $~~$4.9 & $~~$7.1 & $~~$5.7$^{~}$\\
+        SingleRank & 34.6 & 40.1 & \textbf{35.0}$^{~}$ & $~~$4.6 & $~~$3.2 & $~~$3.7$^{~}$ & 19.4 & 20.7 & 19.7$^{~}$ & $~~$4.5 & $~~$9.0 & $~~$5.9$^{~}$\\
+        TopicRank & 27.6 & 31.4 & 27.8  & 14.9 & 10.3 & \textbf{12.1}$^\dagger$ & 35.0 & 37.5 & \textbf{35.6}$^\dagger$ & 11.7 & 21.7 & \textbf{15.1}$^\dagger$\\
+        \bottomrule
+      \end{tabular}
+      \caption{Comparison of TF-IDF, TextRank, SingleRank and TopicRank methods,
+               when extracting a maximum of 10 keyphrases. Results are expressed
+               as a percentage of precision (\text{P}), recall (\text{R}) and
+               f-score (\text{F}). $\dagger$ indicates TopicRank's significant
+               improvement over TextRank and SingleRank at 0.001 level using
+               Student's t-test. \label{tab:results}}
+    \end{table*}
+
     For comparison purpose, we use three baselines. The first baseline is
-    TF-IDF, commonly used because of the difficulty to achieve competitive
+    TF-IDF~\cite{jones1972tfidf}, commonly used because of the difficulty to achieve competitive
     results against it~\cite{hassan2010conundrums}. This method relies on a
     collection of documents and assumes that the $k$ keyphrase candidates
     containing words with the highest TF-IDF weights are the keyphrases of the
@@ -392,39 +387,40 @@
     the optimal value of the ratio depends on the size of the document. In
     SingleRank, noun phrases extracted with the same method as TopicRank are
     ranked by a score equal to the sum of their words scores. Then, the
-    $k$-bests are selected as keyphrases.
+    $k$-best noun phrases are selected as keyphrases.
     
     For all the baselines, we consider keyphrase candidates which have the same
     stemmed form as redundant. Once they are ranked we keep the best candidate
     and remove the others. This can only affect the results in a positive way,
-    because the evaluation is performed with stemmed forms.
-
-  \begin{table*}
-    \centering
-    \begin{tabular}{rcccccccccccc}
-      \toprule
-      \multirow{2}{*}[-2pt]{\textbf{Methods}} & \multicolumn{3}{c}{\textbf{Inspec}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-      \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(l){11-13}
-      & P & R & F & P & R & F & P & R & F & P & R & F\\
-      \midrule
-      SingleRank & 34.6 & 40.1 & 35.0 & $~~$4.6 & $~~$3.2 & $~~$3.7$^{~}$ & 19.4 & 20.7 & 19.7$^{~}$ & $~~$4.5 & $~~$9.0 & $~~$5.9$^{~}$\\
-      +phrases & 21.4 & 25.7 & 22.0 & $~~$9.4 & $~~$6.8 & $~~$7.8$^\dagger$ & 28.6 & 30.1 & 28.9$^\dagger$ & 10.5 & 19.7 & 13.5$^\dagger$\\
-      +topics & 26.6 & 30.1 & 26.8 & 14.6 & 10.1 & 11.9$^\dagger$ & 31.0 & 32.8 & 31.4$^\dagger$ & 11.5 & 21.4 & 14.8$^\dagger$\\
-      +complete & 34.8 & 40.7 & \textbf{35.3} & $~~$5.6 & $~~$3.8 & 4.5$^{~}$ & 20.0 & 21.4 & 20.3${~}$ & $~$4.4 & $~~$9.0 & 5.8$^{~}$\\
-      TopicRank & 27.6 & 31.4 & 27.8  & 14.9 & 10.3 & \textbf{12.1}$^\dagger$ & 35.0 & 37.5 & \textbf{35.6}$^\dagger$ & 11.7 & 21.7 & \textbf{15.1}$^\dagger$\\
-      \bottomrule
-    \end{tabular}
-    \caption{Comparison results of the individual modifications from
-             SingleRank to TopicRank, when extracting a maximum of 10
-             keyphrases ($k = 10$). The results are expressed as a percentage
-             of precision (\text{P}), recall (\text{R}) and f-score
-             (\text{F}). $\dagger$ indicates a significant improvement over
-             SingleRank at 0.001 level using Student's t-test.
-             \label{tab:singlerank_improvements}}
-  \end{table*}
+    because the evaluation is performed with stemmed forms, which mean that
+    removed candidates are considered equal to the retained candidate.
 
   \subsection{Evaluation Measures}
   \label{subsec:measures}
+    \begin{table*}
+      \centering
+      \begin{tabular}{@{ }rcccccccccccc@{ }}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Methods}} & \multicolumn{3}{c}{\textbf{Inspec}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(l){11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
+        \midrule
+        SingleRank & 34.6 & 40.1 & 35.0 & $~~$4.6 & $~~$3.2 & $~~$3.7$^{~}$ & 19.4 & 20.7 & 19.7$^{~}$ & $~~$4.5 & $~~$9.0 & $~~$5.9$^{~}$\\
+        +phrases & 21.4 & 25.7 & 22.0 & $~~$9.4 & $~~$6.8 & $~~$7.8$^\dagger$ & 28.6 & 30.1 & 28.9$^\dagger$ & 10.5 & 19.7 & 13.5$^\dagger$\\
+        +topics & 26.6 & 30.1 & 26.8 & 14.6 & 10.1 & 11.9$^\dagger$ & 31.0 & 32.8 & 31.4$^\dagger$ & 11.5 & 21.4 & 14.8$^\dagger$\\
+        +complete & 34.8 & 40.7 & \textbf{35.3} & $~~$5.6 & $~~$3.8 & $~~$4.5$^{~}$ & 20.0 & 21.4 & 20.3${~}$ & $~~$4.4 & $~~$9.0 & $~~$5.8$^{~}$\\
+        TopicRank & 27.6 & 31.4 & 27.8  & 14.9 & 10.3 & \textbf{12.1}$^\dagger$ & 35.0 & 37.5 & \textbf{35.6}$^\dagger$ & 11.7 & 21.7 & \textbf{15.1}$^\dagger$\\
+        \bottomrule
+      \end{tabular}
+      \caption{Comparison of the individual modifications from SingleRank to
+               TopicRank, when extracting a maximum of 10 keyphrases. Results
+               are expressed as a percentage of precision (\text{P}), recall
+               (\text{R}) and f-score (\text{F}). $\dagger$ indicates a
+               significant improvement over SingleRank at 0.001 level using
+               Student's t-test.
+               \label{tab:singlerank_improvements}}
+    \end{table*}
+
     The performances of TopicRank and the baselines are evaluated in terms of
     precision, recall and f-score (f1-measure) when a maximum of 10 keyphrases
     are extracted ($k = 10$). As said before, the candidate and reference
@@ -432,29 +428,29 @@
 
 \section{Results}
 \label{sec:results}
-
   To validate our approach, we designed three experiments. The first experiment
-  compares TopicRank to the baselines\footnote{TopicRank and the baselines
-  implementations can be found at the given url:
+  compares TopicRank\footnote{Results reported for TopicRank are obtained with
+  the first position selection strategy.} to the baselines\footnote{TopicRank
+  and the baselines implementations can be found at the given url:
   \url{https://github.com/adrien-bougouin/TopicRank}.}, the second experiment
   individually evaluates the modifications of TopicRank compared to
-  SingleRank\footnote{We decide to perform the second experiment with SingleRank
-  instead of TextRank (or both), because SingleRank also uses a graph with
-  weighted edges and is, therefore, closer to TopicRank.} and the last
-  experiment compares the keyphrase selection strategies. To show that the
-  clusters are well ranked, we also present the results that could be achieved
-  with a ``perfect'' keyphrase selection strategy.
+  SingleRank\footnote{The second experiment is performed with SingleRank instead
+  of TextRank, because SingleRank also uses a graph with weighted edges and is,
+  therefore, closer to TopicRank.} and the last experiment compares the
+  keyphrase selection strategies. To show that the clusters are well ranked, we
+  also present the results that could be achieved with a ``perfect'' keyphrase
+  selection strategy.
 
-  Table~\ref{tab:results} shows the results obtained by TopicRank and the
-  three baselines. Overall, our method outperforms TextRank, SingleRank and
-  TF-IDF. The results of TopicRank and the baselines are lower on SemEval and
-  DEFT (less than 16\% of f-score), so we conclude that it is more difficult to
-  treat long documents than short ones. On Inspec, TopicRank fails to do better
-  than all the baselines, but on SemEval, WikiNews and DEFT, it performs better
-  than TF-IDF and significantly outperforms TextRank and SingleRank. Also, we
-  observe a gap between TF-IDF's and the two graph-based baselines results.
-  Although TopicRank is a graph-based method, it overcome this gap by almost
-  tripling the f-score of both TextRank and SingleRank.
+  Table~\ref{tab:results} shows the results of TopicRank and the three
+  baselines. Overall, our method outperforms TextRank, SingleRank and TF-IDF.
+  The results of TopicRank and the baselines are lower on SemEval and DEFT (less
+  than 16\% of f-score), so we deduce that it is more difficult to treat long
+  documents than short ones. On Inspec, TopicRank fails to do better than all
+  the baselines, but on SemEval, WikiNews and DEFT, it performs better than
+  TF-IDF and significantly outperforms TextRank and SingleRank. Also, we observe
+  a gap between TF-IDF's and the two graph-based baselines results. Although
+  TopicRank is a graph-based method, it overcomes this gap by almost tripling
+  the f-score of both TextRank and SingleRank.
 
   Table~\ref{tab:singlerank_improvements} shows the individual modifications of
   TopicRank compared to SingleRank. We evaluate SingleRank when vertices are
@@ -477,13 +473,6 @@
   can be used instead of the former method, which requires to manually define a
   window of words. Experiments show that the three contributions are
   improvements and TopicRank benefits from each of them.
-  \begin{figure}[h]
-    \centering
-    \includegraphics[width=.475\textwidth]{include/1931.eps}
-    \caption{Connected component problem whith the method SingleRank+phrases.
-             Example taken from Inspec, file \textit{1931.abstr}.
-             \label{fig:phrases_graph}}
-  \end{figure}
 
   Table~\ref{tab:cluster_ranking_evaluation} shows the results of TopicRank when
   selecting either the first appearing candidate, the most frequent one or the
@@ -496,12 +485,20 @@
   conveyed by abbreviations or inherent concepts (e.g. the file
   \textit{C-17.txt} from SemEval contains \textit{packet-switched network} as a
   keyphrase where \textit{packet} is more utilized in the content). These are
-  usually more frequent and similar than the generic form, which explains the
-  observed gap.
+  usually more similar to the generic form and/or more frequent, which explains
+  the observed gap.
+
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=.475\textwidth]{include/1931.eps}
+    \caption{Connected component problem with the method SingleRank+phrases.
+             Example taken from Inspec, file \textit{1931.abstr}.
+             \label{fig:phrases_graph}}
+  \end{figure}
 
   \begin{table*}
     \centering
-    \begin{tabular}{rcccccccccccc}
+    \begin{tabular}{@{ }rcccccccccccc@{ }}
       \toprule
       \multirow{2}{*}[-2pt]{\textbf{Methods}} & \multicolumn{3}{c}{\textbf{Inspec}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
       \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}\cmidrule(l){11-13}
@@ -511,16 +508,16 @@
       Frequency & 26.7 & 30.0 & 26.7 & $~~$1.7 & $~~$1.2 & $~~$1.4$^{~}$ & 25.7 & 27.6 & 26.2$^{~}$ & $~~$1.9 & $~~$3.8 & $~~$2.5$^{~}$\\
       Centroid & 24.5 & 27.8 & 24.6 & $~~$1.8 & $~~$1.2 & $~~$1.4$^{~}$ & 28.1 & 29.9 & 28.5$^{~}$ & $~~$2.6 & $~~$5.0 & $~~$3.4$^{~}$\\
       \midrule
-      Best choice & 36.4 & 39.0 & \textbf{35.6} & 37.3 & 25.6 & \textbf{30.0}$^{~}$ & 42.5 & 44.8 & \textbf{42.9}$^{~}$ & 14.9 & 28.0 & \textbf{19.3}$^{~}$\\
+      Upper bound & 36.4 & 39.0 & \textbf{35.6} & 37.3 & 25.6 & \textbf{30.0}$^{~}$ & 42.5 & 44.8 & \textbf{42.9}$^{~}$ & 14.9 & 28.0 & \textbf{19.3}$^{~}$\\
       \bottomrule
     \end{tabular}
-    \caption{Comparison results of the keyphrase candidate selection
-             strategies against the best possible strategy, when extracting a
-             maximum of 10 keyphrases ($k = 10$). The results are expressed as
-             a percentage of precision (\text{P}), recall (\text{R}) and
-             f-score (\text{F}). $\dagger$ indicates the first position
-             strategy's significant improvement over the frequency and the
-             centroid strategies at 0.001 level using Student's t-test.
+    \caption{Comparison of the keyphrase candidate selection strategies against
+             the best possible strategy (upper bound), when extracting a maximum
+             of 10 keyphrases. Results are expressed as a percentage of
+             precision (\text{P}), recall (\text{R}) and f-score (\text{F}).
+             $\dagger$ indicates the first position strategy's significant
+             improvement over the frequency and the centroid strategies at 0.001
+             level using Student's t-test.
              \label{tab:cluster_ranking_evaluation}}
   \end{table*}
   
@@ -546,9 +543,9 @@
   over existing graph-based keyphrase extraction methods. First, as redundant
   keyphrase candidates are clustered, extracted keyphrases cover the main topics
   of the document better. The use of a complete graph also captures the
-  relations between topics without any manually defined parameters and obtains
-  better or similar performances than state-of-the-art connection method that
-  uses a co-occurrence window. We conducted experiments on four standard
+  relations between topics without any manually defined parameters and induces
+  better or similar performances than the state-of-the-art connection method
+  that uses a co-occurrence window. We conducted experiments on four standard
   evaluation datasets of different languages, document sizes and domains.
   Results show that TopicRank outperforms TF-IDF and significantly improves the
   state-of-the-art graph-based methods on three of them.
