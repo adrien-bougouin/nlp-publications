@@ -3,7 +3,7 @@
 ################################################################################
 
 report_NAME	= ijcnlp2013
-bib_FILE		= biblio.bib
+bib_FILE		= ../biblio.bib
 input_DIR 	= ./input
 needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(bib_FILE)
 

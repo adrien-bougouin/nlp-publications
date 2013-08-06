@@ -3,7 +3,7 @@
 ################################################################################
 
 report_NAME	= acl2013
-bib_FILE		= biblio.bib
+bib_FILE		= ../biblio.bib
 input_DIR 	= ./input
 include_DIR 	= ./include
 needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(wildcard $(include_DIR)/*) $(bib_FILE)

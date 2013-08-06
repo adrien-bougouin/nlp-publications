@@ -3,7 +3,7 @@
 ################################################################################
 
 report_NAME	= extraction_de_termes_cles_etat_de_l_art
-bib_FILE		= biblio.bib
+bib_FILE		= ../biblio.bib
 input_DIR 	= ./input
 needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(bib_FILE)
 
