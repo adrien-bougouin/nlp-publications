@@ -38,10 +38,10 @@
   is the use of a complete graph that better captures the semantic relations
   between topics.
 
-  To evaluate TopicRank, we followed~\newcite{hassan2010conundrums} who stated
+  To evaluate TopicRank, we follow \newcite{hassan2010conundrums} who stated
   that multiple datasets must be used to evaluate and fully understand the
-  strengths and weaknesses of a method. We used four evaluation datasets of
-  different languages, document sizes and domains, and compared the keyphrases
+  strengths and weaknesses of a method. We use four evaluation datasets of
+  different languages, document sizes and domains, and compare the keyphrases
   extracted by TopicRank against three baselines (TF-IDF and two graph-based
   methods). TopicRank outperforms the baselines on three of the datasets. As for
   the fourth one, an additional experiment shows that an improvement could be
@@ -49,10 +49,10 @@
 
   The rest of this paper is organized as follows. Section~\ref{sec:related_work}
   presents the existing methods for the keyphrase extraction task,
-  section~\ref{sec:clusterrank_approach} details our proposed approach,
-  section~\ref{sec:experimental_settings} describes the evaluation process and
-  section~\ref{sec:results} shows the analyzed results. Finally,
-  section~\ref{sec:conclusion_and_future_work} concludes this work and suggests
+  Section~\ref{sec:clusterrank_approach} details our proposed approach,
+  Section~\ref{sec:experimental_settings} describes the evaluation process and
+  Section~\ref{sec:results} shows the analyzed results. Finally,
+  Section~\ref{sec:conclusion_and_future_work} concludes this work and suggests
   directions for future work.
 
 \section{Related Work}
@@ -98,7 +98,7 @@
   approach improves the word ranking performance. Instead of using words,
   \newcite{liang2009querylog} use keyphrase candidates as vertices. Applied to
   Chinese, their method uses query log knowledge to determine phrase boundaries.
-  \newcite{tsatsaronis2010semanticrank} propose to connect vertices using
+  \newcite{tsatsaronis2010semanticrank} propose to connect vertices employing
   semantic relations computed using WordNet~\cite{miller1995wordnet} or
   Wikipedia. They also experiment with different random walk algorithms, such as
   HITS~\cite{kleinberg1999hits} or modified PageRank.
@@ -303,7 +303,7 @@
     url: \url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}.}. It
     contains 100 news articles published between May 2012 and December 2012.
     Each document has been annotated by at least three students. We combined the
-    annotations of each documents and removed the lexical redundancies. All of
+    annotations of each document and removed the lexical redundancies. All of
     the 100 documents are used in our experiments.
 
     The fourth dataset is a French corpus made for the keyphrase extraction task
@@ -392,7 +392,7 @@
     For all the baselines, we consider keyphrase candidates which have the same
     stemmed form as redundant. Once they are ranked we keep the best candidate
     and remove the others. This can only affect the results in a positive way,
-    because the evaluation is performed with stemmed forms, which mean that
+    because the evaluation is performed with stemmed forms, which means that
     removed candidates are considered equal to the retained candidate.
 
   \subsection{Evaluation Measures}
