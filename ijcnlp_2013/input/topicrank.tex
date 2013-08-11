@@ -406,9 +406,9 @@
         & P & R & F & P & R & F & P & R & F & P & R & F\\
         \midrule
         SingleRank & 34.8 & 40.4 & 35.2 & $~~$4.6 & $~~$3.2 & $~~$3.7$^{~}$ & 19.4 & 20.7 & 19.7$^{~}$ & $~~$4.5 & $~~$9.0 & $~~$5.9$^{~}$\\
-        +phrases & 21.5 & 25.9 & 22.1 & $~~$9.4 & $~~$6.8 & $~~$7.8$^\dagger$ & 28.6 & 30.1 & 28.9$^\dagger$ & 10.5 & 19.7 & 13.5$^\dagger$\\
-        +topics & 26.6 & 30.2 & 26.8 & 14.6 & 10.1 & 11.9$^\dagger$ & 31.0 & 32.8 & 31.4$^\dagger$ & 11.5 & 21.4 & 14.8$^\dagger$\\
-        +complete & 34.9 & 41.0 & \textbf{35.5} & $~~$5.6 & $~~$3.8 & $~~$4.5$^{~}$ & 20.0 & 21.4 & 20.3${~}$ & $~~$4.4 & $~~$9.0 & $~~$5.8$^{~}$\\
+        +phrases & 21.5 & 25.9 & 22.1 & $~~$9.6 & $~~$7.0 & $~~$8.0$^\dagger$ & 28.6 & 30.1 & 28.9$^\dagger$ & 10.5 & 19.7 & 13.5$^\dagger$\\
+        +topics & 26.6 & 30.2 & 26.8 & 14.7 & 10.2 & 11.9$^\dagger$ & 31.0 & 32.8 & 31.4$^\dagger$ & 11.5 & 21.4 & 14.8$^\dagger$\\
+        +complete & 34.9 & 41.0 & \textbf{35.5} & $~~$5.5 & $~~$3.8 & $~~$4.4$^{~}$ & 20.0 & 21.4 & 20.3${~}$ & $~~$4.4 & $~~$9.0 & $~~$5.8$^{~}$\\
         TopicRank & 27.6 & 31.5 & 27.9  & 14.9 & 10.3 & \textbf{12.1}$^\dagger$ & 35.0 & 37.5 & \textbf{35.6}$^\dagger$ & 11.7 & 21.7 & \textbf{15.1}$^\dagger$\\
         \bottomrule
       \end{tabular}
@@ -432,14 +432,14 @@
   compares TopicRank\footnote{Results reported for TopicRank are obtained with
   the first position selection strategy.} to the baselines\footnote{TopicRank
   and the baselines implementations can be found at the given url:
-  \url{https://github.com/adrien-bougouin/TopicRank}.}, the second experiment
-  individually evaluates the modifications of TopicRank compared to
-  SingleRank\footnote{The second experiment is performed with SingleRank instead
-  of TextRank, because SingleRank also uses a graph with weighted edges and is,
-  therefore, closer to TopicRank.} and the last experiment compares the
-  keyphrase selection strategies. To show that the clusters are well ranked, we
-  also present the results that could be achieved with a ``perfect'' keyphrase
-  selection strategy.
+  \url{https://github.com/adrien-bougouin/TopicRank/tree/ijcnlp_2013}.}, the
+  second experiment individually evaluates the modifications of TopicRank
+  compared to SingleRank\footnote{The second experiment is performed with
+  SingleRank instead of TextRank, because SingleRank also uses a graph with
+  weighted edges and is, therefore, closer to TopicRank.} and the last
+  experiment compares the keyphrase selection strategies. To show that the
+  clusters are well ranked, we also present the results that could be achieved
+  with a ``perfect'' keyphrase selection strategy.
 
   Table~\ref{tab:results} shows the results of TopicRank and the three
   baselines. Overall, our method outperforms TextRank, SingleRank and TF-IDF.
@@ -506,7 +506,7 @@
       \midrule
       First position & 27.6 & 31.5 & 27.9  & 14.9 & 10.3 & 12.1$^\dagger$ & 35.0 & 37.5 & 35.6$^\dagger$ & 11.7 & 21.7 & 15.1$^\dagger$\\
       Frequency & 26.7 & 30.2 & 26.8 & $~~$1.7 & $~~$1.2 & $~~$1.4$^{~}$ & 25.7 & 27.6 & 26.2$^{~}$ & $~~$1.9 & $~~$3.8 & $~~$2.5$^{~}$\\
-      Centroid & 24.5 & 28.0 & 24.7 & $~~$1.8 & $~~$1.2 & $~~$1.4$^{~}$ & 28.1 & 29.9 & 28.5$^{~}$ & $~~$2.6 & $~~$5.0 & $~~$3.4$^{~}$\\
+      Centroid & 24.5 & 28.0 & 24.7 & $~~$1.9 & $~~$1.2 & $~~$1.5$^{~}$ & 28.1 & 29.9 & 28.5$^{~}$ & $~~$2.6 & $~~$5.0 & $~~$3.4$^{~}$\\
       \midrule
       Upper bound & 36.4 & 39.0 & \textbf{35.6} & 37.3 & 25.6 & \textbf{30.0}$^{~}$ & 42.5 & 44.8 & \textbf{42.9}$^{~}$ & 14.9 & 28.0 & \textbf{19.3}$^{~}$\\
       \bottomrule
