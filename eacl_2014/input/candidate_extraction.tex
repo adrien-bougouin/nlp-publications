@@ -13,48 +13,40 @@
   supervised and unsupervised methods. Supervised methods typically recast
   keyphrase extraction as a binary classification
   task~\cite{witten1999kea,sujian2003maximumentropy,eichler2010keywe}. For
-  unsupervised methods, keyphrase extraction is often regarded as a ranking
+  unsupervised methods, keyphrase extraction is often considered as a ranking
   task and many approaches are
   used~\cite{barker2000nounphrasehead,tomokiyo2003languagemodel,mihalcea2004textrank}.
-  Both supervised and unsupervised methods rely on a preliminary candidate
-  extraction step which identifies single and multi-word expressions that have
-  the same syntactic properties than a keyphrase. During the keyphrase
-  extraction, only these expressions can be selected as keyphrases. Therefore,
-  candidate extraction is one of the most critical step of the keyphrase
-  extraction task. The performances of keyphrase extraction methods are ceiled
-  by the capacity of the candidate extraction to provide a large number of
-  candidates that match with ground truth keyphrases.
+  As distinct as they are, both supervised and unsupervised methods rely on a
+  preliminary candidate extraction step which identifies single and multi-word
+  expressions that have the same syntactic properties than a keyphrase. These
+  expressions are the only textual units that can be extracted as keyphrases.
   
   In this paper, we focus on the candidate extraction step and show its impact
-  on the performance of automatic keyphrase extraction methods. Various methods
-  are commonly employed to extract keyphrase candidates. These extract either
-  single words, n-grams filtered by stop words, NP-chunks or sequences of words
-  matching given patterns~\cite{hulth2003keywordextraction}. The resulting sets
-  are different in terms of total number and number of candidates actually
-  matching with ground truth keyphrases. Hence, a few questions arise. What is
-  the effect of these differences during the keyphrase extraction? Do large
-  candidate sets introduce noise that lower the performance of some keyphrase
-  extraction methods?
+  on the performance of automatic keyphrase extraction. Various methods
+  are commonly employed to extract keyphrase candidates. Usually, a set of
+  either single words, n-grams filtered by stop words, NP-chunks or sequences of
+  words matching given patterns is extracted~\cite{hulth2003keywordextraction}.
+  According to the chosen method, the extracted set contains more or less
+  candidates, and the amount of these that match with the ground truth
+  keyphrases may vary. Hence, a few questions arise. How the different sets
+  influence the keyphrase extraction? Do large candidate sets introduce noise
+  that affects the performance of some keyphrase extraction methods?
 
   We seek to better understand the impact of candidate extraction methods on
   keyphrase extraction by studying the aforementioned questions. We first
-  quantify the differences between sets of candidates extracted by the commonly
-  used methods. In addition to this, we propose to use another method developed
-  to extract noun-phrases for document
-  indexing~\cite{evans1996nounphraseanalysis} and we argue that such term
-  detection method~\cite{castellvi2001automatictermdetection} provides good
-  keyphrase candidates. Then, we evaluate the impact of the candidate extraction
-  methods on the keyphrase extraction task, using four dissimilar methods. We
-  select KEA~\cite{witten1999kea} to represent supervised methods,
-  TF-IDF~\cite{jones1972tfidf} to represent methods that require a collection of
-  documents and SingleRank~\cite{wan2008expandrank}, as well as
-  TopicRank~\cite{bougouin2013topicrank}, to represent unsupervised methods that
-  only use a single document.
+  quantify the differences between the candidate sets obtained by the commonly
+  used methods. Also, we propose to use another method developed to extract
+  noun-phrases for document indexing~\cite{evans1996nounphraseanalysis} and we
+  argue that such term detection
+  method~\cite{castellvi2001automatictermdetection} provides solid keyphrase
+  candidates. Then, we evaluate the impact of the candidate extraction methods
+  on three dissimilar keyphrase extraction methods. We select
+  KEA~\cite{witten1999kea} to represent supervised methods,
+  TF-IDF~\cite{jones1972tfidf} to represent unsupervised methods that require a
+  collection of documents and TopicRank~\cite{bougouin2013topicrank} to
+  represent unsupervised methods that only make use of the document to analyse.
 
-  The rest of this paper is organized as follows. We first introduce the
-  candidate extraction and keyphrase extraction methods. Next, we describe the
-  datasets used to evaluate keyphrase extraction methods and finally, we present
-  our experiments and results and conclude with a discussion.
+  \todo[inline]{Results show that...}
 
 \section{Candidate Extraction}
 \label{sec:candidate_extraction}
@@ -85,8 +77,6 @@
   \label{subsec:kea}
   \subsection{TF-IDF}
   \label{subsec:tfidf}
-  \subsection{SingleRank}
-  \label{subsec:singlerank}
   \subsection{TopicRank}
   \label{subsec:topicrank}
 
