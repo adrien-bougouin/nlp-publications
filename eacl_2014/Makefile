@@ -2,7 +2,7 @@
 # Makefile
 ################################################################################
 
-report_NAME	= acl2013
+report_NAME	= eacl2014
 bib_FILE		= ../biblio.bib
 input_DIR 	= ./input
 include_DIR 	= ./include

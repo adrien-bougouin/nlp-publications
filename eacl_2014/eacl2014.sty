@@ -1,15 +1,12 @@
-% File acl2013.sty
-% same as --
-% File acl-ijcnlp2009.sty
-% same as --
-% File eacl2006.sty
-% September 19, 2005
-% Contact: e.agirre@ehu.es or Sergi.Balari@uab.es
+% File eacl2014.sty
+% March 18, 2013
+% Contact: yannick.parmentier@univ-orleans.fr, g.bouma@rug.nl
 
-% This is the LaTeX style file for EACL 2006.  It is nearly identical to the
-% style files for ACL2005, ACL 2002, ACL 2001, ACL 2000, EACL 95 and EACL
-% 99. 
-%
+% This is the LaTeX style file for EACL 2014.  It is nearly identical
+% to the style files for ACL 2013 and EACL 2009, which in turns closely
+% follow those of ACL 2005, ACL 2002, ACL 2001, ACL 2000, EACL 95 and
+% EACL 99.  
+
 % Changes made include: adapt layout to A4 and centimeters, widden abstract
 
 % This is the LaTeX style file for ACL 2000.  It is nearly identical to the
@@ -102,7 +99,8 @@
 % where <new height> can be something larger than 2.25in
 
 % \typeout{Conference Style for ACL 2000 -- released June 20, 2000}
-\typeout{Conference Style for ACL 2005 -- released Octobe 11, 2004}
+% \typeout{Conference Style for ACL 2005 -- released Octobe 11, 2004}
+\typeout{Conference Style for EACL 2014 -- released March 18, 2013}
 
 % NOTE:  Some laser printers have a serious problem printing TeX output.
 % These printing devices, commonly known as ``write-white'' laser
@@ -151,7 +149,9 @@
 \setlength\headsep{0pt}
 \thispagestyle{empty}        
 \pagestyle{empty}
-
+%% Added by Yannick (for pdflatex output)
+\pdfpagewidth=210 true mm
+\pdfpageheight=297 true mm
 
 \flushbottom \twocolumn \sloppy
 

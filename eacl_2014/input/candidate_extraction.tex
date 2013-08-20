@@ -52,8 +52,6 @@
 \label{sec:candidate_extraction}
   \todo[inline]{Objectif + pré-requis.}
 
-  \subsection{Single Words Extraction}
-  \label{subsec:single_words_extraction}
   \subsection{N-Gram Extraction}
   \label{subsec:n_gram_extraction}
   \subsection{NP-Chunk Extraction}
@@ -73,12 +71,12 @@
              \label{fig:processing_steps}}
   \end{figure}
 
-  \subsection{KEA}
-  \label{subsec:kea}
   \subsection{TF-IDF}
   \label{subsec:tfidf}
   \subsection{TopicRank}
   \label{subsec:topicrank}
+  \subsection{KEA}
+  \label{subsec:kea}
 
 \section{Evaluation Datasets}
 \label{sec:evaluation_datasets}
@@ -90,19 +88,19 @@
     \centering
     \begin{tabular}{@{~}r@{~~}r@{~~}c@{~~}c@{~}}
       \toprule
-      \multicolumn{2}{c}{\multirow{2}{*}[-2pt]{\textbf{Statistics}}} & \multicolumn{2}{c}{\textbf{Corpora}}\\
+      & \multirow{2}{*}[-2pt]{\textbf{Statistics}} & \multicolumn{2}{c}{\textbf{Corpora}}\\
       \cmidrule{3-4}
       & & DUC & SemEval\\
       \midrule
       \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{Documents}\end{sideways}} & Type & News & Papers\\
-      & Documents & 308 & 100\\
-      & Tokens/document & & 5176.6\\
-      & Keyphrases/document & & 14.7\\
-      & Missings keyphrases & & 19.3\%\\
+      & Documents & 208 & 144\\
+      & Tokens/document & & 5134.6\\
+      & Keyphrases/document & 8.1 & 15.4\\
+      & Missings keyphrases & & 20.2\%\\
       \addlinespace[\defaultaddspace]
-      \multirow{10}{*}[-2pt]{\begin{sideways}\textbf{Keyphrases}\end{sideways}} & Unigrams & & \\
-      & Bigrams & & \\
-      & Trigrams and more & & \\
+      \multirow{10}{*}[-2pt]{\begin{sideways}\textbf{Keyphrases}\end{sideways}} & Unigrams & & 20.2\%\\
+      & Bigrams & & 53.4\%\\
+      & Trigrams and more & & 26.4\%\\
       & Containing nouns & & \\
       & Containing adjectives & & \\
       & Containing verbs & & \\
@@ -129,20 +127,108 @@
 
   \subsection{Candidate Extraction}
   \label{subsec:candidate_extraction}
-    \todo[inline]{Reprendre les statistiques données en
-                  section~\ref{sec:evaluation_datasets}, pour les termes
-                  candidats extraits.}
     \todo[inline]{Donner le rappel max et comparer avec la taille des différents
                   ensemble.}
-    \todo[inline]{Quels sont les termes candidats communs aux ensembles, le
+
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Methods}} & \multicolumn{2}{c}{\textbf{DUC}} & \multicolumn{2}{c}{\textbf{SemEval}}\\
+        \cmidrule(r){2-3}\cmidrule{4-5}
+        & Candidates & Rmax & Candidates & Rmax\\
+        \midrule
+        1-grams\\
+        2-grams\\
+        3-grams\\
+        4-grams\\
+        5-grams\\
+        Chunks\\
+        Patterns1\\
+        Patterns2\\
+        Terms\\
+        \bottomrule
+      \end{tabular}
+      \caption{Candidate extraction statistics.
+               \label{tab:candidate_extraction_statistics}}
+    \end{table}
+
+    \todo[inline]{Quels sont les termes candidats communs aux ensembles, les
                   propriétés ?}
 
   \subsection{Keyphrase Extraction}
   \label{subsec:keyphrase_extraction}
     \todo[inline]{Quelles sont les performances de chaque méthode avec chaque
                   ensemble de termes candidats ?}
-    \todo[inline]{Que se passe-t-il lorsque l'on ajoute les termes-clés manquant
-                  (mais présents dans le document) aux termes candidats (càd
-                  comment les termes candidats non termes-clés de chaque
-                  ensemble influent sur les résultats)?}
+
+    \begin{table}[h]
+      \centering
+      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Methods}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
+        \cmidrule(r){2-4}\cmidrule{5-7}
+        & P & R & F & P & R & F\\
+        \midrule
+        \multicolumn{1}{l}{\textbf{TF-IDF}}\\
+        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        \multicolumn{1}{l}{\textbf{TopicRank}}\\
+        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        \multicolumn{1}{l}{\textbf{KEA}}\\
+        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        \bottomrule
+      \end{tabular}
+      \caption{Comparison of TF-IDF, TopicRank and KEA, when using various
+               candidate extraction methods and when extracting 10 keyphrases.
+               \label{tab:keyphrase_extraction_results}}
+    \end{table}
+
+%    \begin{table*}
+%      \centering
+%      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+%        \toprule
+%        & \multicolumn{9}{c}{\textbf{DUC}} & \multicolumn{9}{c}{\textbf{SemEval}}\\
+%        \cmidrule(r){2-10}\cmidrule{11-19}
+%        \textbf{Methods} & \multicolumn{3}{c}{KEA} & \multicolumn{3}{c}{TF-IDF} & \multicolumn{3}{c}{TopicRank} & \multicolumn{3}{c}{KEA} & \multicolumn{3}{c}{TF-IDF} & \multicolumn{3}{c}{TopicRank}\\
+%        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule(r){11-13}\cmidrule(r){14-16}\cmidrule{17-19}
+%        & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
+%        \midrule
+%        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        \bottomrule
+%      \end{tabular}
+%      \caption{Comparison of TF-IDF, TopicRank and KEA, when using various
+%               candidate extraction methods and when extracting 10 keyphrases.
+%               \label{tab:keyphrase_extraction_results}}
+%    \end{table*}
 
