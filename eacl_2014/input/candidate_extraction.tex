@@ -9,6 +9,7 @@
   Therefore, the problem of automatically assigning keyphrases to documents is
   an active field of research.
 
+  \todo[inline]{Introduire free indexing et controlled indexing}
   Automatic keyphrase extraction methods are divided into two categories:
   supervised and unsupervised methods. Supervised methods typically recast
   keyphrase extraction as a binary classification
@@ -48,6 +49,62 @@
 
   \todo[inline]{Results show that...}
 
+\section{Definition of candidate Keyphrases}
+\label{sec:study_of_ground_truth_keyphrases}
+  Candidate keyphrases are textual units which can be selected as keyphrases
+  for a document they are extracted from. Hence, they must have the same
+  syntactic and linguistic properties than ground truth keyphrases. This section
+  aims to determine those properties by analysing three standard evaluation
+  datasets, for keyphrase extraction, and by providing statistics about
+  reference keyphrases (ground truth keyphrases).
+
+  \subsection{Keyphrase extraction datasets}
+  \label{subsec:keyphrase_extraction_datasets}
+    Keyphrase extraction datasets are used to evaluate or train keyphrase
+    extraction methods. Hence, the datasets are collections of documents paired
+    with reference keyphrases, given by authors, readers or both.
+    % TODO unrestricted to the content of the document.
+    \todo[inline]{Présentation générale des corpus pour l'extraction de
+                  termes-clés.}
+    \todo[inline]{Présentation des corpus qui seront utilisés}
+
+  \subsection{Keyphrase analysis}
+  \label{subsec:keyphrase_analysis}
+    \begin{table*}[h]
+      \centering
+      \begin{tabular}{@{~}r@{~~}r@{~~}c@{~~}c@{~~}c@{~}}
+        \toprule
+        & \multirow{2}{*}[-2pt]{\textbf{Statistics}} & \multicolumn{3}{c}{\textbf{Corpora}}\\
+        \cmidrule{3-5}
+        & & DUC & SemEval & DEFT\\
+        \midrule
+        \multirow{6}{*}[-2pt]{\begin{sideways}\textbf{Documents}\end{sideways}} & Language & English & English & French\\
+        & Type & News & Papers & Papers\\
+        & Documents & 208 & 144 & 141\\
+        & Tokens/document & & 5134.6 & 7276.7\\
+        & Keyphrases/document & 8.1 & 15.4 & 5.4\\
+        & Missings keyphrases & & 13.5\% & 18.2\%\\
+        \addlinespace[\defaultaddspace]
+        \multirow{10}{*}[-2pt]{\begin{sideways}\textbf{Keyphrases}\end{sideways}} & Unigrams & 26.2\% & 20.2\% & 66.4\%\\
+        & Bigrams & 54.1\% & 53.4\% & 20.7\%\\
+        & Trigrams and more & 19.7\% & 26.4\% & 12.9\%\\
+        & Containing nouns & 99.5\% & 98.8\% & 95.5\%\\
+        & Containing adjectives & 41.6\% & 40.5\% & 28.8\%\\
+        & Containing verbs & $~~$0.9\% & $~~$3.4\% & $~~$0.5\%\\
+        & Containing adverbs & $~~$1.3\% & $~~$0.6\% & $~~$0.5\%\\
+        & Containing prepositions & $~~$0.2\% & $~~$1.2\% & 12.7\%\\
+        & Containing determiners & $~~$0.0\% & $~~$0.0\% & $~~$8.1\%\\
+        & Containing others & $~~$1.3\% & $~~$2.1\% & $~~$5.8\%\\
+        \bottomrule
+      \end{tabular}
+      \caption{Dataset statistics. The missing keyphrase percentage is
+               determined based on the stemmed form of the gold standard
+               keyphrases. \label{tab:dataset_statistics}}
+    \end{table*}
+
+    \todo[inline]{Donner les séquences de POS les plus fréquentes dans le gold
+                  standard.}
+
 \section{Candidate Extraction}
 \label{sec:candidate_extraction}
   \todo[inline]{Objectif + pré-requis.}
@@ -77,46 +134,6 @@
   \label{subsec:topicrank}
   \subsection{KEA}
   \label{subsec:kea}
-
-\section{Evaluation Datasets}
-\label{sec:evaluation_datasets}
-  \todo[inline]{Présentation générale des corpus pour l'extraction de
-                termes-clés.}
-  \todo[inline]{Présentation des corpus qui seront utilisés}
-
-  \begin{table}[h]
-    \centering
-    \begin{tabular}{@{~}r@{~~}r@{~~}c@{~~}c@{~}}
-      \toprule
-      & \multirow{2}{*}[-2pt]{\textbf{Statistics}} & \multicolumn{2}{c}{\textbf{Corpora}}\\
-      \cmidrule{3-4}
-      & & DUC & SemEval\\
-      \midrule
-      \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{Documents}\end{sideways}} & Type & News & Papers\\
-      & Documents & 208 & 144\\
-      & Tokens/document & & 5134.6\\
-      & Keyphrases/document & 8.1 & 15.4\\
-      & Missings keyphrases & & 20.2\%\\
-      \addlinespace[\defaultaddspace]
-      \multirow{10}{*}[-2pt]{\begin{sideways}\textbf{Keyphrases}\end{sideways}} & Unigrams & & 20.2\%\\
-      & Bigrams & & 53.4\%\\
-      & Trigrams and more & & 26.4\%\\
-      & Containing nouns & & \\
-      & Containing adjectives & & \\
-      & Containing verbs & & \\
-      & Containing adverbs & & \\
-      & Containing prepositions & & \\
-      & Containing determiners & & \\
-      & Containing others & & \\
-      \bottomrule
-    \end{tabular}
-    \caption{Dataset statistics. The missing keyphrase percentage is determined
-             based on the stemmed form of the gold standard keyphrases.
-             \label{tab:dataset_statistics}}
-  \end{table}
-
-  \todo[inline]{Donner les séquences de POS les plus fréquentes dans le gold
-                standard.}
 
 \section{Evaluation}
 \label{sec:evaluation}
@@ -170,35 +187,35 @@
         & P & R & F & P & R & F\\
         \midrule
         \multicolumn{1}{l}{\textbf{TF-IDF}}\\
-        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        1-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        2-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        3-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        4-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        5-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Chunks & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Patterns1 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Patterns2 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Terms & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
         \multicolumn{1}{l}{\textbf{TopicRank}}\\
-        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        1-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        2-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        3-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        4-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        5-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Chunks & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Patterns1 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Patterns2 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Terms & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
         \multicolumn{1}{l}{\textbf{KEA}}\\
-        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+        1-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        2-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        3-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        4-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        5-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Chunks & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Patterns1 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Patterns2 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        Terms & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
         \bottomrule
       \end{tabular}
       \caption{Comparison of TF-IDF, TopicRank and KEA, when using various
@@ -216,15 +233,15 @@
 %        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule(r){11-13}\cmidrule(r){14-16}\cmidrule{17-19}
 %        & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
 %        \midrule
-%        1-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        2-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        3-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        4-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        5-grams & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        Chunks & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        Patterns1 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        Patterns2 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
-%        Terms & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0 & ${~~}$0.0\\
+%        1-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        2-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        3-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        4-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        5-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        Chunks & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        Patterns1 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        Patterns2 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+%        Terms & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
 %        \bottomrule
 %      \end{tabular}
 %      \caption{Comparison of TF-IDF, TopicRank and KEA, when using various
