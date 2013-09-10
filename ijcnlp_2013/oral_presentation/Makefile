@@ -4,7 +4,7 @@
 
 report_NAME	= slides
 input_DIR 	= ./input
-bib_FILE		= ./biblio.bib
+bib_FILE		= ../../biblio.bib
 input_FILES	= $(report_NAME).tex $(wildcard $(input_DIR)/*.tex) $(bib_File)
 
 default: $(report_NAME).pdf
