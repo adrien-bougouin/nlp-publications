@@ -1,0 +1,86 @@
+\documentclass{beamer}
+%\documentclass[handout]{beamer}
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Times Roman clone
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[slide]{gastex}
+\usepackage{booktabs}
+\usepackage{ulem}
+\usepackage[round]{natbib}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage[labelformat=empty]{caption}
+\usepackage{xcolor, colortbl}
+\usepackage{relsize}
+\usepackage{ragged2e}
+\usepackage[overlay]{textpos}
+
+\usetheme{Boadilla}
+\setbeamertemplate{frametitle continuation}{}
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{footline}{\vskip2pt}
+\setbeamertemplate{items}[square]
+\beamertemplatenavigationsymbolsempty
+
+\hypersetup{
+  colorlinks,
+  citecolor=black,
+  filecolor=black,
+  linkcolor=black,
+  urlcolor=black
+}
+
+\usetikzlibrary{decorations.pathreplacing}
+
+\renewcommand\cite[2][]{\citep[#1]{#2}}
+
+\title{TopicRank}
+\subtitle{Graph-Based Topic Ranking for Keyphrase Extraction}
+\titlegraphic{
+  \begin{center}
+    \includegraphics[width=2cm]{logos/univ_nantes.eps}\hspace*{0.05\textwidth}
+    \includegraphics[width=2cm]{logos/lina.eps}\hspace*{0.05\textwidth}
+    \includegraphics[width=2cm]{logos/termith.eps}
+  \end{center}
+}
+\author{Adrien Bougouin \and Florian Boudin \and Béatrice Daille}
+\institute{Université de Nantes, LINA, France}
+\date{?? October 2013}
+
+\begin{document}
+  \renewcommand*{\theenumii}{\alph{enumii}}
+  \renewcommand*{\theenumiii}{\roman{enumiii}}
+
+  \begin{frame}
+    \titlepage
+  \end{frame}
+  \setbeamertemplate{footline}{\hfill\insertframenumber{\ \ }\vskip2pt}
+  \setcounter{framenumber}{0}
+
+  % TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %\input{input/introduction.tex}
+  \AtBeginSection[]{
+    \begin{frame}{Plan}
+      \tableofcontents[currentsection,currentsubsection,currentsubsubsection,subsubsectionstyle=show/shaded]
+    \end{frame}
+  }
+  % TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %\input{input/*.tex}
+  \cite{mihalcea2003TextRank}
+  \section*{Références}
+    \begin{frame}[allowframebreaks]{References}
+      \def\newblock{\hskip .11em plus .33em minus .07em}
+      \bibliographystyle{plainnat}
+      \bibliography{../../biblio}
+    \end{frame}
+\end{document}
+
