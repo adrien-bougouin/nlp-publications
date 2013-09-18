@@ -10,18 +10,11 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\usepackage[slide]{gastex}
 \usepackage{booktabs}
-\usepackage{ulem}
 \usepackage[round]{natbib}
 \usepackage{tikz}
-\usepackage{multirow}
-\usepackage{rotating}
 \usepackage[labelformat=empty]{caption}
 \usepackage{xcolor, colortbl}
-\usepackage{relsize}
-\usepackage{ragged2e}
-\usepackage[overlay]{textpos}
 
 \usetheme{Boadilla}
 \setbeamertemplate{frametitle continuation}{}
@@ -39,22 +32,23 @@
   urlcolor=black
 }
 
-\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{arrows,shapes}
 
 \renewcommand\cite[2][]{\citep[#1]{#2}}
+\let\oldtextsc\textsc\renewcommand\textsc[1]{\rmfamily\oldtextsc{#1}}
 
 \title{TopicRank}
 \subtitle{Graph-Based Topic Ranking for Keyphrase Extraction}
 \titlegraphic{
   \begin{center}
-    \includegraphics[width=2cm]{logos/univ_nantes.eps}\hspace*{0.05\textwidth}
-    \includegraphics[width=2cm]{logos/lina.eps}\hspace*{0.05\textwidth}
-    \includegraphics[width=2cm]{logos/termith.eps}
+    \includegraphics[height=2em]{logos/univ_nantes.eps}\hspace*{0.05\textwidth}
+    \includegraphics[height=2em]{logos/lina.eps}\hspace*{0.05\textwidth}
+    \includegraphics[height=2em]{logos/termith.eps}
   \end{center}
 }
 \author{Adrien Bougouin \and Florian Boudin \and Béatrice Daille}
 \institute{Université de Nantes, LINA, France}
-\date{?? October 2013}
+\date{16 October 2013}
 
 \begin{document}
   \renewcommand*{\theenumii}{\alph{enumii}}
@@ -63,19 +57,26 @@
   \begin{frame}
     \titlepage
   \end{frame}
-  \setbeamertemplate{footline}{\hfill\insertframenumber{\ \ }\vskip2pt}
+  \setbeamertemplate{footline}{\hfill\textbf{\textcolor{blue}{\insertframenumber{\ \ }}}\vskip2pt}
   \setcounter{framenumber}{0}
 
-  % TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  %\input{input/introduction.tex}
+  \input{input/introduction.tex}
+  \input{input/related_work.tex}
+  \input{input/this_work.tex}
+  \begin{frame}{Plan}
+    \tableofcontents[section]
+  \end{frame}
   \AtBeginSection[]{
     \begin{frame}{Plan}
-      \tableofcontents[currentsection,currentsubsection,currentsubsubsection,subsubsectionstyle=show/shaded]
+      \tableofcontents[currentsection]
     \end{frame}
   }
-  % TODO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  %\input{input/*.tex}
-  \cite{mihalcea2003TextRank}
+  \input{input/topicrank.tex}
+  \input{input/results.tex}
+  \input{input/conclusion_and_future_work.tex}
+  % TODO aknowledgment
+  \input{input/backups.tex}
+  \cite{mihalcea2004textrank}
   \section*{Références}
     \begin{frame}[allowframebreaks]{References}
       \def\newblock{\hskip .11em plus .33em minus .07em}

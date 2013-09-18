@@ -1,0 +1,53 @@
+%\section{Introduction}
+  \begin{frame}{Introduction}
+    \begin{block}<1->{Keyphrases}
+      \begin{itemize}
+        \item{Word or multi-word expressions}
+        \item{Overview of a document's content
+              $\Rightarrow$ \textbf{Main topics}}
+        \item{Example: TODO title: keyphrases}
+      \end{itemize}
+    \end{block}
+
+    \visible<3->{
+      \hrulefill\vspace{\baselineskip}
+      \vfill
+      \hfill
+      \tikz[remember picture, baseline]\node[fill=blue!20, ellipse, anchor=base](document){\small{document}};
+      \hfill
+      \tikz[remember picture, baseline]\node[fill=red!20, anchor=base](keyphrase_extraction){
+        \begin{tabular}{r@{$~$}|@{$~$}l}
+          Supervised & \textbf{automatic} keyphrase extraction\\
+          \textbf{Unsupervised} & \\
+        \end{tabular}
+      };
+      \hfill
+      \vfill
+    }
+
+    \begin{block}<2->{Applications\tikz[remember picture]\node[coordinate, xshift=.5ex, yshift=.5ex](applications){};}
+      \begin{columns}
+        \begin{column}{.5\linewidth}
+          \begin{itemize}
+            \item{Document summarization}
+            \item{Document clustering}
+            \item{Document indexing}
+          \end{itemize}
+        \end{column}
+
+        \begin{column}{.5\linewidth}
+          \begin{itemize}
+            \item{Query expansion}
+            \item{Advertisement targeting}
+            \item{etc.}
+          \end{itemize}
+        \end{column}
+      \end{columns}
+    \end{block}
+
+    \begin{tikzpicture}[remember picture, overlay]
+      \path[thick, ->]<3-> (document) edge (keyphrase_extraction);
+      \path[thick, ->]<3-> (keyphrase_extraction) edge [out=-125, in=0, looseness=.6] (applications);
+    \end{tikzpicture}
+  \end{frame}
+
