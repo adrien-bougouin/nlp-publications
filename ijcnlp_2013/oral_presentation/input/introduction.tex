@@ -9,23 +9,9 @@
       \end{itemize}
     \end{block}
 
-    \visible<3->{
-      \hrulefill\vspace{\baselineskip}
-      \vfill
-      \hfill
-      \tikz[remember picture, baseline]\node[fill=blue!20, ellipse, anchor=base](document){\small{document}};
-      \hfill
-      \tikz[remember picture, baseline]\node[fill=red!20, anchor=base](keyphrase_extraction){
-        \begin{tabular}{r@{$~$}|@{$~$}l}
-          Supervised & \textbf{automatic} keyphrase extraction\\
-          \textbf{Unsupervised} & \\
-        \end{tabular}
-      };
-      \hfill
-      \vfill
-    }
+    \vfill
 
-    \begin{block}<2->{Applications\tikz[remember picture]\node[coordinate, xshift=.5ex, yshift=.5ex](applications){};}
+    \begin{block}<2->{Applications}
       \begin{columns}
         \begin{column}{.5\linewidth}
           \begin{itemize}
@@ -45,9 +31,27 @@
       \end{columns}
     \end{block}
 
+    \vfill
+
+    \visible<3->{
+      \tikz[remember picture, ellipse, baseline]{
+        \node[fill=blue!20, anchor=base] (doc) {\small document};
+      }\hfill
+      \tikz[remember picture, baseline]{
+        \node[fill=red!20, anchor=base] (ext) {
+          \begin{tabular}{@{}r@{~}|@{~}l@{}}
+          \alt<4->{\sout{supervised}}{supervised} & keyphrase extraction\\
+          unsupervised &\\
+          \end{tabular}
+        };
+      }\hfill
+      \tikz[remember picture, ellipse, baseline]{
+        \node[fill=blue!20, anchor=base] (key) {\small keyphrases};
+      }
+    }
     \begin{tikzpicture}[remember picture, overlay]
-      \path[thick, ->]<3-> (document) edge (keyphrase_extraction);
-      \path[thick, ->]<3-> (keyphrase_extraction) edge [out=-125, in=0, looseness=.6] (applications);
+      \path[thick, ->]<3-> (doc) edge (ext);
+      \path[thick, ->]<3-> (ext) edge (key);
     \end{tikzpicture}
   \end{frame}
 
