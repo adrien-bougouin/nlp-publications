@@ -15,11 +15,13 @@
   task~\cite{witten1999kea,sujian2003maximumentropy,eichler2010keywe}. For
   unsupervised methods, keyphrase extraction is often considered as a ranking
   task and many approaches are
-  used~\cite{barker2000nounphrasehead,tomokiyo2003languagemodel,mihalcea2004textrank}.
-  As distinct as they are, both supervised and unsupervised methods rely on a
-  preliminary candidate extraction step which identifies single and multi-word
-  expressions that have the same syntactic properties than a keyphrase. These
-  expressions are the only textual units that can be extracted as keyphrases.
+  used~\cite{barker2000nounphrasehead,mihalcea2004textrank}. As distinct as they
+  are, both supervised and unsupervised methods rely on a preliminary candidate
+  extraction step which identifies single and multi-word expressions that have
+  the same syntactic properties than a keyphrase. These expressions are the only
+  textual units that can be extracted as keyphrases. Therefore, we believe that
+  the extraction of candidate keyphrases plays a direct role in automatic
+  keyphrase extraction.
   
   In this paper, we focus on the candidate extraction step and show its impact
   on the performance of automatic keyphrase extraction. Various methods
@@ -29,73 +31,79 @@
   words, NP-chunks or sequences of words matching given patterns is
   extracted~\cite{hulth2003keywordextraction}. According to the chosen method,
   the extracted set contains more or less candidates, and the amount of these
-  that match with the ground truth keyphrases may vary. Hence, a few questions
-  arise. How the different sets influence the keyphrase extraction? Do large
-  candidate sets introduce noise that affects the performance of some keyphrase
-  extraction methods?
+  that are actual keyphrases may vary. Hence, a few questions arise. How the
+  different sets influence the keyphrase extraction? Do large candidate sets
+  introduce noise that affects the performance of some keyphrase extraction
+  methods?
 
   We seek to better understand the impact of candidate extraction methods on
   keyphrase extraction by studying the aforementioned questions. We first
   quantify the differences between the candidate sets obtained by the commonly
-  used methods. Also, we propose to use another method developed to extract
-  noun-phrases for document indexing~\cite{evans1996nounphraseanalysis} and we
-  argue that such term detection
-  method~\cite{castellvi2001automatictermdetection} provides solid keyphrase
-  candidates. Then, we evaluate the impact of the candidate extraction methods
-  on three dissimilar keyphrase extraction methods. We select
-  KEA~\cite{witten1999kea} to represent supervised methods,
-  TF-IDF~\cite{jones1972tfidf} to represent unsupervised methods that require a
-  collection of documents and TopicRank~\cite{bougouin2013topicrank} to
-  represent unsupervised methods that only make use of the document to analyse.
+  used methods and we propose to use other methods developed for automatic term
+  detection~\cite{castellvi2001automatictermdetection,evans1996nounphraseanalysis}
+  to show that such methods provide solid keyphrase candidates. Then, we
+  evaluate the impact of the candidate extraction methods over three dissimilar
+  keyphrase extraction methods. We select KEA~\cite{witten1999kea} to represent
+  supervised methods, TF-IDF~\cite{jones1972tfidf} to represent unsupervised
+  methods that require a collection of documents and
+  TopicRank~\cite{bougouin2013topicrank} to represent unsupervised methods that
+  only make use of the analyzed document.
 
   \todo[inline]{Results show that...}
 
 \section{Definition of Candidate Keyphrases}
 \label{sec:study_of_ground_truth_keyphrases}
   Candidate keyphrases are textual units which can be selected as keyphrases
-  of the document they are extracted from. Hence, they must have the same
-  syntactic and linguistic properties than ground truth keyphrases. This section
-  aims to determine those properties by analysing three standard evaluation
-  datasets, for keyphrase extraction, and by providing statistics about their
-  reference keyphrases (ground truth keyphrases).
+  of a document. Hence, they must have the same syntactic and linguistic
+  properties than ground truth keyphrases. This section aims to determine those
+  properties by analysing three standard evaluation datasets, for keyphrase
+  extraction, and by providing statistics about their reference keyphrases
+  (ground truth keyphrases).
 
   \subsection{Keyphrase Extraction Datasets}
   \label{subsec:keyphrase_extraction_datasets}
     Keyphrase extraction datasets are used to train or evaluate keyphrase
-    extraction methods. Hence, the datasets are collections of documents paired
-    with reference keyphrases, given by authors, readers or both. Unlike the
-    studied methods, human annotators do not only extract keyphrases which are
-    contained into the document. This problem of missing keyphrases leads to a
-    bias of the training or evaluation of keyphrase extraction methods. In this
-    work, we use three standard datasets which differ in terms of document type
-    and/or language. The problem of missing keyphrases is partially bypassed
-    using their stemmed forms during comparisons, when training or evaluating
-    methods.
+    extraction methods. Hence, they are collections of documents paired with
+    reference keyphrases given by authors, readers or both. Unlike the methods
+    to automatically extract keyphrases, human annotators do not only provide
+    keyphrases contained into the documents. This problem of missing keyphrases
+    leads to a bias of the training or evaluation of keyphrase extraction
+    methods. In this work, we use three standard datasets which differ in terms
+    of document size,  type and language. The problem of missing keyphrases is
+    partially bypassed using stemmed forms when comparison between reference and
+    candidate keyphrases is needed.
 
     The \textbf{DUC} dataset \cite{over2001duc} is a collection of 308 English
-    news articles covering about 30 news topics. This is the part of the dataset
-    made for the DUC 2001 summarization evaluation campaign that has been
-    annotated by \newcite{wan2008expandrank} for keyphrase extraction evaluation
-    purpose. We split this into two sets: a training set containing 208
-    documents and a test set containing 100 documents.
+    news articles covering about 30 topics (e.g. tornadoes, gun control, etc.).
+    This collection is the test dataset of the DUC-2001 summarization evaluation
+    campaign. This part of DUC-2001 is the only one that contains keyphrases,
+    annotated by \newcite{wan2008expandrank}. We split the collection into two
+    sets: a training set containing 208 documents and a test set containing 100
+    documents.
 
     The \textbf{SemEval} dataset \cite{kim2010semeval} contains 284 English
     papers collected from the ACM Digital Libraries (conference and workshop
-    papers). The 284 scientific papers are divided into three sets: a trial set
-    containing 40 documents (unused in this work), a training set containing 144
-    documents and a test set containing 100 documents. As for the associated
-    keyphrases, these are provided by both authors and readers.
+    papers). The papers are divided into three sets: a trial set containing 40
+    documents (unused in this work), a training set containing 144 documents and
+    a test set containing 100 documents. As for the associated keyphrases, these
+    are provided by both authors and readers.
 
     The \textbf{DEFT} dataset \cite{Paroubek2012deft} is a collection of 244
-    French scientific papers that belongs to the Humanities and Social Sciences
-    domain. As SemEval, DEFT is divided into threee sets: a trial set containing
-    50 documents (not used in this work), a training set containing 141
-    documents and a test set containing 93 documents. Unlike DUC and SemEval,
-    the only available reference keyphrases are the ones given by authors.
+    French scientific papers belonging to the Humanities and Social Sciences
+    domain. DEFT is divided into three sets: a trial set containing 50 documents
+    (not used in this work), a training set containing 141 documents and a test
+    set containing 93 documents. The only available reference keyphrases are the
+    ones given by authors.
 
-    Table \ref{tab:dataset_statistics} gives statistics about the datasets. As
-    we aim to use these statistics to lead this work, we restrain the discussion
-    to observations made with the training sets.\todo{Continue}
+    Table \ref{tab:train_dataset_statistics} shows the statistics about the
+    three datasets. As these statistics are used to guide our work, we restrain
+    them to the training sets. As said before, the datasets differ in terms of
+    size, type and language. Moreover, it is worth noticing that the number of
+    keyphrases, as well as the ratio of missing ones and their average number of
+    tokens differ too. This observation is due to the fact that there is not a
+    unique methodology (guideline) to associate keyphrases to a document. To
+    better fit the requirements, such guidelines should not only be used by
+    human annotators, but also by automatic keyphrase extraction methods.
     \begin{table*}
       \centering
       \begin{tabular}{rrccc}
@@ -107,13 +115,14 @@
         \multirow{6}{*}[-2pt]{\begin{sideways}\textbf{Documents}\end{sideways}} & Language & English & English & French\\
         & Type & News & Papers & Papers\\
         & Documents & 208 & 144 & 141\\
-        & Tokens/document & & 5134.6 & 7276.7\\
+        & Tokens/document & 912.0 & 5134.6 & 7276.7\\
         & Keyphrases/document & 8.1 & 15.4 & 5.4\\
-        & Missings keyphrases & & 13.5\% & 18.2\%\\
-        \addlinespace[\defaultaddspace]
-        \multirow{11}{*}[-2pt]{\begin{sideways}\textbf{Keyphrases}\end{sideways}} & Unigrams & 26.2\% & 20.2\% & 66.4\%\\
+        & Missings keyphrases & 3.9\% & 13.5\% & 18.2\%\\
+        \addlinespace[1.5\defaultaddspace]
+        \multirow{12}{*}[-2pt]{\begin{sideways}\textbf{Keyphrases}\end{sideways}} & Unigrams & 26.2\% & 20.2\% & 66.4\%\\
         & Bigrams & 54.1\% & 53.4\% & 20.7\%\\
         & Trigrams and more & 19.7\% & 26.4\% & 12.9\%\\
+        \addlinespace[.75\defaultaddspace]
         & Containing nouns & 90.8\% & 95.9\% & 79.3\%\\
         & Containing proper nouns & 18.7\% & $~~$5.8\% & 16.8\%\\
         & Containing adjectives & 41.6\% & 40.5\% & 28.8\%\\
@@ -126,24 +135,19 @@
       \end{tabular}
       \caption{Training dataset statistics. As a matter of consistency regarding
                the training and the evaluation of keyphrase extraction methods,
-               the percentage of missing keyphrase is determined based on the
+               the percentage of missing keyphrases is determined based on the
                stemmed form of the reference keyphrases.
-               \label{tab:dataset_statistics}}
+               \label{tab:train_dataset_statistics}}
     \end{table*}
 
-  \subsection{Keyphrase Analysis}
+  \subsection{Reference Keyphrases Analysis}
   \label{subsec:keyphrase_analysis}
-    This section focuses on the reference keyphrase statistics presented in
-    Table \ref{tab:dataset_statistics}. The aim is to determine the syntactic
-    properties of most keyphrases, for English (combining information from DUC
-    and SemEval) and for French (using DEFT information).
+    Despite the fact that the data are not homogeneous, this section aims to
+    determine the syntactic properties of most keyphrases, for English
+    (intersecting information from DUC and SemEval training sets) and for French
+    (using DEFT training set).
 
-    \todo[inline]{- Les Keyphrases sont principalement des uni-grammes et
-                  bi-grammes (mais une tendance inversée entre anglais et
-                  français). - Presque toutes les keyphrase contiennent un nom.
-                  - L'usage d'adjectifs est fréquent (40 et 30\%). - Très peu de
-                  verbes. - Usage fréquent de prépositions et determinants pour
-                  le français (uniquement).\\\begin{center}DONNER DES
+    \todo[inline]{\begin{center}DONNER DES
                   EXEMPLES\end{center}}
     \todo[inline]{Donner les séquences de POS les plus fréquentes dans le gold
                   standard.}
@@ -195,16 +199,17 @@
         Language & English & English & French\\
         Type & News & Papers & Papers\\
         Documents & 100 & 100 & 93\\
-        Tokens/document & & 5179.6 & 6844.0\\
-        Keyphrases/document & & 14.7 & 5.2\\
-        Missings keyphrases & & & \\
+        Tokens/document & 877.3 & 5177.7 & 6839.4\\
+        Keyphrases/document & 7.94 & 14.7 & 5.2\\
+        Tokens/keyphrase & 2.1 & 2.1 & 1.6\\
+        Missings keyphrases & 2.8\% & 22.1\% & 21.1\% \\
         \bottomrule
       \end{tabular}
       \caption{Test dataset statistics. As a matter of consistency regarding
                the training and the evaluation of keyphrase extraction methods,
-               the percentage of missing keyphrase is determined based on the
+               the percentage of missing keyphrases is determined based on the
                stemmed form of the reference keyphrases.
-               \label{tab:dataset_statistics}}
+               \label{tab:test_dataset_statistics}}
     \end{table*}
 
   \subsection{Candidate Extraction}
@@ -220,15 +225,16 @@
         \cmidrule(r){2-3}\cmidrule(lr){4-5}\cmidrule(l){6-7}
         & Candidates & Rmax & Candidates & Rmax & Candidates & Rmax\\
         \midrule
-        \{1..2\}-grams\\
-        \{1..3\}-grams\\
-        \{1..4\}-grams\\
-        \{1..5\}-grams\\
+        \{1..2\}-grams & 310539 & 78.8 & 949225 & 61.4 & 1374905 & 67.3\\
+        \{1..3\}-grams & 515903 & 94.0 & 1816327 & 73.1 & 2593221 & 74.1\\
+        \{1..4\}-grams & 714917 & 95.8 & 2705335 & 75.3 & 3847599 & 78.2\\
+        \{1..5\}-grams &905094 & 96.3 & 3574701 & 75.9 & 5085447 & 78.5\\
         NP chunks\\
-        Longest NPs\\
+        Longest NPs & 49845 & 88.7 & 155189 & 62.4 & 224083 & 61.1\\
         Best patterns\\
-        TermSuite\\
-        CLARIT'96\\
+        Subcompounds\\
+        TermSuite-spec & & 23.8 & & 16.3 &  & 13.9\\
+        TermSuite-full & 77357 & 46.1 & 196477 & 32.4 & 310150 & 53.4\\
         \bottomrule
       \end{tabular}
       \caption{Candidate extraction statistics. Rmax stands for maximum recall,
@@ -252,15 +258,16 @@
         \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
         & P & R & F & P & R & F & P & R & F\\
         \midrule
-        \{1..2\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..3\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..4\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..5\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        NP chunks & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        Longest NPs & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        Best patterns & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        TermSuite & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        CLARIT'96 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        \{1..2\}-grams & ${~~}$9.6 & 13.2 & 11.0 & 16.2 & 11.4 & 13.3 & 11.6 & 21.8 & 15.0\\
+        \{1..3\}-grams & ${~~}$9.0 & 12.4 & 10.3 & 16.4 & 11.5 & 13.4 & 11.6 & 22.0 & 15.0\\
+        \{1..4\}-grams & ${~~}$9.0 & 12.4 & 10.3 & 16.4 & 11.5 & 13.4 & 11.6 & 21.9 & 15.0\\
+        \{1..5\}-grams & ${~~}$8.6 & 11.9 & $~~$9.8 & 16.4 & 11.5 & 13.4 & 11.6 & 22.0 & 15.0\\
+        NP chunks & & & & & & & & &\\
+        Longest NPs & 13.3 & 18.2 & 15.2 & 18.3 & 12.9 & 15.0 & 12.8 & 23.6 & 16.4\\
+        Best patterns & & & & & & & & &\\
+        Subcompounds & & & & & & & & &\\
+        TermSuite-spec & $~~$9.5 & 13.2 & 10.9 & ${~~}$9.4 & ${~~}$6.8 & ${~~}$7.8 & ${~~}$5.4 & 10.7 & ${~~}$7.1\\
+        TermSuite-full & 11.5 & 16.0 & 13.2 & 12.9 & ${~~}$9.3 & 10.7 & 12.5 & 23.5 & 16.1\\
         \bottomrule
       \end{tabular}
       \caption{Comparison of candidate extraction methods, when extracting 10
@@ -277,15 +284,15 @@
         \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
         & P & R & F & P & R & F & P & R & F\\
         \midrule
-        \{1..2\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..3\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..4\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..5\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        NP chunks & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        Longest NPs & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        Best patterns & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        TermSuite & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        CLARIT'96 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        \{1..2\}-grams & & & & & & & & &\\
+        \{1..3\}-grams & & & & & & & & &\\
+        \{1..4\}-grams & & & & & & & & &\\
+        \{1..5\}-grams & & & & & & & & &\\
+        NP chunks & & & & & & & & &\\
+        Longest NPs & & & & & & & & &\\
+        Best patterns & & & & & & & & &\\
+        Subcompounds & & & & & & & & &\\
+        TermSuite & & & & & & & & &\\
         \bottomrule
       \end{tabular}
       \caption{Comparison of candidate extraction methods, when extracting 10
@@ -302,15 +309,15 @@
         \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
         & P & R & F & P & R & F & P & R & F\\
         \midrule
-        \{1..2\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..3\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..4\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        \{1..5\}-grams & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        NP chunks & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        Longest NPs & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        Best patterns & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        TermSuite & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
-        CLARIT'96 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0 & ${~~}$00.0\\
+        \{1..2\}-grams & & & & & & & & &\\
+        \{1..3\}-grams & & & & & & & & &\\
+        \{1..4\}-grams & & & & & & & & &\\
+        \{1..5\}-grams & & & & & & & & &\\
+        NP chunks & & & & & & & & &\\
+        Longest NPs & & & & & & & & &\\
+        Best patterns & & & & & & & & &\\
+        Subcompounds & & & & & & & & &\\
+        TermSuite & & & & & & & & &\\
         \bottomrule
       \end{tabular}
       \caption{Comparison of candidate extraction methods, when extracting 10
