@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[14pt, xcolor={usenames, dvipsnames}]{beamer}
 %\documentclass[handout]{beamer}
 
 \usepackage[english]{babel}
@@ -14,8 +14,10 @@
 \usepackage[round]{natbib}
 \usepackage{tikz}
 \usepackage[labelformat=empty]{caption}
-\usepackage{xcolor, colortbl}
+\usepackage{colortbl}
 \usepackage{ulem}
+\usepackage{multicol}
+\usepackage[overlay]{textpos}
 
 \usetheme{Boadilla}
 \setbeamertemplate{frametitle continuation}{}
@@ -33,7 +35,7 @@
   urlcolor=black
 }
 
-\usetikzlibrary{arrows,shapes}
+\usetikzlibrary{positioning, shapes, arrows}
 
 \renewcommand\cite[2][]{\citep[#1]{#2}}
 \let\oldtextsc\textsc\renewcommand\textsc[1]{\rmfamily\oldtextsc{#1}}
@@ -54,6 +56,7 @@
 \begin{document}
   \renewcommand*{\theenumii}{\alph{enumii}}
   \renewcommand*{\theenumiii}{\roman{enumiii}}
+  \addtobeamertemplate{block begin}{\setlength\abovedisplayskip{0pt}}
 
   \begin{frame}
     \titlepage
@@ -77,7 +80,6 @@
   \input{input/conclusion_and_future_work.tex}
   % TODO aknowledgment
   \input{input/backups.tex}
-  \cite{mihalcea2004textrank}
   \section*{Références}
     \begin{frame}[allowframebreaks]{References}
       \def\newblock{\hskip .11em plus .33em minus .07em}

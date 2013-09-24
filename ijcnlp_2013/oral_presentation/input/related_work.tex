@@ -1,9 +1,149 @@
 %\section{Related Work}
   \begin{frame}{Related Work}
     \framesubtitle{Unsupervised Methods}
+
+    Mostly ranking technics using:
+    \begin{itemize}
+      \item{language models~\cite{tomokiyo2003languagemodel}}
+      \item{clusters~\cite{liu2009keycluster}}
+      \item{or graphs of words}
+      \begin{itemize}
+        \item<2->{TextRank~\cite{mihalcea2004textrank}}
+        \item<2->{SingleRank~\cite{wan2008expandrank}}
+        \item<2->{ExpandRank~\cite{wan2008expandrank}}
+        \item<2->{SemanticRank~\cite{tsatsaronis2010semanticrank}}
+        \item<2->{TopicalPageRank~\cite{liu2010topicalpagerank}}
+      \end{itemize}
+    \end{itemize}
   \end{frame}
 
   \begin{frame}{Related Work}
-    \framesubtitle{Graph-Based Approach: Example and Drawbacks}
+    \framesubtitle{Graph-Based Approach: Example (TextRank) and Drawbacks}
+
+    \begin{figure}
+      \begin{columns}
+        \begin{column}{.6\textwidth}
+          \centering
+          \begin{tikzpicture}[thin,
+                              auto,
+                              scale=.25,
+                              align=center,
+                              node distance=2cm,
+                              every node/.style={font=\small, transform shape},
+                              main node/.style={text centered,
+                                                thick,
+                                                fill=JungleGreen!20,
+                                                inner sep=1.5pt,
+                                                font=\Large\bfseries}]
+            % connected component
+            \node[main node] (university) {university};
+            \node[main node] (duke) [above left=of university.north] {duke};
+            \node[main node] (library) [above=of university.north east] {library};
+            \node[main node] (press) [below left=of university.south] {press};
+            \node[main node] (cornell) [below right=of university.south] {cornell};
+
+            \path[JungleGreen] (university) edge node {\textcolor{black}{1}} (library);
+            \path[JungleGreen] (university) edge node {\textcolor{black}{1}} (duke);
+            \path[JungleGreen] (university) edge node {\textcolor{black}{1}} (press);
+            \path[JungleGreen] (university) edge node {\textcolor{black}{1}} (cornell);
+
+            % connected component
+            \node[main node] (further) [left=of university.south west] {further};
+            \node[main node] (skills) [below=of further.south west] {skills};
+
+            \path[JungleGreen] (skills) edge node {\textcolor{black}{1}} (further);
+
+            % connected component
+            \node[main node] (scholarly) [right=of library.north east] {scholarly};
+            \node[main node] (communication) [below=of scholarly.west] {communication};
+            \node[main node] (publishing) [below right=of scholarly.south] {publishing};
+            \node[main node] (scene) [above right=of publishing.west] {scene};
+            \node[main node] (initiative) [below=of publishing.west] {initiative};
+            \node[main node] (journal) [below right=of scene.north east] {journal};
+            \node[main node] (electronic) [below=of journal.east] {electronic};
+            \node[main node] (joint) [below=of electronic.north west] {joint};
+
+            \path[JungleGreen] (communication) edge node {\textcolor{black}{1}} (scholarly);
+            \path[JungleGreen] (publishing) edge node {\textcolor{black}{1}} (scholarly);
+            \path[JungleGreen] (publishing) edge node {\textcolor{black}{1}} (scene);
+            \path[JungleGreen] (publishing) edge node {\textcolor{black}{1}} (journal);
+            \path[JungleGreen] (publishing) edge node {\textcolor{black}{1}} (initiative);
+            \path[JungleGreen] (journal) edge node {\textcolor{black}{1}} (electronic);
+            \path[JungleGreen] (joint) edge node {\textcolor{black}{1}} (electronic);
+
+            % connected component
+            \node[main node] (new) [below=of skills.south] {new};
+            \node[main node] (role) [below=of new.south east] {role};
+
+            \path[JungleGreen] (new) edge node {\textcolor{black}{1}} (role);
+
+            % connected component
+            \node[main node] (digital) [right=of new.south east] {digital};
+            \node[main node] (libraries) [below =of cornell.south] {libraries};
+            \node[main node] (research) [right =of libraries.south east] {research};
+
+            \path[JungleGreen] (digital) edge node {\textcolor{black}{1}} (libraries);
+            \path[JungleGreen] (libraries) edge node {\textcolor{black}{1}} (research);
+
+            % connected component
+            \node[main node] (relevant) [below right=of research.north] {relevant};
+            \node[main node] (experience) [below left=of relevant.south west] {experience};
+
+            \path[JungleGreen] (relevant) edge node {\textcolor{black}{1}} (experience);
+
+            % connected component
+            \node[main node] (model) [below=of digital.south east] {model};
+            \node[main node] (economic) [below right=of model.south east] {economic};
+
+            \path[JungleGreen] (model) edge node {\textcolor{black}{1}} (economic);
+
+            % connected component
+            \node[main node] (specific) [below left=of economic.center] {specific};
+            \node[main node] (aspects) [above left=of specific.north west] {aspects};
+
+            \path[JungleGreen] (specific) edge node {\textcolor{black}{1}} (aspects);
+
+            % connected component
+            \node[main node] (life) [below right=of economic.south east] {life};
+            \node[main node] (cycle) [right=of life.north east] {cycle};
+
+            \path[JungleGreen] (life) edge node {\textcolor{black}{1}} (cycle);
+
+            % connected component
+            \node[main node] (euclid) [right=of relevant.north east] {euclid};
+            \node[main node] (project) [below left=of euclid.south east] {project};
+            \node[main node] (such) [below left=of project.south east] {such};
+
+            \path[JungleGreen] (euclid) edge node {\textcolor{black}{1}} (project);
+            \path[JungleGreen] (project) edge node {\textcolor{black}{1}} (such);
+          \end{tikzpicture}
+        \end{column}
+        \begin{column}{.4\textwidth}
+          \footnotesize
+          \begin{tabular}{l}
+            Extracted Keyphrases\\
+            \midrule
+            electronic journal publishing\\
+            \cellcolor{pink}scholarly publishing\\
+            libraries\\
+            relevant\\
+            university\\
+            project\\
+            economic\\
+            role
+          \end{tabular}
+        \end{column}
+      \end{columns}
+      \caption{Project Euclid and the role of research libraries in scholarly
+               publishing}
+    \end{figure}\vspace*{-1cm}
+
+    \begin{block}{Drawbacks}
+      \begin{itemize}
+        \item{Word granularity $\Rightarrow$ multi-word ranking?}
+        \item{Word linkage depending on a co-occurence window}
+        \item{Word variantes scattering complementary information}
+      \end{itemize}
+    \end{block}
   \end{frame}
 

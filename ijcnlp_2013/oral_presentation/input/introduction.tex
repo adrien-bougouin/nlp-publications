@@ -1,57 +1,53 @@
 %\section{Introduction}
-  \begin{frame}{Introduction}
+\begin{frame}{Introduction}
     \begin{block}<1->{Keyphrases}
       \begin{itemize}
         \item{Word or multi-word expressions}
         \item{Overview of a document's content
               $\Rightarrow$ \textbf{Main topics}}
-        \item{Example: TODO title: keyphrases}
       \end{itemize}
     \end{block}
 
-    \vfill
+    \visible<2>{
+      \begin{textblock*}{.95\textwidth}(.025\textwidth, -.1\textheight)
+        \setbeamertemplate{blocks}[rounded][shadow=true]
 
-    \begin{block}<2->{Applications}
-      \begin{columns}
-        \begin{column}{.5\linewidth}
-          \begin{itemize}
-            \item{Document summarization}
-            \item{Document clustering}
-            \item{Document indexing}
-          \end{itemize}
-        \end{column}
-
-        \begin{column}{.5\linewidth}
-          \begin{itemize}
-            \item{Query expansion}
-            \item{Advertisement targeting}
-            \item{etc.}
-          \end{itemize}
-        \end{column}
-      \end{columns}
-    \end{block}
-
-    \vfill
+        \begin{exampleblock}{\footnotesize \textcolor{BrickRed}{Project
+                             Euclid} and the role of
+                             \textcolor{BrickRed}{research libraries} in
+                             \textcolor{BrickRed}{scholarly publishing}}
+          \footnotesize Project Euclid, a \textcolor{BrickRed}{joint
+          electronic journal publishing initiative} of
+          \textcolor{BrickRed}{Cornell University Library} and
+          \textcolor{BrickRed}{Duke University Press} is discussed in the
+          broader contexts of the changing patterns of
+          \textcolor{BrickRed}{scholarly communication} and the publishing
+          scene of \textcolor{BrickRed}{mathematics}. Specific aspects of the
+          project such as \textcolor{BrickRed}{partnerships} and the creation
+          of an \textcolor{BrickRed}{economic model} are presented as well as
+          what it takes to be a publisher. Libraries have gained important and
+          relevant experience through the creation and management of digital
+          libraries, but they need to develop further skills if they want to
+          adopt a new role in the life cycle of scholarly communication.
+        \end{exampleblock}
+      \end{textblock*}
+    }
 
     \visible<3->{
-      \tikz[remember picture, ellipse, baseline]{
-        \node[fill=blue!20, anchor=base] (doc) {\small document};
-      }\hfill
-      \tikz[remember picture, baseline]{
-        \node[fill=red!20, anchor=base] (ext) {
-          \begin{tabular}{@{}r@{~}|@{~}l@{}}
-          \alt<4->{\sout{supervised}}{supervised} & keyphrase extraction\\
-          unsupervised &\\
-          \end{tabular}
-        };
-      }\hfill
-      \tikz[remember picture, ellipse, baseline]{
-        \node[fill=blue!20, anchor=base] (key) {\small keyphrases};
-      }
+      \vfill
+
+      \begin{block}{Applications}
+        \begin{multicols}{2}
+          \begin{itemize}
+            \item{Document indexing}
+            \item{Document clustering}
+            \item{Text summarization}
+            \item{Query expansion}
+            \item{Targeted advertising}
+            \item{etc.}
+          \end{itemize}
+        \end{multicols}
+      \end{block}
     }
-    \begin{tikzpicture}[remember picture, overlay]
-      \path[thick, ->]<3-> (doc) edge (ext);
-      \path[thick, ->]<3-> (ext) edge (key);
-    \end{tikzpicture}
   \end{frame}
 
