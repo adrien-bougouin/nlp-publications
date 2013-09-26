@@ -1,4 +1,269 @@
 \section{TopicRank}
-  \begin{frame}{TopicRank}
+\begin{frame}{TopicRank}
+    \begin{columns}
+      \begin{column}{.45\textwidth}
+        \begin{enumerate}
+          \item<2->{Candidate extraction}
+          \item<3->{Candidate clustering}
+          \item<4->{Graph creation}
+          \item<5->{Topic ranking}
+          \item<6->{Keyphrase selection}
+        \end{enumerate}
+
+        \visible<7>{
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.6\textheight)
+            \setbeamertemplate{blocks}[rounded][shadow=true]
+
+            \begin{exampleblock}{\footnotesize Project Euclid and the role of
+                                 \textcolor{BurntOrange}{research libraries} in
+                                 scholarly publishing}
+              \footnotesize Project Euclid, a joint electronic journal
+              publishing initiative of \textcolor{BrickRed}{Cornell University
+              Library} and Duke University Press is discussed in the broader
+              contexts of the changing patterns of scholarly communication and
+              the publishing scene of mathematics. [\dots]
+              \textcolor{BrickRed}{Libraries} have gained important and relevant
+              experience through the creation and management of
+              \textcolor{BrickRed}{digital libraries}, but they need to develop
+              further skills if they want to adopt a new role in the life cycle
+              of scholarly communication.
+            \end{exampleblock}
+          \end{textblock*}
+        }
+
+        \visible<9>{
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.6\textheight)
+            \setbeamertemplate{blocks}[rounded][shadow=true]
+
+            \begin{exampleblock}{\footnotesize Project Euclid and the role of
+                                 research libraries in
+                                 \textcolor{BurntOrange}{scholarly publishing}}
+              \footnotesize Project Euclid, a joint electronic journal
+              publishing initiative of Cornell University Library and Duke
+              University Press is discussed in the broader contexts of the
+              changing patterns of scholarly communication and the
+              \textcolor{BrickRed}{publishing scene} of mathematics. Specific
+              aspects of the project such as partnerships and the creation of
+              an economic model are presented as well as what it takes to be a
+              \textcolor{BrickRed}{publisher}. [\dots]
+            \end{exampleblock}
+          \end{textblock*}
+        }
+
+        \visible<11>{
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.425\textheight)
+            \setbeamertemplate{blocks}[rounded][shadow=true]
+
+            \begin{exampleblock}{\footnotesize \textcolor{BurntOrange}{Project
+                                 Euclid} and the role of research libraries in
+                                 scholarly publishing}
+              \footnotesize [\dots] Specific aspects of the
+              \textcolor{BrickRed}{project such} as partnerships and the
+              creation of an economic model are presented as well as what it
+              takes to be a publisher. [\dots]
+            \end{exampleblock}
+          \end{textblock*}
+        }
+
+        \visible<13>{
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.48\textheight)
+            \setbeamertemplate{blocks}[rounded][shadow=true]
+
+            \begin{exampleblock}{\footnotesize Project Euclid and the
+                                 \textcolor{BurntOrange}{role} of research
+                                 libraries in scholarly publishing}
+              \footnotesize [\dots] Libraries have gained important and relevant
+              experience through the creation and management of digital
+              libraries, but they need to develop further skills if they want to
+              adopt a \textcolor{BrickRed}{new role} in the life cycle of
+              scholarly communication.
+            \end{exampleblock}
+          \end{textblock*}
+        }
+      \end{column}
+
+      \begin{column}{.55\textwidth}
+        \alt<2->{ % next slides
+          \alt<3->{ % next slides
+            \alt<4->{ %next slides
+              \alt<6->{ % next slides
+                \alt<16->{ % next slides
+                  \alt<17->{ % next slides
+                    \scriptsize
+                    \begin{tabular}{l}
+                      \toprule
+                      Keyphrases\\
+                      \midrule
+                      \cellcolor{pink}{research libraries}\\
+                      \cellcolor{pink}{scholarly publishing}\\
+                      \cellcolor{pink}{project euclid}\\
+                      role\\
+                      creation\\
+                      \cellcolor{pink}{scholarly communication}\\
+                      \cellcolor{pink}{mathematics}\\
+                      specific aspects\\
+                      \cellcolor{pink}{joint electronic journal publishing initiative}\\
+                      \cellcolor{pink}{partnerships}\\
+                      \dots\\
+                      \bottomrule
+                    \end{tabular}
+                  }{ % current slide
+                    \scriptsize
+                    \begin{tabular}{l}
+                      \toprule
+                      Keyphrases\\
+                      \midrule
+                      research libraries\\
+                      scholarly publishing\\
+                      project euclid\\
+                      role\\
+                      creation\\
+                      scholarly communication\\
+                      mathematics\\
+                      specific aspects\\
+                      joint electronic journal publishing initiative\\
+                      partnerships\\
+                      \dots\\
+                      \bottomrule
+                    \end{tabular}
+                  }
+                }{ % current slide
+                  \scriptsize
+                  \begin{tabular}{cl}
+                    \toprule
+                    ID & Cluster\\
+                    \midrule
+                    \multirow{1}{*}{C01} & cornell university library; digital libraries;\\
+                    & \alt<8->{\textcolor{BrickRed}{research libraries}}{research libraries}; libraries\\
+                    \multirow{1}{*}{C03} & publishing scene; \alt<10->{\textcolor{BrickRed}{scholarly publishing}}{scholarly publishing};\\
+                    & publisher\\
+                    C02 & \alt<12->{\textcolor{BrickRed}{project euclid}}{project euclid}; project such\\
+                    C04 & \alt<14->{\textcolor{BrickRed}{role}}{role}; new role\\
+                    C16 & \alt<15->{\textcolor{BrickRed}{creation}}{creation}\\
+                    C06 & \alt<15->{\textcolor{BrickRed}{scholarly communication}}{scholarly communication}\\
+                    C09 & \alt<15->{\textcolor{BrickRed}{mathematics}}{mathematics}\\
+                    C12 & \alt<15->{\textcolor{BrickRed}{specific aspects}}{specific aspects}\\
+                    C10 & \alt<15->{\textcolor{BrickRed}{joint electronic journal publishing initiative}}{joint electronic journal publishing initiative}\\
+                    C08 & \alt<15->{\textcolor{BrickRed}{partnerships}}{partnerships}\\
+                    \dots & \dots\\
+                    \bottomrule
+                  \end{tabular}
+                }
+              }{ % current slide
+                \begin{tikzpicture}[scale=.185,
+                                    align=center,
+                                    every node/.style={transform shape},
+                                    main node/.style={text centered,
+                                                      circle,
+                                                      draw=JungleGreen,
+                                                      fill=JungleGreen!20,
+                                                      inner sep=1.5pt,
+                                                      font=\Large\bfseries}]
+                  \foreach \number/\pos in {1/above,2/above,3/above,4/above,5/above,6/above,7/above,8/above,9/above,10/above,11/below,12/below,13/below,14/below,15/below,16/below,17/below,18/below,19/below}{
+                    \mycount=\number
+                    \advance\mycount by -1
+                    \multiply\mycount by 19
+                    \advance\mycount by 0
+                    \ifthenelse{\number > 9}{
+                      \node[main node, label={\pos:\Large\textbf{\visible<5->{\pagerank{\number}}}}] (N-\number) at (\the\mycount:15cm) {C\number};
+                    }{
+                      \node[main node, label={\pos:\Large\textbf{\visible<5->{\pagerank{\number}}}}] (N-\number) at (\the\mycount:15cm) {C0\number};
+                    }
+                  }
+                  \foreach \number in {1,...,18}{
+                    \mycount=\number
+                    \advance\mycount by 1
+                    \foreach \numbera in {\the\mycount,...,19}{
+                      \path[JungleGreen!50] (N-\number) edge (N-\numbera);
+                    }
+                  }
+                  \foreach \number/\pos in {1/above,2/above,3/above,4/above,5/above,6/above,7/above,8/above,9/above,10/above,11/below,12/below,13/below,14/below,15/below,16/below,17/below,18/below,19/below}{
+                    \mycount=\number
+                    \advance\mycount by -1
+                    \multiply\mycount by 19
+                    \advance\mycount by 0
+                    \ifthenelse{\number > 9}{
+                      \node[main node, label={\pos:\Large\textbf{\visible<5->{\pagerank{\number}}}}] (N-\number) at (\the\mycount:15cm) {C\number};
+                    }{
+                      \node[main node, label={\pos:\Large\textbf{\visible<5->{\pagerank{\number}}}}] (N-\number) at (\the\mycount:15cm) {C0\number};
+                    }
+                  }
+                \end{tikzpicture}
+              }
+            }{ % current slide
+              \scriptsize
+              \begin{tabular}{cl}
+                \toprule
+                ID & Cluster\\
+                \midrule
+                \multirow{1}{*}{C01} & cornell university library; digital libraries;\\
+                & research libraries; libraries\\
+                C02 & project euclid; project such\\
+                \multirow{1}{*}{C03} & publishing scene; scholarly publishing;\\
+                & publisher\\
+                C04 & role; new role\\
+                C05 & important\\
+                C06 & scholarly communication\\
+                C07 & further skills\\
+                C08 & partnerships\\
+                C09 & mathematics\\
+                C10 & joint electronic journal publishing initiative\\
+                C11 & contexts\\
+                C12 & specific aspects\\
+                C13 & economic model\\
+                C14 & duke university press\\
+                C15 & relevant experience\\
+                C16 & creation\\
+                C17 & life cycle\\
+                C18 & patterns\\
+                C19 & management\\
+                \bottomrule
+              \end{tabular}
+            }
+          }{ % current slide
+            \begin{exampleblock}{\footnotesize \textcolor{BrickRed}{Project
+                                 Euclid} and the \textcolor{BrickRed}{role} of
+                                \textcolor{BrickRed}{research libraries} in
+                                \textcolor{BrickRed}{scholarly publishing}}
+              \footnotesize \textcolor{BrickRed}{Project Euclid}, a
+              \textcolor{BrickRed}{joint electronic journal publishing
+              initiative} of \textcolor{BrickRed}{Cornell University Library}
+              and \textcolor{BrickRed}{Duke University Press} is discussed in
+              the broader \textcolor{BrickRed}{contexts} of the changing
+              \textcolor{BrickRed}{patterns} of \textcolor{BrickRed}{scholarly
+              communication} and the \textcolor{BrickRed}{publishing scene} of
+              \textcolor{BrickRed}{mathematics}. \textcolor{BrickRed}{Specific
+              aspects} of the \textcolor{BrickRed}{project such} as
+              \textcolor{BrickRed}{partnerships} and the
+              \textcolor{BrickRed}{creation} of an \textcolor{BrickRed}{economic
+              model} are presented as well as what it takes to be a
+              \textcolor{BrickRed}{publisher}. \textcolor{BrickRed}{Libraries}
+              have gained \textcolor{BrickRed}{important} and
+              \textcolor{BrickRed}{relevant experience} through the
+              \textcolor{BrickRed}{creation} and
+              \textcolor{BrickRed}{management} of \textcolor{BrickRed}{digital
+              libraries}, but they need to develop \textcolor{BrickRed}{further
+              skills} if they want to adopt a \textcolor{BrickRed}{new role} in
+              the \textcolor{BrickRed}{life cycle} of
+              \textcolor{BrickRed}{scholarly communication}.
+            \end{exampleblock}
+          }
+        }{ % current slide
+          \begin{exampleblock}{\footnotesize Project Euclid and the role of
+                               research libraries in scholarly publishing}
+            \footnotesize Project Euclid, a joint electronic journal publishing
+            initiative of Cornell University Library and Duke University Press
+            is discussed in the broader contexts of the changing patterns of
+            scholarly communication and the publishing scene of mathematics.
+            Specific aspects of the project such as partnerships and the
+            creation of an economic model are presented as well as what it takes
+            to be a publisher. Libraries have gained important and relevant
+            experience through the creation and management of digital libraries,
+            but they need to develop further skills if they want to adopt a new
+            role in the life cycle of scholarly communication.
+          \end{exampleblock}
+        }
+      \end{column}
+    \end{columns}
   \end{frame}
 
