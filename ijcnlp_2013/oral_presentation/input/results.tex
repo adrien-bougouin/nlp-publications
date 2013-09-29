@@ -3,25 +3,25 @@
     \framesubtitle{Datasets}
 
     \begin{itemize}
-      \item{Inspec contains 500 abstracts of journal papers ({\small\textsc{En}})}
+      \item<+->{Inspec contains 500 abstracts of journal papers ({\small\textsc{En}})}
       \begin{itemize}
         \setbeamertemplate{itemize items}[triangle]
         \item{9.8 keyphrases/document}
         \item{21.8\% of missing keyphrases}
       \end{itemize}
-    \item{SemEval contains 100 scientific papers ({\small\textsc{En}})}
+      \item<+->{SemEval contains 100 scientific papers ({\small\textsc{En}})}
       \begin{itemize}
         \setbeamertemplate{itemize items}[triangle]
         \item{14.7 keyphrases/document}
         \item{19.3\% of missing keyphrases}
       \end{itemize}
-      \item{WikiNews contains 100 news articles ({\small\textsc{Fr}})}
+      \item<+->{WikiNews contains 100 news articles ({\small\textsc{Fr}})}
       \begin{itemize}
         \setbeamertemplate{itemize items}[triangle]
         \item{9.6 keyphrases/document}
         \item{4.4\% of missing keyphrases}
       \end{itemize}
-      \item{DEFT contains 93 scientific papers ({\small\textsc{Fr}})}
+      \item<+->{DEFT contains 93 scientific papers ({\small\textsc{Fr}})}
       \begin{itemize}
         \setbeamertemplate{itemize items}[triangle]
         \item{5.2 keyphrases/document}
@@ -48,19 +48,19 @@
     \framesubtitle{Baselines}
 
     \begin{itemize}
-      \item{TF-IDF weighting}
+      \item<+->{TF-IDF weighting}
       \begin{itemize}
         \setbeamertemplate{itemize items}[triangle]
         \item{Best keyphrases contain words with hight TF-IDF}
       \end{itemize}
-      \item{TextRank}
+      \item<+->{TextRank}
       \begin{itemize}
         \setbeamertemplate{itemize items}[triangle]
         \item{Word co-occurrence graph with a window of 2}
         \item{PageRank scoring/ranking}
         \item{Keyphrase generation based on keywords}
       \end{itemize}
-      \item{SingleRank}
+      \item<+->{SingleRank}
       \begin{itemize}
         \setbeamertemplate{itemize items}[triangle]
         \item{Word co-occurrence graph with a window of 10}
@@ -69,7 +69,7 @@
       \end{itemize}
     \end{itemize}
 
-    Redundant keyphrases are removed from the output.
+    \uncover<+->{Redundant keyphrases are removed from the output.}
   \end{frame}
 
   \begin{frame}{Evaluation}

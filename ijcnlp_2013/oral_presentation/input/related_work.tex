@@ -8,6 +8,7 @@
       \item{clusters~\cite{liu2009keycluster}}
       \item{or graphs of words}
       \begin{itemize}
+        \setbeamertemplate{itemize items}[triangle]
         \item<2->{TextRank~\cite{mihalcea2004textrank}}
         \item<2->{SingleRank~\cite{wan2008expandrank}}
         \item<2->{ExpandRank~\cite{wan2008expandrank}}
@@ -119,19 +120,20 @@
           \end{tikzpicture}
         \end{column}
         \begin{column}{.4\textwidth}
-          \footnotesize
-          \begin{tabular}{l}
-            Extracted Keyphrases\\
-            \midrule
-            electronic journal publishing\\
-            \cellcolor{pink}scholarly publishing\\
-            libraries\\
-            relevant\\
-            university\\
-            project\\
-            economic\\
-            role
-          \end{tabular}
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{l}
+              Extracted Keyphrases\\
+              \midrule
+              electronic journal publishing\\
+              \cellcolor{pink}scholarly publishing\\
+              libraries\\
+              relevant\\
+              university\\
+              project\\
+              economic\\
+              role
+            \end{tabular}
+          }
         \end{column}
       \end{columns}
       \caption{Project Euclid and the role of research libraries in scholarly

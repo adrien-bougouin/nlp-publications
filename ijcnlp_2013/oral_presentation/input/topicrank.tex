@@ -1,31 +1,44 @@
 \section{TopicRank}
-\begin{frame}{TopicRank}
+\begin{frame}[label=topicrank]{TopicRank}
     \begin{columns}
       \begin{column}{.45\textwidth}
         \begin{enumerate}
+          %\setbeamercovered{invisible}
           \item<2->{Candidate extraction}
           \alt<2>{
             \item[$\Rightarrow$]{\small $(\text{NOUN} | \text{ADJ})^*$}
+            \item<3->{Candidate clustering}
           }{
             \item<3->{Candidate clustering}
           }\alt<3>{
-            \item[$\Rightarrow$]{\small Hierarchical clustering}
+            \item[$\Rightarrow$]{\small \hyperlink{candidate_clustering_backup}{Hierarchical clustering}}
+            \item<4->{Graph construction}
           }{
-            \item<4->{Graph creation}
+            \item<4->{Graph construction}
           }\alt<4>{
-            \item[$\Rightarrow$]{\small Connected graph}
+            \item[$\Rightarrow$]{\small \hyperlink{graph_construction_backup}{Connected graph}}
+            \item<5->{Topic ranking}
           }{
             \item<5->{Topic ranking}
           }\alt<5>{
-            \item[$\Rightarrow$]{\small PageRank's random walk}
+          \item[$\Rightarrow$]{\small \hyperlink{topic_ranking_backup}{PageRank's random walk}}
+            \item<6->{Keyphrase selection}
           }{
             \item<6->{Keyphrase selection}
+            \alt<2->{
+            }{
+              \item[]{}
+            }
+          }\alt<6->{
+            \item[$\Rightarrow$]{\small First appearing candidate}
+            \item[]{}
+          }{
+            \item[]{}
           }
-          \item<6->[$\Rightarrow$]{\small First appearing candidate}
         \end{enumerate}
 
         \visible<7>{
-          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.65\textheight)
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.7\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
             \begin{exampleblock}{\footnotesize Project Euclid and the role of
@@ -46,7 +59,7 @@
         }
 
         \visible<9>{
-          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.65\textheight)
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.7\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
             \begin{exampleblock}{\footnotesize Project Euclid and the role of
@@ -65,7 +78,7 @@
         }
 
         \visible<11>{
-          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.45\textheight)
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.52\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
             \begin{exampleblock}{\footnotesize \textcolor{red}{Project
@@ -80,7 +93,7 @@
         }
 
         \visible<13>{
-          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.5\textheight)
+          \begin{textblock*}{.95\textwidth}(.025\textwidth, -.55\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
             \begin{exampleblock}{\footnotesize Project Euclid and the
@@ -104,65 +117,68 @@
                 \alt<6->{ % next slides
                   \alt<16->{ % next slides
                     \alt<17->{ % next slides
-                      \scriptsize
-                      \begin{tabular}{l}
-                        \toprule
-                        Keyphrases\\
-                        \midrule
-                        \cellcolor{pink}{research libraries}\\
-                        \cellcolor{pink}{scholarly publishing}\\
-                        \cellcolor{pink}{project euclid}\\
-                        role\\
-                        creation\\
-                        \cellcolor{pink}{scholarly communication}\\
-                        \cellcolor{pink}{mathematics}\\
-                        specific aspects\\
-                        \cellcolor{pink}{joint electronic journal publishing initiative}\\
-                        \cellcolor{pink}{partnerships}\\
-                        \dots\\
-                        \bottomrule
-                      \end{tabular}
+                      \resizebox{\linewidth}{!}{
+                        \begin{tabular}{l}
+                          \toprule
+                          Keyphrases\\
+                          \midrule
+                          \cellcolor{pink}{research libraries}\\
+                          \cellcolor{pink}{scholarly publishing}\\
+                          \cellcolor{pink}{project euclid}\\
+                          role\\
+                          creation\\
+                          \cellcolor{pink}{scholarly communication}\\
+                          \cellcolor{pink}{mathematics}\\
+                          specific aspects\\
+                          \cellcolor{pink}{joint electronic journal publishing initiative}\\
+                          \cellcolor{pink}{partnerships}\\
+                          \dots\\
+                          \bottomrule
+                        \end{tabular}
+                      }
                     }{ % current slide
-                      \scriptsize
-                      \begin{tabular}{l}
+                      \resizebox{\linewidth}{!}{
+                        \begin{tabular}{l}
+                          \toprule
+                          Keyphrases\\
+                          \midrule
+                          research libraries\\
+                          scholarly publishing\\
+                          project euclid\\
+                          role\\
+                          creation\\
+                          scholarly communication\\
+                          mathematics\\
+                          specific aspects\\
+                          joint electronic journal publishing initiative\\
+                          partnerships\\
+                          \dots\\
+                          \bottomrule
+                        \end{tabular}
+                      }
+                    }
+                  }{ % current slide
+                    \resizebox{\linewidth}{!}{
+                      \begin{tabular}{cl}
                         \toprule
-                        Keyphrases\\
+                        ID & Cluster\\
                         \midrule
-                        research libraries\\
-                        scholarly publishing\\
-                        project euclid\\
-                        role\\
-                        creation\\
-                        scholarly communication\\
-                        mathematics\\
-                        specific aspects\\
-                        joint electronic journal publishing initiative\\
-                        partnerships\\
-                        \dots\\
+                        \multirow{1}{*}{C01} & cornell university library; digital libraries;\\
+                        & \alt<8->{\textcolor{red}{research libraries}}{research libraries}; libraries\\
+                        \multirow{1}{*}{C03} & publishing scene; \alt<10->{\textcolor{red}{scholarly publishing}}{scholarly publishing};\\
+                        & publisher\\
+                        C02 & \alt<12->{\textcolor{red}{project euclid}}{project euclid}; project such\\
+                        C04 & \alt<14->{\textcolor{red}{role}}{role}; new role\\
+                        C16 & \alt<15->{\textcolor{red}{creation}}{creation}\\
+                        C06 & \alt<15->{\textcolor{red}{scholarly communication}}{scholarly communication}\\
+                        C09 & \alt<15->{\textcolor{red}{mathematics}}{mathematics}\\
+                        C12 & \alt<15->{\textcolor{red}{specific aspects}}{specific aspects}\\
+                        C10 & \alt<15->{\textcolor{red}{joint electronic journal publishing initiative}}{joint electronic journal publishing initiative}\\
+                        C08 & \alt<15->{\textcolor{red}{partnerships}}{partnerships}\\
+                        \dots & \dots\\
                         \bottomrule
                       \end{tabular}
                     }
-                  }{ % current slide
-                    \scriptsize
-                    \begin{tabular}{cl}
-                      \toprule
-                      ID & Cluster\\
-                      \midrule
-                      \multirow{1}{*}{C01} & cornell university library; digital libraries;\\
-                      & \alt<8->{\textcolor{red}{research libraries}}{research libraries}; libraries\\
-                      \multirow{1}{*}{C03} & publishing scene; \alt<10->{\textcolor{red}{scholarly publishing}}{scholarly publishing};\\
-                      & publisher\\
-                      C02 & \alt<12->{\textcolor{red}{project euclid}}{project euclid}; project such\\
-                      C04 & \alt<14->{\textcolor{red}{role}}{role}; new role\\
-                      C16 & \alt<15->{\textcolor{red}{creation}}{creation}\\
-                      C06 & \alt<15->{\textcolor{red}{scholarly communication}}{scholarly communication}\\
-                      C09 & \alt<15->{\textcolor{red}{mathematics}}{mathematics}\\
-                      C12 & \alt<15->{\textcolor{red}{specific aspects}}{specific aspects}\\
-                      C10 & \alt<15->{\textcolor{red}{joint electronic journal publishing initiative}}{joint electronic journal publishing initiative}\\
-                      C08 & \alt<15->{\textcolor{red}{partnerships}}{partnerships}\\
-                      \dots & \dots\\
-                      \bottomrule
-                    \end{tabular}
                   }
                 }{ % current slide
                   \begin{tikzpicture}[scale=.185,
@@ -207,34 +223,35 @@
                   \end{tikzpicture}
                 }
               }{ % current slide
-                \scriptsize
-                \begin{tabular}{cl}
-                  \toprule
-                  ID & Cluster\\
-                  \midrule
-                  \multirow{1}{*}{C01} & cornell university library; digital libraries;\\
-                  & research libraries; libraries\\
-                  C02 & project euclid; project such\\
-                  \multirow{1}{*}{C03} & publishing scene; scholarly publishing;\\
-                  & publisher\\
-              C04 & role; new role \textcolor{red}{$\longleftarrow \text{stem overlap} \geq \frac{1}{4}$}\\
-                  C05 & important\\
-                  C06 & scholarly communication\\
-                  C07 & further skills\\
-                  C08 & partnerships\\
-                  C09 & mathematics\\
-                  C10 & joint electronic journal publishing initiative\\
-                  C11 & contexts\\
-                  C12 & specific aspects\\
-                  C13 & economic model\\
-                  C14 & duke university press\\
-                  C15 & relevant experience\\
-                  C16 & creation\\
-                  C17 & life cycle\\
-                  C18 & patterns\\
-                  C19 & management\\
-                  \bottomrule
-                \end{tabular}
+                \resizebox{\linewidth}{!}{
+                  \begin{tabular}{cl}
+                    \toprule
+                    ID & Cluster\\
+                    \midrule
+                    \multirow{1}{*}{C01} & cornell university library; digital libraries;\\
+                    & research libraries; libraries\\
+                    C02 & project euclid; project such\\
+                    \multirow{1}{*}{C03} & publishing scene; scholarly publishing;\\
+                    & publisher\\
+                    C04 & role; new role \textcolor{red}{$\longleftarrow \text{stem overlap} \geq \frac{1}{4}$}\\
+                    C05 & important\\
+                    C06 & scholarly communication\\
+                    C07 & further skills\\
+                    C08 & partnerships\\
+                    C09 & mathematics\\
+                    C10 & joint electronic journal publishing initiative\\
+                    C11 & contexts\\
+                    C12 & specific aspects\\
+                    C13 & economic model\\
+                    C14 & duke university press\\
+                    C15 & relevant experience\\
+                    C16 & creation\\
+                    C17 & life cycle\\
+                    C18 & patterns\\
+                    C19 & management\\
+                    \bottomrule
+                  \end{tabular}
+                }
               }
             }{ % current slide
               \begin{exampleblock}{\footnotesize \textcolor{red}{Project Euclid}
