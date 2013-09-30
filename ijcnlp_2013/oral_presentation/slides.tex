@@ -20,6 +20,8 @@
 \usepackage[overlay]{textpos}
 \usepackage{multirow}
 \usepackage{ifthen}
+\usepackage{relsize}
+\usepackage{ragged2e}
 
 \usetheme{Boadilla}
 \setbeamercovered{transparent}
@@ -27,16 +29,10 @@
 \setbeamertemplate{sections/subsections in toc}[square]
 \setbeamertemplate{blocks}[rounded][shadow=false]
 \setbeamertemplate{footline}{\vskip2pt}
-\setbeamertemplate{items}[square]
+\setbeamertemplate{enumerate items}[square]
+\setbeamertemplate{itemize item}{\footnotesize$\blacksquare$}
+\setbeamertemplate{itemize subitem}{\scriptsize$\blacktriangleright$}
 \beamertemplatenavigationsymbolsempty
-
-\hypersetup{
-  colorlinks,
-  citecolor=black,
-  filecolor=black,
-  linkcolor=black,
-  urlcolor=black
-}
 
 \usetikzlibrary{positioning, topaths, shapes, arrows}
 \newcount\mycount           % TopicRank slides
@@ -119,13 +115,14 @@
 \subtitle{Graph-Based Topic Ranking for Keyphrase Extraction}
 \titlegraphic{
   \begin{center}
-    \includegraphics[height=2em]{logos/univ_nantes.eps}\hspace*{0.05\textwidth}
-    \includegraphics[height=2em]{logos/lina.eps}\hspace*{0.05\textwidth}
-    \includegraphics[height=2em]{logos/termith.eps}
+    \includegraphics[height=1.75em]{logos/ijcnlp.eps}\hfill
+    \includegraphics[height=1.75em]{logos/univ_nantes.eps}\hfill
+    \includegraphics[height=1.75em]{logos/lina.eps}\hfill
+    \includegraphics[height=1.75em]{logos/termith.eps}\hfill
   \end{center}
 }
-\author{Adrien Bougouin \and Florian Boudin \and Béatrice Daille}
-\institute{Université de Nantes, LINA, France}
+\author{Adrien Bougouin* \and Florian Boudin \and Béatrice Daille}
+\institute{\normalsize{Université de Nantes, LINA, France}}
 \date{16 October 2013}
 
 \begin{document}
@@ -151,9 +148,13 @@
     \end{frame}
   }
   \input{input/topicrank.tex}
-  \input{input/results.tex}
+  \input{input/evaluation.tex}
   \input{input/conclusion_and_future_work.tex}
-  % TODO aknowledgment
+  \begin{frame}
+    \begin{beamercolorbox}[center,shadow=true,rounded=true]{frametitle} 
+      \Huge{\textbf{Thank you!}}
+    \end{beamercolorbox} 
+  \end{frame}
   \input{input/backups.tex}
   \section*{Références}
     \begin{frame}[allowframebreaks]{References}

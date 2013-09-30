@@ -6,14 +6,19 @@
     \begin{itemize}
       \item{language models~\cite{tomokiyo2003languagemodel}}
       \item{clusters~\cite{liu2009keycluster}}
-      \item{or graphs of words}
+      \item{or \textbf{graphs} of word
+            co-occurrences~\cite{mihalcea2004textrank}}
       \begin{itemize}
-        \setbeamertemplate{itemize items}[triangle]
-        \item<2->{TextRank~\cite{mihalcea2004textrank}}
-        \item<2->{SingleRank~\cite{wan2008expandrank}}
-        \item<2->{ExpandRank~\cite{wan2008expandrank}}
-        \item<2->{SemanticRank~\cite{tsatsaronis2010semanticrank}}
-        \item<2->{TopicalPageRank~\cite{liu2010topicalpagerank}}
+        \item<2->{weighted by co-occurrence numbers~\cite{wan2008expandrank}}
+        \item<2->{refined with similar documents~\cite{wan2008expandrank}}
+        \item<2->{weighted with semantic
+                  measures~\cite{tsatsaronis2010semanticrank}}
+        \item<2->{biased with topic probabilities~\cite{liu2010topicalpagerank}}
+%        \item<2->{TextRank~\cite{mihalcea2004textrank}}
+%        \item<2->{SingleRank~\cite{wan2008expandrank}}
+%        \item<2->{ExpandRank~\cite{wan2008expandrank}}
+%        \item<2->{SemanticRank~\cite{tsatsaronis2010semanticrank}}
+%        \item<2->{TopicalPageRank~\cite{liu2010topicalpagerank}}
       \end{itemize}
     \end{itemize}
   \end{frame}
@@ -37,7 +42,7 @@
                                                 inner sep=1.5pt,
                                                 font=\Large\bfseries}]
             % connected component
-            \node[main node] (university) {university};
+            \node[main node, fill=BurntOrange!50] (university) {university};
             \node[main node] (duke) [above left=of university.north] {duke};
             \node[main node] (library) [above=of university.north east] {library};
             \node[main node] (press) [below left=of university.south] {press};
@@ -55,13 +60,13 @@
             \path[JungleGreen!50] (skills) edge node {\textcolor{black}{1}} (further);
 
             % connected component
-            \node[main node] (scholarly) [right=of library.north east] {scholarly};
+            \node[main node, fill=BurntOrange!50] (scholarly) [right=of library.north east] {scholarly};
             \node[main node] (communication) [below=of scholarly.west] {communication};
-            \node[main node] (publishing) [below right=of scholarly.south] {publishing};
+            \node[main node, fill=BurntOrange!50] (publishing) [below right=of scholarly.south] {publishing};
             \node[main node] (scene) [above right=of publishing.west] {scene};
             \node[main node] (initiative) [below=of publishing.west] {initiative};
-            \node[main node] (journal) [below right=of scene.north east] {journal};
-            \node[main node] (electronic) [below=of journal.east] {electronic};
+            \node[main node, fill=BurntOrange!50] (journal) [below right=of scene.north east] {journal};
+            \node[main node, fill=BurntOrange!50] (electronic) [below=of journal.east] {electronic};
             \node[main node] (joint) [below=of electronic.north west] {joint};
 
             \path[JungleGreen!50] (communication) edge node {\textcolor{black}{1}} (scholarly);
@@ -74,27 +79,27 @@
 
             % connected component
             \node[main node] (new) [below=of skills.south] {new};
-            \node[main node] (role) [below=of new.south east] {role};
+            \node[main node, fill=BurntOrange!50] (role) [below=of new.south east] {role};
 
             \path[JungleGreen!50] (new) edge node {\textcolor{black}{1}} (role);
 
             % connected component
             \node[main node] (digital) [right=of new.south east] {digital};
-            \node[main node] (libraries) [below =of cornell.south] {libraries};
+            \node[main node, fill=BurntOrange!50] (libraries) [below =of cornell.south] {libraries};
             \node[main node] (research) [right =of libraries.south east] {research};
 
             \path[JungleGreen!50] (digital) edge node {\textcolor{black}{1}} (libraries);
             \path[JungleGreen!50] (libraries) edge node {\textcolor{black}{1}} (research);
 
             % connected component
-            \node[main node] (relevant) [below right=of research.north] {relevant};
+            \node[main node, fill=BurntOrange!50] (relevant) [below right=of research.north] {relevant};
             \node[main node] (experience) [below left=of relevant.south west] {experience};
 
             \path[JungleGreen!50] (relevant) edge node {\textcolor{black}{1}} (experience);
 
             % connected component
             \node[main node] (model) [below=of digital.south east] {model};
-            \node[main node] (economic) [below right=of model.south east] {economic};
+            \node[main node, fill=BurntOrange!50] (economic) [below right=of model.south east] {economic};
 
             \path[JungleGreen!50] (model) edge node {\textcolor{black}{1}} (economic);
 
@@ -112,7 +117,7 @@
 
             % connected component
             \node[main node] (euclid) [right=of relevant.north east] {euclid};
-            \node[main node] (project) [below left=of euclid.south east] {project};
+            \node[main node, fill=BurntOrange!50] (project) [below left=of euclid.south east] {project};
             \node[main node] (such) [below left=of project.south east] {such};
 
             \path[JungleGreen!50] (euclid) edge node {\textcolor{black}{1}} (project);
@@ -127,10 +132,10 @@
               electronic journal publishing\\
               \cellcolor{pink}scholarly publishing\\
               libraries\\
-              relevant\\
               university\\
               project\\
               economic\\
+              relevant\\
               role
             \end{tabular}
           }

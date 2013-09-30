@@ -2,9 +2,8 @@
   \begin{frame}{Conclusion}
     \begin{itemize}
       \item{New graph-based keyphrase extraction method}
-      \item{Topics are ranked instead of words}
-      \item{Every relations between Topics are used for the ranking
-            $\Rightarrow$ complete graph weighted by offset positions}
+      \item{Topics are now ranked instead of words}
+      \item{The graph is complete $\Rightarrow$ more stable (no window)}
       \item{Extracted keyphrases are topically unredundant}
       \item{Results show an improvement over TF-IDF weighting and previous
             graph-based methods}
@@ -13,11 +12,14 @@
   \end{frame}
 
   \begin{frame}{Future Work}
-    \begin{enumerate}
+    \begin{itemize}
       \item{Refinement of the candidate keyphrases}
-      \item{Improvement of the clustering}
-      \item{Improvement of the topic ranking}
-      \item{Improvement of the keyphrase selection}
-    \end{enumerate}
+      \item{Improvement of:}
+      \begin{itemize}
+        \item{the clustering}
+        \item{the topic ranking}
+        \item{the keyphrase selection}
+      \end{itemize}
+    \end{itemize}
   \end{frame}
 
