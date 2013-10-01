@@ -4,16 +4,16 @@
 
     Mostly ranking technics using:
     \begin{itemize}
-      \item{language models~\cite{tomokiyo2003languagemodel}}
-      \item{clusters~\cite{liu2009keycluster}}
+      \item{language models}%~\cite{tomokiyo2003languagemodel}}
+      \item{clusters}%~\cite{liu2009keycluster}}
       \item{or \textbf{graphs} of word
-            co-occurrences~\cite{mihalcea2004textrank}}
+            co-occurrences}%~\cite{mihalcea2004textrank}}
       \begin{itemize}
-        \item<2->{weighted by co-occurrence numbers~\cite{wan2008expandrank}}
-        \item<2->{refined with similar documents~\cite{wan2008expandrank}}
+        \item<2->{weighted by co-occurrence numbers}%~\cite{wan2008expandrank}}
+        \item<2->{refined with similar documents}%~\cite{wan2008expandrank}}
         \item<2->{weighted with semantic
-                  measures~\cite{tsatsaronis2010semanticrank}}
-        \item<2->{biased with topic probabilities~\cite{liu2010topicalpagerank}}
+                  measures}%~\cite{tsatsaronis2010semanticrank}}
+        \item<2->{biased with topic probabilities}%~\cite{liu2010topicalpagerank}}
 %        \item<2->{TextRank~\cite{mihalcea2004textrank}}
 %        \item<2->{SingleRank~\cite{wan2008expandrank}}
 %        \item<2->{ExpandRank~\cite{wan2008expandrank}}
@@ -26,10 +26,10 @@
   \begin{frame}{Related Work}
     \framesubtitle{Graph-Based Approach: Example (TextRank) and Drawbacks}
 
-    \begin{figure}
-      \begin{columns}
-        \begin{column}{.6\textwidth}
-          \centering
+    \begin{columns}
+      \begin{column}{.6\textwidth}
+        \centering
+        \alt<2->{
           \begin{tikzpicture}[thin,
                               auto,
                               scale=.25,
@@ -123,8 +123,104 @@
             \path[JungleGreen!50] (euclid) edge node {\textcolor{black}{1}} (project);
             \path[JungleGreen!50] (project) edge node {\textcolor{black}{1}} (such);
           \end{tikzpicture}
-        \end{column}
-        \begin{column}{.4\textwidth}
+        }{
+          \begin{tikzpicture}[thin,
+                              auto,
+                              scale=.25,
+                              align=center,
+                              node distance=2cm,
+                              every node/.style={font=\small, transform shape},
+                              main node/.style={text centered,
+                                                thick,
+                                                fill=JungleGreen!20,
+                                                inner sep=1.5pt,
+                                                font=\Large\bfseries}]
+            % connected component
+            \node[main node] (university) {university};
+            \node[main node] (duke) [above left=of university.north] {duke};
+            \node[main node] (library) [above=of university.north east] {library};
+            \node[main node] (press) [below left=of university.south] {press};
+            \node[main node] (cornell) [below right=of university.south] {cornell};
+
+            \path[JungleGreen!50] (university) edge node {\textcolor{black}{1}} (library);
+            \path[JungleGreen!50] (university) edge node {\textcolor{black}{1}} (duke);
+            \path[JungleGreen!50] (university) edge node {\textcolor{black}{1}} (press);
+            \path[JungleGreen!50] (university) edge node {\textcolor{black}{1}} (cornell);
+
+            % connected component
+            \node[main node] (further) [left=of university.south west] {further};
+            \node[main node] (skills) [below=of further.south west] {skills};
+
+            \path[JungleGreen!50] (skills) edge node {\textcolor{black}{1}} (further);
+
+            % connected component
+            \node[main node] (scholarly) [right=of library.north east] {scholarly};
+            \node[main node] (communication) [below=of scholarly.west] {communication};
+            \node[main node] (publishing) [below right=of scholarly.south] {publishing};
+            \node[main node] (scene) [above right=of publishing.west] {scene};
+            \node[main node] (initiative) [below=of publishing.west] {initiative};
+            \node[main node] (journal) [below right=of scene.north east] {journal};
+            \node[main node] (electronic) [below=of journal.east] {electronic};
+            \node[main node] (joint) [below=of electronic.north west] {joint};
+
+            \path[JungleGreen!50] (communication) edge node {\textcolor{black}{1}} (scholarly);
+            \path[JungleGreen!50] (publishing) edge node {\textcolor{black}{1}} (scholarly);
+            \path[JungleGreen!50] (publishing) edge node {\textcolor{black}{1}} (scene);
+            \path[JungleGreen!50] (publishing) edge node {\textcolor{black}{1}} (journal);
+            \path[JungleGreen!50] (publishing) edge node {\textcolor{black}{1}} (initiative);
+            \path[JungleGreen!50] (journal) edge node {\textcolor{black}{1}} (electronic);
+            \path[JungleGreen!50] (joint) edge node {\textcolor{black}{1}} (electronic);
+
+            % connected component
+            \node[main node] (new) [below=of skills.south] {new};
+            \node[main node] (role) [below=of new.south east] {role};
+
+            \path[JungleGreen!50] (new) edge node {\textcolor{black}{1}} (role);
+
+            % connected component
+            \node[main node] (digital) [right=of new.south east] {digital};
+            \node[main node] (libraries) [below =of cornell.south] {libraries};
+            \node[main node] (research) [right =of libraries.south east] {research};
+
+            \path[JungleGreen!50] (digital) edge node {\textcolor{black}{1}} (libraries);
+            \path[JungleGreen!50] (libraries) edge node {\textcolor{black}{1}} (research);
+
+            % connected component
+            \node[main node] (relevant) [below right=of research.north] {relevant};
+            \node[main node] (experience) [below left=of relevant.south west] {experience};
+
+            \path[JungleGreen!50] (relevant) edge node {\textcolor{black}{1}} (experience);
+
+            % connected component
+            \node[main node] (model) [below=of digital.south east] {model};
+            \node[main node] (economic) [below right=of model.south east] {economic};
+
+            \path[JungleGreen!50] (model) edge node {\textcolor{black}{1}} (economic);
+
+            % connected component
+            \node[main node] (specific) [below left=of economic.center] {specific};
+            \node[main node] (aspects) [above left=of specific.north west] {aspects};
+
+            \path[JungleGreen!50] (specific) edge node {\textcolor{black}{1}} (aspects);
+
+            % connected component
+            \node[main node] (life) [below right=of economic.south east] {life};
+            \node[main node] (cycle) [right=of life.north east] {cycle};
+
+            \path[JungleGreen!50] (life) edge node {\textcolor{black}{1}} (cycle);
+
+            % connected component
+            \node[main node] (euclid) [right=of relevant.north east] {euclid};
+            \node[main node] (project) [below left=of euclid.south east] {project};
+            \node[main node] (such) [below left=of project.south east] {such};
+
+            \path[JungleGreen!50] (euclid) edge node {\textcolor{black}{1}} (project);
+            \path[JungleGreen!50] (project) edge node {\textcolor{black}{1}} (such);
+          \end{tikzpicture}
+        }
+      \end{column}
+      \begin{column}{.4\textwidth}
+        \alt<4->{
           \resizebox{\linewidth}{!}{
             \begin{tabular}{l}
               Extracted Keyphrases\\
@@ -139,13 +235,28 @@
               role
             \end{tabular}
           }
-        \end{column}
-      \end{columns}
-      \caption{Project Euclid and the role of research libraries in scholarly
-               publishing}
-    \end{figure}\vspace*{-1cm}
+        }{
+          \uncover<3>{
+            \resizebox{\linewidth}{!}{
+              \begin{tabular}{l}
+                Extracted Keyphrases\\
+                \midrule
+                electronic journal publishing\\
+                scholarly publishing\\
+                libraries\\
+                university\\
+                project\\
+                economic\\
+                relevant\\
+                role
+              \end{tabular}
+            }
+          }
+        }
+      \end{column}
+    \end{columns}
 
-    \begin{block}{Drawbacks}
+    \begin{block}<5->{Drawbacks}
       \begin{itemize}
         \item{Word granularity $\Rightarrow$ multi-word ranking?}
         \item{Word linkage depending on a co-occurence window}

@@ -1,6 +1,7 @@
 \documentclass[14pt, xcolor={usenames, dvipsnames}]{beamer}
 %\documentclass[handout, 14pt, xcolor={usenames, dvipsnames}]{beamer}
 
+\usepackage{etex}
 \usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -140,7 +141,7 @@
   \input{input/related_work.tex}
   \input{input/this_work.tex}
   \begin{frame}{Plan}
-    \tableofcontents[section]
+    \tableofcontents
   \end{frame}
   \AtBeginSection[]{
     \begin{frame}{Plan}
@@ -151,16 +152,18 @@
   \input{input/evaluation.tex}
   \input{input/conclusion_and_future_work.tex}
   \begin{frame}
+    \vfill
     \begin{beamercolorbox}[center,shadow=true,rounded=true]{frametitle} 
       \Huge{\textbf{Thank you!}}
     \end{beamercolorbox} 
+    \vfill
   \end{frame}
   \input{input/backups.tex}
-  \section*{Références}
-    \begin{frame}[allowframebreaks]{References}
-      \def\newblock{\hskip .11em plus .33em minus .07em}
-      \bibliographystyle{plainnat}
-      \bibliography{../../biblio}
-    \end{frame}
+%  \section*{Références}
+%    \begin{frame}[allowframebreaks]{References}
+%      \def\newblock{\hskip .11em plus .33em minus .07em}
+%      \bibliographystyle{plainnat}
+%      \bibliography{../../biblio}
+%    \end{frame}
 \end{document}
 
