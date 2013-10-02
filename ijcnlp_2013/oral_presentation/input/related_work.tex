@@ -41,223 +41,210 @@
   \begin{frame}{Related Work}
     \framesubtitle{Graph-Based Approach: Example (TextRank) and Drawbacks}
 
-    \begin{columns}
-      \begin{column}{.6\textwidth}
-        \centering
-        \alt<3->{
-          \begin{tikzpicture}[thin,
-                              auto,
-                              scale=.25,
-                              align=center,
-                              node distance=2cm,
-                              every node/.style={font=\small, transform shape},
-                              main node/.style={text centered,
-                                                thick,
-                                                fill=JungleGreen!20,
-                                                inner sep=1.5pt,
-                                                font=\Large\bfseries}]
-            % connected component
-            \node[main node, fill=BurntOrange!50] (university) {university};
-            \node[main node] (duke) [above left=of university.north] {duke};
-            \node[main node] (library) [above=of university.north east] {library};
-            \node[main node] (press) [below left=of university.south] {press};
-            \node[main node] (cornell) [below right=of university.south] {cornell};
+    \visible<2->{
+      \begin{columns}
+        \begin{column}{.6\textwidth}
+          \centering
+          \alt<4->{
+            \begin{tikzpicture}[thin,
+                                auto,
+                                scale=.25,
+                                align=center,
+                                node distance=2cm,
+                                every node/.style={font=\small, transform shape},
+                                main node/.style={text centered,
+                                                  thick,
+                                                  fill=JungleGreen!20,
+                                                  inner sep=1.5pt,
+                                                  font=\Large\bfseries}]
+              % connected component
+              \node[main node, fill=BurntOrange!50] (university) {university};
+              \node[main node] (duke) [above left=of university.north] {duke};
+              \node[main node] (library) [above=of university.north east] {library};
+              \node[main node] (press) [below left=of university.south] {press};
+              \node[main node] (cornell) [below right=of university.south] {cornell};
 
-            \path[JungleGreen!50] (university) edge (library);
-            \path[JungleGreen!50] (university) edge (duke);
-            \path[JungleGreen!50] (university) edge (press);
-            \path[JungleGreen!50] (university) edge (cornell);
+              \path[JungleGreen!50] (university) edge (library);
+              \path[JungleGreen!50] (university) edge (duke);
+              \path[JungleGreen!50] (university) edge (press);
+              \path[JungleGreen!50] (university) edge (cornell);
 
-            % connected component
-            \node[main node] (further) [left=of university.south west] {further};
-            \node[main node] (skills) [below=of further.south west] {skills};
+              % connected component
+              \node[main node] (further) [left=of university.south west] {further};
+              \node[main node] (skills) [below=of further.south west] {skills};
 
-            \path[JungleGreen!50] (skills) edge (further);
+              \path[JungleGreen!50] (skills) edge (further);
 
-            % connected component
-            \node[main node, fill=BurntOrange!50] (scholarly) [right=of library.north east] {scholarly};
-            \node[main node] (communication) [below=of scholarly.west] {communication};
-            \node[main node, fill=BurntOrange!50] (publishing) [below right=of scholarly.south] {publishing};
-            \node[main node] (scene) [above right=of publishing.west] {scene};
-            \node[main node] (initiative) [below=of publishing.west] {initiative};
-            \node[main node, fill=BurntOrange!50] (journal) [below right=of scene.north east] {journal};
-            \node[main node, fill=BurntOrange!50] (electronic) [below=of journal.east] {electronic};
-            \node[main node] (joint) [below=of electronic.north west] {joint};
+              % connected component
+              \node[main node, fill=BurntOrange!50] (scholarly) [right=of library.north east] {scholarly};
+              \node[main node] (communication) [below=of scholarly.west] {communication};
+              \node[main node, fill=BurntOrange!50] (publishing) [below right=of scholarly.south] {publishing};
+              \node[main node] (scene) [above right=of publishing.west] {scene};
+              \node[main node] (initiative) [below=of publishing.west] {initiative};
+              \node[main node, fill=BurntOrange!50] (journal) [below right=of scene.north east] {journal};
+              \node[main node, fill=BurntOrange!50] (electronic) [below=of journal.east] {electronic};
+              \node[main node] (joint) [below=of electronic.north west] {joint};
 
-            \path[JungleGreen!50] (communication) edge (scholarly);
-            \path[JungleGreen!50] (publishing) edge (scholarly);
-            \path[JungleGreen!50] (publishing) edge (scene);
-            \path[JungleGreen!50] (publishing) edge (journal);
-            \path[JungleGreen!50] (publishing) edge (initiative);
-            \path[JungleGreen!50] (journal) edge (electronic);
-            \path[JungleGreen!50] (joint) edge (electronic);
+              \path[JungleGreen!50] (communication) edge (scholarly);
+              \path[JungleGreen!50] (publishing) edge (scholarly);
+              \path[JungleGreen!50] (publishing) edge (scene);
+              \path[JungleGreen!50] (publishing) edge (journal);
+              \path[JungleGreen!50] (publishing) edge (initiative);
+              \path[JungleGreen!50] (journal) edge (electronic);
+              \path[JungleGreen!50] (joint) edge (electronic);
 
-            % connected component
-            \node[main node] (new) [below=of skills.south] {new};
-            \node[main node, fill=BurntOrange!50] (role) [below=of new.south east] {role};
+              % connected component
+              \node[main node] (new) [below=of skills.south] {new};
+              \node[main node, fill=BurntOrange!50] (role) [below=of new.south east] {role};
 
-            \path[JungleGreen!50] (new) edge (role);
+              \path[JungleGreen!50] (new) edge (role);
 
-            % connected component
-            \node[main node] (digital) [right=of new.south east] {digital};
-            \node[main node, fill=BurntOrange!50] (libraries) [below =of cornell.south] {libraries};
-            \node[main node] (research) [right =of libraries.south east] {research};
+              % connected component
+              \node[main node] (digital) [right=of new.south east] {digital};
+              \node[main node, fill=BurntOrange!50] (libraries) [below =of cornell.south] {libraries};
+              \node[main node] (research) [right =of libraries.south east] {research};
 
-            \path[JungleGreen!50] (digital) edge (libraries);
-            \path[JungleGreen!50] (libraries) edge (research);
+              \path[JungleGreen!50] (digital) edge (libraries);
+              \path[JungleGreen!50] (libraries) edge (research);
 
-            % connected component
-            \node[main node, fill=BurntOrange!50] (relevant) [below right=of research.north] {relevant};
-            \node[main node] (experience) [below left=of relevant.south west] {experience};
+              % connected component
+              \node[main node, fill=BurntOrange!50] (relevant) [below right=of research.north] {relevant};
+              \node[main node] (experience) [below left=of relevant.south west] {experience};
 
-            \path[JungleGreen!50] (relevant) edge (experience);
+              \path[JungleGreen!50] (relevant) edge (experience);
 
-            % connected component
-            \node[main node] (model) [below=of digital.south east] {model};
-            \node[main node, fill=BurntOrange!50] (economic) [below right=of model.south east] {economic};
+              % connected component
+              \node[main node] (model) [below=of digital.south east] {model};
+              \node[main node, fill=BurntOrange!50] (economic) [below right=of model.south east] {economic};
 
-            \path[JungleGreen!50] (model) edge (economic);
+              \path[JungleGreen!50] (model) edge (economic);
 
-            % connected component
-            \node[main node] (specific) [below left=of economic.center] {specific};
-            \node[main node] (aspects) [above left=of specific.north west] {aspects};
+              % connected component
+              \node[main node] (specific) [below left=of economic.center] {specific};
+              \node[main node] (aspects) [above left=of specific.north west] {aspects};
 
-            \path[JungleGreen!50] (specific) edge (aspects);
+              \path[JungleGreen!50] (specific) edge (aspects);
 
-            % connected component
-            \node[main node] (life) [below right=of economic.south east] {life};
-            \node[main node] (cycle) [right=of life.north east] {cycle};
+              % connected component
+              \node[main node] (life) [below right=of economic.south east] {life};
+              \node[main node] (cycle) [right=of life.north east] {cycle};
 
-            \path[JungleGreen!50] (life) edge (cycle);
+              \path[JungleGreen!50] (life) edge (cycle);
 
-            % connected component
-            \node[main node] (euclid) [right=of relevant.north east] {euclid};
-            \node[main node, fill=BurntOrange!50] (project) [below left=of euclid.south east] {project};
-            \node[main node] (such) [below left=of project.south east] {such};
+              % connected component
+              \node[main node] (euclid) [right=of relevant.north east] {euclid};
+              \node[main node, fill=BurntOrange!50] (project) [below left=of euclid.south east] {project};
+              \node[main node] (such) [below left=of project.south east] {such};
 
-            \path[JungleGreen!50] (euclid) edge (project);
-            \path[JungleGreen!50] (project) edge (such);
-          \end{tikzpicture}
-        }{
-          \begin{tikzpicture}[thin,
-                              auto,
-                              scale=.25,
-                              align=center,
-                              node distance=2cm,
-                              every node/.style={font=\small, transform shape},
-                              main node/.style={text centered,
-                                                thick,
-                                                fill=JungleGreen!20,
-                                                inner sep=1.5pt,
-                                                font=\Large\bfseries}]
-            % connected component
-            \node[main node] (university) {university};
-            \node[main node] (duke) [above left=of university.north] {duke};
-            \node[main node] (library) [above=of university.north east] {library};
-            \node[main node] (press) [below left=of university.south] {press};
-            \node[main node] (cornell) [below right=of university.south] {cornell};
+              \path[JungleGreen!50] (euclid) edge (project);
+              \path[JungleGreen!50] (project) edge (such);
+            \end{tikzpicture}
+          }{
+            \visible<2->{
+              \begin{tikzpicture}[thin,
+                                  auto,
+                                  scale=.25,
+                                  align=center,
+                                  node distance=2cm,
+                                  every node/.style={font=\small, transform shape},
+                                  main node/.style={text centered,
+                                                    thick,
+                                                    fill=JungleGreen!20,
+                                                    inner sep=1.5pt,
+                                                    font=\Large\bfseries}]
+                % connected component
+                \node[main node] (university) {university};
+                \node[main node] (duke) [above left=of university.north] {duke};
+                \node[main node] (library) [above=of university.north east] {library};
+                \node[main node] (press) [below left=of university.south] {press};
+                \node[main node] (cornell) [below right=of university.south] {cornell};
 
-            \path[JungleGreen!50] (university) edge (library);
-            \path[JungleGreen!50] (university) edge (duke);
-            \path[JungleGreen!50] (university) edge (press);
-            \path[JungleGreen!50] (university) edge (cornell);
+                \path[JungleGreen!50] (university) edge (library);
+                \path[JungleGreen!50] (university) edge (duke);
+                \path[JungleGreen!50] (university) edge (press);
+                \path[JungleGreen!50] (university) edge (cornell);
 
-            % connected component
-            \node[main node] (further) [left=of university.south west] {further};
-            \node[main node] (skills) [below=of further.south west] {skills};
+                % connected component
+                \node[main node] (further) [left=of university.south west] {further};
+                \node[main node] (skills) [below=of further.south west] {skills};
 
-            \path[JungleGreen!50] (skills) edge (further);
+                \path[JungleGreen!50] (skills) edge (further);
 
-            % connected component
-            \node[main node] (scholarly) [right=of library.north east] {scholarly};
-            \node[main node] (communication) [below=of scholarly.west] {communication};
-            \node[main node] (publishing) [below right=of scholarly.south] {publishing};
-            \node[main node] (scene) [above right=of publishing.west] {scene};
-            \node[main node] (initiative) [below=of publishing.west] {initiative};
-            \node[main node] (journal) [below right=of scene.north east] {journal};
-            \node[main node] (electronic) [below=of journal.east] {electronic};
-            \node[main node] (joint) [below=of electronic.north west] {joint};
+                % connected component
+                \node[main node] (scholarly) [right=of library.north east] {scholarly};
+                \node[main node] (communication) [below=of scholarly.west] {communication};
+                \node[main node] (publishing) [below right=of scholarly.south] {publishing};
+                \node[main node] (scene) [above right=of publishing.west] {scene};
+                \node[main node] (initiative) [below=of publishing.west] {initiative};
+                \node[main node] (journal) [below right=of scene.north east] {journal};
+                \node[main node] (electronic) [below=of journal.east] {electronic};
+                \node[main node] (joint) [below=of electronic.north west] {joint};
 
-            \path[JungleGreen!50] (communication) edge (scholarly);
-            \path[JungleGreen!50] (publishing) edge (scholarly);
-            \path[JungleGreen!50] (publishing) edge (scene);
-            \path[JungleGreen!50] (publishing) edge (journal);
-            \path[JungleGreen!50] (publishing) edge (initiative);
-            \path[JungleGreen!50] (journal) edge (electronic);
-            \path[JungleGreen!50] (joint) edge (electronic);
+                \path[JungleGreen!50] (communication) edge (scholarly);
+                \path[JungleGreen!50] (publishing) edge (scholarly);
+                \path[JungleGreen!50] (publishing) edge (scene);
+                \path[JungleGreen!50] (publishing) edge (journal);
+                \path[JungleGreen!50] (publishing) edge (initiative);
+                \path[JungleGreen!50] (journal) edge (electronic);
+                \path[JungleGreen!50] (joint) edge (electronic);
 
-            % connected component
-            \node[main node] (new) [below=of skills.south] {new};
-            \node[main node] (role) [below=of new.south east] {role};
+                % connected component
+                \node[main node] (new) [below=of skills.south] {new};
+                \node[main node] (role) [below=of new.south east] {role};
 
-            \path[JungleGreen!50] (new) edge (role);
+                \path[JungleGreen!50] (new) edge (role);
 
-            % connected component
-            \node[main node] (digital) [right=of new.south east] {digital};
-            \node[main node] (libraries) [below =of cornell.south] {libraries};
-            \node[main node] (research) [right =of libraries.south east] {research};
+                % connected component
+                \node[main node] (digital) [right=of new.south east] {digital};
+                \node[main node] (libraries) [below =of cornell.south] {libraries};
+                \node[main node] (research) [right =of libraries.south east] {research};
 
-            \path[JungleGreen!50] (digital) edge (libraries);
-            \path[JungleGreen!50] (libraries) edge (research);
+                \path[JungleGreen!50] (digital) edge (libraries);
+                \path[JungleGreen!50] (libraries) edge (research);
 
-            % connected component
-            \node[main node] (relevant) [below right=of research.north] {relevant};
-            \node[main node] (experience) [below left=of relevant.south west] {experience};
+                % connected component
+                \node[main node] (relevant) [below right=of research.north] {relevant};
+                \node[main node] (experience) [below left=of relevant.south west] {experience};
 
-            \path[JungleGreen!50] (relevant) edge (experience);
+                \path[JungleGreen!50] (relevant) edge (experience);
 
-            % connected component
-            \node[main node] (model) [below=of digital.south east] {model};
-            \node[main node] (economic) [below right=of model.south east] {economic};
+                % connected component
+                \node[main node] (model) [below=of digital.south east] {model};
+                \node[main node] (economic) [below right=of model.south east] {economic};
 
-            \path[JungleGreen!50] (model) edge (economic);
+                \path[JungleGreen!50] (model) edge (economic);
 
-            % connected component
-            \node[main node] (specific) [below left=of economic.center] {specific};
-            \node[main node] (aspects) [above left=of specific.north west] {aspects};
+                % connected component
+                \node[main node] (specific) [below left=of economic.center] {specific};
+                \node[main node] (aspects) [above left=of specific.north west] {aspects};
 
-            \path[JungleGreen!50] (specific) edge (aspects);
+                \path[JungleGreen!50] (specific) edge (aspects);
 
-            % connected component
-            \node[main node] (life) [below right=of economic.south east] {life};
-            \node[main node] (cycle) [right=of life.north east] {cycle};
+                % connected component
+                \node[main node] (life) [below right=of economic.south east] {life};
+                \node[main node] (cycle) [right=of life.north east] {cycle};
 
-            \path[JungleGreen!50] (life) edge (cycle);
+                \path[JungleGreen!50] (life) edge (cycle);
 
-            % connected component
-            \node[main node] (euclid) [right=of relevant.north east] {euclid};
-            \node[main node] (project) [below left=of euclid.south east] {project};
-            \node[main node] (such) [below left=of project.south east] {such};
+                % connected component
+                \node[main node] (euclid) [right=of relevant.north east] {euclid};
+                \node[main node] (project) [below left=of euclid.south east] {project};
+                \node[main node] (such) [below left=of project.south east] {such};
 
-            \path[JungleGreen!50] (euclid) edge (project);
-            \path[JungleGreen!50] (project) edge (such);
-          \end{tikzpicture}
-        }
-      \end{column}
-      \begin{column}{.4\textwidth}
-        \alt<5->{
-          \resizebox{\linewidth}{!}{
-            \begin{tabular}{l}
-              Extracted Keyphrases\\
-              \midrule
-              electronic journal publishing\\
-              \cellcolor{pink}scholarly publishing\\
-              libraries\\
-              university\\
-              project\\
-              economic\\
-              relevant\\
-              role
-            \end{tabular}
+                \path[JungleGreen!50] (euclid) edge (project);
+                \path[JungleGreen!50] (project) edge (such);
+              \end{tikzpicture}
+            }
           }
-        }{
-          \uncover<4>{
+        \end{column}
+        \begin{column}{.4\textwidth}
+          \alt<6->{
             \resizebox{\linewidth}{!}{
               \begin{tabular}{l}
                 Extracted Keyphrases\\
                 \midrule
                 electronic journal publishing\\
-                scholarly publishing\\
+                \cellcolor{pink}scholarly publishing\\
                 libraries\\
                 university\\
                 project\\
@@ -266,12 +253,62 @@
                 role
               \end{tabular}
             }
+          }{
+            \uncover<5>{
+              \resizebox{\linewidth}{!}{
+                \begin{tabular}{l}
+                  Extracted Keyphrases\\
+                  \midrule
+                  electronic journal publishing\\
+                  scholarly publishing\\
+                  libraries\\
+                  university\\
+                  project\\
+                  economic\\
+                  relevant\\
+                  role
+                \end{tabular}
+              }
+            }
           }
-        }
-      \end{column}
-    \end{columns}
+        \end{column}
+      \end{columns}
+    }
 
-    \begin{block}<6->{Drawbacks}
+    \vfill
+
+    \visible<2->{
+      \begin{block}<3->{PageRank's ``voting'' concept}
+        High-scoring words contribute more to the score of their connected words.
+      \end{block}
+    }
+
+    \visible<1>{
+      \begin{textblock*}{.95\textwidth}(.025\textwidth, -.76\textheight)
+        \setbeamertemplate{blocks}[rounded][shadow=true]
+
+        \begin{exampleblock}{\footnotesize Project Euclid and the role of
+                             research libraries in scholarly publishing}
+          \justifying
+          \footnotesize Project Euclid, a joint electronic journal publishing
+          initiative of Cornell University Library and Duke University Press is
+          discussed in the broader contexts of the changing patterns of
+          scholarly communication and the publishing scene of mathematics.
+          Specific aspects of the project such as partnerships and the creation
+          of an economic model are presented as well as what it takes to be a
+          publisher. Libraries have gained important and relevant experience
+          through the creation and management of digital libraries, but they
+          need to develop further skills if they want to adopt a new role in the
+          life cycle of scholarly communication.
+        \end{exampleblock}
+      \end{textblock*}
+    }
+  \end{frame}
+
+  \begin{frame}[t]{Related Work}
+    \framesubtitle{Graph-based approach: TextRank}
+
+    \begin{block}{Limitations}
       \begin{itemize}
         \item{Word nodes}
         \item{Co-occurence window}
