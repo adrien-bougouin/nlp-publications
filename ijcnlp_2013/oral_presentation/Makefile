@@ -9,9 +9,9 @@ input_FILES	= $(report_NAME).tex $(wildcard $(input_DIR)/*.tex) $(bib_File)
 
 default: $(report_NAME).pdf
 
-#	latex $(report_NAME).tex
-#	bibtex $(report_NAME)
 $(report_NAME).pdf: $(input_FILES)
+	latex $(report_NAME).tex
+	bibtex $(report_NAME)
 	latex $(report_NAME).tex
 	latex $(report_NAME).tex
 	dvips $(report_NAME).dvi

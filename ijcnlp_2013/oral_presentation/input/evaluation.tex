@@ -6,22 +6,36 @@
       \item<+->{Inspec contains 500 abstracts of journal papers (en)}
       \begin{itemize}
         \item{136.3 tokens/document $\Rightarrow$ small documents}
-        \item{9.8 keyphrases/document}
       \end{itemize}
       \item<+->{SemEval contains 100 scientific papers (en)}
       \begin{itemize}
         \item{5179.6 tokens/document $\Rightarrow$ large documents}
-        \item{14.7 keyphrases/document}
       \end{itemize}
       \item<+->{WikiNews contains 100 news articles (fr)}
       \begin{itemize}
         \item{309.6 tokens/document $\Rightarrow$ small documents}
-        \item{9.6 keyphrases/document}
       \end{itemize}
       \item<+->{DEFT contains 93 scientific papers (fr)}
       \begin{itemize}
         \item{6844.0 tokens/document $\Rightarrow$ large documents}
-        \item{5.2 keyphrases/document}
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Evaluation}
+    \framesubtitle{Baselines}
+
+    \begin{itemize}
+      \item<+->{TF-IDF weighting}
+      \item<+->{TextRank}
+      \begin{itemize}
+        \item{Word co-occurrence graph with a window of 2}
+        \item{Keyphrase generation based on keywords (10-bests)}
+      \end{itemize}
+      \item<+->{SingleRank}
+      \begin{itemize}
+        \item{Word co-occurrence graph with a window of 10}
+        \item{Candidate keyphrases scored by the sum of their words' PageRank score}
       \end{itemize}
     \end{itemize}
   \end{frame}
@@ -35,34 +49,9 @@
     \end{itemize}
 
     \begin{align}
-      \text{f-score} &= (1 + \beta^2) \times \frac{\text{precision} \times \text{recall}}{(\beta^2 \times precision) + recall}, \notag\\
+      \text{f-score} &= (1 + \beta^2) \times \frac{\text{precision} \times \text{recall}}{(\beta^2 \times precision) + recall} \notag\\
       \beta &= 1 \notag
     \end{align}
-  \end{frame}
-
-  \begin{frame}{Evaluation}
-    \framesubtitle{Baselines}
-
-    \begin{itemize}
-      \item<+->{TF-IDF weighting}
-      \begin{itemize}
-        \item{Best keyphrases contain words with hight TF-IDF}
-      \end{itemize}
-      \item<+->{TextRank}
-      \begin{itemize}
-        \item{Word co-occurrence graph with a window of 2}
-        \item{PageRank ranking}
-        \item{Keyphrase generation based on keywords (10-bests)}
-      \end{itemize}
-      \item<+->{SingleRank}
-      \begin{itemize}
-        \item{Word co-occurrence graph with a window of 10}
-        \item{PageRank scoring}
-        \item{Candidate keyphrases scored by the sum of their words' PageRank score}
-      \end{itemize}
-    \end{itemize}
-
-    \uncover<+->{Redundant keyphrases are removed from the output.}
   \end{frame}
 
   \begin{frame}[label=main_results]{Evaluation}
