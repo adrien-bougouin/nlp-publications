@@ -23,7 +23,7 @@
     }
 
     \uncover<6->{
-      \begin{alertblock}{Keyphrases ``famine''}
+      \begin{alertblock}{Lack of annotated document}
         Many documents have \textbf{no associated keyphrases}.
       \end{alertblock}
     }
@@ -58,6 +58,50 @@
   \end{frame}
 
   \begin{frame}{Introduction}
-    \framesubtitle{From Document to Keyphrases}
+    \framesubtitle{From document to keyphrases}
+
+    \begin{tikzpicture}[thin,
+                        align=center,
+                        scale=.45,
+                        node distance=2cm,
+                        every node/.style={
+                          ellipse,
+                          minimum width=5cm,
+                          minimum height=2cm,
+                          fill=green!20,
+                          draw=green!33,
+                          transform shape,
+                          font={\Large\bfseries}
+                        },
+                        main node/.style={
+                          text centered,
+                          thick,
+                          rectangle,
+                          minimum width=10cm,
+                          minimum height=2.5cm,
+                          fill=cyan!20,
+                          draw=cyan!33,
+                          transform shape,
+                          font={\Large\bfseries}
+                        }]
+      \node (documents) {documents};
+      \node[main node] (preprocessing) [right=of documents] {Preprocessing};
+      \node[main node] (candidate_extraction) [below=of preprocessing] {Candidate Extraction};
+      \node[main node] (candidate_classification_and_ranking) [below=of candidate_extraction] {
+        \begin{tabular}{r|lcl}
+          Candidate & Classification\\
+                    & Ranking
+        \end{tabular}
+      };\coordinate (plop) at (candidate_classification_and_ranking.east);
+      \node[main node] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Keyphrase Selection};
+      \node (keyphrases) [right=of keyphrase_selection] {keyphrases};
+
+      \path[->, thick] (documents) edge (preprocessing);
+      \path[->, thick] (preprocessing) edge (candidate_extraction);
+      \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
+      \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
+      \path[->, thick] (keyphrase_selection) edge (keyphrases);
+      \path[->] (plop) edge (documents);
+    \end{tikzpicture}
   \end{frame}
 

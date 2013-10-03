@@ -58,11 +58,11 @@
                                                   inner sep=1.5pt,
                                                   font=\Large\bfseries}]
               % connected component
-              \node[main node, fill=BurntOrange!50] (university) {university};
-              \node[main node] (duke) [above left=of university.north] {duke};
-              \node[main node] (library) [above=of university.north east] {library};
-              \node[main node] (press) [below left=of university.south] {press};
-              \node[main node] (cornell) [below right=of university.south] {cornell};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{2.378}}}}] (university) {university};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (duke) [above left=of university.north] {duke};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (library) [above=of university.north east] {library};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (press) [below left=of university.south] {press};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (cornell) [below right=of university.south] {cornell};
 
               \path[JungleGreen!50] (university) edge (library);
               \path[JungleGreen!50] (university) edge (duke);
@@ -70,20 +70,20 @@
               \path[JungleGreen!50] (university) edge (cornell);
 
               % connected component
-              \node[main node] (further) [left=of university.south west] {further};
-              \node[main node, label={\large\textbf{\visible<3>{\textcolor{red}{TODO}}}}] (skills) [below=of further.south west] {skills};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (further) [left=of university.south west] {further};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (skills) [below=of further.south west] {skills};
 
               \path[JungleGreen!50] (skills) edge (further);
 
               % connected component
-              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3>{\textcolor{red}{TODO}}}}] (scholarly) [right=of library.north east] {scholarly};
-              \node[main node] (communication) [below=of scholarly.west] {communication};
-              \node[main node, fill=BurntOrange!50] (publishing) [below right=of scholarly.south] {publishing};
-              \node[main node] (scene) [above right=of publishing.west] {scene};
-              \node[main node] (initiative) [below=of publishing.west] {initiative};
-              \node[main node, fill=BurntOrange!50] (journal) [below right=of scene.north east] {journal};
-              \node[main node, fill=BurntOrange!50] (electronic) [below=of journal.east] {electronic};
-              \node[main node] (joint) [below=of electronic.north west] {joint};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.140}}}}] (scholarly) [right=of library.north east] {scholarly};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.634}}}}] (communication) [below=of scholarly.west] {communication};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{2.121}}}}] (publishing) [below right=of scholarly.south] {publishing};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (scene) [above right=of publishing.west] {scene};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (initiative) [below=of publishing.west] {initiative};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.095}}}}] (journal) [below right=of scene.north east] {journal};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.163}}}}] (electronic) [below=of journal.east] {electronic};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.644}}}}] (joint) [below=of electronic.north west] {joint};
 
               \path[JungleGreen!50] (communication) edge (scholarly);
               \path[JungleGreen!50] (publishing) edge (scholarly);
@@ -94,50 +94,83 @@
               \path[JungleGreen!50] (joint) edge (electronic);
 
               % connected component
-              \node[main node] (new) [below=of skills.south] {new};
-              \node[main node, fill=BurntOrange!50] (role) [below=of new.south east] {role};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (new) [below=of skills.south] {new};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (role) [below=of new.south east] {role};
 
               \path[JungleGreen!50] (new) edge (role);
 
               % connected component
-              \node[main node] (digital) [right=of new.south east] {digital};
-              \node[main node, fill=BurntOrange!50] (libraries) [below =of cornell.south] {libraries};
-              \node[main node] (research) [right =of libraries.south east] {research};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (digital) [right=of new.south east] {digital};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (libraries) [below =of cornell.south] {libraries};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (research) [right =of libraries.south east] {research};
 
               \path[JungleGreen!50] (digital) edge (libraries);
               \path[JungleGreen!50] (libraries) edge (research);
 
               % connected component
-              \node[main node, fill=BurntOrange!50] (relevant) [below right=of research.north] {relevant};
-              \node[main node] (experience) [below left=of relevant.south west] {experience};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (relevant) [below right=of research.north] {relevant};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (experience) [below left=of relevant.south west] {experience};
 
               \path[JungleGreen!50] (relevant) edge (experience);
 
               % connected component
-              \node[main node] (model) [below=of digital.south east] {model};
-              \node[main node, fill=BurntOrange!50] (economic) [below right=of model.south east] {economic};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (model) [below=of digital.south east] {model};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (economic) [below right=of model.south east] {economic};
 
               \path[JungleGreen!50] (model) edge (economic);
 
               % connected component
-              \node[main node] (specific) [below left=of economic.center] {specific};
-              \node[main node] (aspects) [above left=of specific.north west] {aspects};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (specific) [below left=of economic.center] {specific};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (aspects) [above left=of specific.north west] {aspects};
 
               \path[JungleGreen!50] (specific) edge (aspects);
 
               % connected component
-              \node[main node] (life) [below right=of economic.south east] {life};
-              \node[main node] (cycle) [right=of life.north east] {cycle};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (life) [below right=of economic.south east] {life};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (cycle) [right=of life.north east] {cycle};
 
               \path[JungleGreen!50] (life) edge (cycle);
 
               % connected component
-              \node[main node] (euclid) [right=of relevant.north east] {euclid};
-              \node[main node, fill=BurntOrange!50] (project) [below left=of euclid.south east] {project};
-              \node[main node] (such) [below left=of project.south east] {such};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (euclid) [right=of relevant.north east] {euclid};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (project) [below left=of euclid.south east] {project};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (such) [below left=of project.south east] {such};
 
               \path[JungleGreen!50] (euclid) edge (project);
               \path[JungleGreen!50] (project) edge (such);
+
+              % depth management
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{2.378}}}}] (university) {university};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (duke) [above left=of university.north] {duke};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (library) [above=of university.north east] {library};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (press) [below left=of university.south] {press};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (cornell) [below right=of university.south] {cornell};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (further) [left=of university.south west] {further};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (skills) [below=of further.south west] {skills};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.140}}}}] (scholarly) [right=of library.north east] {scholarly};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.634}}}}] (communication) [below=of scholarly.west] {communication};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{2.121}}}}] (publishing) [below right=of scholarly.south] {publishing};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (scene) [above right=of publishing.west] {scene};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (initiative) [below=of publishing.west] {initiative};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.095}}}}] (journal) [below right=of scene.north east] {journal};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.163}}}}] (electronic) [below=of journal.east] {electronic};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.644}}}}] (joint) [below=of electronic.north west] {joint};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (new) [below=of skills.south] {new};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (role) [below=of new.south east] {role};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (digital) [right=of new.south east] {digital};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (libraries) [below =of cornell.south] {libraries};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (research) [right =of libraries.south east] {research};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (relevant) [below right=of research.north] {relevant};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (experience) [below left=of relevant.south west] {experience};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (model) [below=of digital.south east] {model};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (economic) [below right=of model.south east] {economic};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (specific) [below left=of economic.center] {specific};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (aspects) [above left=of specific.north west] {aspects};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (life) [below right=of economic.south east] {life};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (cycle) [right=of life.north east] {cycle};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (euclid) [right=of relevant.north east] {euclid};
+              \node[main node, fill=BurntOrange!50, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (project) [below left=of euclid.south east] {project};
+              \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (such) [below left=of project.south east] {such};
             \end{tikzpicture}
           }{
             \visible<2->{
@@ -153,11 +186,11 @@
                                                     inner sep=1.5pt,
                                                     font=\Large\bfseries}]
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (university) {university};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (duke) [above left=of university.north] {duke};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (library) [above=of university.north east] {library};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (press) [below left=of university.south] {press};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (cornell) [below right=of university.south] {cornell};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{2.378}}}}] (university) {university};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (duke) [above left=of university.north] {duke};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (library) [above=of university.north east] {library};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (press) [below left=of university.south] {press};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (cornell) [below right=of university.south] {cornell};
 
                 \path[JungleGreen!50] (university) edge (library);
                 \path[JungleGreen!50] (university) edge (duke);
@@ -165,20 +198,20 @@
                 \path[JungleGreen!50] (university) edge (cornell);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (further) [left=of university.south west] {further};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (skills) [below=of further.south west] {skills};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (further) [left=of university.south west] {further};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (skills) [below=of further.south west] {skills};
 
                 \path[JungleGreen!50] (skills) edge (further);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (scholarly) [right=of library.north east] {scholarly};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (communication) [below=of scholarly.west] {communication};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (publishing) [below right=of scholarly.south] {publishing};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (scene) [above right=of publishing.west] {scene};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (initiative) [below=of publishing.west] {initiative};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (journal) [below right=of scene.north east] {journal};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (electronic) [below=of journal.east] {electronic};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (joint) [below=of electronic.north west] {joint};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.140}}}}] (scholarly) [right=of library.north east] {scholarly};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.634}}}}] (communication) [below=of scholarly.west] {communication};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{2.121}}}}] (publishing) [below right=of scholarly.south] {publishing};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (scene) [above right=of publishing.west] {scene};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (initiative) [below=of publishing.west] {initiative};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.095}}}}] (journal) [below right=of scene.north east] {journal};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.163}}}}] (electronic) [below=of journal.east] {electronic};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.644}}}}] (joint) [below=of electronic.north west] {joint};
 
                 \path[JungleGreen!50] (communication) edge (scholarly);
                 \path[JungleGreen!50] (publishing) edge (scholarly);
@@ -189,83 +222,83 @@
                 \path[JungleGreen!50] (joint) edge (electronic);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (new) [below=of skills.south] {new};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (role) [below=of new.south east] {role};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (new) [below=of skills.south] {new};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (role) [below=of new.south east] {role};
 
                 \path[JungleGreen!50] (new) edge (role);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (digital) [right=of new.south east] {digital};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (libraries) [below =of cornell.south] {libraries};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (research) [right =of libraries.south east] {research};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (digital) [right=of new.south east] {digital};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (libraries) [below =of cornell.south] {libraries};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (research) [right =of libraries.south east] {research};
 
                 \path[JungleGreen!50] (digital) edge (libraries);
                 \path[JungleGreen!50] (libraries) edge (research);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (relevant) [below right=of research.north] {relevant};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (experience) [below left=of relevant.south west] {experience};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (relevant) [below right=of research.north] {relevant};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (experience) [below left=of relevant.south west] {experience};
 
                 \path[JungleGreen!50] (relevant) edge (experience);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (model) [below=of digital.south east] {model};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (economic) [below right=of model.south east] {economic};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (model) [below=of digital.south east] {model};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (economic) [below right=of model.south east] {economic};
 
                 \path[JungleGreen!50] (model) edge (economic);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (specific) [below left=of economic.center] {specific};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (aspects) [above left=of specific.north west] {aspects};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (specific) [below left=of economic.center] {specific};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (aspects) [above left=of specific.north west] {aspects};
 
                 \path[JungleGreen!50] (specific) edge (aspects);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (life) [below right=of economic.south east] {life};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (cycle) [right=of life.north east] {cycle};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (life) [below right=of economic.south east] {life};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (cycle) [right=of life.north east] {cycle};
 
                 \path[JungleGreen!50] (life) edge (cycle);
 
                 % connected component
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (euclid) [right=of relevant.north east] {euclid};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (project) [below left=of euclid.south east] {project};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (such) [below left=of project.south east] {such};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (euclid) [right=of relevant.north east] {euclid};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (project) [below left=of euclid.south east] {project};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (such) [below left=of project.south east] {such};
 
                 \path[JungleGreen!50] (euclid) edge (project);
                 \path[JungleGreen!50] (project) edge (such);
 
-                % redraw for depth
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (university) {university};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (duke) [above left=of university.north] {duke};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (library) [above=of university.north east] {library};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (press) [below left=of university.south] {press};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (cornell) [below right=of university.south] {cornell};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (further) [left=of university.south west] {further};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (skills) [below=of further.south west] {skills};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (scholarly) [right=of library.north east] {scholarly};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (communication) [below=of scholarly.west] {communication};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (publishing) [below right=of scholarly.south] {publishing};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (scene) [above right=of publishing.west] {scene};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (initiative) [below=of publishing.west] {initiative};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (journal) [below right=of scene.north east] {journal};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (electronic) [below=of journal.east] {electronic};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (joint) [below=of electronic.north west] {joint};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (new) [below=of skills.south] {new};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (role) [below=of new.south east] {role};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (digital) [right=of new.south east] {digital};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (libraries) [below =of cornell.south] {libraries};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (research) [right =of libraries.south east] {research};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (relevant) [below right=of research.north] {relevant};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (experience) [below left=of relevant.south west] {experience};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (model) [below=of digital.south east] {model};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (economic) [below right=of model.south east] {economic};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (specific) [below left=of economic.center] {specific};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (aspects) [above left=of specific.north west] {aspects};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (life) [below right=of economic.south east] {life};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (cycle) [right=of life.north east] {cycle};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (euclid) [right=of relevant.north east] {euclid};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (project) [below left=of euclid.south east] {project};
-                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{TODO}}}}] (such) [below left=of project.south east] {such};
+                % depth management
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{2.378}}}}] (university) {university};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (duke) [above left=of university.north] {duke};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (library) [above=of university.north east] {library};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (press) [below left=of university.south] {press};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.655}}}}] (cornell) [below right=of university.south] {cornell};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (further) [left=of university.south west] {further};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (skills) [below=of further.south west] {skills};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.140}}}}] (scholarly) [right=of library.north east] {scholarly};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.634}}}}] (communication) [below=of scholarly.west] {communication};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{2.121}}}}] (publishing) [below right=of scholarly.south] {publishing};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (scene) [above right=of publishing.west] {scene};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.601}}}}] (initiative) [below=of publishing.west] {initiative};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.095}}}}] (journal) [below right=of scene.north east] {journal};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.163}}}}] (electronic) [below=of journal.east] {electronic};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.644}}}}] (joint) [below=of electronic.north west] {joint};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (new) [below=of skills.south] {new};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (role) [below=of new.south east] {role};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (digital) [right=of new.south east] {digital};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (libraries) [below =of cornell.south] {libraries};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (research) [right =of libraries.south east] {research};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (relevant) [below right=of research.north] {relevant};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (experience) [below left=of relevant.south west] {experience};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (model) [below=of digital.south east] {model};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (economic) [below right=of model.south east] {economic};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (specific) [below left=of economic.center] {specific};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (aspects) [above left=of specific.north west] {aspects};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (life) [below right=of economic.south east] {life};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.000}}}}] (cycle) [right=of life.north east] {cycle};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (euclid) [right=of relevant.north east] {euclid};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{1.459}}}}] (project) [below left=of euclid.south east] {project};
+                \node[main node, label={\large\textbf{\visible<3->{\textcolor{red}{0.770}}}}] (such) [below left=of project.south east] {such};
               \end{tikzpicture}
             }
           }
