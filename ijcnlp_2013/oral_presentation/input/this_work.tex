@@ -1,17 +1,35 @@
 %\section{This Work}
   \begin{frame}[t]{This Work}
-    \begin{block}{Limitations}
+    \begin{block}{Limitations of previous work}
       \begin{itemize}
-        \item{Word nodes}
-        \item{Co-occurence window}
-        \item{Several nodes for one topic}
+        \item{Word nodes\tikz[overlay, remember picture]\node[coordinate, xshift=.5em, yshift=.25em] (b1) {};}
+        \item{\tikz[overlay, remember picture]\node[coordinate, xshift=-.5em, yshift=.25em] (b2) {};Co-occurence window}
+        \item{Several nodes for one topic\tikz[overlay, remember picture]\node[coordinate, xshift=0.5em, yshift=.25em] (b3) {};}
       \end{itemize}
     \end{block}
 
-    \begin{enumerate}
-      \item{Topic granularity}
-      \item{Stable node linkage}
-      \item{Extraction of \textbf{topically unredundant keyphrases}}
-    \end{enumerate}
+    \vfill
+
+    \uncover<2->{
+      \begin{block}{Proposal}
+        \begin{enumerate}
+          \item{Topic nodes\tikz[overlay, remember picture]\node[coordinate, xshift=.5em, yshift=.25em] (e1) {};}
+          \item<3->{\tikz[overlay, remember picture]\node[coordinate, xshift=-.5em, yshift=.25em] (e2) {};Complete graph construction}
+          \item<4->{Selection of one keyphrase representing each topic}
+        \end{enumerate}
+      \end{block}
+    }
+
+    \visible<2->{
+      \begin{tikzpicture}[overlay, remember picture]
+        \draw[->, thick] (b1) .. controls ([xshift=7cm] b1) and ([xshift=5cm] e1) .. (e1);
+        \draw[->, thick] (b3) .. controls ([xshift=2cm] b3) and ([xshift=3cm] e1) .. (e1);
+      \end{tikzpicture}
+    }
+    \visible<3->{
+      \begin{tikzpicture}[overlay, remember picture]
+        \draw[->, thick] ([xshift=-.5cm] b2) .. controls ([xshift=-1.25cm] b2) and ([xshift=-1.25cm] e2) .. ([xshift=-.5cm] e2);
+      \end{tikzpicture}
+    }
   \end{frame}
 

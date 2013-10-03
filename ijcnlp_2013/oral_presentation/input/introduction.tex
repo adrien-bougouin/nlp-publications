@@ -23,7 +23,7 @@
     }
 
     \uncover<6->{
-      \begin{alertblock}{Lack of annotated document}
+      \begin{alertblock}{Lack of annotated documents}
         Many documents have \textbf{no associated keyphrases}.
       \end{alertblock}
     }
@@ -60,48 +60,67 @@
   \begin{frame}{Introduction}
     \framesubtitle{From document to keyphrases}
 
-    \begin{tikzpicture}[thin,
-                        align=center,
-                        scale=.45,
-                        node distance=2cm,
-                        every node/.style={
-                          ellipse,
-                          minimum width=5cm,
-                          minimum height=2cm,
-                          fill=green!20,
-                          draw=green!33,
-                          transform shape,
-                          font={\Large\bfseries}
-                        },
-                        main node/.style={
-                          text centered,
-                          thick,
-                          rectangle,
-                          minimum width=10cm,
-                          minimum height=2.5cm,
-                          fill=cyan!20,
-                          draw=cyan!33,
-                          transform shape,
-                          font={\Large\bfseries}
-                        }]
-      \node (documents) {documents};
-      \node[main node] (preprocessing) [right=of documents] {Preprocessing};
-      \node[main node] (candidate_extraction) [below=of preprocessing] {Candidate Extraction};
-      \node[main node] (candidate_classification_and_ranking) [below=of candidate_extraction] {
-        \begin{tabular}{r|lcl}
-          Candidate & Classification\\
-                    & Ranking
-        \end{tabular}
-      };\coordinate (plop) at (candidate_classification_and_ranking.east);
-      \node[main node] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Keyphrase Selection};
-      \node (keyphrases) [right=of keyphrase_selection] {keyphrases};
+    \tikzstyle{io}=[
+      ellipse,
+      minimum width=5cm,
+      minimum height=2cm,
+      fill=green!20,
+      draw=green!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
+    \tikzstyle{component}=[
+      text centered,
+      thick,
+      rectangle,
+      minimum width=10cm,
+      minimum height=2.5cm,
+      fill=cyan!20,
+      draw=cyan!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
 
-      \path[->, thick] (documents) edge (preprocessing);
-      \path[->, thick] (preprocessing) edge (candidate_extraction);
-      \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
-      \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
-      \path[->, thick] (keyphrase_selection) edge (keyphrases);
-      \path[->] (plop) edge (documents);
-    \end{tikzpicture}
+    \begin{center}
+      \begin{tikzpicture}[thin,
+                          align=center,
+                          scale=.4,
+                          node distance=2cm,
+                          every node/.style={text centered, transform shape}]
+        \node[io] (documents) {documents};
+        \node[component] (preprocessing) [right=of documents] {Preprocessing};
+        \node[component] (candidate_extraction) [below=of preprocessing] {Candidate Extraction};
+        \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
+          \begin{tabular}{r|lcl}
+            Candidate & Classification\\
+                      & Ranking
+          \end{tabular}
+        };
+        \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Keyphrase Selection};
+        \node[io] (keyphrases) [right=of keyphrase_selection] {keyphrases};
+
+        \path[->, thick] (documents) edge (preprocessing);
+        \path[->, thick] (preprocessing) edge (candidate_extraction);
+        \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
+        \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
+        \path[->, thick] (keyphrase_selection) edge (keyphrases);
+
+        \visible<2->{
+          \coordinate[xshift=-1em, yshift=1em] (classification) at (candidate_classification_and_ranking.east);
+          \coordinate[xshift=5em, yshift=5em] (supervised_coordinates) at (candidate_classification_and_ranking.east);
+          \coordinate[xshift=-4.5em, yshift=-1em] (ranking) at (candidate_classification_and_ranking.east);
+          \coordinate[xshift=5em, yshift=-5em] (unsupervised_coordinates) at (candidate_classification_and_ranking.east);
+
+          \node (supervised) at (supervised_coordinates) {\Large\textbf{supervised}};
+          \node (unsupervised) at (unsupervised_coordinates) {\Large\textbf{unsupervised}};
+
+          \path[->, red, thick] (supervised) edge (classification);
+          \path[->, red, thick] (unsupervised) edge (ranking);
+          \visible<3->{
+            \node[draw=red, ellipse, thick] (unsupervised) at (unsupervised_coordinates) {\Large\textbf{unsupervised}};
+          }
+        }
+      \end{tikzpicture}
+    \end{center}
   \end{frame}
 

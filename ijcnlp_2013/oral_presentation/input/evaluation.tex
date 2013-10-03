@@ -2,24 +2,33 @@
   \begin{frame}{Evaluation}
     \framesubtitle{Datasets}
 
+    Two English datasets:
     \begin{itemize}
-      \item<+->{Inspec contains 500 abstracts of journal papers (en)}
+      \item{Inspec contains 500 abstracts of journal papers}
       \begin{itemize}
-        \item{136.3 tokens/document $\Rightarrow$ small documents}
+        \item{136.3 tokens/document}
       \end{itemize}
-      \item<+->{SemEval contains 100 scientific papers (en)}
+      \item<2->{SemEval contains 100 scientific papers}
       \begin{itemize}
-        \item{5179.6 tokens/document $\Rightarrow$ large documents}
-      \end{itemize}
-      \item<+->{WikiNews contains 100 news articles (fr)}
-      \begin{itemize}
-        \item{309.6 tokens/document $\Rightarrow$ small documents}
-      \end{itemize}
-      \item<+->{DEFT contains 93 scientific papers (fr)}
-      \begin{itemize}
-        \item{6844.0 tokens/document $\Rightarrow$ large documents}
+        \item{5179.6 tokens/document}
       \end{itemize}
     \end{itemize}
+
+    \vfill
+
+    \uncover<3->{
+      Two French datasets:
+      \begin{itemize}
+        \item<3->{WikiNews contains 100 news articles}
+        \begin{itemize}
+          \item{309.6 tokens/document}
+        \end{itemize}
+        \item<4->{DEFT contains 93 scientific papers}
+        \begin{itemize}
+          \item{6844.0 tokens/document}
+        \end{itemize}
+      \end{itemize}
+    }
   \end{frame}
 
   \begin{frame}{Evaluation}
@@ -35,13 +44,13 @@
       \item<+->{SingleRank}
       \begin{itemize}
         \item{Word co-occurrence graph with a window of 10}
-        \item{Candidate keyphrases scored by the sum of their words' PageRank score}
+        \item{Candidate keyphrases scored by their words' score (sum)}
       \end{itemize}
     \end{itemize}
   \end{frame}
 
   \begin{frame}{Evaluation}
-    \framesubtitle{Evaluation Measures}
+    \framesubtitle{Measures}
 
     \begin{itemize}
       \item{Cut-off at 10 keyphrases}
@@ -55,12 +64,12 @@
   \end{frame}
 
   \begin{frame}[label=main_results]{Evaluation}
-    \framesubtitle{\hyperlink{main_results_backup}{Main Results}}
+    \framesubtitle{\hyperlink{main_results_backup}{Main results}}
     
     \begin{center}
       \begin{tabular}{rcccc}
         \toprule
-        Methods & Inspec & SemEval & WikiNews & DEFT\\
+        \textbf{Method} & \textbf{Inspec} & \textbf{SemEval} & \textbf{WikiNews} & \textbf{DEFT}\\
         \midrule
         TF-IDF & 33.4 & 10.5 & 34.3 & 13.2\\
         TextRank & 12.7 & $~~$5.6 & $~~$8.6 & $~~$5.7\\
@@ -73,59 +82,55 @@
     \begin{itemize}
       \item[\footnotesize\color{green}$\blacksquare$]{Improvement over TF-IDF}
       \item[\footnotesize\color{green}$\blacksquare$]{Significant improvement
-                                                      over state-of-the-art
-                                                      graph-based methods}
+                                                      over graph-based methods}
       \item[\footnotesize\color{red}$\blacksquare$]{Performance loss on Inspec}
     \end{itemize}
   \end{frame}
 
   \begin{frame}[label=contributions_evaluation]{Evaluation}
-    \framesubtitle{\hyperlink{contributions_evaluation_backup}{Contributions Evaluation}}
+    \framesubtitle{\hyperlink{contributions_evaluation_backup}{Individual contributions}}
     
     \begin{center}
       \begin{tabular}{rcccc}
         \toprule
-        Methods & Inspec & SemEval & WikiNews & DEFT\\
+        \textbf{Method} & \textbf{Inspec} & \textbf{SemEval} & \textbf{WikiNews} & \textbf{DEFT}\\
         \midrule
         SingleRank & 35.2 & $~~$3.7 & 19.7 & $~~$5.9\\
+        \midrule
         +phrases & 22.1 & $~~$8.0 & 28.9 & 13.5\\
         +topics & 26.8 & 11.9 & 31.4 & 14.8\\
         +complete &  \cellcolor{pink}{35.5} & $~~$4.4 & 20.3 & $~~$5.8\\
+        \midrule
         TopicRank & 27.9 & \cellcolor{pink}{12.1} & \cellcolor{pink}{35.6} & \cellcolor{pink}{15.1}\\
         \bottomrule
       \end{tabular}
     \end{center}
 
     \begin{itemize}
-      \item[\footnotesize\color{green}$\blacksquare$]{Topic nodes $>$ candidate
-                                                      nodes $>$ word nodes}
-      \begin{itemize}
-        \item[\scriptsize\color{red}$\blacktriangleright$]{The above statement
-                                                           is false on Inspec}
-      \end{itemize}
+      \item[\footnotesize\color{green}$\blacksquare$]{Nodes: Topics $>$
+                                                      candidates $>$ words}
       \item[\footnotesize\color{green}$\blacksquare$]{Complete graph $\geq$
                                                       co-occurrence graph}
-      \item[\footnotesize\color{green}$\blacksquare$]{The combination is better
-                                                      than each contributions}
-      \begin{itemize}
-        \item[\scriptsize\color{red}$\blacktriangleright$]{The above statement
-                                                           is false on Inspec}
-      \end{itemize}
+      \item[\footnotesize\color{green}$\blacksquare$]{Contribution improve
+                                                      performances}
+      \item[\footnotesize\color{red}$\blacksquare$]{The above statements are
+                                                    false on Inspec}
     \end{itemize}
   \end{frame}
 
   \begin{frame}[label=keyphrase_selection_evaluation]{Evaluation}
-    \framesubtitle{\hyperlink{keyphrase_selection_evaluation_backup}{Keyphrase Selection Evaluation}}
+    \framesubtitle{\hyperlink{keyphrase_selection_evaluation_backup}{Keyphrase selection}}
     
     \begin{center}
       \resizebox{\linewidth}{!}{
         \begin{tabular}{rcccc}
           \toprule
-          Keyphrase selection & Inspec & SemEval & WikiNews & DEFT\\
+          \textbf{Keyphrase selection} & \textbf{Inspec} & \textbf{SemEval} & \textbf{WikiNews} & \textbf{DEFT}\\
           \midrule
           \rowcolor{cyan!33} First position & 27.9 & 12.1 & 35.6 & 15.1\\
           Frequency & 26.8 & $~~$1.4 & 26.2 & $~~$2.5\\
           Centroid &  24.7 & $~~$1.5 & 28.5 & $~~$3.4\\
+          \midrule
           \rowcolor{pink} Upper bound & 35.6 & 30.3 & 42.9 & 19.3\\
           \bottomrule
         \end{tabular}
@@ -133,9 +138,8 @@
     \end{center}
 
     \begin{itemize}
-      \item[\footnotesize\color{green}$\blacksquare$]{A perfect heuristique
-                                                      would anihilate the Inspec
-                                                      problem}
+      \item[\footnotesize\color{green}$\blacksquare$]{Still room for
+                                                      improvement}
     \end{itemize}
   \end{frame}
 
