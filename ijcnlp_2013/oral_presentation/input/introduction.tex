@@ -87,8 +87,8 @@
                           scale=.4,
                           node distance=2cm,
                           every node/.style={text centered, transform shape}]
-        \node[io] (documents) {documents};
-        \node[component] (preprocessing) [right=of documents] {Preprocessing};
+        \node[io] (document) {document};
+        \node[component] (preprocessing) [right=of document] {Preprocessing};
         \node[component] (candidate_extraction) [below=of preprocessing] {Candidate Extraction};
         \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
           \begin{tabular}{r|lcl}
@@ -99,7 +99,7 @@
         \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Keyphrase Selection};
         \node[io] (keyphrases) [right=of keyphrase_selection] {keyphrases};
 
-        \path[->, thick] (documents) edge (preprocessing);
+        \path[->, thick] (document) edge (preprocessing);
         \path[->, thick] (preprocessing) edge (candidate_extraction);
         \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
         \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
