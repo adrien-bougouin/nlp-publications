@@ -29,7 +29,7 @@
     }
 
     \visible<2,3>{
-      \begin{textblock*}{.95\textwidth}(.025\textwidth, -.71\textheight)
+      \begin{textblock*}{.95\textwidth}(.025\textwidth, -.7\textheight)
         \setbeamertemplate{blocks}[rounded][shadow=true]
 
         \begin{exampleblock}{\footnotesize \textcolor{red}{Project Euclid}
@@ -88,7 +88,7 @@
                           node distance=2cm,
                           every node/.style={text centered, transform shape}]
         \node[io] (document) {document};
-        \node[component] (preprocessing) [right=of document] {Preprocessing};
+        \node[component] (preprocessing) [right=of document] {Linguistic Preprocessing};
         \node[component] (candidate_extraction) [below=of preprocessing] {Candidate Extraction};
         \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
           \begin{tabular}{r|lcl}

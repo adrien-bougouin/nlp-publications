@@ -4,11 +4,11 @@
 
     Two English datasets:
     \begin{itemize}
-      \item{Inspec contains 500 abstracts of journal papers}
+      \item<2->{Inspec contains 500 abstracts of journal papers}
       \begin{itemize}
         \item{136.3 tokens/document}
       \end{itemize}
-      \item<2->{SemEval contains 100 scientific papers}
+      \item<3->{SemEval (2010) contains 100 scientific papers}
       \begin{itemize}
         \item{5179.6 tokens/document}
       \end{itemize}
@@ -16,19 +16,17 @@
 
     \vfill
 
-    \uncover<3->{
-      Two French datasets:
+    Two French datasets:
+    \begin{itemize}
+      \item<4->{WikiNews contains 100 news articles}
       \begin{itemize}
-        \item<3->{WikiNews contains 100 news articles}
-        \begin{itemize}
-          \item{309.6 tokens/document}
-        \end{itemize}
-        \item<4->{DEFT contains 93 scientific papers}
-        \begin{itemize}
-          \item{6844.0 tokens/document}
-        \end{itemize}
+        \item{309.6 tokens/document}
       \end{itemize}
-    }
+      \item<5->{DEFT (2012) contains 93 scientific papers}
+      \begin{itemize}
+        \item{6844.0 tokens/document}
+      \end{itemize}
+    \end{itemize}
   \end{frame}
 
   \begin{frame}{Evaluation}
@@ -54,6 +52,7 @@
 
     \begin{itemize}
       \item{Cut-off at 10 keyphrases}
+      \item{Comparison between stemmed forms}
       \item{F-score $\Rightarrow$ compromise between precision and recall}
     \end{itemize}
 

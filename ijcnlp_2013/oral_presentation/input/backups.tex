@@ -1,4 +1,45 @@
 %\section{Backups}
+  \begin{frame}[label=candidate_extraction_backup]{Backups}
+    \framesubtitle{\hyperlink{topicrank}{Candidate Extraction}}
+
+    \begin{columns}
+      \begin{column}{0.45\textwidth}
+        \begin{itemize}
+          \item{Focusing on nouns and adjectives is ``enough'' for English}
+          \item{Prepositions and determiners should also be considered for
+                French}
+        \end{itemize}
+      \end{column}
+
+      \begin{column}{0.55\textwidth}
+        \begin{center}
+          \scriptsize
+          \begin{tabular}{rcc}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Statistic}} & \multicolumn{2}{c}{\textbf{Corpus}}\\
+            \cmidrule{2-3}
+            & SemEval & DEFT\\
+            \midrule
+            \addlinespace[1.5\defaultaddspace]
+            Unigrams & 20.2\% & 66.4\%\\
+            Bigrams & 53.4\% & 20.7\%\\
+            Trigrams and more & 26.4\% & 12.9\%\\
+            \addlinespace[.75\defaultaddspace]
+            Containing nouns & \cellcolor{pink}{95.9\%} & \cellcolor{pink}{79.3\%}\\
+            Containing proper nouns & $~~$5.8\% & 16.8\%\\
+            Containing adjectives & \cellcolor{pink}{40.5\%} & \cellcolor{pink}{28.8\%}\\
+            Containing verbs & $~~$3.4\% & $~~$0.5\%\\
+            Containing adverbs & $~~$0.6\% & $~~$0.5\%\\
+            Containing prepositions & $~~$1.2\% & \cellcolor{cyan!20}{12.7\%}\\
+            Containing determiners & $~~$0.0\% & \cellcolor{cyan!20}{$~~$8.1\%}\\
+            Containing others & $~~$2.1\% & $~~$5.8\%\\
+            \bottomrule
+          \end{tabular}
+        \end{center}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
   \begin{frame}[label=candidate_clustering_backup]{Backups}
     \framesubtitle{\hyperlink{topicrank}{Candidate Clustering}}
 
