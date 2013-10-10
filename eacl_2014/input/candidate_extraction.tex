@@ -99,8 +99,8 @@
     them to the training sets. As said before, the datasets differ in terms of
     size, type and language. Moreover, it is worth noticing that the number of
     keyphrases, the ratio of missing ones and the average number of tokens per
-    keyphrases differ too. This observation is due to the fact that there is not
-    a unique methodology (guideline) to associate keyphrases to a document. To
+    keyphrases differ too. These are due to the fact that there is not a unique
+    methodology (guideline) to manually associate keyphrases to a document. To
     better fit the requirements, such guidelines should not only be used by
     human annotators, but also by automatic keyphrase extraction methods.
     \todo{[CAPTION] Others are mainly foreign words and coordinating conjonctions.}
@@ -146,9 +146,16 @@
   \subsection{Reference Keyphrases Analysis}
   \label{subsec:keyphrase_analysis}
     Despite the fact that the data are not homogeneous, this section aims to
-    determine the syntactic properties of most keyphrases, for English
-    (intersecting information from DUC and SemEval training sets) and for French
-    (using DEFT training set).
+    find the syntactic properties of most keyphrases, for English (intersecting
+    information from DUC and SemEval) and for French (using DEFT). To avoid from
+    biasing our work we only exploit information from the training data.
+
+    The first observation from Table \ref{tab:train_dataset_statistics} is that
+    most of the keyphrases are unigrams or bigrams ($\simeq$~80\%). This, plus
+    the fact that the number of n-gram keyphrases (n $\geq$ 3) decrease when n
+    increase, means that keyphrases are more often less informative. Keyphrases
+    bear the minimum information to represent one important idea (e.g. TODO
+    instead of TODO).
 
     \begin{itemize}
       \item{About 80\% of reference keyphrases contain only one or two words.}
