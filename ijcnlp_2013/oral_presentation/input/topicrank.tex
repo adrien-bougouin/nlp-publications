@@ -5,7 +5,10 @@
         \begin{enumerate}
           \item<2->{Candidate extraction}
           \alt<2>{
-            \item[$\Rightarrow$]{\small \hyperlink{candidate_extraction_backup}{$(\text{NOUN} | \text{ADJ})^+$}}
+            \item[$\Rightarrow$]{\footnotesize \hyperlink{candidate_extraction_backup}{$(\text{NOUN} | \text{ADJ})^+$}
+                                 \tikz[remember picture, overlay]{\node[coordinate, xshift=-3.5em, yshift=1em](pattern_head){};
+                                 \node[coordinate, yshift=5em](pattern_tail){};
+                                 \draw[->, thick, red] (pattern_tail) node [yshift=.5em] {plop} -- (pattern_head);}}
             \item<3->{Candidate clustering}
           }{
             \item<3->{Candidate clustering}
