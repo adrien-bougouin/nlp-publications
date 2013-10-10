@@ -4,33 +4,33 @@
 
     Mostly ranking technics using:
     \begin{itemize}
-      \item{language models}
-      \item<2->{clusters}
-      \item<3->{or \textbf{graphs} of word
+      \item<2->{language models}
+      \item<3->{clusters}
+      \item<4->{or \textbf{graphs} of word
                 co-occurrences}
       \begin{itemize}
-        \item<4->{weighted with co-occurrence number or semantic measure}
-        \item<5->{refined with similar documents}
-        \item<6->{biased with topic probabilities}
+        \item<5->{weighted with co-occurrence number or semantic measure}
+        \item<6->{refined with similar documents}
+        \item<7->{biased with topic probabilities}
       \end{itemize}
     \end{itemize}
     \vfill
-    \alt<6>{
+    \alt<7>{
       \cite{liu2010topicalpagerank}
     }{
-      \alt<5>{
+      \alt<6>{
         \cite{wan2008expandrank}
       }{
-        \alt<4>{
+        \alt<5>{
           \cite{wan2008expandrank, tsatsaronis2010semanticrank}
         }{
-          \alt<3>{
+          \alt<4>{
             \cite[\underline{TextRank}]{mihalcea2004textrank}
           }{
-            \alt<2>{
+            \alt<3>{
               \cite{liu2009keycluster}
             }{
-              \cite{tomokiyo2003languagemodel}
+                \visible<2>{\cite{tomokiyo2003languagemodel}}
             }
           }
         }
