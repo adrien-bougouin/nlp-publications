@@ -52,14 +52,14 @@
 
     \begin{itemize}
       \item{Cut-off at 10 keyphrases}
-      \item{Comparison between stemmed forms}
       \item{F-score $\Rightarrow$ compromise between precision and recall}
+      \begin{align}
+        \text{f-score} &= (1 + \beta^2) \times \frac{\text{precision} \times \text{recall}}{(\beta^2 \times precision) + recall} \notag\\
+        \beta &= 1 \notag
+      \end{align}
+      \item{Problem of dealing with gold standard}
+      \item[$\Rightarrow$]{Stemmed form comparisons}
     \end{itemize}
-
-    \begin{align}
-      \text{f-score} &= (1 + \beta^2) \times \frac{\text{precision} \times \text{recall}}{(\beta^2 \times precision) + recall} \notag\\
-      \beta &= 1 \notag
-    \end{align}
   \end{frame}
 
   \begin{frame}[label=main_results]{Evaluation}

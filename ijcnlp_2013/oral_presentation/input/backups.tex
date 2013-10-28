@@ -70,6 +70,20 @@
     \end{small}
   \end{frame}
 
+  \begin{frame}[label=graph_construction_backup]{Backups}
+    \framesubtitle{Graph Construction}
+
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{ccccc}
+        \toprule
+        & \textbf{Inspec} & \textbf{SemEval} & \textbf{WikiNews} & \textbf{DEFT}\\
+        \midrule
+        clusters/documents & 20.9 & 272.4 & 52.4 & 546.5\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{frame}
+
   \begin{frame}[label=topic_ranking_backup]{Backups}
     \framesubtitle{\hyperlink{topicrank}{Topic Ranking}}
 
@@ -79,7 +93,8 @@
     \end{block}
 
     \begin{align}
-      \text{Score}(t_i) = (1 - \lambda) + \lambda \times \sum_{t_j \neq t_i} \frac{\text{weight}(t_i, t_j) \times \text{Score}(t_j)}{\mathlarger{\sum}_{t_k \neq t_j} \text{weight}(t_j, t_k)} \notag
+      \text{score}(C_i) &= (1 - \lambda) + \lambda \times \sum_{C_j \neq C_i} \frac{\text{weight}(C_i, C_j) \times \text{score}(C_j)}{\mathlarger{\sum}_{C_k \neq C_j} \text{weight}(C_j, C_k)} \notag\\
+      \lambda &= 0.85 \notag
     \end{align}
   \end{frame}
 
@@ -116,9 +131,9 @@
         \midrule
         +phrases & 21.5 & 25.9 & 22.1 & $~~$9.6 & $~~$7.0 & $~~$8.0 & 28.6 & 30.1 & 28.9 & 10.5 & 19.7 & 13.5\\
         +topics & 26.6 & 30.2 & 26.8 & 14.7 & 10.2 & 11.9 & 31.0 & 32.8 & 31.4 & 11.5 & 21.4 & 14.8\\
-        +complete & \cellcolor{pink}{34.9} & \cellcolor{pink}{41.0} & \cellcolor{pink}{35.5} & $~~$5.5 & $~~$3.8 & $~~$4.4 & 20.0 & 21.4 & 20.3${~}$ & $~~$4.4 & $~~$9.0 & $~~$5.8\\
+        +complete & 34.9 & 41.0 & 35.5 & $~~$5.5 & $~~$3.8 & $~~$4.4 & 20.0 & 21.4 & 20.3${~}$ & $~~$4.4 & $~~$9.0 & $~~$5.8\\
         \midrule
-        TopicRank & 27.6 & 31.5 & 27.9  & \cellcolor{pink}{14.9} & \cellcolor{pink}{10.3} & \cellcolor{pink}{12.1} & \cellcolor{pink}{35.0} & \cellcolor{pink}{37.5} & \cellcolor{pink}{35.6} & \cellcolor{pink}{11.7} & \cellcolor{pink}{21.7} & \cellcolor{pink}{15.1}\\
+        TopicRank & 27.6 & 31.5 & 27.9  & 14.9 & 10.3 & 12.1 & 35.0 & 37.5 & 35.6 & 11.7 & 21.7 & 15.1\\
         \bottomrule
       \end{tabular}
     }

@@ -1,45 +1,45 @@
 \section{TopicRank}
 \begin{frame}[label=topicrank]{TopicRank}
     \begin{columns}
-      \begin{column}{.45\textwidth}
+      \begin{column}{.44\textwidth}
         \begin{enumerate}
           \item<2->{Candidate extraction}
-          \alt<2>{
+          \alt<2,3>{
             \item[$\Rightarrow$]{\footnotesize \hyperlink{candidate_extraction_backup}{$(\text{NOUN} | \text{ADJ})^+$}
                                  \tikz[remember picture, overlay]{\node[coordinate, xshift=-3.5em, yshift=1em](pattern_head){};
                                  \node[coordinate, yshift=5em](pattern_tail){};
-                                 \draw[->, thick, red] (pattern_tail) node [yshift=.5em] {plop} -- (pattern_head);}}
-            \item<3->{Candidate clustering}
+                                 \draw<3>[->, thick, red] (pattern_tail) node [yshift=.5em] {\textbf{no linguistic knowledge}} -- (pattern_head);}}
+            \item<4->{Candidate clustering}
           }{
-            \item<3->{Candidate clustering}
-          }\alt<3>{
+            \item<4->{Candidate clustering}
+          }\alt<4,5>{
             \item[$\Rightarrow$]{\small \hyperlink{candidate_clustering_backup}{Hierarchical clustering}}
-            \item<4->{Graph construction}
+            \item<6->{Graph construction}
           }{
-            \item<4->{Graph construction}
-          }\alt<4>{
+            \item<6->{Graph construction}
+          }\alt<6>{
             \item[$\Rightarrow$]{\small \hyperlink{graph_construction_backup}{Complete graph}}
-            \item<5->{Topic ranking}
+            \item<7->{Topic ranking}
           }{
-            \item<5->{Topic ranking}
-          }\alt<5>{
+            \item<7->{Topic ranking}
+          }\alt<7>{
           \item[$\Rightarrow$]{\small \hyperlink{topic_ranking_backup}{PageRank's scoring}}
-            \item<6->{Keyphrase selection}
+            \item<8->{Keyphrase selection}
           }{
-            \item<6->{Keyphrase selection}
+            \item<8->{Keyphrase selection}
             \alt<2->{
             }{
               \item[]{}
             }
-          }\alt<6->{
-            \item[$\Rightarrow$]{\small First appearing candidate}
+          }\alt<8->{
+            \item[$\Rightarrow$]{\small First appearing one}
             \item[]{}
           }{
             \item[]{}
           }
         \end{enumerate}
 
-        \visible<7>{
+        \visible<9>{
           \begin{textblock*}{.95\textwidth}(.025\textwidth, -.7\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
@@ -61,7 +61,7 @@
           \end{textblock*}
         }
 
-        \visible<9>{
+        \visible<11>{
           \begin{textblock*}{.95\textwidth}(.025\textwidth, -.65\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
@@ -81,7 +81,7 @@
           \end{textblock*}
         }
 
-        \visible<11>{
+        \visible<13>{
           \begin{textblock*}{.95\textwidth}(.025\textwidth, -.52\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
@@ -97,7 +97,7 @@
           \end{textblock*}
         }
 
-        \visible<13>{
+        \visible<15>{
           \begin{textblock*}{.95\textwidth}(.025\textwidth, -.55\textheight)
             \setbeamertemplate{blocks}[rounded][shadow=true]
 
@@ -115,14 +115,14 @@
         }
       \end{column}
 
-      \begin{column}{.55\textwidth}
+      \begin{column}{.56\textwidth}
         \minipage[c][0.8\textheight]{\columnwidth}
           \alt<2->{ % next slides
-            \alt<3->{ % next slides
-              \alt<4->{ %next slides
-                \alt<6->{ % next slides
-                  \alt<16->{ % next slides
-                    \alt<17->{ % next slides
+            \alt<4->{ % next slides
+              \alt<6->{ %next slides
+                \alt<8->{ % next slides
+                  \alt<18->{ % next slides
+                    \alt<19->{ % next slides
                       \resizebox{\linewidth}{!}{
                         \begin{tabular}{l}
                           \toprule
@@ -170,24 +170,24 @@
                         Rank & ID & Topic\\
                         \midrule
                         01 & \multirow{1}{*}{C01} & cornell university library; digital libraries;\\
-                        & & \alt<8->{\textcolor{red}{research libraries}}{research libraries}; libraries\\
-                        02 & \multirow{1}{*}{C03} & publishing scene; \alt<10->{\textcolor{red}{scholarly publishing}}{scholarly publishing};\\
+                        & & \alt<10->{\textcolor{red}{research libraries}}{research libraries}; libraries\\
+                        02 & \multirow{1}{*}{C03} & publishing scene; \alt<12->{\textcolor{red}{scholarly publishing}}{scholarly publishing};\\
                         & & publisher\\
-                        03 & C02 & \alt<12->{\textcolor{red}{project euclid}}{project euclid}; project such\\
-                        04 & C04 & \alt<14->{\textcolor{red}{role}}{role}; new role\\
-                        05 & C16 & \alt<15->{\textcolor{red}{creation}}{creation}\\
-                        06 & C06 & \alt<15->{\textcolor{red}{scholarly communication}}{scholarly communication}\\
-                        07 & C09 & \alt<15->{\textcolor{red}{mathematics}}{mathematics}\\
-                        08 & C12 & \alt<15->{\textcolor{red}{specific aspects}}{specific aspects}\\
-                        09 & C10 & \alt<15->{\textcolor{red}{joint electronic journal publishing initiative}}{joint electronic journal publishing initiative}\\
-                        10 & C08 & \alt<15->{\textcolor{red}{partnerships}}{partnerships}\\
+                        03 & C02 & \alt<14->{\textcolor{red}{project euclid}}{project euclid}; project such\\
+                        04 & C04 & \alt<16->{\textcolor{red}{role}}{role}; new role\\
+                        05 & C16 & \alt<17->{\textcolor{red}{creation}}{creation}\\
+                        06 & C06 & \alt<17->{\textcolor{red}{scholarly communication}}{scholarly communication}\\
+                        07 & C09 & \alt<17->{\textcolor{red}{mathematics}}{mathematics}\\
+                        08 & C12 & \alt<17->{\textcolor{red}{specific aspects}}{specific aspects}\\
+                        09 & C10 & \alt<17->{\textcolor{red}{joint electronic journal publishing initiative}}{joint electronic journal publishing initiative}\\
+                        10 & C08 & \alt<17->{\textcolor{red}{partnerships}}{partnerships}\\
                         \dots & \dots\\
                         \bottomrule
                       \end{tabular}
                     }
                   }
                 }{ % current slide
-                  \begin{tikzpicture}[scale=.185,
+                  \begin{tikzpicture}[scale=.19,
                                       align=center,
                                       every node/.style={transform shape},
                                       main node/.style={text centered,
@@ -202,9 +202,9 @@
                       \multiply\mycount by 19
                       \advance\mycount by 0
                       \ifthenelse{\number > 9}{
-                        \node[main node, label={\pos:\Large\textbf{\visible<5->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C\number};
+                        \node[main node, label={\pos:\Large\textbf{\visible<7->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C\number};
                       }{
-                        \node[main node, label={\pos:\Large\textbf{\visible<5->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C0\number};
+                        \node[main node, label={\pos:\Large\textbf{\visible<7->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C0\number};
                       }
                     }
                     \foreach \number in {1,...,18}{
@@ -214,18 +214,22 @@
                         \path[JungleGreen!50] (N-\number) edge (N-\numbera);
                       }
                     }
-                  \visible<4>{\path[red] (N-11) edge node [left] {\Huge\textbf{offset}\\\Huge\textbf{position}\\\Huge\textbf{weighting}} (N-12);}
-                    \foreach \number/\pos in {1/above,2/above,3/above,4/above,5/above,6/above,7/above,8/above,9/above,10/above,11/below,12/below,13/below,14/below,15/below,16/below,17/below,18/below,19/below}{
-                      \mycount=\number
-                      \advance\mycount by -1
-                      \multiply\mycount by 19
-                      \advance\mycount by 0
-                      \ifthenelse{\number > 9}{
-                        \node[main node, label={\pos:\Large\textbf{\visible<5->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C\number};
-                      }{
-                        \node[main node, label={\pos:\Large\textbf{\visible<5->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C0\number};
+                    \coordinate[remember picture, overlay, xshift=-45em, yshift=-11em] (pagerank_coordinates) at (N-13);
+                    \node<7>[remember picture, overlay] (pagerank) at (pagerank_coordinates) {\fontsize{45}{30}\selectfont $\textbf{score}(C_i) = (1 - \lambda) + \lambda \times \sum_{C_j \neq C_i} \frac{\textbf{weight}(C_j, C_i) \times \textbf{score}(C_j)}{\mathlarger{\sum}_{C_k \neq C_j} \textbf{weight}(C_j, C_k)}$};
+                    \path<7>[remember picture, overlay, ->, thick, red] (pagerank.north east) edge (N-13);
+                    \path<7>[remember picture, overlay, ->, thick, red] (pagerank.north east) edge (N-14);
+                    \visible<6>{\path[red] (N-11) edge node [left] {\Huge\textbf{offset}\\\Huge\textbf{position}\\\Huge\textbf{weighting}} (N-12);}
+                      \foreach \number/\pos in {1/above,2/above,3/above,4/above,5/above,6/above,7/above,8/above,9/above,10/above,11/below,12/below,13/below,14/below,15/below,16/below,17/below,18/below,19/below}{
+                        \mycount=\number
+                        \advance\mycount by -1
+                        \multiply\mycount by 19
+                        \advance\mycount by 0
+                        \ifthenelse{\number > 9}{
+                          \node[main node, label={\pos:\Large\textbf{\visible<7->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C\number};
+                        }{
+                          \node[main node, label={\pos:\Large\textbf{\visible<7->{\textcolor{red}{\pagerank{\number}}}}}] (N-\number) at (\the\mycount:15cm) {C0\number};
+                        }
                       }
-                    }
                   \end{tikzpicture}
                 }
               }{ % current slide
@@ -239,7 +243,7 @@
                     C02 & project euclid; project such\\
                     \multirow{1}{*}{C03} & publishing scene; scholarly publishing;\\
                     & publisher\\
-                    C04 & role; new role \textcolor{red}{$\longleftarrow \text{stem overlap} \geq \frac{1}{4}$}\\
+                    C04 & role; new role \textcolor{red}{$\longleftarrow \text{stem overlap} \geq \frac{1}{4}$\tikz[remember picture, overlay]{\node[coordinate, xshift=-5em, yshift=1em] (stem_overlap_head) {};\node[coordinate, xshift=-27.5em, yshift=5em] (stem_overlap_tail) {};\draw<5>[->,  ultra thick, red] (stem_overlap_tail) node [yshift=.5em] {\textbf{\large naive topic similarity}} -- (stem_overlap_head);}}\\
                     C05 & important\\
                     C06 & scholarly communication\\
                     C07 & further skills\\

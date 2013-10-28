@@ -4,10 +4,12 @@
   of a document. Keyphrases are useful in many tasks such as information
   retrieval~\cite{medelyan2008smalltrainingset}, document
   summarization~\cite{litvak2008graphbased} or document
-  clustering~\cite{han2007webdocumentclustering}. Although scientific articles
-  usually provide them, most of the documents have no associated keyphrases.
-  Therefore, the problem of automatically assigning keyphrases to documents is
-  an active field of research.
+  clustering~\cite{han2007webdocumentclustering}. Since the last decade Internet
+  has become the main source of information. Unfortunatly, the huge amount of
+  accessible documents are not always associated with keyphrases and the
+  enrichment provided by the mentionned tasks cannot be achieved. Therefore, the
+  problem of automatically assigning keyphrases to a document is an active field
+  of research.
 
   Automatic keyphrase extraction methods are divided into two categories:
   supervised and unsupervised methods. Supervised methods typically recast
@@ -16,56 +18,58 @@
   unsupervised methods, keyphrase extraction is often considered as a ranking
   task and many approaches are
   used~\cite{barker2000nounphrasehead,mihalcea2004textrank}. Although they work
-  diferently, both supervised and unsupervised methods rely on a preliminary
+  differently, both supervised and unsupervised methods rely on a preliminary
   candidate extraction step which identifies single and multi-word expressions
   that have the same syntactic properties than a keyphrase. These expressions
   are the only textual units that can be extracted as keyphrases. Therefore, we
   believe that the extraction of candidate keyphrases plays a direct role in
   automatic keyphrase extraction.
   
-  In this paper, we focus on the candidate extraction step and show its impact
-  on the performance of automatic keyphrase extraction. Various methods
-  are commonly employed to extract keyphrase candidates\footnote{In this work,
-  we do not consider methods which use a manually defined controlled
-  vocabulary.}. Usually, a set of either single words, n-grams filtered by stop
-  words, NP-chunks or sequences of words matching given patterns is
-  extracted~\cite{hulth2003keywordextraction}. According to the chosen method,
-  the extracted set contains more or less candidates, and the amount of these
-  that are actual keyphrases may vary. Hence, a few questions arise. How the
-  different sets influence the keyphrase extraction? Do large candidate sets
-  introduce noise that affects the performance of some keyphrase extraction
-  methods?
+  In this paper, we focus on the candidate extraction step. Various methods are
+  commonly employed to extract keyphrase candidates Usually, a set of either
+  n-grams filtered by stop words, NP-chunks or sequences of words matching given
+  patterns is extracted~\cite{hulth2003keywordextraction}. In our knowledge, no
+  previous work has been done to check if these methods provide candidate
+  keyphrases that have the same properties than ground truth keyphrases. We seek
+  to do this by analyzing both reference keyphrases (provided with three
+  standard evaluation datasets) and extracted candidates. Also, we investigate
+  the feasibility of using term as candidate keyphrases. Terms are TODO \dots
+  TODO. Therefore, they seem to be suitable for candidate keyphrase extraction.
+  Automatic term detection tend to extract small sets of candidates having
+  specified linguistic (e.g. TODO) or statistic properties (e.g. domain
+  specificity), whereas the usual methods, such as filtered n-grams, produce a
+  huge number of candidates wich may include more candidates matching with
+  reference keyphrases, but also many unrelevant candidates. In fact, we compare
+  the performance of distinct keyphrase extraction methods (both supervised and
+  unsupervised) reguarding the properties of the candidate sets.
 
-  We seek to better understand the impact of candidate extraction methods on
-  keyphrase extraction by studying the aforementioned questions. We first
-  quantify the differences between the candidate sets obtained by the commonly
-  used methods and we propose to use other methods developed for automatic term
-  detection~\cite{castellvi2001automatictermdetection,evans1996nounphraseanalysis}
-  to show that such methods provide solid keyphrase candidates. Then, we
-  evaluate the impact of the candidate extraction methods over three dissimilar
-  keyphrase extraction methods. We select KEA~\cite{witten1999kea} to represent
-  supervised methods, TF-IDF~\cite{jones1972tfidf} to represent unsupervised
-  methods that require a collection of documents and
-  TopicRank~\cite{bougouin2013topicrank} to represent unsupervised methods that
-  only make use of the analyzed document.
-
-  \todo[inline]{Results show that...}
+  This paper is organized as follows.
+  Section~\ref{sec:definition_of_candidate_keyphrases} presents the datasets
+  containing reference keyphrases and study them to determine the properties of
+  keyphrases. Section~\ref{sec:candidate_extraction} presents the candidate
+  keyphrase extraction methods and the term detection methods discussing their
+  relevancy regarding the properties determined in
+  Section~\ref{sec:definition_of_candidate_keyphrases}.
+  Section~\ref{sec:keyphrase_extraction} presents the keyphrase extraction task
+  and three automatic keyphrase extraction methods, the one used in our work.
+  Section~\ref{sec:evaluation} shows both intrinsic and extrinsic evaluation of
+  the methods used to extract candidate keyphrases. Finally,
+  Section~\ref{sec:conclusion} conclude this work.
 
 \section{Definition of Candidate Keyphrases}
-\label{sec:study_of_ground_truth_keyphrases}
+\label{sec:definition_of_candidate_keyphrases}
   Candidate keyphrases are textual units which can be selected as keyphrases
-  of a document. Hence, they must have the same syntactic and linguistic
-  properties than ground truth keyphrases. This section aims to determine those
-  properties by analysing three standard evaluation datasets, for keyphrase
-  extraction, and by providing statistics about their reference keyphrases
-  (ground truth keyphrases).
+  of a document. Hence, they must have the same syntactic properties than ground
+  truth keyphrases. This section aims to determine those properties by analysing
+  three standard evaluation datasets, for keyphrase extraction, and by providing
+  statistics about their reference keyphrases (ground truth keyphrases).
 
   \subsection{Keyphrase Extraction Datasets}
   \label{subsec:keyphrase_extraction_datasets}
     Keyphrase extraction datasets are used to train or evaluate keyphrase
-    extraction methods. Hence, they are collections of documents paired with
-    reference keyphrases given by authors, readers or both. Unlike the methods
-    to automatically extract keyphrases, human annotators do not only provide
+    extraction methods. They are collections of documents paired with reference
+    keyphrases given by authors, readers or both. Unlike the methods to
+    automatically extract keyphrases, human annotators do not only provide
     keyphrases contained into the documents. This problem of missing keyphrases
     leads to a bias of the training or evaluation of keyphrase extraction
     methods. In this work, we use three standard datasets which differ in terms
@@ -94,16 +98,7 @@
     documents and a test set containing 93 documents. The only available
     reference keyphrases are the ones given by authors.
 
-    Table \ref{tab:train_dataset_statistics} shows the statistics about the
-    three datasets. As these statistics are used to guide our work, we restrain
-    them to the training sets. As said before, the datasets differ in terms of
-    size, type and language. Moreover, it is worth noticing that the number of
-    keyphrases, the ratio of missing ones and the average number of tokens per
-    keyphrases differ too. These are due to the fact that there is not a unique
-    methodology (guideline) to manually associate keyphrases to a document. To
-    better fit the requirements, such guidelines should not only be used by
-    human annotators, but also by automatic keyphrase extraction methods.
-    \todo{[CAPTION] Others are mainly foreign words and coordinating conjonctions.}
+    \todo[inline]{[CAPTION] Others are mainly foreign words and coordinating conjonctions.}
     \begin{table*}
       \centering
       \begin{tabular}{rrccc}
@@ -150,12 +145,17 @@
     information from DUC and SemEval) and for French (using DEFT). To avoid from
     biasing our work we only exploit information from the training data.
 
-    The first observation from Table \ref{tab:train_dataset_statistics} is that
+    Table~\ref{tab:train_dataset_statistics} shows statistics extracted from our
+    datasets. It represents information regarding the documents (language,
+    nature,, size, etc.) and their associated keyphrases
+
+    Keyphrase statistics of Table~\ref{tab:train_dataset_statistics} show that
     most of the keyphrases are unigrams or bigrams ($\simeq$~80\%). This, plus
-    the fact that the number of n-gram keyphrases (n $\geq$ 3) decrease when n
-    increase, means that keyphrases are more often less informative. Keyphrases
-    bear the minimum information to represent one important idea (e.g. TODO
-    instead of TODO).
+    the fact that the number of n-gram keyphrases (n $\geq$ 3) decreases when n
+    increases, means that keyphrases are more often less informative.
+    
+    \property{Keyphrases bear the minimum information to represent one important
+    idea (e.g. TODO instead of TODO).}
 
     \begin{itemize}
       \item{About 80\% of reference keyphrases contain only one or two words.}
@@ -319,13 +319,13 @@
         & P & R & F & P & R & F & P & R & F\\
         \midrule
         \{1..2\}-grams & 10.2 & 14.1 & 11.7 & & & & & & \\
-        \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & & & & & & \\
+        \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & & & \\
         \{1..4\}-grams & $~~$7.1 & $~~$9.7 & $~~$8.1 & & & & & & \\
         Best patterns & 14.2 & 19.1 & 16.1 & $~~$7.2 & $~~$4.9 & $~~$5.8 & & & \\
         Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & 11.6 & 21.5 & 14.9\\
         NP chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
         Subcompounds & 18.3 & 24.0 & 20.5 & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & 14.9\\
-        Acabit & & & & & & & & & \\
+        Acabit & 11.2 & 14.2 & 12.3 & 10.2 & $~~$7.1 & $~~$8.3 & $~~$3.4 & $~~$7.9 & $~~$4.7\\
         TermSuite & 10.2 & 13.7 & 11.5 & $~~$9.0 & $~~$6.6 & $~~$7.5 & $~~$4.0 & $~~$7.8 & $~~$5.2\\
         \bottomrule
       \end{tabular}
@@ -350,7 +350,7 @@
         Longest NPs & 14.5 & 19.9 & 16.5 & 19.6 & 13.7 & 16.0 & 14.1 & 26.3 & 18.1\\
         NP chunks & 13.5 & 18.6 & 15.4 & 19.5 & 13.7 & 16.0 & 14.3 & 26.8 & 18.4\\
         Subcompounds & 14.6 & 20.0 & 16.7 & 19.3 & 13.5 & 15.8 & 14.1 & 26.3 & 18.1\\
-        Acabit & & & & & & & & & \\
+        Acabit & 14.6 & 19.1 & 16.3 & 15.6 & 10.8 & 12.6 & $~~$4.7 & 10.5 & $~~$6.4\\
         TermSuite & 12.5 & 17.2 & 14.3 & 13.9 & 10.1 & 11.6 & 14.9 & 28.5 & 19.4\\
         \bottomrule
       \end{tabular}
@@ -359,4 +359,7 @@
                percentage of precision (P), recall (R) and f-score (F).
                \label{tab:keyphrase_extraction_results}}
     \end{table*}
+
+\section{Conclusion}
+\label{sec:conclusion}
 
