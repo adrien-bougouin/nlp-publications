@@ -26,6 +26,8 @@
 \usepackage{multirow}
 \usepackage{todonotes}
 \usepackage{rotating}
+\usepackage{lipsum}
+\usepackage{color}
 
 \newtheorem{property}{Property}
 
@@ -40,15 +42,15 @@
 \begin{document}
   \maketitle
   \begin{abstract}
-    \todo[inline]{8+2 pages maximum...}
+    \textcolor{red}{\lipsum[1]}
   \end{abstract}
 
   \input{input/candidate_extraction.tex}
 
-%  \section*{Acknowledgments}
-%  The authors would like to thank the anonymous reviewers for their useful
-%  advice and comments. This work was supported by the French National Research
-%  Agency (TermITH project -- ANR-12-CORD-0029).
+  \section*{Acknowledgments}
+  The authors would like to thank the anonymous reviewers for their useful
+  advice and comments. This work was supported by the French National Research
+  Agency (TermITH project -- ANR-12-CORD-0029).
 
   \bibliographystyle{acl}
   \bibliography{../biblio}
