@@ -5,66 +5,56 @@
   retrieval~\cite{medelyan2008smalltrainingset}, document
   summarization~\cite{litvak2008graphbased} or document
   clustering~\cite{han2007webdocumentclustering}. Since the last decade,
-  Internet has became the main source of information. Unfortunatly, the
-  accessible documents are not always associated with keyphrases and the
-  enrichment provided by the mentionned tasks cannot be achieved. To allow these
+  Internet has became the main source of information, but the available
+  documents are not always associated with keyphrases and the enrichment
+  provided by the mentioned tasks cannot be achieved. To allow these
   enrichments, researchers tend to automatically extract keyphrases from
   documents.
 
   Automatic keyphrase extraction methods are divided into two categories:
-  supervised and unsupervised methods. Supervised methods typically recast
-  keyphrase extraction as a binary classification
-  task~\cite{witten1999kea,sujian2003maximumentropy,eichler2010keywe}. For
-  unsupervised methods, keyphrase extraction is often considered as a
-  ranking task and many approaches are
+  supervised and unsupervised. Supervised methods typically recast keyphrase
+  extraction as a binary classification task~\cite{witten1999kea}. For
+  unsupervised methods, keyphrase extraction is often considered as a ranking
+  task and many approaches are
   used~\cite{barker2000nounphrasehead,mihalcea2004textrank}. Although they work
   differently, both supervised and unsupervised methods rely on a preliminary
-  candidate extraction step which identifies single and multi-word expressions
-  that have the same syntactic properties than a keyphrase. These expressions
-  are the only textual units that can be extracted as keyphrases. Therefore, we
-  believe that the extraction of candidate keyphrases plays a direct role for
-  automatic keyphrase extraction.
+  candidate extraction step. The candidate extraction identifies single and
+  multi-word expressions that have the same syntactic properties than a
+  keyphrase. These expressions are the only textual units that can be extracted
+  as keyphrases. Therefore, they play an important role for automatic keyphrase
+  extraction.
   
   In this paper, we focus on the candidate extraction step. Various methods are
-  commonly employed to extract keyphrase candidates. Usually, a set of either
-  n-grams filtered by stop words, NP-chunks or word sequences matching given
-  patterns is extracted~\cite{hulth2003keywordextraction}. In our knowledge, no
-  previous work has been done to check if these methods provide candidate
-  keyphrases that have the same properties than ground truth keyphrases. We seek
-  to do this by analyzing both reference keyphrases (from three standard
-  evaluation datasets) and extracted candidates. Also, we investigate the
-  feasibility of using term as candidate keyphrases. Terms are grammatically
-  arranged sequences of words designating a concept and treated as single units,
-  a terminological phrase. Therefore, they seem to be suitable for candidate
-  keyphrase extraction. Automatic term detection tend to extract small sets of
-  candidates having specified linguistic (e.g. noun phrases) or statistic
-  properties (e.g. domain specificity), whereas the usual methods, such as
-  filtered n-grams, produce a huge number of candidates wich may include more
-  candidates matching with reference keyphrases, but also many unrelevant
-  candidates. We compare the performance of distinct keyphrase extraction
-  methods (both supervised and unsupervised) reguarding the properties of the
-  candidate sets extracted by both term detection and previously used methods.
+  commonly employed to extract keyphrase candidates. Usually, filtered n-grams,
+  NP-chunks or word sequences matching given patterns are
+  extracted~\cite{hulth2003keywordextraction}. Despite the fact that some
+  researchers try to find more suitable keyphrase
+  candidates~\cite{hulth2003keywordextraction,kim2009reexaminingautomatickeyphraseextraction},
+  there is, in our knowledge, no work to compare the various methods which are
+  used. We seek to do this by looking at the extracted candidates and the
+  maximum recall that can be achieved for each method, as well as comparing the
+  performances of existing keyphrase extraction methods depending on the
+  employed candidate extraction method. Also, we investigate the feasibility of
+  using term as candidate keyphrases. Terms are grammatically arranged sequences
+  of words designating a concept and treated as single units, terminological
+  phrases. For this reason, terms seem to be suitable for keyphrase candidate
+  extraction.
 
   This paper is organized as follows.
-  Section~\ref{sec:definition_of_candidate_keyphrases} presents the datasets
-  containing reference keyphrases and study them to determine the properties of
-  keyphrases. Section~\ref{sec:candidate_extraction} presents the candidate
-  keyphrase extraction methods and the term detection methods, discussing their
-  relevancy regarding the properties determined in
-  Section~\ref{sec:definition_of_candidate_keyphrases}.
-  Section~\ref{sec:keyphrase_extraction} presents the keyphrase extraction task
-  and three automatic keyphrase extraction methods, the one used in our work.
-  Section~\ref{sec:evaluation} shows both intrinsic and extrinsic evaluation of
-  the candidate keyphrase extraction methods. Finally,
-  Section~\ref{sec:conclusion} conclude this work.
+  Section~\ref{sec:definition_of_candidate_keyphrases} presents our datasets and
+  study their reference keyphrases, Section~\ref{sec:candidate_extraction}
+  presents the candidate extraction and term extraction methods,
+  Section~\ref{sec:keyphrase_extraction} presents the three keyphrase extraction
+  methods that we use in our intrinsic and extrinsic evaluations presented in
+  Section~\ref{sec:evaluation}. Finally, Section~\ref{sec:conclusion} conclude
+  this work.
 
 \section{Definition of Candidate Keyphrases}
 \label{sec:definition_of_candidate_keyphrases}
   Candidate keyphrases are textual units which can be selected as keyphrases
-  of a document. Hence, they must have the same syntactic properties than ground
-  truth keyphrases. This section aims to determine those properties by analysing
-  three standard evaluation datasets for keyphrase extraction and by providing
-  statistics about their reference keyphrases (ground truth keyphrases).
+  of a document. Therefore, they must have the same syntactic properties than
+  ground truth keyphrases. This section aims to determine those properties by
+  analyzing three standard evaluation datasets.
 
   \subsection{Keyphrase Extraction Datasets}
   \label{subsec:keyphrase_extraction_datasets}
@@ -78,38 +68,40 @@
     news articles covering about 30 topics (e.g. tornadoes, gun control, etc.).
     This collection is the test dataset of the DUC-2001 summarization evaluation
     campaign. This part of DUC-2001 is the only one that contains keyphrases,
-    annotated by \newcite{wan2008expandrank}. We split the collection into two
-    sets: a training set containing 208 documents and a test set containing 100
-    documents.
+    which are annotated by \newcite{wan2008expandrank}. We split the collection
+    into two sets: a training set containing 208 documents and a test set
+    containing 100 documents.
 
     The \textbf{SemEval} dataset \cite{kim2010semeval} contains 284 English
     scientific papers collected from the ACM Digital Libraries (conference and
     workshop papers). The papers are divided into three sets: a trial set
     containing 40 documents (unused in this work), a training set containing 144
-    documents and a test set containing 100 documents. As for the associated
-    keyphrases, these are provided by both authors and readers.
+    documents and a test set containing 100 documents. The associated keyphrases
+    are provided by both authors and readers.
 
     The \textbf{DEFT} dataset \cite{Paroubek2012deft} is a collection of 234
     French scientific papers belonging to the Humanities and Social Sciences
     domain. DEFT is divided into two sets: a training set containing 141
-    documents and a test set containing 93 documents. The only available
-    reference keyphrases are the ones given by authors.
+    documents and a test set containing 93 documents. References are author
+    keyphrases.
 
   \subsection{Reference Keyphrases Analysis}
   \label{subsec:keyphrase_analysis}
     Despite the fact that the data are not homogeneous, this section aims to
-    find the syntactic properties of most keyphrases, for English (intersecting
-    information from DUC and SemEval) and for French (using DEFT). To avoid from
-    biasing our work we only exploit information from the training data.
+    find the syntactic properties of most keyphrases for English and French. To
+    avoid from biasing our work we only exploit information from the training
+    data.
 
     Table~\ref{tab:train_dataset_statistics} shows statistics extracted from our
-    datasets. It represents information regarding the documents (language,
-    nature, size, etc.) and their associated keyphrases. Keyphrases are first
-    studied regarding their number of words, which is a clue about their degree
-    of informativity, then the amount of multi-word keyphrases containing a
-    potentially relevant part-of-speech (POS) is given to determine syntactic.
-    In this purpose, reference keyphrases have been automatically POS tagged and
-    the given POS tags have been manually corrected.
+    datasets. It represents information about the documents (language, nature,
+    size, etc.) and their associated keyphrases. First, keyphrases are studied
+    regarding their number of words, which is a clue about their degree of
+    informativity. Secondly, the amount of multi-word keyphrases containing a
+    potentially relevant part-of-speech (POS) is given to allow us to infer
+    syntactic properties of keyphrases\footnote{We know that word keyphrases are
+    mostly nouns or proper nouns, so we focus on multi-word expressions.}. In
+    this purpose, reference keyphrases have been automatically POS tagged and
+    manually checked.
     \begin{table}[h]
       \centering
       \begin{tabular}{@{~}r@{~}r@{~}c@{~}c@{~}c@{~}}
@@ -148,35 +140,6 @@
                \label{tab:train_dataset_statistics}}
     \end{table}
 
-    Keyphrase statistics of Table~\ref{tab:train_dataset_statistics} show that
-    most of the keyphrases are unigrams or bigrams ($\simeq$~$80\%$). This, plus
-    the fact that the number of n-gram keyphrases decreases when n increases
-    ($n\geq3$), means that keyphrases are more often less informative.
-    
-    \begin{property}\label{prop:informativity}
-      Keyphrases bear the minimum information to represent one important idea
-      (e.g. ``T-2 Buckeye'' instead of ``two-seat T-2 Buckeye'').
-    \end{property}
-
-    Table~\ref{tab:train_dataset_statistics} shows for each part-of-speech that
-    seems relevant the ratio of multi-word keyphrases containing it (knowing
-    that single word keyphrases are mostly nouns or proper nouns). The
-    statistics show that almost all the keyphrases contain nouns and half of the
-    keyphrases are modified by one or more adjectives. For French, we observe that some
-    keyphrases tend to contain prepositions and determiners. Also, unexpected
-    part-of-speech, such as foreign words and coordinating conjunctions, are not
-    rare for the French dataset.
-
-    \begin{property}\label{prop:noun_phrases}
-      Keyphrases are mostly nouns (e.g. ``storm'') that can be modified by one
-      or more adjectives (e.g. ``annual hurricane forecast''). French keyphrases
-      containing multiple nouns can contain prepositions and determiniers (e.g.
-      ``conservation de la nature'').
-    \end{property}
-
-    To give an idea of the syntactic patterns, Table~\ref{tab:best_patterns}
-    shows the five most occurring ones for the English datasets and the French
-    dataset.
     \begin{table*}
       \centering
       \begin{tabular}{rll}
@@ -189,58 +152,78 @@
         & ADJ NOUN NOUN & annual hurricane forecast\\ % AP880409-0015
         & NOUN NOUN NOUN & hurricane reconnaissance flights\\ % AP890529-0030
         \addlinespace[1.5\defaultaddspace]
-        \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{French}\end{sideways}} & NOUN & patrimoine\\ % as_2002_007048ar
-        & NOUN ADJ & tradition orale\\ % as_2002_007048ar
-        & PROPER\_NOUN & Indonésie\\ % as_2001_000235ar
-        & NOUN PREP DET NOUN & conservation de la nature\\ % as_2005_011742ar
-        & NOUN PREP NOUN & changement de terrain\\ % as_2001_000260ar
+        \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{French}\end{sideways}} & NOUN & patrimoine -- cultural heritage\\ % as_2002_007048ar
+        & NOUN ADJ & tradition orale -- oral tradition\\ % as_2002_007048ar
+        & PROPER\_NOUN & Indonésie -- Indonesia\\ % as_2001_000235ar
+        & NOUN PREP DET NOUN & conservation de la nature -- nature conservation\\ % as_2005_011742ar
+        & NOUN PREP NOUN & traduction en anglais -- English translation\\ % meta_2003_006958ar
         \bottomrule
       \end{tabular}
       \caption{Frequent part-of-speech patterns for English and French
                keyphrases. \label{tab:best_patterns}}
     \end{table*}
 
+    Keyphrase statistics of Table~\ref{tab:train_dataset_statistics} show that
+    most of the keyphrases are unigrams or bigrams ($\simeq$~$80\%$). Also, the
+    number of n-gram keyphrases decreases when $n$ increases ($n\geq3$). We
+    conclude that keyphrases are more often less informative.
+    
+    \begin{property}\label{prop:informativity}
+      Keyphrases bear the minimum information representing an important concept
+      (e.g. ``T-2 Buckeye'' instead of ``two-seat T-2 Buckeye'').
+    \end{property}
+
+    Table~\ref{tab:train_dataset_statistics} shows the ratio of multi-word
+    keyphrases containing a part-of-speech that are intuitively relevant for
+    keyphrases. In both English and French, almost every keyphrases contain
+    nouns and half of the keyphrases are modified by one or more adjectives. In
+    French, we also observe that some keyphrases tend to contain prepositions
+    and determiners. Additionally, unexpected part-of-speech, such as foreign
+    words and coordinating conjunctions, are not rare.
+
+    \begin{property}\label{prop:noun_phrases}
+      Keyphrases are mostly nouns (e.g. ``storm'') that can be modified by one
+      or more adjectives (e.g. ``\underline{annual} hurricane forecast'').
+      French keyphrases containing multiple nouns can contain prepositions and
+      determiners (e.g. ``conservation \underline{de la} nature'' -- ``nature
+      conservation'').
+    \end{property}
+
+    To give an idea of the observed syntactic patterns,
+    Table~\ref{tab:best_patterns} shows the five most frequent ones for the
+    English and French dataset.
+
 \section{Candidate Extraction}
 \label{sec:candidate_extraction}
   The goal of the candidate extraction is to reduce the potential keyphrases to
-  a set of relevant ones. In fact, the candidate extraction aims to provide
-  single or multi-word expressions that respect defined properties (e.g. no stop
-  words). Two benefits in reducing the possibilities are that it diminishes the
-  execution time of the keyphrase extraction methods and removes noises that
-  could deteriorate their results.
+  a set of relevant ones. Two benefits in reducing the possibilities are that it
+  diminishes the execution time of the keyphrase extraction methods and removes
+  noises that may deteriorate their results. We distinguish two categories of
+  candidates: the positive candidates, which actually match with reference
+  keyphrases, and the off-target candidates, which do not match with reference
+  keyphrases. Among the off-target candidates, we also distinguish the
+  information bearing candidates, which can help to improve the keyphrase
+  extraction, and the unrelevant candidates, which are seen as candidate
+  extraction errors.
 
-  In this section, we present the commonly used methods to extract keyphrase
-  candidates, as well as the term detection task, which may provide suitable
-  candidates.
+  In this section, we present the common textual units that are used or could be
+  used as candidates for keyphrase extraction.
 
-  \paragraph{N-grams} are ordered sequences of $n$ words, where $n$ can be set
-  within an interval. From a text, every sequences of a given size $n$ are
-  extracted. These are overlapped with a maximum of $2(n - 1)$ other extracted
-  sequences. Therefore, extracting n-grams is the best way to obtain as much
-  candidates matching with reference keyphrases as possible, but many n-grams
-  are unrelevant. Unrelevant candidates are or contain conjunctions,
-  prepositions, determiners or commonly used words (e.g.
-  ``apart''\footnote{According to the IR Multilingual Resources at the UniNE:
-  \url{http://members.unine.ch/jacques.savoy/clef/index.html}.}). A removal of
-  these unrelevant candidates must be done, but as seen in
-  Section~\ref{sec:definition_of_candidate_keyphrases}, conjunctions,
-  prepositions and determiners should be kept at least when the candidate is
-  syntactically correct (e.g. ``pattern of hurricane''). Also, common words can % AP890529-0030
-  be part of particular expressions, loosing their commonness (e.g.``picking % WJS920114-0145
-  apart history''). Hence, a list of stop words containing conjunctions,
-  prepositions, determiners and common words is built and used to remove
-  candidates containing one of them at the beginning or at the
-  end~\cite{witten1999kea,turney1999learningalgorithms}.
+  \paragraph{N-grams} are ordered sequences of $n$ words. From a text, every
+  sequences of a given size $n$ are extracted. Extracting n-grams is the best
+  way to obtain as much positive and information bearing candidates as possible,
+  but it also gives many unrelevant candidates. Therefore, the extracted
+  candidates are filtered with a list of stop words: conjunctions, prepositions,
+  determiners  and common words. Stop words must not be found at the beginning
+  or at the end of a
+  candidate~\cite{witten1999kea,turney1999learningalgorithms}.
 
-  \paragraph{Matching patterns} are used to define the (syntatic) form of the
-  expressions to extract as keyphrases. Sequences of POS tags are defined and
-  the expressions that have their POS tag sequence matching with one of the
-  defined patterns are extracted as keyphrase candidates.
-  \newcite{hulth2003keywordextraction} experimented with the
-  frequent\footnote{Frequent patterns are the ones that appear ten or more
-  times.} POS tag patterns of her training data, whereas other researchers only
-  use the longest sequences of nouns and adjectives, considering them as noun
-  phrases~\cite{wan2008expandrank,hassan2010conundrums,bougouin2013topicrank}.
+  \paragraph{POS tag patterns} are used to specify the syntactic form of the
+  textual units to extract as keyphrases. \newcite{hulth2003keywordextraction}
+  experimented with the frequent POS tag patterns of her training
+  data\footnote{Frequent patterns are the ones that appear ten or more times.},
+  whereas other researchers only use the longest sequences of nouns and
+  adjectives, considering them as noun phrases.
 
   \paragraph{NP-chunks} are non-recursive noun phrases, i.e. noun phrases that
   do not contain other noun phrases. \newcite{hulth2003keywordextraction} used
@@ -251,33 +234,32 @@
   Property~\ref{prop:noun_phrases}.
 
   \paragraph{Terminological phrases (terms)} are word sequences designating a
-  concept and treated as single units, for a specific domain. Considering that a
+  concept and treated as single units for a specific domain. Considering that a
   keyphrase is the vector of an idea, a concept, it seems relevant to extract
-  keyphrases from  a set of terminological phrases. Also, terms are extracted
-  using either statistics (e.g. mutual information), linguistic  knowledge
-  (e.g. part-of-speech) or both. Therefore, extracting terms as candidate
-  keyphrases is less arbitrary.
+  keyphrases from  a set of terminological phrases. As well as extracting
+  NP-chunks, it seems less arbitrary to extract terms as candidate keyphrases.
 
-  Acabit~\cite{daille2003acabit} and Term
-  Suite\footnote{\url{http://www.ttc-project.eu}} are two term extraction
+  Acabit~\cite{daille2003acabit} and
+  TermSuite\footnote{\url{http://www.ttc-project.eu}} are two term extraction
   systems that we propose to use for keyphrase candidate extraction. Acabit uses
-  linguistic knowledge to extract multi-word terms and their variants
+  linguistic knowledge to extract the multi-word terms and their variants
   (morphological and syntagmatic). Based on syntactic and morphological clues,
-  only the variants that preserve the base-term semantics are extracted. Term
-  Suite is a tool for monolingual and bilingual term extraction that implements
-  the state-of-the-art method for term extraction with linguistic knowledge and
-  variant detections.
+  only the variants that preserve the base-term semantics are extracted. As for
+  TermSuite, it is a tool for monolingual and bilingual term extraction that
+  implements the state-of-the-art method for term extraction (using linguistic
+  knowledge) and variant detections.
 
+  In their review of automatic term extraction methods,
   \newcite{castellvi2001automatictermdetection} stated that alongside term
   extraction there is the document indexing task. Indeed, the textual units that
-  index a given document, i.e. best descibe its content, are often
+  index a given document, i.e. best describe its content, often are
   terminological phrases. Hence, we believe that the complex noun phrase
-  subcompounding method of \newcite{evans1996nounphraseanalysis} could be
+  sub-compounding method of \newcite{evans1996nounphraseanalysis} could be
   suitable for keyphrase candidate extraction. The aim of their method is to
-  extract both highly informative terms and less informative terms, where highly
-  informative terms are complex noun phrases (e.g. ``the quality of surface of
-  treated stainless steel strip'') and less  informative terms are
-  their meaningful subcompounds. Four types of subcompounds are extracted:
+  extract both highly informative and less informative terms. Highly informative
+  terms are complex noun phrases (e.g. ``the quality of surface of treated
+  stainless steel strip'') and less  informative terms are their meaningful
+  sub-compounds. Four types of sub-compounds are defined:
   \begin{enumerate}
     \item{Lexical atoms, i.e. semantically coherent phrases (e.g. ``stainless
           steel'')
@@ -286,105 +268,91 @@
           \label{item:head_modifier}}
     \item{Cross preposition modification pairs (e.g. ``surface quality'')
           \label{item:cross_preposition_modifier}}
-    \item{Subcompounds (e.g. ``stainless steel strip'')
+    \item{Sub-compounds (e.g. ``stainless steel strip'')
           \label{item:subcompound}}
   \end{enumerate}
-  The \ref{item:lexical_atom}$^\text{st}$, the
-  \ref{item:cross_preposition_modifier}$^\text{rd}$ and the
+  The \ref{item:lexical_atom}$^\text{st}$,
+  \ref{item:cross_preposition_modifier}$^\text{rd}$ and
   \ref{item:subcompound}$^\text{th}$ types represent continuous textual units,
   whereas the \ref{item:head_modifier}$^\text{nd}$ type represents both
-  continuous and discontinuous textual units. Therefore, we do not
-  consider the head modifiers in our work, because we aim to only extract
+  continuous and discontinuous textual units. In our work, we do not consider
+  the head modifiers (\ref{item:head_modifier}), because we aim to only extract
   keyphrases contained in the analyzed document. For the same reason, we do not
-  generate cross preposition modification pairs.
+  generate cross preposition modification pairs
+  (\ref{item:cross_preposition_modifier}).
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
   Keyphrase extraction is the task of identifying single or multi-word
-  expressions. To automatically extract the keyphrases of a document,
-  linguistic enrichments of the document are done (e.g. part-of-speech tagging)
-  and candidate keyphrases are extracted based on these enrichments. When the
-  potential keyphrases are known, an unsupervised or supervised method is
-  applied to, respectively, rank or classify them. Unsupervised methods do not
-  need a human intervention, they may need a collection of nonannotated
+  expressions that best represent a document. After the extraction of the
+  keyphrase candidates, an unsupervised or supervised method is applied to,
+  respectively, rank or classify the candidates. Unsupervised methods do not
+  need a human intervention, they may need a collection of non-annotated
   documents (TF-IDF), a set of similar
-  documents~\cite[ExpandRank]{wan2008expandrank} or only the document to
-  analyse~\cite[TopicRank]{bougouin2013topicrank}. As for supervised methods,
-  such as KEA~\cite{witten1999kea}, they need annotated data to serve a prior
-  training to learn what are keyphrases. The training step makes the supervised
-  methods specific to documents having similar particularities to the training
-  documents. When documents from a particular domain must be processed,
-  supervised methods usually achieve better results than unsupervised ones.
+  documents~\cite[ExpandRank]{wan2008expandrank} or only the analyzed
+  document~\cite[TopicRank]{bougouin2013topicrank}. As for supervised methods,
+  such as KEA~\cite{witten1999kea}, they need manually annotated data to learn
+  what are keyphrases. Supervised methods usually achieve better results than
+  unsupervised methods.
 
   In this section, we present the three keyphrase extraction methods that we
-  retain for our work. One method uses a collection of nonannotated documents
-  (TF-IDF), one only needs the analyzed document (TopicRank) and one requires
-  annotated documents for a prior training (KEA).
+  retain for our work. The first method uses a collection of non-annotated
+  documents (TF-IDF), the second method only needs the analyzed document
+  (TopicRank) and the last method requires annotated documents for a prior
+  training (KEA).
 
-  \subsection{TF-IDF}
-  \label{subsec:tfidf}
-    TF-IDF is a weighting scheme that represents the significancy of a word, for
-    a given document. The frequency of a word within a document (TF) is the
-    first clue of its significance reguarding this document, but some words can
-    belong to the general language or to a disciplinary phraseology. Therefore,
-    a specificity measure, based on the word's document frequency (DF), is
-    introduced. The less frequent the word is within a given collection of $N$
-    documents, the more it is specific to the analyzed document:
-    \begin{align}
-      \text{TF-IDF}_w &= TF_w \times \frac{N}{DF_w}
-    \end{align}
+  \paragraph{TF-IDF} is a weighting scheme that represents the significance of a
+  word in a given document. A significant word must be both frequent in the
+  document (TF) and specific to it (IDF). The specificity is determined using a
+  collection of documents. The intuition is that the lower is the amount of
+  documents where a word appears, the higher is the specificity of the word.
 
-    The keyphrase candidates are ranked (scored) according to the sum of the
-    TF-IDF weight of their words. The $k$ keyphrases with the lowest rank
-    (higher score) are extracted as keyphrases.
+  The keyphrase candidates are scored according to the sum of the TF-IDF weight
+  of their words and the $k$ keyphrases with the highest scores are extracted as
+  keyphrases.
 
-  \subsection{TopicRank}
-  \label{subsec:topicrank}
-    TopicRank aims to extract keyphrases that best represent the main topics of
-    a document. One keyphrase is extracted from each of the $k$ significant
-    topics, leading to a set of topically unredundant keyphrases -- a set that
-    covers exactly $k$ significant topics.
+  \paragraph{TopicRank} aims to extract keyphrases that best represent the main
+  topics of a document. One keyphrase is extracted from each of the $k$ most
+  significant topics, leading to a set of topically unredundant keyphrases.
 
-    First, the keyphrase candidates are clustered by topic, assuming that
-    candidates sharing enough words belong to the same topic. Then, the topics
-    are used as graph nodes linked together and the TextRank graph-based
-    ranking~\cite{mihalcea2004textrank} is applied to rank them by significance,
-    according to the strength of their links. The smaller are the offset
-    distances between the candidates of two topics, the higher is the strength
-    between the two topics. A topic strongly connected to many topics is more
-    significant and gives more significancy to every topic it is connected to.
-    Finally, the k-best topics are selected and one candidate per topic is
-    chosen as a keyphrase. Assuming that a topic is first introduced by its
-    generic form, the best keyphrase candidate to represent the topic is the one
-    that appears first.
+  First, the keyphrase candidates are clustered by topics, assuming that
+  candidates sharing enough words belong to the same topic. Secondly, the
+  topics are used as graph nodes linked altogether. The TextRank graph-based
+  ranking is then applied to rank the topics according to the strength of their
+  links. The smaller are the offset distances between the candidates of two
+  topics, the higher is the strength between the two topics. A topic strongly
+  connected to many topics is highly significant and gives more significancy to
+  every topic it is connected to. Finally, the most significant topics are
+  selected and one candidate per each is chosen as a keyphrase. Assuming that a
+  topic is first introduced by its generic form, the best keyphrase candidate
+  for a topic is the one that appears first into the document.
 
-  \subsection{KEA}
-  \label{subsec:kea}
-    KEA is a supervised keyphrase extraction method that learns to identify
-    keyphrases based on two features. A training collection is used to compute
-    probabilities to find keyphrases given specific TF-IDF weights\footnote{The
-    TF-IDF weights computed for KEA are based on the candidates' frequency and
-    document frequency, not words' frequency and document frequency.} and
-    specific positions for candidates. The two distributions are then integrated
-    into a Naive Bayes model used to classify the keyphrase candidates extracted
-    from analyzed documents.
+  \paragraph{KEA} is a supervised keyphrase extraction method that learns to
+  identify keyphrases based on two features. A training collection is used to
+  compute probabilities to find keyphrases given specific TF-IDF
+  weights\footnote{The TF-IDF weights computed for KEA are based on the
+  candidates' frequency and document frequency, not words' frequency and
+  document frequency.} and specific first positions for candidates. A Naive
+  Bayes classifier make usage of the two learned distributions (TF-IDF and first
+  position) to classify the keyphrase candidates extracted from an analyzed
+  document.
 
 \section{Evaluation}
 \label{sec:evaluation}
-  To better understand each candidate extraction method, we perform two
-  evaluations. The first evaluation is an intrinsic evaluation that shows the
-  quantity of extracted candidates compared to the quantity of candidates
-  matching with reference keyphrases. The second evaluation is an extrinsic
-  evaluation that directly compares the candidate extraction methods when they
-  are used with either TF-IDF, TopicRank or KEA.
+  To better understand the candidate extraction methods, we perform two
+  evaluations. The first evaluation is intrinsic, it shows the quantity of
+  extracted candidates compared to the quantity of positive candidates. The
+  second evaluation is extrinsic, it compares the candidate extraction method
+  when they are used with either TF-IDF, TopicRank or KEA.
 
   \subsection{Datasets}
   \label{subsec:datasets}
     The datasets used to evaluate the methods are the test sets of DUC,
     SemEval and DEFT (see Section~\ref{subsec:keyphrase_extraction_datasets}).
-    Table~\ref{tab:test_dataset_statistics} reports the information reguarding
-    these test sets. As they are coherent with the training sets, we can make
-    usage of the properties infered from the observation of these.
+    Table~\ref{tab:test_dataset_statistics} reports the information about these
+    test sets. As they are coherent with the training sets, we can make usage of
+    the properties inferred in
+    Section~\ref{sec:definition_of_candidate_keyphrases}.
     \begin{table}
       \centering
       \begin{tabular}{@{~}r@{~}c@{~}c@{~}c@{~}}
@@ -419,14 +387,14 @@
         & Candidates & Rmax & Candidates & Rmax & Candidates & Rmax\\
         \midrule
         \{1..2\}-grams & $~~$49098 & 76.6 & 163358 & 61.0 & 238678 & 67.3\\
-        \{1..3\}-grams & $~~$59623 & 90.8 & 258054 & 72.2 & 378526 & 74.1\\
+        \{1..3\}-grams & $~~$59623 & \textbf{90.8} & 258054 & \textbf{72.2} & 378526 & 74.1\\
         %\{1..4\}-grams & $~~$78024 & 92.6 & 365151 & 74.1 & 533753 & 78.2\\
-        Training patterns & $~~$36677 & 93.7 & 148333 & 70.7 & 268633 & 76.5\\
+        Learned patterns & $~~$31764 & 90.6 & 122741 & 69.8 & 199789 & \textbf{76.5}\\
         Longest NPs & $~~$15559 & 88.7 & $~~$64649 & 62.4 & $~~$85047 & 61.1\\
         NP-chunks & $~~$14994 & 76.0 & $~~$59839 & 56.6 & $~~$75548 & 63.0\\
-        Subcompounds & $~~$17181 & 90.6 & $~~$71224 & 64.4 & $~~$86866 & 61.1\\
+        Sub-compounds & $~~$17181 & 90.6 & $~~$71224 & 64.4 & $~~$86866 & 61.1\\
         Acabit & $~~~~$2377 & 26.7 & $~~$13214 & 17.6 & $~~$11106 & 13.4\\
-        TermSuite & $~~$16253 & 46.1 & $~~$50636 & 32.4 & $~~$82884 & 53.4\\
+        TermSuite & $~~$16203 & 46.1 & $~~$54677 & 32.4 & $~~$83125 & 53.4\\
         \bottomrule
       \end{tabular}
       \caption{Candidate extraction statistics. Rmax stands for maximum recall,
@@ -434,69 +402,120 @@
                keyphrases. \label{tab:candidate_extraction_statistics}}
     \end{table*}
 
-    This section presents the intrinsic evaluation of the keyphrase candidate
-    extraction methods presented in Section~\ref{sec:candidate_extraction}.
-    We chose the parameters of these methods to fit the keyphrase properties
-    infered from the training sets.
+    This section presents the intrinsic evaluation of the candidate extraction
+    methods presented in Section~\ref{sec:candidate_extraction}. The aim is to
+    compare the methods in terms of quantity of extracted candidates and
+    percentage of keyphrases that can be found.
 
     \subsubsection{Method Settings}
     \label{subsubsec:method_settings}
+      The parameters of the keyphrase candidate extraction methods are chosen to
+      fit the keyphrase properties inferred from the training sets (see
+      Section~\ref{sec:definition_of_candidate_keyphrases}).
+
       According to Property~\ref{prop:informativity}, we try two \textbf{n-gram
-      extraction} methods: one extracting filtered n-grams where
-      $n \in \{1..2\}$ and one extracting filtered n-grams where
+      extraction} methods: the first one extracts filtered n-grams where
+      $n \in \{1..2\}$ and the second one extracts filtered n-grams where
       $n \in \{1..3\}$. The stop words used for the filtering are part of the IR
       Multilingual Resources provided by the University of Neuchâtel (UniNE).
 
       We defined two \textbf{pattern matching} methods. The first one learns the
-      keyphrase POS tag patterns from the training documents and extract every
-      textual units that match with one pattern. The second method follows both
-      Property~\ref{prop:noun_phrases} and previous work on keyphrase
-      extraction~\cite{wan2008expandrank,bougouin2013topicrank} by extracting
-      the longest sequences of nouns and adjectives, the longest noun phrases.
+      keyphrases POS tag patterns from the training documents and extracts
+      textual units, filtered by stop words, that match with one of the
+      patterns. The second method follows both Property~\ref{prop:noun_phrases}
+      and previous works on keyphrase extraction by looking for the longest
+      sequences of nouns and adjectives, supposedly the longest noun phrases.
 
       The \textbf{NP-chunk extraction} is performed using pattern matching. Only
-      basic NP-chunk regular expressions are used:
+      basic regular expressions are used:
       \begin{itemize}
         \item{(PROPER\_NOUN+) $|$~(ADJ+~NOUN) $|$~(NOUN+), for English}
         \item{(PROPER\_NOUN+) $|$~(ADJ?~NOUN~ADJ+) $|$~(ADJ~NOUN) $|$~(NOUN+),
               for French}
       \end{itemize}
 
-      The \textbf{subcompounding} method of
+      The \textbf{sub-compounding} method of
       \newcite{evans1996nounphraseanalysis} requires complex noun phrases. For
-      comparison purpose, we input the longest NPs extracted by pattern matching
-      and assume that they are complex NPs. Therefore, the method adds relevant
-      candidate substrings to the candidate set extracted by pattern matching.
+      comparison purpose, we input the longest NPs extracted by pattern
+      matching, assuming that they are complex NPs.
 
-      \textbf{Acabit} and \textbf{TermSuite} are both used to extract a
-      terminology from each training dataset and the keyphrase candidates are
-      only textual units that match with one term of the terminology.
+      \textbf{Acabit} and \textbf{TermSuite} are both used to build a
+      terminology from each training dataset. The keyphrase candidates of a
+      document only are its textual units that belong to the terminology.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
-      \todo[inline]{Quels sont les termes candidats communs aux ensembles, les
-                    propriétés ?}
+      Table~\ref{tab:candidate_extraction_statistics} shows the number of
+      textual units extracted by each candidate extraction method and indicates
+      the maximum recall that could be achieved, i.e. the percentage of
+      reference keyphrases that could eventually be found.
+
+      Globally, the extraction of n-grams or textual units matching learned
+      patterns gives many candidates and allows a higher maximum recall. On the
+      contrary, the extraction of more specific textual units provides few
+      candidates and allows a lower maximum recall. However, for the extraction
+      of the longest noun phrases, NP-chunks and the longest noun phrases plus
+      their sub-compounds, the drop in the maximum recall is not significant
+      compared to the drop in the number of candidates. At this moment, we can
+      say that it benefits the processing time. The next experiment
+      (see Section~\ref{subsec:keyphrase_extraction}) will conclude whether it
+      avoids unrelevant candidates affecting the performances of the keyphrase
+      extraction or not.
+
+      \todo[inline]{Learned patterns seem to be a good compromise.}
+
+      Acabit and TermSuite provide a few candidates and do not allow a good
+      maximum recall. Surprisingly, TermSuite provides about as much candidates
+      as the NP-chunks and the longest noun phrases (with or without
+      sub-compounds). Also, we studied the positive candidates and observed that
+      most of them are also extracted as longest noun phrases, sub-compunds or
+      NP-chunks. However, regarding the definition of terminological phrases, it
+      is not excluded that the off-target candidates bear enough information to
+      tackle this loss in the maximum recall, compared to the other methods. The
+      next experiment (see Section~\ref{subsec:keyphrase_extraction}) will help
+      us to conclude about this.
 
   \subsection{Keyphrase Extraction}
   \label{subsec:keyphrase_extraction}
     This section presents the extrinsic evaluation of the keyphrase candidate
-    extraction methods. We compare the performances of TF-IDF, TopicRank and
-    KEA applied to each set extracted by each candidate extraction methods. We
-    aim to determine weither some candidate extraction methods introduce noises
-    that some particular methods are not able to tackle.
+    extraction methods. The performances of TF-IDF, TopicRank and KEA are
+    compared when they extract keyphrases from each candidate set. By doing so,
+    we seek to determine whether some candidate extraction methods introduce
+    noises that some particular methods are not able to efficiently deal with.
 
     \subsubsection{Evaluation Measures}
     \label{subsubsec:keyphrase_extraction_evaluation_measures}
       The performances of TF-IDF, TopicRank and KEA are evaluated in terms of
       precision, recall and f-score (f1-measure) when a maximum of 10 keyphrases
-      are extracted. To allows small variations, such as plural, and reduce the
-      missing keyphrases problem, extracted keyphrases and reference keyphrases
-      are compared using their stemmed form.
+      are extracted. To allow morphological variations and reduce the missing
+      keyphrases problem, extracted keyphrases and reference keyphrases are
+      compared using stemmed forms.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
-      \todo[inline]{Quelles sont les performances de chaque méthode avec chaque
-                    ensemble de termes candidats ?}
+      Tables~\ref{tab:tfidf_results},~\ref{tab:topicrank_results}~and~\ref{tab:kea_results}
+      show the performances of respectively TF-IDF, TopicRank and KEA when
+      they are applied with either one of the studied candidate extraction
+      methods.
+
+      Globally, for every methods the best performances are achieved when TODO
+      are extracted. Therefore, we can conclude that despite the fact they
+      provide a low number of candidates (allowing a lesser maximum recall)
+      these methods provide better quality candidate sets.\todo{Is it still
+      correct?}
+
+      The keyphrase extraction methods themselves behave differently. KEA have
+      competitive performances with every candidate extraction methods while
+      TF-IDF and TopicRank see their performances improving when the quality of
+      the candidate set improves. Also, performances of TF-IDF seem more stable
+      than the ones of TopicRank. This is mainly due to the TF-IDF weighting
+      (also used in KEA) which can better manage non-specific candidates
+      (unrelevant candidates). TopicRank only uses the analysed document, so it
+      cannot make usage of such specificity measure and its performances is more
+      dependant to the quality of the candidate set that is used.
+
+      \todo[inline]{Des résultats interessants avec Acabit et TermSuite, surtout
+                    TermSuite.}
 
       \begin{table*}
         \centering
@@ -509,20 +528,19 @@
           \{1..2\}-grams & 14.7 & 19.5 & 16.5 & 10.3 & $~~$7.0 & $~~$8.3 & $~~$8.1 & 15.1 & 10.4\\
           \{1..3\}-grams & 14.3 & 19.0 & 16.1 & $~~$9.0 & $~~$6.0 & $~~$7.2 & $~~$6.7 & 12.5 & $~~$8.6\\
           %\{1..4\}-grams & 13.7 & 18.2 & 15.4 & $~~$8.4 & $~~$5.6 & $~~$6.7 & $~~$6.7 & 12.5 & $~~$8.6\\
-          Training patterns & 18.2 & 24.1 & 20.4 & 10.3 & $~~$6.9 & $~~$8.2 & $~~$6.7 & 12.5 & $~~$8.6\\
+          Learned patterns & 19.1 & 25.4 & 21.5 & 10.7 & $~~$7.3 & $~~$8.6 & $~~$7.0 & 13.1 & $~~$9.0\\
           Longest NPs & 24.2 & 31.7 & \textbf{27.0} & 11.7 & $~~$7.9 & $~~$9.3 & $~~$9.5 & 17.6 & 12.1\\
-          NP-chunks & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & \textbf{$~~$9.5} & $~~$9.6 & 17.9 & 12.3\\
-          Subcompounds & 22.8 & 29.9 & 25.5 & 10.8 & $~~$7.2 & $~~$8.6 & $~~$9.2 & 17.2 & 11.9\\
+          NP-chunks & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & $~~$9.5 & $~~$9.6 & 17.9 & 12.3\\
+          Sub-compounds & 22.8 & 29.9 & 25.5 & 10.8 & $~~$7.2 & $~~$8.6 & $~~$9.2 & 17.2 & 11.9\\
           Acabit & 15.3 & 19.6 & 17.0 & $~~$8.6 & $~~$6.1 & $~~$7.1 & $~~$2.4 & $~~$5.6 & $~~$3.3\\
-          TermSuite & 17.2 & 23.0 & 19.4 & 11.2 & $~~$8.1 & $~~$9.3 & 11.0 & 20.5 & \textbf{14.1}\\
+          TermSuite & 17.4 & 23.2 & 19.6 & 11.7 & $~~$8.4 & \textbf{$~~$9.7} & 11.1 & 20.7 & \textbf{14.3}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
                  keyphrases with \textbf{TF-IDF}. Results are expressed as a
                  percentage of precision (P), recall (R) and f-score (F).
-                 \label{tab:keyphrase_extraction_results}}
+                 \label{tab:tfidf_results}}
       \end{table*}
-
       \begin{table*}
         \centering
         \begin{tabular}{rccccccccc}
@@ -531,23 +549,22 @@
           \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
           & P & R & F & P & R & F & P & R & F\\
           \midrule
-          \{1..2\}-grams & 10.2 & 14.1 & 11.7 & 11.9 & $~~$8.2 & \textbf{$~~$9.6} & $~~$5.8 & 11.0 & $~~$7.5\\
+          \{1..2\}-grams & 10.2 & 14.1 & 11.7 & 11.9 & $~~$8.2 & $~~$9.6 & $~~$5.8 & 11.0 & $~~$7.5\\
           \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
           %\{1..4\}-grams & $~~$7.1 & $~~$9.7 & $~~$8.1 & & & & & & \\
-          Training patterns & 14.2 & 19.1 & 16.1 & $~~$7.2 & $~~$4.9 & $~~$5.8 & & & \\
-          Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & 11.6 & 21.5 & 14.9\\
+          Learned patterns & 14.9 & 19.8 & 16.7 & 12.2 & $~~$4.6 & \textbf{$~~$9.9} & & & \\
+          Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & 11.6 & 21.5 & \textbf{14.9}\\
           NP-chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
-          Subcompounds & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & 14.9\\
+          Sub-compounds & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & 14.9\\
           Acabit & 11.2 & 14.2 & 12.3 & 10.2 & $~~$7.1 & $~~$8.3 & $~~$3.4 & $~~$7.9 & $~~$4.7\\
-          TermSuite & 10.2 & 13.7 & 11.5 & $~~$9.0 & $~~$6.6 & $~~$7.5 & $~~$4.0 & $~~$7.8 & $~~$5.2\\
+          TermSuite & & & & & & & & & \\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
                  keyphrases with \textbf{TopicRank}. Results are expressed as a
                  percentage of precision (P), recall (R) and f-score (F).
-                 \label{tab:keyphrase_extraction_results}}
+                 \label{tab:topicrank_results}}
       \end{table*}
-
       \begin{table*}
         \centering
         \begin{tabular}{rccccccccc}
@@ -559,20 +576,19 @@
           \{1..2\}-grams & 12.3 & 17.1 & 14.1 & 19.2 & 13.6 & 15.8 & 13.1 & 24.5 & 16.9\\
           \{1..3\}-grams & 12.0 & 16.6 & 13.7 & 19.4 & 13.7 & 15.9 & 13.4 & 25.3 & 17.3\\
           %\{1..4\}-grams & 11.7 & 16.1 & 13.4 & 19.5 & 13.8 & 16.0 & 13.7 & 25.7 & 17.6\\
-          Training patterns & 13.4 & 18.4 & 15.3 & 18.4 & 13.0 & 15.1 & 13.5 & 25.5 & 17.5\\
-          Longest NPs & 14.5 & 19.9 & 16.5 & 19.6 & 13.7 & \textbf{16.0} & 14.1 & 26.3 & 18.1\\
+          Learned patterns & 12.9 & 17.8 & 14.8 & 19.6 & 13.8 & \textbf{16.1} & 14.7 & 27.6 & 19.0\\
+          Longest NPs & 14.5 & 19.9 & 16.5 & 19.6 & 13.7 & 16.0 & 14.1 & 26.3 & 18.1\\
           NP-chunks & 13.5 & 18.6 & 15.4 & 19.5 & 13.7 & 16.0 & 14.3 & 26.8 & 18.4\\
-          Subcompounds & 14.6 & 20.0 & \textbf{16.7} & 19.3 & 13.5 & 15.8 & 14.1 & 26.3 & 18.1\\
+          Sub-compounds & 14.6 & 20.0 & \textbf{16.7} & 19.3 & 13.5 & 15.8 & 14.1 & 26.3 & 18.1\\
           Acabit & 14.6 & 19.1 & 16.3 & 15.6 & 10.8 & 12.6 & $~~$4.7 & 10.5 & $~~$6.4\\
-          TermSuite & 12.5 & 17.2 & 14.3 & 13.9 & 10.1 & 11.6 & 14.9 & 28.5 & \textbf{19.4}\\
+          TermSuite & 12.5 & 17.2 & 14.3 & 13.6 & $~~$9.8 & 11.3 & 14.9 & 28.5 & \textbf{19.4}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
                  keyphrases with \textbf{KEA}. Results are expressed as a
                  percentage of precision (P), recall (R) and f-score (F).
-                 \label{tab:keyphrase_extraction_results}}
+                 \label{tab:kea_results}}
       \end{table*}
-
 %      \begin{table*}
 %        \centering
 %        \begin{tabular}{rccccccccc}
@@ -584,18 +600,18 @@
 %          \{1..2\}-grams & 15.5 & 20.5 & 17.4 & 10.4 & $~~$7.0 & \textbf{$~~$8.3} & $~~$3.0 & $~~$6.2 & $~~$4.0\\
 %          \{1..3\}-grams & 13.7 & 18.0 & 15.3 & $~~$3.4 & $~~$2.3 & $~~$2.7 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
 %          %\{1..4\}-grams & $~~$7.7 & 10.1 & $~~$8.6 & $~~$1.4 & $~~$1.0 & $~~$1.1 & $~~$1.1 & $~~$2.4 & $~~$1.5\\
-%          Training patterns & 17.8 & 22.9 & 19.7 & $~~$3.5 & $~~$2.4 & $~~$2.8 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
+%          Learned patterns & & & & & & & & & \\
 %          Longest NPs & 22.8 & 29.5 & \textbf{25.3} & $~~$3.7 & $~~$2.5 & $~~$3.0 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
 %          NP-chunks & 20.6 & 27.3 & 23.1 & $~~$8.4 & $~~$5.7 & $~~$6.7 & $~~$4.9 & $~~$9.7 & $~~$6.4\\
-%          Subcompounds & 21.2 & 27.3 & 23.5 & $~~$3.5 & $~~$2.4 & $~~$2.8 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
+%          Sub-compounds & 21.2 & 27.3 & 23.5 & $~~$3.5 & $~~$2.4 & $~~$2.8 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
 %          Acabit & 15.3 & 19.8 & 17.0 & $~~$7.6 & $~~$5.2 & $~~$6.1 & $~~$2.9 & $~~$6.6 & $~~$4.0\\
-%          TermSuite & 17.0 & 22.4 & 19.1 & $~~$7.5 & $~~$5.4 & $~~$6.2 & $~~$7.1 & 13.8 & \textbf{$~~$9.2}\\
+%          TermSuite & & & & & & & & & \\
 %          \bottomrule
 %        \end{tabular}
 %        \caption{Comparison of candidate extraction methods, when extracting 10
 %                 keyphrases with \textbf{SingleRank}. Results are expressed as a
 %                 percentage of precision (P), recall (R) and f-score (F).
-%                 \label{tab:keyphrase_extraction_results}}
+%                 \label{tab:singlerank_results}}
 %      \end{table*}
 
 \section{Conclusion}
