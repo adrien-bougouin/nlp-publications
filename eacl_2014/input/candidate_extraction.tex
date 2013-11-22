@@ -12,17 +12,17 @@
   documents.
 
   Automatic keyphrase extraction methods are divided into two categories:
-  supervised and unsupervised. Supervised methods typically recast keyphrase
-  extraction as a binary classification task~\cite{witten1999kea}. For
-  unsupervised methods, keyphrase extraction is often considered as a ranking
-  task and many approaches are
+  supervised and unsupervisedmethods. Supervised methods typically recast the
+  keyphrase extraction as a binary classification task~\cite{witten1999kea}.
+  For unsupervised methods, keyphrase extraction is often considered as a
+  ranking task and many approaches are
   used~\cite{barker2000nounphrasehead,mihalcea2004textrank}. Although they work
   differently, both supervised and unsupervised methods rely on a preliminary
   candidate extraction step. The candidate extraction identifies single and
   multi-word expressions that have the same syntactic properties than a
   keyphrase. These expressions are the only textual units that can be extracted
-  as keyphrases. Therefore, they play an important role for automatic keyphrase
-  extraction.
+  as keyphrases. Therefore, keyphrase candidates play an important role for
+  automatic keyphrase extraction.
   
   In this paper, we focus on the candidate extraction step. Various methods are
   commonly employed to extract keyphrase candidates. Usually, filtered n-grams,
@@ -31,23 +31,23 @@
   researchers try to find more suitable keyphrase
   candidates~\cite{hulth2003keywordextraction,kim2009reexaminingautomatickeyphraseextraction},
   there is, in our knowledge, no work to compare the various methods which are
-  used. We seek to do this by looking at the extracted candidates and the
-  maximum recall that can be achieved for each method, as well as comparing the
-  performances of existing keyphrase extraction methods depending on the
-  employed candidate extraction method. Also, we investigate the feasibility of
-  using term as candidate keyphrases. Terms are grammatically arranged sequences
-  of words designating a concept and treated as single units, terminological
-  phrases. For this reason, terms seem to be suitable for keyphrase candidate
-  extraction.
+  used. We seek to do this by comparing the performances of existing keyphrase
+  extraction methods depending on the employed candidate extraction method and
+  by looking at the extracted candidates and the maximum recall that can be
+  achieved for each candidate extraction method. Also, we investigate the
+  feasibility of using term as candidate keyphrases. Terms are grammatically
+  arranged sequences of words designating a concept and treated as single units,
+  terminological phrases. For this reason, terms seem to be suitable for
+  keyphrase candidate extraction.
 
   This paper is organized as follows.
   Section~\ref{sec:definition_of_candidate_keyphrases} presents our datasets and
   study their reference keyphrases, Section~\ref{sec:candidate_extraction}
-  presents the candidate extraction and term extraction methods,
-  Section~\ref{sec:keyphrase_extraction} presents the three keyphrase extraction
-  methods that we use in our intrinsic and extrinsic evaluations presented in
-  Section~\ref{sec:evaluation}. Finally, Section~\ref{sec:conclusion} conclude
-  this work.
+  presents the candidate extraction and term extraction methods and
+  Section~\ref{sec:keyphrase_extraction} describes the three keyphrase
+  extraction methods that we use in our intrinsic and extrinsic evaluations
+  presented in Section~\ref{sec:evaluation}. Finally,
+  Section~\ref{sec:conclusion} conclude this work.
 
 \section{Definition of Candidate Keyphrases}
 \label{sec:definition_of_candidate_keyphrases}
@@ -68,9 +68,9 @@
     news articles covering about 30 topics (e.g. tornadoes, gun control, etc.).
     This collection is the test dataset of the DUC-2001 summarization evaluation
     campaign. This part of DUC-2001 is the only one that contains keyphrases,
-    which are annotated by \newcite{wan2008expandrank}. We split the collection
-    into two sets: a training set containing 208 documents and a test set
-    containing 100 documents.
+    annotated by \newcite{wan2008expandrank}. We split the collection into two
+    sets: a training set containing 208 documents and a test set containing 100
+    documents.
 
     The \textbf{SemEval} dataset \cite{kim2010semeval} contains 284 English
     scientific papers collected from the ACM Digital Libraries (conference and
@@ -142,25 +142,25 @@
 
     \begin{table*}
       \centering
-      \begin{tabular}{rll}
+      \begin{tabular}{rlllll}
         \toprule
-        & \textbf{Pattern} & \textbf{Example}\\
+        & \multicolumn{4}{l}{\textbf{Pattern}} & \textbf{Example}\\
         \midrule
-        \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{English}\end{sideways}} & NOUN NOUN & hurricane expert\\ % AP880409-0015
-        & ADJ NOUN & turbulent summer\\ % AP88049-0015
-        & NOUN & storms\\ % AP880409-0015
-        & ADJ NOUN NOUN & annual hurricane forecast\\ % AP880409-0015
-        & NOUN NOUN NOUN & hurricane reconnaissance flights\\ % AP890529-0030
+        \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{English}\end{sideways}} & Nc & Nc & & & hurricane expert\\ % AP880409-0015
+        & A & Nc & & & turbulent summer\\ % AP88049-0015
+        & Nc & & & & storms\\ % AP880409-0015
+        & A & Nc & Nc & & annual hurricane forecast\\ % AP880409-0015
+        & Nc & Nc & Nc & & hurricane reconnaissance flights\\ % AP890529-0030
         \addlinespace[1.5\defaultaddspace]
-        \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{French}\end{sideways}} & NOUN & patrimoine -- cultural heritage\\ % as_2002_007048ar
-        & NOUN ADJ & tradition orale -- oral tradition\\ % as_2002_007048ar
-        & PROPER\_NOUN & Indonésie -- Indonesia\\ % as_2001_000235ar
-        & NOUN PREP DET NOUN & conservation de la nature -- nature conservation\\ % as_2005_011742ar
-        & NOUN PREP NOUN & traduction en anglais -- English translation\\ % meta_2003_006958ar
+        \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{French}\end{sideways}} & Nc & & & & patrimoine -- cultural heritage\\ % as_2002_007048ar
+        & Nc & A & & & tradition orale -- oral tradition\\ % as_2002_007048ar
+        & Np & & & & Indonésie -- Indonesia\\ % as_2001_000235ar
+        & Nc & Sp & D & Nc & conservation de la nature -- nature conservation\\ % as_2005_011742ar
+        & Nc & Sp & Nc & & traduction en anglais -- English translation\\ % meta_2003_006958ar
         \bottomrule
       \end{tabular}
-      \caption{Frequent part-of-speech patterns for English and French
-               keyphrases. \label{tab:best_patterns}}
+      \caption{Frequent part-of-speech patterns (Multex format) for English and
+               French keyphrases. \label{tab:best_patterns}}
     \end{table*}
 
     Keyphrase statistics of Table~\ref{tab:train_dataset_statistics} show that
@@ -182,7 +182,7 @@
     words and coordinating conjunctions, are not rare.
 
     \begin{property}\label{prop:noun_phrases}
-      Keyphrases are mostly nouns (e.g. ``storm'') that can be modified by one
+      Keyphrases are mostly nouns (e.g. ``storms'') that can be modified by one
       or more adjectives (e.g. ``\underline{annual} hurricane forecast'').
       French keyphrases containing multiple nouns can contain prepositions and
       determiners (e.g. ``conservation \underline{de la} nature'' -- ``nature
@@ -216,38 +216,39 @@
   candidates are filtered with a list of stop words: conjunctions, prepositions,
   determiners  and common words. Stop words must not be found at the beginning
   or at the end of a
-  candidate~\cite{witten1999kea,turney1999learningalgorithms}.
+  candidate~\cite{witten1999kea,hulth2003keywordextraction}.
 
   \paragraph{POS tag patterns} are used to specify the syntactic form of the
   textual units to extract as keyphrases. \newcite{hulth2003keywordextraction}
   experimented with the frequent POS tag patterns of her training
   data\footnote{Frequent patterns are the ones that appear ten or more times.},
-  whereas other researchers only use the longest sequences of nouns and
-  adjectives, considering them as noun phrases.
+  whereas other researchers only use the longest sequences of nouns (including
+  proper nouns) and adjectives, considering them as noun phrases.
 
   \paragraph{NP-chunks} are non-recursive noun phrases, i.e. noun phrases that
   do not contain other noun phrases. \newcite{hulth2003keywordextraction} used
   NP-chunks in her experiments, arguing that it makes the candidate extraction
   process less arbitrary -- which is the case when extracting n-grams -- and,
   most of all, more linguistic. Also, extracting such minimal noun phrases is
-  consistent with Property~\ref{prop:informativity} and
+  consistent with both Property~\ref{prop:informativity} and
   Property~\ref{prop:noun_phrases}.
 
   \paragraph{Terminological phrases (terms)} are word sequences designating a
   concept and treated as single units for a specific domain. Considering that a
-  keyphrase is the vector of an idea, a concept, it seems relevant to extract
-  keyphrases from  a set of terminological phrases. As well as extracting
-  NP-chunks, it seems less arbitrary to extract terms as candidate keyphrases.
+  keyphrase is the vector of an idea, or a concept, it seems relevant to extract
+  keyphrases from  a set of terminological phrases. Besides, as well as
+  extracting NP-chunks, extracting terminological phrases as keyphrase
+  candidates seems less arbitrary and more linguistic.
 
   Acabit~\cite{daille2003acabit} and
   TermSuite\footnote{\url{http://www.ttc-project.eu}} are two term extraction
   systems that we propose to use for keyphrase candidate extraction. Acabit uses
   linguistic knowledge to extract the multi-word terms and their variants
   (morphological and syntagmatic). Based on syntactic and morphological clues,
-  only the variants that preserve the base-term semantics are extracted. As for
-  TermSuite, it is a tool for monolingual and bilingual term extraction that
-  implements the state-of-the-art method for term extraction (using linguistic
-  knowledge) and variant detections.
+  only the variants that preserve the base-term semantics are extracted.
+  TermSuite is a tool for monolingual and bilingual term extraction that
+  implements the state-of-the-art method for term extraction and variant
+  detections.
 
   In their review of automatic term extraction methods,
   \newcite{castellvi2001automatictermdetection} stated that alongside term
@@ -279,11 +280,12 @@
   the head modifiers (\ref{item:head_modifier}), because we aim to only extract
   keyphrases contained in the analyzed document. For the same reason, we do not
   generate cross preposition modification pairs
-  (\ref{item:cross_preposition_modifier}).
+  (\ref{item:cross_preposition_modifier}), which are not always containde within
+  the document.
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
-  Keyphrase extraction is the task of identifying single or multi-word
+  The keyphrase extraction is the task of identifying single or multi-word
   expressions that best represent a document. After the extraction of the
   keyphrase candidates, an unsupervised or supervised method is applied to,
   respectively, rank or classify the candidates. Unsupervised methods do not
@@ -305,7 +307,7 @@
   word in a given document. A significant word must be both frequent in the
   document (TF) and specific to it (IDF). The specificity is determined using a
   collection of documents. The intuition is that the lower is the amount of
-  documents where a word appears, the higher is the specificity of the word.
+  documents containing a word, the higher is the specificity of the word.
 
   The keyphrase candidates are scored according to the sum of the TF-IDF weight
   of their words and the $k$ keyphrases with the highest scores are extracted as
@@ -328,14 +330,13 @@
   for a topic is the one that appears first into the document.
 
   \paragraph{KEA} is a supervised keyphrase extraction method that learns to
-  identify keyphrases based on two features. A training collection is used to
-  compute probabilities to find keyphrases given specific TF-IDF
+  identify keyphrases based on two features. Indeed, a training collection is
+  used to compute probabilities to have keyphrases given specific TF-IDF
   weights\footnote{The TF-IDF weights computed for KEA are based on the
-  candidates' frequency and document frequency, not words' frequency and
-  document frequency.} and specific first positions for candidates. A Naive
-  Bayes classifier make usage of the two learned distributions (TF-IDF and first
-  position) to classify the keyphrase candidates extracted from an analyzed
-  document.
+  candidate frequency, not word frequency.} and specific first positions for
+  candidates. A Naive Bayes classifier make usage of the two learned
+  distributions (TF-IDF and first position) to classify the keyphrase candidates
+  extracted from an analyzed document.
 
 \section{Evaluation}
 \label{sec:evaluation}
@@ -378,23 +379,45 @@
 
   \subsection{Candidate Extraction}
   \label{subsec:candidate_extraction}
+%    \begin{table*}
+%      \centering
+%      \begin{tabular}{rcccccc}
+%        \toprule
+%        \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{2}{c}{\textbf{DUC}} & \multicolumn{2}{c}{\textbf{SemEval}} & \multicolumn{2}{c}{\textbf{DEFT}}\\
+%        \cmidrule(r){2-3}\cmidrule(lr){4-5}\cmidrule(l){6-7}
+%        & Candidates & Rmax & Candidates & Rmax & Candidates & Rmax\\
+%        \midrule
+%        \{1..2\}-grams & $~~$49098 & 76.6 & 163358 & 61.0 & 238678 & 67.3\\
+%        \{1..3\}-grams & $~~$59623 & \textbf{90.8} & 258054 & \textbf{72.2} & 378526 & 74.1\\
+%        %\{1..4\}-grams & $~~$78024 & 92.6 & 365151 & 74.1 & 533753 & 78.2\\
+%        Learned patterns & $~~$31764 & 90.6 & 122741 & 69.8 & 199789 & \textbf{76.5}\\
+%        Longest NPs & $~~$15559 & 88.7 & $~~$64649 & 62.4 & $~~$85047 & 61.1\\
+%        NP-chunks & $~~$14994 & 76.0 & $~~$59839 & 56.6 & $~~$75548 & 63.0\\
+%        Sub-compounds & $~~$17181 & 90.6 & $~~$71224 & 64.4 & $~~$86866 & 61.1\\
+%        Acabit & $~~~~$2377 & 26.7 & $~~$13214 & 17.6 & $~~$11106 & 13.4\\
+%        TermSuite & $~~$16173 & 46.1 & $~~$49449 & 32.3 & $~~$60162 & 52.8\\
+%        \bottomrule
+%      \end{tabular}
+%      \caption{Candidate extraction statistics. Rmax stands for maximum recall,
+%               i.e. the percentage of candidates that match with reference
+%               keyphrases. \label{tab:candidate_extraction_statistics}}
+%    \end{table*}
     \begin{table*}
       \centering
       \begin{tabular}{rcccccc}
         \toprule
         \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{2}{c}{\textbf{DUC}} & \multicolumn{2}{c}{\textbf{SemEval}} & \multicolumn{2}{c}{\textbf{DEFT}}\\
         \cmidrule(r){2-3}\cmidrule(lr){4-5}\cmidrule(l){6-7}
-        & Candidates & Rmax & Candidates & Rmax & Candidates & Rmax\\
+        & Cand./Doc. & Rmax & Cand./Doc. & Rmax & Cand./Doc. & Rmax\\
         \midrule
-        \{1..2\}-grams & $~~$49098 & 76.6 & 163358 & 61.0 & 238678 & 67.3\\
-        \{1..3\}-grams & $~~$59623 & \textbf{90.8} & 258054 & \textbf{72.2} & 378526 & 74.1\\
-        %\{1..4\}-grams & $~~$78024 & 92.6 & 365151 & 74.1 & 533753 & 78.2\\
-        Learned patterns & $~~$31764 & 90.6 & 122741 & 69.8 & 199789 & \textbf{76.5}\\
-        Longest NPs & $~~$15559 & 88.7 & $~~$64649 & 62.4 & $~~$85047 & 61.1\\
-        NP-chunks & $~~$14994 & 76.0 & $~~$59839 & 56.6 & $~~$75548 & 63.0\\
-        Sub-compounds & $~~$17181 & 90.6 & $~~$71224 & 64.4 & $~~$86866 & 61.1\\
-        Acabit & $~~~~$2377 & 26.7 & $~~$13214 & 17.6 & $~~$11106 & 13.4\\
-        TermSuite & $~~$16203 & 46.1 & $~~$54677 & 32.4 & $~~$83125 & 53.4\\
+        \{1..2\}-grams & $~~$491.0 & 76.6 & 1633.6 & 61.0 & 2566.4 & 67.3\\
+        \{1..3\}-grams & $~~$596.2 & \textbf{90.8} & 2580.5 & \textbf{72.2} & 4070.2 & 74.1\\
+        Learned patterns & $~~$317.6 & 90.6 & 1227.4 & 69.8 & 2148.3 & \textbf{76.5}\\
+        Longest NPs & $~~$155.6 & 88.7 & $~~$646.5 & 62.4 & $~~$914.5 & 61.1\\
+        NP-chunks & $~~$149.9 & 76.0 & $~~$598.4 & 56.6 & $~~$812.3 & 63.0\\
+        Sub-compounds & $~~$171.8 & 90.6 & $~~$712.2 & 64.4 & $~~$934.0 & 61.1\\
+        Acabit & $~~~~$23.8 & 26.7 & $~~$132.1 & 17.6 & $~~$119.4 & 13.4\\
+        TermSuite & $~~$161.7 & 46.1 & $~~$494.5 & 32.3 & $~~$646.9 & 52.8\\
         \bottomrule
       \end{tabular}
       \caption{Candidate extraction statistics. Rmax stands for maximum recall,
@@ -414,12 +437,13 @@
       Section~\ref{sec:definition_of_candidate_keyphrases}).
 
       According to Property~\ref{prop:informativity}, we try two \textbf{n-gram
-      extraction} methods: the first one extracts filtered n-grams where
-      $n \in \{1..2\}$ and the second one extracts filtered n-grams where
-      $n \in \{1..3\}$. The stop words used for the filtering are part of the IR
-      Multilingual Resources provided by the University of Neuchâtel (UniNE).
+      extraction} methods with a low $n$ value: the first method extracts
+      filtered n-grams where $n \in \{1..2\}$ and the second method extracts
+      filtered n-grams where $n \in \{1..3\}$. The stop words used for the
+      filtering are part of the IR Multilingual Resources provided by the
+      University of Neuchâtel (UniNE).
 
-      We defined two \textbf{pattern matching} methods. The first one learns the
+      We define two \textbf{pattern matching} methods. The first one learns the
       keyphrases POS tag patterns from the training documents and extracts
       textual units, filtered by stop words, that match with one of the
       patterns. The second method follows both Property~\ref{prop:noun_phrases}
@@ -429,8 +453,8 @@
       The \textbf{NP-chunk extraction} is performed using pattern matching. Only
       basic regular expressions are used:
       \begin{itemize}
-        \item{(PROPER\_NOUN+) $|$~(ADJ+~NOUN) $|$~(NOUN+), for English}
-        \item{(PROPER\_NOUN+) $|$~(ADJ?~NOUN~ADJ+) $|$~(ADJ~NOUN) $|$~(NOUN+),
+        \item{(Np+) $|$~(A+~Nc) $|$~(N+), for English}
+        \item{(Np+) $|$~(A?~Nc~A+) $|$~(A~Nc) $|$~(Nc+),
               for French}
       \end{itemize}
 
@@ -440,8 +464,10 @@
       matching, assuming that they are complex NPs.
 
       \textbf{Acabit} and \textbf{TermSuite} are both used to build a
-      terminology from each training dataset. The keyphrase candidates of a
-      document only are its textual units that belong to the terminology.
+      terminology from each training dataset. Acabit and TermSuite respectively
+      detect 16929 and 30779 terms in DUC, 49537 and 74610 terms in SemEval and
+      78438 and 125841 terms in DEFT. The extracted keyphrase candidates of a
+      document are its textual units that belong to the terminology.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
@@ -450,30 +476,123 @@
       the maximum recall that could be achieved, i.e. the percentage of
       reference keyphrases that could eventually be found.
 
-      Globally, the extraction of n-grams or textual units matching learned
-      patterns gives many candidates and allows a higher maximum recall. On the
-      contrary, the extraction of more specific textual units provides few
-      candidates and allows a lower maximum recall. However, for the extraction
-      of the longest noun phrases, NP-chunks and the longest noun phrases plus
-      their sub-compounds, the drop in the maximum recall is not significant
-      compared to the drop in the number of candidates. At this moment, we can
-      say that it benefits the processing time. The next experiment
-      (see Section~\ref{subsec:keyphrase_extraction}) will conclude whether it
-      avoids unrelevant candidates affecting the performances of the keyphrase
-      extraction or not.
+      Globally, the extraction  of n-grams gives many candidates and allows a
+      high maximum recall, whereas the extraction of more specific textual units
+      provides few candidates and allows a lower maximum recall. However, for
+      the extraction of the longest noun phrases, NP-chunks and the longest noun
+      phrases plus their sub-compounds, the drop in the maximum recall is not
+      significant compared to the drop in the number of candidates. At this
+      point, we can say that it benefits the processing time by avoiding
+      off-target candidates, but it is not excluded that the avoided off-target
+      candidates are unrelevant candidates which may introduce noise that
+      dampens the keyphrase extraction performances. Also, the extraction of
+      textual units matching learned patterns seems to stand as a compromise
+      between the extraction of n-grams and longest NPs, NP-chunks or longest
+      NPs plus their sub-compounds.
 
-      \todo[inline]{Learned patterns seem to be a good compromise.}
+      The addition of sub-compoubds to the longest NPs does not seem to improve.
+      A few candidates are added and the maximum recall barely increases. Our
+      conclusion is that reference keyphrases can be found without modifiers
+      within the document.
 
       Acabit and TermSuite provide a few candidates and do not allow a good
-      maximum recall. Surprisingly, TermSuite provides about as much candidates
-      as the NP-chunks and the longest noun phrases (with or without
-      sub-compounds). Also, we studied the positive candidates and observed that
-      most of them are also extracted as longest noun phrases, sub-compunds or
-      NP-chunks. However, regarding the definition of terminological phrases, it
-      is not excluded that the off-target candidates bear enough information to
-      tackle this loss in the maximum recall, compared to the other methods. The
-      next experiment (see Section~\ref{subsec:keyphrase_extraction}) will help
-      us to conclude about this.
+      maximum recall. Acabit only extracts complex terms, which explains the gap
+      between its candidates and the one obtained using TermSuite.
+      Figure~\ref{fig:candidate_intersections} compares TermSuite candidates
+      with two candidate sets that allow a decent maximum recall while providing
+      either many or few candidates: respectively $\{1..3\}$-grams and longest
+      NPs. This figure shows that almost every positive candidates extracted by
+      TermSuite are also extracted by the other methods, which extract even
+      more positive candidates. Therefore, the only reason why TermSuite
+      candidates could help to better extract keyphrases is the quality of the
+      candidates. In fact, the $\{1..3\}$-grams may cover almost all the
+      TermSuite candidates, but it extract so much arbitrary candidates that the
+      risk of introducing noise dampening performances is increased. In the
+      contrary TermSuite candidates do not significantly overlap the longest
+      NPs. At this point, we can not decide whether one candidate set is better
+      than the other. It is also not excluded that the two sets are
+      complementary.
+      \begin{figure*}
+        \begin{minipage}{.32\textwidth}
+          \centering
+          \subfigure[TermSuite candidates compared to $\{1..3\}$-grams and \textbf{DUC} references.\label{subfig1:candidate_intersections}]{
+            \begin{overpic}[height=.9\linewidth]{include/duc_refs_term_suite_1_2_3_grams.eps}
+              \put(5,45){$\{1..3\}$-grams}
+              \put(60,42){TermSuite}
+              \put(80,72){Refs}
+            \end{overpic}
+          }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{.32\textwidth}
+          \centering
+          \subfigure[TermSuite candidates compared to $\{1..3\}$-grams and \textbf{SemEval} references.\label{subfig2:candidate_intersections}]{
+            \begin{overpic}[height=.9\linewidth]{include/semeval_refs_term_suite_1_2_3_grams.eps}
+              \put(7,45){$\{1..3\}$-grams}
+              \put(62,40){TermSuite}
+              \put(83,64){Refs}
+            \end{overpic}
+          }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{.32\textwidth}
+          \centering
+          \subfigure[TermSuite candidates compared to $\{1..3\}$-grams and \textbf{DEFT} references.\label{subfig3:candidate_intersections}]{
+            \begin{overpic}[height=.9\linewidth]{include/deft_refs_term_suite_1_2_3_grams.eps}
+              \put(7,46){$\{1..3\}$-grams}
+              \put(64,45){TermSuite}
+              \put(88,61){Refs}
+            \end{overpic}
+          }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{.32\textwidth}
+          \centering
+          \vspace{1em}
+          \subfigure[TermSuite candidates compared to longest noun phrases and \textbf{DUC} references.\label{subfig4:candidate_intersections}]{
+            \hspace{1.6em}
+            \begin{overpic}[height=.48\linewidth]{include/duc_refs_term_suite_longest_nps.eps}
+              \put(10,18){Longest}\put(19,6){NPs}
+              \put(43,45){TermSuite}
+              \put(38,74){Refs}
+            \end{overpic}
+            \hspace{1.6em}
+          }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{.32\textwidth}
+          \centering
+          \vspace{.9em}
+          \subfigure[TermSuite candidates compared to longest noun phrases and \textbf{SemEval} references.\label{subfig5:candidate_intersections}]{
+            \hspace{1.8em}
+            \begin{overpic}[height=.48\linewidth]{include/semeval_refs_term_suite_longest_nps.eps}
+              \put(15,18){Longest}\put(24,6){NPs}
+              \put(45,45){TermSuite}
+              \put(48,75){Refs}
+            \end{overpic}
+            \hspace{1.8em}
+          }
+        \end{minipage}
+        \hfill
+        \begin{minipage}{.32\textwidth}
+          \centering
+          \vspace{1.6em}
+          \subfigure[TermSuite candidates compared to longest noun phrases and \textbf{DEFT} references.\label{subfig6:candidate_intersections}]{
+            \hspace{2.4em}
+            \begin{overpic}[height=.42\linewidth]{include/deft_refs_term_suite_longest_nps.eps}
+              \put(12,19){Longest}\put(23,5){NPs}
+              \put(40,45){TermSuite}
+              \put(48,75){Refs}
+            \end{overpic}
+            \hspace{2.4em}
+          }
+        \end{minipage}
+        \caption{Intersection of TermSuite candidates with $\{1..3\}$-grams,
+                 which allows a near perfect maximum recall, and the longest
+                 NPs, which extracts a few candidates and allows a lower, but
+                 still decent, maximum recall.
+                 \label{fig:candidate_intersections}}
+      \end{figure*}
 
   \subsection{Keyphrase Extraction}
   \label{subsec:keyphrase_extraction}
@@ -498,11 +617,18 @@
       they are applied with either one of the studied candidate extraction
       methods.
 
-      Globally, for every methods the best performances are achieved when TODO
-      are extracted. Therefore, we can conclude that despite the fact they
-      provide a low number of candidates (allowing a lesser maximum recall)
-      these methods provide better quality candidate sets.\todo{Is it still
-      correct?}
+      Globally, for every methods the best performances are achieved when using
+      matching patterns (learned patterns, longest NPs, NP-chunks, etc.). As
+      suggested in Section~\ref{subsubsec:candidate_extraction_result_analysis},
+      despite the fact they provide a low number of candidates and allow a lower
+      maximum recall, these methods provide better quality candidate sets by
+      avoiding unrelevant candidates extracted with n-gram methods.
+
+      Most of the time, the longest NPs plus their sub-compounds do not improve
+      the performances achieved with the longest NPs themselves. Adding
+      sub-compounds to the longest NPs does not add much positive candidates and
+      does not add candidates bearing enough information to improve the
+      extraction.
 
       The keyphrase extraction methods themselves behave differently. KEA have
       competitive performances with every candidate extraction methods while
@@ -511,11 +637,15 @@
       than the ones of TopicRank. This is mainly due to the TF-IDF weighting
       (also used in KEA) which can better manage non-specific candidates
       (unrelevant candidates). TopicRank only uses the analysed document, so it
-      cannot make usage of such specificity measure and its performances is more
-      dependant to the quality of the candidate set that is used.
+      cannot make usage of such specificity measure and its performances are
+      more dependant to the quality of the candidate set that is used.
 
-      \todo[inline]{Des résultats interessants avec Acabit et TermSuite, surtout
-                    TermSuite.}
+      When applied to domain specific datasets, such as SemEval and DEFT,
+      TermSuite candidates  lead to good performances.
+      Section~\ref{subsubsec:candidate_extraction_result_analysis} stated that
+      longest NPs, which seem to be the best candidates, and TermSuite
+      candidates are not comparable, but they seem competitive, so a combination
+      of these could contribute to the creation of an even better candidate set.
 
       \begin{table*}
         \centering
@@ -530,10 +660,10 @@
           %\{1..4\}-grams & 13.7 & 18.2 & 15.4 & $~~$8.4 & $~~$5.6 & $~~$6.7 & $~~$6.7 & 12.5 & $~~$8.6\\
           Learned patterns & 19.1 & 25.4 & 21.5 & 10.7 & $~~$7.3 & $~~$8.6 & $~~$7.0 & 13.1 & $~~$9.0\\
           Longest NPs & 24.2 & 31.7 & \textbf{27.0} & 11.7 & $~~$7.9 & $~~$9.3 & $~~$9.5 & 17.6 & 12.1\\
-          NP-chunks & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & $~~$9.5 & $~~$9.6 & 17.9 & 12.3\\
+          NP-chunks & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & \textbf{$~~$9.5} & $~~$9.6 & 17.9 & 12.3\\
           Sub-compounds & 22.8 & 29.9 & 25.5 & 10.8 & $~~$7.2 & $~~$8.6 & $~~$9.2 & 17.2 & 11.9\\
           Acabit & 15.3 & 19.6 & 17.0 & $~~$8.6 & $~~$6.1 & $~~$7.1 & $~~$2.4 & $~~$5.6 & $~~$3.3\\
-          TermSuite & 17.4 & 23.2 & 19.6 & 11.7 & $~~$8.4 & \textbf{$~~$9.7} & 11.1 & 20.7 & \textbf{14.3}\\
+          TermSuite & 17.4 & 23.2 & 19.6 & 11.5 & $~~$8.3 & \textbf{$~~$9.5} & 11.3 & 21.1 & \textbf{14.5}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
@@ -552,12 +682,12 @@
           \{1..2\}-grams & 10.2 & 14.1 & 11.7 & 11.9 & $~~$8.2 & $~~$9.6 & $~~$5.8 & 11.0 & $~~$7.5\\
           \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
           %\{1..4\}-grams & $~~$7.1 & $~~$9.7 & $~~$8.1 & & & & & & \\
-          Learned patterns & 14.9 & 19.8 & 16.7 & 12.2 & $~~$4.6 & \textbf{$~~$9.9} & & & \\
+          Learned patterns & 14.9 & 19.8 & 16.7 & 12.2 & $~~$4.6 & \textbf{$~~$9.9} & $~~$8.8 & 16.1 & 11.3\\
           Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & 11.6 & 21.5 & \textbf{14.9}\\
           NP-chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
-          Sub-compounds & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & 14.9\\
+          Sub-compounds & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & \textbf{14.9}\\
           Acabit & 11.2 & 14.2 & 12.3 & 10.2 & $~~$7.1 & $~~$8.3 & $~~$3.4 & $~~$7.9 & $~~$4.7\\
-          TermSuite & & & & & & & & & \\
+          TermSuite & 10.4 & 13.9 & 11.7 & $~~$8.8 & $~~$6.4 & $~~$7.4 & $~~$9.6 & 18.5 & 12.4\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
@@ -581,7 +711,7 @@
           NP-chunks & 13.5 & 18.6 & 15.4 & 19.5 & 13.7 & 16.0 & 14.3 & 26.8 & 18.4\\
           Sub-compounds & 14.6 & 20.0 & \textbf{16.7} & 19.3 & 13.5 & 15.8 & 14.1 & 26.3 & 18.1\\
           Acabit & 14.6 & 19.1 & 16.3 & 15.6 & 10.8 & 12.6 & $~~$4.7 & 10.5 & $~~$6.4\\
-          TermSuite & 12.5 & 17.2 & 14.3 & 13.6 & $~~$9.8 & 11.3 & 14.9 & 28.5 & \textbf{19.4}\\
+          TermSuite & 12.5 & 17.2 & 14.3 & 13.8 & 10.0 & 11.5 & 14.7 & 28.0 & \textbf{19.1}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
@@ -600,7 +730,7 @@
 %          \{1..2\}-grams & 15.5 & 20.5 & 17.4 & 10.4 & $~~$7.0 & \textbf{$~~$8.3} & $~~$3.0 & $~~$6.2 & $~~$4.0\\
 %          \{1..3\}-grams & 13.7 & 18.0 & 15.3 & $~~$3.4 & $~~$2.3 & $~~$2.7 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
 %          %\{1..4\}-grams & $~~$7.7 & 10.1 & $~~$8.6 & $~~$1.4 & $~~$1.0 & $~~$1.1 & $~~$1.1 & $~~$2.4 & $~~$1.5\\
-%          Learned patterns & & & & & & & & & \\
+%          Learned patterns & 18.7 & 24.3 & 20.8 & $~~$4.6 & $~~$3.1 & $~~$1.2 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
 %          Longest NPs & 22.8 & 29.5 & \textbf{25.3} & $~~$3.7 & $~~$2.5 & $~~$3.0 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
 %          NP-chunks & 20.6 & 27.3 & 23.1 & $~~$8.4 & $~~$5.7 & $~~$6.7 & $~~$4.9 & $~~$9.7 & $~~$6.4\\
 %          Sub-compounds & 21.2 & 27.3 & 23.5 & $~~$3.5 & $~~$2.4 & $~~$2.8 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
