@@ -10,9 +10,9 @@ needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(wildcard $(image_DIR)/*) $(bib_F
 
 default: $(report_NAME).pdf
 
-#	latex $(report_NAME)
-#	bibtex $(report_NAME)
 $(report_NAME).pdf: $(report_NAME).tex $(needed_FILES)
+	latex $(report_NAME)
+	bibtex $(report_NAME)
 	latex $(report_NAME)
 	latex $(report_NAME)
 	dvips $(report_NAME).dvi

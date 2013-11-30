@@ -2,14 +2,23 @@
 % Created by Y. Lepage 08/10/2012
 
 % Merci de remplir
-% la date de soumission: JJ/MM/AAAA
-% le volume et le numéro de TAL auquel vous soumettez (p. ex. : 54-1): VV-NN
-% s'il s'agit de la première soumission (1) ou de la deuxième après premières relectures (2): R
+% la date de soumission : JJ/MM/AAAA
+% le volume et le numéro de TAL auquel vous soumettez (p. ex. : 54-1) : VV-NN
+% s'il s'agit de la première soumission (1) ou de la deuxième après premières relectures (2) : R
+
+\usepackage{xifthen}
+\usepackage{tikz}
+
+\usetikzlibrary{positioning, topaths, shapes, arrows}
+
+\newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citeasnoun{#2}}{\citeasnoun[#1]{#2}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \submitted[15/11/2014]{TAL~55-1}{1}
 
-\title[Titre court]{Ordonnancement de sujets pour l'extraction automatique de
-                    termes-clés}
+\title[TopicRank]{TopicRank~: Ordonnancement de sujets pour l'extraction
+                  automatique de termes-clés}
 
 \author{Adrien Bougouin\fup{*} \andauthor\ Florian Boudin\fup{*} \andauthor\ Béatrice Daille\fup{*}} 
 
@@ -64,7 +73,7 @@
   portant la référence (ANR-12-CORD-0029).
 }
 
-%\bibliography{../biblio}
+\bibliography{../biblio}
 
 \end{document}
 

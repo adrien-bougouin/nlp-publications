@@ -1,18 +1,80 @@
 \section{Introduction}
 \label{sec:introduction}
-  \begin{itemize}
-    \item{définition}
-    \item{enjeus}
-    \item{solutions existantes}
-    \item{plan}
-  \end{itemize}
-
   % Que sont les termes-clés ?
-  % À quoi sont-ils utils ?
+  Les termes-clés sont des mots ou des expressions polylexicales qui donnent,
+  ensembles, un aperçu du contenu principal d'un document auquel ils se
+  réfèrent.
+  % À quoi sont-ils utiles ?
+  Du fait de leur propriété synthétique, les termes-clés sont utilisés dans
+  diverses tâches d'enrichissement telles que l'indexation de
+  documents~\cite{medelyan2008smalltrainingset}, le résumé
+  automatique~\cite{litvak2008graphbased} ou encore la classification de
+  documents~\cite{han2007webdocumentclustering}. Avec l'accroissement de la
+  quantité de documents à notre disposition et le besoin d'accéder efficacement
+  à ceux-ci, les enrichissements susmentionnés deviennent une nécessité.
+  Cependant, tous les documents ne sont pas pourvus de termes-clés et l'ajout
+  manuel de ces derniers est une tâche trop coûteuse pour être encore envisagée.
   % Que faut-il faire pour les obtenir ?
+  De ce fait, nous observons un intérêt grandissant pour la tâche d'extraction
+  automatique de termes-clés.
 
   % Comment cela a-t-il déjà été fait ?
+  L'extraction automatique de termes-clés peut être perçue soit comme une tâche
+  de classification binairede termes-clés candidats~\cite{witten1999kea}, soit
+  comme une tâche d'ordonnancement de termes-clés
+  candidats~\cite{mihalcea2004textrank}. Dans le premier cas l'extraction est le
+  plus souvent supervisée, elle nécessite une collection de documents annotés en
+  termes-clés pour une phase d'apprentissage préliminaire. Dans le second cas
+  l'extraction est le plus souvent non-supervisée, elle ne nécessite pas de
+  documents préalablement annotés. Les méthodes non-supervisées existantes ont
+  des performances plus faibles que les méthodes supervisées actuelles, mais la
+  nécessité pour ces dernier d'avoir une collection de documents annotés, ainsi
+  que la dépendance au domaine des documents qui résulte de la phase
+  d'apprentissage, poussent de plus en plus les chercheurs à s'intéresser à
+  l'extraction non-supervisée de termes-clés.
+
+  % Que proposons-nous dans cet article ?
+  Les termes-clés candidats étant un point commun à toutes les méthodes
+  d'extraction automatique de termes-clés, nous nous intéressons dans un premier
+  temps aux propriétés des termes-clés donnés par des humains. En effet, bien
+  que l'annotation humaine soit subjective, certaines propriétés relatives à
+  l'informativité et à la syntaxe des termes-clés émergent et nous permettent de
+  comparer les méthodes d'extraction de termes-clés candidats existantes. Ces
+  méthodes consistent en l'extraction de n-grammes filtrés avec une liste de
+  mots outils, l'extraction de chunks nominaux ou encore l'extraction de
+  séquences de mots respectant un patron syntaxique donné. \og Quels sont les
+  méthodes qui extraient des candidats de qualité~?\fg, \og N'est-il pas
+  possible d'utiliser les méthodes d'extraction terminologique pour fournir des
+  candidats de bonne qualité~?\fg\ et \og La quantité de candidats extraits
+  prime-t-elle sur la qualité de l'ensemble de candidats~?\fg\ sont autant de
+  questions que nous nous posons.
 
   % Que proposons-nous dans cet article ?
   % Comment le fait-on ?
+  Dans un second temps nous présentons TopicRank, une méthode d'extraction
+  non-supervisée de termes-clés. Fondée sur les travaux de
+  \newcite[TextRank]{mihalcea2004textrank} pour l'ordonnancement à base de
+  graphe des unités textuelles d'un document, notre méthode regroupe les
+  termes-clés candidats selon leur appartenance à un sujet, ordonne les sujets
+  par importance dans le document, puis sélectionne pour chacun des meilleurs
+  sujets le candidat qui le représente le mieux (son terme-clé associé).
+  % Quelle est la nouveauté ?
+  % En quoi cela semble-t-il meilleur ?
+  Contrairement à l'ordonnancement des mots, tel qu'il est fait avec TextRank,
+  le regroupement des candidats par sujets, puis leur ordonnancement, permet de
+  tirer partie des informations complémentaires entre plusieurs mots
+  représentant le même sujet, ou la même idée. De plus, le fait de ne
+  sélectionner qu'un seul candidat par sujet permet d'éviter l'extraction de
+  termes-clés redondants.
+
+  % Quel est notre plan ?
+  L'article est structuré comme suit. Après un état de l'art des méthodes
+  existantes en section~\ref{sec:etat_de_l_art}, nous présentons et analysons en
+  section~\ref{sec:presentation_et_analyse_des_donnees} les données que nous
+  utilisons, puis nous décrivons le fonctionnement de TopicRank en
+  section~\ref{sec:extraction_de_termes_cles_avec_topicrank}. En
+  section~\ref{sec:evaluation} nous présentons notre évaluation approfondie des
+  différentes étapes de l'extraction de termes-clés, puis nous concluons et
+  proposons des pistes pour de futures travaux en
+  section~\ref{sec:conclusion_et_perspectives}.
 
