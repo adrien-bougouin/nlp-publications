@@ -8,10 +8,15 @@
 
 \usepackage{xifthen}
 \usepackage{tikz}
+\usepackage{booktabs}
+\usepackage{rotating}
+\usepackage{multirow}
 
 \usetikzlibrary{positioning, topaths, shapes, arrows}
 
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citeasnoun{#2}}{\citeasnoun[#1]{#2}}}
+
+\newtheorem{property}{Propriété}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -35,7 +40,7 @@
   d'extraction automatique de termes-clés suscite de plus en plus l'intéret.
   Dans cet article, nous étudions les propriétés des termes-clés et nous
   présentons une méthode à base de graphe pour l'extraction non-supervisée de
-  termes-clés. Cette méthode regroupe les termes-clés potentiels par sujets,
+  termes-clés. Cette méthode groupe les termes-clés potentiels par sujets,
   ordonne ces sujets, puis, pour chacun des meilleurs sujets, extrait le
   terme-clé potentiel qui le représente le mieux. Les expériences réalisées
   montrent une amélioration significative vis-à-vis de l'état de l'art des

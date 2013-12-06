@@ -20,7 +20,7 @@
 
   % Comment cela a-t-il déjà été fait ?
   L'extraction automatique de termes-clés peut être perçue soit comme une tâche
-  de classification binairede termes-clés candidats~\cite{witten1999kea}, soit
+  de classification binaire de termes-clés candidats~\cite{witten1999kea}, soit
   comme une tâche d'ordonnancement de termes-clés
   candidats~\cite{mihalcea2004textrank}. Dans le premier cas l'extraction est le
   plus souvent supervisée, elle nécessite une collection de documents annotés en
@@ -29,7 +29,7 @@
   documents préalablement annotés. Les méthodes non-supervisées existantes ont
   des performances plus faibles que les méthodes supervisées actuelles, mais la
   nécessité pour ces dernier d'avoir une collection de documents annotés, ainsi
-  que la dépendance au domaine des documents qui résulte de la phase
+  que la dépendance au domaine des documents résultante de la phase
   d'apprentissage, poussent de plus en plus les chercheurs à s'intéresser à
   l'extraction non-supervisée de termes-clés.
 
@@ -43,29 +43,32 @@
   méthodes consistent en l'extraction de n-grammes filtrés avec une liste de
   mots outils, l'extraction de chunks nominaux ou encore l'extraction de
   séquences de mots respectant un patron syntaxique donné. \og Quels sont les
-  méthodes qui extraient des candidats de qualité~?\fg, \og N'est-il pas
+  méthodes qui extraient des candidats de qualité~?~\fg, \og N'est-il pas
   possible d'utiliser les méthodes d'extraction terminologique pour fournir des
-  candidats de bonne qualité~?\fg\ et \og La quantité de candidats extraits
-  prime-t-elle sur la qualité de l'ensemble de candidats~?\fg\ sont autant de
+  candidats de bonne qualité~?~\fg\ et \og La quantité de candidats extraits
+  prime-t-elle sur la qualité de l'ensemble de candidats~?~\fg\ sont autant de
   questions que nous nous posons.
 
   % Que proposons-nous dans cet article ?
   % Comment le fait-on ?
   Dans un second temps nous présentons TopicRank, une méthode d'extraction
-  non-supervisée de termes-clés. Fondée sur les travaux de
+  non-supervisée de termes-clés. Celle-ci se fonde sur les travaux de
   \newcite[TextRank]{mihalcea2004textrank} pour l'ordonnancement à base de
-  graphe des unités textuelles d'un document, notre méthode regroupe les
-  termes-clés candidats selon leur appartenance à un sujet, ordonne les sujets
-  par importance dans le document, puis sélectionne pour chacun des meilleurs
-  sujets le candidat qui le représente le mieux (son terme-clé associé).
+  graphe des unités textuelles d'un document. Elle groupe les termes-clés
+  candidats selon leur appartenance à un sujet, ordonne les sujets par
+  importance dans le document, puis sélectionne pour chacun des meilleurs sujets
+  le candidat qui le représente le mieux (son terme-clé associé).
   % Quelle est la nouveauté ?
   % En quoi cela semble-t-il meilleur ?
   Contrairement à l'ordonnancement des mots, tel qu'il est fait avec TextRank,
-  le regroupement des candidats par sujets, puis leur ordonnancement, permet de
-  tirer partie des informations complémentaires entre plusieurs mots
-  représentant le même sujet, ou la même idée. De plus, le fait de ne
+  le groupement des candidats par sujets, puis leur ordonnancement, permet de
+  tirer partie des informations complémentaires entre plusieurs unités
+  textuelles représentant le même sujet, ou la même idée. De plus, le fait de ne
   sélectionner qu'un seul candidat par sujet permet d'éviter l'extraction de
   termes-clés redondants.
+
+  % Que peut-on dire sur les évaluation réalisées ?
+  TODO parler des évaluations.
 
   % Quel est notre plan ?
   L'article est structuré comme suit. Après un état de l'art des méthodes
@@ -74,7 +77,7 @@
   utilisons, puis nous décrivons le fonctionnement de TopicRank en
   section~\ref{sec:extraction_de_termes_cles_avec_topicrank}. En
   section~\ref{sec:evaluation} nous présentons notre évaluation approfondie des
-  différentes étapes de l'extraction de termes-clés, puis nous concluons et
-  proposons des pistes pour de futures travaux en
+  différentes étapes de l'extraction de termes-clés, avant de conclure sur les
+  résultats obtenus et les futurs travaux dans la
   section~\ref{sec:conclusion_et_perspectives}.
 

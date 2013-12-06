@@ -1,13 +1,81 @@
 \section{Extraction de termes-clés avec TopicRank}
 \label{sec:extraction_de_termes_cles_avec_topicrank}
-  \begin{itemize}
-    \item{principe général}
-    \item{identification des sujets}
-    \item{ordonancement des sujets}
+  % Qu'est-ce que TopicRank ?
+  TopicRank est une méthode non-supervisée qui extrait les termes-clés d'un
+  document à partir de sa représentation sous la forme d'un graphe de sujets.
+  % Quels problèmes résout-il ?
+  Elle se différencie des autres méthodes à base de graphe, car, plutôt que de
+  chercher les mots importants du document, elle cherche ses sujets importants,
+  ceci quels qu'en soient leurs vecteurs (termes-clés candidats). Ce nouveau
+  procédé présente l'intérêt de rassembler des informations complémentaires
+  véhiculées par des candidats différents, mais appartenant tout de même au même
+  sujet.
+  % Quel en est le fonctionnement général ?
+  Dans un premier temps, les termes-clés candidats sont groupés par sujets, puis
+  les sujets sont ordonnés et enfin, les candidats les plus représentatifs des
+  sujets les plus importants sont extraits comme termes-clés.
+
+  \subsection{Identification des sujets}
+  \label{subsec:identification_des_sujets}
+    % Comment détectons nous deux candidats appartenant au même sujet ?
+    Dans le soucis de proposer une méthode efficace ne faisant pas l'usage de
+    ressources externes, nous optons pour un groupement quelque peu naïf des
+    termes-clés candidats appartenant au même sujet. En effet, les candidats
+    sont groupés en fonction d'une similatité de Jaccard (voir
+    l'équation~\ref{equa:jaccard}) dans laquelle ils sont considérés comme des
+    sacs de mots. En addition, les mots sont tronqués selon la méthode de
+    \newcite{porter1980suffixstripping}, afin de considérer identiques deux
+    variantes flexionnelles d'un même mot. Cette mesure est naïve dans le sens
+    où l'ordre des mots, leur ambiguïté et les liens de synonymie ne sont pas
+    pris en compte.
+    \begin{align}
+      \text{sim}(c_1, c_2) &= \frac{\|c_1 \cap c_2\|}{\|c_1 \cup c_2\|} \label{equa:jaccard}
+    \end{align}
+
+    % Comment groupons nous les candidats d'un même sujet ?
+    Une fois la similarité connue entre tous les candidats deux à deux, nous
+    appliquons l'algorithme de groupement hiérarchique agglomératif
+    (\textit{Hierarchical Agglomerative Clustring -- HAC}). Initialement, chaque
+    candidat représente un groupe. À chaque itération de l'algorithme, les deux
+    groupes ayant la plus forte similarité sont groupés. La condition d'arrêt
+    est définie par un seuil, fixé à $0,25$, pour la similarité entre deux
+    groupes. Cette similarité entre deux groupes est calculée en fonction de la
+    similarité entre les candidats de chaque groupe. Il existe trois stratégies
+    pour calculer cette similarité~:
     \begin{itemize}
-      \item{construction du graphe de sujets}
-      \item{ordonnancement dans le graphe de sujets}
+      \item{simple~: la plus petite valeur de similarité entre les candidats
+            des deux groupes sert de similarité entre eux~;}
+      \item{moyenne~: la moyenne de toutes les similarités entre les
+            candidats des deux groupes sert de similarité entre eux~;}
+      \item{complète~: la plus grande valeur de similarité entre les candidats
+            des deux groupes sert de similarité entre eux.}
     \end{itemize}
-    \item{selection des termes-clés}
-  \end{itemize}
+    Nous suggérons d'utiliser l'une ou l'autre de ces stratégies en fonction des
+    termes-clés candidats qui sont utilisés. Par exemple, certains ensemble de
+    candidats, tels que les n-grammes pour $n \in 1..m$,
+    contenant de nombreux candidats se recouvrant partiellement risquent de
+    donner lieu à des groupes non consistants avec la stratégie complète. En
+    revanche, la stratégie simple a tendance à moins regrouper, elle est donc
+    plus adaptée à ces ensembles de candidats. Dans l'optique de comparer
+    TopicRank en utilisant différentes méthodes d'extraction de termes-clés
+    candidats, nous choisissons d'utiliser la stratégie moyenne, qui se place
+    comme étant le compromis entre les deux autres.
+
+  \subsection{Ordonnancement des sujets}
+  \label{subsec:ordonnancement_des_sujets}
+    % Quel est le but de l'ordonnancement ?
+    % Comment est-il effectué ?
+
+    % Comment le graphe est-il construit ?
+
+    % Comment le graphe est-il utilisé pour ordonner les sujets ?
+    % Quelle est l'intuition de PageRank/TextRank ?
+
+  \subsection{Sélection des termes-clés}
+  \label{subsec:selection_des_termes_cles}
+    % De quoi s'agit-il ?
+    % Quel en est le but ?
+    % Quelles sont les différentes stratégies envisageable ?
+
+  % Que donne l'extraction ? (exemple)
 

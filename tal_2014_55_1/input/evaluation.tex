@@ -1,11 +1,188 @@
 \section{Évaluation}
 \label{sec:evaluation}
+  \subsection{Environnement expérimentale}
+  \label{subsec:environnement_experimentale}
+    TODO introduction
+
+    \subsubsection{Données de test}
+    \label{subsubsec:donnees_de_test}
+      Les données utilisées lors des expériences correspondes aux ensembles de
+      test fournis avec les collections DUC, SemEval et DEFT. Le
+      tableau~\ref{tab:donnees_de_test} montre les statistiques sur ces données
+      de test. Ces statistiques sont cohérentes avec celles montrées dans la
+      section~\ref{sec:presentation_et_analyse_des_donnees}. Nous pouvons donc
+      en déduire que les propriétés inférées précédemment sont satisfaites dans
+      les données de test.
+      \begin{table}
+        \centering
+        \begin{tabular}{@{~~}rccc@{~~}}
+          \toprule
+          \multirow{2}{*}[-2pt]{\textbf{Statistique}} & \multicolumn{3}{c}{\textbf{Corpus}}\\
+          \cmidrule{2-4}
+          & DUC & SemEval & DEFT\\
+          \midrule
+          Langue & Anglais & Anglais & Français\\
+          Nature & Journalistique & Scientifique & Scientifique\\
+          Documents & 100 & 100 & 93\\
+          Mos/document & 877.3 & 5177.7 & 6839.4\\
+          Termes-clés/document & 7.9 & 14.7 & 5.2\\
+          Mots/termes-clés & 2.1 & 2.1 & 1.6\\
+          Termes-clés manquants & 2.8\% & 22.1\% & 21.1\% \\
+          \bottomrule
+        \end{tabular}
+        \caption{Statistiques sur les données de test utilisées. En accord avec
+                 l'évaluation effectuée lors de nos expériences, la proportion
+                 de termes-clés manquant est calculée à partir de leur racine.
+                 \label{tab:donnees_de_test}}
+      \end{table}
+
+    \subsubsection{Prétraitement}
+    \label{subsubsec:pretraitement}
+      Chaque document des collections de données utilisées ont subis les mêmes
+      prétraitements, celà pour toutes les expériences. Les documents sont tout
+      d'abord segmentés en phrases, puis en mots et enfin étiquetés en parties
+      du discours. La segmentation en mots est effectuée par le
+      TreeBankWordTokenizer disponible avec la librairie python
+      NLTK~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
+      l'anglais, et par l'outil Bonsai du Bonsai PCFG-LA
+      parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr\_stat\_dep\_parsing.html}},
+      pour le français. Quant à l'étiquetage en parties du discours, il est
+      réalisé avec le Stanford POS tagger~\cite{toutanova2003stanfordpostagger},
+      pour l'anglais, et avec MElt~\cite{denis2009melt}, pour le français.
+
+    \subsubsection{Mesures d'évaluation}
+    \label{subsubsec:mesures_d_evaluation}
+      Les performances des méthodes d'extraction de termes-clés sont exprimées
+      en termes de précision (P), rappel (R) et f-score (f1-mesure, F). Afin de
+      réduire le problème de termes-clés manquants, les comparaisons sont
+      effectuées avec la forme non flexionnelle des mots des termes-clés
+      extraits et des termes-clés de référence. Afin de montrer la limite que
+      permettent d'atteindre les différentes méthodes d'extraction de
+      termes-clés candidats, les ensembles de termes-clés extraits sont évalués
+      avec le rappel maximum (Rmax).
+
+    \subsubsection{Systèmes de référence pour l'extraction de termes-clés}
+    \label{subsubsec:systemes_de_reference_pour_l_extraction_de_termes_cles}
+
   \subsection{Analyse intrinsèque des méthodes d'extraction de candidats}
   \label{subsec:analyse_intrinseque_des_methodes_d_extraction_de_candidats}
+    \begin{table}
+      \centering
+      \begin{tabular}{@{~}r@{~~}c@{~~}cc@{~~}cc@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{2}{c}{\textbf{DUC}} & \multicolumn{2}{c}{\textbf{SemEval}} & \multicolumn{2}{c}{\textbf{DEFT}}\\
+        \cmidrule(r){2-3}\cmidrule(lr){4-5}\cmidrule(l){6-7}
+        & Cand./Doc. & Rmax & Cand./Doc. & Rmax & Cand./Doc. & Rmax\\
+        \midrule
+        \{1..2\}-grammes & $~~$491.0 & 76.6 & 1633.6 & 61.0 & 2566.4 & 67.3\\
+        \{1..3\}-grammes & $~~$596.2 & \textbf{90.8} & 2580.5 & \textbf{72.2} & 4070.2 & 74.1\\
+        Patrons appris & $~~$317.6 & 90.6 & 1227.4 & 69.8 & 2148.3 & \textbf{76.5}\\
+        Séquences (Nc | A)+ & $~~$155.6 & 88.7 & $~~$646.5 & 62.4 & $~~$914.5 & 61.1\\
+        +sous-composants & $~~$171.8 & 90.6 & $~~$712.2 & 64.4 & $~~$934.0 & 61.1\\
+        Chunks nominaux & $~~$149.9 & 76.0 & $~~$598.4 & 56.6 & $~~$812.3 & 63.0\\
+        TermSuite & $~~$161.8 & 46.1 & $~~$498.6 & 32.4 & $~~$647.0 & 52.8\\
+        \bottomrule
+      \end{tabular}
+      \caption{Résultats de l'extraction de termes-clés candidats pour DUC,
+               SemEval et DEFT (Rmax~:~Rappel maximum).
+               \label{tab:resultats_de_l_extraction_de_candidats}}
+    \end{table}
 
   \subsection{Comparaison de TopicRank avec l'existant}
   \label{subsec:comparaison_de_topicrank_avec_l_existant}
+    \begin{table}
+      \centering
+      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
+        & P & R & F & P & R & F & P & R & F\\
+        \midrule
+        \{1..2\}-grammes & 14.7 & 19.5 & 16.5 & 10.3 & $~~$7.0 & $~~$8.3 & $~~$8.1 & 15.1 & 10.4\\
+        \{1..3\}-grammes & 14.3 & 19.0 & 16.1 & $~~$9.0 & $~~$6.0 & $~~$7.2 & $~~$6.7 & 12.5 & $~~$8.6\\
+        Patrons appris & 19.1 & 25.4 & 21.5 & 10.7 & $~~$7.3 & $~~$8.6 & $~~$7.0 & 13.1 & $~~$9.0\\
+        Séquences (Nc | A)+ & 24.2 & 31.7 & \textbf{27.0} & 11.7 & $~~$7.9 & $~~$9.3 & $~~$9.5 & 17.6 & 12.1\\
+        +sous-composants & 22.8 & 29.9 & 25.5 & 10.8 & $~~$7.2 & $~~$8.6 & $~~$9.2 & 17.2 & 11.9\\
+        Chunks nominaux & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & \textbf{$~~$9.5} & $~~$9.6 & 17.9 & 12.3\\
+        TermSuite & 17.4 & 23.2 & 19.6 & 11.2 & $~~$8.1 & $~~$9.3 & 11.3 & 21.1 & \textbf{14.5}\\
+        \bottomrule
+      \end{tabular}
+      \caption{Résultats de l'extraction de $10$ termes-clés selon
+               \textbf{TF-IDF}, pour DUC, SemEval et DEFT, en fonction des types
+               de candidats utilisés. 
+               \label{tab:resultats_de_tfidf}}
+    \end{table}
+    \begin{table}
+      \centering
+      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
+        & P & R & F & P & R & F & P & R & F\\
+        \midrule
+        \{1..2\}-grammes & 15.5 & 20.5 & 17.4 & 10.4 & $~~$7.0 & \textbf{$~~$8.3} & $~~$3.0 & $~~$6.2 & $~~$4.0\\
+        \{1..3\}-grammes & 13.7 & 18.0 & 15.3 & $~~$3.4 & $~~$2.3 & $~~$2.7 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
+        Patrons appris & 18.7 & 24.3 & 20.8 & $~~$4.6 & $~~$3.1 & $~~$1.2 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
+        Séquence (Nc | A)+ & 22.8 & 29.5 & \textbf{25.3} & $~~$3.7 & $~~$2.5 & $~~$3.0 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
+        +sous-composants & 21.2 & 27.3 & 23.5 & $~~$3.5 & $~~$2.4 & $~~$2.8 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
+        Chunks nominaux & 20.6 & 27.3 & 23.1 & $~~$8.4 & $~~$5.7 & $~~$6.7 & $~~$4.9 & $~~$9.7 & $~~$6.4\\
+        TermSuite & & & & & & & & & \\
+        \bottomrule
+      \end{tabular}
+      \caption{Résultats de l'extraction de $10$ termes-clés selon
+               \textbf{SingleRank}, pour DUC, SemEval et DEFT, en fonction des
+               types de candidats utilisés. 
+               \label{tab:resultats_de_singlerank}}
+    \end{table}
+    \begin{table}
+      \centering
+      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
+        & P & R & F & P & R & F & P & R & F\\
+        \midrule
+        \{1..2\}-grammes & 10.2 & 14.1 & 11.7 & 11.9 & $~~$8.2 & $~~$9.6 & $~~$5.8 & 11.0 & $~~$7.5\\
+        \{1..3\}-grammes & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
+        Patrons appris & 14.9 & 19.8 & 16.7 & 12.2 & $~~$4.6 & \textbf{$~~$9.9} & $~~$8.8 & 16.1 & 11.3\\
+        Séquences (Nc | A)+ & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & 11.6 & 21.5 & \textbf{14.9}\\
+        +sous-composants & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & \textbf{14.9}\\
+        Chunks nominaux& 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
+        TermSuite & 10.4 & 13.9 & 11.7 & $~~$8.9 & $~~$6.5 & $~~$7.5 & $~~$9.6 & 18.5 & 12.4\\
+        \bottomrule
+      \end{tabular}
+      \caption{Résultats de l'extraction de $10$ termes-clés selon
+               \textbf{TopicRank}, pour DUC, SemEval et DEFT, en fonction des
+               types de candidats utilisés. 
+               \label{tab:resultats_de_topicrank}}
+    \end{table}
 
-  \subsection{Efficacité du regroupement de sujets}
-  \label{subsec:efficacite_du_regroupement_de_sujets}
+    \begin{table}
+      \centering
+      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
+        & P & R & F & P & R & F & P & R & F\\
+        \midrule
+        SingleRank & & & & & & & & &\\
+        +candidats & & & & & & & & &\\
+        +sujets & & & & & & & & &\\
+        +complet & & & & & & & & &\\
+        TopicRank & & &  & & &  & & &\\
+        \bottomrule
+      \end{tabular}
+      \caption{Évaluation individuelle des apports de TopicRank vis-à-vis de
+               SingleRank, pour l'extraction de $10$ termes-clés.
+               \label{tab:ameliorations_de_singlerank}}
+    \end{table}
+
+  \subsection{Efficacité du groupement en sujets}
+  \label{subsec:efficacite_du_groupement_en_sujets}
+    \begin{itemize}
+      \item{Comparer les résultats avec les différentes stratégies de
+            groupement, uniquement pour TRIGRAMS, LNP et TERMESUITE}
+      \item{Évaluation manuelle des groupes construits avec LNP}
+      \item{Évaluation des clusters ordonnés}
+    \end{itemize}
 
