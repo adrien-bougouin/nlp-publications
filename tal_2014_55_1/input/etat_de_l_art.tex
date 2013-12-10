@@ -89,63 +89,95 @@
     nominaux) ou l'extraction des unités textuelles respectant certains patrons
     syntaxiques.
 
-    L'extraction de n-grammes consiste en l'extraction de séquences ordonnées de
-    $n$ mots. Cette extraction est très exhaustive, elle fournit une grande
-    quantité de termes-clés candidats, maximisant ainsi la quantité de candidats
-    positifs ou porteurs d'informations, mais aussi la quantité de candidats non
-    pertinents. Pour supprimer un grand nombre de ces candidats non pertinents,
-    il est courant d'utiliser une liste de mots outils (conjonctions,
-    prépositions, mots usuels, etc.). Une unité textuelle contenant un mot
-    outils au début ou à la fin ne doit pas être considérée comme un terme-clé
-    candidat. Bien que l'extraction de n-grammes filtrés fournisse un ensemble
-    bruité de candidats, elle est encore largement utilisée dans les méthodes
-    supervisées d'extraction automatique de
-    termes-clés~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}.
-    En effet, du fait de leur phase d'apprentissage, les méthodes
-    non-supervisées sont très robustes et donc peu sensibles aux bruits.
+    \subsubsection{Méthodes utilisées}
+    \label{subsubsec:methodes_explorees}
 
-    L'extraction de chunks nominaux consiste en l'extraction d'unités minimales
-    de sens ayant pour tête un nom. Contrairement aux n-grammes, les chunks sont
-    toujours des unités textuelles grammaticalement correctes. De ce fait, elles
-    sont moins arbitraires. D'un point de vue linguistique, l'extraction de
-    chunks nominaux est plus justifiée que l'extraction de n-grammes. Cependant,
-    son caractère plus restrictif ne permet pas d'extraire autant de candidats
-    positifs. Il est donc important de s'assurer que les propriétés des chunks
-    nominaux sont en accord avec les propriétés des termes-clés (tels qu'ils
-    peuvent être donnés par des humains). Les expériences mennées par
-    \newcite{hulth2003keywordextraction} et \newcite{eichler2010keywe} avec les
-    chunks nominaux montrent une amélioration des performances vis-à-vis de
-    l'usage de n-grammes. Cependant, \newcite{hulth2003keywordextraction} montre
-    aussi qu'en tirant partie de l'étiquetage en parties du discours,
-    l'extraction de termes-clés à partir de n-grammes donne des performances
-    au-dessus de celles obtenues avec les chunks nominaux.
+      L'extraction de n-grammes consiste en l'extraction de séquences ordonnées
+      de $n$ mots. Cette extraction est très exhaustive, elle fournit une grande
+      quantité de termes-clés candidats, maximisant ainsi la quantité de
+      candidats positifs ou porteurs d'informations, mais aussi la quantité de
+      candidats non pertinents. Pour supprimer un grand nombre de ces candidats
+      non pertinents, il est courant d'utiliser une liste de mots outils
+      (conjonctions, prépositions, mots usuels, etc.). Une unité textuelle
+      contenant un mot outils au début ou à la fin ne doit pas être considérée
+      comme un terme-clé candidat. Bien que l'extraction de n-grammes filtrés
+      fournisse un ensemble bruité de candidats, elle est encore largement
+      utilisée dans les méthodes supervisées d'extraction automatique de
+      termes-clés~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}.
+      En effet, du fait de leur phase d'apprentissage, les méthodes
+      non-supervisées sont très robustes et donc peu sensibles aux bruits.
 
-    L'extraction d'unités textuelles respectant certains patrons syntaxiques
-    permet l'extraction de candidats qui sont grammaticalement et syntaxiquement
-    contrôlés\footnote{Il est possible d'extraire les
-    chunks nominaux à partir de patrons syntaxiques.}. Alors que
-    \newcite{hulth2003keywordextraction} extraient des candidats avec les
-    patrons de termes-clés les plus fréquents (plus de 10 occurrences) dans une
-    collection de documents annotés, d'autres chercheurs tels que
-    \newcite{wan2008expandrank} se concentrent uniquement sur les plus longues
-    séquences de nom (nom propres inclus) et d'adjectifs.
+      L'extraction de chunks nominaux consiste en l'extraction d'unités
+      minimales de sens ayant pour tête un nom. Contrairement aux n-grammes, les
+      chunks sont toujours des unités textuelles grammaticalement correctes. De
+      ce fait, elles sont moins arbitraires. D'un point de vue linguistique,
+      l'extraction de chunks nominaux est plus justifiée que l'extraction de
+      n-grammes. Cependant, son caractère plus restrictif ne permet pas
+      d'extraire autant de candidats positifs. Il est donc important de
+      s'assurer que les propriétés des chunks nominaux sont en accord avec les
+      propriétés des termes-clés (tels qu'ils peuvent être donnés par des
+      humains). Les expériences mennées par \newcite{hulth2003keywordextraction}
+      et \newcite{eichler2010keywe} avec les chunks nominaux montrent une
+      amélioration des performances vis-à-vis de l'usage de n-grammes.
+      Cependant, \newcite{hulth2003keywordextraction} montre aussi qu'en tirant
+      partie de l'étiquetage en parties du discours, l'extraction de termes-clés
+      à partir de n-grammes donne des performances au-dessus de celles obtenues
+      avec les chunks nominaux.
 
-    % Que veut-on apporter ?
-    Dans le but d'améliorer la qualité des candidats extraits avec les méthodes
-    susmentionnées, \newcite{kim2009termextraction} proposent de filtrer les
-    candidats en fonction de leur spécificité vis-à-vis du domaine du document
-    analysé. Cette spécificité est déterminée en fonction du rapport entre la
-    fréquence d'un candidat dans le document et le nombre de documents dans
-    lesquels il est présent \cite[TF-IDF]{jones1972tfidf}. Intuitivement, un
-    candidat très fréquent dans le document analysé est d'autant plus spécifique
-    à celui-ci s'il est présent dans très peu d'autres documents. L'idée de
-    \newcite{kim2009termextraction} d'extraire des candidats spécifiques est une
-    idée intéressant qu'il nous est possible d'étendre à l'usage de méthodes
-    d'extraction terminologique. Les méthodes automatiques d'extraction
-    terminologique, dont \newcite{castellvi2001automatictermdetection} en font
-    la revue, extraient des mots ou expressions symbolisant un concept et
-    devant, à ce titre, faire partie des entrées d'un index terminologique.
-    TODO introduire TermSuite et la méthode d'ajout de sous-composants.
+      L'extraction d'unités textuelles respectant certains patrons syntaxiques
+      permet l'extraction de candidats qui sont grammaticalement et
+      syntaxiquement contrôlés\footnote{Il est possible d'extraire les
+      chunks nominaux à partir de patrons syntaxiques.}. Alors que
+      \newcite{hulth2003keywordextraction} extraient des candidats avec les
+      patrons de termes-clés les plus fréquents (plus de 10 occurrences) dans
+      une collection de documents annotés, d'autres chercheurs tels que
+      \newcite{wan2008expandrank} se concentrent uniquement sur les plus longues
+      séquences de nom (nom propres inclus) et d'adjectifs.
+
+      % Que veut-on apporter ?
+      Dans le but d'améliorer la qualité des candidats extraits avec les
+      méthodes susmentionnées, \newcite{kim2009termextraction} proposent de
+      filtrer les candidats en fonction de leur spécificité vis-à-vis du domaine
+      du document analysé. Cette spécificité est déterminée en fonction du
+      rapport entre la fréquence d'un candidat dans le document et le nombre de
+      documents dans lesquels il est présent \cite[TF-IDF]{jones1972tfidf}.
+      Intuitivement, un candidat très fréquent dans le document analysé est
+      d'autant plus spécifique à celui-ci s'il est présent dans très peu
+      d'autres documents.
+
+    \subsubsection{Méthodes pouvant être utilisées}
+    \label{subsubsec:methodes_pouvant_etre_utilisees}
+    
+      L'idée de \newcite{kim2009termextraction} d'extraire des candidats
+      spécifiques est une idée intéressant qu'il nous est possible d'étendre à
+      l'usage de méthodes d'extraction terminologique. Les méthodes automatiques
+      d'extraction terminologique, dont
+      \newcite{castellvi2001automatictermdetection} en font la revue, extraient
+      des mots ou expressions symbolisant un concept et devant, à ce titre,
+      faire partie des entrées d'un index terminologique.
+
+      Le système TermSuite\footnote{\url{http://www.ttc-project.eu}} est un
+      outils état de l'art pour l'extraction terminologique monolingue et
+      bilingue. Il combine à la fois le savoir linguistique et des statistiques
+      calculées dans une collection de documents de spécialité (d'un domaine
+      particulier), afin d'extraire les termes et leurs variantes (fautes
+      d'orthographe incluses).
+
+      En recherche d'information, \newcite{evans1996nounphraseanalysis} font le
+      constat que les unités textuelles décrivant le mieux le contenu d'un
+      document, et donc permettant de mieux l'indexer, sont majoritairement des
+      termes. Ils proposent alors une méthode qui extrait dans un premier temps
+      les groupes nominaux d'un document, puis en extrait les sous-composants.
+      Ils définissent trois types distincts de sous-composants~:
+      \begin{itemize}
+        \item{les collocations~;}
+        \item{les couples tête-modifieur~;}
+        \item{les variantes des groupes prépositionnels.}
+      \end{itemize}
+      Dans le cas de l'extraction automatique de termes-clés, seuls les
+      sous-composants étant présents dans le document analysé peuvent être
+      extraits. Dans notre cas, il n'est donc pas toujours possible d'utiliser
+      les couples tête-modifieurs et les variantes des groupes prépositionnels.
 
   \subsection{Classification/Ordonnancement des termes-clés candidats}
   \label{subsec:classification_ordonnancement_des_termes_cles_candidats}

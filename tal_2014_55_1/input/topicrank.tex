@@ -35,13 +35,13 @@
     % Comment groupons nous les candidats d'un même sujet ?
     Une fois la similarité connue entre tous les candidats deux à deux, nous
     appliquons l'algorithme de groupement hiérarchique agglomératif
-    (\textit{Hierarchical Agglomerative Clustring -- HAC}). Initialement, chaque
-    candidat représente un groupe. À chaque itération de l'algorithme, les deux
-    groupes ayant la plus forte similarité sont groupés. La condition d'arrêt
-    est définie par un seuil, fixé à $0,25$, pour la similarité entre deux
-    groupes. Cette similarité entre deux groupes est calculée en fonction de la
-    similarité entre les candidats de chaque groupe. Il existe trois stratégies
-    pour calculer cette similarité~:
+    (\textit{Hierarchical Agglomerative Clustering -- HAC}). Initialement,
+    chaque candidat représente un groupe. À chaque itération de l'algorithme,
+    les deux groupes ayant la plus forte similarité sont groupés. La condition
+    d'arrêt est définie par un seuil, fixé à $0,25$, pour la similarité entre
+    deux groupes. Cette similarité entre deux groupes est calculée en fonction
+    de la similarité entre les candidats de chaque groupe. Il existe trois
+    stratégies pour calculer cette similarité~:
     \begin{itemize}
       \item{simple~: la plus petite valeur de similarité entre les candidats
             des deux groupes sert de similarité entre eux~;}
@@ -65,11 +65,49 @@
   \label{subsec:ordonnancement_des_sujets}
     % Quel est le but de l'ordonnancement ?
     % Comment est-il effectué ?
+    L'ordonnancement des sujets a pour objectif de trouver quels sont ceux qui
+    sont les plus important dans le document analysé. À l'instar de
+    \newcite{mihalcea2004textrank}, nous décidons de déterminer l'importance des
+    sujets en modélisant le document sous la forme d'un graphe de sujets, puis
+    en applicant l'algorithme d'ordonnancement de TextRank.
 
     % Comment le graphe est-il construit ?
+    Les sujets du document analysé composent les n\oe{}uds ($V$) du graphe
+    complet $G = (V, E)$, $E$ étant l'ensemble des liens entre les
+    n\oe{}uds\footnote{$E = \{(v_1, v_2)\ |\ \forall{v_1, v_2 \in V}, v_1 \neq v_2\}$,
+    car $G$ est un graphe complet.}. Le graphe utilisé étant un graphe complet,
+    la pondération de ses arêtes est l'étape la plus importante pour rendre
+    possible un ordonnancement efficace des sujets. Pour celle-ci, nous 
+    choisissons d'utiliser la force du liens sémantique entre les sujets.
+    Contrairement à ce qui est fait dans les autres
+    travaux~\cite{wan2008expandrank,tsatsaronis2010semanticrank,liu2010topicalpagerank},
+    nous ne représentons pas cette force avec le nombre de co-occurrences
+    calculées dans une fenêtre de mots définie manuellement, mais nous utilisons
+    la distance entre les mots de sujets~:
+    \begin{align}
+      \text{poids}(s_i, s_j) &= \sum_{c_i \in s_i}\ \sum_{c_j \in s_j} \text{dist}(c_i, c_j) \label{math:ponderation}\\
+      \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
+    \end{align}
+    où $\text{poids}(s_i, s_j)$ est le poids de l'arête entre les sujets $s_i$
+    et $s_j$, et où $\text{dist}(c_i, c_j)$ représente la force sémantique entre
+    les candidats $c_i$ et $c_j$, calculée à partir de leurs positions
+    respectives, $\text{pos}(c_i)$ et $\text{pos}(c_j)$, dans le document.
 
     % Comment le graphe est-il utilisé pour ordonner les sujets ?
     % Quelle est l'intuition de PageRank/TextRank ?
+    Une fois la construction du graphe, l'algorithme d'ordonnancement de
+    TextRank est utilisé. Celui-ci se fonde sur le principe de \og vote~\fg,
+    c'est à dire qu'un sujet fortement connecté à un autre sujet est fortement
+    recommendé par le dernier et gagne donc de l'importance. De ce fait, un
+    sujet connecté à un autre sujet très important gagne aussi plus
+    d'importance~:
+    \begin{align}
+      \text{importance}(s_i) = (1 - \lambda) + \lambda \times \sum_{s_j \in V_i} \frac{\text{poids}(s_i, s_j) \times \text{importance}(s_j)}{\sum_{s_k \in V_j} \text{poids}(s_j, s_k)} \label{math:textrank}
+    \end{align}
+    où $V_i$ est l'ensemble des sujets connectés au sujet
+    $s_i$\footnote{$V_i = \{v_i\ |\ \forall{v_j in V}, v_j \neq v_i\}$,
+    car $G$ est un graphe complet.} et où $\lambda$ est un facteur d'aténuation
+    définit par défaut à $0,85$ par \newcite{brin1998pagerank}.
 
   \subsection{Sélection des termes-clés}
   \label{subsec:selection_des_termes_cles}
