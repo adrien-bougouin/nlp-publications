@@ -1,3 +1,48 @@
 \section{Conclusion et perspectives}
 \label{sec:conclusion_et_perspectives}
+  Dans ce travail, nous proposons une méthode à base de graphe pour
+  l'extraction non-supervisée de termes-clés. Cette méthode groupe les
+  termes-clés candidats par sujets, détermine quels sont ceux les plus
+  importants, puis extrait le terme-clé candidat qui représente le mieux chaque
+  sujet. Cette nouvelle méthode offre plusieurs avantages vis-à-vis des
+  précédentes à base de graphe. Dans un premier temps, le groupement des
+  termes-clés potentiels en sujets distincts permet le rassemblement 
+  d'informations auparavant éparpillées. Dans un second temps, le choix d'un
+  seul terme-clé pour représenter l'un des sujets les plus importants permet
+  d'extraire un ensemble de termes-clés non redondant -- pour $k$ termes-clés
+  extraits, exactement $k$ sujets sont couverts. Finalement, le graphe est
+  désormais complet et ne requière plus de fenêtre de co-occurrences
+  manuellement définie.
+
+  Les bons résultats de notre méthodes montrent la pertinence d'un regroupement
+  thématique des termes-clés candidats avant la phase d'ordonnancement. Les
+  expériences préliminaires montrent aussi que la stratégie de sélection du
+  terme-clé candidat le plus représentatif d'un sujet joue un rôle crucial. De
+  plus, la stratégie actuellement utilisée pourrait être améliorée de sorte que
+  les résultats soient significativement améliorer.
+
+  Dans de futurs travaux, il est envisagé d'améliorer le groupement en sujets et
+  la sélection du terme-clé candidat le plus représentatif pour chacun d'eux.
+  Ces deux points sont cruciaux et nécessitent un travail plus approfondit
+  linguistiquement.
+  
+  Le groupement actuellement effectué est un groupement naïf qui ne prend en
+  compte ni l'ambiguïté d'un mots, ni la relation de synonymie entre deux mots.
+  L'ajout de connaissances concernant les synonymes permettrait de créer de
+  sujets plus consistants et la désambiguïsation éviterait un groupement
+  systématique des termes-clés candidats ayant un ou plusieurs mots en commun.
+  D'un point de vu plus technique, il est aussi envisagé d'explorer différentes
+  techniques de groupement, dont le groupement spectral (\textit{spectral
+  clustering}) qui, dans d'autres travaux portant sur l'extraction
+  automatique de termes-clés~\cite{liu2009keycluster}, montre de meilleures
+  performances que le groupement hiérarchique agglomératif.
+
+  En ce qui concerne la stratégie de sélection des termes-clés candidats les
+  plus représentatifs des sujets, une étude détaillées des caractéristiques des
+  termes-clés pourrait orienter notre travail vers des critères plus efficaces
+  que la première position des candidats dans le document. Un apprentissage
+  supervisé à partir de certains critère est aussi envisageable, au même titre
+  que l'usage de méthodes d'optimisation, telles que celle utilisée par
+  \newcite{ding2011binaryintegerprogramming} dans leur méthode d'extraction
+  automatique de termes-clés.
 

@@ -11,8 +11,18 @@
 \usepackage{booktabs}
 \usepackage{rotating}
 \usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{varwidth}
+\usepackage{overpic}
+\usepackage{lipsum}
+\usepackage{xfrac}
+\usepackage{pgfplots}
+\usepackage{url}
+\usepackage{subfigure}
 
-\usetikzlibrary{positioning, topaths, shapes, arrows}
+\pgfplotsset{compat=1.8}
+
+\usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
 
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citeasnoun{#2}}{\citeasnoun[#1]{#2}}}
 
@@ -38,28 +48,28 @@
   automatique, mais aussi parce que la quantité de données aujourd'hui
   accecibles est trop importante pour être traitée manuellement, la tâche
   d'extraction automatique de termes-clés suscite de plus en plus l'intéret.
-  Dans cet article, nous étudions les propriétés des termes-clés et nous
-  présentons une méthode à base de graphe pour l'extraction non-supervisée de
-  termes-clés. Cette méthode groupe les termes-clés potentiels par sujets,
-  ordonne ces sujets, puis, pour chacun des meilleurs sujets, extrait le
-  terme-clé potentiel qui le représente le mieux. Les expériences réalisées
-  montrent une amélioration significative vis-à-vis de l'état de l'art des
-  méthodes à base de graphe pour l'extraction de termes-clés.
+  Dans cet article, nous présentons une méthode à base de graphe pour
+  l'extraction non-supervisée de termes-clés. Cette méthode groupe les
+  termes-clés potentiels par sujets, ordonne ces sujets, puis, pour chacun des
+  meilleurs sujets, extrait le terme-clé potentiel qui le représente le mieux.
+  Les expériences réalisées montrent une amélioration significative vis-à-vis de
+  l'état de l'art des méthodes à base de graphe pour l'extraction de
+  termes-clés.
 }\abstract{
   Keyphrases are single or multi-word expressions that represent the main
   content of a document. As keyphrases are usefull in various tasks, such as
   document indexing, and because the amount of accessible data is too huge to
   be manually annotated, the task of automatically extracting keyphrases
-  attracts more and more interest. In this article, we study the properties of
-  keyphrases and we present an unsupervised graph-based method for keyphrase
-  extraction. This method clusters the keyphrase candidates by topics, ranks
-  these topics and extract the more representative candidate for each of the
-  best topics. Our experiments show a significant improvement over the
-  state-of-the-art graph based methods for keyphrase extraction.
+  attracts more and more interest. In this article, we present an unsupervised
+  graph-based method for keyphrase extraction. This method clusters the
+  keyphrase candidates by topics, ranks these topics and extract the more
+  representative candidate for each of the best topics. Our experiments show a
+  significant improvement over the state-of-the-art graph based methods for
+  keyphrase extraction.
 }
 
-\motscles{extraction de termes-clés, terme-clé candidat, ordonnancement de sujets}
-\keywords{keyphrase extraction, keyphrase candidate, topic ranking}
+\motscles{extraction de termes-clés, groupement en sujets, ordonnancement de sujets}
+\keywords{keyphrase extraction, topic clustering, topic ranking}
 
 %\date{}
 \begin{document}
@@ -68,7 +78,7 @@
 
 \input{input/introduction.tex}
 \input{input/etat_de_l_art.tex}
-\input{input/donnees.tex}
+%\input{input/donnees.tex}
 \input{input/topicrank.tex}
 \input{input/evaluation.tex}
 \input{input/conclusion.tex}

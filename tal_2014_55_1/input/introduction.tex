@@ -1,9 +1,8 @@
 \section{Introduction}
 \label{sec:introduction}
   % Que sont les termes-clés ?
-  Les termes-clés sont des mots ou des expressions polylexicales qui donnent,
-  ensembles, un aperçu du contenu principal d'un document auquel ils se
-  réfèrent.
+  Les termes-clés sont des mots ou des expressions polylexicales qui
+  représentent les sujets principaux dans le document auquel ils se réfèrent.
   % À quoi sont-ils utiles ?
   Du fait de leur propriété synthétique, les termes-clés sont utilisés dans
   diverses tâches d'enrichissement telles que l'indexation de
@@ -34,24 +33,8 @@
   l'extraction non-supervisée de termes-clés.
 
   % Que proposons-nous dans cet article ?
-  Les termes-clés candidats étant un point commun à toutes les méthodes
-  d'extraction automatique de termes-clés, nous nous intéressons dans un premier
-  temps aux propriétés des termes-clés donnés par des humains. En effet, bien
-  que l'annotation humaine soit subjective, certaines propriétés relatives à
-  l'informativité et à la syntaxe des termes-clés émergent et nous permettent de
-  comparer les méthodes d'extraction de termes-clés candidats existantes. Ces
-  méthodes consistent en l'extraction de n-grammes filtrés avec une liste de
-  mots outils, l'extraction de chunks nominaux ou encore l'extraction de
-  séquences de mots respectant un patron syntaxique donné. \og Quels sont les
-  méthodes qui extraient des candidats de qualité~?~\fg, \og N'est-il pas
-  possible d'utiliser les méthodes d'extraction terminologique pour fournir des
-  candidats de bonne qualité~?~\fg\ et \og La quantité de candidats extraits
-  prime-t-elle sur la qualité de l'ensemble de candidats~?~\fg\ sont autant de
-  questions que nous nous posons.
-
-  % Que proposons-nous dans cet article ?
   % Comment le fait-on ?
-  Dans un second temps nous présentons TopicRank, une méthode d'extraction
+  Dans cet article, nous présentons TopicRank, une méthode d'extraction
   non-supervisée de termes-clés. Celle-ci se fonde sur les travaux de
   \newcite[TextRank]{mihalcea2004textrank} pour l'ordonnancement à base de
   graphe des unités textuelles d'un document. Elle groupe les termes-clés
@@ -68,24 +51,23 @@
   termes-clés redondants.
 
   % Que peut-on dire sur les évaluation réalisées ?
-  Pour l'évaluation de TopicRank, nous utilisons trois collections de données
+  Pour l'évaluation de TopicRank, nous utilisons quatre collections de données
   aux propriétés différentes (nature, langues, taille de documents). TopicRank
-  est comparé aux méthodes TF-IDF~\cite{jones1972tfidf} et
-  SingleRank~\cite{wan2008expandrank}. Pour deux des collections de données,
-  TopicRank donne de meilleurs résultats. Ceux-ci sont d'ailleurs
-  significativement meilleurs que ceux de SingleRank. Une expérience
-  supplémentaire montre aussi que les résultats de TopicRank pourraient être
-  bien au delà de ceux actuels, si la stratégie de choix du candidat le plus
-  représentatif d'un sujet était plus performante.
+  est comparé aux méthodes TF-IDF~\cite{jones1972tfidf},
+  TextRank~\cite{mihalcea2004textrank} et SingleRank~\cite{wan2008expandrank}.
+  Pour trois des collections de données, TopicRank donne de meilleurs résultats.
+  Ceux-ci sont d'ailleurs significativement meilleurs que ceux des deux méthodes
+  à base de graphe, TextRank et SingleRank.
+  Une expérience supplémentaire montre aussi que les résultats de TopicRank
+  pourraient être bien au delà de ceux actuels si la stratégie de choix du
+  candidat le plus représentatif d'un sujet était plus performante.
 
   % Quel est notre plan ?
   L'article est structuré comme suit. Après un état de l'art des méthodes
-  existantes en section~\ref{sec:etat_de_l_art}, nous présentons et analysons en
-  section~\ref{sec:presentation_et_analyse_des_donnees} les données que nous
-  utilisons, puis nous décrivons le fonctionnement de TopicRank en
-  section~\ref{sec:extraction_de_termes_cles_avec_topicrank}. En
-  section~\ref{sec:evaluation} nous présentons notre évaluation approfondie des
-  différentes étapes de l'extraction de termes-clés, avant de conclure sur les
-  résultats obtenus et les futurs travaux dans la
+  existantes en section~\ref{sec:etat_de_l_art}, nous décrivons le
+  fonctionnement de TopicRank en
+  section~\ref{sec:extraction_de_termes_cles_avec_topicrank} et présentons son
+  évaluation approfondie en section~\ref{sec:evaluation}. Enfin, nous concluons
+  sur les résultats obtenus et discutons des futurs travaux dans la
   section~\ref{sec:conclusion_et_perspectives}.
 

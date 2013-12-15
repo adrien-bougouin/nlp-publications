@@ -1,40 +1,88 @@
 \section{Évaluation}
 \label{sec:evaluation}
-  TODO introduction
+  Pour valider notre approche, nous réalisons une série d'évaluations visant à
+  déterminer la configuration optimale de TopicRank, le comparer aux autres
+  méthodes existantes et quantifier chacun de ses apports.
 
   \subsection{Environnement expérimental}
   \label{subsec:environnement_experimental}
-    TODO introduction
-
     \subsubsection{Données de test}
     \label{subsubsec:donnees_de_test}
-      Les données utilisées lors des expériences correspondes aux ensembles de
-      test fournis avec les collections DUC, SemEval et DEFT. Le
-      tableau~\ref{tab:donnees_de_test} montre les statistiques sur ces données
-      de test. Ces statistiques sont cohérentes avec celles montrées dans la
-      section~\ref{sec:presentation_et_analyse_des_donnees}. Nous pouvons donc
-      en déduire que les propriétés inférées précédemment sont satisfaites dans
-      les données de test.
+      Les collections de données présentées ci-dessous sont utilisées lors de
+      toutes nos évaluations. Nous décidons de suivre
+      \newcite{hassan2010conundrums} qui soulignent l'importance d'évaluer une
+      méthode avec des collections de données aux configurations différentes,
+      afin de mieux observer et comprendre son comportement. Les collections de
+      données utilisées sont différentes en termes de langue, nature, taille des
+      documents et types d'annotateur (auteurs, lecteurs ou les deux).
+
+      \textbf{DUC}~\cite{over2001duc} est une collection issue des données (en
+      anglais) de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
+      concerne les méthodes de résumé automatique, elle ne contient donc
+      originellement pas d'annotations en termes-clés. Cependant, les 308
+      articles journalistiques de la partie test de DUC-2001 sont annotés par
+      \newcite{wan2008expandrank}. Lors de nos expériences, nous utilisons ces
+      308 documents.
+
+      \textbf{SemEval}~\cite{kim2010semeval} est la collection fournie lors de
+      la campagne d'évaluation SemEval-2010 pour la tâche d'extraction
+      automatique de termes-clés. Cette collection contient 284 articles
+      scientifiques (conférences et ateliers) issus de la librairie numérique
+      ACM (en anglais). La collection est répartie en trois sous-ensembles, un
+      ensemble de 40 documents d'essais, un ensemble de 144 documents
+      d'entraînement et un ensemble de 100 documents de test. Lors de nos
+      expériences, nous utilisons les 100 documents de l'ensemble de test. En ce
+      qui concerne les termes-clés associés aux documents, ils sont donnés par
+      les auteurs et des lecteurs.
+
+      \textbf{WikiNews}\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
+      est une collection de 100 articles journalistiques français extraits à
+      partir du site Web WikiNews\footnote{\url{http://fr.wikinews.org/}} entre
+      les mois de mai et décembre 2012. Chaque document est annoté par au moins
+      trois étudiants, les termes-clés des différents étudiants sont groupés et
+      les redondances lexicales sont automatiquement supprimées.
+
+      \textbf{DEFT}~\cite{paroubek2012deft} est la collection fournie lors de la
+      campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
+      termes-clés. Celle-ci contient 234 documents français issus de quatre
+      revues de Sciences Humaines et Sociales. La collection est divisée en deux
+      sous-ensembles, un ensemble d'entraînement contenant 141 documents et un
+      ensemble de test contenant 93 documents. Lors de nos expériences, nous
+      utilisons les 93 documents de l'ensemble de test. Seuls les termes-clés
+      d'auteurs sont disponibles pour cette collection.
+
+      Le tableau~\ref{tab:donnees_de_test} donne les statistiques extraites des
+      quatre collections de données présentées ci-dessus. Les données sont
+      divisées en deux langues (anglais et français), avec pour chaque langues
+      une collections de documents courts (articles journalistiques) et une
+      collection de documents de plus grande taille (articles scientifiques). Il
+      est aussi important de noter qu'en fonction du type d'annotateurs, le
+      nombre de termes-clés associés varie, de même que le nombre de termes-clés
+      présents dans les documents.
       \begin{table}
         \centering
-        \begin{tabular}{@{~~}rccc@{~~}}
+        \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
           \toprule
-          \multirow{2}{*}[-2pt]{\textbf{Statistique}} & \multicolumn{3}{c}{\textbf{Corpus}}\\
-          \cmidrule{2-4}
-          & DUC & SemEval & DEFT\\
+          \textbf{Statistique} & \textbf{DUC} & \textbf{SemEval} & \textbf{WikiNews} & \textbf{DEFT}\\
           \midrule
-          Langue & Anglais & Anglais & Français\\
-          Nature & Journalistique & Scientifique & Scientifique\\
-          Documents & 100 & 100 & 93\\
-          Mos/document & 877.3 & 5177.7 & 6839.4\\
-          Termes-clés/document & 7.9 & 14.7 & 5.2\\
-          Mots/termes-clés & 2.1 & 2.1 & 1.6\\
-          Termes-clés manquants & 2.8\% & 22.1\% & 21.1\% \\
+          Langue & Anglais & Anglais & Français & Français\\
+          Nature & Journalistique & Scientifique & Journalistique & Scientifique\\
+          \multirow{3}{*}[.35em]{Annotateurs} & \multirow{3}{*}[.35em]{Lecteurs} & Auteurs & \multirow{3}{*}[.35em]{Lecteurs} & \multirow{3}{*}[.35em]{Auteurs}\\
+          \addlinespace[-.7\defaultaddspace]
+          & & \& & &\\
+          \addlinespace[-.7\defaultaddspace]
+          & & Lecteurs & &\\
+          Documents & 308 & 100 & 100 & 93\\
+          Mos/document & 900,7 & 5177,7 & 308,5 & 6839,4\\
+          Termes-clés/document & 8,1 & 14,7 & 9,6 & 5,2\\
+          Mots/termes-clés & 2,1 & 2,1 & 1,7 & 1,6\\
+          Termes-clés manquants & 3,5\% & 22,1\% & 7,6\% & 21,1\% \\
           \bottomrule
         \end{tabular}
         \caption{Statistiques sur les données de test utilisées. En accord avec
                  l'évaluation effectuée lors de nos expériences, la proportion
-                 de termes-clés manquant est calculée à partir de leur racine.
+                 de termes-clés manquant est déterminée sans tenir compte de la
+                 flexions des mots.
                  \label{tab:donnees_de_test}}
       \end{table}
 
@@ -47,7 +95,7 @@
       TreeBankWordTokenizer disponible avec la librairie python
       NLTK~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
       l'anglais, et par l'outil Bonsai du Bonsai PCFG-LA
-      parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr\_stat\_dep\_parsing.html}},
+      parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
       pour le français. Quant à l'étiquetage en parties du discours, il est
       réalisé avec le Stanford POS tagger~\cite{toutanova2003stanfordpostagger},
       pour l'anglais, et avec MElt~\cite{denis2009melt}, pour le français.
@@ -58,157 +106,632 @@
       en termes de précision (P), rappel (R) et f-score (f1-mesure, F). Afin de
       réduire le problème de termes-clés manquants, les comparaisons sont
       effectuées avec la forme non flexionnelle des mots des termes-clés
-      extraits et des termes-clés de référence. Afin de montrer la limite que
-      permettent d'atteindre les différentes méthodes d'extraction de
-      termes-clés candidats, les ensembles de termes-clés extraits sont évalués
-      avec le rappel maximum (Rmax).
+      extraits et des termes-clés de référence.
 
-    \subsubsection{Systèmes de référence pour l'extraction de termes-clés}
+    \subsubsection{Méthodes de référence pour l'extraction de termes-clés}
     \label{subsubsec:systemes_de_reference_pour_l_extraction_de_termes_cles}
+      % Comment les baselines sont-elles choisies ?
+      Dans nos expérimentations, nous comparons TopicRank avec trois autres
+      méthodes non-supervisées d'extraction automatique de termes-clés. Nous
+      choisissons TextRank et SingleRank, les deux méthodes qui sont la
+      fondation des méthodes à base de graphe, et la pondération TF-IDF. Cette
+      dernière consiste à donner un score aux termes-clés candidats en faisant
+      la somme des poids TF-IDF des mots qui les composent, puis à sélectionner
+      ceux ayant le plus haut score, c'est à dire ceux qui contiennent le plus
+      de mots importants.
 
-  \subsection{Analyse intrinsèque des méthodes d'extraction de candidats}
-  \label{subsec:analyse_intrinseque_des_methodes_d_extraction_de_candidats}
-    \begin{table}
+      % Quelles sont les particularités liées à notre implémentation ?
+      Afin d'améliorer le résultat des méthodes de référence, leurs sorties sont
+      filtrées afin de supprimer les termes-clés redondant. Conformément au
+      processus d'évaluation mis en \oe{}vre, deux termes-clés sont considérés
+      redondants lorsqu'ils ont le même radical. Cette suppression ne dégrade en
+      rien les résultats et a pour effet d'extraire des termes-clés qui n'était
+      pas parmi les 10 premiers avant le filtrage.
+
+  \subsection{Configuration empirique de TopicRank}
+  \label{subsection:configuration_empirique_de_topicrank}
+    À ce stade des expérimentations, nous tentons de déterminer quels sont les
+    paramètres optimaux pour TopicRank. En effet, TopicRank possède trois points
+    de variabilités~: le seuil de groupement ($\zeta$), la stratégie de
+    groupement (simple, complète ou moyenne) et la stratégie de sélection du
+    terme-clé candidat le plus représentatif d'un sujet. Deux expériences sont
+    réalisées, l'une pour déterminer le groupement optimale (le seuil $\zeta$
+    plus la stratégie de groupement) et l'autre pour déterminer la sélection des
+    termes-clés la plus optimale à partir des sujets les plus importants.
+
+    % Variation du seuil de similarité
+    La figure~\ref{fig:variation_du_seuil_de_similarite} présente les résultats
+    de TopicRank lorsque nous faisons varier le seuil $\zeta$ avec un pas de
+    0,05 pour toutes les stratégies de regroupement. La stratégie de sélection
+    d'un termes-clés par sujet utilisée est celle qui consiste à sélectionner
+    le candidat qui apparaît en premier dans le document, pour chaque sujet.
+    TODO BLABLABLA + TODO choix des valeurs utilisées par la suite.
+%    \begin{table}
+%      \centering
+%      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+%        \toprule
+%        \multirow{2}{*}[-2pt]{\textbf{Seuil $\boldsymbol{\zeta}$}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+%        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
+%        & P & R & F & P & R & F & P & R & F & P & R & F\\
+%        \midrule
+%        0,17 & 18.6 & 23.7 & 20.6 & 14.8 & 10.2 & 12.0 & 34.6 & 37.1 & 35.2 & 10.9 & 20.2 & 14.0\\
+%        \addlinespace[.75\defaultaddspace]
+%        0,25 & 17,7 & 22,6 & \textbf{19,6} & 14,9 & 10,3 & \textbf{12,1} & 35,0 & 37,5 & 35,6 & 11,7 & 21,7 & \textbf{15,1}\\
+%        \addlinespace[.75\defaultaddspace]
+%        0,33 & 17,2 & 22,1 & 19,1 & 13,0 & $~~$9,0 & 10,5 & 35,3 & 37,6 & \textbf{35,8} & 11,3 & 20,9 & 14,5\\
+%        \addlinespace[.75\defaultaddspace]
+%        0,50 & 13,6 & 17,8 & 15,2 & $~~$9,6 & $~~$6,7 & $~~$7,8 & 35,0 & 37,6 & 35,7 & 11,0 & 20,2 & 14,0\\
+%        \addlinespace[.75\defaultaddspace]
+%        0,67 & $~~$9.9 & 13.1 & 11.1 & $~~$10.5 & $~~$7.4 & $~~$8.6 & 35.0 & 37.0 & 35.4 & 11.0 & 20.0 & 14.0\\
+%        \bottomrule
+%      \end{tabular}
+%      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
+%               fonction de la valeur du seuil de similarité.
+%               \label{tab:variation_du_seuil_de_similarite}}
+%    \end{table}
+%    \begin{table}
+%      \centering
+%      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+%        \toprule
+%        \multirow{2}{*}[-2pt]{\textbf{Groupement}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+%        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
+%        & P & R & F & P & R & F & P & R & F & P & R & F\\
+%        \midrule
+%        Simple & 17,2 & 22,0 & 19,1 & 12,0 & $~~$8,4 & $~~$9,8 & 34,7 & 37,1 & 35,3 & 11,1 & 20,2 & 14,2\\
+%        \addlinespace[.75\defaultaddspace]
+%        Complet & 16,7 & 21,4 & 18,5 & $~~$3,7 & $~~$2,7 & $~~$3,1 & 34,0 & 36,3 & 34,6 & $~~$5,1 & $~~$9,6 & $~~$6,5\\
+%        \addlinespace[.75\defaultaddspace]
+%        Moyen & 17,7 & 22,6 & \textbf{19,6} & 14,9 & 10,3 & \textbf{12,1} & 35,0 & 37,5 & \textbf{35,6} & 11,7 & 21,7 & \textbf{15,1}\\
+%        \bottomrule
+%      \end{tabular}
+%      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
+%               fonction des différentes stratégies de regroupement.
+%               \label{tab:comparaison_des_strategies_de_groupement}}
+%    \end{table}
+    \begin{figure}
       \centering
-      \begin{tabular}{@{~}r@{~~}c@{~~}cc@{~~}cc@{~~}c@{~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{2}{c}{\textbf{DUC}} & \multicolumn{2}{c}{\textbf{SemEval}} & \multicolumn{2}{c}{\textbf{DEFT}}\\
-        \cmidrule(r){2-3}\cmidrule(lr){4-5}\cmidrule(l){6-7}
-        & Cand./Doc. & Rmax & Cand./Doc. & Rmax & Cand./Doc. & Rmax\\
-        \midrule
-        \{1..2\}-grammes & $~~$491.0 & 76.6 & 1633.6 & 61.0 & 2566.4 & 67.3\\
-        \{1..3\}-grammes & $~~$596.2 & \textbf{90.8} & 2580.5 & \textbf{72.2} & 4070.2 & 74.1\\
-        Patrons appris & $~~$317.6 & 90.6 & 1227.4 & 69.8 & 2148.3 & \textbf{76.5}\\
-        Séquences (Nc | A)+ & $~~$155.6 & 88.7 & $~~$646.5 & 62.4 & $~~$914.5 & 61.1\\
-        +sous-composants & $~~$171.8 & 90.6 & $~~$712.2 & 64.4 & $~~$934.0 & 61.1\\
-        Chunks nominaux & $~~$149.9 & 76.0 & $~~$598.4 & 56.6 & $~~$812.3 & 63.0\\
-        TermSuite & $~~$161.8 & 46.1 & $~~$498.6 & 32.4 & $~~$647.0 & 52.8\\
-        \bottomrule
-      \end{tabular}
-      \caption{Résultats de l'extraction de termes-clés candidats pour les
-               collections de données DUC, SemEval et DEFT.
-               \label{tab:resultats_de_l_extraction_de_candidats}}
-    \end{table}
+      \subfigure[DUC]{
+        \begin{tikzpicture}
+          \begin{axis}[axis lines=middle,
+                       x=0.35\linewidth,
+                       xtick={0.0, 0.2, ..., 1.2},
+                       xmin=0.0,
+                       xmax=1.05,
+                       xlabel=$\zeta$,
+                       y=0.003\textheight,
+                       ytick={0, 10, ..., 40},
+                       ymin=0,
+                       ymax=42.5,
+                       ylabel=F,
+                       label style={anchor=south}]
+            % simple
+            \addplot[green!66, mark=x] coordinates{
+              (0.05, 19.7)
+              (0.10, 19.7)
+              (0.15, 19.5)
+              (0.20, 19.2)
+              (0.25, 19.1)
+              (0.30, 18.1)
+              (0.35, 15.2)
+              (0.40, 15.2)
+              (0.45, 15.1)
+              (0.50, 15.1)
+              (0.55, 11.0)
+              (0.60, 11.0)
+              (0.65, 11.0)
+              (0.70, 11.1)
+              (0.75, 11.2)
+              (0.80, 11.2)
+              (0.85, 11.2)
+              (0.90, 11.2)
+              (0.95, 11.2)
+              (1.00, 10.9)
+            };
+            % moyen
+            \addplot[red!66, mark=o] coordinates{
+              (0.05, 21.0)
+              (0.10, 21.4)
+              (0.15, 21.0)
+              (0.20, 20.1)
+              (0.25, 19.6)
+              (0.30, 19.4)
+              (0.35, 18.4)
+              (0.40, 17.0)
+              (0.45, 15.4)
+              (0.50, 15.2)
+              (0.55, 11.1)
+              (0.60, 11.0)
+              (0.65, 11.0)
+              (0.70, 11.1)
+              (0.75, 11.2)
+              (0.80, 11.2)
+              (0.85, 11.2)
+              (0.90, 11.2)
+              (0.95, 11.2)
+              (1.00, 11.2)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
+              (0.05, 18.2)
+              (0.10, 18.2)
+              (0.15, 18.1)
+              (0.20, 18.3)
+              (0.25, 18.5)
+              (0.30, 19.0)
+              (0.35, 18.5)
+              (0.40, 18.5)
+              (0.45, 18.6)
+              (0.50, 18.6)
+              (0.55, 11.1)
+              (0.60, 11.1)
+              (0.65, 11.1)
+              (0.70, 11.1)
+              (0.75, 11.2)
+              (0.80, 11.2)
+              (0.85, 11.2)
+              (0.90, 11.2)
+              (0.95, 11.2)
+              (1.00, 10.9)
+            };
+          \end{axis}
+        \end{tikzpicture}
+      }
+      \subfigure[SemEval]{
+        \begin{tikzpicture}
+          \begin{axis}[axis lines=middle,
+                       x=0.35\linewidth,
+                       xtick={0.0, 0.2, ..., 1.2},
+                       xmin=0.0,
+                       xmax=1.05,
+                       xlabel=$\zeta$,
+                       y=0.003\textheight,
+                       ytick={0, 10, ..., 40},
+                       ymin=0,
+                       ymax=42.5,
+                       ylabel=F,
+                       label style={anchor=south}]
+            % simple
+            \addplot[green!66, mark=x] coordinates{
+              (0.05, 0)
+              (0.10, 0)
+              (0.15, 0)
+              (0.20, 0)
+              (0.25, 9.8)
+              (0.30, 0)
+              (0.35, 0)
+              (0.40, 0)
+              (0.45, 0)
+              (0.50, 7.8)
+              (0.55, 0)
+              (0.60, 0)
+              (0.65, 0)
+              (0.70, 0)
+              (0.75, 0)
+              (0.80, 0)
+              (0.85, 0)
+              (0.90, 0)
+              (0.95, 0)
+              (1.00, 0)
+            };
+            % moyen
+            \addplot[red!66, mark=o] coordinates{
+              (0.05, 11.0)
+              (0.10, 10.7)
+              (0.15, 11.5)
+              (0.20, 12.3)
+              (0.25, 12.1)
+              (0.30, 11.2)
+              (0.35, 9.6)
+              (0.40, 8.7)
+              (0.45, 7.8)
+              (0.50, 7.8)
+              (0.55, 7.1)
+              (0.60, 7.3)
+              (0.65, 7.6)
+              (0.70, 8.6)
+              (0.75, 8.4)
+              (0.80, 8.4)
+              (0.85, 8.4)
+              (0.90, 8.4)
+              (0.95, 8.4)
+              (1.00, 8.4)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
+              (0.05, 0)
+              (0.10, 0)
+              (0.15, 0)
+              (0.20, 0)
+              (0.25, 3.1)
+              (0.30, 0)
+              (0.35, 0)
+              (0.40, 0)
+              (0.45, 0)
+              (0.50, 5.7)
+              (0.55, 0)
+              (0.60, 0)
+              (0.65, 0)
+              (0.70, 0)
+              (0.75, 0)
+              (0.80, 0)
+              (0.85, 0)
+              (0.90, 0)
+              (0.95, 0)
+              (1.00, 0)
+            };
+            \legend{Simple, Moyen, Complet}
+          \end{axis}
+        \end{tikzpicture}
+      }
+      \subfigure[WikiNews]{
+        \begin{tikzpicture}
+          \begin{axis}[axis lines=middle,
+                       x=0.35\linewidth,
+                       xtick={0.0, 0.2, ..., 1.2},
+                       xmin=0.0,
+                       xmax=1.05,
+                       xlabel=$\zeta$,
+                       y=0.003\textheight,
+                       ytick={0, 10, ..., 40},
+                       ymin=0,
+                       ymax=42.5,
+                       ylabel=F,
+                       label style={anchor=south}]
+            % simple
+            \addplot[green!66, mark=x] coordinates{
+              (0.05, 35.2)
+              (0.10, 35.2)
+              (0.15, 35.2)
+              (0.20, 35.3)
+              (0.25, 35.3)
+              (0.30, 35.8)
+              (0.35, 35.7)
+              (0.40, 35.7)
+              (0.45, 35.7)
+              (0.50, 35.7)
+              (0.55, 35.1)
+              (0.60, 35.1)
+              (0.65, 35.1)
+              (0.70, 35.4)
+              (0.75, 35.4)
+              (0.80, 35.4)
+              (0.85, 35.4)
+              (0.90, 35.4)
+              (0.95, 35.4)
+              (1.00, 34.9)
+            };
+            % moyen
+            \addplot[red!66, mark=o] coordinates{
+              (0.05, 34.4)
+              (0.10, 34.8)
+              (0.15, 35.0)
+              (0.20, 35.4)
+              (0.25, 35.6)
+              (0.30, 35.7)
+              (0.35, 35.8)
+              (0.40, 35.8)
+              (0.45, 35.7)
+              (0.50, 35.7)
+              (0.55, 35.1)
+              (0.60, 35.1)
+              (0.65, 35.1)
+              (0.70, 35.4)
+              (0.75, 35.4)
+              (0.80, 35.4)
+              (0.85, 35.4)
+              (0.90, 35.4)
+              (0.95, 35.4)
+              (1.00, 35.4)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
+              (0.05, 34.2)
+              (0.10, 34.2)
+              (0.15, 34.2)
+              (0.20, 34.3)
+              (0.25, 34.6)
+              (0.30, 35.2)
+              (0.35, 35.7)
+              (0.40, 35.7)
+              (0.45, 35.7)
+              (0.50, 35.7)
+              (0.55, 35.1)
+              (0.60, 35.1)
+              (0.65, 35.1)
+              (0.70, 35.4)
+              (0.75, 35.4)
+              (0.80, 35.4)
+              (0.85, 35.4)
+              (0.90, 35.4)
+              (0.95, 35.4)
+              (1.00, 34.9)
+            };
+          \end{axis}
+        \end{tikzpicture}
+      }
+      \subfigure[DEFT]{
+        \begin{tikzpicture}
+          \begin{axis}[axis lines=middle,
+                       x=0.35\linewidth,
+                       xtick={0.0, 0.2, ..., 1.2},
+                       xmin=0.0,
+                       xmax=1.05,
+                       xlabel=$\zeta$,
+                       y=0.003\textheight,
+                       ytick={0, 10, ..., 40},
+                       ymin=0,
+                       ymax=42.5,
+                       ylabel=F,
+                       label style={anchor=south}]
+            % simple
+            \addplot[green!66, mark=x] coordinates{
+              (0.05, 0)
+              (0.10, 0)
+              (0.15, 0)
+              (0.20, 0)
+              (0.25, 14.2)
+              (0.30, 0)
+              (0.35, 0)
+              (0.40, 0)
+              (0.45, 0)
+              (0.50, 14.0)
+              (0.55, 0)
+              (0.60, 0)
+              (0.65, 0)
+              (0.70, 0)
+              (0.75, 0)
+              (0.80, 0)
+              (0.85, 0)
+              (0.90, 0)
+              (0.95, 0)
+              (1.00, 0)
+            };
+            % moyen
+            \addplot[red!66, mark=o] coordinates{
+              (0.05, 0)
+              (0.10, 0)
+              (0.15, 0)
+              (0.20, 0)
+              (0.25, 15.1)
+              (0.30, 0)
+              (0.35, 0)
+              (0.40, 0)
+              (0.45, 0)
+              (0.50, 14.0)
+              (0.55, 0)
+              (0.60, 0)
+              (0.65, 0)
+              (0.70, 0)
+              (0.75, 0)
+              (0.80, 0)
+              (0.85, 0)
+              (0.90, 0)
+              (0.95, 0)
+              (1.00, 13.4)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
+              (0.05, 0)
+              (0.10, 0)
+              (0.15, 0)
+              (0.20, 0)
+              (0.25, 6.5)
+              (0.30, 0)
+              (0.35, 0)
+              (0.40, 0)
+              (0.45, 0)
+              (0.50, 8.3)
+              (0.55, 0)
+              (0.60, 0)
+              (0.65, 0)
+              (0.70, 0)
+              (0.75, 0)
+              (0.80, 0)
+              (0.85, 0)
+              (0.90, 0)
+              (0.95, 0)
+              (1.00, 0)
+            };
+          \end{axis}
+        \end{tikzpicture}
+      }
+      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
+               fonction de la stratégie de regroupement et de la valeur du seuil
+               de similarité $\zeta$.
+               \label{fig:variation_du_seuil_de_similarite}}
+    \end{figure}
+
+    La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
+    résultats obtenus avec TopicRank et les différentes stratégies de sélection
+    d'un terme-clé candidat par sujet. Les résultats confirment ce qui est dit
+    à la section~\ref{sec:extraction_de_termes_cles_avec_topicrank}, concernant
+    le bien fondé de la sélection des candidats les plus fréquents ou des
+    centroïdes. Ceux-ci ont tendance à sélectionner des concepts inhérents qui
+    jouent un rôle crucial lors du groupement, mais qui ne sont pas les
+    candidats les plus représentatifs des sujets.
+%    \begin{table}
+%      \centering
+%      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+%        \toprule
+%        \multirow{2}{*}[-2pt]{\textbf{Sélection}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+%        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
+%        & P & R & F & P & R & F & P & R & F & P & R & F\\
+%        \midrule
+%        Position & 17,7 & 22,6 & \underline{19,6} & 14,9 & 10,3 & \underline{12,1} & 35,0 & 37,5 & \underline{35,6} & 11,7 & 21,7 & \underline{15,1}\\
+%        Fréquence & 15,1 & 18,7 & 16,5 & $~~$1,7 & $~~$1,2 & $~~$1,4 & 25,7 & 27,6 & 26,2 & $~~$1,9 & $~~$3,8 & $~~$2,5\\
+%        Centroïde & 13,0 & 16,3 & 14,3 & $~~$1,9 & $~~$1,2 & $~~$1,5 & 28,1 & 29,9 & 28,5 & $~~$2,6 & $~~$5,0 & $~~$3,4\\
+%        \midrule
+%        Borne haute & 37,1 & 41,1 & 38,6 & 37,6 & 25,8 & \textbf{30,3} & 42,5 & 44,8 & \textbf{42,9} & 14,9 & 28,0 & \textbf{19,3}\\
+%        \bottomrule
+%      \end{tabular}
+%      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
+%               fonction des différentes sélections de termes-clés candidats par
+%               sujets.
+%               \label{tab:variation_de_la_selection_des_candidats}}
+%    \end{table}
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[axis lines=left,
+                     symbolic x coords={DUC, SemEval, WikiNews, DEFT},
+                     xtick=data,
+                     enlarge x limits=0.25,
+                     x=.19\linewidth,
+                     nodes near coords,
+                     nodes near coords align={vertical},
+                     every node near coord/.append style={font=\tiny},
+                     y=0.004\textheight,
+                     ytick={0, 10, ..., 50},
+                     ymin=0,
+                     ymax=52.5,
+                     ybar=4pt,
+                     ylabel=F,
+                     ylabel style={at={(ticklabel* cs:1)},
+                                   anchor=south,
+                                   rotate=270}]%,
+                     %legend style={at={(0.5,-0.15)},
+                     %              anchor=north,
+                     %              legend columns=-1}]
+          % fréquence
+          \addplot[green!66,
+                   pattern=north west lines,
+                   pattern color=green!40] coordinates{
+            (DUC,       16.5)
+            (SemEval,   1.4)
+            (WikiNews,  26.2)
+            (DEFT,      2.5)
+          };
+          % centroïde
+          \addplot[black!66,
+                   pattern=north east lines,
+                   pattern color=black!40] coordinates{
+            (DUC,       14.3)
+            (SemEval,   1.5)
+            (WikiNews,  25.5)
+            (DEFT,      3.4)
+          };
+          % position
+          \addplot[cyan!66,
+                   pattern=horizontal lines,
+                   pattern color=cyan!40] coordinates{
+            (DUC,       19.6)
+            (SemEval,   12.1)
+            (WikiNews,  35.6)
+            (DEFT,      15.1)
+          };
+          % borne haute
+          \addplot[red!66,fill=red!40] coordinates{
+            (DUC,       38.6)
+            (SemEval,   30.3)
+            (WikiNews,  42.9)
+            (DEFT,      19.3)
+          };
+
+          \legend{Fréquence, Centroïde, Position, Borne haute}
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
+               fonction des différentes sélections de termes-clés candidats par
+               sujet.
+               \label{fig:variation_de_la_selection_des_candidats}}
+    \end{figure}
+    La figure~\ref{fig:variation_de_la_selection_des_candidats} montre aussi les
+    résultats qui peuvent être obtenus avec une stratégie qui est toujours
+    capable de sélectionner un candidats positif. Nous n'avons actuellement pas
+    de telle stratégie, mais les résultats de cette borne haute sont très
+    encourageant pour des travaux futurs.
 
   \subsection{Comparaison de TopicRank avec l'existant}
   \label{subsec:comparaison_de_topicrank_avec_l_existant}
+    TODO introduction
+
+    % Que représente le tableau ?
+    Le tableau~\ref{tab:resultats_globaux} montre les performances de TopicRank
+    comparées à celles des trois systèmes de référence.
+    % Que peut-on dire globalement ?
+    Globalement, il est plus difficile d'extraire les termes-clés de longs
+    documents et TopicRank donne de meilleurs résultats que les méthodes de
+    références utilisées.
+    % Que peut-on dire de plus ? (analyse plus approndie)
+    Bien que pour DUC, TopicRank soit moins performant que les autres méthodes,
+    notre méthode donne de meilleurs résultats que TF-IDF, alors que ce dernier
+    tire profit de statistiques extraites de multiples documents. Quant aux
+    méthodes à base de graphe (TextRank et SingleRank), leurs performances sont
+    bien en-dessous de celles de TopicRank. Cela montre que TopicRank est un pas
+    en avant pour les méthodes à base de graphe. De plus, le t-test de Student
+    confirme cette amélioration significative des méthodes à base de graphe.
     \begin{table}
       \centering
-      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
+      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
         \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-        \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
-        & P & R & F & P & R & F & P & R & F\\
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
         \midrule
-        \{1..2\}-grammes & 14.7 & 19.5 & 16.5 & 10.3 & $~~$7.0 & $~~$8.3 & $~~$8.1 & 15.1 & 10.4\\
-        \{1..3\}-grammes & 14.3 & 19.0 & 16.1 & $~~$9.0 & $~~$6.0 & $~~$7.2 & $~~$6.7 & 12.5 & $~~$8.6\\
-        Patrons appris & 19.1 & 25.4 & 21.5 & 10.7 & $~~$7.3 & $~~$8.6 & $~~$7.0 & 13.1 & $~~$9.0\\
-        Séquences (Nc | A)+ & 24.2 & 31.7 & \textbf{27.0} & 11.7 & $~~$7.9 & $~~$9.3 & $~~$9.5 & 17.6 & 12.1\\
-        +sous-composants & 22.8 & 29.9 & 25.5 & 10.8 & $~~$7.2 & $~~$8.6 & $~~$9.2 & 17.2 & 11.9\\
-        Chunks nominaux & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & \textbf{$~~$9.5} & $~~$9.6 & 17.9 & 12.3\\
-        TermSuite & 17.4 & 23.2 & 19.6 & 11.2 & $~~$8.1 & $~~$9.3 & 11.3 & 21.1 & \textbf{14.5}\\
+        TF-IDF & 23,8 & 30,7 & 26,4 & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
+        TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0 & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
+        SingleRank & 22,3 & 28,4 & 24,6 & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$\\
+        TopicRank & 17,7 & 22,6 & 19,6 & 14,9 & 10,3 & \textbf{12,1}$^\dagger$ & 35,0 & 37,5 & \textbf{35,6}$^\dagger$ & 11,7 & 21,7 & \textbf{15,1}$^\dagger$\\
         \bottomrule
       \end{tabular}
-      \caption{Résultats de l'extraction de $10$ termes-clés selon
-               \textbf{TF-IDF}, pour DUC, SemEval et DEFT, en fonction des types
-               de candidats utilisés. 
-               \label{tab:resultats_de_tfidf}}
-    \end{table}
-    \begin{table}
-      \centering
-      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-        \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
-        & P & R & F & P & R & F & P & R & F\\
-        \midrule
-        \{1..2\}-grammes & 15.5 & 20.5 & 17.4 & 10.4 & $~~$7.0 & \textbf{$~~$8.3} & $~~$3.0 & $~~$6.2 & $~~$4.0\\
-        \{1..3\}-grammes & 13.7 & 18.0 & 15.3 & $~~$3.4 & $~~$2.3 & $~~$2.7 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
-        Patrons appris & 18.7 & 24.3 & 20.8 & $~~$4.6 & $~~$3.1 & $~~$1.2 & $~~$1.9 & $~~$4.2 & $~~$2.6\\
-        Séquence (Nc | A)+ & 22.8 & 29.5 & \textbf{25.3} & $~~$3.7 & $~~$2.5 & $~~$3.0 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
-        +sous-composants & 21.2 & 27.3 & 23.5 & $~~$3.5 & $~~$2.4 & $~~$2.8 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
-        Chunks nominaux & 20.6 & 27.3 & 23.1 & $~~$8.4 & $~~$5.7 & $~~$6.7 & $~~$4.9 & $~~$9.7 & $~~$6.4\\
-        TermSuite & 17.0 & 22.4 & 19.1 & $~~$7.5 & $~~$5.4 & $~~$6.2 & $~~$6.8 & 13.3 & \textbf{$~~$8.8}\\
-        \bottomrule
-      \end{tabular}
-      \caption{Résultats de l'extraction de $10$ termes-clés selon
-               \textbf{SingleRank}, pour DUC, SemEval et DEFT, en fonction des
-               types de candidats utilisés. 
-               \label{tab:resultats_de_singlerank}}
-    \end{table}
-    \begin{table}
-      \centering
-      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-        \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
-        & P & R & F & P & R & F & P & R & F\\
-        \midrule
-        \{1..2\}-grammes & 10.2 & 14.1 & 11.7 & 11.9 & $~~$8.2 & $~~$9.6 & $~~$5.8 & 11.0 & $~~$7.5\\
-        \{1..3\}-grammes & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
-        Patrons appris & 14.9 & 19.8 & 16.7 & 12.2 & $~~$4.6 & \textbf{$~~$9.9} & $~~$8.8 & 16.1 & 11.3\\
-        Séquences (Nc | A)+ & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & 11.6 & 21.5 & \textbf{14.9}\\
-        +sous-composants & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & \textbf{14.9}\\
-        Chunks nominaux& 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
-        TermSuite & 10.4 & 13.9 & 11.7 & $~~$8.9 & $~~$6.5 & $~~$7.5 & $~~$9.6 & 18.5 & 12.4\\
-        \bottomrule
-      \end{tabular}
-      \caption{Résultats de l'extraction de $10$ termes-clés selon
-               \textbf{TopicRank}, pour DUC, SemEval et DEFT, en fonction des
-               types de candidats utilisés. 
-               \label{tab:resultats_de_topicrank}}
+      \caption{Résultats de l'extraction de 10 termes-clés avec TF-IDF,
+               TextRank, SingleRank et TopicRank. $\dagger$ indique une
+               amélioration significative de TopicRank vis-à-vis de TextRank et
+               SingleRank, à 0,001 pour le t-test de Student.
+               \label{tab:resultats_globaux}}
     \end{table}
 
+    Dans le but de confirmer la pertinence de tous les apports de TopicRank aux
+    méthodes à base de graphe, nous réalisons une expérience supplémentaire dans
+    laquelle la méthode SingleRank est modifiée de sorte qu'elle ordonne les
+    mots avec un graphe complet, qu'elle ordonne les termes-clés candidats à la
+    place des mots ou qu'elle ordonne les sujets. Ces trois variantes de
+    SingleRank sont présentées dans le
+    tableau~\ref{tab:evaluation_individuelle_des_ameliorations}. Globalement,
+    l'usage des termes-clés candidats, ou des sujets, induit une amélioration
+    significative des performances de SingleRank, avec une amélioration plus
+    importante en utilisant les sujets. L'usage d'un graphe complet, quant à
+    lui, n'améliore pas significativement les résultats de SingleRank. Ceux-ci
+    sont compétitifs avec ceux obtenus en construisant un graphe de
+    co-occurrences avec une fenêtre de 10. Nous pensons cependant que l'usage du
+    graphe complet est à privilégier afin d'éviter cette fenêtre qui doit être
+    définit manuellement. En ce qui concerne la collection DUC, nous observons
+    une perte de performances induites lors de la construction du graphe avec
+    les termes-clés candidats en tant que n\oe{}uds. TODO trouver un exemple qui
+    montre le problème de connexions dans le graphe + montrer qu'un mot-clé est
+    réparti dans les sous-composants du graphe et rend donc plus difficile
+    l'extraction d'un certain terme-clé contenant ce mot clé.
     \begin{table}
       \centering
-      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
+      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
         \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
-        & P & R & F & P & R & F & P & R & F\\
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
         \midrule
-        SingleRank & 22.8 & 29.5 & 25.3 & $~~$3.7 & $~~$2.5 & $~~$3.0 & $~~$4.6 & $~~$9.2 & $~~$6.1\\
-        +candidats & & & & & & & & &\\
-        +sujets & & & & & & & & &\\
-        +complet & & & & & & & & &\\
-        TopicRank & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & 9.3 & $~~$6.8 & 13.3 & $~~$8.8\\
+        SingleRank & 22,3 & 28,4 & \textbf{24,6} & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$\\
+        +complet & 22,2 & 28,1 & 24,5 & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$\\
+        +candidats & 10,0 & 13,1 & 11,2 & $~~$9,6 & $~~$7,0 & $~~$8,0$^\dagger$ & 28,6 & 30,1 & 28,9$^\dagger$ & 10,5 & 19,7 & 13,5$^\dagger$\\
+        +sujets & 18,4 & 23,6 & 20,5 & 14,7 & 10,2 & 11,9$^\dagger$ & 31,0 & 32,8 & 31,4$^\dagger$ & 11,5 & 21,4 & 14,8$^\dagger$\\
+        TopicRank & 17,7 & 22,6 & 19,6 & 14,9 & 10,3 & \textbf{12,1}$^\dagger$ & 35,0 & 37,5 & \textbf{35,6}$^\dagger$ & 11,7 & 21,7 & \textbf{15,1}$^\dagger$\\
         \bottomrule
       \end{tabular}
-      \caption{Évaluation individuelle des apports de TopicRank vis-à-vis de
-               SingleRank, pour l'extraction de $10$ termes-clés, avec les plus
-               longues séquences de noms et d'adjectifs comme candidats.
-               \label{tab:ameliorations_de_singlerank}}
+      \caption{Résultats de l'extraction de 10 termes-clés avec chacune des
+               contributions de TopicRank appliquées séparément à SingleRank.
+               $\dagger$ indique une amélioration significative vis-à-vis de
+               SingleRank, à 0,001 pour le t-test de Student.
+               \label{tab:evaluation_individuelle_des_ameliorations}}
     \end{table}
 
-  \subsection{Efficacité du groupement en sujets}
-  \label{subsec:efficacite_du_groupement_en_sujets}
-    \begin{itemize}
-      \item{Comparer les résultats avec les différentes stratégies de
-            groupement, uniquement pour TRIGRAMS, LNP et TERMESUITE}
-      \item{Évaluation manuelle des groupes construits avec LNP}
-      \item{Évaluation des clusters ordonnés}
-    \end{itemize}
+  \subsection{Analyse des sujets détectés}
+  \label{subsec:analyse_des_sujets_générés}
+    TODO introduction
 
-    \begin{table*}
-      \centering
-      \begin{tabular}{@{~~}rc@{~~~}c@{~~~}cc@{~~~}c@{~~~}cc@{~~~}c@{~~~}c@{~~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-        \cmidrule(lr){2-4}\cmidrule(lr){5-7}\cmidrule(lr){8-10}
-        & P & R & F & P & R & F & P & R & F\\
-        \midrule
-        \{1..2\}-grammes & 17.7 & 23.9 & 20.0 & 24.1 & 16.6 & 19.5 & 9.2 & 17.3 & 11.9\\
-        \{1..3\}-grammes & 17.9 & 23.6 & 20.0 & 28.5 & 19.8 & 23.1 & 10.2 & 19.5 & 13.2\\
-        Patrons appris & 26.9 & 34.6 & 29.8 & 30.8 & 21.3 & \textbf{24.9} & 13.1 & 24.7 & 16.9\\
-        Séquence (NC | A)+ & 38.5 & 49.4 & 42.6 & 28.0 & 19.0 & 22.4 & 14.5 & 27.1 & 18.7\\
-        +sous-composants & 39.9 & 51.2 & \textbf{44.2} & 27.5 & 18.4 & 21.8 & 14.5 & 27.0 & 18.7\\
-        Chunks nominaux & 31.9 & 41.5 & 35.5 & 26.4 & 18.3 & 21.4 & 15.1 & 28.1 & \textbf{19.4}\\
-        TermSuite & 17.4 & 23.1 & 19.6 & 16.5 & 11.8 & 13.6 & 11.3 & 22.3 & 14.8\\
-        \bottomrule
-      \end{tabular}
-      \caption{Évaluation de l'ordonnancement des sujets. Parmi les $10$
-               meilleurs sujets, les termes-clés candidats sélectionnés sont
-               ceux présents dans l'ensemble des termes-clés de référence.
-               \label{tab:evaluation_de_l_ordonnancement_des_clusters}}
-    \end{table*}
+    % Quels sont les cas pour lesquels le groupement s'effectue correctement ?
+
+    % Quels sont les cas pour lesquels il y a un groupement qui ne devrait pas
+    % être fait ?
+
+    % Quelles sont les améliorations à apporter ? (aux vus des remarques
+    % ci-dessus)
 

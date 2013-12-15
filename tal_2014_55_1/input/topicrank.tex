@@ -17,38 +17,57 @@
 
   \subsection{Identification des sujets}
   \label{subsec:identification_des_sujets}
+    % Que nous faut-il pour identifier les sujets ?
+    Le première étape de l'identification des sujets consiste à identifier les
+    unités textuelles qui les véhiculent. Nous choisisons les termes-clés
+    candidats comme étant ces unités textuelles.
+    % Quels candidats composent les sujets ?
+    Pour le choix de la méthode d'extraction des termes-clés candidats, nous
+    nous appuyons sur les observations de \newcite{hulth2003keywordextraction}
+    qui sont que les termes-clés assignés par des humains sont majoritairement
+    des groupes nominaux. Dans ce sens nous extrayons les plus longues séquences
+    de noms (noms propres inclus) et d'adjectifs, tel qu'effectué par
+    \newcite{wan2008expandrank} et \newcite{hassan2010conundrums}. De plus, la
+    section~\ref{sec:etat_de_l_art} précise que ce type de méthode extrait
+    potentiellement moins de candidats négatifs, ce qui est important pour une
+    identification de qualité des sujets. En addition, nous filtrons les
+    candidats contenant au moins un mots de maximum deux caractères. Ce filtrage
+    est la conséquence de nos observation des documents, de leurs termes-clés
+    associés et des sorties des systèmes d'extraction de termes-clés sans ce
+    filtrage.
+
     % Comment détectons nous deux candidats appartenant au même sujet ?
-    Dans le soucis de proposer une méthode efficace ne faisant pas l'usage de
-    ressources externes, nous optons pour un groupement quelque peu naïf des
-    termes-clés candidats appartenant au même sujet. En effet, les candidats
-    sont groupés en fonction d'une similatité de Jaccard (voir
-    l'équation~\ref{equa:jaccard}) dans laquelle ils sont considérés comme des
-    sacs de mots. En addition, les mots sont tronqués selon la méthode de
-    \newcite{porter1980suffixstripping}, afin de considérer identiques deux
-    variantes flexionnelles d'un même mot. Cette mesure est naïve dans le sens
-    où l'ordre des mots, leur ambiguïté et les liens de synonymie ne sont pas
-    pris en compte.
+    La seconde étape de l'identification des sujets consiste à grouper les
+    termes-clés candidats lorsqu'ils appartiennent au même sujet.
+    Dans le soucis de proposer une méthode ne faisant pas l'usage de ressources
+    externes, nous optons pour un groupement quelque peu naïf des candidats. En
+    effet, les candidats sont groupés en fonction d'une similatité de Jaccard
+    (voir l'équation~\ref{equa:jaccard}) dans laquelle ils sont considérés comme
+    des sacs de mots. En addition, les mots sont tronqués selon la méthode de
+    \newcite{porter1980suffixstripping}, afin de considérer identiques deux mots
+    ayant le même radical. Cette mesure est naïve dans le sens où l'ordre des
+    mots, leur ambiguïté et les liens de synonymie ne sont pas pris en compte.
     \begin{align}
       \text{sim}(c_1, c_2) &= \frac{\|c_1 \cap c_2\|}{\|c_1 \cup c_2\|} \label{equa:jaccard}
     \end{align}
-
     % Comment groupons nous les candidats d'un même sujet ?
     Une fois la similarité connue entre tous les candidats deux à deux, nous
     appliquons l'algorithme de groupement hiérarchique agglomératif
     (\textit{Hierarchical Agglomerative Clustering -- HAC}). Initialement,
     chaque candidat représente un groupe. À chaque itération de l'algorithme,
     les deux groupes ayant la plus forte similarité sont groupés. La condition
-    d'arrêt est définie par un seuil, fixé à $0,25$, pour la similarité entre
-    deux groupes. Cette similarité entre deux groupes est calculée en fonction
-    de la similarité entre les candidats de chaque groupe. Il existe trois
-    stratégies pour calculer cette similarité~:
+    d'arrêt est définie par un seuil $\zeta$ pour la similarité entre deux
+    groupes. Cette similarité entre deux groupes est calculée en fonction de la
+    similarité entre les candidats de chaque groupe. Il existe trois stratégies
+    pour calculer cette similarité~:
     \begin{itemize}
       \item{simple~: la plus petite valeur de similarité entre les candidats
             des deux groupes sert de similarité entre eux~;}
-      \item{moyenne~: la moyenne de toutes les similarités entre les
-            candidats des deux groupes sert de similarité entre eux~;}
       \item{complète~: la plus grande valeur de similarité entre les candidats
             des deux groupes sert de similarité entre eux.}
+      \item{moyenne~: la moyenne de toutes les similarités entre les
+            candidats des deux groupes sert de similarité entre eux (compromis
+            entre les stratégies simple et complète)~;}
     \end{itemize}
     Nous suggérons d'utiliser l'une ou l'autre de ces stratégies en fonction des
     termes-clés candidats qui sont utilisés. Par exemple, certains ensemble de
@@ -56,10 +75,10 @@
     contenant de nombreux candidats se recouvrant partiellement risquent de
     donner lieu à des groupes non consistants avec la stratégie complète. En
     revanche, la stratégie simple a tendance à moins regrouper, elle est donc
-    plus adaptée à ces ensembles de candidats. Dans l'optique de comparer
-    TopicRank en utilisant différentes méthodes d'extraction de termes-clés
-    candidats, nous choisissons d'utiliser la stratégie moyenne, qui se place
-    comme étant le compromis entre les deux autres.
+    plus adaptée à ces ensembles de candidats. Dans le cas de TopicRank, les
+    termes-clés candidats étant les plus longues séquences de noms et
+    d'adjectifs, la stratégie simple n'est cette fois-ci plus la plus
+    pertinente. Par défaut, nous utilisons la stratégie moyenne.
 
   \subsection{Ordonnancement des sujets}
   \label{subsec:ordonnancement_des_sujets}
@@ -106,14 +125,170 @@
     \end{align}
     où $V_i$ est l'ensemble des sujets connectés au sujet
     $s_i$\footnote{$V_i = \{v_i\ |\ \forall{v_j in V}, v_j \neq v_i\}$,
-    car $G$ est un graphe complet.} et où $\lambda$ est un facteur d'aténuation
-    définit par défaut à $0,85$ par \newcite{brin1998pagerank}.
+    car $G$ est un graphe complet.} et où $\lambda$ est un facteur d'atténuation
+    définit par défaut à 0,85 par \newcite{brin1998pagerank}.
 
   \subsection{Sélection des termes-clés}
   \label{subsec:selection_des_termes_cles}
     % De quoi s'agit-il ?
+    La sélection des termes-clés est la dernière étape de TopicRank. Elle
+    consiste à choisir le terme-clé candidat le plus représentatif d'un sujet.
     % Quel en est le but ?
+    Pour chacun des $k$ sujets les plus importants, ce principe de sélection
+    donne lieu à $k$ termes-clés non redondant et couvrant exactement $k$
+    sujets.
+
     % Quelles sont les différentes stratégies envisageable ?
+    La difficulté de ce principe de sélection réside dans la capacité à trouver
+    parmi plusieurs termes-clés candidats d'un même sujet celui qui le
+    représente le mieux. Nous distinguons trois stratégies de sélection pouvant
+    répondre à ce problème~:
+    \begin{itemize}
+      \item{la première position~: en supposant qu'un sujet est tout d'abord
+            introduit dans sa forme la plus appropriée, le terme-clé candidat
+            sélectionné pour un sujet est celui qui apparaît en premier dans le
+            document analysé;}
+      \item{la fréquence~: en supposant que la forme la plus représentative d'un
+            sujet est sa forme la plus fréquente, le terme-clé candidat
+            sélectionné pour un sujet est celui qui est le plus fréquent dans le
+            document analysé;}
+      \item{le centroïde~: le terme-clé candidat sélectionné pour un sujet est
+            celui qui est le plus similaire aux autres (voir
+            l'équation~\ref{equa:jaccard}).}
+    \end{itemize}
+    % Laquelle des trois stratégies semble être la mieux ?
+    Parmi ces trois stratégies, celle qui semble la plus appropriée est la
+    stratégie qui se fonde sur la première position des termes-clés candidats.
+    En effet, sélectionner les candidats les plus fréquents risque de favoriser
+    l'extraction de formes abrégées ou de concepts inhérents. Par exemple, dans
+    la collection SemEval (voir la section~\ref{sec:evaluation}), le document
+    \textit{C-17} parle de \og réseaux à commutation de
+    paquets~\fg\ (\textit{packet-switched networks}), mais le candidat le plus
+    fréquent dans le sujet correspondant est le concept inhérent
+    \og réseau~\fg\ (\textit{network}). Extraire le centroïde de chaque groupe
+    risque d'avoir un effet semblable, car \og réseau~\fg\ est le sous-composant
+    de nombreux autres candidats du sujet:
+    \og réseau étendu~\fg\ (\textit{wide area network}),
+    \og réseaux locaux~\fg\ (\textit{local area networks}),-
+    \og réseaux informatisés de communication~\fg\ (\textit{computer-communication networks}),
+    etc.
 
   % Que donne l'extraction ? (exemple)
+  La figure~\ref{fig:exemple_topicrank} donne un exemple d'extraction de
+  termes-clés, à partir d'un article de journal, avec TopicRank. Nous observons
+  un groupement correct de toutes les variantes d'\og alertes~\fg, mais aussi un
+  groupement erroné de \og août 2003~\fg\ avec \og août 2012~\fg. Dans ce
+  dernier cas, TopicRank est tout de même capable d'extraire \og août 2012~\fg,
+  grâce à la sélection du candidat apparaissant en premier. Globalement,
+  l'extraction des termes-clés est correcte et huit termes-clés sur les dix
+  extraits sont effectivement des termes-clés.
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}
+      \node[style={rectangle,
+                   rounded corners,
+                   draw=black,
+                   thick,
+                   inner sep=2pt}](document){
+        \begin{varwidth}{.98\linewidth}
+          \small
+          \textbf{Météo du 19 août 2012~: alerte à la canicule sur la Belgique
+                  et le Luxembourg}
+
+          \indent{
+            A l'exception de la province de Luxembourg, en alerte jaune,
+            l'ensemble de la Belgique est en vigilance orange à la canicule. Le
+            Luxembourg n'est pas épargné par la vague du chaleur : le nord du
+            pays est en alerte orange, tandis que le sud a était placé en
+            alerte rouge.
+          }
+
+          \indent{
+            En Belgique, la température n'est pas descendue en dessous des
+            23\degre{}C cette nuit, ce qui constitue la deuxième nuit la plus
+            chaude jamais enregistrée dans le royaume. Il se pourrait que ce
+            dimanche soit la journée la plus chaude de l'année. Les températures
+            seront comprises entre 33 et 38\degre{}C. Une légère brise de
+            côte pourra faiblement rafraichir l'atmosphère. Des orages de
+            chaleur sont a prévoir dans la soirée et en début de nuit.
+          }
+
+          \indent{
+            Au Luxembourg, le mercure devrait atteindre 32\degre{}C ce dimanche
+            sur l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à
+            32\degre{}C lundi. Une baisse devrait intervenir pour le reste de la
+            semaine. Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait
+            pas être atteint.
+          }
+        \end{varwidth}
+      };
+    \end{tikzpicture}~\\
+    \vspace{2em}
+    \begin{overpic}[width=.8\linewidth]{include/44960_topicrank_empty.eps}
+      \put(38,100.5){\small[soirée]}
+      \put(22,96){\small[oesling]}
+      \put(55,100){\small[nord]}
+      \put(69,95){\small[belgique]}
+      \put(0,86){\small[août 2003~; août 2012]}
+      \put(83,83.5){\small[36\degre{}c]}
+      \put(0,73){\small[37,9\degre{}c]}
+      \put(89,70.5){\small[royaume]}
+      \put(-5,57.5){\small[année]}
+      \put(92.5,53.5){\small[dimanche]}
+      \put(-11,41){\small[vigilance orange]}
+      \put(88.5,38){\small[luxembourg]}
+      \put(1.5,25){\small[début]}
+      \put(77,23){\small[nuit~; deuxième nuit]}
+      \put(11,13.5){\small[exception]}
+      \put(72,10.5){\small[canicule]}
+      \put(25,5){\small[journée]}
+      \put(60,4.5){\small[côte]}
+      \put(17,1){\small[alerte rouge~; alerte jaune~; alerte orange~; alerte]}
+      \put(40,84){\small[ensemble]}
+      \put(24,80){\small[légère brise]}
+      \put(58,82.5){\small[record]}
+      \put(15.5,68.5){\small[météo]}
+      \put(69.5,72){\small[orages]}
+      \put(11,53){\small[chaude]}
+      \put(79,58){\small[baisse]}
+      \put(10,37){\small[température]}
+      \put(72,42){\small[atmosphère]}
+      \put(26,26){\small[23\degre{}c]}
+      \put(71,27){\small[sud]}
+      \put(39,17){\small[lundi]}
+      \put(55.5,20.5){\small[38\degre{}c]}
+      \put(31,63){\small[chaleur]}
+      \put(49.5,68){\small[reste]}
+      \put(27,46){\small[province]}
+      \put(62,56){\small[vague]}
+      \put(41,34.5){\small[pays]}
+      \put(56,39){\small[mercure]}
+      \put(43,51){\small[semaine]}
+    \end{overpic}~\\
+    \vspace{1.5em}
+    \begin{tikzpicture}
+      \node[style={rectangle,
+                   rounded corners,
+                   draw=black,
+                   thick,
+                   inner sep=2pt}](termes_cles){
+        \begin{varwidth}{\linewidth}
+          \small
+          \textbf{Termes-clés extraits par des humains~:}
+
+          luxembourg~; alerte~; météo~; belgique~; août 2012~; chaleur~;
+          température~; chaude~; canicule~; orange~; la plus chaude
+
+          \textbf{Termes-clés extraits par TopicRank~:}
+
+          luxembourg~; alerte~; nuit~; belgique~; août 2012~; chaleur~;
+          température~; chaude~; canicule~; dimanche
+        \end{varwidth}
+      };
+    \end{tikzpicture}
+
+    \caption{Extraction des termes-clés du document \textit{44960} de WikiNews 
+             (voir la section~\ref{sec:evaluation}), avec TopicRank.
+             \label{fig:exemple_topicrank}}
+  \end{figure}
 
