@@ -2,7 +2,7 @@
 \label{sec:introduction}
   % Que sont les termes-clés ?
   Les termes-clés sont des mots ou des expressions polylexicales qui
-  représentent les sujets principaux dans le document auquel ils se réfèrent.
+  représentent les sujets principaux du document auquel ils se réfèrent.
   % À quoi sont-ils utiles ?
   Du fait de leur propriété synthétique, les termes-clés sont utilisés dans
   diverses tâches d'enrichissement telles que l'indexation de
@@ -21,53 +21,50 @@
   L'extraction automatique de termes-clés peut être perçue soit comme une tâche
   de classification binaire de termes-clés candidats~\cite{witten1999kea}, soit
   comme une tâche d'ordonnancement de termes-clés
-  candidats~\cite{mihalcea2004textrank}. Dans le premier cas l'extraction est le
-  plus souvent supervisée, elle nécessite une collection de documents annotés en
-  termes-clés pour une phase d'apprentissage préliminaire. Dans le second cas
+  candidats~\cite{mihalcea2004textrank}. Dans le premier cas, l'extraction est
+  le plus souvent supervisée, elle nécessite une collection de documents annotés
+  en termes-clés pour une phase d'apprentissage préliminaire. Dans le second cas
   l'extraction est le plus souvent non-supervisée, elle ne nécessite pas de
   documents préalablement annotés. Les méthodes non-supervisées existantes ont
   des performances plus faibles que les méthodes supervisées actuelles, mais la
-  nécessité pour ces dernier d'avoir une collection de documents annotés, ainsi
-  que la dépendance au domaine des documents résultante de la phase
+  nécessité pour ces dernières d'avoir une collection de documents annotés,
+  ainsi que la dépendance au domaine des documents utilisés lors de la phase
   d'apprentissage, poussent de plus en plus les chercheurs à s'intéresser à
   l'extraction non-supervisée de termes-clés.
 
   % Que proposons-nous dans cet article ?
   % Comment le fait-on ?
   Dans cet article, nous présentons TopicRank, une méthode d'extraction
-  non-supervisée de termes-clés. Celle-ci se fonde sur les travaux de
+  non-supervisée de termes-clés qui se fonde sur les travaux de
   \newcite[TextRank]{mihalcea2004textrank} pour l'ordonnancement à base de
-  graphe des unités textuelles d'un document. Elle groupe les termes-clés
+  graphe des unités textuelles d'un document. Celle-ci groupe les termes-clés
   candidats selon leur appartenance à un sujet, ordonne les sujets par
   importance dans le document, puis sélectionne pour chacun des meilleurs sujets
   le candidat qui le représente le mieux (son terme-clé associé).
   % Quelle est la nouveauté ?
   % En quoi cela semble-t-il meilleur ?
-  Contrairement à l'ordonnancement des mots, tel qu'il est fait avec TextRank,
+  Contrairement à l'ordonnancement des mots tel qu'il est fait avec TextRank,
   le groupement des candidats par sujets, puis leur ordonnancement, permet de
-  tirer partie des informations complémentaires entre plusieurs unités
-  textuelles représentant le même sujet, ou la même idée. De plus, le fait de ne
+  tirer partie des informations complémentaires acquis à partir de plusieurs
+  unités textuelles représentant le même sujet. De plus, le fait de ne
   sélectionner qu'un seul candidat par sujet permet d'éviter l'extraction de
   termes-clés redondants.
 
   % Que peut-on dire sur les évaluation réalisées ?
-  Pour l'évaluation de TopicRank, nous utilisons quatre collections de données
-  aux propriétés différentes (nature, langues, taille de documents). TopicRank
-  est comparé aux méthodes TF-IDF~\cite{jones1972tfidf},
-  TextRank~\cite{mihalcea2004textrank} et SingleRank~\cite{wan2008expandrank}.
-  Pour trois des collections de données, TopicRank donne de meilleurs résultats.
-  Ceux-ci sont d'ailleurs significativement meilleurs que ceux des deux méthodes
-  à base de graphe, TextRank et SingleRank.
-  Une expérience supplémentaire montre aussi que les résultats de TopicRank
-  pourraient être bien au delà de ceux actuels si la stratégie de choix du
-  candidat le plus représentatif d'un sujet était plus performante.
+  TopicRank est évaluée avec quatre collections de données aux propriétés
+  différentes (nature, langues, taille de documents) et est comparée aux
+  méthodes TF-IDF~\cite{jones1972tfidf}, TextRank~\cite{mihalcea2004textrank} et
+  SingleRank~\cite{wan2008expandrank}. Pour trois des collections de données,
+  TopicRank donne de meilleurs résultats que TF-IDF, ainsi que des résultats
+  significativement meilleurs que ceux des deux méthodes à base de graphe
+  (TextRank et SingleRank).
 
   % Quel est notre plan ?
   L'article est structuré comme suit. Après un état de l'art des méthodes
-  existantes en section~\ref{sec:etat_de_l_art}, nous décrivons le
-  fonctionnement de TopicRank en
-  section~\ref{sec:extraction_de_termes_cles_avec_topicrank} et présentons son
-  évaluation approfondie en section~\ref{sec:evaluation}. Enfin, nous concluons
-  sur les résultats obtenus et discutons des futurs travaux dans la
+  d'extraction automatique de termes-clés existantes en
+  section~\ref{sec:etat_de_l_art}, nous décrivons le fonctionnement de TopicRank
+  en section~\ref{sec:extraction_de_termes_cles_avec_topicrank} et présentons
+  son évaluation approfondie en section~\ref{sec:evaluation}. Enfin, nous
+  concluons et discutons des futurs travaux dans la
   section~\ref{sec:conclusion_et_perspectives}.
 

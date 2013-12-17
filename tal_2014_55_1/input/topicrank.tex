@@ -6,10 +6,9 @@
   % Quels problèmes résout-il ?
   Elle se différencie des autres méthodes à base de graphe, car, plutôt que de
   chercher les mots importants du document, elle cherche ses sujets importants,
-  ceci quels qu'en soient leurs vecteurs (termes-clés candidats). Ce nouveau
-  procédé présente l'intérêt de rassembler des informations complémentaires
-  véhiculées par des candidats différents, mais appartenant tout de même au même
-  sujet.
+  quels qu'en soient leurs vecteurs (termes-clés candidats). Ce nouveau procédé
+  présente l'intérêt de rassembler des informations complémentaires véhiculées
+  par des candidats différents, mais appartenant tout de même au même sujet.
   % Quel en est le fonctionnement général ?
   Dans un premier temps, les termes-clés candidats sont groupés par sujets, puis
   les sujets sont ordonnés et enfin, les candidats les plus représentatifs des
@@ -18,66 +17,70 @@
   \subsection{Identification des sujets}
   \label{subsec:identification_des_sujets}
     % Que nous faut-il pour identifier les sujets ?
-    Le première étape de l'identification des sujets consiste à identifier les
+    Le première étape de l'identification des sujets consiste à trouver les
     unités textuelles qui les véhiculent. Nous choisisons les termes-clés
     candidats comme étant ces unités textuelles.
     % Quels candidats composent les sujets ?
-    Pour le choix de la méthode d'extraction des termes-clés candidats, nous
+    En ce qui concerne la méthode d'extraction des termes-clés candidats, nous
     nous appuyons sur les observations de \newcite{hulth2003keywordextraction}
     qui sont que les termes-clés assignés par des humains sont majoritairement
     des groupes nominaux. Dans ce sens nous extrayons les plus longues séquences
     de noms (noms propres inclus) et d'adjectifs, tel qu'effectué par
-    \newcite{wan2008expandrank} et \newcite{hassan2010conundrums}. De plus, la
+    \newcite{wan2008expandrank} et \newcite{hassan2010conundrums}. La
     section~\ref{sec:etat_de_l_art} précise que ce type de méthode extrait
-    potentiellement moins de candidats négatifs, ce qui est important pour une
-    identification de qualité des sujets. En addition, nous filtrons les
-    candidats contenant au moins un mots de maximum deux caractères. Ce filtrage
-    est la conséquence de nos observation des documents, de leurs termes-clés
-    associés et des sorties des systèmes d'extraction de termes-clés sans ce
-    filtrage.
+    potentiellement moins de candidats négatifs que d'autres méthodes, ce qui
+    est important pour une identification de qualité des sujets. En addition,
+    nous filtrons les candidats contenant au moins un mots de maximum deux
+    caractères. Ce filtrage est la conséquence de nos observation des documents,
+    de leurs termes-clés associés et des sorties des systèmes d'extraction de
+    termes-clés sans ce filtrage (présence de bruit dû au formatage des
+    documents).
 
     % Comment détectons nous deux candidats appartenant au même sujet ?
     La seconde étape de l'identification des sujets consiste à grouper les
     termes-clés candidats lorsqu'ils appartiennent au même sujet.
-    Dans le soucis de proposer une méthode ne faisant pas l'usage de ressources
-    externes, nous optons pour un groupement quelque peu naïf des candidats. En
-    effet, les candidats sont groupés en fonction d'une similatité de Jaccard
-    (voir l'équation~\ref{equa:jaccard}) dans laquelle ils sont considérés comme
-    des sacs de mots. En addition, les mots sont tronqués selon la méthode de
-    \newcite{porter1980suffixstripping}, afin de considérer identiques deux mots
-    ayant le même radical. Cette mesure est naïve dans le sens où l'ordre des
-    mots, leur ambiguïté et les liens de synonymie ne sont pas pris en compte.
+    Dans le soucis de proposer une méthode ne faisant pas l'usage de données
+    supplémentaires, nous optons pour un groupement quelque peu naïf des
+    candidats. Les candidats sont groupés en fonction d'une similatité de
+    Jaccard (voir l'équation~\ref{equa:jaccard}) dans laquelle ils sont
+    considérés comme des sacs de mots. En addition, les mots sont tronqués selon
+    la méthode de \newcite{porter1980suffixstripping} afin de considérer
+    identiques ceux qui ont le même radical. Cette mesure est naïve dans le sens
+    où l'ordre des mots, leur ambiguïté et les liens de synonymie ne sont pas
+    pris en compte.
     \begin{align}
       \text{sim}(c_1, c_2) &= \frac{\|c_1 \cap c_2\|}{\|c_1 \cup c_2\|} \label{equa:jaccard}
     \end{align}
+
     % Comment groupons nous les candidats d'un même sujet ?
     Une fois la similarité connue entre tous les candidats deux à deux, nous
     appliquons l'algorithme de groupement hiérarchique agglomératif
     (\textit{Hierarchical Agglomerative Clustering -- HAC}). Initialement,
     chaque candidat représente un groupe. À chaque itération de l'algorithme,
-    les deux groupes ayant la plus forte similarité sont groupés. La condition
-    d'arrêt est définie par un seuil $\zeta$ pour la similarité entre deux
-    groupes. Cette similarité entre deux groupes est calculée en fonction de la
-    similarité entre les candidats de chaque groupe. Il existe trois stratégies
-    pour calculer cette similarité~:
+    les deux groupes ayant la plus forte similarité sont unis pour ne former
+    qu'un seul groupe. Afin de ne pas fixer le nombre de sujets à créer comme
+    condition d'arrêt de l'algorithme, nous définissons un seuil de similarité
+    $\zeta$ entre les groupes deux à deux. Cette similarité entre deux groupes
+    est calculée en fonction de la similarité entre les candidats de chaque
+    groupe. Il existe trois stratégies pour calculer cette similarité~:
     \begin{itemize}
-      \item{simple~: la plus petite valeur de similarité entre les candidats
+      \item{simple~: la plus grande valeur de similarité entre les candidats
             des deux groupes sert de similarité entre eux~;}
-      \item{complète~: la plus grande valeur de similarité entre les candidats
+      \item{complète~: la plus petite valeur de similarité entre les candidats
             des deux groupes sert de similarité entre eux.}
       \item{moyenne~: la moyenne de toutes les similarités entre les
             candidats des deux groupes sert de similarité entre eux (compromis
             entre les stratégies simple et complète)~;}
     \end{itemize}
     Nous suggérons d'utiliser l'une ou l'autre de ces stratégies en fonction des
-    termes-clés candidats qui sont utilisés. Par exemple, certains ensemble de
+    termes-clés candidats qui sont utilisés. Par exemple, certains ensembles de
     candidats, tels que les n-grammes pour $n \in 1..m$,
     contenant de nombreux candidats se recouvrant partiellement risquent de
-    donner lieu à des groupes non consistants avec la stratégie complète. En
-    revanche, la stratégie simple a tendance à moins regrouper, elle est donc
+    donner lieu à des groupes non consistants avec la stratégie simple. En
+    revanche, la stratégie complète a tendance à moins regrouper, elle est donc
     plus adaptée à ces ensembles de candidats. Dans le cas de TopicRank, les
     termes-clés candidats étant les plus longues séquences de noms et
-    d'adjectifs, la stratégie simple n'est cette fois-ci plus la plus
+    d'adjectifs, la stratégie complète n'est cette fois-ci plus la plus
     pertinente. Par défaut, nous utilisons la stratégie moyenne.
 
   \subsection{Ordonnancement des sujets}
@@ -85,14 +88,13 @@
     % Quel est le but de l'ordonnancement ?
     % Comment est-il effectué ?
     L'ordonnancement des sujets a pour objectif de trouver quels sont ceux qui
-    sont les plus important dans le document analysé. À l'instar de
-    \newcite{mihalcea2004textrank}, nous décidons de déterminer l'importance des
-    sujets en modélisant le document sous la forme d'un graphe de sujets, puis
-    en applicant l'algorithme d'ordonnancement de TextRank.
+    ont le plus d'importance dans le document analysé. À l'instar de
+    \newcite{mihalcea2004textrank}, l'importance des sujets est déterminée à
+    partir d'un graphe.
 
     % Comment le graphe est-il construit ?
-    Les sujets du document analysé composent les n\oe{}uds ($V$) du graphe
-    complet $G = (V, E)$, $E$ étant l'ensemble des liens entre les
+    Les sujets du document analysé composent les n\oe{}uds $V$ du graphe complet
+    $G = (V, E)$, $E$ étant l'ensemble des liens entre les
     n\oe{}uds\footnote{$E = \{(v_1, v_2)\ |\ \forall{v_1, v_2 \in V}, v_1 \neq v_2\}$,
     car $G$ est un graphe complet.}. Le graphe utilisé étant un graphe complet,
     la pondération de ses arêtes est l'étape la plus importante pour rendre
@@ -102,7 +104,7 @@
     travaux~\cite{wan2008expandrank,tsatsaronis2010semanticrank,liu2010topicalpagerank},
     nous ne représentons pas cette force avec le nombre de co-occurrences
     calculées dans une fenêtre de mots définie manuellement, mais nous utilisons
-    la distance entre les mots de sujets~:
+    la distance, dans le document, entre les mots des sujets~:
     \begin{align}
       \text{poids}(s_i, s_j) &= \sum_{c_i \in s_i}\ \sum_{c_j \in s_j} \text{dist}(c_i, c_j) \label{math:ponderation}\\
       \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
@@ -117,7 +119,7 @@
     Une fois la construction du graphe, l'algorithme d'ordonnancement de
     TextRank est utilisé. Celui-ci se fonde sur le principe de \og vote~\fg,
     c'est à dire qu'un sujet fortement connecté à un autre sujet est fortement
-    recommendé par le dernier et gagne donc de l'importance. De ce fait, un
+    recommandé par le dernier, il gagne donc de l'importance. De ce fait, un
     sujet connecté à un autre sujet très important gagne aussi plus
     d'importance~:
     \begin{align}
@@ -181,7 +183,7 @@
   dernier cas, TopicRank est tout de même capable d'extraire \og août 2012~\fg,
   grâce à la sélection du candidat apparaissant en premier. Globalement,
   l'extraction des termes-clés est correcte et huit termes-clés sur les dix
-  extraits sont effectivement des termes-clés.
+  extraits ont aussi été donnés par des humains.
   \begin{figure}
     \centering
     \begin{tikzpicture}

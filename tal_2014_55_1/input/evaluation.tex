@@ -9,15 +9,15 @@
     \subsubsection{Données de test}
     \label{subsubsec:donnees_de_test}
       Les collections de données présentées ci-dessous sont utilisées lors de
-      toutes nos évaluations. Nous décidons de suivre
-      \newcite{hassan2010conundrums} qui soulignent l'importance d'évaluer une
-      méthode avec des collections de données aux configurations différentes,
-      afin de mieux observer et comprendre son comportement. Les collections de
-      données utilisées sont différentes en termes de langue, nature, taille des
-      documents et types d'annotateur (auteurs, lecteurs ou les deux).
+      toutes les évaluations. Afin de suivre \newcite{hassan2010conundrums} qui
+      soulignent l'importance d'évaluer une méthode avec des collections de
+      données aux configurations différentes pour mieux observer et comprendre
+      son comportement, les collections de données utilisées sont différentes en
+      termes de langue, nature, taille des documents et types d'annotateur
+      (auteurs, lecteurs ou les deux).
 
-      \textbf{DUC}~\cite{over2001duc} est une collection issue des données (en
-      anglais) de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
+      \textbf{DUC}~\cite{over2001duc} est une collection (en anglais) issue des
+      données de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
       concerne les méthodes de résumé automatique, elle ne contient donc
       originellement pas d'annotations en termes-clés. Cependant, les 308
       articles journalistiques de la partie test de DUC-2001 sont annotés par
@@ -58,7 +58,7 @@
       collection de documents de plus grande taille (articles scientifiques). Il
       est aussi important de noter qu'en fonction du type d'annotateurs, le
       nombre de termes-clés associés varie, de même que le nombre de termes-clés
-      présents dans les documents.
+      n'apparaissant pas dans les documents.
       \begin{table}
         \centering
         \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -88,11 +88,10 @@
 
     \subsubsection{Prétraitement}
     \label{subsubsec:pretraitement}
-      Chaque document des collections de données utilisées ont subis les mêmes
-      prétraitements, celà pour toutes les expériences. Les documents sont tout
-      d'abord segmentés en phrases, puis en mots et enfin étiquetés en parties
-      du discours. La segmentation en mots est effectuée par le
-      TreeBankWordTokenizer disponible avec la librairie python
+      Chaque document des collections de données utilisées subissent les mêmes
+      prétraitements. Ils sont tout d'abord segmentés en phrases, puis en mots
+      et enfin étiquetés en parties du discours. La segmentation en mots est
+      effectuée par le TreeBankWordTokenizer disponible avec la librairie python
       NLTK~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
       l'anglais, et par l'outil Bonsai du Bonsai PCFG-LA
       parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
@@ -117,15 +116,16 @@
       fondation des méthodes à base de graphe, et la pondération TF-IDF. Cette
       dernière consiste à donner un score aux termes-clés candidats en faisant
       la somme des poids TF-IDF des mots qui les composent, puis à sélectionner
-      ceux ayant le plus haut score, c'est à dire ceux qui contiennent le plus
-      de mots importants.
+      ceux ayant le plus haut score.
 
       % Quelles sont les particularités liées à notre implémentation ?
-      Afin d'améliorer le résultat des méthodes de référence, leurs sorties sont
-      filtrées afin de supprimer les termes-clés redondant. Conformément au
-      processus d'évaluation mis en \oe{}vre, deux termes-clés sont considérés
+      Toutes les méthodes sont réimplémentées. lorsque celles-ci ont des troncs
+      commun avec TopicRank, elles bénéficies des même composants. Afin
+      d'améliorer le résultat des méthodes de référence, leurs sorties sont
+      filtrées pour de supprimer les termes-clés redondant. Conformément au
+      processus d'évaluation mis en \oe{}uvre, deux termes-clés sont considérés
       redondants lorsqu'ils ont le même radical. Cette suppression ne dégrade en
-      rien les résultats et a pour effet d'extraire des termes-clés qui n'était
+      rien les résultats et a pour effet d'extraire des termes-clés qui ne sont
       pas parmi les 10 premiers avant le filtrage.
 
   \subsection{Configuration empirique de TopicRank}
@@ -135,9 +135,9 @@
     de variabilités~: le seuil de groupement ($\zeta$), la stratégie de
     groupement (simple, complète ou moyenne) et la stratégie de sélection du
     terme-clé candidat le plus représentatif d'un sujet. Deux expériences sont
-    réalisées, l'une pour déterminer le groupement optimale (le seuil $\zeta$
-    plus la stratégie de groupement) et l'autre pour déterminer la sélection des
-    termes-clés la plus optimale à partir des sujets les plus importants.
+    réalisées, l'une pour déterminer le groupement optimale (variation du seuil
+    $\zeta$ et de la stratégie de groupement) et l'autre pour déterminer la
+    sélection des termes-clés la plus optimale.
 
     % Variation du seuil de similarité
     La figure~\ref{fig:variation_du_seuil_de_similarite} présente les résultats
@@ -145,7 +145,9 @@
     0,05 pour toutes les stratégies de regroupement. La stratégie de sélection
     d'un termes-clés par sujet utilisée est celle qui consiste à sélectionner
     le candidat qui apparaît en premier dans le document, pour chaque sujet.
-    TODO BLABLABLA + TODO choix des valeurs utilisées par la suite.
+    TODO BLABLABLA. Conformément aux résultats de cette expérience, le seuil
+    $\zeta$ est fixé à TODO pour le reste des expériences. De même, la stratégie
+    de groupement utilisée est la stratégie TODO.
 %    \begin{table}
 %      \centering
 %      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -206,6 +208,29 @@
                        label style={anchor=south}]
             % simple
             \addplot[green!66, mark=x] coordinates{
+              (0.05, 18.2)
+              (0.10, 18.2)
+              (0.15, 18.1)
+              (0.20, 18.3)
+              (0.25, 18.5)
+              (0.30, 19.0)
+              (0.35, 18.5)
+              (0.40, 18.5)
+              (0.45, 18.6)
+              (0.50, 18.6)
+              (0.55, 11.1)
+              (0.60, 11.1)
+              (0.65, 11.1)
+              (0.70, 11.1)
+              (0.75, 11.2)
+              (0.80, 11.2)
+              (0.85, 11.2)
+              (0.90, 11.2)
+              (0.95, 11.2)
+              (1.00, 10.9)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
               (0.05, 19.7)
               (0.10, 19.7)
               (0.15, 19.5)
@@ -250,29 +275,6 @@
               (0.95, 11.2)
               (1.00, 11.2)
             };
-            % complet
-            \addplot[cyan!66, mark=+] coordinates{
-              (0.05, 18.2)
-              (0.10, 18.2)
-              (0.15, 18.1)
-              (0.20, 18.3)
-              (0.25, 18.5)
-              (0.30, 19.0)
-              (0.35, 18.5)
-              (0.40, 18.5)
-              (0.45, 18.6)
-              (0.50, 18.6)
-              (0.55, 11.1)
-              (0.60, 11.1)
-              (0.65, 11.1)
-              (0.70, 11.1)
-              (0.75, 11.2)
-              (0.80, 11.2)
-              (0.85, 11.2)
-              (0.90, 11.2)
-              (0.95, 11.2)
-              (1.00, 10.9)
-            };
           \end{axis}
         \end{tikzpicture}
       }
@@ -292,26 +294,49 @@
                        label style={anchor=south}]
             % simple
             \addplot[green!66, mark=x] coordinates{
-              (0.05, 0)
-              (0.10, 0)
-              (0.15, 0)
-              (0.20, 0)
+              (0.05, 3.1)
+              (0.10, 3.1)
+              (0.15, 3.1)
+              (0.20, 3.1)
+              (0.25, 3.1)
+              (0.30, 3.5)
+              (0.35, 5.5)
+              (0.40, 5.5)
+              (0.45, 5.7)
+              (0.50, 5.7)
+              (0.55, 7.3)
+              (0.60, 7.3)
+              (0.65, 7.2)
+              (0.70, 8.6)
+              (0.75, 8.4)
+              (0.80, 8.4)
+              (0.85, 8.4)
+              (0.90, 8.4)
+              (0.95, 8.4)
+              (1.00, 8.5)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
+              (0.05, 11.5)
+              (0.10, 11.5)
+              (0.15, 11.3)
+              (0.20, 11.0)
               (0.25, 9.8)
-              (0.30, 0)
-              (0.35, 0)
-              (0.40, 0)
-              (0.45, 0)
+              (0.30, 8.3)
+              (0.35, 7.8)
+              (0.40, 7.8)
+              (0.45, 7.8)
               (0.50, 7.8)
-              (0.55, 0)
-              (0.60, 0)
-              (0.65, 0)
-              (0.70, 0)
-              (0.75, 0)
-              (0.80, 0)
-              (0.85, 0)
-              (0.90, 0)
-              (0.95, 0)
-              (1.00, 0)
+              (0.55, 7.6)
+              (0.60, 7.6)
+              (0.65, 7.6)
+              (0.70, 8.6)
+              (0.75, 8.4)
+              (0.80, 8.4)
+              (0.85, 8.4)
+              (0.90, 8.4)
+              (0.95, 8.4)
+              (1.00, 8.5)
             };
             % moyen
             \addplot[red!66, mark=o] coordinates{
@@ -336,30 +361,7 @@
               (0.95, 8.4)
               (1.00, 8.4)
             };
-            % complet
-            \addplot[cyan!66, mark=+] coordinates{
-              (0.05, 0)
-              (0.10, 0)
-              (0.15, 0)
-              (0.20, 0)
-              (0.25, 3.1)
-              (0.30, 0)
-              (0.35, 0)
-              (0.40, 0)
-              (0.45, 0)
-              (0.50, 5.7)
-              (0.55, 0)
-              (0.60, 0)
-              (0.65, 0)
-              (0.70, 0)
-              (0.75, 0)
-              (0.80, 0)
-              (0.85, 0)
-              (0.90, 0)
-              (0.95, 0)
-              (1.00, 0)
-            };
-            \legend{Simple, Moyen, Complet}
+            \legend{Simple, Complet, Moyen}
           \end{axis}
         \end{tikzpicture}
       }
@@ -379,6 +381,29 @@
                        label style={anchor=south}]
             % simple
             \addplot[green!66, mark=x] coordinates{
+              (0.05, 34.2)
+              (0.10, 34.2)
+              (0.15, 34.2)
+              (0.20, 34.3)
+              (0.25, 34.6)
+              (0.30, 35.2)
+              (0.35, 35.7)
+              (0.40, 35.7)
+              (0.45, 35.7)
+              (0.50, 35.7)
+              (0.55, 35.1)
+              (0.60, 35.1)
+              (0.65, 35.1)
+              (0.70, 35.4)
+              (0.75, 35.4)
+              (0.80, 35.4)
+              (0.85, 35.4)
+              (0.90, 35.4)
+              (0.95, 35.4)
+              (1.00, 34.9)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
               (0.05, 35.2)
               (0.10, 35.2)
               (0.15, 35.2)
@@ -423,29 +448,6 @@
               (0.95, 35.4)
               (1.00, 35.4)
             };
-            % complet
-            \addplot[cyan!66, mark=+] coordinates{
-              (0.05, 34.2)
-              (0.10, 34.2)
-              (0.15, 34.2)
-              (0.20, 34.3)
-              (0.25, 34.6)
-              (0.30, 35.2)
-              (0.35, 35.7)
-              (0.40, 35.7)
-              (0.45, 35.7)
-              (0.50, 35.7)
-              (0.55, 35.1)
-              (0.60, 35.1)
-              (0.65, 35.1)
-              (0.70, 35.4)
-              (0.75, 35.4)
-              (0.80, 35.4)
-              (0.85, 35.4)
-              (0.90, 35.4)
-              (0.95, 35.4)
-              (1.00, 34.9)
-            };
           \end{axis}
         \end{tikzpicture}
       }
@@ -469,52 +471,6 @@
               (0.10, 0)
               (0.15, 0)
               (0.20, 0)
-              (0.25, 14.2)
-              (0.30, 0)
-              (0.35, 0)
-              (0.40, 0)
-              (0.45, 0)
-              (0.50, 14.0)
-              (0.55, 0)
-              (0.60, 0)
-              (0.65, 0)
-              (0.70, 0)
-              (0.75, 0)
-              (0.80, 0)
-              (0.85, 0)
-              (0.90, 0)
-              (0.95, 0)
-              (1.00, 0)
-            };
-            % moyen
-            \addplot[red!66, mark=o] coordinates{
-              (0.05, 0)
-              (0.10, 0)
-              (0.15, 0)
-              (0.20, 0)
-              (0.25, 15.1)
-              (0.30, 0)
-              (0.35, 0)
-              (0.40, 0)
-              (0.45, 0)
-              (0.50, 14.0)
-              (0.55, 0)
-              (0.60, 0)
-              (0.65, 0)
-              (0.70, 0)
-              (0.75, 0)
-              (0.80, 0)
-              (0.85, 0)
-              (0.90, 0)
-              (0.95, 0)
-              (1.00, 13.4)
-            };
-            % complet
-            \addplot[cyan!66, mark=+] coordinates{
-              (0.05, 0)
-              (0.10, 0)
-              (0.15, 0)
-              (0.20, 0)
               (0.25, 6.5)
               (0.30, 0)
               (0.35, 0)
@@ -531,6 +487,52 @@
               (0.90, 0)
               (0.95, 0)
               (1.00, 0)
+            };
+            % complet
+            \addplot[cyan!66, mark=+] coordinates{
+              (0.05, 14.3)
+              (0.10, 14.3)
+              (0.15, 14.3)
+              (0.20, 14.3)
+              (0.25, 14.2)
+              (0.30, 13.9)
+              (0.35, 13.9)
+              (0.40, 13.9)
+              (0.45, 14.0)
+              (0.50, 14.0)
+              (0.55, 13.6)
+              (0.60, 13.6)
+              (0.65, 13.6)
+              (0.70, 14.0)
+              (0.75, 14.0)
+              (0.80, 14.0)
+              (0.85, 14.0)
+              (0.90, 14.0)
+              (0.95, 14.0)
+              (1.00, 13.4)
+            };
+            % moyen
+            \addplot[red!66, mark=o] coordinates{
+              (0.05, 12.8)
+              (0.10, 13.1)
+              (0.15, 13.6)
+              (0.20, 14.5)
+              (0.25, 15.1)
+              (0.30, 14.8)
+              (0.35, 14.6)
+              (0.40, 14.2)
+              (0.45, 14.3)
+              (0.50, 14.0)
+              (0.55, 13.4)
+              (0.60, 13.6)
+              (0.65, 13.6)
+              (0.70, 14.0)
+              (0.75, 14.0)
+              (0.80, 14.0)
+              (0.85, 14.0)
+              (0.90, 14.0)
+              (0.95, 14.0)
+              (1.00, 13.4)
             };
           \end{axis}
         \end{tikzpicture}
@@ -636,30 +638,21 @@
                \label{fig:variation_de_la_selection_des_candidats}}
     \end{figure}
     La figure~\ref{fig:variation_de_la_selection_des_candidats} montre aussi les
-    résultats qui peuvent être obtenus avec une stratégie qui est toujours
-    capable de sélectionner un candidats positif. Nous n'avons actuellement pas
-    de telle stratégie, mais les résultats de cette borne haute sont très
-    encourageant pour des travaux futurs.
+    résultats qui pouraient être obtenus avec une stratégie qui serait capable
+    de sélectionner un candidats positif par sujet (s'il y en a un). Nous
+    n'avons actuellement pas de telle stratégie, mais les résultats de cette
+    borne haute sont très encourageant pour les futurs travaux.
 
   \subsection{Comparaison de TopicRank avec l'existant}
   \label{subsec:comparaison_de_topicrank_avec_l_existant}
-    TODO introduction
-
     % Que représente le tableau ?
     Le tableau~\ref{tab:resultats_globaux} montre les performances de TopicRank
     comparées à celles des trois systèmes de référence.
     % Que peut-on dire globalement ?
-    Globalement, il est plus difficile d'extraire les termes-clés de longs
-    documents et TopicRank donne de meilleurs résultats que les méthodes de
+    Globalement, TopicRank donne de meilleurs résultats que les méthodes de
     références utilisées.
     % Que peut-on dire de plus ? (analyse plus approndie)
-    Bien que pour DUC, TopicRank soit moins performant que les autres méthodes,
-    notre méthode donne de meilleurs résultats que TF-IDF, alors que ce dernier
-    tire profit de statistiques extraites de multiples documents. Quant aux
-    méthodes à base de graphe (TextRank et SingleRank), leurs performances sont
-    bien en-dessous de celles de TopicRank. Cela montre que TopicRank est un pas
-    en avant pour les méthodes à base de graphe. De plus, le t-test de Student
-    confirme cette amélioration significative des méthodes à base de graphe.
+    TODO faire une analyse approfondie
     \begin{table}
       \centering
       \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -681,26 +674,29 @@
                \label{tab:resultats_globaux}}
     \end{table}
 
-    Dans le but de confirmer la pertinence de tous les apports de TopicRank aux
-    méthodes à base de graphe, nous réalisons une expérience supplémentaire dans
-    laquelle la méthode SingleRank est modifiée de sorte qu'elle ordonne les
-    mots avec un graphe complet, qu'elle ordonne les termes-clés candidats à la
-    place des mots ou qu'elle ordonne les sujets. Ces trois variantes de
-    SingleRank sont présentées dans le
+    Dans le but de confirmer la pertinence de tous les apports de TopicRank,
+    nous réalisons une expérience supplémentaire dans laquelle la méthode
+    SingleRank est modifiée de sorte qu'elle ordonne les mots avec un graphe
+    complet, qu'elle ordonne les termes-clés candidats à la place des mots ou
+    qu'elle ordonne les sujets. Ces trois variantes de SingleRank sont
+    présentées dans le
     tableau~\ref{tab:evaluation_individuelle_des_ameliorations}. Globalement,
     l'usage des termes-clés candidats, ou des sujets, induit une amélioration
     significative des performances de SingleRank, avec une amélioration plus
     importante en utilisant les sujets. L'usage d'un graphe complet, quant à
     lui, n'améliore pas significativement les résultats de SingleRank. Ceux-ci
     sont compétitifs avec ceux obtenus en construisant un graphe de
-    co-occurrences avec une fenêtre de 10. Nous pensons cependant que l'usage du
-    graphe complet est à privilégier afin d'éviter cette fenêtre qui doit être
-    définit manuellement. En ce qui concerne la collection DUC, nous observons
-    une perte de performances induites lors de la construction du graphe avec
-    les termes-clés candidats en tant que n\oe{}uds. TODO trouver un exemple qui
-    montre le problème de connexions dans le graphe + montrer qu'un mot-clé est
-    réparti dans les sous-composants du graphe et rend donc plus difficile
-    l'extraction d'un certain terme-clé contenant ce mot clé.
+    co-occurrences. Nous pensons cependant que l'usage de ce graphe complet est
+    à privilégier afin d'éviter cette fenêtre qui doit être définit
+    manuellement. En ce qui concerne la collection DUC, nous observons une perte
+    de performances induites lors de la construction du graphe à partir des
+    termes-clés candidats. Cette perte de performance s'explique par le fait
+    qu'il y a peu de répétition des candidats dans les documents de DUC et donc
+    moins d'informations pour la création de liens. Nous l'observons aussi dans
+    la figure~\ref{fig:variation_de_la_selection_des_candidats}, où l'extraction
+    des candidats les plus fréquents par sujet est compétitive avec l'extraction
+    des candidats apparaissant en premier dans le document.
+    TODO trouver un exemple
     \begin{table}
       \centering
       \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
