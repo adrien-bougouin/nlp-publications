@@ -139,15 +139,41 @@
     $\zeta$ et de la stratégie de groupement) et l'autre pour déterminer la
     sélection des termes-clés la plus optimale.
 
-    % Variation du seuil de similarité
+    % Variation du seuil de similarité et de la stratégie de groupement
     La figure~\ref{fig:variation_du_seuil_de_similarite} présente les résultats
     de TopicRank lorsque nous faisons varier le seuil $\zeta$ avec un pas de
     0,05 pour toutes les stratégies de regroupement. La stratégie de sélection
     d'un termes-clés par sujet utilisée est celle qui consiste à sélectionner
     le candidat qui apparaît en premier dans le document, pour chaque sujet.
-    TODO BLABLABLA. Conformément aux résultats de cette expérience, le seuil
-    $\zeta$ est fixé à TODO pour le reste des expériences. De même, la stratégie
-    de groupement utilisée est la stratégie TODO.
+    % Quelle analyse peut-on faire à partir des courbes ?
+    Globalement, chaque stratégie de groupement a un comportement qui lui est
+    propre, jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,55.
+    Avec la stratégie simple, les résultats s'améliorent lorsque le seuil
+    $\zeta$ augmente. Du fait qu'elle ne prend en compte que la similarité
+    maximale entre deux candidats de deux groupes, cette stratégie à tendance à
+    trop grouper et donc à créer des groupes contenant parfois plusieurs sujets.
+    L'augmentation du seuil $\zeta$ a pour effet de restreindre cette tendance
+    et la qualité du groupement s'améliore. En opposition, la stratégie
+    complète, qui a le fonctionnement inverse, voie ses résultats se dégrader
+    lorsque $\zeta$ augmente. Finalement, la stratégie moyenne, qui agit en tant
+    que compromis, semble moins sensible aux variations de $\zeta$, même si nous
+    observons une dégradation des résultats jusqu'au point de convergence. Ce
+    point de convergence correspond au moment où les groupes sont
+    majoritairement composés de variantes flexionnelles où de candidats dont les
+    plus long inclus les autres (par exemple, le sujet qui ne contient que
+    \og nouvelles églises~\fg, \og nouvelles églises indépendantes
+    protestantes~\fg, \og nouvelle église indépendante~\fg\ et \og nouvelles
+    églises indépendantes~\fg, avec le groupement moyen et $\zeta=\text{0,55}$,
+    contient aussi \og églises évangéliques~\fg, ainsi que d'autres, lorsque
+    $\zeta$ est plus faible).
+    % Quels sont les paramètres utilisés ?
+    Après observation des résultats de cette expérience, le seuil $\zeta$ est
+    fixé à 0,25 pour le reste des expériences. De même, la stratégie de
+    groupement utilisée dans la suite est la stratégie moyenne. En effet, la
+    stratégie moyenne est celle qui donne les meilleurs résultats et ceux-ci
+    sont obtenus lorsque $\zeta$ varie entre 0,20 et 0,35 suivant les
+    collections, 0,25 étant la valeur fournissant le meilleur compromis pour
+    chacune d'elles.
 %    \begin{table}
 %      \centering
 %      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -467,26 +493,26 @@
                        label style={anchor=south}]
             % simple
             \addplot[green!66, mark=x] coordinates{
-              (0.05, 0)
-              (0.10, 0)
-              (0.15, 0)
-              (0.20, 0)
+              (0.05, 6.4)
+              (0.10, 6.4)
+              (0.15, 6.4)
+              (0.20, 6.5)
               (0.25, 6.5)
-              (0.30, 0)
-              (0.35, 0)
-              (0.40, 0)
-              (0.45, 0)
+              (0.30, 6.5)
+              (0.35, 8.3)
+              (0.40, 8.3)
+              (0.45, 8.3)
               (0.50, 8.3)
-              (0.55, 0)
-              (0.60, 0)
-              (0.65, 0)
-              (0.70, 0)
-              (0.75, 0)
-              (0.80, 0)
-              (0.85, 0)
-              (0.90, 0)
-              (0.95, 0)
-              (1.00, 0)
+              (0.55, 13.6)
+              (0.60, 13.6)
+              (0.65, 13.6)
+              (0.70, 14.0)
+              (0.75, 14.0)
+              (0.80, 14.0)
+              (0.85, 14.0)
+              (0.90, 14.0)
+              (0.95, 14.0)
+              (1.00, 13.4)
             };
             % complet
             \addplot[cyan!66, mark=+] coordinates{
@@ -545,12 +571,12 @@
 
     La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
     résultats obtenus avec TopicRank et les différentes stratégies de sélection
-    d'un terme-clé candidat par sujet. Les résultats confirment ce qui est dit
-    à la section~\ref{sec:extraction_de_termes_cles_avec_topicrank}, concernant
-    le bien fondé de la sélection des candidats les plus fréquents ou des
-    centroïdes. Ceux-ci ont tendance à sélectionner des concepts inhérents qui
-    jouent un rôle crucial lors du groupement, mais qui ne sont pas les
-    candidats les plus représentatifs des sujets.
+    d'un terme-clé candidat par sujet. Ceux-ci confirment ce qui est dit dans la
+    section~\ref{sec:extraction_de_termes_cles_avec_topicrank}, concernant le
+    bien fondé de la sélection des candidats les plus fréquents ou des
+    centroïdes. Ces dernières stratégies ont tendance à sélectionner des
+    concepts inhérents qui jouent un rôle crucial lors du groupement, mais qui
+    ne sont pas les candidats les plus représentatifs des sujets.
 %    \begin{table}
 %      \centering
 %      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -637,11 +663,13 @@
                sujet.
                \label{fig:variation_de_la_selection_des_candidats}}
     \end{figure}
-    La figure~\ref{fig:variation_de_la_selection_des_candidats} montre aussi les
-    résultats qui pouraient être obtenus avec une stratégie qui serait capable
-    de sélectionner un candidats positif par sujet (s'il y en a un). Nous
-    n'avons actuellement pas de telle stratégie, mais les résultats de cette
-    borne haute sont très encourageant pour les futurs travaux.
+    Bien que la sélection à partir de la première position des candidats donne
+    des résultats satisfaisant, nous remarquons qu'il existe encore une marge de
+    progression importante. En effet, les valeurs indiquées par la borne haute
+    représentent les résultats qui pourraient être obtenue avec une stratégie
+    toujours capable de sélectionner un candidat positif. Cette marge de
+    progression allant de 4,2 à 19,0 points de f-score est encourageante pour de
+    futurs travaux.
 
   \subsection{Comparaison de TopicRank avec l'existant}
   \label{subsec:comparaison_de_topicrank_avec_l_existant}
@@ -650,9 +678,24 @@
     comparées à celles des trois systèmes de référence.
     % Que peut-on dire globalement ?
     Globalement, TopicRank donne de meilleurs résultats que les méthodes de
-    références utilisées.
-    % Que peut-on dire de plus ? (analyse plus approndie)
-    TODO faire une analyse approfondie
+    référence utilisées.
+    % Que peut-on dire de plus ? (analyse plus approfondie)
+    Comparée à la méthode TF-IDF, TopicRank donne de meilleurs résultats pour
+    SemEval, WikiNews et DEFT. Cette supériorité vis-à-vis de TF-IDF est
+    importante à noter, car cette méthode obtiens de bons résultats grâce à des
+    statistiques extraites de documents supplémentaires (apprentissage non
+    supervisé), alors que TopicRank n'utilise que le document à analysé.
+    Comparée au autre méthodes à base de graphe, TopicRank donne des résultats,
+    cette fois-ci, significativement meilleurs. Ceci confirme donc que le
+    groupement des candidats contribue à rassembler des informations utiles lors
+    de l'ordonnancement. En ce qui concerne DUC, TopicRank est toujours
+    significativement meilleure que TextRank, mais pas vis-à-vis des autres
+    méthodes. Une des raison pour lesquels les résultats sont moins satisfaisant
+    pour DUC est que la stratégie de sélection des candidats les plus
+    représentatifs des sujets n'est pas adaptée (voir la borne haute de la
+    figure~\ref{fig:variation_de_la_selection_des_candidats}). Une analyse plus
+    approfondie des différents apports de TopicRank peut aussi donner une piste
+    sur les raisons de ces moins bons résultats.
     \begin{table}
       \centering
       \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -721,13 +764,35 @@
 
   \subsection{Analyse des sujets détectés}
   \label{subsec:analyse_des_sujets_générés}
-    TODO introduction
-
-    % Quels sont les cas pour lesquels le groupement s'effectue correctement ?
+    Dans cette section, nous analysons les groupes créés et tentons de
+    déterminer quelles sont les causes des groupements incorrects.
 
     % Quels sont les cas pour lesquels il y a un groupement qui ne devrait pas
     % être fait ?
-
-    % Quelles sont les améliorations à apporter ? (aux vus des remarques
-    % ci-dessus)
+    À partir des groupements obtenus pour DEFT, nous observons trois causes de
+    groupements erronés, dont deux majeures. Dans un premier temps, nous
+    remarquons que les adjectifs ayant attraits au contexte général du document
+    sont la principale cause d'erreurs de groupement. En effet, ces adjectifs,
+    tels que \og européen~\fg\ ou \og économique~\fg, sont présents dans de
+    nombreux candidats et ont donc tendance à tous les rapprocher et ainsi
+    favoriser leur groupement. Par exemple, dans le document
+    \textit{as\_2002\_000707ar} qui examine l'organisation du dialogue politique
+    entre les membres de la commission européenne, les termes-clés candidats
+    \og imaginaire européen~\fg, \og rhétorique européenne~\fg, \og chose
+    européenne~\fg\ et \og culture européenne~\fg\ sont groupés à cause de
+    l'adjectif \og européen~\fg. Dans un second temps, nous observons que deux
+    candidats non reliés contenant deux mots (candidats les plus fréquent après
+    les candidats contenant un seul mot) et un mot en commun sont plus
+    difficilement mis dans des sujets différents. Ainsi, toujours dans le
+    document \text{as\_2002\_000707ar}, des candidats tels que \og dimension
+    spatiale~\fg\ et \og dimension culturelle~\fg\ sont considérés comme
+    appartenant au même sujets. En addition à ces deux causes principales
+    d'erreurs de détection de sujets, l'utilisation des radicaux lors du
+    calcul de la similarité de Jaccard induit elle aussi quelques erreurs. Dans
+    le document \textit{as\_2002\_000702ar}, l'algorithme de groupement à, par
+    exemple, groupé les deux candidats \og empire ottoman~\fg\ et \og définition
+    empirique~\fg, \og empire~\fg\ et \og empirique~\fg\ ayant tous les deux le
+    radical \og empir~\fg\ selon la méthode de Porter. Pour résoudre ce
+    problème, l'usage des lemmes à la place des radicaux est une alternative à
+    envisager dans de futurs travaux.
 

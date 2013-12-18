@@ -17,13 +17,14 @@
   comme une tâche d'ordonnancement de termes-clés
   candidats~\cite{mihalcea2004textrank}. Dans le premier cas, l'extraction est
   le plus souvent supervisée, elle nécessite une collection de documents annotés
-  en termes-clés pour une phase d'apprentissage préliminaire. Dans le second cas
-  l'extraction est le plus souvent non-supervisée, elle ne nécessite pas de
-  documents préalablement annotés. Les méthodes non-supervisées existantes ont
-  des performances plus faibles que les méthodes supervisées actuelles, mais la
-  nécessité pour ces dernières d'avoir une collection de documents annotés,
-  ainsi que la dépendance au domaine des documents utilisés lors de la phase
-  d'apprentissage, poussent de plus en plus les chercheurs à s'intéresser à
+  en termes-clés pour une phase d'apprentissage préliminaire. Dans le second
+  cas, l'extraction est le plus souvent non-supervisée, elle ne nécessite pas de
+  documents préalablement annotés. Les méthodes non-supervisées ont des
+  performances plus faibles que les méthodes supervisées actuelles. Ceci
+  s'explique par le fait que les méthodes supervisées apprennent les critères
+  discriminants pour l'extraction de termes-clés à partir de documents annotés.
+  Cependant, la dépendance de ces méthodes au domaine des documents utilisés
+  lors de l'apprentissage pousse de plus en plus de chercheurs à s'intéresser à
   l'extraction non-supervisée de termes-clés.
 
   % Que proposons-nous dans cet article ?
@@ -31,31 +32,32 @@
   Dans cet article, nous présentons TopicRank, une méthode d'extraction
   non-supervisée de termes-clés qui se fonde sur les travaux de
   \newcite[TextRank]{mihalcea2004textrank} pour l'ordonnancement à base de
-  graphe des unités textuelles d'un document. Celle-ci groupe les termes-clés
+  graphe des unités textuelles d'un document. TopicRank groupe les termes-clés
   candidats selon leur appartenance à un sujet, ordonne les sujets par
   importance dans le document, puis sélectionne pour chacun des meilleurs sujets
   le candidat qui le représente le mieux (son terme-clé associé).
   % Quelle est la nouveauté ?
   % En quoi cela semble-t-il meilleur ?
   Contrairement à l'ordonnancement des mots tel qu'il est fait avec TextRank,
-  le groupement des candidats par sujets, puis leur ordonnancement, permet de
-  tirer partie des informations complémentaires acquis à partir de plusieurs
-  unités textuelles représentant le même sujet. De plus, le fait de ne
-  sélectionner qu'un seul candidat par sujet permet d'éviter l'extraction de
-  termes-clés redondants.
+  le groupement des candidats en sujets utilisés pour l'ordonnancement permet de
+  tirer partie d'informations complémentaires extraites de différents candidats
+  d'un même sujet. De plus, le fait de ne sélectionner qu'un seul candidat par
+  sujet permet d'éviter l'extraction de termes-clés redondants.
 
   % Que peut-on dire sur les évaluation réalisées ?
-  TopicRank est évaluée avec quatre collections de données aux propriétés
-  différentes (nature, langues, taille de documents) et est comparée aux
-  méthodes TF-IDF~\cite{jones1972tfidf}, TextRank~\cite{mihalcea2004textrank} et
-  SingleRank~\cite{wan2008expandrank}. Pour trois des collections de données,
-  TopicRank donne de meilleurs résultats que TF-IDF, ainsi que des résultats
-  significativement meilleurs que ceux des deux méthodes à base de graphe
-  (TextRank et SingleRank).
+  Pour évaluer TopicRank, nous utilisons quatre collections de données dont les
+  propriétés diffèrent (nature, langue, taille des documents, etc.) afin de
+  mieux observer ses avantages et ses faiblesses~\cite{hassan2010conundrums}. En
+  addition, nous comparons TopicRank avec trois méthodes non-supervisées, l'une
+  extrayant des statistiques à partir de documents supplémentaires et les deux
+  autres appartenant à la catégorie des méthodes à base de graphe. Pour trois
+  des collections utilisées, TopicRank donne de meilleurs résultats que les
+  autres méthodes. De plus, cette amélioration est significative vis-à-vis des
+  deux méthodes à base de graphe.
 
   % Quel est notre plan ?
   L'article est structuré comme suit. Après un état de l'art des méthodes
-  d'extraction automatique de termes-clés existantes en
+  d'extraction automatique de termes-clés en
   section~\ref{sec:etat_de_l_art}, nous décrivons le fonctionnement de TopicRank
   en section~\ref{sec:extraction_de_termes_cles_avec_topicrank} et présentons
   son évaluation approfondie en section~\ref{sec:evaluation}. Enfin, nous
