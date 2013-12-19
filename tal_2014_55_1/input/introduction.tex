@@ -68,9 +68,9 @@
   Bien que les méthodes supervisées soient en général plus performantes, la faible quantité de documents annotés en termes-clés disponibles couplée à la forte dépendance des modèles de classification vis-à-vis du type de documents sur lesquels ils ont été appris, poussent les chercheurs à s'intéresser de plus en plus aux méthodes non-supervisées.
 
   Les méthodes non-supervisées les plus étudiées sont sans conteste celles basée sur TextRank~\cite{mihalcea2004textrank}, qui est une méthode d'ordonnancement d'unités textuelles à partir de graphe.
-  Les graphes sont un moyen naturel de représenter les unités textuelles et les relations qui les relient, et ils sont utilisés dans de nombreuses applications du TAL~\cite{textgraphs2013}.
+  Les graphes sont un moyen naturel de représenter les unités textuelles et les relations qui les relient, et ils sont utilisés dans de nombreuses applications du TAL~\cite{kozareva2013textgraphs}.
   Pour l'extraction de termes-clés, l'idée est de représenter le document sous la forme d'un graphe dans lequel les noeuds correspondent aux mots et les arêtes correspondent à des relations de co-occurrences dans une fenêtre de mots.
-  Un score d'importance est alors calculé pour chaque mot selon un principe de recommendation, c.-à-d.~un mot est d'autant plus important s'il co-occurre avec un grand nombre de mots et si les mots avec lesquels il co-occurre sont eux aussi importants.
+  Un score d'importance est alors calculé pour chaque mot selon un principe de recommendation, c'est-à-dire un mot est d'autant plus important s'il co-occurre avec un grand nombre de mots et si les mots avec lesquels il co-occurre sont eux aussi importants.
   Les mots les plus importants sont ensuite assemblés pour générer les termes-clés.
 
   Dans cet article, nous présentons TopicRank, une méthode non-supervisée d'extraction de termes-clés basée sur TextRank.

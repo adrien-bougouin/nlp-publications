@@ -8,7 +8,7 @@
   en quatre étapes. Les documents sont traités un par un. Ils sont tout d'abord
   enrichis linguistiquement (segmentés en phrases, segmentés en mots, étiquetés
   en parties du discours, etc.), des termes-clés candidats en sont extraits,
-  puis ordonnés afin de ne sélectionner que les plus pertinents (cf.
+  puis ordonnés afin de ne sélectionner que les plus pertinents (voir la
   figure~\ref{fig:etapes_de_l_extraction_de_termes_cles}). L'extraction des
   termes-clés candidats et leur ordonnancement sont les deux étapes auxquelles
   nous nous intéressons dans cet article. En effet, l'ordonnancement des
@@ -152,7 +152,7 @@
   \label{subsec:ordonnancement_des_termes_cles_candidats}
     % Quel est l'objectif ?
     L'étape d'ordonnancement intervient après l'extraction des termes-clés
-    candidats. Son rôle est de déterminer quels sont, parmi les candidats, les
+    candidats. Son rôle est de déterminer quels sont parmi les candidats les
     termes-clés du document analysé.
     % Quels sont les différentes méthodes non-supervisées existantes pour
     % l'extraction de termes-clés ?
@@ -169,24 +169,22 @@
     catégorie de méthodes.
 
     \newcite{mihalcea2004textrank} proposent TextRank, une méthode
-    d'ordonnancement d'unités textuelles à partir d'un graphe. Celle-ci,
-    utilisée pour le résumé automatique et l'extraction de termes-clés,
-    s'inspire de la méthode PageRank~\cite[Google]{brin1998pagerank} qui
-    détermine l'importance de pages Web grâce à celles qui s'y réfèrent, et
-    celles auxquelles elles se réfèrent. Le plus une page Web est citée par
-    d'autres, le plus elle est importante, et le plus elle est importante, le
-    plus elle donne d'importance aux pages Web auxquelles elle fait référence.
-    Cette notion de référence entre les pages Web est représentée par un graphe
-    dans lequel les n\oe{}uds sont des pages Web et les références sont
-    symbolisés par les liens entre elles. Ensuite, une mesure de centralité,
-    inspirée de la mesure de centralité eigenvector, est appliquée pour ordonner
-    les pages Web par importance. Pour l'extraction de termes-clés avec
-    TextRank, les pages Web sont remplacées par les mots (nom et adjectifs) du
-    document analysé et les liens entre eux symbolisent leur(s) co-occurrence(s)
-    dans une fenêtre de 2 mots. Les mots sont ordonnés par importance et les $k$
-    meilleurs, les mots clés, servent à la génération des termes-clés. Pour ce
-    faire, les mots-clés sont marqués dans le documents et les plus longues
-    séquences de mots-clés adjacents sont extraits comme termes-clés. Dans cette
+    d'ordonnancement d'unités textuelles à partir d'un graphe. Utilisés dans de
+    nombreuses applications du TAL~\cite{kozareva2013textgraphs}, les graphes
+    ont l'avantage de présenter de manière simple et efficace les unités
+    textuelles d'un document et les relations entre elles. De plus, ils sont
+    l'assurance de bénéficier de nombreux outils et algorithmes issus de la
+    théorie des graphes pouvant répondre à de nombreux problèmes. Dans le cas de
+    TextRank, les n\oe{}uds du graphe sont les mots du document et les arrêtes
+    sont leurs relations de co-occurrences dans une fenêtre de 2 mots. Un score
+    d'importance est ensuite calculé pour chaque mot à partir de l'algorithme
+    PageRank~\cite{brin1998pagerank} qui est issu de la mesure de centralité
+    eigenvector. Le principe utilisé est celui de la recommandation, c'est à
+    dire un mot est d'autant plus important qu'il co-occurre avec un grand
+    nombre de mots différents et le plus ces mots sont importants, le plus il
+    est important. Les mots les plus importants sont considérés comme des
+    mots-clés. Ces mots clés sont marqués dans le document et les plus longues
+    séquences de mots-clés sont extraites en tant que termes-clés. Dans cette
     méthode, la précision de l'ordonnancement dépend de la qualité du graphe qui
     elle même dépend de la fenêtre de co-occurrences. La définition de cette
     fenêtre est sujette à une intervention manuelle et peut dépendre des
