@@ -4,8 +4,8 @@
   déterminer la configuration optimale de TopicRank, le comparer aux autres
   méthodes existantes et quantifier chacun de ses apports.
 
-  \subsection{Environnement expérimental}
-  \label{subsec:environnement_experimental}
+  \subsection{Cadre expérimental}
+  \label{subsec:cadre_experimental}
     \subsubsection{Données de test}
     \label{subsubsec:donnees_de_test}
       Les collections de données présentées ci-dessous sont utilisées lors de
@@ -301,6 +301,8 @@
               (0.95, 11.2)
               (1.00, 11.2)
             };
+            \draw ({axis cs:0.10,0}|-{rel axis cs:0,1}) -- ({axis cs:0.10,0}|-{rel axis cs:0,0}) [color=red!66];
+            \node at (axis cs:0.10,40) [color=red!66, anchor=west] {\tiny{0.10}};
           \end{axis}
         \end{tikzpicture}
       }
@@ -387,6 +389,8 @@
               (0.95, 8.4)
               (1.00, 8.4)
             };
+            \draw ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=red!66];
+            \node at (axis cs:0.20,40) [color=red!66, anchor=west] {\tiny{0.20}};
             \legend{Simple, Complet, Moyen}
           \end{axis}
         \end{tikzpicture}
@@ -474,6 +478,8 @@
               (0.95, 35.4)
               (1.00, 35.4)
             };
+            \draw ({axis cs:0.35,0}|-{rel axis cs:0,1}) -- ({axis cs:0.35,0}|-{rel axis cs:0,0}) [color=red!66];
+            \node at (axis cs:0.35,40) [color=red!66, anchor=west] {\tiny{0.35}};
           \end{axis}
         \end{tikzpicture}
       }
@@ -560,6 +566,8 @@
               (0.95, 14.0)
               (1.00, 13.4)
             };
+            \draw ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=red!66];
+            \node at (axis cs:0.25,40) [color=red!66, anchor=west] {\tiny{0.25}};
           \end{axis}
         \end{tikzpicture}
       }
@@ -764,35 +772,47 @@
 
   \subsection{Analyse des sujets détectés}
   \label{subsec:analyse_des_sujets_générés}
-    Dans cette section, nous analysons les groupes créés et tentons de
-    déterminer quelles sont les causes des groupements incorrects.
+    Dans cette section, nous analysons les sujets obtenus pour les documents de
+    la collection DEFT et tentons de déterminer dans quels cas le groupement
+    échoue. Nous observons deux types de cause~: celles qui sont le fruit
+    d'erreurs antérieures au groupement en sujets et celles qui sont liées à des
+    candidats ayant des propriétés particulières.
 
-    % Quels sont les cas pour lesquels il y a un groupement qui ne devrait pas
-    % être fait ?
-    À partir des groupements obtenus pour DEFT, nous observons trois causes de
-    groupements erronés, dont deux majeures. Dans un premier temps, nous
-    remarquons que les adjectifs ayant attraits au contexte général du document
-    sont la principale cause d'erreurs de groupement. En effet, ces adjectifs,
-    tels que \og européen~\fg\ ou \og économique~\fg, sont présents dans de
-    nombreux candidats et ont donc tendance à tous les rapprocher et ainsi
-    favoriser leur groupement. Par exemple, dans le document
+    Deux erreurs antérieures au groupement en sujets sont observées. Elles
+    concernent toutes les deux l'extraction des termes-clés candidats. En effet,
+    lors de l'extraction des candidats certaines unités textuelles sont
+    extraites du fait d'erreurs dans l'étiquetage grammatical. Ces erreurs
+    concernent principalement la détection des prépositions composées et la
+    détection des participes. Dans le document \textit{as\_2006\_014935ar}, nous
+    observons par exemple que \og pays dits~\fg\ est un terme-clé candidats, car
+    le participe passé \og dits~\fg\ est considéré comme un adjectif dans la
+    phrase \og [\dots] elles ne cessent de se développer à travers le monde et
+    particulièrement dans les \underline{pays dits} ``du sud'' [\dots]~\fg.
+
+    En ce qui concerne les candidats ayant des propriétés particulières, nous
+    observons tout d'abord de nombreuses erreurs lorsque les groupements sont
+    déclenchés par un adjectif. Ce sont particulièrement les expansions
+    nominales s'effectuant à droite qui sont la source d'erreurs (\og même
+    langue~\fg\ groupé avec \og même représentation~\fg, \og grands
+    traits~\fg\ groupé avec \og grande ignorance~\fg, etc.). Parmi les expansion
+    nominales s'effectuant à droite, les adjectifs relationnels sont moins
+    sujets aux erreurs que les autres adjectifs. Il est cependant important de
+    noter que lorsque ces adjectifs ont attraits au contexte général du
+    document, ils sont très fréquemment utilisés et beaucoup de candidats les
+    contenant sont groupés par erreur. Ainsi, dans le document
     \textit{as\_2002\_000707ar} qui examine l'organisation du dialogue politique
     entre les membres de la commission européenne, les termes-clés candidats
     \og imaginaire européen~\fg, \og rhétorique européenne~\fg, \og chose
-    européenne~\fg\ et \og culture européenne~\fg\ sont groupés à cause de
-    l'adjectif \og européen~\fg. Dans un second temps, nous observons que deux
-    candidats non reliés contenant deux mots (candidats les plus fréquent après
-    les candidats contenant un seul mot) et un mot en commun sont plus
-    difficilement mis dans des sujets différents. Ainsi, toujours dans le
-    document \text{as\_2002\_000707ar}, des candidats tels que \og dimension
-    spatiale~\fg\ et \og dimension culturelle~\fg\ sont considérés comme
-    appartenant au même sujets. En addition à ces deux causes principales
-    d'erreurs de détection de sujets, l'utilisation des radicaux lors du
-    calcul de la similarité de Jaccard induit elle aussi quelques erreurs. Dans
-    le document \textit{as\_2002\_000702ar}, l'algorithme de groupement à, par
-    exemple, groupé les deux candidats \og empire ottoman~\fg\ et \og définition
-    empirique~\fg, \og empire~\fg\ et \og empirique~\fg\ ayant tous les deux le
-    radical \og empir~\fg\ selon la méthode de Porter. Pour résoudre ce
-    problème, l'usage des lemmes à la place des radicaux est une alternative à
-    envisager dans de futurs travaux.
+    européenne~\fg\ et \og culture européenne~\fg\ sont groupés par erreur parce
+    qu'ils partagent tous l'adjectif \og européen~\fg. Outre ces groupements
+    erronés, nous observons aussi de mauvais groupements lorsque les candidats
+    ne contiennent que très peu de mots. En effet, pour les candidats de deux
+    mots, il ne suffit que d'un seul mot en commun pour les grouper. Ces
+    candidats étant très fréquents, ils sont la cause de nombreuses erreurs.
+
+    En addition, nous observons des erreurs liées à l'utilisation des radicaux
+    lors du calcul de la similarité de Jaccard. Des candidats tels que
+    \og empire ottoman~\fg\ et \og définition empirique~\fg sont alors groupés
+    du fait que les mots \og empire~\fg\ et \og empirique~\fg\ partagent le
+    même radical (\og empir~\fg).
 
