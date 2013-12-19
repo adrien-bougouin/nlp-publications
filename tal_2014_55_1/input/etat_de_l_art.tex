@@ -213,27 +213,34 @@
     fonction des mots qu'ils contiennent, nous évitons ainsi le problème
     rencontré avec SingleRank.
 
-    Toujours dans l'optique d'utiliser plus d'informations pour améliorer
-    l'efficacité de l'ordonnancement, \newcite{wan2008expandrank} étendent
-    SingleRank en utilisant des documents voisins (similaires) du document en
-    cours d'analyse. Leur méthode, ExpandRank, consiste à observer les
-    co-occurrences dans les documents similaires afin de renforcer ou ajouter
-    des liens dans le graphe initial. Cette approche donne des résultats au delà
-    de ceux de SingleRank, mais il est important de noter que ses performances
-    sont fortement liées à la disponibilité de documents similaires à celui qui
-    est analysé.
+    Toujours dans l'optique d'améliorer l'efficacité de l'ordonnancement,
+    \newcite{wan2008expandrank} étendent SingleRank en utilisant des documents
+    similaires du document en cours d'analyse, afin de bénéficier d'un plus
+    grand nombre d'informations relatives à ses mots. La méthode consiste à
+    utiliser les co-occurrences observées dans les documents similaires pour
+    ajouter ou renforcer des liens dans le graphe. Cette approche donne des
+    résultats au delà de ceux de SingleRank, mais il est important de noter que
+    ses performances sont fortement liées à la disponibilité de documents
+    similaires à celui qui est analysé.
 
     A l'instar de \newcite{wan2008expandrank},
-    \newcite{tsatsaronis2010semanticrank} tentent d'améliorer TextRank en
-    modifiant le processus de création des liens entre les n\oe{}uds du graphe.
-    Dans leur approche, un lien entre deux mots est créé et pondéré en fonction
-    du lien sémantique de ces derniers selon WordNet~\cite{miller1995wordnet} ou
+    \newcite{tsatsaronis2010semanticrank} tentent d'améliorer TextRank. Dans
+    leur méthode, ils créent et pondèrent l'arrête entre deux mots si et
+    seulement si ceux-ci sont sémantiquement liés selon deux mesures définies à
+    partir de WordNet~\cite{miller1995wordnet} et de
     Wikipedia~\cite{milne2008wikipediasemanticrelatedness}. Les expériences
     menées par les auteurs montrent de moins bons résultats que TextRank.
     Toutefois, en biaisant l'ordonnancement en faveur des mots apparaissant dans
-    le titre du document analysé ou bien en ajoutant le poids TF-IDF des mots
-    dans le calcul de l'importance des mots, leur méthode est capable de donner
-    de meilleurs résultats que TextRank.
+    le titre du document analysé ou en ajoutant le poids TF-IDF des mots dans le
+    calcul de l'importance des mots, leur méthode est capable de donner de
+    meilleurs résultats que TextRank. Ceci suggère qu'il existe des traits, tels
+    que la première position et la spécificité des candidats, qui peuvent
+    influencer positivement l'ordonnancement. Dans notre approche, nous estimons
+    que l'ordonnancement des termes-clés candidats vis-à-vis des sujets auxquels
+    ils appartiennent est un moyen de prendre en compte leur spécificité dans le
+    document analysé. En effet, un candidats appartenant à un sujet important
+    d'un document est intuitivement plus spécifique à celui-ci qu'un candidats
+    appartenant à un sujet secondaire.
 
     L'usage de sujets dans le processus d'ordonnancement de TextRank est à
     l'origine proposé par \newcite{liu2010topicalpagerank}. Reposant sur un
