@@ -187,32 +187,30 @@
     séquences de mots-clés sont extraites en tant que termes-clés. Dans cette
     méthode, la précision de l'ordonnancement dépend de la qualité du graphe qui
     elle même dépend de la fenêtre de co-occurrences. La définition de cette
-    fenêtre est sujette à une intervention manuelle et peut dépendre des
-    propriétés des documents analysés. Dans nos travaux, nous tentons de nous
-    abstraire de cette fenêtre.
+    fenêtre est sujette à une intervention manuelle et nous pensons qu'elle peut
+    dépendre des propriétés des documents analysés. Dans nos travaux, nous
+    tentons de nous abstraire de cette fenêtre.
 
-    \newcite{wan2008expandrank} proposent la méthode SingleRank qui présente
-    deux améliorations à TextRank. Dans un premier temps, les auteurs améliorent
-    la précision de l'ordonnancement en pondèrant les liens de co-occurrence par
-    le nombre de co-occurrences (par exemple, un mot co-occurrent deux fois avec
-    un autre est relié à celui-ci par un poids de 2) et en utilisant ce poids
-    lors du transfère d'importance.
+    \newcite{wan2008expandrank} proposent quelques modifications de TextRank.
+    Dans un premier temps, SingleRank, leur méthode, augmente la précision de
+    l'ordonnancement grâce à une pondération des liens de co-occurrence avec le
+    nombre de co-occurrences des mots liés et en utilisant cette pondération
+    lors du calcul de l'importance des mots.
     %Ce nouvel ordonnancement utilise plus d'informations présentes dans le
     %document analysé et est dotant plus efficace quand le document analysé est
     %de grande taille.
     Dans un second temps, les termes-clés ne sont plus générés, mais ordonnés à
-    partir de la somme du score d'importance des mots qu'ils contiennent. La
-    méthode SingleRank donne, dans la majorité des cas, des résultats meilleurs
-    que ceux de TextRank. Cependant, faire la somme du score d'importance des
+    partir de la somme du score d'importance des mots qui les composent. Cette
+    nouvelle méthode donne dans la majorité des cas des résultats meilleurs que
+    ceux de TextRank. Cependant, faire la somme du score d'importance des
     mots pour ordonner les candidats est une approche maladroite. En effet, cela
     a pour effet de faire monter dans le classement des candidats qui se
     recouvrent. Ainsi, dans le document \textit{as\_2002\_000700ar} de la
     collection DEFT (voir la section~\ref{sec:evaluation}), le candidat positif
     \og bio-politique~\fg\ est classé neuvième, alors que les autres candidats
-    contenant \og bio-politique~\fg\ plus d'autres mots non importants occupent
-    les classements 2 à 8. Dans nos travaux nous ordonnons les termes-clés
-    candidats en tenant compte de l'importance du sujet qu'ils représentent puis
-    choisissons un représentant par sujet, nous évitons ainsi le problème
+    contenant entre autres \og bio-politique~\fg\ occupent les classements 2 à
+    8. Dans nos travaux nous n'ordonnons pas les termes-clés candidats en
+    fonction des mots qu'ils contiennent, nous évitons ainsi le problème
     rencontré avec SingleRank.
 
     Toujours dans l'optique d'utiliser plus d'informations pour améliorer
