@@ -10,8 +10,8 @@
   en parties du discours, etc.), des termes-clés candidats en sont extraits,
   puis ordonnés afin de ne sélectionner que les plus pertinents (cf.
   figure~\ref{fig:etapes_de_l_extraction_de_termes_cles}). L'extraction des
-  termes-clés candidats et leur ordonnancement sont les deux étapes auxquels
-  nous nous intéressons dans cet article. En effet, la l'ordonnancement des
+  termes-clés candidats et leur ordonnancement sont les deux étapes auxquelles
+  nous nous intéressons dans cet article. En effet, l'ordonnancement des
   termes-clés candidats est le c\oe{}ur de la tâche d'extraction de termes-clés
   et ses performances dépendent de la qualité des candidats préalablement
   extraits.
@@ -66,65 +66,72 @@
     L'objectif de l'extraction de termes-clés candidats est de réduire l'espace
     des solutions possibles aux seules unités textuelles ayant des
     particularités semblables à celles des termes-clés tels qu'ils peuvent être
-    donnés par des humains. Deux avantages directs à cela sont la réduction du
-    temps de calcul nécessaire à l'extraction des termes-clés et la suppression
-    d'unités textuelles non pertinentes pouvant engendrer du bruit affectant
-    les performances de la méthode. Pour distinguer les différents candidats
-    extraits, nous définissons deux catégories~: les candidats positifs, qui
-    sont présents dans les références de nos collection de données, et les
-    candidats non positifs, qui n'y sont pas. Parmi les candidats non positifs,
-    nous distinguons aussi deux catégories~: les candidats porteurs
-    d'informations utiles à la promotions de candidats positifs et les candidats
-    non pertinents, que nous considérons comme des erreurs d'extraction.
+    donnés par des humains. Deux avantages à cela sont la réduction du temps de
+    calcul nécessaire à l'extraction des termes-clés et la suppression d'unités
+    textuelles non pertinentes pouvant engendrer du bruit, celui-ci pouvant
+    affecter les performances de l'extraction. Pour distinguer les différents
+    candidats extraits, nous définissons deux catégories~: les candidats
+    positifs, qui sont présents dans les références de nos collection de
+    données, et les candidats non positifs, qui n'y sont pas. Parmi les
+    candidats non positifs, nous distinguons aussi deux catégories~: les
+    candidats porteurs d'informations utiles à la promotions de candidats
+    positifs et les candidats non pertinents, que nous considérons comme des
+    erreurs d'extraction.
 
     % Quels sont les différentes méthodes utilisées pour extraire les
     % termes-clés candidats ?
     Dans les travaux précédents concernant l'extraction automatique de
     termes-clés, trois méthodes d'extraction de candidats sont classiquement
-    utilisées~: l'extraction de n-grammes filtrés avec une liste de mots outils,
-    l'extraction de chunks nominaux ou l'extraction des unités textuelles
-    respectant des patrons syntaxiques prédéfinis.
+    utilisées~: l'extraction de n-grammes, l'extraction de chunks nominaux et
+    l'extraction d'unités textuelles à partir de patrons syntaxiques.
 
     L'extraction de n-grammes consiste en l'extraction de toutes les séquences
     ordonnées de $n$ mots. Cette extraction est très exhaustive, elle fournit
     un grand nombre de termes-clés candidats, maximisant ainsi la quantité de
-    candidats positifs ou porteurs d'informations, mais aussi la quantité de
-    candidats non pertinents. Pour pallier en partie ce problème, il est courant
-    d'utiliser une liste de mots outils (conjonctions, prépositions, mots
-    usuels, etc.). Un n-gramme contenant un mot outil au début ou à la fin ne
-    doit pas être considéré comme un terme-clé candidat. Cette extraction de
-    n-grammes filtrés est encore largement utilisée parmi les méthodes
-    supervisées~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction},
-    celles-ci étant robustes et peu sensibles aux bruits, du fait de leur phase
-    d'apprentissage.
+    candidats positifs, la quantité de candidats porteurs d'informations, mais
+    aussi la quantité de candidats non pertinents. Pour pallier en partie ce
+    problème, il est courant d'utiliser une liste de mots outils. Ces mots
+    outils sont les conjonctions (et, ou, soit, car, etc.), les prépositions (à,
+    de, en, avec, etc.) et les mots usuels (particulier, beaucoup, près, etc.).
+    Un n-gramme contenant un mot outil au début ou à la fin ne doit pas être
+    considéré comme un terme-clé candidat. Malgré son aspect bruité, cette
+    extraction est encore largement utilisée parmi les méthodes
+    supervisées~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}.
+    En effet, la phase d'apprentissage de celles-ci les rend plus robustes et
+    moins sensibles aux éventuels bruits, comparées aux méthodes supervisées.
 
     L'extraction de chunks nominaux consiste en l'extraction d'unités
-    minimales de sens ayant pour tête un nom. Contrairement aux n-grammes, les
-    chunks nominaux sont toujours des unités textuelles grammaticalement
-    correctes. D'un point de vue linguistique, l'extraction de chunks nominaux
-    est donc plus justifiée que l'extraction de n-grammes filtrés. Les
+    minimales de sens ayant pour tête un nom. Les chunks nominaux sont
+    constitués d'un unique nom ou pronom et de ses déterminants et
+    modificateurs. D'un point de vue linguistique, la syntaxe clairement définie
+    des chunks nominaux les rend plus justifiée que les n-grammes. Les
     expériences menées par \newcite{hulth2003keywordextraction} et
     \newcite{eichler2010keywe} avec les chunks nominaux montrent une
     amélioration des performances vis-à-vis de l'usage des n-grammes.
     Cependant, \newcite{hulth2003keywordextraction} constate qu'en tirant partie
     de l'étiquetage en parties du discours des termes-clés candidats,
     l'extraction supervisée de termes-clés à partir de n-grammes donne des
-    performances au-dessus de celles obtenues avec les chunks nominaux.
+    performances au-dessus de celles obtenues avec les chunks nominaux. Cela
+    montre que les n-grammes contiennent plus de candidats positifs que les
+    chunks nominaux et que la syntaxe des candidats est une propriété
+    discriminante des termes-clés.
 
-    L'extraction d'unités textuelles respectant des patrons syntaxiques permet
-    de contrôler avec précision la nature des candidats extraits (par exemple,
-    les chunks nominaux). De ce fait cette extraction est, tout comme
+    L'extraction d'unités textuelles à partir de patrons syntaxiques prédéfinis
+    permet de contrôler avec précision la nature des candidats extraits (par
+    exemple, les chunks nominaux). De ce fait cette extraction est, tout comme
     l'extraction de chunks nominaux, plus fondée linguistiquement que la simple
-    extraction de n-grammes filtrés. \newcite{hulth2003keywordextraction}
-    choisie d'extraire des candidats avec les patrons des termes-clés les plus
-    fréquents (plus de 10 occurrences) dans sa collection d'apprentissage,
-    tandis que d'autres chercheurs tels que \newcite{wan2008expandrank} se
-    concentrent uniquement sur les plus longues séquences de noms (noms propres
-    inclus) et d'adjectifs. Pour des méthodes non-supervisées telles que la
-    notre, l'extraction des séquences de noms et d'adjectifs est intéressante,
-    car elle ne nécessite ni données supplémentaires, ni adaptation particulière
-    pour une langue donnée (tel que c'est le cas pour l'extraction des chunks
-    nominaux, par exemple).
+    extraction de n-grammes filtrés. Comparée aux chunks nominaux, elle permet
+    aussi de pallier le problème du manque de candidats positifs extraits. Dans
+    ses travaux, \newcite{hulth2003keywordextraction} choisie d'extraire des
+    candidats avec les patrons des termes-clés les plus fréquents (plus de 10
+    occurrences) dans sa collection d'apprentissage, tandis que d'autres
+    chercheurs tels que \newcite{wan2008expandrank} et
+    \newcite{hassan2010conundrums} se concentrent uniquement sur les plus
+    longues séquences de noms (noms propres inclus) et d'adjectifs. Pour des
+    méthodes non-supervisées telles que la notre, l'extraction des séquences de 
+    noms et d'adjectifs est intéressante, car elle ne nécessite ni données
+    supplémentaires, ni adaptation particulière pour une langue donnée (tel que
+    c'est le cas pour l'extraction des chunks nominaux, par exemple).
 
     % Que veut-on apporter ?
     Dans le but d'améliorer la qualité des candidats extraits à partir
