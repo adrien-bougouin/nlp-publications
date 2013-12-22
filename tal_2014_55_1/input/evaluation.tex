@@ -25,11 +25,11 @@
       \newcite{wan2008expandrank}. Lors de nos expériences, nous utilisons ces
       308 documents.
 
-      \textbf{SemEval}~\cite{kim2010semeval} est la collection fournie lors de
-      la campagne d'évaluation SemEval-2010 pour la tâche d'extraction
-      automatique de termes-clés. Cette collection contient 284 articles
-      scientifiques (conférences et ateliers) issus de la librairie numérique
-      ACM (en anglais). La collection est répartie en trois sous-ensembles, un
+      \textbf{SemEval}~\cite{kim2010semeval} est la collection en anglais
+      fournie lors de la campagne d'évaluation SemEval-2010 pour la tâche
+      d'extraction automatique de termes-clés. Cette collection contient 284
+      articles scientifiques (conférences et ateliers) issus de la librairie
+      numérique ACM. La collection est répartie en trois sous-ensembles, un
       ensemble de 40 documents d'essais, un ensemble de 144 documents
       d'entraînement et un ensemble de 100 documents de test. Lors de nos
       expériences, nous utilisons les 100 documents de l'ensemble de test. En ce
@@ -56,7 +56,7 @@
       Le tableau~\ref{tab:donnees_de_test} donne les statistiques extraites des
       quatre collections de données présentées ci-dessus. Les données sont
       divisées en deux langues (anglais et français), avec pour chaque langue
-      une collections de documents courts (articles journalistiques) et une
+      une collection de documents courts (articles journalistiques) et une
       collection de documents de plus grande taille (articles scientifiques). Il
       est aussi important de noter qu'en fonction du type d'annotateurs, le
       nombre de termes-clés associés varie, de même que le nombre de termes-clés
@@ -108,7 +108,7 @@
       en termes de précision (P), rappel (R) et f-score (f1-mesure, F). Afin de
       ne pas considérer fausse l'extraction d'une variante flexionnelle d'un
       terme-clé de référence, les opérations de comparaison sont effectuées à
-      partir de la forme radical des mots.
+      partir de la forme radicale des mots.
 
     \subsubsection{Méthodes de référence pour l'extraction de termes-clés}
     \label{subsubsec:systemes_de_reference_pour_l_extraction_de_termes_cles}
@@ -122,9 +122,9 @@
       ceux ayant le plus haut score.
 
       % Quelles sont les particularités liées à notre implémentation ?
-      Toutes les méthodes de référence sont implémentées par nous même. Lorsque
-      celles-ci ont des parties communes avec TopicRank, elles bénéficies des
-      mêmes composants. De plus, afin d'améliorer les résultats des méthodes de
+      Toutes les méthodes de référence sont implémentées par nous-même. Lorsque
+      celles-ci ont des parties communes avec TopicRank, elles bénéficient des
+      mêmes composants. De plus, pour améliorer les résultats des méthodes de
       référence, leurs sorties sont filtrées afin de supprimer les termes-clés
       candidats dont les mots ont la même forme radicale que ceux d'un candidat
       mieux classé. Ce filtrage ne dégrade en rien les résultats et a pour effet
@@ -141,38 +141,6 @@
     (variation du seuil $\zeta$ et de la stratégie de groupement) et l'autre
     pour déterminer la stratégie de sélection des termes-clés représentatifs.
 
-    % Variation du seuil de similarité et de la stratégie de groupement
-    La figure~\ref{fig:variation_du_seuil_de_similarite} présente les résultats
-    de TopicRank lorsque nous faisons varier le seuil $\zeta$ avec un pas de
-    0,05 pour toutes les stratégies de groupement. La stratégie de sélection
-    d'un terme-clé par sujet utilisée est celle qui consiste à sélectionner le
-    candidat qui apparaît en premier dans le document pour chaque sujet.
-    % Quelle analyse peut-on faire à partir des courbes ?
-    Globalement, chaque stratégie de groupement a un comportement qui lui est
-    propre, jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,55.
-    Avec la stratégie simple, les résultats s'améliorent lorsque le seuil
-    $\zeta$ augmente. Du fait qu'elle ne prenne en compte que la similarité
-    maximale entre deux candidats de deux groupes, cette stratégie à tendance à
-    trop grouper et donc à créer des groupes contenant parfois plusieurs sujets.
-    L'augmentation du seuil $\zeta$ a pour effet de restreindre cette tendance
-    et la qualité du groupement s'améliore donc. En opposition, la stratégie
-    complète, qui a le fonctionnement inverse, voie ses résultats se dégrader
-    lorsque $\zeta$ augmente. Finalement, la stratégie moyenne, qui agit en tant
-    que compromis, semble moins sensible aux variations de $\zeta$. Nous
-    observons tout de même une dégradation des résultats jusqu'au point de
-    convergence. Ce point de convergence correspond au moment où les groupes
-    sont majoritairement composés de variantes flexionnelles de variantes
-    dérivationnelles où de candidats dont ceux contenant le plus de mots
-    incluent les autres (par exemple, le sujet qui ne contient que \og nouvelles
-    églises~\fg, \og nouvelles églises indépendantes protestantes~\fg,
-    \og nouvelle église indépendante~\fg\ et \og nouvelles églises
-    indépendantes~\fg avec le groupement moyen et $\zeta=\text{0,55}$ contient
-    aussi \og églises évangéliques~\fg, ainsi que d'autres, lorsque $\zeta$ est
-    plus faible).
-    % Quels sont les paramètres utilisés ?
-    Après observation de ses résultats de cette expérience, le seuil $\zeta$ est
-    fixé à 0,25 pour toutes les expériences suivantes. De même, la stratégie de
-    groupement utilisée dans la suite est la stratégie moyenne.
 %    \begin{table}
 %      \centering
 %      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -576,12 +544,45 @@
                \label{fig:variation_du_seuil_de_similarite}}
     \end{figure}
 
+    % Variation du seuil de similarité et de la stratégie de groupement
+    La figure~\ref{fig:variation_du_seuil_de_similarite} présente les résultats
+    de TopicRank lorsque nous faisons varier le seuil $\zeta$ avec un pas de
+    0,05 pour toutes les stratégies de groupement. La stratégie de sélection
+    d'un terme-clé par sujet utilisée est celle qui consiste à sélectionner le
+    candidat qui apparaît en premier dans le document pour chaque sujet.
+    % Quelle analyse peut-on faire à partir des courbes ?
+    Globalement, chaque stratégie de groupement a un comportement qui lui est
+    propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,55.
+    Avec la stratégie simple, les résultats s'améliorent lorsque le seuil
+    $\zeta$ augmente. Du fait qu'elle ne prenne en compte que la similarité
+    maximale entre deux candidats de deux groupes, cette stratégie à tendance à
+    trop grouper et donc à créer des groupes contenant parfois plusieurs sujets.
+    L'augmentation du seuil $\zeta$ a pour effet de restreindre cette tendance
+    et la qualité du groupement s'améliore. En opposition, la stratégie
+    complète, qui a le fonctionnement inverse, voie ses résultats se dégrader
+    lorsque $\zeta$ augmente. Finalement, la stratégie moyenne, qui agit en tant
+    que compromis, semble moins sensible aux variations de $\zeta$. Nous
+    observons tout de même une dégradation des résultats jusqu'au point de
+    convergence. Ce point de convergence correspond au moment où les groupes
+    sont majoritairement composés de variantes flexionnelles, de variantes
+    dérivationnelles où de candidats dont ceux contenant le plus de mots
+    incluent les autres (par exemple, le sujet qui ne contient que \og nouvelles
+    églises~\fg, \og nouvelles églises indépendantes protestantes~\fg,
+    \og nouvelle église indépendante~\fg\ et \og nouvelles églises
+    indépendantes~\fg\ avec le groupement moyen et $\zeta=\text{0,55}$ contient
+    en plus \og églises évangéliques~\fg, ainsi que d'autres, lorsque $\zeta$
+    est plus faible).
+    % Quels sont les paramètres utilisés ?
+    Après observation des résultats de cette expérience, le seuil $\zeta$ est
+    fixé à 0,25 pour toutes les expériences suivantes. De même, la stratégie de
+    groupement utilisée dans la suite est la stratégie moyenne.
+
     La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
     résultats obtenus avec TopicRank et les différentes stratégies de sélection
     d'un terme-clé candidat par sujet. Ceux-ci confirment ce qui est dit dans la
     section~\ref{sec:extraction_de_termes_cles_avec_topicrank} concernant le
     bien fondé de la sélection des candidats les plus fréquents ou des
-    centroïdes. Ces dernières stratégies ont en effet tendance à sélectionner
+    centroïdes. Ces dernières stratégies ont, en effet, tendance à sélectionner
     des concepts inhérents qui jouent un rôle crucial lors du groupement, mais
     qui ne sont pas les candidats les plus représentatifs des sujets.
 %    \begin{table}
@@ -682,29 +683,29 @@
   \label{subsec:comparaison_de_topicrank_avec_l_existant}
     % Que représente le tableau ?
     Le tableau~\ref{tab:resultats_globaux} montre les performances de TopicRank
-    comparées à celles des trois systèmes de référence.
+    comparées à celles des trois méthodes de référence.
     % Que peut-on dire globalement ?
     Globalement, TopicRank donne de meilleurs résultats que les méthodes de
     référence utilisées.
     % Que peut-on dire de plus ? (analyse plus approfondie)
     Comparée à la méthode TF-IDF, TopicRank donne de meilleurs résultats pour
     SemEval, WikiNews et DEFT. Cette supériorité vis-à-vis de TF-IDF est
-    importante à noter, car cette méthode obtient de bons résultats grâce à des
-    statistiques extraites de documents supplémentaires (apprentissage non
-    supervisé), alors que TopicRank n'utilise que le document à analyser.
+    importante à noter, car cette méthode obtient de bons résultats en tirant
+    parti de statistiques extraites de documents supplémentaires (apprentissage
+    non-supervisé), alors que TopicRank n'utilise que le document à analyser.
     Comparée aux autres méthodes à base de graphe, TopicRank donne des
     résultats significativement meilleurs pour SemEval, WikiNews et DEFT. Ceci
-    confirme donc que le groupement des candidats permet de rassemble des
+    confirme donc que le groupement des candidats permet de rassembler des
     informations améliorant la précision de l'ordonnancement. En ce qui concerne
-    DUC, TopicRank est toujours significativement meilleure que TextRank, mais
-    elle ne l'est pas vis-à-vis des autres méthodes. Aux vues de la borne haute
-    de la figure~\ref{fig:variation_de_la_selection_des_candidats}, l'une des
-    raisons pour lesquelles les résultats sont moins bon pour DUC est que la
-    stratégie de sélection des candidats les plus représentatifs des sujets
-    n'est pas adaptée (voir la borne haute de la
-    figure~\ref{fig:variation_de_la_selection_des_candidats}). Une analyse plus
-    approfondie des différents apports de TopicRank peut aussi donner une piste
-    sur les raisons de ces moins bons résultats.
+    DUC, notre méthode est toujours significativement meilleure que TextRank,
+    mais elle ne l'est pas vis-à-vis des autres méthodes. Aux vues de la borne
+    haute de la figure~\ref{fig:variation_de_la_selection_des_candidats}, l'une
+    des raisons pour lesquelles les résultats sont moins bons pour DUC est que
+    la stratégie de sélection des candidats les plus représentatifs des sujets
+    n'est pas adaptée. En effet, la différence avec la borne haute est de 19,0
+    points de f-score. Une analyse plus approfondie des différents apports de
+    TopicRank peut aussi donner une piste sur les raisons de ces moins bons
+    résultats.
     \begin{table}
       \centering
       \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -726,35 +727,6 @@
                \label{tab:resultats_globaux}}
     \end{table}
 
-    Dans le but de confirmer la pertinence de tous les apports de TopicRank,
-    nous réalisons une expérience supplémentaire dans laquelle la méthode
-    SingleRank est modifiée de sorte qu'elle ordonne les mots avec un graphe
-    complet, qu'elle ordonne les termes-clés candidats à la place des mots ou
-    qu'elle ordonne les sujets à la place des mots (respectivement +complet,
-    +candidats et +sujets). Les résultats de ces trois variantes de SingleRank
-    sont présentées dans le
-    tableau~\ref{tab:evaluation_individuelle_des_ameliorations}. Globalement,
-    l'usage des termes-clés candidats, ou des sujets, induit une amélioration
-    significative des performances de SingleRank, avec une amélioration plus
-    importante en utilisant les sujets.
-    TODO POURQUOI ???
-    L'usage d'un graphe complet, quant à lui, n'améliore pas significativement
-    les résultats de SingleRank. Ceux-ci sont compétitifs vis-à-vis de ceux
-    obtenus en construisant un graphe de co-occurrences, mais nous pensons tout
-    de même que l'usage du graphe complet est à privilégier afin d'éviter la
-    fenêtre de co-occurrences qui doit être définit manuellement.
-    
-    En ce qui concerne la collection DUC, le
-    tableau~\ref{tab:evaluation_individuelle_des_ameliorations} montre une perte
-    de performances induite par la construction du graphe à partir des
-    termes-clés candidats. Cette perte de performance s'explique par le fait
-    qu'il y a peu de répétition des candidats dans les documents de DUC et donc
-    moins d'informations pour la création de liens. Ceci se confirme avec la
-    figure~\ref{fig:variation_de_la_selection_des_candidats} qui montre que
-    l'extraction des candidats les plus fréquents, pour chaque sujet, est donne
-    des résultats proches de ceux obtenus avec l'extraction des candidats
-    apparaissant en premier dans le document.
-    TODO EXEMPLE !!!
     \begin{table}
       \centering
       \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -777,22 +749,55 @@
                \label{tab:evaluation_individuelle_des_ameliorations}}
     \end{table}
 
+    Dans le but de confirmer la pertinence de tous les apports de TopicRank,
+    nous réalisons une expérience supplémentaire dans laquelle la méthode
+    SingleRank est modifiée de sorte qu'elle ordonne les mots avec un graphe
+    complet, qu'elle ordonne les termes-clés candidats à la place des mots ou
+    qu'elle ordonne les sujets à la place des mots (respectivement +complet,
+    +candidats et +sujets). Les résultats de ces trois variantes de SingleRank
+    sont présentés dans le
+    tableau~\ref{tab:evaluation_individuelle_des_ameliorations}. Globalement,
+    l'usage des termes-clés candidats, ou des sujets, induit une amélioration
+    significative des performances de SingleRank, avec une amélioration plus
+    importante en utilisant les sujets. Cela confirme la pertinence d'ordonner
+    directement les candidats, plutôt que les mots. De plus, le groupement des
+    candidats représentant le même sujet améliore la précision de
+    l'ordonnancement grâce à la mutualisation des relations qu'ils entretiennent
+    avec les candidats représentant d'autres sujets. L'usage d'un graphe
+    complet, quant à lui, n'améliore pas significativement les résultats de
+    SingleRank. Ceux-ci sont compétitifs vis-à-vis de ceux obtenus en
+    construisant un graphe de co-occurrences. Nous pensons tout de même que
+    l'usage du graphe complet est à privilégier afin d'éviter la fenêtre de
+    co-occurrences.
+    
+    En ce qui concerne la collection DUC, le
+    tableau~\ref{tab:evaluation_individuelle_des_ameliorations} montre une perte
+    de performance induite par la construction du graphe avec les termes-clés
+    candidats. Cette perte de performance s'explique par le fait qu'il y a, dans
+    les documents de DUC, peu de répétition des candidats, notamment ceux de
+    plus d'un mot. Le graphe créé contient alors moins de relations de
+    co-occurrences que lorsque les n\oe{}uds sont les mots du document et est
+    donc moins précis pour l'ordonnancement. Ceci se confirme avec la
+    figure~\ref{fig:variation_de_la_selection_des_candidats} qui montre que
+    l'extraction des candidats les plus fréquents, pour chaque sujet de DUC,
+    donne des résultats proches de ceux obtenus avec l'extraction des candidats
+    apparaissant en premier dans le document.
+
   \subsection{Analyse des sujets détectés}
   \label{subsec:analyse_des_sujets_générés}
     Dans cette section, nous analysons les groupements en sujets effectués par
     TopicRank et tentons de déterminer quelles sont les causes principales
     d'erreurs. Notre langue maternelle étant le français et les documents de
-    WikiNews étant de trop petite taille pour que nous puissions observer un
-    nombre significatif de groupements en sujets, nos observations ci-dessous
-    sont faites à partir des documents de la collection DEFT. Nous distinguons
-    deux types d'erreurs~: celles qui sont liées à du bruit introduit dans les
+    WikiNews étant de trop courts pour que nous puissions observer un nombre
+    significatif de groupements en sujets, nos observations ci-dessous sont
+    faites à partir des documents de la collection DEFT. Nous distinguons deux
+    types d'erreurs~: celles qui sont liées à du bruit introduit dans les
     groupes et celles qui sont liées à des candidats ayant des propriétés
     particulières.
 
-    Nous observons une erreur liée à l'extraction des termes-clés candidats.
-    Cette erreur a pour effet d'introduire du bruit dans les groupe. En effet,
-    lors de l'extraction des candidats certaines unités textuelles sont
-    extraites du fait d'erreurs dans l'étiquetage grammatical. Ces erreurs
+    Nous observons des erreurs liées à l'extraction des termes-clés candidats.
+    Lors de l'extraction des candidats, certaines unités textuelles sont
+    extraites à cause d'erreurs dans l'étiquetage grammatical. Ces erreurs
     concernent principalement la détection des prépositions composées et la
     détection des participes. Dans le document \textit{as\_2006\_014935ar}, nous
     observons par exemple que \og pays dits~\fg\ est un terme-clé candidats, car
@@ -803,27 +808,27 @@
     En ce qui concerne les candidats ayant des propriétés particulières, nous
     observons tout d'abord de nombreuses erreurs lorsque les groupements sont
     déclenchés par un adjectif. Ce sont particulièrement les expansions
-    nominales s'effectuant à droite qui sont la source d'erreurs (\og même
+    nominales s'effectuant à gauche qui sont la source d'erreurs (\og même
     langue~\fg\ groupé avec \og même représentation~\fg, \og grands
     traits~\fg\ groupé avec \og grande ignorance~\fg, etc.). Parmi les
     expansions nominales s'effectuant à droite, les adjectifs relationnels sont
-    moins sujets aux erreurs que les autres adjectifs. Il est cependant
-    important de noter que lorsque ces adjectifs ont attraits au contexte
-    général du document, ils sont très fréquemment utilisés et beaucoup de
-    candidats les contenant sont groupés par erreur. Ainsi, dans le document
-    \textit{as\_2002\_000707ar} qui examine l'organisation du dialogue politique
-    entre les membres de la commission européenne, les termes-clés candidats
-    \og imaginaire européen~\fg, \og rhétorique européenne~\fg, \og chose
-    européenne~\fg\ et \og culture européenne~\fg\ sont groupés par erreur, car
-    ils partagent tous l'adjectif \og européen~\fg. Outre ces groupements
-    erronés, nous observons aussi de mauvais groupements lorsque les candidats
-    ne contiennent que très peu de mots. En effet, pour les candidats de deux
-    mots, il ne suffit que d'un seul mot en commun pour les grouper. Ces
-    candidats étant très fréquents, ils sont la cause de nombreuses erreurs.
+    moins sujets aux erreurs que les autres adjectifs. Notons tout de même que
+    lorsque ces adjectifs ont attraits au contexte général du document, ils sont
+    très fréquemment utilisés et beaucoup de candidats les contenant sont
+    groupés par erreur. Ainsi, dans le document \textit{as\_2002\_000707ar} qui
+    examine l'organisation du dialogue politique économique entre les membres de
+    la commission européenne, les termes-clés candidats \og forces
+    économiques~\fg, \og type économique~\fg, \og délabrement économique~\fg\ et
+    \og économies postsocialistes~\fg\ sont groupés par erreur, car ils
+    partagent tous l'adjectif \og économique~\fg. Outre ces groupements erronés,
+    nous observons aussi de mauvais groupements lorsque les candidats ne
+    contiennent que très peu de mots. En effet, pour les candidats de deux mots,
+    il ne suffit que d'un seul mot en commun pour les grouper. Ces candidats
+    étant très fréquents, ils sont la cause de nombreuses erreurs.
 
-    En plus, nous observons des erreurs liées à l'utilisation des radicaux lors
-    du calcul de la similarité de Jaccard. Des candidats tels que \og empire
-    ottoman~\fg\ et \og définition empirique~\fg\ sont alors groupés du fait que
-    les mots \og empire~\fg\ et \og empirique~\fg\ partagent le même radical
-    (\og empir~\fg) selon la méthode de \newcite{porter1980suffixstripping} .
+%    En plus, nous observons des erreurs liées à l'utilisation des radicaux lors
+%    du calcul de la similarité de Jaccard. Des candidats tels que \og empire
+%    ottoman~\fg\ et \og définition empirique~\fg\ sont alors groupés du fait que
+%    les mots \og empire~\fg\ et \og empirique~\fg\ partagent le même radical
+%    (\og empir~\fg) selon la méthode de \newcite{porter1980suffixstripping} .
 
