@@ -3,49 +3,66 @@
   Keyphrases are single or multi-word expressions that represent the main topics
   of a document. Keyphrases are useful in many tasks such as information
   retrieval~\cite{medelyan2008smalltrainingset}, document
-  summarization~\cite{litvak2008graphbased} or document
-  clustering~\cite{han2007webdocumentclustering}. Since the last decade,
-  Internet has became the main source of information, but the available
-  documents are not always associated with keyphrases and the enrichment
-  provided by the mentioned tasks cannot be achieved. To allow these
-  enrichments, researchers tend to automatically extract keyphrases from
-  documents.
+  summarization~\cite{avanzo2005keyphrase}, document
+  clustering~\cite{han2007webdocumentclustering} or multi-sentence compression.
+  Since the last decade, information mediums such as Internet provide access to
+  a huge amount documents. Unfortunatelly, these documents are not always
+  associated with keyphrases and the enrichment provided by the mentioned tasks
+  cannot be achieved. To allow these enrichments, researchers tend to
+  automatically extract keyphrases from documents.
 
-  Automatic keyphrase extraction methods are divided into two categories:
-  supervised and unsupervised methods. Supervised methods typically recast the
-  keyphrase extraction as a binary classification task~\cite{witten1999kea}.
-  For unsupervised methods, keyphrase extraction is often considered as a
+  The automatic keyphrase exrtaction task consists in the selection of the most
+  important textual units contained within a document, i.e. the textual units
+  that best represent the content of the document they belong to. Automatic
+  keyphrase extraction methods are divided into two categories: supervised and
+  unsupervised methods. Supervised methods typically recast the keyphrase
+  extraction as a binary classification task~\cite{witten1999kea}. For
+  unsupervised methods, the keyphrase extraction is often considered as a
   ranking task and many approaches are
-  used~\cite{barker2000nounphrasehead,mihalcea2004textrank}. Although they work
-  differently, both supervised and unsupervised methods rely on a preliminary
-  candidate extraction step. The candidate extraction identifies single and
-  multi-word expressions that have the same syntactic properties than a
-  keyphrase. These expressions are the only textual units that can be extracted
-  as keyphrases. Therefore, keyphrase candidates play an important role for
-  automatic keyphrase extraction.
+  used~\cite{barker2000nounphrasehead,mihalcea2004textrank}.
+
+  Although supervised and unsupervised methods recast the keyphrase extraction
+  as a different task, they have similar processing steps. The analysed document
+  is first preprocessed to add linguistic knowledges, such as part-of-speech
+  (POS). Then the textual units that are assumed to be potential keyphrases are
+  extracted as keyphrase candidates. Finally, the keyphrase candidates are
+  either classyfied, as ``keyphrase'' or ``non-keyphrase'', or ranked, by
+  significance, to select the keyphrases of the document.
   
-  In this paper, we focus on the candidate extraction step. Various methods are
-  commonly employed to extract keyphrase candidates. Usually, filtered n-grams,
-  NP-chunks or word sequences matching given patterns are
-  extracted~\cite{hulth2003keywordextraction}. Despite the fact that some
-  researchers try to find more suitable keyphrase
-  candidates~\cite{hulth2003keywordextraction,kim2009reexaminingautomatickeyphraseextraction},
-  there is, in our knowledge, no work to compare the various methods which are
-  used. We seek to do this by comparing the performances of existing keyphrase
-  extraction methods depending on the employed candidate extraction and by
-  looking at the amount of extracted candidates and the maximum recall that can
-  be achieved for each. Also, we investigate the feasibility of using term as
-  candidate keyphrases. Terms are grammatically arranged sequences of words
-  designating a concept and treated as single units, namely terminological
-  phrases. Therefore, terms seem to be suitable for keyphrase candidate
-  extraction.
+  In this paper, we focus on the keyphrase candidate extraction step. This step
+  determines which textual units can or cannot be concidered during the
+  classification or the ranking. An actual keyphrase of a document can only be
+  extracted as a keyphrase if the candidate extraction succesfully determines
+  that it is a potential keyphrase. Also, erroneous candidates can make the
+  keyphrase extraction more difficult and must be avoided. For these reasons,
+  the keyphrase candidate extraction is one of the most critical step of the
+  keyphrase extraction task.
+
+  Various methods are commonly employed to extract keyphrase candidates.
+  Usually, either filtered n-grams, NP-chunks or word sequences matching given
+  patterns are extracted as keyphrase
+  candidates~\cite{hulth2003keywordextraction}. Some researchers, such as
+  \newcite{kim2009reexaminingautomatickeyphraseextraction}, try to find more
+  suitable keyphrase candidates, but there is, in our knowledge, no previous
+  work that tends to compare the existing methods and their impact on different
+  categories of keyphrase extraction methods. We seek to do this by quantifying
+  the capacity of the candidates extraction methods to provide suitable
+  candidates and to avoid erroneous ones. Also, we observe their impact on the
+  performances of relatively diferent keyphrase extraction methods.
+
+  Another contribution of this article the investigation of the usage of
+  terminological phrases (terms) as keyphrase candidates. Terms are
+  grammatically arranged sequences of words designating a concept and treated as
+  single units. Assuming that there is a relation between the notions of concept
+  and topic, we believe that terms are suitable for the keyphrase extraction
+  task.
 
   This paper is organized as follows.
   Section~\ref{sec:definition_of_candidate_keyphrases} presents our datasets and
   study their reference keyphrases, Section~\ref{sec:candidate_extraction}
   presents the candidate extraction and term extraction methods and
   Section~\ref{sec:keyphrase_extraction} describes the three keyphrase
-  extraction methods that we use in our evaluations presented in
+  extraction methods that we use in our evaluations, presented in
   Section~\ref{sec:evaluation}. Finally,
   Section~\ref{sec:conclusion} conclude this work.
 
@@ -134,9 +151,10 @@
         \addlinespace[.5\defaultaddspace]
         \bottomrule
       \end{tabular}
-      \caption{Training dataset statistics. As a matter of consistency regarding
-               the evaluation of keyphrase extraction methods, the missing
-               keyphrases are determined based on the stemmed forms.
+      \caption{Statistics of the training datasets.
+               %As a matter of consistency regarding
+               %the evaluation of keyphrase extraction methods, the missing
+               %keyphrases are determined based on the stemmed forms.
                \label{tab:train_dataset_statistics}}
     \end{table}
 
@@ -364,9 +382,10 @@
         Missing keyphrases & 2.8\% & 22.1\% & 21.1\% \\
         \bottomrule
       \end{tabular}
-      \caption{Test dataset statistics. As a matter of consistency regarding
-               the evaluation of keyphrase extraction methods, the missing
-               keyphrases are determined based on the stemmed forms.
+      \caption{Statistics of the test datasets.
+               %As a matter of consistency regarding
+               %the evaluation of keyphrase extraction methods, the missing
+               %keyphrases are determined based on the stemmed forms.
                \label{tab:test_dataset_statistics}}
     \end{table}
 
@@ -671,7 +690,7 @@
           \{1..2\}-grams & 10.2 & 14.1 & 11.7 & 11.9 & $~~$8.2 & $~~$9.6 & $~~$5.8 & 11.0 & $~~$7.5\\
           \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
           %\{1..4\}-grams & $~~$7.1 & $~~$9.7 & $~~$8.1 & & & & & & \\
-          Learned patterns & 14.9 & 19.8 & 16.7 & 12.2 & $~~$4.6 & \textbf{$~~$9.9} & $~~$8.8 & 16.1 & 11.3\\
+          Learned patterns & 14.9 & 19.8 & 16.7 & 12.2 & $~~$8.5 & \textbf{$~~$9.9} & $~~$8.8 & 16.1 & 11.3\\
           Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & 11.6 & 21.5 & \textbf{14.9}\\
           NP-chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
           Sub-compounds & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & \textbf{14.9}\\
