@@ -2,9 +2,9 @@
 \label{sec:section}
   Keyphrases are single or multi-word expressions that represent the main topics
   or concepts addressed in a document. Keyphrases are useful in many tasks such
-  as information retrieval~\cite{medelyan2008smalltrainingset}, document
-  summarization~\cite{avanzo2005keyphrase}, document
-  clustering~\cite{han2007webdocumentclustering} or multi-sentence
+  as document summarization~\cite{avanzo2005keyphrase}, document
+  clustering~\cite{han2007webdocumentclustering}, information
+  retrieval~\cite{medelyan2008smalltrainingset} or multi-sentence
   compression~\cite{boudin2013multisentencecompression}.
   Since the last decade, information mediums, such as Internet, give access to a
   huge amount of documents. Unfortunatelly, these documents are not always
@@ -12,9 +12,9 @@
   cannot be achieved. To allow these enrichments, researchers tend to
   automatically extract keyphrases.
 
-  The automatic keyphrase exrtaction task consists in the selection of the most
+  The automatic keyphrase extraction task consists in the selection of the most
   important textual units contained within a document, i.e.~the textual units
-  that best represent the content of the document. Automatic keyphrase
+  that represent the main content of the document. Automatic keyphrase
   extraction methods are divided into two categories: supervised and
   unsupervised methods. Supervised methods typically recast the keyphrase
   extraction as a binary classification task~\cite{witten1999kea}. For
@@ -23,12 +23,12 @@
   used~\cite{barker2000nounphrasehead,mihalcea2004textrank,ding2011binaryintegerprogramming}.
 
   Although supervised and unsupervised methods recast the keyphrase extraction
-  as a different task, they have similar processing steps. The analysed document
-  is first preprocessed to add linguistic knowledges, such as part-of-speech
-  tagging (POS tagging). Then the textual units that are assumed to be potential
-  keyphrases are extracted as keyphrase candidates. Finally, the keyphrase
-  candidates are either classyfied, as ``keyphrase'' or ``non-keyphrase'', or
-  ranked, by significance, to select the keyphrases of the document.
+  as a different task, they have similar processing steps. The analyzed document
+  is first preprocessed to add linguistic knowledge, such as part-of-speech tags
+  (POS tags). Then the textual units that are assumed to be potential keyphrases
+  are extracted as keyphrase candidates. Finally, the keyphrase candidates are
+  either classified, as ``keyphrase'' or ``non-keyphrase'', or ranked, by
+  significance, to select the keyphrases of the document.
   
   In this paper, we focus on the keyphrase candidate extraction step. This step
   determines which textual units can or cannot be concidered during the
@@ -42,24 +42,23 @@
   Various methods are commonly employed to extract keyphrase candidates.
   Usually, either filtered n-grams, NP-chunks or word sequences matching given
   patterns are extracted as keyphrase
-  candidates~\cite{hulth2003keywordextraction}, but some researchers, such as
+  candidates~\cite{hulth2003keywordextraction}. Also, some researchers, such as
   \newcite{kim2009reexaminingautomatickeyphraseextraction}, try to find more
   suitable keyphrase candidates. However, there is, in our knowledge, no
   previous work that tends to compare the existing methods and their impact on
   different categories of keyphrase extraction methods. We seek to do this by
   quantifying the capacity of the candidate extraction methods to provide
   suitable candidates and to avoid erroneous ones. Also, we observe their impact
-  on the performances of relatively diferent keyphrase extraction methods.
+  on the performances of relatively different keyphrase extraction methods.
 
-  Another contribution of this article is the testings with terminological
-  phrases (terms) as keyphrase candidates. Terms are grammatically arranged
-  sequences of words designating a concept and treated as single units. Hence,
-  we believe that term candidates are suitable for the keyphrase extraction
-  task.
+  Another contribution of this article is the usage of terminological phrases
+  (terms) as keyphrase candidates. Terms are grammatically arranged sequences of
+  words designating a concept and treated as single units. Hence, we believe
+  that term candidates are suitable for the keyphrase extraction task.
 
   This paper is organized as follows.
   Section~\ref{sec:definition_of_candidate_keyphrases} presents our datasets and
-  study their reference keyphrases, Section~\ref{sec:candidate_extraction}
+  studies their reference keyphrases, Section~\ref{sec:candidate_extraction}
   presents the candidate extraction and term extraction methods and
   Section~\ref{sec:keyphrase_extraction} describes the three keyphrase
   extraction methods that we use in our evaluations, presented in
@@ -68,8 +67,8 @@
 
 \section{Definition of Candidate Keyphrases}
 \label{sec:definition_of_candidate_keyphrases}
-  Candidate keyphrases are textual units which can be selected as keyphrases
-  of a document. Therefore, they must have the same syntactic properties than
+  Candidate keyphrases are the textual units that can be selected as keyphrases
+  of a document. Therefore, they must have the same syntactic properties as
   ground truth keyphrases. This section aims to determine those properties by
   analyzing three standard evaluation datasets.
 
@@ -177,7 +176,7 @@
     that the usage of prepositions and determiners is more frequent that in
     English. Also, unexpected part-of-speech, such as foreign words, are not
     rare in the DEFT dataset, which contains French scientific and
-    anthropological papers.
+    anthropological papers that reffers to foreign concepts.
 
     \begin{property}\label{prop:noun_phrases}
       Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by one
@@ -215,13 +214,13 @@
   The aim of the candidate extraction is to determine the textual units that
   could be extracted as keyphrases. This step removes noise, i.e.~unrelevant
   textual units that may deteriorate the performances of the keyphrase
-  extraction, and diminishes the execution time required to extract the
-  keyphrases. We distinguish two categories of candidates: the positive
-  candidates, which actually match with reference keyphrases, and the off-target
-  candidates, which do not match with reference keyphrases. Among the off-target
-  candidates, we also distinguish the information bearing candidates, which can
-  help to improve the keyphrase extraction, and the unrelevant candidates, which
-  are extraction errors.
+  extraction, and reduces the execution time required to extract the keyphrases.
+  We distinguish two categories of candidates: the positive candidates, which
+  actually match with reference keyphrases, and the off-target candidates, which
+  do not match with reference keyphrases. Among the off-target candidates, we
+  also distinguish the information bearing candidates, which can help to improve
+  the keyphrase extraction, and the unrelevant candidates, which are extraction
+  errors.
 
   In this section, we present the textual units that are commonly used or could
   be used as keyphrase candidates. We also discuss their consistency regarding
@@ -229,21 +228,25 @@
   Section~\ref{sec:definition_of_candidate_keyphrases}.
 
   \paragraph{N-grams} are ordered sequences of $n$ words. From a document, every
-  sequences of size $n$ are extracted, where $n = \{1..3\}$ in most
-  cases~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}.
+  sequences of size $n$ are extracted, where $n = \{1..3\}$ in most of previous
+  work~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}.
   Extracting n-grams is the best way to obtain as much positive or information
   bearing candidates as possible, but it also gives many unrelevant candidates.
   Therefore, the extracted candidates are filtered with a list of stop words
   (conjunctions, prepositions, determiners  and common words). N-grams
   containing a stop word at the first or the last position are not concidered as
-  keyphrase candidates~\cite{witten1999kea}.
+  keyphrase candidates~\cite{witten1999kea}. This candidate extraction method is
+  exhaustive and do not strictly fit Property~\ref{prop:informativity} and
+  Property~\ref{prop:noun_phrases}, i.e.~the candidate properties are not
+  homogeneous and not always fit Property~\ref{prop:informativity} and
+  Property~\ref{prop:noun_phrases}.
 
   \paragraph{Textual units matching given POS tag patterns} are textual units of
   a specific syntactic form. Extracting such textual units have the benefit to
-  assure the grammaticality and precisely define the nature of the candidates,
-  which is not the case with the n-gram extraction. In previous work,
-  \newcite{hulth2003keywordextraction} experiments with the frequent POS tag
-  patterns of her training data\footnote{Frequent patterns are the ones that
+  assure the grammaticality and to precisely define the nature of the
+  candidates, which is not the case with the n-gram extraction. In previous
+  work, \newcite{hulth2003keywordextraction} experiments with the frequent POS
+  tag patterns of her training data\footnote{Frequent patterns are the ones that
   appear at least ten times in the reference.}, whereas other researchers
   extract the longest sequences of nouns, proper nouns and adjectives, namely
   the longest NPs~\cite{wan2008expandrank,hassan2010conundrums}. Both approaches
@@ -314,7 +317,7 @@
   efficient than unsupervised methods.
 
   In this section, we present the three keyphrase extraction methods that we
-  chose for our work. The first method uses a collection of non-annotated
+  choose for our work. The first method uses a collection of non-annotated
   documents (TF-IDF), the second method only needs the analyzed document
   (TopicRank) and the last method requires annotated documents for a prior
   training (KEA).
@@ -322,7 +325,7 @@
   \paragraph{TF-IDF~\textnormal{\cite{jones1972tfidf}}} is a weighting scheme
   that represents the significance of a word in a given document. A significant
   word must be both frequent in the document (TF) and specific to it (IDF). The
-  specificity of a word is determined based on its appearrance within the
+  specificity of a word is determined based on its appearance within the
   documents of a given collection. The intuition is that the lower is the amount
   of documents containing a word, the higher is the specificity of the word.
 
@@ -339,18 +342,18 @@
   Jaccard similarity, candidates sharing enough words belong to the same topic.
   Secondly, the topics are used as graph nodes linked altogether by their
   semantic strength and ranked by significance. A topic strongly connected to
-  many topics is highly significant and gives more significancy to every topic
+  many topics is highly significant and gives more significance to each topic
   it is connected to. Finally, the $k$ most significant topics are selected and
   one candidate per each is chosen as a keyphrase. Assuming that a topic is
   first introduced by its generic form, the best keyphrase candidate for a topic
-  is the one that appears first into the document.
+  is the one that appears first within the document.
 
   \paragraph{KEA~\textnormal{\cite{witten1999kea}}} is a supervised method that
   uses a Naive Bayes classifier to extract keyphrases. The classifier combines
-  two feature probabilities: the TF-IDF weight of a keyphrase
-  candidate\footnote{The TF-IDF weight computed for KEA is based on candidate
-  frequency, not word frequency.} and the position of its first appearance in
-  the document.
+  two feature probabilities to give the class ``keyphrase'' or ``non-keyphrase''
+  to a candidate. The two features are the TF-IDF weight\footnote{The TF-IDF
+  weight computed for KEA is based on candidate frequency, not word frequency.}
+  of the candidate and the position of its first appearance in the document.
 
 \section{Evaluation}
 \label{sec:evaluation}
@@ -415,7 +418,7 @@
       (Rmax) that can be achieved.
 
       The performances of the keyphrase extraction methods are expressed in
-      terms of precision (P), recall (R) and f-score (f1-measure, F), when a
+      terms of precision (P), recall (R) and f-score (f1-measure, F) when a
       maximum of 10 keyphrases are extracted. To allow morphological variations
       and lessen the problem of missing keyphrases, extracted keyphrases and
       reference keyphrases are compared with the stemmed form of their words.
@@ -476,7 +479,7 @@
 
     \subsubsection{Method Settings}
     \label{subsubsec:method_settings}
-      The parameters of methods are chosen to fit as much as possible the
+      The parameters of the methods are chosen to fit as much as possible the
       keyphrase properties inferred from the training sets (see
       Section~\ref{sec:definition_of_candidate_keyphrases}).
 
@@ -492,14 +495,15 @@
       keyphrase POS tag patterns from the training documents and extracts
       textual units that match one of the patterns. The second method follows
       both Property~\ref{prop:noun_phrases} and previous work about keyphrase
-      extraction by looking for the longest sequences of nouns and adjectives,
-      supposedly the longest noun phrases.
+      extraction by looking for the longest sequences of nouns and
+      adjectives~\cite{wan2008expandrank,hassan2010conundrums}, supposedly the
+      longest noun phrases.
 
       The \textbf{NP-chunk extraction} is performed using pattern matching. Only
       basic patterns are used:
       \begin{itemize}
-        \item{Np+ $|$~(A+~Nc) $|$~Nc+, for English}
-        \item{Np+ $|$~(A?~Nc~A+) $|$~(A~Nc) $|$~Nc+, for French}
+        \item{Np+ $|$~(A+~Nc) $|$~Nc+, for English;}
+        \item{Np+ $|$~(A?~Nc~A+) $|$~(A~Nc) $|$~Nc+, for French.}
       \end{itemize}
 
 %      The \textbf{sub-compounding} method of
@@ -524,12 +528,23 @@
       the maximum recall is not significant compared to the drop in the number
       of candidates. Also, the extraction of textual units matching learned
       patterns seems to stand as a compromise between the extraction of n-grams
-      and the other extractions.
-      \TODO{talk about quality}
+      and the other extractions. Assuming that an important drop in the number
+      of candidates not followed by a significant decrease of the maximum recall
+      is an indicator of quality, the longest NPs and the NP-chunks are the best
+      candidates, followed by the learned patterns.
 
-      TermSuite provides a few candidates and do not allow a good maximum
-      recall.
-      \TODO{but its quality may tackle the problem (see figure 1)}
+      TermSuite provides a few candidates and does not allow a good maximum
+      recall. However, terminological phrases are coherant with our definition
+      of a keyphrases and consistant with both Property~\ref{prop:informativity}
+      and Property~\ref{prop:noun_phrases}. If the candidate set extracted by
+      TermSuite has a high quality, the performances of the keyphrase extraction
+      may not suffer from the important drop of the maximum recall.
+      Figure~\ref{fig:candidate_intersections} shows the intersections between
+      the n-gram candidates and the term candidates. We observe that n-grams
+      cover almost all the terms, but n-grams that are not within the terms
+      might be unrelevant candidates. The experiments of
+      Section~\ref{subsec:keyphrase_extraction} can confirm whether or not terms
+      are suitable for the keyphrase extraction task.
       \begin{figure*}
         \begin{minipage}{.32\linewidth}
           \centering
@@ -627,12 +642,21 @@
       quality of the candidate set improves.
 
       Globally, for every method the best performances are achieved when using
-      pattern matching (learned patterns, longest NPs and NP-chunks).
-      \TODO{it is due to the quality}
+      pattern matching (learned patterns, longest NPs and NP-chunks). This
+      observation confirms the assumption, made in
+      Section~\ref{subsec:candidate_extraction}, that a few candidates of a good
+      quality , i.e.~candidates that fit keyphrase properties, is better than
+      many candidates with various properties that not always fit with keyphrase
+      properties. In most cases, the longest NPs provide the best results,
+      conforting this usage in previous
+      work~\cite{wan2008expandrank,hassan2010conundrums,bougouin2013topicrank}.
 
-      When applied to domain specific datasets, such as SemEval and DEFT,
-      TermSuite candidates  lead to good performances.
-      \TODO{develop}
+      TermSuite candidates allow lower performances than the pattern matching
+      methods. However, the results are better than the ones obtained with
+      n-grams. Also, we observe competitive results with the pattern matching
+      methods when the dataset belongs to a specific domain (DEFT and SemEval).
+      Thus, terms are good candidates when the processed data belong to a known
+      domain.
 
       \begin{table*}
         \centering
@@ -736,17 +760,17 @@
   In this paper, we presented the candidate extraction step of the automatic
   keyphrase extraction task. This step provides the only textual units that can
   be selected as keyphrases for a document. Hence, extracting keyphrase
-  candidates is one of the most critical step of the keyphrase extraction.
+  candidates is one of the most critical step of the keyphrase extraction task.
   
   First, we inferred keyphrase properties from reference keyphrases provided
   along three standard evaluation datasets. Secondly, we presented various
-  candidate extraction methods and discuss the consistancy of the candidates
-  they provide with the inferred properties. Finally, we intrinsically and
-  extrinsically compared the keyphrase candidate extraction methods.
+  candidate extraction methods and discuss the consistancy with the inferred
+  properties. Finally, we intrinsically and extrinsically compared the keyphrase
+  candidate extraction methods.
 
   Our observation is that quality prevails over exhaustivity. A candidate set
   containing many candidates matching with reference keyphrases does not permit
   the best performances if it contains a huge amount of unrelevant candidates.
   This observation is true no matter the category of the keyphrase extraction
-  method that is employed. However, supervised methods seem to be less affected
-  by low quality candidate sets.
+  method. However, supervised methods seem to be less affected by low quality
+  candidate sets.
