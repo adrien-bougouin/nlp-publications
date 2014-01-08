@@ -463,8 +463,8 @@
         NP-chunks & $~~$149.9 & 76.0 & $~~$598.4 & 56.6 & $~~$812.3 & 63.0\\
         %Sub-compounds & $~~$171.8 & 90.6 & $~~$712.2 & 64.4 & $~~$934.0 & 61.1\\
         %Acabit & $~~~~$23.8 & 26.7 & $~~$132.1 & 17.6 & $~~$119.4 & 13.4\\
-        %TermSuite & $~~$161.7 & 46.1 & $~~$494.5 & 32.3 & $~~$646.9 & 52.8\\
-        TermSuite & $~~$161.8 & 46.1 & $~~$498.6 & 32.4 & $~~$647.0 & 52.8\\
+        %Terms & $~~$161.7 & 46.1 & $~~$494.5 & 32.3 & $~~$646.9 & 52.8\\
+        Terms & $~~$161.8 & 46.1 & $~~$498.6 & 32.4 & $~~$647.0 & 52.8\\
         \bottomrule
       \end{tabular}
       \caption{Candidate extraction statistics.
@@ -531,11 +531,11 @@
       and the other extractions. Assuming that an important drop in the number
       of candidates not followed by a significant decrease of the maximum recall
       is an indicator of quality, the longest NPs and the NP-chunks are the best
-      candidates, followed by the learned patterns.
+      candidates, followed by the candidates extracted from learned patterns.
 
       TermSuite provides a few candidates and does not allow a good maximum
       recall. However, terminological phrases are coherant with our definition
-      of a keyphrases and consistant with both Property~\ref{prop:informativity}
+      of a keyphrase and consistant with both Property~\ref{prop:informativity}
       and Property~\ref{prop:noun_phrases}. If the candidate set extracted by
       TermSuite has a high quality, the performances of the keyphrase extraction
       may not suffer from the important drop of the maximum recall.
@@ -551,7 +551,7 @@
           \subfigure[\textbf{DUC}\label{subfig1:candidate_intersections}]{
             \begin{overpic}[height=.9\linewidth]{include/duc_refs_term_suite_1_2_3_grams.eps}
               \put(5,45){$\{1..3\}$-grams}
-              \put(60,42){TermSuite}
+              \put(66,42){Terms}
               \put(80,72){Refs}
             \end{overpic}
           }
@@ -562,7 +562,7 @@
           \subfigure[\textbf{SemEval}\label{subfig2:candidate_intersections}]{
             \begin{overpic}[height=.9\linewidth]{include/semeval_refs_term_suite_1_2_3_grams.eps}
               \put(7,45){$\{1..3\}$-grams}
-              \put(62,40){TermSuite}
+              \put(68,40){Terms}
               \put(83,64){Refs}
             \end{overpic}
           }
@@ -573,7 +573,7 @@
           \subfigure[\textbf{DEFT}\label{subfig3:candidate_intersections}]{
             \begin{overpic}[height=.9\linewidth]{include/deft_refs_term_suite_1_2_3_grams.eps}
               \put(7,46){$\{1..3\}$-grams}
-              \put(64,45){TermSuite}
+              \put(70,45){Terms}
               \put(88,61){Refs}
             \end{overpic}
           }
@@ -642,8 +642,8 @@
       quality of the candidate set improves.
 
       Globally, for every method the best performances are achieved when using
-      pattern matching (learned patterns, longest NPs and NP-chunks). This
-      observation confirms the assumption, made in
+      pattern matching (candidates extracted from learned patterns, longest NPs
+      and NP-chunks). This observation confirms the assumption, made in
       Section~\ref{subsec:candidate_extraction}, that a few candidates of a good
       quality , i.e.~candidates that fit keyphrase properties, is better than
       many candidates with various properties that not always fit with keyphrase
@@ -674,8 +674,8 @@
           NP-chunks & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & \textbf{$~~$9.5} & $~~$9.6 & 17.9 & 12.3\\
           %Sub-compounds & 22.8 & 29.9 & 25.5 & 10.8 & $~~$7.2 & $~~$8.6 & $~~$9.2 & 17.2 & 11.9\\
           %Acabit & 15.3 & 19.6 & 17.0 & $~~$8.6 & $~~$6.1 & $~~$7.1 & $~~$2.4 & $~~$5.6 & $~~$3.3\\
-          %TermSuite & 17.4 & 23.2 & 19.6 & 11.5 & $~~$8.3 & \textbf{$~~$9.5} & 11.3 & 21.1 & \textbf{14.5}\\
-          TermSuite & 17.4 & 23.2 & 19.6 & 11.2 & $~~$8.1 & $~~$9.3 & 11.3 & 21.1 & \textbf{14.5}\\
+          %Terms & 17.4 & 23.2 & 19.6 & 11.5 & $~~$8.3 & \textbf{$~~$9.5} & 11.3 & 21.1 & \textbf{14.5}\\
+          Terms & 17.4 & 23.2 & 19.6 & 11.2 & $~~$8.1 & $~~$9.3 & 11.3 & 21.1 & \textbf{14.5}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
@@ -699,8 +699,8 @@
           %Sub-compounds & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & \textbf{14.9}\\
           %Acabit & 11.2 & 14.2 & 12.3 & 10.2 & $~~$7.1 & $~~$8.3 & $~~$3.4 & $~~$7.9 & $~~$4.7\\
           %TermSuite & 10.4 & 13.9 & 11.7 & $~~$8.8 & $~~$6.4 & $~~$7.4 & $~~$9.6 & 18.5 & 12.4\\
-          TermSuite & 10.4 & 13.9 & 11.7 & $~~$8.9 & $~~$6.5 & $~~$7.5 & $~~$9.6 & 18.5 & 12.4\\
-          %TermSuite clusters & $~~$5.7 & $~~$7.9 & $~~$6.5 & $~~$6.4 & $~~$4.7 & $~~$5.4 & $~~$8.7 & 16.0 & 11.2\\
+          Terms & 10.4 & 13.9 & 11.7 & $~~$8.9 & $~~$6.5 & $~~$7.5 & $~~$9.6 & 18.5 & 12.4\\
+          %Terms clusters & $~~$5.7 & $~~$7.9 & $~~$6.5 & $~~$6.4 & $~~$4.7 & $~~$5.4 & $~~$8.7 & 16.0 & 11.2\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
@@ -723,8 +723,8 @@
           NP-chunks & 13.5 & 18.6 & 15.4 & 19.5 & 13.7 & 16.0 & 14.3 & 26.8 & 18.4\\
           %Sub-compounds & 14.6 & 20.0 & \textbf{16.7} & 19.3 & 13.5 & 15.8 & 14.1 & 26.3 & 18.1\\
           %Acabit & 14.6 & 19.1 & 16.3 & 15.6 & 10.8 & 12.6 & $~~$4.7 & 10.5 & $~~$6.4\\
-          %TermSuite & 12.5 & 17.2 & 14.3 & 13.8 & 10.0 & 11.5 & 14.7 & 28.0 & \textbf{19.1}\\
-          TermSuite & 12.5 & 17.2 & 14.3 & 13.9 & 10.1 & 11.6 & 14.7 & 28.0 & \textbf{19.1}\\
+          %Terms & 12.5 & 17.2 & 14.3 & 13.8 & 10.0 & 11.5 & 14.7 & 28.0 & \textbf{19.1}\\
+          Terms & 12.5 & 17.2 & 14.3 & 13.9 & 10.1 & 11.6 & 14.7 & 28.0 & \textbf{19.1}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate extraction methods, when extracting 10
