@@ -287,32 +287,25 @@
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
-  The keyphrase extraction is the task of identifying single or multi-word
-  expressions that best represent a document. After the extraction of the
-  keyphrase candidates, an unsupervised or supervised method is applied to,
-  respectively, rank or classify the candidates. Unsupervised methods do not
-  need a human intervention, they may need a collection of non-annotated
-  documents (TF-IDF), a set of similar
-  documents~\cite[ExpandRank]{wan2008expandrank} or only the analyzed
-  document~\cite[TopicRank]{bougouin2013topicrank}. As for supervised methods,
-  such as KEA~\cite{witten1999kea}, they need manually annotated data to learn
-  what are keyphrases. Their learning phase makes supervised methods more
-  efficient than unsupervised methods.
+  Once keyphrase candidates are extracted, the second step of the keyphrase
+  extraction task is to classify them as ``keyphrase'', or ``non-keyphrase'', or
+  rank them and select the $k$ bests as keyphrases. Usually, the classification
+  is performed by supervised methods, whereas the ranking is performed by
+  unsupervised methods. Supervised methods are usually more efficient than
+  unsupervised methods, because they learn what are keyphrases based on
+  annotated data.
 
-  In this section, we present the three keyphrase extraction methods that we
-  choose for our work. The first method uses a collection of non-annotated
-  documents (TF-IDF), the second method only needs the analyzed document
-  (TopicRank) and the last method requires annotated documents for a prior
-  training (KEA).
+  In this section, we detail the three keyphrase extraction methods that we use
+  in our study.
 
   \paragraph{TF-IDF~\textnormal{\cite{jones1972tfidf}}} is a weighting scheme
   that represents the significance of a word in a given document. A significant
-  word must be both frequent in the document (TF) and specific to it (IDF). The
-  specificity of a word is determined based on its appearance within the
-  documents of a given collection. The intuition is that the lower is the amount
-  of documents containing a word, the higher is the specificity of the word.
+  word must be both frequent in the document and specific to it. The specificity
+  of a word is determined based on its appearance within the documents of a
+  given collection. The intuition is that the lower is the amount of documents
+  containing a word, the higher is the specificity of the word.
 
-  The keyphrase candidates are scored according to the sum of the TF-IDF weight
+  The keyphrase candidates are scored according to the sum of the TF-IDF weights
   of their words and the $k$ candidates with the highest scores are extracted as
   keyphrases.
 
@@ -321,15 +314,10 @@
   keyphrase is extracted from each of the $k$ most significant topics, leading
   to a set of topically unredundant keyphrases.
 
-  First, the keyphrase candidates are clustered by topics. According to a
-  Jaccard similarity, candidates sharing enough words belong to the same topic.
-  Secondly, the topics are used as graph nodes linked altogether by their
-  semantic strength and ranked by significance. A topic strongly connected to
-  many topics is highly significant and gives more significance to each topic
-  it is connected to. Finally, the $k$ most significant topics are selected and
-  one candidate per each is chosen as a keyphrase. Assuming that a topic is
-  first introduced by its generic form, the best keyphrase candidate for a topic
-  is the one that appears first within the document.
+  Keyphrase candidates are clustered into topics using a Jaccard similarity and
+  a Hierarchical Agglomerative Clustering, each topic is scored using the
+  TextRank random walk~\cite{mihalcea2004textrank} and one representative
+  keyphrase from each of the $k$ best ranked topics is extracted.
 
   \paragraph{KEA~\textnormal{\cite{witten1999kea}}} is a supervised method that
   uses a Naive Bayes classifier to extract keyphrases. The classifier combines
@@ -338,7 +326,7 @@
   weight computed for KEA is based on candidate frequency, not word frequency.}
   of the candidate and the position of its first appearance in the document.
 
-\section{Evaluation}
+\section{Experiments}
 \label{sec:evaluation}
   To better understand the candidate extraction methods, we perform two
   evaluations. The first evaluation shows the quantity of extracted candidates
@@ -346,7 +334,7 @@
   evaluation compares the candidate extraction method when they are used by
   either TF-IDF, TopicRank or KEA.
 
-  \subsection{Evaluation Settings}
+  \subsection{Experimental Settings}
   \label{subsec:evaluation_settings}
     \subsubsection{Datasets}
     \label{subsubsec:datasets}
