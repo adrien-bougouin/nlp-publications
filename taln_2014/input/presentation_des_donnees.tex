@@ -1,0 +1,107 @@
+\section{Présentation des données}
+\label{sec:presentation_des_donnees}
+  Pour évaluer la performance des méthodes non-supervisées état de l'art pour
+  l'extraction automatique de termes-clés dans divers domaines de spécialité,
+  nous disposons de cinq collections dont les documents appartiennent à des
+  disciplines différentes. Quatre collections, sur les cinq, représentent des
+  disciplines de SHS (Archéologie, Sciences de l'Information, Linguistique et
+  Psychologie), tandis que la cinquième représente la Chimie.
+
+  Le corpus d'\textbf{Archéologie} est composé de 718 notices bibliographiques
+  (résumés) fournies par l'Institut de l’Information Scientifique et
+  Technique\footnote{\url{http://www.inist.fr}} (notices INIST). Celles-ci
+  représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
+  (\textit{Paléo}\footnote{\url{http://paleo.revues.org}}, \textit{Le bulletin
+  de la Société préhistorique
+  française}\footnote{\url{http://www.prehistoire.org/515_p_21855/le-bulletin-de-la-spf.html}}, etc.).
+
+  Le corpus de \textbf{Sciences de l'Information} contient 706 notices INIST
+  d'articles publiés entre 2001 et 2012 dans six revues différentes
+  (\textit{Documentaliste -- Sciences de
+  l'information}\footnote{\url{http://www.cairn.info/revue-documentaliste-sciences-de-l-information.htm}},
+  \textit{Document
+  numérique}\footnote{\url{http://dn.revuesonline.com/accueil.jsp}}, etc.).
+
+  Le corpus de \textbf{Linguistique} est constitué de 716 notices INIST
+  d'articles parus entre 2000 à 2012 dans 12 revues différentes
+  (\textit{Linx -- Revue des linguistes de l'Université Paris Ouest Nanterre La
+  Défense}\footnote{\url{http://linx.revues.org}}, \textit{Travaux de
+  linguistique}\footnote{\url{http://www.cairn.info/revue-travaux-de-linguistique.htm}}, etc.).
+
+  Le corpus de \textbf{Psychologie} contient 720 notices INIST d'articles
+  publiés entre 2001 et 2012 dans sept revues différentes
+  (\textit{Enfance}\footnote{\url{http://www.cairn.info/revue-enfance.htm}},
+  \textit{Revue internationale de psychologie et de gestion des comportements
+  organisationnels}\footnote{\url{http://www.cairn.info/revue-internationale-de-psychosociologie-2005-25.htm}}, etc.)
+
+  Le corpus de \textbf{Chimie} est composé de 782 notices INIST d'articles
+  publiés entre 1983 et 2012 dans quatre revues (\textit{Comptes Rendus de
+  l'Académie des
+  Sciences}\footnote{\url{http://www.academie-sciences.fr/activite/cr.htm}},
+  \textit{Comptes Rendus
+  Chimie}\footnote{\url{http://www.elsevier.com/journals/comptes-rendus-chimie/1631-0748}}, etc.).
+
+  Les termes-clés de référence associés aux notices INIST sont obtenus
+  semi-automatiquement. Des indexeurs professionnels vérifient, corrigent et
+  complètent les sorties d'un système dont les entrées sont le document à
+  analyser et un référentiel terminologique. Le référentiel terminologique est
+  une liste (disciplinaire) de termes associés (manuellement) à des
+  déclencheurs, les déclencheurs étant des unités textuelles qui, lorsqu'elles
+  sont présente dans le document, impliquent l'usage du terme associé en tant
+  que terme-clé. En addition, les indexeurs disposent de règles d'indexation qui
+  précisent quels types d'informations doivent être présent dans les termes-clés
+  (e.g. en Archéologie il est important de connaître la période et la
+  localisation de ce qui fait l'objet de l'article).
+
+  Le tableau~\ref{tab:statistiques_des_corpus} présente les statistiques des
+  cinq collections de données présentées ci-dessus. Nous observons des
+  différences de tailles, avec les notices archéologiques qui contiennent plus
+  d'informations et les notices de chimie qui en contiennent moins. Après
+  observation du contenu de ces notices, nous remarquons que dans les notices
+  archéologiques il y a un effort de présentation du contexte historique de
+  l'article, tandis que dans les notices de chimie, les documents étant
+  composé de nombreux comptes rendus, parfois seuls les noms des expériences
+  réalisées et les noms des éléments chimiques qui entre en jeu sont donnés.
+  Nous remarquons aussi qu'en fonction des collections le nombre moyen de
+  termes-clés assignés aux document varie, d'environ six termes-clés en Sciences
+  de l'Information à environ 18 en Archéologie. Cette variation est due à
+  différents facteurs~:
+  \begin{itemize}
+    \item{taille des notices~: plus une notices contient d'informations, alors
+          il peut y avoir de termes-clés extraits~;}
+    \item{disponibilité du contenu de l'article~: les indexeurs ont parfois
+          accès aux articles intégraux afin de recueillir plus d'informations
+          utiles à l'extraction de termes-clés~;}
+    \item{référentiels terminologiques~: plus un référentiel est précis, plus il
+          contient de déclencheurs, alors plus le nombre de termes-clés extrait
+          peut être important~;}
+    \item{règles d'indexation~: plus il y a de types d'informations necessaire,
+          plus il y a de termes-clés qui doivent être extraits.}
+  \end{itemize}
+  Enfin, le nombre de mots qui composent un terme-clé varie selon les
+  disciplines. Ainsi, les termes-clés en Archéologie sont généralement des
+  entités nommées de type \textit{période} (\og{}Paléolithique\fg{},
+  \og{}Mésolithique\fg{}, \og{}Néolithique\fg{}, etc.) ou \textit{lieu}
+  (\og{}Asie\fg{}, \og{}Europe\fg{}, \og{}France\fg{}, etc.) composée d'un seul
+  mot, tandis que les termes-clés en Chimie sont principalement composés de
+  plusieurs mots du fait la spécialisation de certain termes tels qu'un
+  \og{}composé\fg{} qui peut être \og{}organique\fg{}, \og{}aliphatique\fg{} ou
+  encore \og{}éthylénique\fg{}.
+  \begin{table}
+    \centering
+    \begin{tabular}{@{~}r|ccccc@{~}}
+      \toprule
+        & & \textbf{Sciences} & & &\\
+        \textbf{Statistique} & \textbf{Archéologie} & \textbf{de} & \textbf{Linguistique} & \textbf{Psychologie} & \textbf{Chimie}\\
+        & & \textbf{l'Information} & & &\\
+      \hline
+        Documents & 718 & 706 & 716 & 720 & 782\\
+        Mots/doc. & 219,1 & 119,7 & 156,4 & 185,8 & 104,9\\
+        Termes-clés/doc. & 17,7 & 5,8 & 8,0 & 11,0 & 12,9\\
+        Mots/terme-clé & 1,3 & 1,7 & 1,7 & 1,6 & 2,2\\
+      \bottomrule
+    \end{tabular}
+    \caption{Statistiques des corpus disciplinaires.
+             \label{tab:statistiques_des_corpus}}
+  \end{table}
+

@@ -1,0 +1,68 @@
+\documentclass[10pt,a4paper,twoside]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+
+% faire les \usepackage dont vous avez besoin AVANT le \usepackage{jeptaln2012} 
+% add the \usepackage for you packages BEFORE the \usepackage{jeptaln2012}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\usepackage{talnrecital2013}
+\usepackage[frenchb]{babel}
+
+\pgfplotsset{compat=1.8}
+\usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
+
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+
+\title{Extraction de termes-clés dans des articles scientifiques~: analyse en domaine}
+
+\author{Adrien Bougouin \quad Florian Boudin \quad Béatrice Daille\\
+        {\small{LINA -- UMR CNRS 6241, 2 rue de la Houssinière 44322 Nantes Cedex 3, France\\ 
+         \texttt{prenom.nom@univ-nantes.fr}}}}
+
+\begin{document}
+
+\maketitle
+
+\resume{
+max. 150 mots\\
+}
+\abstract{Keyphrase Extraction in Scientific Papers: domain analysis}{
+}
+
+\motsClefs{Extraction de termes-clés, articles scientifiques, domaine de
+           spécialité}
+          {Keyphrase extraction, scientific papers, specific domain}
+
+%% Aller à la page suivante si nécessaire
+\newpage
+%%================================================================
+
+\input{input/introduction.tex}
+\input{input/etat_de_l_art.tex}
+\input{input/presentation_des_donnees.tex}
+\input{input/experiences.tex}
+\input{input/discussion.tex}
+\input{input/conclusion.tex}
+
+\section*{Remerciements}
+  Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche
+  portant la référence (ANR-12-CORD-0029).
+
+%%================================================================
+%% Note : si l'on préfère éviter de factoriser les crossrefs :
+%% bibtex -min-crossrefs 99 taln-exemple
+%%================================================================
+
+\bibliographystyle{apalike-fr}
+\bibliography{../biblio}
+
+%%================================================================
+\end{document}
+

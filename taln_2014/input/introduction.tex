@@ -1,0 +1,83 @@
+\section{Introduction}
+\label{sec:introduction}
+  % * définition de terme-clé, applications et enjeux
+  Un terme-clé est un mot ou une expression polylexicale qui représente un
+  concept important d'un document auquel il est associé. En pratique, plusieurs
+  termes-clés, représentant des concepts différents, sont associés à un même
+  document. Ils forment alors un ensemble de termes-clés à partir duquel il est
+  possible de déduire le contenu principal du document. Du fait de leur capacité
+  à synthétiser le contenu d'un document, les termes-clés sont utilisés dans
+  diverses applications en Recherche d'Information (RI)~: résumé
+  automatique~\cite{avanzo2005keyphrase}, classification de
+  documents~\cite{han2007webdocumentclustering}, indexation
+  automatique~\cite{medelyan2008smalltrainingset}, etc. Avec l'essor du
+  numérique, de plus en plus de documents (articles scientifiques, articles
+  journalistiques, etc.) sont accessibles depuis des médiums d'informations tels
+  que Internet. Afin d'efficacement stocker les documents pour permettre à un
+  utilisateur de rapidement trouver des documents et aussi de fournir un bref
+  aperçu de leur contenu, les tâches sus-mentionnées sont nécessaires.
+  Cependant, la majorité des documents ne sont pas associés avec des termes-clés
+  et l'ajout manuel de ces derniers n'est pas envisageable, compte tenu du
+  nombre important de documents numériques. Pour pallier ce problème, de plus en
+  plus de chercheurs s'intéressent à l'extraction automatique de termes-clés et
+  certaines campagnes d'évaluations, telles que DEFT~\cite{paroubek2012deft} et
+  SemEval~\cite{kim2010semeval}, proposent des tâches d'extraction automatique
+  de termes-clés.
+
+  % * qu'est-ce que l'extraction automatique de termes-clés
+  % * deux écoles : indexation libre et indexation contrôlée (assignation de
+  %                 termes-clés)
+  %   -> nous sommes de la première école
+  % * deux catégories de méthodes : supervisées et non-supervisées
+  %    -> en supervisé ils utilisent la structure des documents
+  %    -> très peu de travaux en non-supervisé (filtrage des candidats)
+  L'extraction automatique de termes-clés, ou indexation libre, est la tâche qui
+  consiste à extraire les unités textuelles les plus importantes d'un document,
+  en opposition à la tâche d'assignation automatique de termes-clés, ou
+  indexation contrôlée, qui consiste à assigner des termes-clés à partir d'une
+  terminologie donnée~\cite{paroubek2012deft}. Parmi les méthodes d'extraction
+  automatique de termes-clés existantes, nous distinguons deux catégories~: les
+  méthodes supervisées et les méthodes non-supervisées. Dans le cas supervisé,
+  la tâche d'extraction de termes-clés est considérée comme une tâche de
+  classification binaire~\cite{witten1999kea}, où il s'agit d'attribuer la
+  classe \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} aux
+  termes-clés candidats extraits du document. Une collection de documents
+  annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
+  de classification utilisant divers traits, allant de la simple fréquence aux
+  informations structurelles du document (titre, résumé, introduction,
+  conclusion, etc.). Dans le cas non-supervisé, les méthodes attribuent un
+  score d'importance à chaque candidat en fonction de divers indicateurs tels
+  que la fréquence et la position de la première occurrence dans le document.
+  Bien que les méthodes supervisées soient en général plus performantes, la
+  faible quantité de documents annotés en termes-clés disponibles, ainsi que la
+  forte dépendance des modèles de classification au type des documents à partir
+  desquels ils sont appris, poussent les chercheurs à s'intéresser de plus en
+  plus aux méthodes non-supervisées.
+
+  % * ici, on cherche à identifier l'échelle de difficulté d'indexation des
+  %   documents en Sciences Humaines et Sociales (SHS)
+  % * on dispose de 4 collections de notices de 4 disciplines différentes de
+  %   SHS + 1 collection de notices de chimie (science dure)
+  Dans cette article, nous nous intéressons à l'extraction non-supervisée de
+  termes-clés dans les articles scientifiques, et plus particulièrement à la
+  performance des méthodes état de l'art dans des domaines de spécialité. Au
+  moyen de cinq corpus disciplinaires, notre objectif est d'observer et
+  d'analyser l'échelle de difficulté pour l'extraction automatique de
+  termes-clés dans des articles scientifiques appartenant à cinq disciplines
+  différents~: Archéologie, Sciences de l'Information, Linguistique, Psychologie
+  et Chimie. Les quatre premières disciplines appartenant toutes au domaine des
+  Sciences Humaines et Sociales (SHS), qui est considéré comme une science
+  molle, notre travail permet aussi une comparaison des performances
+  d'extraction de termes-clés en science molle et en science dure.
+
+  % * annonce du plan
+  L'article est structuré comme suit. Un bref état de l'art des méthodes
+  d'extraction de termes-clés est donné dans la
+  section~\ref{sec:etat_de_l_art}, les données utilisées sont présentées dans la
+  section~\ref{sec:presentation_des_donnees} et les expériences menées, ainsi
+  que les résultats obtenus, sont décrits dans la section~\ref{sec:experiences}.
+  Enfin, une analyse des résultats est donnée dans la
+  section~\ref{sec:discussion}, puis une conclusion générale et des perspectives
+  de travaux futurs sont présentés en
+  section~\ref{sec:conclusion_et_perspectives}.
+
