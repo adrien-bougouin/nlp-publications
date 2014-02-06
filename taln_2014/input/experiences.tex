@@ -1,117 +1,101 @@
 \section{Expériences}
 \label{sec:experiences}
-  \subsection{Préparation des données}
-  \label{subsec:preparation_des_donnees}
+  Dans cette section, nous présentons les expériences menées dans le but
+  d'observer l'échelle de difficulté pour l'extraction automatique de
+  termes-clés en domaine de scpécialité. Deux méthodes non-supervisées
+  d'extraction automatique de termes-clés sont sélectionnées pour extraire les
+  termes-clés de chacune des collections présentées en
+  section~\ref{sec:presentation_des_donnees}, puis leur performance est évaluée
+  de sorte que moins les méthodes sont performante pour une discipline, plus
+  cette discipline est jugée difficile pour la tâche d'extraction automatique de
+  termes-clés.
 
   \subsection{Mesure d'évaluation}
   \label{subsec:mesure_d_evaluation}
+    La performance des méthodes d'extraction automatique de termes-clés est
+    exprimée avec la F1-mesure. Cette mesure est un compromis entre précision et
+    rappel, qui mesurent la capacité d'une méthode à respectivement minimiser le
+    nomber de faux positifs et maximiser le nombre de vrais positifs. Plus la
+    F1-mesure est élevée, meilleure est l'extraction de termes-clés. Afin de ne
+    pas considérer fausse l'extraction d'une variante flexionnelle d'un
+    terme-clé de référence, les opérations de comparaison sont effectuées à
+    partir de la forme radicale des mots.
 
-  \subsection{Systèmes d'extraction de termes-clés}
+  \subsection{Préparation des données}
+  \label{subsec:preparation_des_donnees}
+    Chaque document des collections de données utilisées subit les mêmes
+    prétraitements. Il est tout d'abord segmenté en phrases, puis en mots et
+    enfin étiqueté en parties du discours. La segmentation en mots est effectuée
+    par l'outil Bonsai, du Bonsai PCFG-LA
+    parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}}
+    et l'étiquetage en parties du discours est réalisé avec
+    MElt~\cite{denis2009melt}. Tous ces outils sont utilisés sans aucune
+    modification de leurs paramètres par défaut.
+
+  \subsection{Extraction des termes-clés candidats}
+  \label{subsec:extraction_des_termes_cles_candidats}
+    Après la préparation des données, l'étape à ne pas négliger est celle
+    de l'extraction des candidats. Dans notre cas, seules les unités textuelles
+    présentes dans le document peuvent être extraites en tant que termes-clés.
+    Cependant, extraire toutes les séquences de mots possibles n'est pas la
+    meilleure stratégie. En effet, plus il y a de candidats, plus il est
+    difficile d'extraire les termes-clés et plus le temps de calcul est
+    important. De ce fait, nous répétons nos expériences avec trois méthodes
+    d'extraction de candidats différentes, l'une extrayant les tri-grammes, une
+    autre les syntagmes nominaux et la dernière les termes. En adéquation avec
+    les travaux précédents, les tri-grammes sont filtrés avec une liste de mots
+    outils, qui regroupe les mots fonctionnels de la langue (conjonctions,
+    prépositions, etc.) et les mots courants (e.g. \og{}beaucoup\fg{},
+    \og{}près\fg{}, etc.). L'extraction de syntagmes nominaux est effectuée par
+    reconnaissance de formes, avec les patrons suivants~: \texttt{NP+~|
+    (A?~Nc~A+)~| (A~Nc)~| Nc+}. Quand aux termes, ceux-ci sont extraits avec
+    l'outil TermSuite~\cite{rocheteau2011termsuite}. Tout d'abord, une
+    terminologie par corpus est extraite par TermSuite (32 119 termes en
+    Archéologie, 16 557 termes en Sciences de l'Information, 21 330 termes en
+    linguistique, 24 680 termes en Psychologie et 21 020 termes en chimie), puis
+    seules les unités textuelles appartenant à la terminologie correspondante
+    sont extraites en tant que termes-clés candidats des documents.
+
+  \subsection{Extraction de termes-clés}
+  \label{subsec:extraction_de_termes_cles}
+    Afin d'avoir un meilleur aperçu des différences d'extraction de termes-clés
+    en fonction des disciplines, nous utilisons deux méthodes non-supervisées
+    employant des techniques différentes, la pondération
+    TF-IDF~\cite{jones1972tfidf} et la méthode
+    TopicRank~\cite{bougouin2013topicrank}.
+
+    Le principe de la méthode utilisant la pondération TF-IDF consiste à
+    extraite en tant que termes-clés les candidats contenant les mots les plus
+    importants (fort poids TF-IDF). Dans ce cas, un mot est considéré important
+    s'il est fréquent dans le document et s'il est spécifique à celui-ci. La
+    spécificité est déterminée à partir de la collection de documents. Un mot
+    est considéré comme spécifique lorsqu'il apparaît dans très peu de document.
+
+    La méthode TopicRank extrait les termes-clés d'un document à partir d'une
+    représentation sous forme de graphe de celui-ci. Tout d'abord, les
+    termes-clés candidats sont groupés par sujets, puis les sujets sont utilisés
+    pour construire un graphe complet dans lequel ils représentent chacun un
+    n\oe{}ud. L'algorithme d'ordonnancement
+    TextRank~\cite{mihalcea2004textrank} est ensuite appliqué au graphe afin
+    d'obtenir un score d'importance pour chaque sujet (n\oe{}ud). Enfin, les $k$
+    sujets les plus importants sont sélectionnés et, pour chacun d'eux, le
+    candidat le plus représentatif est extrait en tant que terme-clé. Dans la
+    méthode classique, le groupement en sujet est effectué avec une similarité
+    de Jaccard. Dans le cas de l'usage des termes comme termes-clés candidats,
+    nous décidons de tirer profit du groupement terme/variantes de TermSuite.
 
   \subsection{Résultats}
   \label{subsec:resultats}
-    %\begin{figure}
-    %  \centering
-    %  \begin{tikzpicture}
-    %    \begin{axis}[axis lines=left,
-    %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-    %                 xtick=data,
-    %                 enlarge x limits=0.125,
-    %                 x=.075\linewidth,
-    %                 xticklabel style={anchor=east, rotate=22.5},
-    %                 nodes near coords,
-    %                 nodes near coords align={vertical},
-    %                 every node near coord/.append style={font=\footnotesize},
-    %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
-    %                 y=0.01\linewidth,
-    %                 ymin=75,
-    %                 ymax=100,
-    %                 ybar,
-    %                 ylabel=Difficulté,
-    %                 ylabel style={at={(ticklabel* cs:1)},
-    %                               anchor=south,
-    %                               rotate=270}]
-    %      \addplot[red!66, fill=red!40] coordinates{
-    %        (Archéologie, 77.3)
-    %        (Sciences de l'Information, 87.1)
-    %        (Linguistique, 87.2)
-    %        (Psychologie, 87.8)
-    %        (Chimie, 89.5)
-    %      };
-    %    \end{axis}
-    %  \end{tikzpicture}
-    %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
-    %           \textbf{TF-IDF}.}
-    %\end{figure}
-    %\begin{figure}
-    %  \centering
-    %  \begin{tikzpicture}
-    %    \begin{axis}[axis lines=left,
-    %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-    %                 xtick=data,
-    %                 enlarge x limits=0.125,
-    %                 x=.075\linewidth,
-    %                 xticklabel style={anchor=east, rotate=22.5},
-    %                 nodes near coords,
-    %                 nodes near coords align={vertical},
-    %                 every node near coord/.append style={font=\footnotesize},
-    %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
-    %                 y=0.01\linewidth,
-    %                 ymin=75,
-    %                 ymax=100,
-    %                 ybar,
-    %                 ylabel=Difficulté,
-    %                 ylabel style={at={(ticklabel* cs:1)},
-    %                               anchor=south,
-    %                               rotate=270}]
-    %      \addplot[red!66, fill=red!40] coordinates{
-    %        (Archéologie, 89.4)
-    %        (Sciences de l'Information, 89.3)
-    %        (Linguistique, 90.7)
-    %        (Psychologie, 90.5)
-    %        (Chimie, 91)
-    %      };
-    %    \end{axis}
-    %  \end{tikzpicture}
-    %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
-    %           \textbf{SingleRank}.}
-    %\end{figure}
-    %\begin{figure}
-    %  \centering
-    %  \begin{tikzpicture}
-    %    \begin{axis}[axis lines=left,
-    %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-    %                 xtick=data,
-    %                 enlarge x limits=0.125,
-    %                 x=.075\linewidth,
-    %                 xticklabel style={anchor=east, rotate=22.5},
-    %                 nodes near coords,
-    %                 nodes near coords align={vertical},
-    %                 every node near coord/.append style={font=\footnotesize},
-    %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
-    %                 y=0.01\linewidth,
-    %                 ymin=75,
-    %                 ymax=100,
-    %                 ybar,
-    %                 ylabel=Difficulté,
-    %                 ylabel style={at={(ticklabel* cs:1)},
-    %                               anchor=south,
-    %                               rotate=270}]
-    %      \addplot[red!66, fill=red!40] coordinates{
-    %        (Archéologie, 78.8)
-    %        (Sciences de l'Information, 87.4)
-    %        (Linguistique, 87.5)
-    %        (Psychologie, 87.9)
-    %        (Chimie, 90.4)
-    %      };
-    %    \end{axis}
-    %  \end{tikzpicture}
-    %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
-    %           \textbf{TopicRank}.}
-    %\end{figure}
+    Les figures~\ref{fig:resultats_tri_grammes},
+    \ref{fig:resultats_syntagmes_nominaux} et \ref{fig:resultats_termes}
+    montrent la performance des méthodes d'extraction de termes-clés
+    lorsqu'elles extraient 10 termes-clés à partir, respectivement, des
+    tri-grammes, des syntagmes nominaux et des termes présents dans les
+    documents. Plus le f-score est élevé, plus nous supposons que l'extraction
+    de termes-clés est aisée.
     \begin{figure}
       \centering
-      \begin{tikzpicture}
+      \begin{tikzpicture}[scale=.75]
         \begin{axis}[axis lines=left,
                      symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
                      xtick=data,
@@ -121,7 +105,53 @@
                      nodes near coords,
                      nodes near coords align={vertical},
                      every node near coord/.append style={font=\scriptsize},
-                     ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 100},
+                     ytick={0, 10, 20, 30, 40, 50},
+                     y=0.01\linewidth,
+                     ymin=0,
+                     ymax=25,
+                     ybar=7.5pt,
+                     ylabel=F1-mesure (\%),
+                     ylabel style={at={(ticklabel* cs:1)},
+                                   anchor=south,
+                                   rotate=270}]
+          \addplot[black!66,
+                   pattern=north east lines,
+                   pattern color=black!40] coordinates{
+            (Archéologie, 17.8)
+            (Sciences de l'Information, 10.2)
+            (Linguistique, 11.2)
+            (Psychologie, 9.5)
+            (Chimie, 8.0)
+          };
+          \addplot[black!66,
+                   pattern=north west lines,
+                   pattern color=black!66] coordinates{
+            (Archéologie, 6.9)
+            (Sciences de l'Information, 5.1)
+            (Linguistique, 6.4)
+            (Psychologie, 5.3)
+            (Chimie, 3.7)
+          };
+          \legend{TF-IDF, TopicRank}
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Résultats de l'extraction de 10 termes-clés à partir des
+               tri-grammes.
+               \label{fig:resultats_tri_grammes}}
+    \end{figure}
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}[scale=.75]
+        \begin{axis}[axis lines=left,
+                     symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                     xtick=data,
+                     enlarge x limits=0.125,
+                     x=.1\linewidth,
+                     xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                     nodes near coords,
+                     nodes near coords align={vertical},
+                     every node near coord/.append style={font=\scriptsize},
+                     ytick={0, 10, 20, 30, 40, 50},
                      y=0.01\linewidth,
                      ymin=0,
                      ymax=25,
@@ -151,6 +181,54 @@
           \legend{TF-IDF, TopicRank}
         \end{axis}
       \end{tikzpicture}
-      \caption{Difficulté de la tâche d'extraction de 10 termes-clés.}
+      \caption{Résultats de l'extraction de 10 termes-clés à partir des
+               syntagmes nominaux.
+               \label{fig:resultats_syntagmes_nominaux}}
+    \end{figure}
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}[scale=.75]
+        \begin{axis}[axis lines=left,
+                     symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                     xtick=data,
+                     enlarge x limits=0.125,
+                     x=.1\linewidth,
+                     xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                     nodes near coords,
+                     nodes near coords align={vertical},
+                     every node near coord/.append style={font=\scriptsize},
+                     ytick={0, 10, 20, 30, 40, 50},
+                     y=0.01\linewidth,
+                     ymin=0,
+                     ymax=25,
+                     ybar=7.5pt,
+                     ylabel=F1-mesure (\%),
+                     ylabel style={at={(ticklabel* cs:1)},
+                                   anchor=south,
+                                   rotate=270}]
+          \addplot[black!66,
+                   pattern=north east lines,
+                   pattern color=black!40] coordinates{
+            (Archéologie, 19.2)
+            (Sciences de l'Information, 11.1)
+            (Linguistique, 12.7)
+            (Psychologie, 10.3)
+            (Chimie, 9.7)
+          };
+          \addplot[black!66,
+                   pattern=north west lines,
+                   pattern color=black!66] coordinates{
+            (Archéologie, 20.9)
+            (Sciences de l'Information, 9.9)
+            (Linguistique, 13.7)
+            (Psychologie, 11.5)
+            (Chimie, 8.8)
+          };
+          \legend{TF-IDF, TopicRank}
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Résultats de l'extraction de 10 termes-clés à partir des termes
+               extraits par TermSuite.
+               \label{fig:resultats_termes}}
     \end{figure}
 
