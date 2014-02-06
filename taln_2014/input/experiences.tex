@@ -1,146 +1,156 @@
 \section{Expériences}
 \label{sec:experiences}
-  %\begin{figure}
-  %  \centering
-  %  \begin{tikzpicture}
-  %    \begin{axis}[axis lines=left,
-  %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-  %                 xtick=data,
-  %                 enlarge x limits=0.125,
-  %                 x=.075\linewidth,
-  %                 xticklabel style={anchor=east, rotate=22.5},
-  %                 nodes near coords,
-  %                 nodes near coords align={vertical},
-  %                 every node near coord/.append style={font=\footnotesize},
-  %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
-  %                 y=0.01\linewidth,
-  %                 ymin=75,
-  %                 ymax=100,
-  %                 ybar,
-  %                 ylabel=Difficulté,
-  %                 ylabel style={at={(ticklabel* cs:1)},
-  %                               anchor=south,
-  %                               rotate=270}]
-  %      \addplot[red!66, fill=red!40] coordinates{
-  %        (Archéologie, 77.3)
-  %        (Sciences de l'Information, 87.1)
-  %        (Linguistique, 87.2)
-  %        (Psychologie, 87.8)
-  %        (Chimie, 89.5)
-  %      };
-  %    \end{axis}
-  %  \end{tikzpicture}
-  %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
-  %           \textbf{TF-IDF}.}
-  %\end{figure}
-  %\begin{figure}
-  %  \centering
-  %  \begin{tikzpicture}
-  %    \begin{axis}[axis lines=left,
-  %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-  %                 xtick=data,
-  %                 enlarge x limits=0.125,
-  %                 x=.075\linewidth,
-  %                 xticklabel style={anchor=east, rotate=22.5},
-  %                 nodes near coords,
-  %                 nodes near coords align={vertical},
-  %                 every node near coord/.append style={font=\footnotesize},
-  %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
-  %                 y=0.01\linewidth,
-  %                 ymin=75,
-  %                 ymax=100,
-  %                 ybar,
-  %                 ylabel=Difficulté,
-  %                 ylabel style={at={(ticklabel* cs:1)},
-  %                               anchor=south,
-  %                               rotate=270}]
-  %      \addplot[red!66, fill=red!40] coordinates{
-  %        (Archéologie, 89.4)
-  %        (Sciences de l'Information, 89.3)
-  %        (Linguistique, 90.7)
-  %        (Psychologie, 90.5)
-  %        (Chimie, 91)
-  %      };
-  %    \end{axis}
-  %  \end{tikzpicture}
-  %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
-  %           \textbf{SingleRank}.}
-  %\end{figure}
-  %\begin{figure}
-  %  \centering
-  %  \begin{tikzpicture}
-  %    \begin{axis}[axis lines=left,
-  %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-  %                 xtick=data,
-  %                 enlarge x limits=0.125,
-  %                 x=.075\linewidth,
-  %                 xticklabel style={anchor=east, rotate=22.5},
-  %                 nodes near coords,
-  %                 nodes near coords align={vertical},
-  %                 every node near coord/.append style={font=\footnotesize},
-  %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
-  %                 y=0.01\linewidth,
-  %                 ymin=75,
-  %                 ymax=100,
-  %                 ybar,
-  %                 ylabel=Difficulté,
-  %                 ylabel style={at={(ticklabel* cs:1)},
-  %                               anchor=south,
-  %                               rotate=270}]
-  %      \addplot[red!66, fill=red!40] coordinates{
-  %        (Archéologie, 78.8)
-  %        (Sciences de l'Information, 87.4)
-  %        (Linguistique, 87.5)
-  %        (Psychologie, 87.9)
-  %        (Chimie, 90.4)
-  %      };
-  %    \end{axis}
-  %  \end{tikzpicture}
-  %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
-  %           \textbf{TopicRank}.}
-  %\end{figure}
-  \begin{figure}
-    \centering
-    \begin{tikzpicture}
-      \begin{axis}[axis lines=left,
-                   symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-                   xtick=data,
-                   enlarge x limits=0.125,
-                   x=.1\linewidth,
-                   xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
-                   nodes near coords,
-                   nodes near coords align={vertical},
-                   every node near coord/.append style={font=\scriptsize},
-                   ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 100},
-                   y=0.01\linewidth,
-                   ymin=0,
-                   ymax=25,
-                   ybar=7.5pt,
-                   ylabel=F1-mesure (\%),
-                   ylabel style={at={(ticklabel* cs:1)},
-                                 anchor=south,
-                                 rotate=270}]
-        \addplot[black!66,
-                 pattern=north east lines,
-                 pattern color=black!40] coordinates{
-          (Archéologie, 22.7)
-          (Sciences de l'Information, 12.9)
-          (Linguistique, 12.8)
-          (Psychologie, 12.2)
-          (Chimie, 10.5)
-        };
-        \addplot[black!66,
-                 pattern=north west lines,
-                 pattern color=black!66] coordinates{
-          (Archéologie, 21.2)
-          (Sciences de l'Information, 12.6)
-          (Linguistique, 12.5)
-          (Psychologie, 12.1)
-          (Chimie, 9.6)
-        };
-        \legend{TF-IDF, TopicRank}
-      \end{axis}
-    \end{tikzpicture}
-    \caption{Difficulté de la tâche d'extraction de 10 termes-clés.}
-  \end{figure}
+  \subsection{Préparation des données}
+  \label{subsec:preparation_des_donnees}
+
+  \subsection{Mesure d'évaluation}
+  \label{subsec:mesure_d_evaluation}
+
+  \subsection{Systèmes d'extraction de termes-clés}
+
+  \subsection{Résultats}
+  \label{subsec:resultats}
+    %\begin{figure}
+    %  \centering
+    %  \begin{tikzpicture}
+    %    \begin{axis}[axis lines=left,
+    %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+    %                 xtick=data,
+    %                 enlarge x limits=0.125,
+    %                 x=.075\linewidth,
+    %                 xticklabel style={anchor=east, rotate=22.5},
+    %                 nodes near coords,
+    %                 nodes near coords align={vertical},
+    %                 every node near coord/.append style={font=\footnotesize},
+    %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
+    %                 y=0.01\linewidth,
+    %                 ymin=75,
+    %                 ymax=100,
+    %                 ybar,
+    %                 ylabel=Difficulté,
+    %                 ylabel style={at={(ticklabel* cs:1)},
+    %                               anchor=south,
+    %                               rotate=270}]
+    %      \addplot[red!66, fill=red!40] coordinates{
+    %        (Archéologie, 77.3)
+    %        (Sciences de l'Information, 87.1)
+    %        (Linguistique, 87.2)
+    %        (Psychologie, 87.8)
+    %        (Chimie, 89.5)
+    %      };
+    %    \end{axis}
+    %  \end{tikzpicture}
+    %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
+    %           \textbf{TF-IDF}.}
+    %\end{figure}
+    %\begin{figure}
+    %  \centering
+    %  \begin{tikzpicture}
+    %    \begin{axis}[axis lines=left,
+    %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+    %                 xtick=data,
+    %                 enlarge x limits=0.125,
+    %                 x=.075\linewidth,
+    %                 xticklabel style={anchor=east, rotate=22.5},
+    %                 nodes near coords,
+    %                 nodes near coords align={vertical},
+    %                 every node near coord/.append style={font=\footnotesize},
+    %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
+    %                 y=0.01\linewidth,
+    %                 ymin=75,
+    %                 ymax=100,
+    %                 ybar,
+    %                 ylabel=Difficulté,
+    %                 ylabel style={at={(ticklabel* cs:1)},
+    %                               anchor=south,
+    %                               rotate=270}]
+    %      \addplot[red!66, fill=red!40] coordinates{
+    %        (Archéologie, 89.4)
+    %        (Sciences de l'Information, 89.3)
+    %        (Linguistique, 90.7)
+    %        (Psychologie, 90.5)
+    %        (Chimie, 91)
+    %      };
+    %    \end{axis}
+    %  \end{tikzpicture}
+    %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
+    %           \textbf{SingleRank}.}
+    %\end{figure}
+    %\begin{figure}
+    %  \centering
+    %  \begin{tikzpicture}
+    %    \begin{axis}[axis lines=left,
+    %                 symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+    %                 xtick=data,
+    %                 enlarge x limits=0.125,
+    %                 x=.075\linewidth,
+    %                 xticklabel style={anchor=east, rotate=22.5},
+    %                 nodes near coords,
+    %                 nodes near coords align={vertical},
+    %                 every node near coord/.append style={font=\footnotesize},
+    %                 ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 85, 95, 105},
+    %                 y=0.01\linewidth,
+    %                 ymin=75,
+    %                 ymax=100,
+    %                 ybar,
+    %                 ylabel=Difficulté,
+    %                 ylabel style={at={(ticklabel* cs:1)},
+    %                               anchor=south,
+    %                               rotate=270}]
+    %      \addplot[red!66, fill=red!40] coordinates{
+    %        (Archéologie, 78.8)
+    %        (Sciences de l'Information, 87.4)
+    %        (Linguistique, 87.5)
+    %        (Psychologie, 87.9)
+    %        (Chimie, 90.4)
+    %      };
+    %    \end{axis}
+    %  \end{tikzpicture}
+    %  \caption{Difficulté de la tâche d'extraction de 10 termes-clés avec
+    %           \textbf{TopicRank}.}
+    %\end{figure}
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[axis lines=left,
+                     symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                     xtick=data,
+                     enlarge x limits=0.125,
+                     x=.1\linewidth,
+                     xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                     nodes near coords,
+                     nodes near coords align={vertical},
+                     every node near coord/.append style={font=\scriptsize},
+                     ytick={0, 10, 20, 30, 40, 50, 60, 70, 75, 80, 85, 90, 95, 100},
+                     y=0.01\linewidth,
+                     ymin=0,
+                     ymax=25,
+                     ybar=7.5pt,
+                     ylabel=F1-mesure (\%),
+                     ylabel style={at={(ticklabel* cs:1)},
+                                   anchor=south,
+                                   rotate=270}]
+          \addplot[black!66,
+                   pattern=north east lines,
+                   pattern color=black!40] coordinates{
+            (Archéologie, 22.7)
+            (Sciences de l'Information, 12.9)
+            (Linguistique, 12.8)
+            (Psychologie, 12.2)
+            (Chimie, 10.5)
+          };
+          \addplot[black!66,
+                   pattern=north west lines,
+                   pattern color=black!66] coordinates{
+            (Archéologie, 21.2)
+            (Sciences de l'Information, 12.6)
+            (Linguistique, 12.5)
+            (Psychologie, 12.1)
+            (Chimie, 9.6)
+          };
+          \legend{TF-IDF, TopicRank}
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Difficulté de la tâche d'extraction de 10 termes-clés.}
+    \end{figure}
 
