@@ -1,93 +1,80 @@
 \section{Présentation des données}
 \label{sec:presentation_des_donnees}
-  Pour évaluer la performance des méthodes non-supervisées état de l'art pour
-  l'extraction automatique de termes-clés dans divers domaines de spécialité,
-  nous disposons de cinq collections dont les documents appartiennent à des
-  disciplines différentes. Quatre collections, sur les cinq, représentent des
-  disciplines de SHS (Archéologie, Sciences de l'Information, Linguistique et
-  Psychologie), tandis que la cinquième représente la Chimie.
+  Nous disposons de cinq collections de notices bibliographiques (Archéologie,
+  Sciences de l'Information, Linguistique, Psychologie et Chimie) fournies par
+  l'Institut de l’Information Scientifique et
+  Technique\footnote{\url{http://www.inist.fr}} (INIST). Chacune de ces notices
+  INIST contient le titre et le résumé d'un article, ainsi que ses termes-clés
+  associés. Ces derniers sont obtenus semi-automatiquement~: des indexeurs
+  professionnels vérifient, corrigent et complètent les sorties d'un système
+  dont les entrées sont un document et un (ou plusieurs) référentiel(s)
+  terminologique(s). Un référentiel terminologique est une liste disciplinaire
+  de termes associés manuellement à des déclencheurs, i.e. des unités textuelles
+  qui, lorsqu'elles sont présentes dans le document, impliquent l'usage du terme
+  associé en tant que terme-clé. En addition, les indexeurs disposent de règles
+  d'indexation qui précisent quels types d'informations doivent être présents
+  dans l'ensemble de termes-clés (e.g. en Archéologie il est important de
+  connaître la période et la localisation de ce qui fait l'objet de l'article).
 
-  Le corpus d'\textbf{Archéologie} est composé de 718 notices bibliographiques
-  (résumés) fournies par l'Institut de l’Information Scientifique et
-  Technique\footnote{\url{http://www.inist.fr}} (notices INIST). Celles-ci
+  Le corpus d'\textbf{Archéologie} est composé de 718 notices INIST. Celles-ci
   représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
-  (\textit{Paléo}\footnote{\url{http://paleo.revues.org}}, \textit{Le bulletin
-  de la Société préhistorique
-  française}\footnote{\url{http://www.prehistoire.org/515_p_21855/le-bulletin-de-la-spf.html}}, etc.).
+  (\textit{Paléo}, \textit{Le bulletin de la Société préhistorique française},
+  etc.).
 
   Le corpus de \textbf{Sciences de l'Information} contient 706 notices INIST
   d'articles publiés entre 2001 et 2012 dans six revues différentes
-  (\textit{Documentaliste -- Sciences de
-  l'information}\footnote{\url{http://www.cairn.info/revue-documentaliste-sciences-de-l-information.htm}},
-  \textit{Document
-  numérique}\footnote{\url{http://dn.revuesonline.com/accueil.jsp}}, etc.).
+  (\textit{Documentaliste -- Sciences de l'information}, \textit{Document
+  numérique}, etc.).
 
   Le corpus de \textbf{Linguistique} est constitué de 716 notices INIST
   d'articles parus entre 2000 à 2012 dans 12 revues différentes
   (\textit{Linx -- Revue des linguistes de l'Université Paris Ouest Nanterre La
-  Défense}\footnote{\url{http://linx.revues.org}}, \textit{Travaux de
-  linguistique}\footnote{\url{http://www.cairn.info/revue-travaux-de-linguistique.htm}}, etc.).
+  Défense}, \textit{Travaux de linguistique}, etc.).
 
   Le corpus de \textbf{Psychologie} contient 720 notices INIST d'articles
   publiés entre 2001 et 2012 dans sept revues différentes
-  (\textit{Enfance}\footnote{\url{http://www.cairn.info/revue-enfance.htm}},
-  \textit{Revue internationale de psychologie et de gestion des comportements
-  organisationnels}\footnote{\url{http://www.cairn.info/revue-internationale-de-psychosociologie-2005-25.htm}}, etc.)
+  (\textit{Enfance}, \textit{Revue internationale de psychologie et de gestion
+  des comportements organisationnels}, etc.).
 
   Le corpus de \textbf{Chimie} est composé de 782 notices INIST d'articles
   publiés entre 1983 et 2012 dans quatre revues (\textit{Comptes Rendus de
-  l'Académie des
-  Sciences}\footnote{\url{http://www.academie-sciences.fr/activite/cr.htm}},
-  \textit{Comptes Rendus
-  Chimie}\footnote{\url{http://www.elsevier.com/journals/comptes-rendus-chimie/1631-0748}}, etc.).
-
-  Les termes-clés de référence associés aux notices INIST sont obtenus
-  semi-automatiquement. Des indexeurs professionnels vérifient, corrigent et
-  complètent les sorties d'un système dont les entrées sont le document à
-  analyser et un (ou plusieurs) référentiel(s) terminologique(s). Le référentiel
-  terminologique est une liste (disciplinaire) de termes associés (manuellement)
-  à des déclencheurs, les déclencheurs étant des unités textuelles qui,
-  lorsqu'elles sont présente dans le document, impliquent l'usage du terme
-  associé en tant que terme-clé. En addition, les indexeurs disposent de règles
-  d'indexation qui précisent quels types d'informations doivent être présents
-  dans les termes-clés (e.g. en Archéologie il est important de connaître la
-  période et la localisation de ce qui fait l'objet de l'article).
+  l'Académie des Sciences}, \textit{Comptes Rendus Chimie}, etc.).
 
   Le tableau~\ref{tab:statistiques_des_corpus} présente les statistiques des
-  cinq collections de données présentées ci-dessus. Nous observons des
-  différences de tailles, avec les notices archéologiques, qui contiennent plus
-  d'informations que les autres notices, et les notices de chimie, qui en
-  contiennent moins. Après observation du contenu de ces notices, nous
-  remarquons que dans les notices archéologiques il y a un effort de
-  présentation du contexte historique auquel s'intéresse l'article, tandis que
-  dans les notices de Chimie, un grand nombre des documents représentés étant
-  des comptes rendus, parfois seuls les noms des expériences réalisées et les
-  noms des éléments chimiques qui entre en jeu sont donnés. Nous remarquons
-  aussi qu'en fonction des collections, le nombre moyen de termes-clés assignés
-  aux documents varie, allant d'environ six termes-clés en Sciences de
-  l'Information à environ 18 en Archéologie. Cette variation est due à
-  différents facteurs~:
+  cinq collections de données présentées ci-dessus. Nous observons tout d'abord
+  une différence concernant la taille des documents. Les notices archéologiques
+  contiennent plus d'informations que les autres notices et les notices de
+  Chimie en contiennent moins. Ceci est dû au fait que les notices
+  archéologiques font l'objet d'un effort de présentation du contexte historique
+  auquel s'intéresse l'article, tandis que dans les notices de Chimie,
+  représentant en grande partie des comptes rendus, ne donnent parfois que les
+  noms des expériences réalisées et les noms des éléments chimiques qui entre en
+  jeu. Nous remarquons aussi qu'en fonction des collections, le nombre moyen de
+  termes-clés assignés aux documents varie de 5,8 termes-clés en Sciences de
+  l'Information à 17,7 en Archéologie. Cette variation est due à différents
+  facteurs~:
   \begin{itemize}
     \item{taille des notices~: plus une notice contient d'informations, alors
           plus il peut y avoir de termes-clés extraits~;}
     \item{disponibilité du contenu de l'article~: les indexeurs ont parfois
           accès aux articles intégraux afin de recueillir plus d'informations
           utiles à l'extraction de termes-clés~;}
-    \item{référentiels terminologiques~: plus un référentiel est précis, plus il
+    \item{référentiel terminologique~: plus un référentiel est précis, plus il
           contient de déclencheurs, alors plus le nombre de termes-clés extraits
           peut être important~;}
     \item{règles d'indexation~: plus il y a de types d'informations nécessaires,
           alors plus il doit y avoir de termes-clés à extraire.}
   \end{itemize}
-  Enfin, le nombre de mots qui composent un terme-clé varie selon les
-  disciplines. Ainsi, il est fréquent que les termes-clés en Archéologie soient
-  des entités nommées de type \textit{période} (\og{}Paléolithique\fg{},
-  \og{}Mésolithique\fg{}, \og{}Néolithique\fg{}, etc.) ou \textit{lieu}
-  (\og{}Asie\fg{}, \og{}Europe\fg{}, \og{}France\fg{}, etc.) composée d'un seul
-  mot, tandis que les termes-clés en Chimie sont principalement composés de
-  plusieurs mots, du fait la spécialisation systématique de certains termes tels
-  qu'un \og{}composé\fg{}, qui peut être \og{}organique\fg{},
-  \og{}aliphatique\fg{} ou encore \og{}éthylénique\fg{}.
+  Enfin, le nombre de mots qui composent un terme-clé varie aussi selon les
+  disciplines. En effet, il est fréquent que les termes-clés en Archéologie ne
+  soient composés que d'un seul mot, en général une entités nommées de type
+  \textit{période} (\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{},
+  \og{}Néolithique\fg{}, etc.) ou \textit{lieu} (\og{}Asie\fg{},
+  \og{}Europe\fg{}, \og{}France\fg{}, etc.), tandis que les termes-clés en
+  Chimie sont principalement composés de plusieurs mots, du fait la
+  spécialisation systématique de certains termes tels que \og{}composé\fg{}, qui
+  peut être \og{}organique\fg{}, \og{}aliphatique\fg{}, \og{}éthylénique\fg{},
+  etc.
   \begin{table}
     \centering
     \begin{tabular}{@{~}r|ccccc@{~}}

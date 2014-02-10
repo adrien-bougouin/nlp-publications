@@ -3,7 +3,7 @@
   % * définition de terme-clé, applications et enjeux
   Un terme-clé est un mot ou une expression polylexicale qui représente un
   concept important d'un document auquel il est associé. En pratique, plusieurs
-  termes-clés, représentant des concepts différents, sont associés à un même
+  termes-clés représentant des concepts différents sont associés à un même
   document. Ils forment alors un ensemble de termes-clés à partir duquel il est
   possible de déduire le contenu principal du document. Du fait de leur capacité
   à synthétiser le contenu d'un document, les termes-clés sont utilisés dans
@@ -13,13 +13,13 @@
   automatique~\cite{medelyan2008smalltrainingset}, etc. Avec l'essor du
   numérique, de plus en plus de documents (articles scientifiques, articles
   journalistiques, etc.) sont accessibles depuis des médiums d'informations tels
-  que Internet. Afin d'efficacement stocker les documents pour permettre à un
-  utilisateur de rapidement trouver des documents et aussi de fournir un bref
-  aperçu de leur contenu, les tâches sus-mentionnées sont nécessaires.
+  que Internet. Afin de permettre à un utilisateur de rapidement trouver des
+  documents, ainsi que d'avoir un bref aperçu de leur contenu, les tâches
+  sus-mentionnées sont nécessaires.
   Cependant, la majorité des documents ne sont pas associés avec des termes-clés
-  et l'ajout manuel de ces derniers n'est pas envisageable, compte tenu du
-  nombre important de documents numériques. Pour pallier ce problème, de plus en
-  plus de chercheurs s'intéressent à l'extraction automatique de termes-clés et
+  et, compte tenu du nombre important de documents numériques, l'ajout manuel de
+  ces derniers n'est pas envisageable. Pour pallier ce problème, de plus en plus
+  de chercheurs s'intéressent à l'extraction automatique de termes-clés et
   certaines campagnes d'évaluations, telles que DEFT~\cite{paroubek2012deft} et
   SemEval~\cite{kim2010semeval}, proposent des tâches d'extraction automatique
   de termes-clés.
@@ -43,8 +43,8 @@
   classe \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} aux
   termes-clés candidats extraits du document. Une collection de documents
   annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
-  de classification utilisant divers traits, allant de la simple fréquence aux
-  informations structurelles du document (titre, résumé, introduction,
+  de classification reposant sur divers traits, allant de la simple fréquence
+  aux informations structurelles du document (titre, résumé, introduction,
   conclusion, etc.). Dans le cas non-supervisé, les méthodes attribuent un
   score d'importance à chaque candidat en fonction de divers indicateurs tels
   que la fréquence et la position de la première occurrence dans le document.
@@ -60,19 +60,17 @@
   %   SHS + 1 collection de notices de chimie (science dure)
   Dans cette article, nous nous intéressons à l'extraction non-supervisée de
   termes-clés dans les articles scientifiques, et plus particulièrement à la
-  performance des méthodes état de l'art dans des domaines de spécialité. Au
-  moyen de cinq corpus disciplinaires, notre objectif est d'observer et
-  d'analyser l'échelle de difficulté pour l'extraction automatique de
-  termes-clés dans des articles scientifiques appartenant à cinq disciplines
-  différents~: Archéologie, Sciences de l'Information, Linguistique, Psychologie
-  et Chimie. Les quatre premières disciplines appartenant toutes au domaine des
-  Sciences Humaines et Sociales (SHS), qui est considéré comme une science
-  molle, notre travail permet aussi une comparaison des performances
-  d'extraction de termes-clés en science molle et en science dure.
+  performance des méthodes d'extraction de termes-clés dans des domaines de
+  spécialité. Au moyen de cinq corpus disciplinaires, notre objectif est
+  d'observer et d'analyser l'échelle de difficulté pour l'extraction
+  automatique de termes-clés dans des articles scientifiques appartenant à cinq
+  disciplines différentes~: Archéologie, Sciences de l'Information,
+  Linguistique, Psychologie et Chimie.
+  \TODO{Dire pourquoi nous nous intéressons aux méthodes non-supervisées}
+  \TODO{Dire pourquoi nous nous intéressons aux articles scientifiques}
 
   % * annonce du plan
-  L'article est structuré comme suit. Un bref état de l'art des méthodes
-  d'extraction de termes-clés est donné dans la
+  L'article est structuré comme suit. Un bref état de l'art est donné dans la
   section~\ref{sec:etat_de_l_art}, les données utilisées sont présentées dans la
   section~\ref{sec:presentation_des_donnees} et les expériences menées, ainsi
   que les résultats obtenus, sont décrits dans la section~\ref{sec:experiences}.
