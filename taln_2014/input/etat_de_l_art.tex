@@ -1,56 +1,52 @@
 \section{État de l'art}
 \label{sec:etat_de_l_art}
-  \TODO{Référence à l'état de l'art RECITAL + présentation des travaux en
-        domaine de spécialité ou pour des documents de nature spécifique
-        (scientifique).}
-  \textcolor{red}{\lipsum[1-6]}
-%  \begin{figure}
-%    \tikzstyle{io}=[
-%      ellipse,
-%      minimum width=5cm,
-%      minimum height=2cm,
-%      fill=green!20,
-%      draw=green!33,
-%      transform shape,
-%      font={\huge}
-%    ]
-%    \tikzstyle{component}=[
-%      text centered,
-%      thick,
-%      rectangle,
-%      minimum width=11cm,
-%      minimum height=2cm,
-%      fill=cyan!20,
-%      draw=cyan!33,
-%      transform shape,
-%      font={\huge\bfseries}
-%    ]
-%
-%    \centering
-%    \begin{tikzpicture}[thin,
-%                        align=center,
-%                        scale=.45,
-%                        node distance=2cm,
-%                        every node/.style={text centered, transform shape}]
-%      \node[io] (document) {document};
-%      \node[component] (preprocessing) [right=of document] {Prétraitement Linguistique};
-%      \node[component] (candidate_extraction) [below=of preprocessing] {Extraction des candidats};
-%      \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
-%        \begin{tabular}{r|lcl}
-%          Classification & \multirow{2}{*}[-1.5pt]{des candidats}\\
-%          Ordonnancement &
-%        \end{tabular}
-%      };
-%      \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés};
-%      \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
-%
-%      \path[->, thick] (document) edge (preprocessing);
-%      \path[->, thick] (preprocessing) edge (candidate_extraction);
-%      \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
-%      \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
-%      \path[->, thick] (keyphrase_selection) edge (keyphrases);
-%    \end{tikzpicture}
-%    \caption{Principales étapes de l'extraction automatique de termes-clés.
-%             \label{fig:etapes_de_l_extraction_de_termes_cles}}
-%  \end{figure}
+  Qu'elles soient conçues pour des documents de nature ou de domaine spécifique,
+  les méthodes d'extraction de termes-clés fonctionnent toujours selon le même
+  principe~: préparation des données, puis extraction des termes-clés candidats,
+  puis classification ou ordonnancement des candidats, puis sélection des
+  candidats à extraire comme termes-clés. Dans cette section, nous ne présentons
+  que les travaux relatifs à l'extraction automatique de termes-clés dans des
+  documents de nature scientifique. Pour plus de détails sur les différentes
+  méthodes d'extraction automatique de termes-clés, un état de l'art est
+  disponible dans~\cite{bougouin2013stateoftheart}.
+
+  Dans les travaux précédents, l'accent est mis sur la structure des documents.
+  En effet, les articles scientifiques sont divisés en sections qui structurent
+  le contenu. Ces sections ont des fonctions différentes (résumé, introduction,
+  conclusion, etc.), le contenu de certaines d'entre elles est donc plus
+  représentatif du contenu du document que le contenu d'autres
+  sections~\cite{shah2003wherearethekeywords}. Dans le cas supervisé,
+  \newcite{nguyen2007keadocumentstructure} définissent 14 sections génériques
+  (résumé, introduction, conclusion, état de l'art, motivations, etc.) qu'ils
+  utilisent comme traits supplémentaire pour améliorer la méthode
+  KEA~\cite{witten1999kea}. Dans le cas non-supervisé,
+  \newcite{hofmann2009impactofdocumentstructure} définissent six sections
+  génériques (introduction, contexte, méthode, résultats, discussion,
+  conclusion) et expérimentent en extrayant les termes-clés à partir de l'une ou
+  l'autre de ces sections. Leurs résultats montrent que la section de
+  discussion, ne contenant en moyenne que 79\% des termes-clés candidats, est la
+  section la plus utile pour l'extraction de termes-clés.
+
+  D'autres approches que l'usage de la structure du document sont proposées dans
+  les méthodes non-supervisées.
+  \newcite{wu2005domainspecifickeyphraseextraction} utilisent une base de
+  données, construite manuellement, contenant les mots- et termes-clés
+  spécifiques au domaine des documents traités. Chacun de ces mots- et
+  termes-clés sont pondérés selon leur spécificité au domaine et utilisés pour
+  donner un score d'importance aux termes-clés candidat. Plus un terme-clés
+  candidat est fréquent et plus il contient de mots- ou termes-clés spécifiques,
+  alors plus il est important. \newcite{kim2009termextraction} s'intéressent
+  aussi à l'usage de la notion de spécificité pour l'extraction de termes-clés
+  dans les articles scientifiques. Dans leur méthode, ils utilisent la
+  pondération TF-IDF~\cite{jones1972tfidf} comme indice de spécificité pour
+  filtrer les unités textuelles lors de l'extraction des candidats.
+
+  \newcite{bertels2012etudesemantiquedesmotscles} proposent aussi une étude des
+  termes-clés en domaine de spécialité. Celle-ci porte sur la sémantique des
+  termes-clés dans une collection de documents traitant des machines outils pour
+  l'usinage des métaux. Dans cet article, nous n'étudions pas la sémantique des
+  termes-clés dans les domaines représentés par nos collections, mais une telle
+  étude est intéressante. En effet, une forte tendance à la polysémie implique
+  une forte ambiguïté des termes-clés candidats et donc une augmentation de la
+  difficulté de l'extraction des termes-clés.
 
