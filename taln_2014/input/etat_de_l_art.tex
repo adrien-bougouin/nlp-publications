@@ -4,8 +4,8 @@
   les méthodes d'extraction de termes-clés fonctionnent toujours selon le même
   principe~: préparation des données, puis extraction des termes-clés candidats,
   puis classification ou ordonnancement des candidats, puis sélection des
-  candidats à extraire comme termes-clés. Dans cette section, nous ne présentons
-  que les travaux relatifs à l'extraction automatique de termes-clés dans des
+  candidats à extraire comme termes-clés. Dans cette section, nous présentons
+  les travaux relatifs à l'extraction automatique de termes-clés dans des
   documents de nature scientifique. Pour plus de détails sur les différentes
   méthodes d'extraction automatique de termes-clés, un état de l'art est
   disponible dans~\cite{bougouin2013stateoftheart}.
@@ -13,7 +13,7 @@
   Dans les travaux précédents, l'accent est mis sur la structure des documents.
   En effet, les articles scientifiques sont divisés en sections qui structurent
   le contenu. Ces sections ont des fonctions différentes (résumé, introduction,
-  conclusion, etc.), le contenu de certaines d'entre elles est donc plus
+  conclusion, etc.) et le contenu de certaines d'entre elles est donc plus
   représentatif du contenu du document que le contenu d'autres
   sections~\cite{shah2003wherearethekeywords}. Dans le cas supervisé,
   \newcite{nguyen2007keadocumentstructure} définissent 14 sections génériques
@@ -24,8 +24,8 @@
   génériques (introduction, contexte, méthode, résultats, discussion,
   conclusion) et expérimentent en extrayant les termes-clés à partir de l'une ou
   l'autre de ces sections. Leurs résultats montrent que la section de
-  discussion, ne contenant en moyenne que 79\% des termes-clés candidats, est la
-  section la plus utile pour l'extraction de termes-clés.
+  discussion, ne contenant en moyenne que 79\% de tous les termes-clés
+  candidats, est la section la plus utile pour l'extraction de termes-clés.
 
   D'autres approches que l'usage de la structure du document sont proposées dans
   les méthodes non-supervisées.
@@ -37,16 +37,16 @@
   candidat est fréquent et plus il contient de mots- ou termes-clés spécifiques,
   alors plus il est important. \newcite{kim2009termextraction} s'intéressent
   aussi à l'usage de la notion de spécificité pour l'extraction de termes-clés
-  dans les articles scientifiques. Dans leur méthode, ils utilisent la
-  pondération TF-IDF~\cite{jones1972tfidf} comme indice de spécificité pour
+  dans les articles scientifiques. Dans leur méthode, ils proposent d'utiliser
+  la pondération TF-IDF~\cite{jones1972tfidf} comme indice de spécificité pour
   filtrer les unités textuelles lors de l'extraction des candidats.
 
   \newcite{bertels2012etudesemantiquedesmotscles} proposent aussi une étude des
   termes-clés en domaine de spécialité. Celle-ci porte sur la sémantique des
-  termes-clés dans une collection de documents traitant des machines outils pour
-  l'usinage des métaux. Dans cet article, nous n'étudions pas la sémantique des
-  termes-clés dans les domaines représentés par nos collections, mais une telle
-  étude est intéressante. En effet, une forte tendance à la polysémie implique
-  une forte ambiguïté des termes-clés candidats et donc une augmentation de la
-  difficulté de l'extraction des termes-clés.
+  termes-clés dans une collection de documents techniques traitant des machines
+  outils pour l'usinage des métaux. Dans cet article, nous n'étudions pas la
+  sémantique des termes-clés dans les domaines représentés par nos collections,
+  mais une telle étude est intéressante. En effet, une forte tendance à la
+  polysémie implique une forte ambiguïté des termes-clés candidats et donc une
+  augmentation de la difficulté de l'extraction des termes-clés.
 

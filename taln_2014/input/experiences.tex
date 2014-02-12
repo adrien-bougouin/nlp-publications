@@ -5,18 +5,19 @@
   termes-clés en domaine de spécialité. Deux méthodes non-supervisées
   d'extraction automatique de termes-clés sont sélectionnées pour extraire les
   termes-clés puis leur performance est évaluée pour chacune des cinq
-  collections (cf. section~\ref{sec:presentation_des_donnees}).
+  collections présentées dans la section~\ref{sec:presentation_des_donnees}.
 
   \subsection{Mesure d'évaluation}
   \label{subsec:mesure_d_evaluation}
     La performance des méthodes d'extraction automatique de termes-clés est
-    exprimée avec la F1-mesure. Cette mesure est un compromis entre précision et
-    rappel, qui mesurent la capacité d'une méthode à, respectivement, minimiser
-    le nombre de faux positifs et maximiser le nombre de vrais positifs. Dans
-    notre évaluation, nous concidérons correcte l'extraction d'une variante
-    flexionnelle d'un terme-clé de référence. Les opérations de comparaison sont
-    donc effectuées à partir de la forme radicale des mots des termes-clés
-    (extraits et de référence).
+    exprimée avec la F1-mesure. Cette mesure est un compromis entre la précision
+    et le rappel, qui mesurent la capacité d'une méthode à, respectivement,
+    minimiser le nombre de faux positifs et maximiser le nombre de vrais
+    positifs. Dans notre évaluation, nous concidérons correcte l'extraction
+    d'une variante flexionnelle d'un terme-clé de référence. Les opérations de
+    comparaison entre les termes-clés de référence et les termes-clés extraits
+    sont donc effectuées à partir de la forme radicale des mots qui les
+    composent.
 
   \subsection{Préparation des données}
   \label{subsec:preparation_des_donnees}
@@ -55,10 +56,10 @@
     Après la préparation des données, l'étape à ne pas négliger est celle
     de l'extraction des candidats. Dans notre cas, seules les unités textuelles
     présentes dans le document peuvent être extraites en tant que termes-clés.
-    Cependant, utiliser toutes les séquences de mots possibles en tant que
+    Cependant, utiliser toutes les séquences de mots possibles ensemble de
     termes-clés candidats n'est pas la meilleure stratégie. En effet, plus il y
-    a de candidats, plus il peut être difficile d'extraire les termes-clés et
-    plus le temps de calcul est important. De ce fait, nous répétons nos
+    a de candidats, alors plus il peut être difficile d'extraire les termes-clés
+    et plus le temps de calcul est important. De ce fait, nous répétons nos
     expériences avec deux méthodes d'extraction de candidats différentes, l'une
     extrayant des tri-grammes et l'autre des termes. En adéquation avec les
     travaux précédents~\cite{witten1999kea}, les tri-grammes sont filtrés avec
@@ -66,17 +67,17 @@
     (conjonctions, prépositions, etc.) et les mots courants (e.g.
     \og{}beaucoup\fg{}, \og{}près\fg{}, etc.). Quand aux termes, ceux-ci sont
     extraits avec l'outil d'extraction terminologique mono- et multilingue
-    TermSuite~\cite{rocheteau2011termsuite}. Tout d'abord, une terminologie par
-    corpus est extraite (32 119 termes en Archéologie, 16 557 termes en Sciences
-    de l'Information, 21 330 termes en linguistique, 24 680 termes en
-    Psychologie et 21 020 termes en chimie), puis seules les unités textuelles
-    appartenant à la terminologie correspondante sont extraites en tant que
-    termes-clés candidats des documents.
+    TermSuite~\cite{rocheteau2011termsuite}. Une terminologie par discipline est
+    préalablement extraite des corpus (32~119 termes en Archéologie, 16~557
+    termes en Sciences de l'Information, 21~330 termes en linguistique, 24~680
+    termes en Psychologie et 21~020 termes en chimie) afin de n'extraire des
+    documents que les unités textuelles appartenant à la terminologie de la
+    discipline du document.
 
   \subsection{Extraction de termes-clés}
   \label{subsec:extraction_de_termes_cles}
-    Afin d'avoir un meilleur aperçu des différences d'extraction de termes-clés
-    en fonction des disciplines, nous utilisons deux méthodes non-supervisées
+    Afin d'avoir un meilleur aperçu de la difficulté d'extraction de termes-clés
+    selon les disciplines, nous utilisons deux méthodes non-supervisées
     employant des techniques différentes, une méthode reposant sur la
     pondération TF-IDF~\cite{jones1972tfidf} et la méthode
     TopicRank~\cite{bougouin2013topicrank}.
@@ -85,7 +86,7 @@
     extraite en tant que termes-clés les candidats contenant les mots les plus
     importants (fort poids TF-IDF). Un mot est considéré important s'il est
     fréquent dans le document et s'il est spécifique à celui-ci. La spécificité
-    est déterminée à partir de la collection de documents et un mot est
+    est déterminée à partir tous les documents de la collection. Un mot est
     considéré comme spécifique lorsqu'il apparaît dans très peu de documents.
 
     La méthode TopicRank extrait les termes-clés d'un document à partir d'une
@@ -97,7 +98,7 @@
     score d'importance pour chaque n\oe{}ud du graphe. Enfin, les $k$ sujets les
     plus importants, selon TextRank, sont sélectionnés et, pour chacun d'eux, le
     candidat le plus représentatif est extrait en tant que terme-clé. Dans la
-    méthode originale, le groupement en sujet est effectué avec une similarité
+    méthode originale, le groupement en sujet est effectué par similarité
     lexicale. Lorsque les termes-clés candidats sont les termes extraits par
     TermSuite, nous utilisons le groupement terme/variantes de TermSuite à la
     place de la similarité lexicale.
@@ -248,13 +249,13 @@
     se veut être la discipline la plus facile pour la tâche d'extraction de
     termes-clés, en opposition avec la Chimie qui, elle, est la plus difficile.
     Quant aux Sciences de l'Information, à la Linguistique et à la Psychologie,
-    celles-ci ont sensiblement le même degré de difficulté. En comparant les
-    résultats obtenus en fonction de différentes méthodes d'extraction de
-    candidats et d'extraction de termes-clés, nous observons que l'usage de
-    tri-grammes rend la tâche plus difficile, surtout lorsqu'une méthode telle
-    que TopicRank ne tient en aucun cas compte de la spécificité des candidats.
-    Cependant, lorsque les candidats sont contrôlés d'un point de vue
-    terminologique, comme c'est le cas avec les termes extraits par TermSuite,
-    TopicRank donne de meilleurs résultats que la pondération TF-IDF.
-    \TODO{À développer}
+    celles-ci ont sensiblement le même degré de difficulté. Les deux méthodes
+    d'extraction de termes-clés se distinguent aussi par leur comportement. La
+    méthode TF-IDF est plus stable que TopicRank lorsque l'on compare les
+    résultats obtenus à partir des tri-grammes et des termes. En effet, en
+    comparaison avec l'ensemble de termes, l'ensemble de tri-grammes contient
+    plus de candidats non pertinants qui dégradent la qualité des groupements en
+    sujets de TopicRank, tandis que la notion de spécificité incorporée dans
+    TF-IDF permet de placer ces candidats en queue du classement et donc de
+    diminuer leur effet négatif.
 
