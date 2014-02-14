@@ -1,0 +1,56 @@
+\section{Extraction automatique de termes-clés}
+\label{sec:extraction_automatique_de_termes_cles}
+  \subsection{Extraction des termes-clés candidats}
+  \label{subsec:extraction_de_termes_cles_candidats}
+    \TODO{Tout revoir.}
+    Après la préparation des données, l'étape à ne pas négliger est celle
+    de l'extraction des candidats. Dans notre cas, seules les unités textuelles
+    présentes dans le document peuvent être extraites en tant que termes-clés.
+    Cependant, utiliser toutes les séquences de mots possibles ensemble de
+    termes-clés candidats n'est pas la meilleure stratégie. En effet, plus il y
+    a de candidats, alors plus il peut être difficile d'extraire les termes-clés
+    et plus le temps de calcul est important. De ce fait, nous répétons nos
+    expériences avec deux méthodes d'extraction de candidats différentes, l'une
+    extrayant des tri-grammes et l'autre des termes. En adéquation avec les
+    travaux précédents~\cite{witten1999kea}, les tri-grammes sont filtrés avec
+    une liste de mots outils, qui regroupe les mots fonctionnels de la langue
+    (conjonctions, prépositions, etc.) et les mots courants (e.g.
+    \og{}beaucoup\fg{}, \og{}près\fg{}, etc.). Quand aux termes, ceux-ci sont
+    extraits avec l'outil d'extraction terminologique mono- et multilingue
+    TermSuite~\cite{rocheteau2011termsuite}. Une terminologie par discipline est
+    préalablement extraite des corpus (32~119 termes en Archéologie, 16~557
+    termes en Sciences de l'Information, 21~330 termes en linguistique, 24~680
+    termes en Psychologie et 21~020 termes en chimie) afin de n'extraire des
+    documents que les unités textuelles appartenant à la terminologie de la
+    discipline du document.
+
+  \subsection{Extraction de termes-clés}
+  \label{subsec:extraction_de_termes_cles}
+    \TODO{Tout revoir.}
+    Afin d'avoir un meilleur aperçu de la difficulté d'extraction de termes-clés
+    selon les disciplines, nous utilisons deux méthodes non-supervisées
+    employant des techniques différentes, une méthode reposant sur la
+    pondération TF-IDF~\cite{jones1972tfidf} et la méthode
+    TopicRank~\cite{bougouin2013topicrank}.
+
+    Le principe de la méthode utilisant la pondération TF-IDF consiste à
+    extraite en tant que termes-clés les candidats contenant les mots les plus
+    importants (fort poids TF-IDF). Un mot est considéré important s'il est
+    fréquent dans le document et s'il est spécifique à celui-ci. La spécificité
+    est déterminée à partir tous les documents de la collection. Un mot est
+    considéré comme spécifique lorsqu'il apparaît dans très peu de documents.
+
+    La méthode TopicRank extrait les termes-clés d'un document à partir d'une
+    représentation sous forme de graphe de celui-ci. Tout d'abord, les
+    termes-clés candidats sont groupés par sujets, puis ces sujets sont utilisés
+    pour construire un graphe complet dans lequel ils représentent chacun un
+    n\oe{}ud. L'algorithme d'ordonnancement
+    TextRank~\cite{mihalcea2004textrank} est ensuite appliqué afin d'obtenir un
+    score d'importance pour chaque n\oe{}ud du graphe. Enfin, les $k$ sujets les
+    plus importants, selon TextRank, sont sélectionnés et, pour chacun d'eux, le
+    candidat le plus représentatif est extrait en tant que terme-clé. Dans la
+    méthode originale, le groupement en sujet est effectué par similarité
+    lexicale. Lorsque les termes-clés candidats sont les termes extraits par
+    TermSuite, nous utilisons le groupement terme/variantes de TermSuite à la
+    place de la similarité lexicale.
+
