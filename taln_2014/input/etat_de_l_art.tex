@@ -10,36 +10,26 @@
   méthodes d'extraction automatique de termes-clés, un état de l'art est
   disponible dans~\cite{bougouin2013stateoftheart}.
 
-  Dans les travaux précédents, l'accent est mis sur la structure des documents.
-  En effet, les articles scientifiques sont divisés en sections qui structurent
-  le contenu. Ces sections ont des fonctions différentes (résumé, introduction,
-  conclusion, etc.) et le contenu de certaines d'entre elles est donc plus
-  représentatif du contenu du document que le contenu d'autres
-  sections~\cite{shah2003wherearethekeywords}. Dans le cas supervisé,
-  \newcite{nguyen2007keadocumentstructure} définissent 14 sections génériques
-  (résumé, introduction, conclusion, état de l'art, motivations, etc.) qu'ils
-  utilisent comme traits supplémentaire pour améliorer la méthode
+  Les travaux précédents exploitent la structure des documents et la position
+  des termes-clés en leur sein. En effet, les articles scientifiques sont
+  divisés en sections qui structurent le contenu. Ces sections ont des fonctions
+  différentes (résumé, introduction, conclusion, etc.) et le contenu de
+  certaines d'entre elles est donc plus représentatif du contenu du document que
+  le contenu d'autres sections~\cite{shah2003wherearethekeywords}. Dans le cas
+  supervisé, \newcite{nguyen2007keadocumentstructure} définissent 14 sections
+  génériques (résumé, introduction, conclusion, état de l'art, motivations,
+  etc.) qu'ils utilisent comme traits supplémentaire pour améliorer la méthode
   KEA~\cite{witten1999kea}. Dans le cas non-supervisé,
   \newcite{hofmann2009impactofdocumentstructure} définissent six sections
   génériques (introduction, contexte, méthode, résultats, discussion,
   conclusion) et expérimentent en extrayant les termes-clés à partir de l'une ou
   l'autre de ces sections. Leurs résultats montrent que la section de
-  discussion, ne contenant en moyenne que 79\% de tous les termes-clés
-  candidats, est la section la plus utile pour l'extraction de termes-clés.
+  discussion, contenant en moyenne 79\% de tous les termes-clés candidats, est
+  la section la plus utile pour l'extraction de termes-clés.
 
-  D'autres approches que l'usage de la structure du document sont proposées dans
-  les méthodes non-supervisées.
-  \newcite{wu2005domainspecifickeyphraseextraction} utilisent une base de
-  données, construite manuellement, contenant les mots- et termes-clés
-  spécifiques au domaine des documents traités. Chacun de ces mots- et
-  termes-clés sont pondérés selon leur spécificité au domaine et utilisés pour
-  donner un score d'importance aux termes-clés candidat. Plus un terme-clés
-  candidat est fréquent et plus il contient de mots- ou termes-clés spécifiques,
-  alors plus il est important. \newcite{kim2009termextraction} s'intéressent
-  aussi à l'usage de la notion de spécificité pour l'extraction de termes-clés
-  dans les articles scientifiques. Dans leur méthode, ils proposent d'utiliser
-  la pondération TF-IDF~\cite{jones1972tfidf} comme indice de spécificité pour
-  filtrer les unités textuelles lors de l'extraction des candidats.
+  \newcite{kim2009termextraction} s'intéressent à l'usage de la spécificité et
+  proposent d'utiliser la pondération TF-IDF~\cite{jones1972tfidf} pour filtrer
+  les unités textuelles lors de l'extraction des candidats.
 
   \newcite{bertels2012etudesemantiquedesmotscles} proposent aussi une étude des
   termes-clés en domaine de spécialité. Celle-ci porte sur la sémantique des

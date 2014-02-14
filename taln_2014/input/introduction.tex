@@ -1,105 +1,63 @@
 \section{Introduction}
 \label{sec:introduction}
-  % * définition de terme-clé, applications et enjeux
   Un terme-clé est un mot ou une expression polylexicale qui représente un
   concept important d'un document auquel il est associé. En pratique, plusieurs
   termes-clés représentant des concepts différents sont associés à un même
   document. Ils forment alors un ensemble à partir duquel il est
-  possible d'inférer le contenu principal du document. Du fait de leur capacité
-  à synthétiser le contenu d'un document, les termes-clés sont utilisés dans
-  de nombreuses applications telles que le résumé
+  possible de caractériser le contenu principal du document. Du fait de leur
+  capacité à synthétiser le contenu d'un document, les termes-clés sont utilisés
+  dans de nombreuses applications telles que le résumé
   automatique~\cite{avanzo2005keyphrase}, la classification de
   documents~\cite{han2007webdocumentclustering} ou l'indexation
-  automatique~\cite{medelyan2008smalltrainingset}.
-  %
-  Avec l'essor du numérique, et en particulier le développement des bibliothèques numériques sur Internet, le nombre d'articles scientifiques auxquels les chercheurs ont accès ne cesse d'augmenter.
-  %
-  Les termes-clés, le plus souvent assignés par les auteurs, facilitent l'indexation et la recherche d'articles scientifiques, et donnent un bref aperçu de leur contenu.
-  %
-  Cependant, la plupart des articles n'ont pas de termes-clés associés et, compte tenu de leur nombre, l'annotation manuelle de ces derniers n'est pas envisageable.
-  %
-  Pour pallier ce problème, de plus en plus de chercheurs s'intéressent à l'extraction automatique de termes-clés à partir d'articles scientifiques et certaines campagnes d'évaluations, telles que DEFT~\cite{paroubek2012deft} et SemEval~\cite{kim2010semeval}, proposent des tâches sur cette problématique.
-  %
-  % Avec l'essor du
-  % numérique, de plus en plus de documents (articles scientifiques, articles
-  % journalistiques, etc.) sont accessibles depuis des médiums d'informations tels
-  % que Internet. Afin de permettre à un utilisateur de rapidement trouver des
-  % documents, ainsi que d'avoir un bref aperçu de leur contenu, les tâches
-  % sus-mentionnées sont nécessaires.
-  % %
-  % Cependant, la majorité des documents ne sont pas associés avec des termes-clés
-  % et, compte tenu du nombre important de documents numériques, l'ajout manuel de
-  % ces derniers n'est pas envisageable. Pour pallier ce problème, de plus en plus
-  % de chercheurs s'intéressent à l'extraction automatique de termes-clés et
-  % certaines campagnes d'évaluations, telles que DEFT~\cite{paroubek2012deft} et
-  % SemEval~\cite{kim2010semeval}, proposent des tâches d'extraction automatique
-  % de termes-clés.
+  automatique~\cite{medelyan2008smalltrainingset}. Avec l'essor du numérique, et
+  en particulier le développement des bibliothèques numériques sur Internet, le
+  nombre d'articles scientifiques auxquels les chercheurs ont accès ne cesse
+  d'augmenter. Les termes-clés, le plus souvent assignés par les auteurs,
+  facilitent l'indexation et la recherche d'articles scientifiques, et donnent
+  un bref aperçu de leur contenu. Cependant, de nombreux articles ne sont pas
+  associés à de termes-clés et, compte tenu de leur nombre, l'annotation
+  manuelle de ces derniers n'est pas envisageable. Pour pallier ce problème, de
+  plus en plus de chercheurs s'intéressent à l'extraction automatique de
+  termes-clés à partir d'articles scientifiques et certaines campagnes
+  d'évaluations, telles que DEFT~\cite{paroubek2012deft} et
+  SemEval~\cite{kim2010semeval}, proposent des tâches sur cette problématique.
 
-  % * qu'est-ce que l'extraction automatique de termes-clés
-  % * deux écoles : indexation libre et indexation contrôlée (assignation de
-  %                 termes-clés)
-  %   -> nous sommes de la première école
-  % * deux catégories de méthodes : supervisées et non-supervisées
-  %    -> en supervisé ils utilisent la structure des documents
-  %    -> très peu de travaux en non-supervisé (filtrage des candidats)
   L'extraction automatique de termes-clés, ou indexation libre,
   consiste à extraire les unités textuelles les plus importantes d'un document,
   en opposition à l'assignation automatique de termes-clés, ou
-  indexation contrôlée, qui consiste à assigner des termes-clés à partir d'une
-  terminologie donnée~\cite{paroubek2012deft}. Parmi les méthodes d'extraction
+  indexation contrôlée, qui consiste à assigner des termes-clés à partir d'un
+  référentiel donné~\cite{paroubek2012deft}. Parmi les méthodes d'extraction
   automatique de termes-clés existantes, nous distinguons deux catégories~: les
-  méthodes supervisées et les méthodes non-supervisées. Dans le cas supervisé,
+  méthodes supervisées et les méthodes non-supervisées. Dans le cadre supervisé,
   la tâche d'extraction de termes-clés est considérée comme une tâche de
   classification binaire~\cite{witten1999kea}, où il s'agit d'attribuer la
   classe \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} aux
-  termes-clés candidats extraits du document.
-  %
-  Une collection de documents annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle de classification reposant sur divers traits tels que la fréquence du terme-clé candidat ou sa position dans le document.
-  %
-  Dans le cas non-supervisé, les méthodes attribuent un score d'importance à chaque candidat en fonction de divers indicateurs comme sa spécificité par rapport au document~\cite{paukkeri2010likey} ou le nombre de termes avec lesquels il cooccurre~\cite{matsuo2004wordcooccurrence}.
-  %
-  % Une collection de documents
-  % annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
-  % de classification reposant sur divers traits, allant de la simple fréquence
-  % aux informations structurelles du document (titre, résumé, introduction,
-  % conclusion, etc.). Dans le cas non-supervisé, les méthodes attribuent un
-  % score d'importance à chaque candidat en fonction de divers indicateurs tels
-  % que la fréquence et la position de la première occurrence dans le document.
-  Bien que les méthodes supervisées soient en général plus performantes, la
-  faible quantité de documents annotés en termes-clés disponibles, ainsi que la
-  forte dépendance des modèles de classification au type des documents à partir
-  desquels ils sont appris, poussent les chercheurs à s'intéresser de plus en
-  plus aux méthodes non-supervisées.
+  termes-clés candidats extraits du document. Une collection de documents
+  annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
+  de classification reposant sur divers traits tels que la fréquence du
+  terme-clé candidat ou sa position dans le document. Dans le cadre
+  non-supervisé, les méthodes attribuent un score d'importance à chaque candidat
+  en fonction de divers indicateurs comme sa spécificité par rapport au
+  document~\cite{paukkeri2010likey} ou le nombre de termes avec lesquels il
+  cooccurre~\cite{matsuo2004wordcooccurrence}. Bien que les méthodes supervisées
+  soient en général plus performantes, la faible quantité de documents annotés
+  en termes-clés disponibles, ainsi que la forte dépendance des modèles de
+  classification au type des documents à partir desquels ils sont appris,
+  poussent les chercheurs à essayer de proposer de plus en plus de méthodes
+  non-supervisées.
 
-  Dans cet article, nous nous intéressons à la problématique de l'extraction non-supervisée de termes-clés à partir d'articles scientifiques, et plus particulièrement à l'impact que peut avoir la discipline scientifique sur les performances des méthodes.
-  %
-  En effet, certaines disciplines comme la linguistique ou la psychologie sont caractérisées par un fort degrée de recouvrement et d'ambiguïté entre langue de spécialité et langue générale, ce qui rend la tâche d'extraction de termes-clés plus complexe.
-  %
+  Dans cet article, nous nous intéressons à la problématique de l'extraction
+  non-supervisée de termes-clés à partir d'articles scientifiques, et plus
+  particulièrement à l'impact que peut avoir la discipline scientifique sur les
+  performances des méthodes. En effet, certaines disciplines comme la
+  linguistique ou la psychologie sont caractérisées par un fort degrée de
+  recouvrement et d'ambiguïté entre langue de spécialité et langue générale, ce
+  qui rend la tâche d'extraction de termes-clés plus complexe.
   Au moyen de cinq corpus disciplinaires (Archéologie, Sciences de
   l'Information, Linguistique, Psychologie et Chimie), nous comparons les
   performances de différentes méthodes d'extraction de termes-clés et nous en
   déduisons une échelle de difficulté disciplinaire.
-  %
-  Nous montrons aussi qu'il est possible d'utiliser un lexique
-  transdisciplinaire pour résoudre les problèmes d'ambiguïté et améliorer la
-  qualité des termes-clés extraits.\TODO{Ça reste à montrer}
 
-  % * ici, on cherche à identifier l'échelle de difficulté d'indexation des
-  %   documents en Sciences Humaines et Sociales (SHS)
-  % * on dispose de 4 collections de notices de 4 disciplines différentes de
-  %   SHS + 1 collection de notices de chimie (science dure)
-  % Dans cet article, nous nous intéressons à l'extraction non-supervisée de
-  % termes-clés dans les articles scientifiques, et plus particulièrement à la
-  % performance des méthodes d'extraction de termes-clés dans des domaines de
-  % spécialité. Au moyen de cinq corpus disciplinaires, notre objectif est
-  % d'observer et d'analyser l'échelle de difficulté pour l'extraction
-  % automatique de termes-clés dans des articles scientifiques appartenant à cinq
-  % disciplines différentes~: Archéologie, Sciences de l'Information,
-  % Linguistique, Psychologie et Chimie.
-  % \TODO{Dire pourquoi nous nous intéressons aux méthodes non-supervisées}
-  % \TODO{Dire pourquoi nous nous intéressons aux articles scientifiques}
-
-  % * annonce du plan
   L'article est structuré comme suit. Un bref état de l'art est donné dans la
   section~\ref{sec:etat_de_l_art}, les données utilisées sont présentées dans la
   section~\ref{sec:presentation_des_donnees} et les expériences menées, ainsi
