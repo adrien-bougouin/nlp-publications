@@ -1,56 +1,109 @@
 \section{Extraction automatique de termes-clés}
 \label{sec:extraction_automatique_de_termes_cles}
+  L'extraction automatique de termes-clés fonctionne en quatre étapes qui sont~:
+  \begin{enumerate}
+    \item{Préparation des données (segmentation, étiquetage morphosyntaxique,
+          etc.)
+          \label{item:preprocessing}}
+    \item{Extraction des termes-clés candidats
+          \label{item:candidate_extraction}}
+    \item{Ordonnancement (ou classification) des termes-clés candidats
+          \label{item:ranking}}
+    \item{Sélection/Extraction des termes-clés à partir des termes-clés
+          candidats
+          \label{item:extraction}}
+  \end{enumerate}
+  Les étapes les plus importantes d'un système d'extraction automatique de
+  termes-clés sont les étapes~\ref{item:candidate_extraction}
+  et~\ref{item:ranking}. Intuitivement, l'ordonnancement (ou la classification)
+  des candidats est le c\oe{}ur du système, mais la performance de celui-ci est
+  limitée par la qualité de l'ensemble de termes-clés candidats qui lui est
+  fourni. Nous estimons qu'un ensemble de candidats est de bonne qualité
+  lorsqu'il fournit le plus possible de candidats qui sont effectivement des
+  termes-clés, i.e.~des candidats parmi les termes-clés de référence, et
+  lorsqu'il fournit peu de candidats non-pertinents, i.e.~des candidats qui ne
+  sont pas des termes-clés de référence et qui peuvent dégrader la performance
+  du système d'extraction de termes-clés.
+
+  \subsection{Préparation des données}
+  \label{subsec:preparation_des_donnees}
+    Les documents des collections de données utilisées subissent les mêmes
+    prétraitements. Ils sont tout d'abord segmentés en phrases, puis en mots et
+    enfin étiquetés en parties du discours. La segmentation en mots est
+    effectuée avec l'outil Bonsai, du Bonsai PCFG-LA
+    parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}}
+    et l'étiquetage en parties du discours est réalisé avec
+    MElt~\cite{denis2009melt}. Tous ces outils sont utilisés sans modification
+    de leurs paramètres par défaut.
+
   \subsection{Extraction des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles_candidats}
-    \TODO{Tout revoir.}
-    Après la préparation des données, l'étape à ne pas négliger est celle
-    de l'extraction des candidats. Dans notre cas, seules les unités textuelles
-    présentes dans le document peuvent être extraites en tant que termes-clés.
-    Cependant, utiliser toutes les séquences de mots possibles ensemble de
-    termes-clés candidats n'est pas la meilleure stratégie. En effet, plus il y
-    a de candidats, alors plus il peut être difficile d'extraire les termes-clés
-    et plus le temps de calcul est important. De ce fait, nous répétons nos
-    expériences avec deux méthodes d'extraction de candidats différentes, l'une
-    extrayant des tri-grammes et l'autre des termes. En adéquation avec les
-    travaux précédents~\cite{witten1999kea}, les tri-grammes sont filtrés avec
-    une liste de mots outils, qui regroupe les mots fonctionnels de la langue
-    (conjonctions, prépositions, etc.) et les mots courants (e.g.
-    \og{}beaucoup\fg{}, \og{}près\fg{}, etc.). Quand aux termes, ceux-ci sont
-    extraits avec l'outil d'extraction terminologique mono- et multilingue
-    TermSuite~\cite{rocheteau2011termsuite}. Une terminologie par discipline est
-    préalablement extraite des corpus (32~119 termes en Archéologie, 16~557
-    termes en Sciences de l'Information, 21~330 termes en linguistique, 24~680
-    termes en Psychologie et 21~020 termes en chimie) afin de n'extraire des
-    documents que les unités textuelles appartenant à la terminologie de la
-    discipline du document.
+    Dans les travaux précédents, deux approches sont utilisées. Soit les
+    candidats sont extraits à partir des n-grammes filtrés soit ils sont
+    extraits par reconnaissance de formes~\cite{hulth2003keywordextraction}.
+    Dans ce travail, nous expérimentons avec une méthode pour chacune de ces
+    deux approches et une méthode qui extrait les candidats avec un extracteur
+    terminologique.
+
+    L'extraction des \textbf{n-grammes} filtrés consiste à extraire toutes les
+    séquences ordonnées de $n$ mots, puis à les filtrer avec une liste
+    regroupant les mots fonctionnels de la langue (conjonctions, prépositions,
+    etc.), ainsi que les mots courants (\og{}près\fg{}, \og{}beaucoup\fg{},
+    etc.). Dans ce travail, les n-grammes de taille $n \in {1..3}$ (tri-grammes)
+    sont extrait lorsque leurs mots en tête et en queue ne sont pas présents
+    dans la liste de mots outils fourni par l'université de
+    Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
+    (UniNE).
+
+    La reconnaissance de formes consiste à extraire les unités textuelles qui
+    respectent des patrons définis. Dans ce travail, nous définissons quatre
+    patrons morphosyntaxiques afin d'extraire, comme termes-clés candidats, tous
+    les \textbf{syntagmes nominaux}~:
+    \begin{itemize}
+      \item[]{Np+}
+      \item[|]{(A? Nc A+)}
+      \item[|]{(A Nc)}
+      \item[|]{Nc+}
+    \end{itemize}
+
+    L'extraction de \textbf{candidats termes} consiste à extraire les unités
+    textuelles qui sont potentiellement des termes. En terminologie, un terme
+    est un mot, ou une séquence de mots, représentant un concept spécifique à un
+    domaine (ou une discipline) et, par conséquent, traité comme une
+    \verb+~?~+unité simple\verb+~?~+. Pour ce travail, nous utilisons
+    l'extracteur terminologique TermSuite~\cite{rocheteau2011termsuite}. Une
+    terminologie par corpus est construite automatiquement par TermSuite (32~119
+    termes en Archéologie, 16~557 termes en Sciences de l'Information, 21~330
+    termes en Linguistique, 24~680 termes en Psychologie et 21~020 termes en
+    Chimie) et uniquement les unités textuelles se trouvant dans cette
+    terminologie sont extraites comme termes-clés candidats.
 
   \subsection{Extraction de termes-clés}
   \label{subsec:extraction_de_termes_cles}
-    \TODO{Tout revoir.}
-    Afin d'avoir un meilleur aperçu de la difficulté d'extraction de termes-clés
-    selon les disciplines, nous utilisons deux méthodes non-supervisées
-    employant des techniques différentes, une méthode reposant sur la
-    pondération TF-IDF~\cite{jones1972tfidf} et la méthode
-    TopicRank~\cite{bougouin2013topicrank}.
+    Dans les travaux précédents, de nombreuses méthodes sont proposées pour
+    extraire les termes-clés~\cite{bougouin2013stateoftheart}. Dans la
+    catégorie des méthodes non-supervisées, un grand nombre de techniques
+    différentes est proposé, dont la pondération TF-IDF~\cite{jones1972tfidf} et
+    l'approche à base de graphe~\cite{mihalcea2004textrank}. De part sa
+    simplicité et sa robustesse, le TF-IDF s'impose comme la méthode de
+    référence, tandis que les méthodes à base de graphe suscitent un intérêt
+    grandissant du fait qu'un graphe permet de représenter simplement les
+    relations qu'entretiennent les unités textuelles d'un document et aussi du
+    fait de l'important travail théorique autour des graphes.
 
-    Le principe de la méthode utilisant la pondération TF-IDF consiste à
-    extraite en tant que termes-clés les candidats contenant les mots les plus
-    importants (fort poids TF-IDF). Un mot est considéré important s'il est
-    fréquent dans le document et s'il est spécifique à celui-ci. La spécificité
-    est déterminée à partir tous les documents de la collection. Un mot est
-    considéré comme spécifique lorsqu'il apparaît dans très peu de documents.
+    La méthode \textbf{TF-IDF} consiste à extraire, comme termes-clés, les
+    candidats dont les mots sont les plus importants. Un mot est considéré
+    important, dans un document, s'il est fréquent dans le document et s'il est
+    spécifique à celui-ci. La spécificité est déterminée à partir de la
+    collection de documents~: un mot est considéré spécifique lorsqu'il apparaît
+    dans très peu de documents.
 
-    La méthode TopicRank extrait les termes-clés d'un document à partir d'une
-    représentation sous forme de graphe de celui-ci. Tout d'abord, les
-    termes-clés candidats sont groupés par sujets, puis ces sujets sont utilisés
-    pour construire un graphe complet dans lequel ils représentent chacun un
-    n\oe{}ud. L'algorithme d'ordonnancement
-    TextRank~\cite{mihalcea2004textrank} est ensuite appliqué afin d'obtenir un
-    score d'importance pour chaque n\oe{}ud du graphe. Enfin, les $k$ sujets les
-    plus importants, selon TextRank, sont sélectionnés et, pour chacun d'eux, le
-    candidat le plus représentatif est extrait en tant que terme-clé. Dans la
-    méthode originale, le groupement en sujet est effectué par similarité
-    lexicale. Lorsque les termes-clés candidats sont les termes extraits par
-    TermSuite, nous utilisons le groupement terme/variantes de TermSuite à la
-    place de la similarité lexicale.
+    Parmi les méthodes à base de graphe, nous utilisons
+    \textbf{TopicRank}~\cite{bougouin2013topicrank}, une méthode qui extrait les
+    termes-clés qui représentent les sujets les plus important d'un document.
+    Tout d'abord, les termes-clés candidats sont groupés par sujets, puis les
+    relations entre ces sujets sont modélisées par un graphe dans lequel les
+    sujets sont les n\oe{}uds. Ensuite, l'algorithme
+    TextRank~\cite{mihalcea2004textrank} ordonne les sujets par importance, puis
+    pour chaque sujet, le candidat le plus représentatif est extrait.
 

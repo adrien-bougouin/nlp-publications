@@ -34,44 +34,41 @@
         prenom.nom@univ-nantes.fr}
 
 % Titre qui apparait en en-tête (1 ligne maxi)
-\fancyhead[CO]{Extraction de termes-clés dans des articles scientifiques~: analyse en domaine}
+\fancyhead[CO]{Influence des domaines de spécialité dans l'extraction de termes-clés}
 % Auteurs qui apparaissent en en-tête (1 ligne maxi)
 \fancyhead[CE]{Adrien Bougouin, Florian Boudin, Béatrice Daille}
 
 \begin{document}
+  \maketitle
 
-\maketitle
+  \resume{
+    max. 150 mots\\
+    \textcolor{red}{\lipsum[1]}
+  }
 
-\resume{
-  max. 150 mots\\
-  \textcolor{red}{\lipsum[1]}
-}
+  \abstract{
+    \textcolor{red}{\lipsum[1]}
+  }
 
-\abstract{
-  \textcolor{red}{\lipsum[1]}
-}
+  \motsClefs{
+    Extraction de termes-clés, articles scientifiques, domaine de spécialité
+  }{
+    Keyphrase extraction, scientific papers, specific domain
+  }
 
-\motsClefs{
-  Extraction de termes-clés, articles scientifiques, domaine de spécialité
-}{
-  Keyphrase extraction, scientific papers, specific domain
-}
+  \input{input/introduction.tex}
+  %\input{input/etat_de_l_art.tex}
+  \input{input/presentation_des_donnees.tex}
+  \input{input/extraction_automatique_de_termes_cles.tex}
+  \input{input/experiences.tex}
+  %\input{input/discussion.tex}
+  \input{input/conclusion.tex}
 
-\input{input/introduction.tex}
-\input{input/etat_de_l_art.tex}
-\input{input/presentation_des_donnees.tex}
-\input{input/extraction_automatique_de_termes_cles.tex}
-\input{input/experiences.tex}
-\input{input/discussion.tex}
-\input{input/conclusion.tex}
+  \section*{Remerciements}
+    Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche
+    portant la référence (ANR-12-CORD-0029).
 
-\section*{Remerciements}
-  Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche
-  portant la référence (ANR-12-CORD-0029).
-
-\bibliographystyle{taln2002}
-\bibliography{../biblio}
-
-%%================================================================
+  \bibliographystyle{taln2002}
+  \bibliography{../biblio}
 \end{document}
 

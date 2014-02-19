@@ -5,17 +5,23 @@
   l'Institut de l’Information Scientifique et
   Technique\footnote{\url{http://www.inist.fr}} (INIST). Chacune de ces notices
   INIST contient le titre et le résumé d'un article, ainsi que ses termes-clés
-  associés. Ces derniers sont obtenus semi-automatiquement~: des indexeurs
-  professionnels vérifient, corrigent et complètent les sorties d'un système
-  dont les entrées sont un document et un (ou plusieurs) référentiel(s)
-  terminologique(s). Un référentiel terminologique est une liste disciplinaire
-  de termes associés manuellement à des déclencheurs, i.e. des unités textuelles
-  qui, lorsqu'elles sont présentes dans le document, impliquent l'usage du terme
-  associé en tant que terme-clé. En addition, les indexeurs disposent de règles
-  d'indexation (non formatées) qui précisent quels types d'informations doivent
-  être présents dans l'ensemble de termes-clés (e.g. en Archéologie il est
-  important de connaître la période et la localisation de ce qui fait l'objet de
-  l'article).
+  associés. Ces derniers sont obtenus semi-automatiquement %~:
+  %
+  à partir des textes intégraux (non disponibles pour nos travaux) et à partir
+  de ressources disciplinaires, telles qu'une terminologie ou des spécifications
+  précises quant aux types d'informations que les termes-clés doivent
+  représenter (e.g.~lieu, période et autre, en Archéologie).
+  %des indexeurs
+  %professionnels vérifient, corrigent et complètent les sorties d'un système
+  %dont les entrées sont un document et un (ou plusieurs) référentiel(s)
+  %terminologique(s). Un référentiel terminologique est une liste disciplinaire
+  %de termes associés manuellement à des déclencheurs, i.e. des unités textuelles
+  %qui, lorsqu'elles sont présentes dans le document, impliquent l'usage du terme
+  %associé en tant que terme-clé. En addition, les indexeurs disposent de règles
+  %d'indexation (non formatées) qui précisent quels types d'informations doivent
+  %être présents dans l'ensemble de termes-clés (e.g. en Archéologie il est
+  %important de connaître la période et la localisation de ce qui fait l'objet de
+  %l'article).
 
   Le corpus d'\textbf{Archéologie} est composé de 718 notices INIST. Celles-ci
   représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
@@ -47,33 +53,35 @@
   ont plus de contenu que les autres notices et les notices de Chimie en ont
   moins. Ceci est dû au fait que les notices archéologiques font l'objet d'un
   effort de présentation du contexte historique auquel s'intéresse l'article,
-  tandis que dans les notices de Chimie, représentant en grande partie des
-  comptes rendus, ne donnent parfois que le noms de l'expérience réalisée et
-  les noms des éléments chimiques qui entrent en jeu. Nous remarquons aussi
-  qu'en fonction des collections, le nombre moyen de termes-clés assignés aux
+  tandis que les notices de Chimie, représentant en grande partie des comptes
+  rendus, ne donnent parfois que le nom de l'expérience réalisée et les noms
+  des éléments chimiques qui entrent en jeu. Nous remarquons aussi qu'en
+  fonction des collections, le nombre moyen de termes-clés assignés aux
   documents varie de 5,8 termes-clés en Sciences de l'Information à 17,7 en
-  Archéologie. Cette variation est due à différents facteurs~:
-  \begin{itemize}
-    \item{taille des notices~: \TODO{plus de contenu = potentiellement plus de
-          termes-clés}~;}
-    \item{disponibilité du contenu de l'article~: les indexeurs ont parfois
-          accès aux articles intégraux pour compléter l'ensemble de termes-clés
-          extrait automatiquement~;}
-    \item{référentiel terminologique~: plus un référentiel est précis, plus il
-          contient de termes et de déclencheurs, alors plus le nombre de
-          termes-clés extraits peut être important~;}
-    \item{règles d'indexation~: plus il y a de types d'information nécessaires,
-          alors plus il doit y avoir de termes-clés à extraire.}
-  \end{itemize}
-  Enfin, la longueur des termes-clés varie aussi selon les disciplines. En
-  effet, il est fréquent que les termes-clés en Archéologie ne soient que des
-  mots, en général des entités nommées de type \textit{période}
-  (\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{}, \og{}Néolithique\fg{}, etc.)
-  ou \textit{lieu} (\og{}Asie\fg{}, \og{}Europe\fg{}, \og{}France\fg{}, etc.),
-  tandis que les termes-clés en Chimie sont principalement des composés
-  syntagmatiques, du fait de la spécialisation systématique de certains termes
-  tels que \og{}composé\fg{}, qui peut être \og{}organique\fg{},
-  \og{}aliphatique\fg{}, \og{}éthylénique\fg{}, etc.
+  Archéologie. Cette variation est due à différents facteurs %~:
+  %
+  dont la \verb+~?~+précision\verb+~?~+ des ressources disciplinaires.
+  %\begin{itemize}
+  %  \item{taille des notices~: \TODO{plus de contenu = potentiellement plus de
+  %        termes-clés}~;}
+  %  \item{disponibilité du contenu de l'article~: les indexeurs ont parfois
+  %        accès aux articles intégraux pour compléter l'ensemble de termes-clés
+  %        extrait automatiquement~;}
+  %  \item{référentiel terminologique~: plus un référentiel est précis, plus il
+  %        contient de termes et de déclencheurs, alors plus le nombre de
+  %        termes-clés extraits peut être important~;}
+  %  \item{règles d'indexation~: plus il y a de types d'information nécessaires,
+  %        alors plus il doit y avoir de termes-clés à extraire.}
+  %\end{itemize}
+  Enfin, la longueur des termes-clés varie aussi selon les disciplines. Il est
+  fréquent que les termes-clés en Archéologie ne soient que des mots, en général
+  des entités nommées de type \textit{période} (\og{}Paléolithique\fg{},
+  \og{}Mésolithique\fg{}, \og{}Néolithique\fg{}, etc.) ou \textit{lieu}
+  (\og{}Asie\fg{}, \og{}Europe\fg{}, \og{}France\fg{}, etc.), tandis que les
+  termes-clés en Chimie sont principalement des composés syntagmatiques, du fait
+  de la spécialisation systématique de certains termes tels que
+  \og{}composé\fg{}, qui peut être \og{}organique\fg{}, \og{}aliphatique\fg{},
+  \og{}éthylénique\fg{}, etc.
   \begin{table}
     \centering
     \begin{tabular}{@{~}r|ccccc@{~}}
@@ -86,9 +94,11 @@
         Mots/doc. & 219,1 & 119,7 & 156,4 & 185,8 & 104,9\\
         Termes-clés/doc. & 17,7 & 5,8 & 8,0 & 11,0 & 12,9\\
         Mots/terme-clé & 1,3 & 1,7 & 1,7 & 1,6 & 2,2\\
+        Termes-clés non extractibles & 35,7\% & 78,1\% & 58,8\% & 72,4\% & 59,8\%\\
+        Termes-clés (extractibles) avec Np & 49,6\% & 18,7\% & 9,8\% & 12,5\% & 9,2\%\\
       \bottomrule
     \end{tabular}
-    \caption{Statistiques des corpus disciplinaires.
+    \caption{Caractéristiques des corpus disciplinaires.
              \label{tab:statistiques_des_corpus}}
   \end{table}
 

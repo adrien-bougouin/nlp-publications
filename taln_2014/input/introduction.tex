@@ -15,7 +15,7 @@
   d'augmenter. Les termes-clés, le plus souvent assignés par les auteurs,
   facilitent l'indexation et la recherche d'articles scientifiques, et donnent
   un bref aperçu de leur contenu. Cependant, de nombreux articles ne sont pas
-  associés à de termes-clés et, compte tenu de leur nombre, l'annotation
+  associés à des termes-clés et, compte tenu de leur nombre, l'annotation
   manuelle de ces derniers n'est pas envisageable. Pour pallier ce problème, de
   plus en plus de chercheurs s'intéressent à l'extraction automatique de
   termes-clés à partir d'articles scientifiques et certaines campagnes
@@ -36,34 +36,60 @@
   annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
   de classification reposant sur divers traits tels que la fréquence du
   terme-clé candidat ou sa position dans le document. Dans le cadre
-  non-supervisé, les méthodes attribuent un score d'importance à chaque candidat
-  en fonction de divers indicateurs comme sa spécificité par rapport au
-  document~\cite{paukkeri2010likey} ou le nombre de termes avec lesquels il
-  cooccurre~\cite{matsuo2004wordcooccurrence}. Bien que les méthodes supervisées
-  soient en général plus performantes, la faible quantité de documents annotés
-  en termes-clés disponibles, ainsi que la forte dépendance des modèles de
-  classification au type des documents à partir desquels ils sont appris,
-  poussent les chercheurs à essayer de proposer de plus en plus de méthodes
-  non-supervisées.
+  non-supervisé, les méthodes attribuent un score d'importance aux candidats
+  en fonction de divers indicateurs comme leur spécificité par rapport au
+  document~\cite{paukkeri2010likey} ou les relations de coocurrence que leurs
+  mots entretiennent~\cite{mihalcea2004textrank}. Les méthodes supervisées sont
+  plus performantes que les méthodes non-supervisées, mais le besoin en
+  documents annotés avec des termes-clés, ainsi que la forte dépendance des
+  modèles de classification au type de ces documents, poussent les chercheurs à
+  essayer de proposer des méthodes non-supervisées compétitives avec les
+  méthodes supervisées.
 
-  Dans cet article, nous nous intéressons à la problématique de l'extraction
-  non-supervisée de termes-clés à partir d'articles scientifiques, et plus
-  particulièrement à l'impact que peut avoir la discipline scientifique sur les
-  performances des méthodes. En effet, certaines disciplines comme la
-  linguistique ou la psychologie sont caractérisées par un fort degrée de
-  recouvrement et d'ambiguïté entre langue de spécialité et langue générale, ce
-  qui rend la tâche d'extraction de termes-clés plus complexe.
-  Au moyen de cinq corpus disciplinaires (Archéologie, Sciences de
-  l'Information, Linguistique, Psychologie et Chimie), nous comparons les
-  performances de différentes méthodes d'extraction de termes-clés et nous en
-  déduisons une échelle de difficulté disciplinaire.
+  Dans cet article, nous nous plaçons dans le contexte de l'extraction de
+  termes-clés à partir de documents de nature scientifique. Les documents de
+  cette nature appartiennent à des disciplines variées, chacune possédant une
+  terminologie qui lui est spécifique. Certains chercheurs s'adaptent à ces
+  documents en réduisant l'ensemble des termes-clés candidats à ceux les plus
+  spécifiques~\cite{kim2009termextraction} ou en tenant compte de la structure
+  des documents pour extraire les termes-clés apparaissant dans les sections les
+  plus favorables~\cite{nguyen2007keadocumentstructure,hofmann2009impactofdocumentstructure}.
+  D'autres chercheurs proposent une analyse de ces documents~:
+  \newcite{shah2003wherearethekeywords} étudient les sections génériques des
+  articles scientifiques et déterminent celles les plus favorable à
+  l'introduction de termes-clés, tandis que
+  \newcite{bertels2012etudesemantiquedesmotscles} analysent la sémantique des
+  termes-clés en domaine de spécialité. À l'instar de
+  \newcite{shah2003wherearethekeywords} et \newcite{bertels2012etudesemantiquedesmotscles},
+  nous proposons une analyse de l'influence des domaines de spécialité dans
+  l'extraction de termes-clés. Au moyen de cinq corpus disciplinaires
+  (section~\ref{sec:presentation_des_donnees}), nous utilisons différentes
+  méthodes d'extraction automatique de termes-clés
+  (section~\ref{sec:extraction_automatique_de_termes_cles}) pour observer la
+  performance de l'extraction de termes-clés en domaine de spécialité et en
+  déduire une échelle de difficulté disciplinaire
+  (section~\ref{sec:experiences}). Enfin, nous proposons une analyse des
+  résultats afin de déterminer quels sont les causes d'une difficulté accrue
+  dans un domaine plus que dans un autre (section~\ref{sec:discussion}).
 
-  L'article est structuré comme suit. Un bref état de l'art est donné dans la
-  section~\ref{sec:etat_de_l_art}, les données utilisées sont présentées dans la
-  section~\ref{sec:presentation_des_donnees} et les expériences menées, ainsi
-  que les résultats obtenus, sont décrits dans la section~\ref{sec:experiences}.
-  Enfin, une analyse des résultats est donnée dans la
-  section~\ref{sec:discussion}, puis une conclusion générale et des perspectives
-  de travaux futurs sont présentés en
-  section~\ref{sec:conclusion_et_perspectives}.
+%  Dans cet article, nous nous intéressons à la problématique de l'extraction
+%  non-supervisée de termes-clés à partir d'articles scientifiques, et plus
+%  particulièrement à l'impact que peut avoir la discipline scientifique sur les
+%  performances des méthodes. En effet, certaines disciplines comme la
+%  linguistique ou la psychologie sont caractérisées par un fort degré de
+%  recouvrement et d'ambiguïté entre langue de spécialité et langue générale, ce
+%  qui rend la tâche d'extraction de termes-clés plus complexe.
+%  Au moyen de cinq corpus disciplinaires (Archéologie, Sciences de
+%  l'Information, Linguistique, Psychologie et Chimie), nous comparons les
+%  performances de différentes méthodes d'extraction de termes-clés et nous en
+%  déduisons une échelle de difficulté disciplinaire.
+%
+%  L'article est structuré comme suit. Un bref état de l'art est donné dans la
+%  section~\ref{sec:etat_de_l_art}, les données utilisées sont présentées dans la
+%  section~\ref{sec:presentation_des_donnees} et les expériences menées, ainsi
+%  que les résultats obtenus, sont décrits dans la section~\ref{sec:experiences}.
+%  Enfin, une analyse des résultats est donnée dans la
+%  section~\ref{sec:discussion}, puis une conclusion générale et des perspectives
+%  de travaux futurs sont présentés en
+%  section~\ref{sec:conclusion_et_perspectives}.
 

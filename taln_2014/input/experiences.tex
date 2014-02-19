@@ -2,43 +2,20 @@
 \label{sec:experiences}
   Dans cette section, nous présentons les expériences menées dans le but
   d'observer l'échelle de difficulté pour l'extraction automatique de
-  termes-clés en domaine de spécialité. Deux méthodes non-supervisées
-  d'extraction automatique de termes-clés sont sélectionnées pour extraire les
-  termes-clés puis leur performance est évaluée pour chacune des cinq
-  collections présentées dans la section~\ref{sec:presentation_des_donnees}.
+  termes-clés en domaine de spécialité à partir des méthodes TF-IDF et
+  TopicRank, ansi qu'en fonction des candidats qui sont extrait (tri-grammes,
+  syntagmes nominaux et candidats termes).
 
   \subsection{Mesure d'évaluation}
   \label{subsec:mesure_d_evaluation}
-    La performance des méthodes d'extraction automatique de termes-clés est
-    exprimée avec la F1-mesure. Cette mesure est un compromis entre la précision
-    et le rappel, qui mesurent la capacité d'une méthode à, respectivement,
-    minimiser le nombre de faux positifs et maximiser le nombre de vrais
-    positifs. Dans notre évaluation, nous concidérons correcte l'extraction
-    d'une variante flexionnelle d'un terme-clé de référence. Les opérations de
-    comparaison entre les termes-clés de référence et les termes-clés extraits
-    sont donc effectuées à partir de la racine, calculée automatiquement, des
-    mots qui les composent.
-
-  \subsection{Préparation des données}
-  \label{subsec:preparation_des_donnees}
-    Les documents des collections de données utilisées subissent les mêmes
-    prétraitements. Ils sont tout d'abord segmentés en phrases, puis en mots et
-    enfin étiquetés en parties du discours. La segmentation en mots est
-    effectuée avec l'outil Bonsai, du Bonsai PCFG-LA
-    parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}}
-    et l'étiquetage en parties du discours est réalisé avec
-    MElt~\cite{denis2009melt}. Tous ces outils sont utilisés sans modification
-    de leurs paramètres par défaut.
-
-  \subsection{Configuration des méthodes}
-  \label{subsec:configuration_des_methodes}
-    \TODO{Paramètrage de TermSuite}
-
-    \TODO{Groupement en sujet de TopicRank}
-
-    \TODO{Paramétrage de NEMESIS ?}
-
-    \TODO{Extraction et filtrage de n-grammes}
+    \TODO{Nous préfèrons mesurer la qualité de l'ordonnancement car PRF avec
+    cut-off n'est pas adapté, compte tenu des différences de quantité de
+    termes-clés donnés et des différences de quantité de termes-clés manquants.}
+    Dans notre évaluation, nous concidérons correcte l'extraction d'une variante
+    flexionnelle d'un terme-clé de référence. Les opérations de comparaison
+    entre les termes-clés de référence et les termes-clés extraits sont donc
+    effectuées à partir de la racine, calculée automatiquement, des mots qui les
+    composent.
 
   \subsection{Résultats}
   \label{subsec:resultats}
@@ -59,38 +36,37 @@
                        nodes near coords,
                        nodes near coords align={vertical},
                        every node near coord/.append style={font=\scriptsize},
-                       ytick={0, 10, 20, 30, 40, 50},
-                       y=0.01\linewidth,
+                       ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
                        ymin=0,
-                       ymax=25,
+                       ymax=0.250,
                        ybar=7.5pt,
-                       ylabel=F1-mesure (\%),
+                       ylabel=MAP,
                        ylabel style={at={(ticklabel* cs:1)},
                                      anchor=south,
                                      rotate=270}]
             \addplot[black!66,
                      pattern=north east lines,
                      pattern color=black!40] coordinates{
-              (Archéologie, 17.8)
-              (Sciences de l'Information, 10.2)
-              (Linguistique, 11.2)
-              (Psychologie, 9.5)
-              (Chimie, 8.0)
+              (Archéologie, 0.156)
+              (Sciences de l'Information, 0.103)
+              (Linguistique, 0.095)
+              (Psychologie, 0.068)
+              (Chimie, 0.052)
             };
             \addplot[black!66,
                      pattern=north west lines,
                      pattern color=black!66] coordinates{
-              (Archéologie, 6.9)
-              (Sciences de l'Information, 5.1)
-              (Linguistique, 6.4)
-              (Psychologie, 5.3)
-              (Chimie, 3.7)
+              (Archéologie, 0.035)
+              (Sciences de l'Information, 0.043)
+              (Linguistique, 0.038)
+              (Psychologie, 0.029)
+              (Chimie, 0.018)
             };
             \legend{TF-IDF, TopicRank}
           \end{axis}
         \end{tikzpicture}
       }
-      \subfigure[Termes]{
+      \subfigure[Candidats termes]{
         \begin{tikzpicture}[scale=.75]
           \begin{axis}[axis lines=left,
                        symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
@@ -101,38 +77,38 @@
                        nodes near coords,
                        nodes near coords align={vertical},
                        every node near coord/.append style={font=\scriptsize},
-                       ytick={0, 10, 20, 30, 40, 50},
-                       y=0.01\linewidth,
+                       ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
                        ymin=0,
-                       ymax=25,
+                       ymax=0.250,
                        ybar=7.5pt,
-                       ylabel=F1-mesure (\%),
+                       ylabel=MAP,
                        ylabel style={at={(ticklabel* cs:1)},
                                      anchor=south,
                                      rotate=270}]
             \addplot[black!66,
                      pattern=north east lines,
                      pattern color=black!40] coordinates{
-              (Archéologie, 19.2)
-              (Sciences de l'Information, 11.1)
-              (Linguistique, 12.7)
-              (Psychologie, 10.3)
-              (Chimie, 9.7)
+              (Archéologie, 0.166)
+              (Sciences de l'Information, 0.110)
+              (Linguistique, 0.104)
+              (Psychologie, 0.071)
+              (Chimie, 0.060)
             };
             \addplot[black!66,
                      pattern=north west lines,
                      pattern color=black!66] coordinates{
-              (Archéologie, 20.9)
-              (Sciences de l'Information, 9.9)
-              (Linguistique, 13.7)
-              (Psychologie, 11.5)
-              (Chimie, 8.8)
+              (Archéologie, 0.173)
+              (Sciences de l'Information, 0.096)
+              (Linguistique, 0.104)
+              (Psychologie, 0.076)
+              (Chimie, 0.052)
             };
             \legend{TF-IDF, TopicRank}
           \end{axis}
         \end{tikzpicture}
       }
-      \caption{Résultats de l'extraction de 10 termes-clés.
+      \caption{Performace des méthodes d'extraction de termes-clés en domaines
+               de spécialité à partir de différents type de candidats.
                \label{fig:resultats}}
     \end{figure}
 
