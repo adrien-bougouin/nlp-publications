@@ -8,21 +8,54 @@
 
   \subsection{Mesure d'évaluation}
   \label{subsec:mesure_d_evaluation}
-    \TODO{Nous préfèrons mesurer la qualité de l'ordonnancement car PRF avec
-    cut-off n'est pas adapté, compte tenu des différences de quantité de
-    termes-clés donnés et des différences de quantité de termes-clés manquants.}
-    Dans notre évaluation, nous concidérons correcte l'extraction d'une variante
+    Afin mesurer l'échelle de difficulté pour l'extraction automatique de
+    termes-clés en domaines de spécialité, nous utilisons la MAP (\textit{Mean
+    Average Precision}) pour mesurer la capacité des méthodes TF-IDF et
+    TopicRank à ordonner correctement les termes-clés candidats. Dans notre
+    évaluation, nous concidérons correcte l'extraction d'une variante
     flexionnelle d'un terme-clé de référence. Les opérations de comparaison
     entre les termes-clés de référence et les termes-clés extraits sont donc
     effectuées à partir de la racine, calculée automatiquement, des mots qui les
     composent.
 
+    \paragraph{Note~:}
+    En comparaison avec d'autres mesures telles que la précision le rappel et la
+    f-mesure, la MAP permet de s'abstraire du problème des termes-clés non
+    extractibles évoqué dans la section~\ref{sec:presentation_des_donnees}.
+
   \subsection{Résultats}
   \label{subsec:resultats}
     La figure~\ref{fig:resultats} montre la performance des méthodes
-    d'extraction de termes-clés lorsqu'elles extraient 10 termes-clés à partir
-    des tri-grammes ou des termes des documents. Moins la F1-mesure est élevée,
-    plus nous supposons que l'extraction de termes-clés est difficile.
+    d'extraction de termes-clés lorsque les candidats extraits sont soit des
+    tri-grammes, soit des syntagmes nominaux soit des candidats termes.
+    %
+    Nous distinguons en effet une différence de difficulté pour l'extraction de
+    termes-clés dans les différentes disciplines. L'Archéologie est la
+    discipline pour laquelle la tâche d'extraction automatique de termes-clés
+    est la moins difficile et la Chimie est la discipline la plus difficile.
+    Nous observons aussi que, dans le cas de TopicRank, la performance n'est pas
+    stable selon l'ensemble de candidats utilisé. En effet, les tri-grammes
+    dégradent significativement les résultats de TopicRank, alors que ce n'est
+    pas le cas pour la méthode TF-IDF. Ceci est dû au fait que l'ensemble de
+    tri-grammes contient un grand nombre de candidats non pertinents qui ont
+    pour effet de dégrader les résultats de TopicRank, mais pas ceux de la
+    méthode TF-IDF, car les candidats non pertinents ne sont pas
+    spécifiques~\cite{kim2009termextraction}. \TODO{Compléter pour les autres
+    types de candidats.}
+    %Deux
+    %disciplines se distinguent sur l'échelle de difficulté, l'Archéologie se
+    %veut être la discipline la plus facile pour la tâche d'extraction de
+    %termes-clés, en opposition avec la Chimie qui, elle, est la plus difficile.
+    %Quant aux Sciences de l'Information, à la Linguistique et à la Psychologie,
+    %celles-ci ont sensiblement le même degré de difficulté. Les deux méthodes
+    %d'extraction de termes-clés se distinguent aussi par leur comportement. La
+    %méthode TF-IDF est plus stable que TopicRank lorsque l'on compare les
+    %résultats obtenus à partir des tri-grammes et des termes. En effet, en
+    %comparaison avec l'ensemble de termes, l'ensemble de tri-grammes contient
+    %plus de candidats non pertinants qui dégradent la qualité des groupements en
+    %sujets de TopicRank, tandis que la notion de spécificité incorporée dans
+    %TF-IDF permet de placer ces candidats en queue du classement et donc de
+    %diminuer leur effet négatif.
     \begin{figure}
       \centering
       \subfigure[Tri-grammes]{
@@ -37,8 +70,9 @@
                        nodes near coords align={vertical},
                        every node near coord/.append style={font=\scriptsize},
                        ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+                       y=\linewidth,
                        ymin=0,
-                       ymax=0.250,
+                       ymax=0.22,
                        ybar=7.5pt,
                        ylabel=MAP,
                        ylabel style={at={(ticklabel* cs:1)},
@@ -66,6 +100,48 @@
           \end{axis}
         \end{tikzpicture}
       }
+      \subfigure[Groupes nominaux]{
+        \begin{tikzpicture}[scale=.75]
+          \begin{axis}[axis lines=left,
+                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                       xtick=data,
+                       enlarge x limits=0.125,
+                       x=.1\linewidth,
+                       xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                       nodes near coords,
+                       nodes near coords align={vertical},
+                       every node near coord/.append style={font=\scriptsize},
+                       ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+                       y=\linewidth,
+                       ymin=0,
+                       ymax=0.22,
+                       ybar=7.5pt,
+                       ylabel=MAP,
+                       ylabel style={at={(ticklabel* cs:1)},
+                                     anchor=south,
+                                     rotate=270}]
+            \addplot[black!66,
+                     pattern=north east lines,
+                     pattern color=black!40] coordinates{
+              (Archéologie, 0.180)
+              (Sciences de l'Information, 0.120)
+              (Linguistique, 0.098)
+              (Psychologie, 0.079)
+              (Chimie, 0.063)
+            };
+            \addplot[black!66,
+                     pattern=north west lines,
+                     pattern color=black!66] coordinates{
+              (Archéologie, 0.150)
+              (Sciences de l'Information, 0.128)
+              (Linguistique, 0.095)
+              (Psychologie, 0.078)
+              (Chimie, 0.055)
+            };
+            \legend{TF-IDF, TopicRank}
+          \end{axis}
+        \end{tikzpicture}
+      }
       \subfigure[Candidats termes]{
         \begin{tikzpicture}[scale=.75]
           \begin{axis}[axis lines=left,
@@ -78,8 +154,9 @@
                        nodes near coords align={vertical},
                        every node near coord/.append style={font=\scriptsize},
                        ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+                       y=\linewidth,
                        ymin=0,
-                       ymax=0.250,
+                       ymax=0.22,
                        ybar=7.5pt,
                        ylabel=MAP,
                        ylabel style={at={(ticklabel* cs:1)},
@@ -107,22 +184,50 @@
           \end{axis}
         \end{tikzpicture}
       }
+      \subfigure[Candidats termes et entités nommées (NEMESIS)]{
+        \begin{tikzpicture}[scale=.75]
+          \begin{axis}[axis lines=left,
+                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                       xtick=data,
+                       enlarge x limits=0.125,
+                       x=.1\linewidth,
+                       xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                       nodes near coords,
+                       nodes near coords align={vertical},
+                       every node near coord/.append style={font=\scriptsize},
+                       ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+                       y=\linewidth,
+                       ymin=0,
+                       ymax=0.22,
+                       ybar=7.5pt,
+                       ylabel=MAP,
+                       ylabel style={at={(ticklabel* cs:1)},
+                                     anchor=south,
+                                     rotate=270}]
+            \addplot[black!66,
+                     pattern=north east lines,
+                     pattern color=black!40] coordinates{
+              (Archéologie, 0.171)
+              (Sciences de l'Information, 0.111)
+              (Linguistique, 0.104)
+              (Psychologie, 0.071)
+              (Chimie, 0.060)
+            };
+            \addplot[black!66,
+                     pattern=north west lines,
+                     pattern color=black!66] coordinates{
+              (Archéologie, 0.000)
+              (Sciences de l'Information, 0.000)
+              (Linguistique, 0.000)
+              (Psychologie, 0.000)
+              (Chimie, 0.000)
+            };
+            \legend{TF-IDF, TopicRank}
+          \end{axis}
+        \end{tikzpicture}
+      }
       \caption{Performace des méthodes d'extraction de termes-clés en domaines
                de spécialité à partir de différents type de candidats.
                \label{fig:resultats}}
     \end{figure}
-
-    Deux disciplines se distinguent sur l'échelle de difficulté, l'Archéologie
-    se veut être la discipline la plus facile pour la tâche d'extraction de
-    termes-clés, en opposition avec la Chimie qui, elle, est la plus difficile.
-    Quant aux Sciences de l'Information, à la Linguistique et à la Psychologie,
-    celles-ci ont sensiblement le même degré de difficulté. Les deux méthodes
-    d'extraction de termes-clés se distinguent aussi par leur comportement. La
-    méthode TF-IDF est plus stable que TopicRank lorsque l'on compare les
-    résultats obtenus à partir des tri-grammes et des termes. En effet, en
-    comparaison avec l'ensemble de termes, l'ensemble de tri-grammes contient
-    plus de candidats non pertinants qui dégradent la qualité des groupements en
-    sujets de TopicRank, tandis que la notion de spécificité incorporée dans
-    TF-IDF permet de placer ces candidats en queue du classement et donc de
-    diminuer leur effet négatif.
 

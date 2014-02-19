@@ -56,40 +56,44 @@
     (UniNE).
 
     La reconnaissance de formes consiste à extraire les unités textuelles qui
-    respectent des patrons définis. Dans ce travail, nous définissons quatre
-    patrons morphosyntaxiques afin d'extraire, comme termes-clés candidats, tous
-    les \textbf{syntagmes nominaux}~:
-    \begin{itemize}
-      \item[]{Np+}
-      \item[|]{(A? Nc A+)}
-      \item[|]{(A Nc)}
-      \item[|]{Nc+}
-    \end{itemize}
+    respectent des patrons définis. Dans ce travail, nous suivons les travaux
+    précédents et extrayons les plus longues séquences de noms communs, noms
+    propres et adjectifs, considérés comme étant les \textbf{groupes
+    nominaux}~\cite{hassan2010conundrums}.
 
     L'extraction de \textbf{candidats termes} consiste à extraire les unités
     textuelles qui sont potentiellement des termes. En terminologie, un terme
     est un mot, ou une séquence de mots, représentant un concept spécifique à un
-    domaine (ou une discipline) et, par conséquent, traité comme une
-    \verb+~?~+unité simple\verb+~?~+. Pour ce travail, nous utilisons
-    l'extracteur terminologique TermSuite~\cite{rocheteau2011termsuite}. Une
-    terminologie par corpus est construite automatiquement par TermSuite (32~119
-    termes en Archéologie, 16~557 termes en Sciences de l'Information, 21~330
-    termes en Linguistique, 24~680 termes en Psychologie et 21~020 termes en
-    Chimie) et uniquement les unités textuelles se trouvant dans cette
-    terminologie sont extraites comme termes-clés candidats.
+    domaine (ou une discipline). Dans ce travail, nous utilisons l'extracteur
+    terminologique TermSuite~\cite{rocheteau2011termsuite}. Une terminologie par
+    corpus est construite automatiquement par TermSuite (32~119 termes en
+    Archéologie, 16~557 termes en Sciences de l'Information, 21~330 termes en
+    Linguistique, 24~680 termes en Psychologie et 21~020 termes en Chimie) et
+    uniquement les unités textuelles se trouvant dans cette terminologie sont
+    extraites comme termes-clés candidats.
+    
+    En comparaison avec les méthodes de reconnaissance de forme et d'extraction
+    de termes, la méthode d'extraction de tri-grammes filtrés n'est pas fondée
+    linguistiquement. En effet, la nature et la grammaticalité de ces
+    termes-clés candidats n'est pas contrôlée. Cependant, cela rend l'ensemble
+    de tri-grammes plus exhaustifs que les deux autres ensembles et il est donc
+    intéressant de comparer la performance d'une méthode d'extraction de
+    termes-clés lorsqu'elle utilise un tel ensemble et lorsqu'elle utilise un
+    ensemble plus contraint contenant potentiellement moins de candidats
+    présents dans la référence.
 
   \subsection{Extraction de termes-clés}
   \label{subsec:extraction_de_termes_cles}
     Dans les travaux précédents, de nombreuses méthodes sont proposées pour
-    extraire les termes-clés~\cite{bougouin2013stateoftheart}. Dans la
-    catégorie des méthodes non-supervisées, un grand nombre de techniques
-    différentes est proposé, dont la pondération TF-IDF~\cite{jones1972tfidf} et
-    l'approche à base de graphe~\cite{mihalcea2004textrank}. De part sa
-    simplicité et sa robustesse, le TF-IDF s'impose comme la méthode de
-    référence, tandis que les méthodes à base de graphe suscitent un intérêt
-    grandissant du fait qu'un graphe permet de représenter simplement les
-    relations qu'entretiennent les unités textuelles d'un document et aussi du
-    fait de l'important travail théorique autour des graphes.
+    extraire les termes-clés. Dans la catégorie des méthodes non-supervisées, un
+    grand nombre de techniques différentes est proposé, dont la pondération
+    TF-IDF~\cite{jones1972tfidf} et l'approche à base de
+    graphe~\cite{mihalcea2004textrank}. De part sa simplicité et sa robustesse,
+    le TF-IDF s'impose comme la méthode de référence, tandis que les méthodes à
+    base de graphe suscitent un intérêt grandissant du fait qu'un graphe permet
+    de représenter simplement les relations qu'entretiennent les unités
+    textuelles d'un document et aussi du fait de l'important travail théorique
+    autour des graphes.
 
     La méthode \textbf{TF-IDF} consiste à extraire, comme termes-clés, les
     candidats dont les mots sont les plus importants. Un mot est considéré

@@ -55,12 +55,13 @@
   effort de présentation du contexte historique auquel s'intéresse l'article,
   tandis que les notices de Chimie, représentant en grande partie des comptes
   rendus, ne donnent parfois que le nom de l'expérience réalisée et les noms
-  des éléments chimiques qui entrent en jeu. Nous remarquons aussi qu'en
-  fonction des collections, le nombre moyen de termes-clés assignés aux
-  documents varie de 5,8 termes-clés en Sciences de l'Information à 17,7 en
-  Archéologie. Cette variation est due à différents facteurs %~:
+  des éléments chimiques qui entrent en jeu. %Nous remarquons aussi qu'en
+  %fonction des collections, le nombre moyen de termes-clés assignés aux
+  %documents varie de 5,8 termes-clés en Sciences de l'Information à 17,7 en
+  %Archéologie. Cette variation est due à différents facteurs %~:
   %
-  dont la \verb+~?~+précision\verb+~?~+ des ressources disciplinaires.
+  %dont les ressources disciplinaires.
+  %
   %\begin{itemize}
   %  \item{taille des notices~: \TODO{plus de contenu = potentiellement plus de
   %        termes-clés}~;}
@@ -73,15 +74,21 @@
   %  \item{règles d'indexation~: plus il y a de types d'information nécessaires,
   %        alors plus il doit y avoir de termes-clés à extraire.}
   %\end{itemize}
-  Enfin, la longueur des termes-clés varie aussi selon les disciplines. Il est
-  fréquent que les termes-clés en Archéologie ne soient que des mots, en général
-  des entités nommées de type \textit{période} (\og{}Paléolithique\fg{},
-  \og{}Mésolithique\fg{}, \og{}Néolithique\fg{}, etc.) ou \textit{lieu}
-  (\og{}Asie\fg{}, \og{}Europe\fg{}, \og{}France\fg{}, etc.), tandis que les
-  termes-clés en Chimie sont principalement des composés syntagmatiques, du fait
-  de la spécialisation systématique de certains termes tels que
-  \og{}composé\fg{}, qui peut être \og{}organique\fg{}, \og{}aliphatique\fg{},
-  \og{}éthylénique\fg{}, etc.
+  La longueur des termes-clés varie aussi selon les disciplines. Il est fréquent
+  que les termes-clés en Archéologie ne soient que des mots, en général des
+  entités nommées (49,6\% des termes-clés de références présents dans les
+  notices contiennent des noms propres) de type \textit{période}
+  (\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{}, \og{}Néolithique\fg{}, etc.)
+  ou \textit{lieu} (\og{}Asie\fg{}, \og{}Europe\fg{}, \og{}France\fg{}, etc.),
+  tandis que les termes-clés en Chimie sont principalement des composés
+  syntagmatiques, du fait de la spécialisation systématique de certains termes
+  tels que \og{}composé\fg{}, qui peut être \og{}organique\fg{},
+  \og{}aliphatique\fg{}, \og{}éthylénique\fg{}, etc. Enfin, nous observons
+  d'importantes différences entre les proportions de termes-clés ne pouvant être
+  extraits (sous une quelconque forme fléchie). Cette différence, due à l'usage
+  de ressources externes lors de l'indexation, a une influence sur les résultats
+  des méthodes qui extraient uniquement des termes-clés à partir d'unités
+  textuelles présentes dans les documents.
   \begin{table}
     \centering
     \begin{tabular}{@{~}r|ccccc@{~}}
@@ -98,7 +105,13 @@
         Termes-clés (extractibles) avec Np & 49,6\% & 18,7\% & 9,8\% & 12,5\% & 9,2\%\\
       \bottomrule
     \end{tabular}
-    \caption{Caractéristiques des corpus disciplinaires.
+    \caption{Caractéristiques des corpus disciplinaires. Le pourcentage de
+             termes-clés non extractibles correspond au pourcentage de
+             termes-clés qui ne sont pas présents (sous une quelconque forme
+             fléchie) dans le document. Le pourcentage de termes-clés avec Np
+             correspond au pourcentage de termes-clés de références qui
+             contiennent un mot étiqueté Np (nom propre) par notre outils
+             d'étiquetage morphosyntaxique.
              \label{tab:statistiques_des_corpus}}
   \end{table}
 
