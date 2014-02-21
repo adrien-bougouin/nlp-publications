@@ -20,7 +20,7 @@
 \usepackage[frenchb]{babel}
 
 \pgfplotsset{compat=1.8}
-\usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
+\usetikzlibrary{calc, positioning, topaths, shapes, arrows, patterns}
 
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\shortcite{#2}}{\shortcite[#1]{#2}}}
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
@@ -50,11 +50,7 @@
     \textcolor{red}{\lipsum[1]}
   }
 
-  \motsClefs{
-    Extraction de termes-clés, articles scientifiques, domaine de spécialité
-  }{
-    Keyphrase extraction, scientific papers, specific domain
-  }
+  \motsClefs{Extraction de termes-clés, articles scientifiques, domaine de spécialité}{Keyphrase extraction, scientific papers, specific domain}
 
   \input{input/introduction.tex}
   %\input{input/etat_de_l_art.tex}

@@ -4,22 +4,22 @@
   concept important d'un document auquel il est associé. En pratique, plusieurs
   termes-clés représentant des concepts différents sont associés à un même
   document. Ils forment alors un ensemble à partir duquel il est
-  possible de caractériser le contenu principal du document. Du fait de leur
-  capacité à synthétiser le contenu d'un document, les termes-clés sont utilisés
-  dans de nombreuses applications telles que le résumé
+  possible de caractériser, synthétiser, le contenu principal du document. Du
+  fait de cette capacité de synthèse, les termes-clés sont utilisés dans de
+  nombreuses applications telles que le résumé
   automatique~\cite{avanzo2005keyphrase}, la classification de
   documents~\cite{han2007webdocumentclustering} ou l'indexation
-  automatique~\cite{medelyan2008smalltrainingset}. Avec l'essor du numérique, et
-  en particulier le développement des bibliothèques numériques sur Internet, le
+  automatique~\cite{medelyan2008smalltrainingset}. Avec l'essor du numérique et,
+  en particulier, le développement des bibliothèques numériques sur Internet, le
   nombre d'articles scientifiques auxquels les chercheurs ont accès ne cesse
   d'augmenter. Les termes-clés, le plus souvent assignés par les auteurs,
-  facilitent l'indexation et la recherche d'articles scientifiques, et donnent
+  facilitent l'indexation pour la recherche d'articles scientifiques et donnent
   un bref aperçu de leur contenu. Cependant, de nombreux articles ne sont pas
   associés à des termes-clés et, compte tenu de leur nombre, l'annotation
   manuelle de ces derniers n'est pas envisageable. Pour pallier ce problème, de
   plus en plus de chercheurs s'intéressent à l'extraction automatique de
   termes-clés à partir d'articles scientifiques et certaines campagnes
-  d'évaluations, telles que DEFT~\cite{paroubek2012deft} et
+  d'évaluation, telles que DEFT~\cite{paroubek2012deft} et
   SemEval~\cite{kim2010semeval}, proposent des tâches sur cette problématique.
 
   L'extraction automatique de termes-clés, ou indexation libre,
@@ -31,7 +31,7 @@
   méthodes supervisées et les méthodes non-supervisées. Dans le cadre supervisé,
   la tâche d'extraction de termes-clés est considérée comme une tâche de
   classification binaire~\cite{witten1999kea}, où il s'agit d'attribuer la
-  classe \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} aux
+  classe \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} à des
   termes-clés candidats extraits du document. Une collection de documents
   annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
   de classification reposant sur divers traits tels que la fréquence du
@@ -50,27 +50,31 @@
   termes-clés à partir de documents de nature scientifique. Les documents de
   cette nature appartiennent à des disciplines variées, chacune possédant une
   terminologie qui lui est spécifique. Certains chercheurs s'adaptent à ces
-  documents en réduisant l'ensemble des termes-clés candidats à ceux les plus
-  spécifiques~\cite{kim2009termextraction} ou en tenant compte de la structure
-  des documents pour extraire les termes-clés apparaissant dans les sections les
-  plus favorables~\cite{nguyen2007keadocumentstructure,hofmann2009impactofdocumentstructure}.
+  documents en réduisant l'ensemble des termes-clés candidats, extraits des
+  documents, à ceux les plus spécifiques~\cite{kim2009termextraction}, ou en
+  tenant compte de la structure des documents pour extraire les termes-clés
+  apparaissant dans les sections les plus
+  %
+  favorables~\cite{hofmann2009impactofdocumentstructure}.
+  %
+  %favorables~\cite{nguyen2007keadocumentstructure,hofmann2009impactofdocumentstructure}.
   D'autres chercheurs proposent une analyse de ces documents~:
   \newcite{shah2003wherearethekeywords} étudient les sections génériques des
   articles scientifiques et déterminent celles les plus favorable à
   l'introduction de termes-clés, tandis que
   \newcite{bertels2012etudesemantiquedesmotscles} analysent la sémantique des
   termes-clés en domaine de spécialité. À l'instar de
-  \newcite{shah2003wherearethekeywords} et \newcite{bertels2012etudesemantiquedesmotscles},
+  \newcite{shah2003wherearethekeywords} et de
+  \newcite{bertels2012etudesemantiquedesmotscles},
   nous proposons une analyse de l'influence des domaines de spécialité dans
   l'extraction de termes-clés. Au moyen de cinq corpus disciplinaires
   (section~\ref{sec:presentation_des_donnees}), nous utilisons différentes
   méthodes d'extraction automatique de termes-clés
-  (section~\ref{sec:extraction_automatique_de_termes_cles}) pour observer la
-  performance de l'extraction de termes-clés en domaine de spécialité et en
-  déduire une échelle de difficulté disciplinaire
-  (section~\ref{sec:experiences}). Enfin, nous proposons une analyse des
-  résultats afin de déterminer quels sont les causes d'une difficulté accrue
-  dans un domaine plus que dans un autre (section~\ref{sec:discussion}).
+  (section~\ref{sec:extraction_automatique_de_termes_cles}) et observons leur
+  performance en domaine de spécialité afin de déduire une échelle de difficulté
+  disciplinaire (section~\ref{sec:experiences}). Enfin, nous proposons une
+  analyse des résultats et déterminons les causes potentielles d'une
+  augmentation de la difficulté (section~\ref{sec:discussion}).
 
 %  Dans cet article, nous nous intéressons à la problématique de l'extraction
 %  non-supervisée de termes-clés à partir d'articles scientifiques, et plus

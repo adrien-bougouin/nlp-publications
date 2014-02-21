@@ -1,29 +1,78 @@
 \section{Extraction automatique de termes-clés}
 \label{sec:extraction_automatique_de_termes_cles}
-  L'extraction automatique de termes-clés fonctionne en quatre étapes qui sont~:
-  \begin{enumerate}
-    \item{Préparation des données (segmentation, étiquetage morphosyntaxique,
-          etc.)
-          \label{item:preprocessing}}
-    \item{Extraction des termes-clés candidats
-          \label{item:candidate_extraction}}
-    \item{Ordonnancement (ou classification) des termes-clés candidats
-          \label{item:ranking}}
-    \item{Sélection/Extraction des termes-clés à partir des termes-clés
-          candidats
-          \label{item:extraction}}
-  \end{enumerate}
-  Les étapes les plus importantes d'un système d'extraction automatique de
-  termes-clés sont les étapes~\ref{item:candidate_extraction}
-  et~\ref{item:ranking}. Intuitivement, l'ordonnancement (ou la classification)
-  des candidats est le c\oe{}ur du système, mais la performance de celui-ci est
-  limitée par la qualité de l'ensemble de termes-clés candidats qui lui est
-  fourni. Nous estimons qu'un ensemble de candidats est de bonne qualité
-  lorsqu'il fournit le plus possible de candidats qui sont effectivement des
-  termes-clés, i.e.~des candidats parmi les termes-clés de référence, et
-  lorsqu'il fournit peu de candidats non-pertinents, i.e.~des candidats qui ne
-  sont pas des termes-clés de référence et qui peuvent dégrader la performance
-  du système d'extraction de termes-clés.
+  L'extraction automatique de termes-clés peut se décomposer en quatre étapes~:
+  un à un, les documents sont enrichis linguistiquement (segmentés et étiquetés
+  en parties du discours), puis des termes-clés candidats en sont extraits,
+  ordonnés (ou classifiés) et enfin, les termes-clés sont sélectionnés parmi les
+  meilleurs candidats (voir la figure~\ref{fig:processing_steps}). Les étapes
+  les plus importantes d'un système d'extraction automatique de termes-clés sont
+  celles d'extraction de candidats et d'ordonnancement des termes-clés.
+  Intuitivement, l'ordonnancement (ou la classification) des candidats est le
+  c\oe{}ur du système, mais la performance de celui-ci est limitée par la
+  qualité de l'ensemble de termes-clés candidats qui lui est fourni. Nous
+  estimons qu'un ensemble de candidats est de bonne qualité lorsqu'il fournit le
+  plus possible de candidats présents dans l'ensemble des termes-clés de
+  référence et lorsqu'il fournit peu de candidats non-pertinents, i.e.~des
+  candidats qui ne se sont pas dans l'ensemble des termes-clés de référence et
+  qui peuvent dégrader la performance du système d'extraction de termes-clés.
+  \begin{figure}
+    \tikzstyle{io}=[
+      ellipse,
+      minimum width=5cm,
+      minimum height=2cm,
+      fill=green!20,
+      draw=green!33,
+      transform shape,
+      font={\huge}
+    ]
+    \tikzstyle{component}=[
+      text centered,
+      thick,
+      rectangle,
+      minimum width=11cm,
+      minimum height=2cm,
+      fill=cyan!20,
+      draw=cyan!33,
+      transform shape,
+      font={\huge\bfseries}
+    ]
+
+    \centering
+    \begin{tikzpicture}[thin,
+                        align=center,
+                        scale=.45,
+                        node distance=2cm,
+                        every node/.style={text centered, transform shape}]
+      \node[io] (document) {document};
+      \node[component] (preprocessing) [right=of document] {Prétraitement Linguistique};
+      \node[component] (candidate_extraction) [below=of preprocessing] {Extraction des candidats};
+      \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
+        \begin{tabular}{r|l}
+          Ordonnancement & \multirow{2}{*}[-2pt]{des candidats}\\
+          classification & \\
+        \end{tabular}
+      };
+      \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés};
+      \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
+
+      \path[->, thick] (document) edge (preprocessing);
+      \path[->, thick] (preprocessing) edge (candidate_extraction);
+      \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
+      \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
+      \path[->, thick] (keyphrase_selection) edge (keyphrases);
+      \draw[decorate, decoration={brace, mirror, amplitude=5pt}, thick] ($(candidate_classification_and_ranking.north west)+(-0.9,0.5)$) -- ($(keyphrase_selection.south west)+(-0.9,-0.5)$) node[midway, xshift=-9em] {
+        \huge
+        \begin{tabular}{c}
+          \textbf{Extraction}\\
+          \textbf{des}\\
+          \textbf{termes-clés}\\
+        \end{tabular}
+      };
+    \end{tikzpicture}
+    \caption{Chaîne de traitements d'un système d'extraction automatique de
+             termes-clés.
+             \label{fig:processing_steps}}
+  \end{figure}
 
   \subsection{Préparation des données}
   \label{subsec:preparation_des_donnees}
@@ -42,72 +91,78 @@
     candidats sont extraits à partir des n-grammes filtrés soit ils sont
     extraits par reconnaissance de formes~\cite{hulth2003keywordextraction}.
     Dans ce travail, nous expérimentons avec une méthode pour chacune de ces
-    deux approches et une méthode qui extrait les candidats avec un extracteur
-    terminologique.
+    deux approches et une méthode qui extrait les candidats au moyen d'un
+    extracteur terminologique.
 
     L'extraction des \textbf{n-grammes} filtrés consiste à extraire toutes les
     séquences ordonnées de $n$ mots, puis à les filtrer avec une liste
     regroupant les mots fonctionnels de la langue (conjonctions, prépositions,
-    etc.), ainsi que les mots courants (\og{}près\fg{}, \og{}beaucoup\fg{},
-    etc.). Dans ce travail, les n-grammes de taille $n \in {1..3}$ (tri-grammes)
-    sont extrait lorsque leurs mots en tête et en queue ne sont pas présents
+    etc.) et les mots courants (\og{}près\fg{}, \og{}beaucoup\fg{}, etc.). Dans
+    ce travail, les n-grammes de taille $n \in \{1..3\}$ ($\{1..3\}$-grammes)
+    sont extraits lorsque leurs mots en tête et en queue ne sont pas présents
     dans la liste de mots outils fourni par l'université de
     Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
     (UniNE).
 
     La reconnaissance de formes consiste à extraire les unités textuelles qui
     respectent des patrons définis. Dans ce travail, nous suivons les travaux
-    précédents et extrayons les plus longues séquences de noms communs, noms
-    propres et adjectifs, considérés comme étant les \textbf{groupes
+    précédents et extrayons les plus longues séquences de noms communs, de noms
+    propres et d'adjectifs, considérées comme étant les \textbf{groupes
     nominaux}~\cite{hassan2010conundrums}.
 
     L'extraction de \textbf{candidats termes} consiste à extraire les unités
     textuelles qui sont potentiellement des termes. En terminologie, un terme
     est un mot, ou une séquence de mots, représentant un concept spécifique à un
     domaine (ou une discipline). Dans ce travail, nous utilisons l'extracteur
-    terminologique TermSuite~\cite{rocheteau2011termsuite}. Une terminologie par
-    corpus est construite automatiquement par TermSuite (32~119 termes en
-    Archéologie, 16~557 termes en Sciences de l'Information, 21~330 termes en
-    Linguistique, 24~680 termes en Psychologie et 21~020 termes en Chimie) et
-    uniquement les unités textuelles se trouvant dans cette terminologie sont
-    extraites comme termes-clés candidats.
+    terminologique TermSuite~\cite{rocheteau2011termsuite}, capable de détecter
+    des candidats termes et leurs variantes. Une terminologie (variantes
+    incluses) par corpus est construite automatiquement par TermSuite (32~119
+    termes en Archéologie, 16~557 termes en Sciences de l'Information, 21~330
+    termes en Linguistique, 24~680 termes en Psychologie et 21~020 termes en
+    Chimie) et uniquement les unités textuelles se trouvant dans cette
+    terminologie sont extraites comme termes-clés candidats.
     
     En comparaison avec les méthodes de reconnaissance de forme et d'extraction
-    de termes, la méthode d'extraction de tri-grammes filtrés n'est pas fondée
-    linguistiquement. En effet, la nature et la grammaticalité de ces
+    de termes, la méthode d'extraction de $\{1..3\}$-grammes filtrés n'est pas
+    fondée linguistiquement. En effet, la nature et la grammaticalité de ces
     termes-clés candidats n'est pas contrôlée. Cependant, cela rend l'ensemble
-    de tri-grammes plus exhaustifs que les deux autres ensembles et il est donc
-    intéressant de comparer la performance d'une méthode d'extraction de
-    termes-clés lorsqu'elle utilise un tel ensemble et lorsqu'elle utilise un
-    ensemble plus contraint contenant potentiellement moins de candidats
-    présents dans la référence.
+    de $\{1..3\}$-grammes plus exhaustifs que les deux autres ensembles et il
+    est donc intéressant de comparer la performance d'une méthode d'extraction
+    de termes-clés lorsqu'elle utilise un tel ensemble et lorsqu'elle utilise un
+    ensemble plus contraint, et plus fondé, contenant potentiellement moins de
+    candidats présents dans la référence.
 
-  \subsection{Extraction de termes-clés}
+  \subsection{Extraction des termes-clés}
   \label{subsec:extraction_de_termes_cles}
     Dans les travaux précédents, de nombreuses méthodes sont proposées pour
     extraire les termes-clés. Dans la catégorie des méthodes non-supervisées, un
-    grand nombre de techniques différentes est proposé, dont la pondération
-    TF-IDF~\cite{jones1972tfidf} et l'approche à base de
-    graphe~\cite{mihalcea2004textrank}. De part sa simplicité et sa robustesse,
-    le TF-IDF s'impose comme la méthode de référence, tandis que les méthodes à
-    base de graphe suscitent un intérêt grandissant du fait qu'un graphe permet
-    de représenter simplement les relations qu'entretiennent les unités
-    textuelles d'un document et aussi du fait de l'important travail théorique
-    autour des graphes.
+    grand nombre de méthode différentes est proposé, dont la méthode
+    TF-IDF~\cite{jones1972tfidf} et la méthode
+    TopicRank~\cite{bougouin2013topicrank}. De part sa simplicité et sa
+    robustesse, le TF-IDF s'impose comme la méthode de référence, tandis que les
+    méthodes à base de graphe, comme TopicRank, suscitent un intérêt
+    grandissant, car les graphes ont l'avantage de présenter simplement et
+    efficacement des unités textuelles et leurs relations aux sein d'un
+    document. De plus, les graphes bénéficient de nombreuses études théoriques
+    donnant lieu à des outils et algorithmes utiles pour de nombreux problèmes.
 
-    La méthode \textbf{TF-IDF} consiste à extraire, comme termes-clés, les
+    La méthode \textbf{TF-IDF} consiste à extraire en tant que termes-clés les
     candidats dont les mots sont les plus importants. Un mot est considéré
     important, dans un document, s'il est fréquent dans le document et s'il est
-    spécifique à celui-ci. La spécificité est déterminée à partir de la
-    collection de documents~: un mot est considéré spécifique lorsqu'il apparaît
-    dans très peu de documents.
+    spécifique à celui-ci. La spécificité est déterminée à partir d'une
+    collection de documents\footnote{Dans ce travail, nous utilisons la
+    collection dont le document est extrait.}~: un mot est considéré spécifique
+    lorsqu'il apparaît dans très peu de documents.
 
-    Parmi les méthodes à base de graphe, nous utilisons
-    \textbf{TopicRank}~\cite{bougouin2013topicrank}, une méthode qui extrait les
-    termes-clés qui représentent les sujets les plus important d'un document.
-    Tout d'abord, les termes-clés candidats sont groupés par sujets, puis les
-    relations entre ces sujets sont modélisées par un graphe dans lequel les
-    sujets sont les n\oe{}uds. Ensuite, l'algorithme
-    TextRank~\cite{mihalcea2004textrank} ordonne les sujets par importance, puis
-    pour chaque sujet, le candidat le plus représentatif est extrait.
+    \textbf{TopicRank}~\cite{bougouin2013topicrank} extrait les termes-clés qui
+    représentent les sujets les plus importants d'un document. Tout d'abord, les
+    termes-clés candidats sont groupés par sujets, puis les relations entre ces
+    sujets sont modélisées par un graphe dans lequel ils sont les n\oe{}uds.
+    Ensuite, l'algorithme TextRank~\cite{mihalcea2004textrank} ordonne les
+    sujets par importance, puis pour chaque sujet, le candidat le plus
+    représentatif est extrait. TopicRank groupe les candidats en sujet grâce à
+    une mesure de similarité lexicale. Cependant, TermSuite fournit un
+    groupement terminologique des termes et des variantes qu'il extrait. Lorsque
+    les candidats sont extraits avec TermSuite, nous utilisons ce groupement
+    term/variant à la place de celui fondé sur la similarité lexicale.
 
