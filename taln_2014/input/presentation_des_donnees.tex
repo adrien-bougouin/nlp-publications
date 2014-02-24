@@ -51,11 +51,10 @@
   cinq collections de données présentées ci-dessus.
   %
   Les notices INIST sont de petite taille et sont rédigées différemment selon
-  les disciplines (voir la figure~\ref{}\TODO{exemple de notices d'Archéologie
-  et de Chimie en accord avec tout ce qui est dit ici}). Ainsi, les notices
-  d'Archéologie font l'objet d'un effort de présentation des contextes
-  historiques liés aux travaux présentés, tandis que les notices de Chimie
-  (principalement des comptes rendus d'expériences) ne décrive que sommairement
+  les disciplines (voir la figure~\ref{img:exemple_notice_inist}). Ainsi, les
+  notices d'Archéologie font l'objet d'un effort de présentation des contextes
+  historiques liés aux travaux présentés, tandis que les notices de Chimie,
+  principalement des comptes rendus d'expériences, ne décrive que sommairement
   les expériences réalisées (noms des expériences et éléments chimiques
   impliqués). Les termes-clés associés aux documents varient en nombre et en
   complexité. Il est fréquent que les termes-clés en Archéologie soient composés
@@ -64,14 +63,14 @@
   nombre de termes-clés sont des entités nommées de type \textit{période}
   (e.g.~\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{}, \og{}Néolithique\fg{},
   etc.) ou \textit{lieu} (e.g.~\og{}Asie\fg{}, \og{}Europe\fg{},
-  \og{}France\fg{}, etc.), tandis qu'en Chimie, nous observons un usage fréquent
-  de notions générales nécessitant une spécialisation
-  (e.g.~\og{}\underline{composé} organique\fg{}, \og{}\underline{composé}
-  aliphatique\fg{}, \og{}\underline{composé} éthylénique\fg{}, etc.). Enfin, il
-  est important de noter le faible rappel maximum pouvant être obtenu pour ces
-  corpus. Par exemple, dans le corpus de Sciences de l'Information, uniquement
-  1,3 termes-clés peuvent être extraits des notices parmi les 5,8 associés aux
-  notices, en moyenne.
+  \og{}France\fg{}, etc.) comptant principalement un seul mot, tandis qu'en
+  Chimie, nous observons un usage fréquent de notions générales nécessitant une
+  spécialisation (e.g.~\og{}\underline{réaction} solvothermale\fg{},
+  \og{}\underline{réaction} électrochimique\fg{}, \og{}\underline{réaction}
+  thermique\fg{}, etc.). Enfin, il est important de noter le faible rappel
+  maximum pouvant être obtenu pour ces corpus. Par exemple, dans le corpus de
+  Sciences de l'Information, uniquement 1,3 termes-clés peuvent être extraits
+  des notices parmi les 5,8 associés aux notices, en moyenne.
   %
   %Nous observons tout d'abord
   %une différence concernant la taille des documents. Les notices archéologiques
@@ -128,14 +127,50 @@
         Termes-clés/doc. & 17,7 & 5,8 & 8,0 & 11,0 & 12,9\\
         Mots/terme-clé & 1,3 & 1,7 & 1,7 & 1,6 & 2,2\\
         Termes-clés extractibles (Rappel max.) & 64.3\% & 21.9\% & 61.2\% & 27.6\% & 40.2\%\\
-        Termes-clés extractibles avec Np & 49,6\% & 18,7\% & 9,8\% & 12,5\% & 9,2\%\\
-        Termes-clés extractibles Np+ & 41,3\% & 13,9\% & 7,7\% & 9,3\% & 6,7\%\\
+        %Termes-clés extractibles avec Np & 49,6\% & 18,7\% & 9,8\% & 12,5\% & 9,2\%\\
+        Termes-clés ne contenant que des Np & 41,3\% & 13,9\% & 7,7\% & 9,3\% & 6,7\%\\
       \bottomrule
     \end{tabular}
     \caption{Caractéristiques des corpus disciplinaires. Le pourcentage de
-             termes-clés avec Np correspond au pourcentage de termes-clés de
-             références qui contiennent un mot étiqueté Np (nom propre) par
-             notre outils d'étiquetage morphosyntaxique.
+             termes-clés ne contenant que des Np correspond au pourcentage de
+             termes-clés de références qui contiennent uniquement des mots
+             étiquetés Np (nom propre) par notre outils d'étiquetage
+             morphosyntaxique (MElt).
              \label{tab:statistiques_des_corpus}}
   \end{table}
+  \begin{figure}
+    \subfigure[Archéologie]{
+      \framebox[\linewidth]{
+        \parbox{.99\linewidth}{
+          \textbf{Variabilité du \underline{gravettien} de \underline{Kostienki}
+                  (bassin moyen du Don) et des territoires associés}\\
+
+          Dans la région de Kostienki-\underline{Borschevo}, on observe
+          l'expression, à ce jour, la plus orientale du modèle européen de
+          l'évolution du \underline{Paléolithique supérieur}. Elle est
+          différente à la fois du modèle Sibérien et du modèle de l'Asie
+          centrale. Comme ailleurs en \underline{Europe}, le Gravettien
+          apparaît à Kostienki vers 28 ka (Kostienki 8 /II/). Par la suite,
+          entre 24-20 ka, les techno-complexes gravettiens sont représentés au
+          moins par quatre faciès dont deux, ceux de Kostienki 21/III/ et
+          Kostienki 4 /II/, ressemblent au Gravettien occidental et deux autres,
+          Kostienki-\underline{Avdeevo} et Kostienki 11/II/, sont des faciès
+          propres à l'Europe de l'Est, sans analogie à l'Ouest.
+        }
+      }
+    }
+    \subfigure[Chimie]{
+      \framebox[\linewidth]{
+        \parbox{.99\linewidth}{
+          \textbf{Etude de la metallation des carbamates d'hydroxy-2,3,4
+                  quinoléines}\\
+
+          \underline{Lithiations} régiosélectives en position ortho (C3 et C4)
+          puis réactions électrophiles.
+        }
+      }
+    }
+    \caption{Exemple de notice INIST.
+             \label{img:exemple_notice_inist}}
+  \end{figure}
 

@@ -20,19 +20,19 @@
       ellipse,
       minimum width=5cm,
       minimum height=2cm,
-      fill=green!20,
-      draw=green!33,
+      %fill=green!20,
+      draw,%=green!33,
       transform shape,
       font={\huge}
     ]
     \tikzstyle{component}=[
       text centered,
-      thick,
+      %thick,
       rectangle,
       minimum width=11cm,
       minimum height=2cm,
-      fill=cyan!20,
-      draw=cyan!33,
+      %fill=cyan!20,
+      draw,%=cyan!33,
       transform shape,
       font={\huge\bfseries}
     ]
@@ -78,8 +78,8 @@
   \label{subsec:preparation_des_donnees}
     Les documents des collections de données utilisées subissent les mêmes
     prétraitements. Ils sont tout d'abord segmentés en phrases, puis en mots et
-    enfin étiquetés en parties du discours. La segmentation en mots est
-    effectuée avec l'outil Bonsai, du Bonsai PCFG-LA
+    enfin étiquetés en parties du discours. Dans ce travail, la segmentation en
+    mots est effectuée avec l'outil Bonsai, du Bonsai PCFG-LA
     parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}}
     et l'étiquetage en parties du discours est réalisé avec
     MElt~\cite{denis2009melt}. Tous ces outils sont utilisés sans modification
@@ -100,7 +100,8 @@
     etc.) et les mots courants (\og{}près\fg{}, \og{}beaucoup\fg{}, etc.). Dans
     ce travail, les n-grammes de taille $n \in \{1..3\}$ ($\{1..3\}$-grammes)
     sont extraits lorsque leurs mots en tête et en queue ne sont pas présents
-    dans la liste de mots outils fourni par l'université de
+    dans la liste de mots outils~\cite{witten1999kea} fournie par l'université
+    de
     Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
     (UniNE).
 
@@ -121,6 +122,8 @@
     termes en Linguistique, 24~680 termes en Psychologie et 21~020 termes en
     Chimie) et uniquement les unités textuelles se trouvant dans cette
     terminologie sont extraites comme termes-clés candidats.
+
+    \TODO{Ajout des Np+ au candidats termes de TermSuite.}
     
     En comparaison avec les méthodes de reconnaissance de forme et d'extraction
     de termes, la méthode d'extraction de $\{1..3\}$-grammes filtrés n'est pas
@@ -136,15 +139,15 @@
   \label{subsec:extraction_de_termes_cles}
     Dans les travaux précédents, de nombreuses méthodes sont proposées pour
     extraire les termes-clés. Dans la catégorie des méthodes non-supervisées, un
-    grand nombre de méthode différentes est proposé, dont la méthode
+    grand nombre de méthodes différentes est proposé, dont la méthode
     TF-IDF~\cite{jones1972tfidf} et la méthode
     TopicRank~\cite{bougouin2013topicrank}. De part sa simplicité et sa
     robustesse, le TF-IDF s'impose comme la méthode de référence, tandis que les
     méthodes à base de graphe, comme TopicRank, suscitent un intérêt
-    grandissant, car les graphes ont l'avantage de présenter simplement et
-    efficacement des unités textuelles et leurs relations aux sein d'un
-    document. De plus, les graphes bénéficient de nombreuses études théoriques
-    donnant lieu à des outils et algorithmes utiles pour de nombreux problèmes.
+    grandissant du fait que les graphes présentent simplement et efficacement
+    des unités textuelles et leurs relations aux sein d'un document. De plus,
+    ils bénéficient de nombreuses études théoriques donnant lieu à des outils et
+    algorithmes utiles pour de nombreux problèmes.
 
     La méthode \textbf{TF-IDF} consiste à extraire en tant que termes-clés les
     candidats dont les mots sont les plus importants. Un mot est considéré

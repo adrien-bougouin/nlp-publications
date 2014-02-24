@@ -184,7 +184,50 @@
           \end{axis}
         \end{tikzpicture}
       }
-      \subfigure[Candidats termes et entités nommées (NEMESIS)]{
+%      \subfigure[Candidats termes et entités nommées (NEMESIS)]{
+%        \begin{tikzpicture}[scale=.75]
+%          \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
+%          \begin{axis}[axis lines=left,
+%                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+%                       xtick=data,
+%                       enlarge x limits=0.125,
+%                       x=.1\linewidth,
+%                       xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+%                       nodes near coords,
+%                       nodes near coords align={vertical},
+%                       every node near coord/.append style={font=\scriptsize},
+%                       ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+%                       y=\linewidth,
+%                       ymin=0,
+%                       ymax=0.22,
+%                       ybar=10pt,
+%                       ylabel=MAP,
+%                       ylabel style={at={(ticklabel* cs:1)},
+%                                     anchor=south,
+%                                     rotate=270}]
+%            \addplot[black!66,
+%                     pattern=north east lines,
+%                     pattern color=black!40] coordinates{
+%              (Archéologie, 0.171)
+%              (Sciences de l'Information, 0.111)
+%              (Linguistique, 0.104)
+%              (Psychologie, 0.071)
+%              (Chimie, 0.060)
+%            };
+%            \addplot[black!66,
+%                     pattern=north west lines,
+%                     pattern color=black!66] coordinates{
+%              (Archéologie, 0.152)
+%              (Sciences de l'Information, 0.092)
+%              (Linguistique, 0.097)
+%              (Psychologie, 0.072)
+%              (Chimie, 0.050)
+%            };
+%            \legend{TF-IDF, TopicRank}
+%          \end{axis}
+%        \end{tikzpicture}
+%      }
+      \subfigure[Candidats termes et Np+]{
         \begin{tikzpicture}[scale=.75]
           \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
           \begin{axis}[axis lines=left,
@@ -208,20 +251,20 @@
             \addplot[black!66,
                      pattern=north east lines,
                      pattern color=black!40] coordinates{
-              (Archéologie, 0.171)
-              (Sciences de l'Information, 0.111)
-              (Linguistique, 0.104)
+              (Archéologie, 0.170)
+              (Sciences de l'Information, 0.110)
+              (Linguistique, 0.103)
               (Psychologie, 0.071)
-              (Chimie, 0.060)
+              (Chimie, 0.058)
             };
             \addplot[black!66,
                      pattern=north west lines,
                      pattern color=black!66] coordinates{
-              (Archéologie, 0.152)
-              (Sciences de l'Information, 0.092)
-              (Linguistique, 0.097)
-              (Psychologie, 0.072)
-              (Chimie, 0.050)
+              (Archéologie, 0.175)
+              (Sciences de l'Information, 0.097)
+              (Linguistique, 0.104)
+              (Psychologie, 0.076)
+              (Chimie, 0.051)
             };
             \legend{TF-IDF, TopicRank}
           \end{axis}
