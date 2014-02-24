@@ -1,20 +1,20 @@
 \section{Extraction automatique de termes-clés}
 \label{sec:extraction_automatique_de_termes_cles}
-  L'extraction automatique de termes-clés peut se décomposer en quatre étapes~:
-  un à un, les documents sont enrichis linguistiquement (segmentés et étiquetés
-  en parties du discours), puis des termes-clés candidats en sont extraits,
-  ordonnés (ou classifiés) et enfin, les termes-clés sont sélectionnés parmi les
+  L'extraction non-supervisée de termes-clés peut se décomposer en quatre
+  étapes~: un à un, les documents sont enrichis linguistiquement (segmentés et
+  étiquetés en parties du discours), puis des termes-clés candidats en sont
+  extraits, ordonnés et enfin, les termes-clés sont sélectionnés parmi les
   meilleurs candidats (voir la figure~\ref{fig:processing_steps}). Les étapes
   les plus importantes d'un système d'extraction automatique de termes-clés sont
   celles d'extraction de candidats et d'ordonnancement des termes-clés.
-  Intuitivement, l'ordonnancement (ou la classification) des candidats est le
-  c\oe{}ur du système, mais la performance de celui-ci est limitée par la
-  qualité de l'ensemble de termes-clés candidats qui lui est fourni. Nous
-  estimons qu'un ensemble de candidats est de bonne qualité lorsqu'il fournit le
-  plus possible de candidats présents dans l'ensemble des termes-clés de
-  référence et lorsqu'il fournit peu de candidats non-pertinents, i.e.~des
-  candidats qui ne se sont pas dans l'ensemble des termes-clés de référence et
-  qui peuvent dégrader la performance du système d'extraction de termes-clés.
+  Intuitivement, l'ordonnancement des candidats est le c\oe{}ur du système, mais
+  la performance de celui-ci est limitée par la qualité de l'ensemble de
+  termes-clés candidats qui lui est fourni. Nous estimons qu'un ensemble de
+  candidats est de bonne qualité lorsqu'il fournit un maximum de candidats
+  présents dans l'ensemble des termes-clés de référence et lorsqu'il fournit peu
+  de candidats non-pertinents, i.e.~des candidats qui ne se sont pas dans
+  l'ensemble des termes-clés de référence et qui peuvent dégrader la performance
+  du système d'extraction de termes-clés.
   \begin{figure}
     \tikzstyle{io}=[
       ellipse,
@@ -47,10 +47,11 @@
       \node[component] (preprocessing) [right=of document] {Prétraitement Linguistique};
       \node[component] (candidate_extraction) [below=of preprocessing] {Extraction des candidats};
       \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
-        \begin{tabular}{r|l}
-          Ordonnancement & \multirow{2}{*}[-2pt]{des candidats}\\
-          Classification & \\
-        \end{tabular}
+        %\begin{tabular}{r|l}
+        %  Ordonnancement & \multirow{2}{*}[-2pt]{des candidats}\\
+        %  Classification & \\
+        %\end{tabular}
+        Ordonnancement des candidats
       };
       \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés};
       \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
@@ -60,14 +61,14 @@
       \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
       \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
       \path[->, thick] (keyphrase_selection) edge (keyphrases);
-      \draw[decorate, decoration={brace, mirror, amplitude=5pt}, thick] ($(candidate_classification_and_ranking.north west)+(-0.9,0.5)$) -- ($(keyphrase_selection.south west)+(-0.9,-0.5)$) node[midway, xshift=-9em] {
-        \huge
-        \begin{tabular}{c}
-          \textbf{Extraction}\\
-          \textbf{des}\\
-          \textbf{termes-clés}\\
-        \end{tabular}
-      };
+%      \draw[decorate, decoration={brace, mirror, amplitude=5pt}, thick] ($(candidate_classification_and_ranking.north west)+(-0.9,0.5)$) -- ($(keyphrase_selection.south west)+(-0.9,-0.5)$) node[midway, xshift=-9em] {
+%        \huge
+%        \begin{tabular}{c}
+%          \textbf{Extraction}\\
+%          \textbf{des}\\
+%          \textbf{termes-clés}\\
+%        \end{tabular}
+%      };
     \end{tikzpicture}
     \caption{Chaîne de traitements d'un système d'extraction automatique de
              termes-clés.
@@ -82,8 +83,8 @@
     mots est effectuée avec l'outil Bonsai, du Bonsai PCFG-LA
     parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}}
     et l'étiquetage en parties du discours est réalisé avec
-    MElt~\cite{denis2009melt}. Tous ces outils sont utilisés sans modification
-    de leurs paramètres par défaut.
+    MElt~\cite{denis2009melt}. Tous ces outils sont utilisés avec leurs
+    paramètres par défaut.
 
   \subsection{Extraction des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles_candidats}
@@ -105,14 +106,8 @@
     Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
     (UniNE). Exemple de {1..3}-grammes, extraits à partir de \og{}[\dots]
     (bassin moyen du Don) [\dots]\fg{} dans la notice d'Archéologie de la
-    figure~\ref{fig:exemple_notice_inist}~:
-    \begin{itemize}
-      \item{\og{}bassin\fg{}}
-      \item{\og{}moyen\fg{}}
-      \item{\og{}Don\fg{}}
-      \item{\og{}bassin moyen\fg{}}
-      \item{\og{}moyen du Don\fg{}}
-    \end{itemize}
+    figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}moyen\fg{},
+    \og{}Don\fg{}, \og{}bassin moyen\fg{} et \og{}moyen du Don\fg{}.
 
     La reconnaissance de formes consiste à extraire les unités textuelles qui
     respectent des patrons définis. Dans ce travail, nous suivons les travaux
@@ -120,11 +115,8 @@
     propres et d'adjectifs, considérées comme étant les \textbf{groupes
     nominaux}~\cite{hassan2010conundrums}. Exemple de groupes nominaux extraits
     à partir de \og{}[\dots] (bassin moyen du Don) [\dots]\fg{} dans la notice
-    d'Archéologie de la figure~\ref{fig:exemple_notice_inist}~:
-    \begin{itemize}
-      \item{\og{}Don\fg{}}
-      \item{\og{}bassin moyen\fg{}}
-    \end{itemize}
+    d'Archéologie de la figure~\ref{fig:exemple_notice_inist}~: \og{}Don\fg{} et
+    \og{}bassin moyen\fg{}.
 
     L'extraction de \textbf{candidats termes} consiste à extraire les unités
     textuelles qui sont potentiellement des termes. En terminologie, un terme
@@ -139,33 +131,32 @@
     terminologie sont extraites comme termes-clés candidats. Exemple de
     candidats termes extraits à partir de \og{}[\dots] (bassin moyen du Don)
     [\dots]\fg{} dans la notice d'Archéologie de la
-    figure~\ref{fig:exemple_notice_inist}~:
-    \begin{itemize}
-      \item{\og{}bassin\fg{}}
-      \item{\og{}Don\fg{}}
-      \item{\og{}bassin moyen\fg{}}
-      \item{\og{}bassin moyen du Don\fg{}}
-    \end{itemize}
+    figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}Don\fg{},
+    \og{}bassin moyen\fg{} et \og{}bassin moyen du Don\fg{}.
     
-    En comparaison avec les méthodes de reconnaissance de forme et d'extraction
-    de termes, la méthode d'extraction de $\{1..3\}$-grammes filtrés n'est pas
-    fondée linguistiquement. En effet, la nature et la grammaticalité de ces
-    termes-clés candidats n'est pas contrôlée. Cependant, cela rend l'ensemble
-    de $\{1..3\}$-grammes plus exhaustifs que les deux autres ensembles et il
-    est donc intéressant de comparer la performance d'une méthode d'extraction
-    de termes-clés lorsqu'elle utilise un tel ensemble et lorsqu'elle utilise un
-    ensemble plus contraint, et plus fondé, contenant potentiellement moins de
-    candidats présents dans la référence.
+    %En comparaison avec les méthodes de reconnaissance de forme et d'extraction
+    %de termes, la méthode d'extraction de $\{1..3\}$-grammes filtrés n'est pas
+    %fondée linguistiquement. En effet, la nature et la grammaticalité de ces
+    %termes-clés candidats n'est pas contrôlée. Cependant, cela rend l'ensemble
+    %de $\{1..3\}$-grammes plus exhaustifs que les deux autres ensembles et il
+    %est donc intéressant de comparer la performance d'une méthode d'extraction
+    %de termes-clés lorsqu'elle utilise un tel ensemble et lorsqu'elle utilise un
+    %ensemble plus contraint, et plus fondé, contenant potentiellement moins de
+    %candidats présents dans la référence.
 
-  \subsection{Extraction des termes-clés}
+  \subsection{Ordonnancement des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles}
     Dans les travaux précédents, de nombreuses méthodes sont proposées pour
     extraire les termes-clés. Dans la catégorie des méthodes non-supervisées, un
-    grand nombre de méthodes différentes est proposé, dont la méthode
+    grand nombre de méthodes différentes sont proposées, dont la méthode
     TF-IDF~\cite{jones1972tfidf} et la méthode
     TopicRank~\cite{bougouin2013topicrank}. De part sa simplicité et sa
-    robustesse, le TF-IDF s'impose comme la méthode de référence, tandis que les
-    méthodes à base de graphe, comme TopicRank, suscitent un intérêt
+    robustesse, le TF-IDF s'impose comme la méthode de référence\footnote{Notons
+    que cette méthode de pondération à été modifiée en Recherche
+    d'Information~\cite[Okapi]{robertson1999okapi,claveau2012vectorisation}.
+    Cette variante n'étant, à notre connaissance, pas employée pour l'extraction
+    automatique de termes-clés, nous optons pour la méthode classique.}, tandis
+    que les méthodes à base de graphe, comme TopicRank, suscitent un intérêt
     grandissant du fait que les graphes présentent simplement et efficacement
     des unités textuelles et leurs relations aux sein d'un document. De plus,
     ils bénéficient de nombreuses études théoriques donnant lieu à des outils et

@@ -14,13 +14,13 @@
   nombre d'articles scientifiques auxquels les chercheurs ont accès ne cesse
   d'augmenter. Les termes-clés, le plus souvent assignés par les auteurs,
   facilitent l'indexation pour la recherche d'articles scientifiques et donnent
-  un bref aperçu de leur contenu. Cependant, de nombreux articles ne sont pas
-  associés à des termes-clés et, compte tenu de leur nombre, l'annotation
-  manuelle de ces derniers n'est pas envisageable. Pour pallier ce problème, de
-  plus en plus de chercheurs s'intéressent à l'extraction automatique de
-  termes-clés à partir d'articles scientifiques et certaines campagnes
-  d'évaluation, telles que DEFT~\cite{paroubek2012deft} et
-  SemEval~\cite{kim2010semeval}, proposent des tâches sur cette problématique.
+  un bref aperçu de leur contenu. Cependant, de nombreux articles n'ont pas de
+  termes-clés associés et, compte tenu de leur nombre, l'annotation manuelle de
+  ces derniers n'est pas envisageable. Pour pallier ce problème, de plus en plus
+  de chercheurs s'intéressent à l'extraction automatique de termes-clés à partir
+  d'articles scientifiques et certaines campagnes d'évaluation, telles que
+  DEFT~\cite{paroubek2012deft} et SemEval~\cite{kim2010semeval}, proposent des
+  tâches sur cette problématique.
 
   L'extraction automatique de termes-clés, ou indexation libre,
   consiste à extraire les unités textuelles les plus importantes d'un document,
@@ -30,8 +30,8 @@
   automatique de termes-clés existantes, nous distinguons deux catégories~: les
   méthodes supervisées et les méthodes non-supervisées. Dans le cadre supervisé,
   la tâche d'extraction de termes-clés est considérée comme une tâche de
-  classification binaire~\cite{witten1999kea}, où il s'agit d'attribuer la
-  classe \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} à des
+  classification~\cite{witten1999kea}, où il s'agit d'attribuer la classe
+  \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} à des
   termes-clés candidats extraits du document. Une collection de documents
   annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
   de classification reposant sur divers traits tels que la fréquence du
@@ -40,11 +40,9 @@
   en fonction de divers indicateurs comme leur spécificité par rapport au
   document~\cite{paukkeri2010likey} ou les relations de coocurrence que leurs
   mots entretiennent~\cite{mihalcea2004textrank}. Les méthodes supervisées sont
-  plus performantes que les méthodes non-supervisées, mais le besoin en
-  documents annotés avec des termes-clés, ainsi que la forte dépendance des
-  modèles de classification au type de ces documents, poussent les chercheurs à
-  essayer de proposer des méthodes non-supervisées compétitives avec les
-  méthodes supervisées.
+  plus performantes que les méthodes non-supervisées, mais leur besoin en
+  données annotées (pour l'apprentissage) pousse les chercheurs à proposer des
+  méthodes non-supervisées compétitives avec les méthodes supervisées.
 
   Dans cet article, nous nous plaçons dans le contexte de l'extraction
   non-supervisée de termes-clés à partir de documents de nature scientifique.
