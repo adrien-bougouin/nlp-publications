@@ -49,7 +49,7 @@
       \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
         \begin{tabular}{r|l}
           Ordonnancement & \multirow{2}{*}[-2pt]{des candidats}\\
-          classification & \\
+          Classification & \\
         \end{tabular}
       };
       \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés};
@@ -103,13 +103,28 @@
     dans la liste de mots outils~\cite{witten1999kea} fournie par l'université
     de
     Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
-    (UniNE).
+    (UniNE). Exemple de {1..3}-grammes, extraits à partir de \og{}[\dots]
+    (bassin moyen du Don) [\dots]\fg{} dans la notice d'Archéologie de la
+    figure~\ref{fig:exemple_notice_inist}~:
+    \begin{itemize}
+      \item{\og{}bassin\fg{}}
+      \item{\og{}moyen\fg{}}
+      \item{\og{}Don\fg{}}
+      \item{\og{}bassin moyen\fg{}}
+      \item{\og{}moyen du Don\fg{}}
+    \end{itemize}
 
     La reconnaissance de formes consiste à extraire les unités textuelles qui
     respectent des patrons définis. Dans ce travail, nous suivons les travaux
     précédents et extrayons les plus longues séquences de noms communs, de noms
     propres et d'adjectifs, considérées comme étant les \textbf{groupes
-    nominaux}~\cite{hassan2010conundrums}.
+    nominaux}~\cite{hassan2010conundrums}. Exemple de groupes nominaux extraits
+    à partir de \og{}[\dots] (bassin moyen du Don) [\dots]\fg{} dans la notice
+    d'Archéologie de la figure~\ref{fig:exemple_notice_inist}~:
+    \begin{itemize}
+      \item{\og{}Don\fg{}}
+      \item{\og{}bassin moyen\fg{}}
+    \end{itemize}
 
     L'extraction de \textbf{candidats termes} consiste à extraire les unités
     textuelles qui sont potentiellement des termes. En terminologie, un terme
@@ -121,9 +136,16 @@
     termes en Archéologie, 16~557 termes en Sciences de l'Information, 21~330
     termes en Linguistique, 24~680 termes en Psychologie et 21~020 termes en
     Chimie) et uniquement les unités textuelles se trouvant dans cette
-    terminologie sont extraites comme termes-clés candidats.
-
-    \TODO{Ajout des Np+ au candidats termes de TermSuite.}
+    terminologie sont extraites comme termes-clés candidats. Exemple de
+    candidats termes extraits à partir de \og{}[\dots] (bassin moyen du Don)
+    [\dots]\fg{} dans la notice d'Archéologie de la
+    figure~\ref{fig:exemple_notice_inist}~:
+    \begin{itemize}
+      \item{\og{}bassin\fg{}}
+      \item{\og{}Don\fg{}}
+      \item{\og{}bassin moyen\fg{}}
+      \item{\og{}bassin moyen du Don\fg{}}
+    \end{itemize}
     
     En comparaison avec les méthodes de reconnaissance de forme et d'extraction
     de termes, la méthode d'extraction de $\{1..3\}$-grammes filtrés n'est pas
@@ -167,5 +189,10 @@
     une mesure de similarité lexicale. Cependant, TermSuite fournit un
     groupement terminologique des termes et des variantes qu'il extrait. Lorsque
     les candidats sont extraits avec TermSuite, nous utilisons ce groupement
-    term/variant à la place de celui fondé sur la similarité lexicale.
+    term/variant à la place de celui fondé sur la similarité lexicale. Tenant
+    compte du groupement (moins naïf) de TermSuite, TopicRank est alors capable
+    de distinguer les candidats \og{}Kostienki 11/II/\fg{} et \og{}Kostienki
+    21/III/\fg{} (voir la figure~\ref{fig:exemple_notice_inist}) qui
+    représentent des faciès différents, mais qui sont groupés lorsque c'est le
+    groupement par défaut de TopicRank qui est utilisé.
 

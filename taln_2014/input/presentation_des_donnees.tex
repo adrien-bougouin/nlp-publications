@@ -51,7 +51,7 @@
   cinq collections de données présentées ci-dessus.
   %
   Les notices INIST sont de petite taille et sont rédigées différemment selon
-  les disciplines (voir la figure~\ref{img:exemple_notice_inist}). Ainsi, les
+  les disciplines (voir la figure~\ref{fig:exemple_notice_inist}). Ainsi, les
   notices d'Archéologie font l'objet d'un effort de présentation des contextes
   historiques liés aux travaux présentés, tandis que les notices de Chimie,
   principalement des comptes rendus d'expériences, ne décrive que sommairement
@@ -139,11 +139,13 @@
              \label{tab:statistiques_des_corpus}}
   \end{table}
   \begin{figure}
-    \subfigure[Archéologie]{
+    %\subfigure[Archéologie]{
+      % Archeologie_09-0054907_TEI_final.xml
       \framebox[\linewidth]{
         \parbox{.99\linewidth}{
           \textbf{Variabilité du \underline{gravettien} de \underline{Kostienki}
-                  (bassin moyen du Don) et des territoires associés}\\
+                  (bassin moyen du Don) et des territoires associés}
+          \hfill\underline{\textit{Archéologie}}\\
 
           Dans la région de Kostienki-\underline{Borschevo}, on observe
           l'expression, à ce jour, la plus orientale du modèle européen de
@@ -158,19 +160,22 @@
           propres à l'Europe de l'Est, sans analogie à l'Ouest.
         }
       }
-    }
-    \subfigure[Chimie]{
+    %}
+    ~\\~\\
+    %\subfigure[Chimie]{
+      % Chimie_88-0340321_TEI_final.xml
       \framebox[\linewidth]{
         \parbox{.99\linewidth}{
           \textbf{Etude de la metallation des carbamates d'hydroxy-2,3,4
-                  quinoléines}\\
+                  quinoléines}
+          \hfill\underline{\textit{Chimie}}\\
 
           \underline{Lithiations} régiosélectives en position ortho (C3 et C4)
           puis réactions électrophiles.
         }
       }
-    }
+    %}
     \caption{Exemple de notice INIST.
-             \label{img:exemple_notice_inist}}
+             \label{fig:exemple_notice_inist}}
   \end{figure}
 
