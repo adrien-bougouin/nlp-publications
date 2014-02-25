@@ -61,7 +61,7 @@
   d'un unique mot, tandis que les termes-clés en Chimie sont principalement des
   composés syntagmatiques. En effet, en Archéologie, nous observons qu'un grand
   nombre de termes-clés sont des entités nommées (41,3\% des termes-clés de
-  référence présents dans les documents sont étiquetés Np) de type
+  référence présents dans les documents sont étiquetés \texttt{Np}) de type
   \textit{période} (e.g.~\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{},
   \og{}Néolithique\fg{}, etc.) ou \textit{lieu} (e.g.~\og{}Asie\fg{},
   \og{}Europe\fg{}, \og{}France\fg{}, etc.) comptant principalement un seul mot,
@@ -130,23 +130,24 @@
         Mots/terme-clé & 1,3 & 1,7 & 1,7 & 1,6 & 2,2\\
         Termes-clés extractibles (Rappel max.) & 64.3\% & 21.9\% & 61.2\% & 27.6\% & 40.2\%\\
         %Termes-clés extractibles avec Np & 49,6\% & 18,7\% & 9,8\% & 12,5\% & 9,2\%\\
-        Termes-clés ne contenant que des Np & 41,3\% & 13,9\% & 7,7\% & 9,3\% & 6,7\%\\
+        Termes-clés ne contenant que des \texttt{Np} & 41,3\% & 13,9\% & 7,7\% & 9,3\% & 6,7\%\\
       \bottomrule
     \end{tabular}
     \caption{Caractéristiques des corpus disciplinaires. Le pourcentage de
-             termes-clés ne contenant que des Np correspond au pourcentage de
-             termes-clés de références qui contiennent uniquement des mots
-             étiquetés Np (nom propre) par notre outils d'étiquetage
-             morphosyntaxique (MElt).
+      termes-clés ne contenant que des \texttt{Np} correspond au
+             pourcentage de termes-clés de références qui contiennent uniquement
+             des mots étiquetés \texttt{Np} (nom propre) par notre outils
+             d'étiquetage morphosyntaxique (MElt).
              \label{tab:statistiques_des_corpus}}
   \end{table}
+
   \begin{figure}
     %\subfigure[Archéologie]{
       % Archeologie_09-0054907_TEI_final.xml
       \framebox[\linewidth]{
         \parbox{.99\linewidth}{
           \textbf{Variabilité du \underline{gravettien} de \underline{Kostienki}
-                  (bassin moyen du Don) et des territoires associés}
+          (bassin moyen du Don) et des territoires associés\footnotemark}
           \hfill\underline{\textit{Archéologie}}\\
 
           Dans la région de Kostienki-\underline{Borschevo}, on observe
@@ -169,7 +170,7 @@
       \framebox[\linewidth]{
         \parbox{.99\linewidth}{
           \textbf{Etude de la metallation des carbamates d'hydroxy-2,3,4
-                  quinoléines}
+          quinoléines}\footnotemark
           \hfill\underline{\textit{Chimie}}\\
 
           \underline{Lithiations} régiosélectives en position ortho (C3 et C4)
@@ -180,4 +181,8 @@
     \caption{Exemple de notices INIST.
              \label{fig:exemple_notice_inist}}
   \end{figure}
+  \addtocounter{footnote}{-1}
+  \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=20563716}}
+  \addtocounter{footnote}{1}
+  \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=7740610}}
 
