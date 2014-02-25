@@ -6,15 +6,15 @@
   extraits, ordonnés et enfin, les termes-clés sont sélectionnés parmi les
   meilleurs candidats (voir la figure~\ref{fig:processing_steps}). Les étapes
   les plus importantes d'un système d'extraction automatique de termes-clés sont
-  celles d'extraction de candidats et d'ordonnancement des termes-clés.
-  Intuitivement, l'ordonnancement des candidats est le c\oe{}ur du système, mais
-  la performance de celui-ci est limitée par la qualité de l'ensemble de
-  termes-clés candidats qui lui est fourni. Nous estimons qu'un ensemble de
-  candidats est de bonne qualité lorsqu'il fournit un maximum de candidats
-  présents dans l'ensemble des termes-clés de référence et lorsqu'il fournit peu
-  de candidats non-pertinents, i.e.~des candidats qui ne se sont pas dans
-  l'ensemble des termes-clés de référence et qui peuvent dégrader la performance
-  du système d'extraction de termes-clés.
+  celles d'extraction de candidats et leur ordonnancement. Intuitivement,
+  l'ordonnancement des candidats est le c\oe{}ur du système, mais la performance
+  de celui-ci est limitée par la qualité de l'ensemble de termes-clés candidats
+  qui lui est fourni. Nous estimons qu'un ensemble de candidats est de bonne
+  qualité lorsqu'il fournit un maximum de candidats présents dans l'ensemble des
+  termes-clés de référence et lorsqu'il fournit peu de candidats non-pertinents,
+  i.e.~des candidats qui ne se sont pas dans l'ensemble des termes-clés de
+  référence et qui peuvent dégrader la performance du système d'extraction de
+  termes-clés.
   \begin{figure}
     \tikzstyle{io}=[
       ellipse,
@@ -89,11 +89,12 @@
   \subsection{Extraction des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles_candidats}
     Dans les travaux précédents, deux approches sont utilisées. Soit les
-    candidats sont extraits à partir des n-grammes filtrés soit ils sont
+    candidats sont extraits à partir des n-grammes filtrés, soit ils sont
     extraits par reconnaissance de formes~\cite{hulth2003keywordextraction}.
     Dans ce travail, nous expérimentons avec une méthode pour chacune de ces
-    deux approches et une méthode qui extrait les candidats au moyen d'un
-    extracteur terminologique.
+    deux approches, ainsi qu'une méthode qui extrait les candidats au moyen d'un
+    extracteur terminologique. \TODO{Peut-être aller plus loin sur la pertinence
+    de faire ça.}
 
     L'extraction des \textbf{n-grammes} filtrés consiste à extraire toutes les
     séquences ordonnées de $n$ mots, puis à les filtrer avec une liste
@@ -104,7 +105,7 @@
     dans la liste de mots outils~\cite{witten1999kea} fournie par l'université
     de
     Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
-    (UniNE). Exemple de {1..3}-grammes, extraits à partir de \og{}[\dots]
+    (UniNE). Exemple de $\{1..3\}$-grammes, extraits à partir de \og{}[\dots]
     (bassin moyen du Don) [\dots]\fg{} dans la notice d'Archéologie de la
     figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}moyen\fg{},
     \og{}Don\fg{}, \og{}bassin moyen\fg{} et \og{}moyen du Don\fg{}.
@@ -123,15 +124,15 @@
     est un mot, ou une séquence de mots, représentant un concept spécifique à un
     domaine (ou une discipline). Dans ce travail, nous utilisons l'extracteur
     terminologique TermSuite~\cite{rocheteau2011termsuite}, capable de détecter
-    des candidats termes et leurs variantes. Une terminologie (variantes
-    incluses) par corpus est construite automatiquement par TermSuite (32~119
+    des candidats termes et leurs variantes. Une terminologie candidate (non
+    filtrée) par corpus est construite automatiquement par TermSuite (32~119
     termes en Archéologie, 16~557 termes en Sciences de l'Information, 21~330
     termes en Linguistique, 24~680 termes en Psychologie et 21~020 termes en
     Chimie) et uniquement les unités textuelles se trouvant dans cette
     terminologie sont extraites comme termes-clés candidats. Contrairement à la
     méthode utilisée pour extraire les groupes nominaux, la méthode d'extraction
-    de candidats termes de TermSuite se fonde sur un travail linguistique
-    approfondi ayant donné lieu à des patrons beaucoup plus précis (e.g.
+    de candidats termes de TermSuite se fonde sur un travail de spécialisation
+    linguistique des termes ayant donné lieu à des patrons plus précis (e.g.
     \texttt{N à N}, \texttt{N en N}, etc.). Exemple de candidats termes extraits
     à partir de \og{}[\dots] (bassin moyen du Don) [\dots]\fg{} dans la notice
     d'Archéologie de la figure~\ref{fig:exemple_notice_inist}~:
@@ -168,7 +169,7 @@
 
     La méthode \textbf{TF-IDF} consiste à extraire en tant que termes-clés les
     candidats dont les mots sont les plus importants. Un mot est considéré
-    important, dans un document, s'il est fréquent dans le document et s'il est
+    important dans un document s'il est fréquent dans le document et s'il est
     spécifique à celui-ci. La spécificité est déterminée à partir d'une
     collection de documents\footnote{Dans ce travail, nous utilisons la
     collection dont le document est extrait.}~: un mot est considéré spécifique
@@ -183,11 +184,12 @@
     représentatif est extrait. TopicRank groupe les candidats en sujet grâce à
     une mesure de similarité lexicale. Cependant, TermSuite fournit un
     groupement terminologique des termes et des variantes qu'il extrait. Lorsque
-    les candidats sont extraits avec TermSuite, nous utilisons ce groupement
-    term/variant à la place de celui fondé sur la similarité lexicale. Tenant
-    compte du groupement (moins naïf) de TermSuite, TopicRank est alors capable
-    de distinguer les candidats \og{}Kostienki 11/II/\fg{} et \og{}Kostienki
-    21/III/\fg{} (voir la figure~\ref{fig:exemple_notice_inist}) qui
-    représentent des faciès différents, mais qui sont groupés lorsque c'est le
-    groupement par défaut de TopicRank qui est utilisé.
+    les termes-clés candidats sont ceux extraits avec TermSuite, nous tirons
+    profit ce groupement terme/variantes à la place de celui fondé sur la
+    similarité lexicale. Tenant compte du groupement (moins naïf) de TermSuite,
+    TopicRank est alors capable de distinguer les candidats \og{}Kostienki
+    11/II/\fg{} et \og{}Kostienki 21/III/\fg{} (voir la
+    figure~\ref{fig:exemple_notice_inist}) qui représentent des faciès
+    différents, mais qui sont groupés avec le groupement par défaut de
+    TopicRank.
 

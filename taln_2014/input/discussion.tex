@@ -1,10 +1,18 @@
 \section{Discussion}
 \label{sec:discussion}
-  \TODO{Regarder les POS des termes-clés de référence.}
+  \TODO{Reparler de la spécificité qui est importante}
 
-  \TODO{Utiliser un outil d'extraction d'information est une perspective de
-        travail}
+  \TODO{Sur TermSuite, les résultats se dégrade pour TF-IDF, mais pas pour
+        TopicRank --> TS ajoute du bruit par l'intermediaire de DET et P (qui
+        constituent environ 50~\% de ses candidats (15391/31311) pour seulement
+        3,5~\% en archeo) => Exemple de homme qui est toujours extrait dans un
+        candidat prepositionnel}
 
-  \TODO{Pas de correlation entre nombre de termes-clés associés et taille des
-        documents ==> est-ce spécifique au domaine ?}
+  \TODO{Si TR s'en sort sur les candidats de TS c'est grâce au clustering de TS.
+        POURQUOI ? C'est en archeo surtout. Les termes sont ultra specifique et
+        meme si ils se ressemble il representent des choses differentes. De plus
+        topicrank ne mesure pas la spécificité, mais la recommendation. En
+        d'autres termes, les candidats de TS sont très différents des autres}
+
+  \TODO{Montrer les rappel max avec les differents candidats ?}
 

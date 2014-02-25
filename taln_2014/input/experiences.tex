@@ -4,7 +4,7 @@
   d'observer l'échelle de difficulté pour l'extraction automatique de
   termes-clés en domaine de spécialité à partir des méthodes TF-IDF et
   TopicRank, en fonction des candidats qui sont extrait~: $\{1..3\}$-grammes,
-  groupes nominaux et candidats termes.
+  groupes nominaux et candidats termes non filtrés.
 
   \subsection{Mesure d'évaluation}
   \label{subsec:mesure_d_evaluation}
@@ -26,7 +26,7 @@
     %
     Notre hypothèse de dépard par laquelle il existe un degré de difficulté
     différent de la tâche d'extraction de termes-clés appliquée à des documents
-    de disciplines scientifiques dfférentes se vérifie.
+    de disciplines scientifiques différentes se vérifie.
     %
     %Nous distinguons effectivement une différence de difficulté pour
     %l'extraction de termes-clés dans les différentes disciplines.
@@ -39,15 +39,15 @@
     %
     Nous observons aussi que le choix des candidats a une forte influence sur
     certaines méthodes. En effet, avec les $\{1..3\}$-grammes, TopicRank obtient
-    des résultats deux à trois inférieurs qu'avec les groupes nominaux ou les
-    candidats termes. Ceci est dû à l'exhaustivité de l'ensemble de n-grammes,
-    faisant de celui-ci un ensemble comportant de nombreux candidats non
-    pertinents qui dégradent les performances de TopicRank (dégradation du
-    groupement en sujets, renforcement de liens non pertinents dans le graphe,
-    etc.). Dans le cas de la méthode TF-IDF, cette dégradation est moins
-    conséquente, car les candidats non pertinents ne sont pas des unités
-    textuelles spécifiques~\cite{kim2009termextraction}, ils se trouvent donc en
-    queue du classement.
+    des résultats deux à trois fois inférieurs que ceux obtenus avec les groupes
+    nominaux ou les candidats termes. Ceci est dû à l'exhaustivité de l'ensemble
+    de n-grammes, faisant de celui-ci un ensemble comportant de nombreux
+    candidats non pertinents qui dégradent les performances de TopicRank
+    (dégradation du groupement en sujets, renforcement de liens non pertinents
+    dans le graphe, etc.). Dans le cas de la méthode TF-IDF, cette dégradation
+    est moins conséquente, car les candidats non pertinents ne sont pas des
+    unités textuelles spécifiques~\cite{kim2009termextraction}, ils se trouvent
+    donc en queue du classement.
     %
     %Nous observons aussi que, dans le cas de TopicRank, la
     %performance n'est pas stable selon l'ensemble de candidats utilisé. Les
