@@ -30,14 +30,14 @@
   automatique de termes-clés existantes, nous distinguons deux catégories~: les
   méthodes supervisées et les méthodes non-supervisées. Dans le cadre supervisé,
   la tâche d'extraction de termes-clés est considérée comme une tâche de
-  classification~\cite{witten1999kea}, où il s'agit d'attribuer la classe
+  classification~\cite{witten1999kea} où il s'agit d'attribuer la classe
   \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} à des
   termes-clés candidats extraits du document. Une collection de documents
-  annotés en termes-clés est alors nécessaire pour l'apprentissage d'un modèle
-  de classification reposant sur divers traits tels que la fréquence du
-  terme-clé candidat ou sa position dans le document. Dans le cadre
-  non-supervisé, les méthodes attribuent un score d'importance aux candidats
-  en fonction de divers indicateurs comme leur spécificité par rapport au
+  annotés en termes-clés est nécessaire pour l'apprentissage d'un modèle de
+  classification reposant sur divers traits tels que la fréquence du terme-clé
+  candidat ou sa position dans le document. Dans le cadre non-supervisé, les
+  méthodes attribuent un score d'importance aux candidats en fonction de divers
+  indicateurs comme leur spécificité par rapport au
   document~\cite{paukkeri2010likey} ou les relations de coocurrence que leurs
   mots entretiennent~\cite{mihalcea2004textrank}. Les méthodes supervisées sont
   plus performantes que les méthodes non-supervisées, mais leur besoin en
@@ -57,7 +57,7 @@
   articles scientifiques et déterminent celles les plus favorable à
   l'introduction de termes-clés, tandis que
   \newcite{bertels2012etudesemantiquedesmotscles} analysent la sémantique des
-  termes-clés en domaine de spécialité. À l'instar de
+  termes-clés en domaines de spécialité. À l'instar de
   \newcite{shah2003wherearethekeywords} et de
   \newcite{bertels2012etudesemantiquedesmotscles},
   nous proposons une analyse de l'influence des domaines de spécialité dans
@@ -66,10 +66,10 @@
   (section~\ref{sec:presentation_des_donnees}), nous utilisons différentes
   méthodes d'extraction automatique de termes-clés
   (section~\ref{sec:extraction_automatique_de_termes_cles}) et observons leur
-  performance en domaine de spécialité afin de déduire une échelle de difficulté
+  performance en domaine de spécialité pour déduire l'échelle de difficulté
   disciplinaire (section~\ref{sec:experiences}). Enfin, nous proposons une
-  analyse des résultats et déterminons les causes qui influent sur la difficulté
-  (section~\ref{sec:discussion}).
+  analyse des résultats et déterminons les facteurs qui influent sur cette
+  difficulté (section~\ref{sec:discussion}).
 
 %  Dans cet article, nous nous intéressons à la problématique de l'extraction
 %  non-supervisée de termes-clés à partir d'articles scientifiques, et plus

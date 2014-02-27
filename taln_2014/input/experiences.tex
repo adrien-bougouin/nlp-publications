@@ -2,27 +2,28 @@
 \label{sec:experiences}
   Dans cette section, nous présentons les expériences menées dans le but
   d'observer l'échelle de difficulté pour l'extraction automatique de
-  termes-clés en domaine de spécialité à partir des méthodes TF-IDF et
-  TopicRank, en fonction des candidats qui sont extrait~: $\{1..3\}$-grammes,
-  groupes nominaux et candidats termes non filtrés.
+  termes-clés en domaines de spécialité à partir des méthodes TF-IDF et
+  TopicRank et en fonction des candidats qui sont extrait~: $\{1..3\}$-grammes
+  filtrés, groupes nominaux et candidats termes non filtrés.
 
   \subsection{Mesure d'évaluation}
   \label{subsec:mesure_d_evaluation}
-    Afin mesurer l'échelle de difficulté pour l'extraction automatique de
+    Afin de mesurer l'échelle de difficulté pour l'extraction automatique de
     termes-clés en domaines de spécialité, nous utilisons la MAP (\textit{Mean
-    Average Precision}) pour mesurer la capacité des méthodes TF-IDF et
-    TopicRank à ordonner correctement les termes-clés candidats, i.e.~leur
-    capacité à extraire en premier des candidats qui sont présents dans la
-    référence. Dans notre évaluation, nous considérons correcte l'extraction
-    d'une variante flexionnelle d'un terme-clé de référence. Les opérations de
-    comparaison entre les termes-clés de référence et les termes-clés extraits
-    sont donc effectuées à partir de la racine des mots qui les composent.
+    Average Precision}), qui mesure la capacité d'une méthode à ordonner
+    correctement les termes-clés candidats, i.e.~à extraire en premier des
+    candidats qui sont présents dans la liste des termes-clés de référence. Dans
+    notre évaluation, nous considérons correcte l'extraction d'une variante
+    flexionnelle d'un terme-clé de référence. Les opérations de comparaison
+    entre les termes-clés de référence et les termes-clés extraits sont donc
+    effectuées à partir de la racine des mots qui les composent.
 
   \subsection{Résultats}
   \label{subsec:resultats}
     La figure~\ref{fig:resultats} montre la performance des méthodes
     d'extraction de termes-clés lorsque les candidats extraits sont soit des
-    $\{1..3\}$-grammes, soit des groupes nominaux, soit des candidats termes.
+    $\{1..3\}$-grammes filtrés, soit des groupes nominaux, soit des candidats
+    termes non filtrés.
     %
     Notre hypothèse de dépard par laquelle il existe un degré de difficulté
     différent de la tâche d'extraction de termes-clés appliquée à des documents
@@ -33,21 +34,42 @@
     %
     L'Archéologie
     est la discipline pour laquelle la tâche d'extraction automatique de
-    termes-clés est la moins difficile et la Chimie est la discipline la plus
+    termes-clés est la moins difficile, la Chimie étant la discipline la plus
     difficile, précédée par la Psychologie, la Linguistique et les Sciences de
     l'Information.
     %
     Nous observons aussi que le choix des candidats a une forte influence sur
     certaines méthodes. En effet, avec les $\{1..3\}$-grammes, TopicRank obtient
-    des résultats deux à trois fois inférieurs que ceux obtenus avec les groupes
-    nominaux ou les candidats termes. Ceci est dû à l'exhaustivité de l'ensemble
-    de n-grammes, faisant de celui-ci un ensemble comportant de nombreux
+    des résultats deux à trois fois inférieurs à ceux obtenus avec les groupes
+    nominaux ou les candidats termes, %.
+    %
+    tandis que les résultats de la méthode TF-IDF subissent des dégradations
+    négligeables. Cela est dû à l'exhaustivité de l'ensemble de
+    $\{1..3\}$-grammes, faisant de celui-ci un ensemble comportant de nombreux
     candidats non pertinents qui dégradent les performances de TopicRank
     (dégradation du groupement en sujets, renforcement de liens non pertinents
     dans le graphe, etc.). Dans le cas de la méthode TF-IDF, cette dégradation
-    est moins conséquente, car les candidats non pertinents ne sont pas des
-    unités textuelles spécifiques~\cite{kim2009termextraction}, ils se trouvent
-    donc en queue du classement.
+    est moins conséquente, car les candidats non pertinents ont une faible
+    spécificité~\cite{kim2009termextraction}. En opposition, lorsque nous
+    comparons les résultats obtenus à partir des candidats termes avec ceux
+    obtenus à partir des groupes nominaux pour le corpus d'Archéologie, nous
+    observons une légère dégradation des résultats de la méthode TF-IDF et une
+    amélioration de ceux de TopicRank. Pour TF-IDF la dégradation des résultats
+    est due à un ajout important de candidats composés de déterminants et de
+    préposition (environ 50~\% des candidats) alors que les termes-clés de
+    référence qui en contiennes sont peut nombreux (3,5~\%). Dans le cas de
+    TopicRank, c'est grâce au groupement terminologique de TermSuite que les
+    résultats ne sont pas dégradés (MAP à 0,093 en utilisant le groupement par
+    défaut de TopicRank).
+    %
+    %Ceci est dû à l'exhaustivité de l'ensemble
+    %de n-grammes, faisant de celui-ci un ensemble comportant de nombreux
+    %candidats non pertinents qui dégradent les performances de TopicRank
+    %(dégradation du groupement en sujets, renforcement de liens non pertinents
+    %dans le graphe, etc.). Dans le cas de la méthode TF-IDF, cette dégradation
+    %est moins conséquente, car les candidats non pertinents ne sont pas des
+    %unités textuelles spécifiques~\cite{kim2009termextraction}, ils se trouvent
+    %donc en queue du classement.
     %
     %Nous observons aussi que, dans le cas de TopicRank, la
     %performance n'est pas stable selon l'ensemble de candidats utilisé. Les
@@ -291,7 +313,7 @@
 %          \end{axis}
 %        \end{tikzpicture}
 %      }
-      \caption{Performace des méthodes d'extraction de termes-clés en domaines
+      \caption{Performance des méthodes d'extraction de termes-clés en domaines
                de spécialité à partir de différents type de candidats.
                \label{fig:resultats}}
     \end{figure}

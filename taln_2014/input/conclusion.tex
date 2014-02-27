@@ -2,11 +2,11 @@
 \label{sec:conclusion_et_perspectives}
   Dans cet article nous étudions la difficulté de la tâche d'extraction
   automatique de termes-clés appliquée à différents domaines scientifiques. Nous
-  utilisons cinq collections de documents appartenant à cinq disciplines
-  différentes dont les documents ont été annotés dans des conditions réelles
-  afin de les d'indexer. Pour l'Archéologie, les Sciences de l'Information, la
-  Linguistique, la Psychologie et la Chimie nous observons l'échelle de
-  difficulté suivante (du plus difficile au plus facile)~:
+  utilisons cinq collections disciplinaires de notices bibliographiques annotées
+  en termes-clés dans des conditions réelles d'indexation. Pour l'Archéologie,
+  les Sciences de l'Information, la Linguistique, la Psychologie et la Chimie
+  nous observons l'échelle de difficulté suivante (de la discipline la plus
+  difficile à la plus facile)~:
   \begin{enumerate}
     \item{Chimie}
     \item{Psychologie}
@@ -15,12 +15,28 @@
     \item{Archéologie}
   \end{enumerate}
 
-  À l'issue de nos expériences, nous observons différents facteurs ayant un
-  impact sur la difficulté de la tâche d'extraction de termes-clés. \TODO{Ce
-  référer à la section discussions}
+  À l'issue de nos expériences et d'observations à partir du contenu des
+  notices, nous constatons deux facteurs ayant un impact sur la difficulté de la
+  tâche d'extraction automatique de termes-clés. Tout d'abord, le vocabulaire
+  utilisé dans une discipline peut influer sur la difficulté à extraire des
+  termes-clés à partir de documents de cette discipline. Si le vocabulaire
+  spécifique contient des composés syntagmatiques dont certains éléments sont
+  généraux dans la discipline, alors il peut être plus difficile
+  d'extraire des termes-clés de documents de cette discipline. Ensuite, nous
+  observons que l'organisation du discours peut aider l'extraction de
+  termes-clés. Un discours riche en explications et en mises en relations des
+  différents éléments est moins difficile à traiter qu'un discours énumératif.
 
-  \TODO{Donner des perspectives~: adaptation des méthodes d'extraction de
-        candidats~; utiliser des méthodes d'extraction d'information~; permettre
-        l'auto-adaptation d'une méthode en fonction de la difficulté (degré de
-        difficulté à calculer)}
+  De ces deux facteurs identifiés émergent deux perspectives de travaux futurs.
+  La nature différente des unités textuelles définies comme termes-clés selon
+  les disciplines implique un besoin d'adapter l'extraction des candidats à la
+  discipline traitée. L'une des ressources disciplinaire utilisées par les
+  indexeurs professionnels étant la spécification précise du type d'information
+  que doivent représenter les termes-clés, il serait intéressant d'utiliser une
+  méthode d'extraction d'information grâce à des formulaires (e.g. champs
+  périodes et lieus, en Archéologie). Une autre perspective serait d'analyser le
+  discours afin de mesurer, en amont, le degré de difficulté de l'extraction de
+  termes-clés. Avec une telle connaissance, nous pourrions proposer une méthode
+  capable de s'adapter au degré de difficulté d'un document, en ajustant
+  automatiquement ses différents paramètres.
 

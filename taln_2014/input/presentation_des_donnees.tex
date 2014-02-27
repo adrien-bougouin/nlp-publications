@@ -1,16 +1,41 @@
 \section{Collections de données}
 \label{sec:presentation_des_donnees}
-  Nous disposons de cinq collections de notices bibliographiques~: Archéologie,
-  Sciences de l'Information, Linguistique, Psychologie et Chimie. Ces notices
-  sont fournies par l'Institut de l’Information Scientifique et
-  Technique\footnote{\url{http://www.inist.fr}} (INIST). Chacune d'elles
+  \begin{table}[t]
+    \centering
+    \begin{tabular}{@{~}r|ccccc@{~}}
+      \toprule
+        & & \textbf{Sciences} & & &\\
+        \textbf{Statistique} & \textbf{Archéologie} & \textbf{de} & \textbf{Linguistique} & \textbf{Psychologie} & \textbf{Chimie}\\
+        & & \textbf{l'Information} & & &\\
+      \hline
+        Documents & 718 & 706 & 716 & 720 & 782\\
+        Mots/doc. & 219,1 & 119,7 & 156,4 & 185,8 & 104,9\\
+        Termes-clés/doc. & 17,7 & 5,8 & 8,0 & 11,0 & 12,9\\
+        Mots/terme-clé & 1,3 & 1,7 & 1,7 & 1,6 & 2,2\\
+        %Termes-clés extractibles (Rappel max.) & 64,3~\% & 40,2~\% & 61,2~\% & 27,6~\% & 21,9~\%\\
+        %Termes-clés extractibles avec Np & 49,6~\% & 18,7~\% & 9,8~\% & 12,5~\% & 9,2~\%\\
+        Termes-clés ne contenant que des \texttt{Np} & 41,3~\% & 13,9~\% & 7,7~\% & 9,3~\% & 6,7~\%\\
+      \bottomrule
+    \end{tabular}
+    \caption{Caractéristiques des corpus disciplinaires. Le pourcentage de
+      termes-clés ne contenant que des \texttt{Np} correspond au
+             pourcentage de termes-clés de référence qui contiennent uniquement
+             des mots étiquetés \texttt{Np} (nom propre) par notre outils
+             d'étiquetage morphosyntaxique (MElt).
+             \label{tab:statistiques_des_corpus}}
+  \end{table}
+
+  Nous disposons de cinq collections de notices bibliographiques fournies par
+  l'Institut de l’Information Scientifique et
+  Technique\footnote{\url{http://www.inist.fr}} (INIST)~: Archéologie, Sciences
+  de l'Information, Linguistique, Psychologie et Chimie. Chacune d'elles
   contient le titre, le résumé et les termes-clés associés à un article. Les
   termes-clés sont obtenus semi-automatiquement %~:
   %
   à partir des textes intégraux (non disponibles pour nos travaux) et à partir
   de ressources disciplinaires telles qu'une terminologie ou des spécifications
-  précises quant aux types d'informations que les termes-clés doivent
-  représenter (e.g.~lieu, période et autre, en Archéologie).
+  précises quant aux types d'information que les termes-clés doivent représenter
+  (e.g.~lieu, période et autre, en Archéologie).
   %des indexeurs
   %professionnels vérifient, corrigent et complètent les sorties d'un système
   %dont les entrées sont un document et un (ou plusieurs) référentiel(s)
@@ -52,27 +77,27 @@
   %
   Les notices INIST sont de petite taille et sont rédigées différemment selon
   les disciplines (voir la figure~\ref{fig:exemple_notice_inist}). Les notices
-  d'Archéologie font l'objet d'un effort de présentation des contextes
-  historiques liés aux travaux présentés, tandis que les notices de Chimie,
-  principalement des comptes rendus d'expériences, décrivent sommairement les
-  expériences réalisées (noms des expériences, éléments chimiques impliqués,
-  etc.). Les termes-clés associés aux documents varient en nombre et en
-  complexité. Il est fréquent que les termes-clés en Archéologie soient composés
-  d'un unique mot, tandis que les termes-clés en Chimie sont principalement des
-  composés syntagmatiques. En effet, en Archéologie, nous observons qu'un grand
-  nombre de termes-clés sont des entités nommées (41,3~~\% des termes-clés de
-  référence présents dans les documents sont étiquetés comme noms propres) de
-  type \textit{période} (e.g.~\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{},
-  \og{}Néolithique\fg{}, etc.) ou \textit{lieu} (e.g.~\og{}Asie\fg{},
-  \og{}Europe\fg{}, \og{}France\fg{}, etc.) comptant principalement un seul mot,
-  tandis qu'en Chimie, nous observons un usage fréquent de notions générales
-  nécessitant une spécialisation (e.g.~\og{}\underline{réaction}
-  solvothermale\fg{}, \og{}\underline{réaction} électrochimique\fg{},
-  \og{}\underline{réaction} thermique\fg{}, etc.). Enfin, il est important de
-  noter le faible rappel maximum pouvant être obtenu pour ces corpus. Par
-  exemple, dans le corpus de Sciences de l'Information, uniquement 1,3
-  termes-clés peuvent être extraits des notices parmi les 5,8 associés aux
-  notices, en moyenne.
+  d'Archéologie, par exemple, font l'objet d'un effort de présentation du
+  contexte historique lié aux travaux présentés, tandis que les notices de
+  Chimie, principalement des comptes rendus d'expériences, décrivent
+  sommairement (énumèrent) les expériences réalisées (noms des expériences,
+  éléments chimiques impliqués, etc.). Les termes-clés associés aux documents
+  varient en nombre et en complexité. Il est fréquent que les termes-clés en
+  Archéologie soient composés d'un unique mot, alors que les termes-clés en
+  Chimie sont principalement des composés syntagmatiques. En effet, en
+  Archéologie, nous observons qu'un grand nombre de termes-clés sont des entités
+  nommées (41,3~\% des termes-clés de référence présents dans les documents sont
+  étiquetés comme noms propres) de type \textit{période}
+  (e.g.~\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{}, \og{}Néolithique\fg{},
+  etc.) ou \textit{lieu} (e.g.~\og{}Asie\fg{}, \og{}Europe\fg{},
+  \og{}France\fg{}, etc.) comptant principalement un seul mot, tandis qu'en
+  Chimie, nous observons un usage fréquent de notions générales nécessitant une
+  spécialisation (e.g.~\og{}\underline{réaction} topotactique\fg{},
+  \og{}\underline{réaction} électrochimique\fg{}, \og{}\underline{réaction}
+  thermique\fg{}, etc.). %Enfin, il est important de noter le faible rappel
+  maximum pouvant être obtenu pour ces corpus. Par exemple, dans le corpus de
+  Sciences de l'Information, uniquement 1,3 termes-clés peuvent être extraits
+  des notices parmi les 5,8 associés aux notices, en moyenne.
   %
   %Nous observons tout d'abord
   %une différence concernant la taille des documents. Les notices archéologiques
@@ -116,32 +141,8 @@
   %de ressources externes lors de l'indexation, a une influence sur les résultats
   %des méthodes qui extraient uniquement des termes-clés à partir d'unités
   %textuelles présentes dans les documents.
-  \begin{table}
-    \centering
-    \begin{tabular}{@{~}r|ccccc@{~}}
-      \toprule
-        & & \textbf{Sciences} & & &\\
-        \textbf{Statistique} & \textbf{Archéologie} & \textbf{de} & \textbf{Linguistique} & \textbf{Psychologie} & \textbf{Chimie}\\
-        & & \textbf{l'Information} & & &\\
-      \hline
-        Documents & 718 & 706 & 716 & 720 & 782\\
-        Mots/doc. & 219,1 & 119,7 & 156,4 & 185,8 & 104,9\\
-        Termes-clés/doc. & 17,7 & 5,8 & 8,0 & 11,0 & 12,9\\
-        Mots/terme-clé & 1,3 & 1,7 & 1,7 & 1,6 & 2,2\\
-        Termes-clés extractibles (Rappel max.) & 64,3~\% & 21,9~\% & 61,2~\% & 27,6~\% & 40,2~\%\\
-        %Termes-clés extractibles avec Np & 49,6~\% & 18,7~\% & 9,8~\% & 12,5~\% & 9,2~\%\\
-        Termes-clés ne contenant que des \texttt{Np} & 41,3~\% & 13,9~\% & 7,7~\% & 9,3~\% & 6,7~\%\\
-      \bottomrule
-    \end{tabular}
-    \caption{Caractéristiques des corpus disciplinaires. Le pourcentage de
-      termes-clés ne contenant que des \texttt{Np} correspond au
-             pourcentage de termes-clés de références qui contiennent uniquement
-             des mots étiquetés \texttt{Np} (nom propre) par notre outils
-             d'étiquetage morphosyntaxique (MElt).
-             \label{tab:statistiques_des_corpus}}
-  \end{table}
 
-  \begin{figure}
+  \begin{figure}[t]
     %\subfigure[Archéologie]{
       % Archeologie_09-0054907_TEI_final.xml
       \framebox[\linewidth]{
@@ -165,6 +166,35 @@
       }
     %}
     ~\\~\\
+    %\subfigure[Linguistique]{
+      % Linguistique_08-0265302_TEI_final.xml
+      \framebox[\linewidth]{
+        \parbox{.99\linewidth}{
+          \textbf{Termes techniques et marqueurs d'\underline{argumentation} :
+          pour débusquer l'argumentation cachée dans}
+          \hfill\underline{\textit{Linguistique}}\\
+          \textbf{les articles de recherche\footnotemark}\\
+
+          Les articles de recherche présentent les résultats d'une expérience
+          qui modifie l'état de la connaissance dans le domaine concerné. Le
+          lecteur néophyte a tendance à considérer qu'il s'agit d'une simple
+          description et à passer à côté de l'argumentation au cours de laquelle
+          le scientifique cherche à convaincre ses pairs de l'innovation et de
+          l'originalité présentées dans l'article et du bien-fondé de sa
+          démarche tout en respectant la tradition scientifique dans laquelle il
+          s'insère. Ces propriétés spécifiques du discours scientifique peuvent
+          s'avérer un obstacle supplémentaire à la compréhension, surtout
+          lorsqu'il s'agit d'un article en langue étrangère. C'est pourquoi il
+          peut être utile d'incorporer dans l'\underline{enseignement des }
+          \underline{\underline{langues} de spécialité} une sensibilisation aux
+          marqueurs linguistiques (terminologiques et argumentatifs), qui
+          permettent de dépister le développement de cette
+          \underline{rhétorique}. Les auteurs s'appuient sur deux articles dans
+          le domaine de la microbiologie.
+        }
+      }
+    %}
+    ~\\~\\
     %\subfigure[Chimie]{
       % Chimie_88-0340321_TEI_final.xml
       \framebox[\linewidth]{
@@ -181,7 +211,9 @@
     \caption{Exemple de notices INIST.
              \label{fig:exemple_notice_inist}}
   \end{figure}
-  \addtocounter{footnote}{-1}
+  \addtocounter{footnote}{-2}
+  \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=17395748}}
+  \addtocounter{footnote}{1}
   \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=20563716}}
   \addtocounter{footnote}{1}
   \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=7740610}}

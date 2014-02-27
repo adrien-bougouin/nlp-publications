@@ -26,7 +26,7 @@
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\shortcite{#2}}{\shortcite[#1]{#2}}}
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
 %\renewcommand\TODO[1]{}
-\renewcommand\lipsum[1][]{}
+%\renewcommand\lipsum[1][]{}
 
 \title{Influence des domaines de spécialité dans l'extraction de termes-clés}
 
@@ -47,36 +47,31 @@
     représentent le contenu principal d'un document. Ils sont utiles pour
     diverses applications telles que l'indexation automatique ou le résumé
     automatique, mais ne sont cependant pas disponibles pour la plupart des
-    documents. Dans le contexte de la recherche scientifique, du fait de
-    l'importance de pouvoir accéder efficacement aux articles traitant un sujet
-    de recherche particulier, il est important de bénéficier des termes-clés.
-    Cependant, la quantité de documents à traiter étant de plus en plus
-    importante, l'extraction manuelle des termes-clés n'est pas envisageable et
-    la tâche d'extraction automatique de termes-clés suscite alors l'intérêt des
-    chercheurs. Dans cette article, nous nous intéressons à la difficulté de la
-    tâche d'extraction automatique de termes-clés pour certaines disciplines
-    scientifiques. Au moyen de cinq corpus représentant cinq disciplines
-    différentes, nous déduisons une échelle de difficulté disciplinaire et
-    analysons les facteurs qui influent sur la difficulté de la tâche
-    d'extraction automatique de termes-clés. \TODO{150 mots maximum.}
+    documents. De ce fait, nous nous intéressons à la tâche d'extraction
+    automatique de termes-clés et, plus particulièrement, à la difficulté de
+    cette tâche lors du traitement de documents de disciplines scientifiques. Au
+    moyen de cinq corpus représentant cinq disciplines différentes (Archéologie,
+    Sciences de l'Information, Linguistique, Psychologie, Chimie), nous
+    déduisons une échelle de difficulté disciplinaire et analysons les facteurs
+    qui influent sur cette difficulté.
   }
 
   \abstract{
     Keyphrases are single or multi-word expressions that represent the main
     content of a document. Keyphrases are useful in many applications such as
     document indexing or text summarization, which are very useful for
-    researchers. However, most documents are not provided with keyphrases and
-    manual keyphrase extraction from these would be an enormous work. To tackle
-    this problem, researchers propose methods to automatically extract
+    researchers. However, most documents are not provided with keyphrases. To
+    tackle this problem, researchers propose methods to automatically extract
     keyphrases from documents of various nature. In this paper, we focus on the
-    difficulty of the automatic keyphrase extraction from scientific papers
-    that belong to different areas. Using five corpora from five areas, we
-    observe the difficulty scale and analyze the factors of high and low
-    difficulties.
+    difficulty of the automatic keyphrase extraction from scientific papers from
+    various areas. Using five corpora representing five areas (Archaeology,
+    Information Sciences, Linguistic, Psychology and Chemistry), we observe the
+    difficulty scale and analyze factors inducing a higher or a lower
+    difficulty.
   }
 
   \motsClefs{Extraction de termes-clés, articles scientifiques, domaines de
-  spécialité, méthodes non-supervisé}{Keyphrase extraction, scientific papers,
+  spécialité, méthodes non-supervisées}{Keyphrase extraction, scientific papers,
   specific domain, unsupervised methods}
 
   \input{input/introduction.tex}

@@ -2,11 +2,11 @@
 \label{sec:extraction_automatique_de_termes_cles}
   L'extraction non-supervisée de termes-clés peut se décomposer en quatre
   étapes~: un à un, les documents sont enrichis linguistiquement (segmentés et
-  étiquetés en parties du discours), puis des termes-clés candidats en sont
-  extraits, ordonnés et enfin, les termes-clés sont sélectionnés parmi les
-  meilleurs candidats (voir la figure~\ref{fig:processing_steps}). Les étapes
-  les plus importantes d'un système d'extraction automatique de termes-clés sont
-  celles d'extraction de candidats et leur ordonnancement. Intuitivement,
+  étiquetés en parties du discours), des termes-clés candidats en sont extraits,
+  puis ces candidats sont ordonnés et les termes-clés sont sélectionnés parmi
+  les meilleurs (voir la figure~\ref{fig:processing_steps}). Les étapes les plus
+  importantes d'un système d'extraction automatique de termes-clés sont celles
+  d'extraction des candidats et d'ordonnancement de ceux-ci. Intuitivement,
   l'ordonnancement des candidats est le c\oe{}ur du système, mais la performance
   de celui-ci est limitée par la qualité de l'ensemble de termes-clés candidats
   qui lui est fourni. Nous estimons qu'un ensemble de candidats est de bonne
@@ -14,7 +14,7 @@
   termes-clés de référence et lorsqu'il fournit peu de candidats non-pertinents,
   i.e.~des candidats qui ne se sont pas dans l'ensemble des termes-clés de
   référence et qui peuvent dégrader la performance du système d'extraction de
-  termes-clés.
+  termes-clés utilisé.
   \begin{figure}
     \tikzstyle{io}=[
       ellipse,
@@ -70,8 +70,8 @@
 %        \end{tabular}
 %      };
     \end{tikzpicture}
-    \caption{Chaîne de traitements d'un système d'extraction automatique de
-             termes-clés.
+    \caption{Chaîne de traitements d'un système non-supervisé d'extraction
+             automatique de termes-clés.
              \label{fig:processing_steps}}
   \end{figure}
 
@@ -88,21 +88,24 @@
 
   \subsection{Extraction des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles_candidats}
-    Dans les travaux précédents, deux approches sont utilisées. Soit les
-    candidats sont extraits à partir des n-grammes filtrés, soit ils sont
+    Dans les travaux précédents, deux approches sont fréquemment utilisées. Soit
+    les candidats sont extraits à partir de n-grammes filtrés, soit ils sont
     extraits par reconnaissance de formes~\cite{hulth2003keywordextraction}.
     Dans ce travail, nous expérimentons avec une méthode pour chacune de ces
-    deux approches, ainsi qu'une méthode qui extrait les candidats au moyen d'un
-    extracteur terminologique. \TODO{Peut-être aller plus loin sur la pertinence
-    de faire ça.}
+    deux approches et aussi avec une méthode qui extrait les candidats avec un 
+    extracteur terminologique. Un extracteur terminologique fournit des
+    unités textuelles représentant des concepts spécifiques à une discipline. Il
+    semble donc pertinant d'utiliser un tel outils lorsque nous traitons des
+    documents de domaines de spécialité.
 
     L'extraction des \textbf{n-grammes} filtrés consiste à extraire toutes les
-    séquences ordonnées de $n$ mots, puis à les filtrer avec une liste
-    regroupant les mots fonctionnels de la langue (conjonctions, prépositions,
-    etc.) et les mots courants (\og{}près\fg{}, \og{}beaucoup\fg{}, etc.). Dans
-    ce travail, les n-grammes de taille $n \in \{1..3\}$ ($\{1..3\}$-grammes)
-    sont extraits lorsque leurs mots en tête et en queue ne sont pas présents
-    dans la liste de mots outils~\cite{witten1999kea} fournie par l'université
+    séquences ordonnées de $n$ mots, puis à les filtrer avec une liste de mots
+    outils regroupant les mots fonctionnels de la langue (conjonctions,
+    prépositions, etc.) et les mots courants (\og{}près\fg{},
+    \og{}beaucoup\fg{}, etc.). Dans ce travail, nous suivons
+    \newcite{witten1999kea} en extrayant les n-grammes de taille
+    $n \in \{1..3\}$ ($\{1..3\}$-grammes) leurs mots en tête et en queue ne
+    sont pas présents dans notre liste de mots outils, fournie par l'université
     de
     Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
     (UniNE). Exemple de $\{1..3\}$-grammes, extraits à partir de \og{}[\dots]
@@ -126,18 +129,18 @@
     terminologique TermSuite~\cite{rocheteau2011termsuite}, capable de détecter
     des candidats termes et leurs variantes. Une terminologie candidate (non
     filtrée) par corpus est construite automatiquement par TermSuite (32~119
-    termes en Archéologie, 16~557 termes en Sciences de l'Information, 21~330
-    termes en Linguistique, 24~680 termes en Psychologie et 21~020 termes en
-    Chimie) et uniquement les unités textuelles se trouvant dans cette
-    terminologie sont extraites comme termes-clés candidats. Contrairement à la
-    méthode utilisée pour extraire les groupes nominaux, la méthode d'extraction
-    de candidats termes de TermSuite se fonde sur un travail de spécialisation
-    linguistique des termes ayant donné lieu à des patrons plus précis (e.g.
-    \texttt{N à N}, \texttt{N en N}, etc.). Exemple de candidats termes extraits
-    à partir de \og{}[\dots] (bassin moyen du Don) [\dots]\fg{} dans la notice
-    d'Archéologie de la figure~\ref{fig:exemple_notice_inist}~:
-    \og{}bassin\fg{}, \og{}Don\fg{}, \og{}bassin moyen\fg{} et \og{}bassin moyen
-    du Don\fg{}.
+    candidats termes en Archéologie, 16~557 candidats termes en Sciences de
+    l'Information, 21~330 candidats termes en Linguistique, 24~680 candidats
+    termes en Psychologie et 21~020 candidats termes en Chimie) et seules les
+    unités textuelles se trouvant dans cette terminologie sont extraites comme
+    termes-clés candidats. Contrairement à la méthode utilisée pour extraire les
+    groupes nominaux, la méthode d'extraction de candidats termes de TermSuite
+    se fonde sur un travail de spécialisation linguistique des termes ayant
+    donné lieu à des patrons plus précis (e.g. \texttt{N à N}, \texttt{N en N},
+    etc.). Exemple de candidats termes extraits à partir de \og{}[\dots] (bassin
+    moyen du Don) [\dots]\fg{} dans la notice d'Archéologie de la
+    figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}Don\fg{},
+    \og{}bassin moyen\fg{} et \og{}bassin moyen du Don\fg{}.
     
     %En comparaison avec les méthodes de reconnaissance de forme et d'extraction
     %de termes, la méthode d'extraction de $\{1..3\}$-grammes filtrés n'est pas
@@ -151,29 +154,29 @@
 
   \subsection{Ordonnancement des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles}
-    Dans les travaux précédents, de nombreuses méthodes sont proposées pour
-    extraire les termes-clés. Dans la catégorie des méthodes non-supervisées, un
-    grand nombre de méthodes différentes sont proposées, dont la méthode
-    TF-IDF~\cite{jones1972tfidf} et la méthode
-    TopicRank~\cite{bougouin2013topicrank}. De part sa simplicité et sa
-    robustesse, le TF-IDF s'impose comme la méthode de référence\footnote{Notons
-    que cette méthode de pondération à été modifiée en Recherche
+    Dans la catégorie des méthodes non-supervisées, un grand nombre de méthodes
+    différentes sont proposées, dont la méthode TF-IDF~\cite{jones1972tfidf} et
+    la méthode TopicRank~\cite{bougouin2013topicrank}. De part sa simplicité et
+    sa robustesse, le TF-IDF s'impose comme la méthode de
+    référence\footnote{Notons que cette méthode de pondération à été modifiée en
+    Recherche
     d'Information~\cite[Okapi]{robertson1999okapi,claveau2012vectorisation}.
-    Cette variante n'étant, à notre connaissance, pas employée pour l'extraction
-    automatique de termes-clés, nous optons pour la méthode classique.}, tandis
-    que les méthodes à base de graphe, comme TopicRank, suscitent un intérêt
-    grandissant du fait que les graphes présentent simplement et efficacement
-    des unités textuelles et leurs relations aux sein d'un document. De plus,
-    ils bénéficient de nombreuses études théoriques donnant lieu à des outils et
-    algorithmes utiles pour de nombreux problèmes.
+    Cependant, Okapi n'étant, à notre connaissance, pas employée pour
+    l'extraction automatique de termes-clés, nous optons pour la méthode
+    classique.}, tandis que les méthodes à base de graphe, comme TopicRank,
+    suscitent un intérêt grandissant, car les graphes permettent de présenter
+    simplement et efficacement les unités textuelles d'un document et leurs
+    relations en son sein. De plus, les graphes bénéficient de nombreuses études
+    théoriques donnant lieu à des outils et algorithmes utiles pour divers
+    problèmes.
 
     La méthode \textbf{TF-IDF} consiste à extraire en tant que termes-clés les
-    candidats dont les mots sont les plus importants. Un mot est considéré
+    candidats dont les mots sont importants. Un mot est considéré
     important dans un document s'il est fréquent dans le document et s'il est
     spécifique à celui-ci. La spécificité est déterminée à partir d'une
-    collection de documents\footnote{Dans ce travail, nous utilisons la
-    collection dont le document est extrait.}~: un mot est considéré spécifique
-    lorsqu'il apparaît dans très peu de documents.
+    collection de documents, de sorte qu'un mot est considéré spécifique
+    lorsqu'il apparaît dans très peu de documents\footnote{Dans ce travail, nous
+    utilisons la collection dont est extrait le document.}.
 
     \textbf{TopicRank}~\cite{bougouin2013topicrank} extrait les termes-clés qui
     représentent les sujets les plus importants d'un document. Tout d'abord, les
@@ -185,11 +188,10 @@
     une mesure de similarité lexicale. Cependant, TermSuite fournit un
     groupement terminologique des termes et des variantes qu'il extrait. Lorsque
     les termes-clés candidats sont ceux extraits avec TermSuite, nous tirons
-    profit ce groupement terme/variantes à la place de celui fondé sur la
+    profit de ce groupement terme/variantes, à la place de celui fondé sur la
     similarité lexicale. Tenant compte du groupement (moins naïf) de TermSuite,
-    TopicRank est alors capable de distinguer les candidats \og{}Kostienki
+    TopicRank distingue alors les candidats \og{}Kostienki
     11/II/\fg{} et \og{}Kostienki 21/III/\fg{} (voir la
     figure~\ref{fig:exemple_notice_inist}) qui représentent des faciès
-    différents, mais qui sont groupés avec le groupement par défaut de
-    TopicRank.
+    différents.
 
