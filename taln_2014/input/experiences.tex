@@ -16,7 +16,8 @@
     notre évaluation, nous considérons correcte l'extraction d'une variante
     flexionnelle d'un terme-clé de référence. Les opérations de comparaison
     entre les termes-clés de référence et les termes-clés extraits sont donc
-    effectuées à partir de la racine des mots qui les composent.
+    effectuées à partir de la racine des mots qui les composent, en utilisant la
+    méthode de \newcite{porter1980suffixstripping}.
 
   \subsection{Résultats}
   \label{subsec:resultats}
@@ -25,9 +26,9 @@
     $\{1..3\}$-grammes filtrés, soit des groupes nominaux, soit des candidats
     termes non filtrés.
     %
-    Notre hypothèse de dépard par laquelle il existe un degré de difficulté
-    différent de la tâche d'extraction de termes-clés appliquée à des documents
-    de disciplines scientifiques différentes se vérifie.
+    Notre hypothèse de départ selon laquelle la tâche d'extraction de
+    termes-clés présente un degré de difficulté différent selon la discipline
+    scientifique se vérifie.
     %
     %Nous distinguons effectivement une différence de difficulté pour
     %l'extraction de termes-clés dans les différentes disciplines.
@@ -37,10 +38,10 @@
     termes-clés est la moins difficile, la Chimie étant la discipline la plus
     difficile, précédée par la Psychologie, la Linguistique et les Sciences de
     l'Information.
-    %
+
     Nous observons aussi que le choix des candidats a une forte influence sur
-    certaines méthodes. En effet, avec les $\{1..3\}$-grammes, TopicRank obtient
-    des résultats deux à trois fois inférieurs à ceux obtenus avec les groupes
+    certaines méthodes. Avec les $\{1..3\}$-grammes, TopicRank obtient des
+    résultats deux à trois fois inférieurs à ceux obtenus avec les groupes
     nominaux ou les candidats termes, %.
     %
     tandis que les résultats de la méthode TF-IDF subissent des dégradations
@@ -50,17 +51,21 @@
     (dégradation du groupement en sujets, renforcement de liens non pertinents
     dans le graphe, etc.). Dans le cas de la méthode TF-IDF, cette dégradation
     est moins conséquente, car les candidats non pertinents ont une faible
-    spécificité~\cite{kim2009termextraction}. En opposition, lorsque nous
-    comparons les résultats obtenus à partir des candidats termes avec ceux
-    obtenus à partir des groupes nominaux pour le corpus d'Archéologie, nous
-    observons une légère dégradation des résultats de la méthode TF-IDF et une
-    amélioration de ceux de TopicRank. Pour TF-IDF la dégradation des résultats
-    est due à un ajout important de candidats composés de déterminants et de
-    préposition (environ 50~\% des candidats) alors que les termes-clés de
-    référence qui en contiennes sont peut nombreux (3,5~\%). Dans le cas de
-    TopicRank, c'est grâce au groupement terminologique de TermSuite que les
-    résultats ne sont pas dégradés (MAP à 0,093 en utilisant le groupement par
-    défaut de TopicRank).
+    spécificité et se trouvent donc principalement en queue du classement par
+    importance des candidats~\cite{kim2009termextraction}. En opposition,
+    lorsque nous comparons les résultats obtenus à partir des candidats termes
+    à ceux obtenus à partir des groupes nominaux, pour le corpus d'Archéologie,
+    nous observons une légère dégradation des résultats de la méthode TF-IDF et
+    une amélioration de ceux de TopicRank. Pour TF-IDF la dégradation des
+    résultats est due à un ajout important, vis-à-vis des groupes nominaux, de
+    candidats composés de déterminants et de prépositions\footnote{Les candidats
+    termes extraits sont environ deux fois plus nombreux que les groupes
+    nominaux et la moitié d'entre eux contiennent des prépositions et des
+    déterminants.}, alors que très peu de termes-clés de référence en
+    contiennent (3,5\%). Dans le cas de TopicRank, sa capacité à créer des liens
+    entre des candidats terminologiquement fondés, regroupés terminologiquement
+    et présents dans des documents riches en informations, tels qu'en
+    Archéologie, est un atout important lors de l'extraction de termes-clés.
     %
     %Ceci est dû à l'exhaustivité de l'ensemble
     %de n-grammes, faisant de celui-ci un ensemble comportant de nombreux

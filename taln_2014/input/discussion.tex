@@ -24,30 +24,28 @@
           (Archéologie)}
   \end{enumerate}
 
-  Dans le cas général, nous observons que la qualité de l'ensemble de candidats
-  utilisé influe sur la performance des méthodes d'extraction automatique de
-  termes-clés. Cependant, l'influence est différente selon la méthode
-  d'extraction de termes-clés. Nous observons que les $\{1..3\}$-grammes
-  dégradent fortement la performance de TopicRank en comparaison avec la méthode
-  TF-IDF. TopicRank ne tirant pas profit d'une quelconque mesure de spécificité,
-  nous en déduisons que la nature spécifique des termes-clés est un facteur
-  important ayant des conséquences sur la difficulté d'extraction des
-  termes-clés. Selon ce facteur, les disciplines pour lesquelles les termes-clés
-  sont majoritairement des uni-grammes (e.g.~Archéologie) sont moins difficiles
-  à traiter que des disciplines pour lesquelles les termes-clés ne sont pas
-  majoritairement des uni-grammes. Par exemple en Chimie, le mot
-  \og{}réaction\fg{} n'est pas spécifique dans le terme-clé \og{}réaction
-  topotactique\fg{}.
+  Dans un premier temps, nous constatons que l'usage d'une mesure de spécificité
+  peut améliorer la performance des méthodes d'extraction de termes-clés. Nous
+  en déduisons que la nature linguistique des termes utilisés dans une
+  discipline est un facteur influant sur la difficulté de l'extraction des
+  termes-clés pour cette même discipline. Ainsi, une forte tendance à l'usage de
+  composés syntagmatiques constitués de mots généraux dans la discipline, tels
+  que \og{}réaction\fg{} qui est présent dans le terme-clé \og{}réaction
+  topotactique\fg{} en Chimie, augmente la difficulté de l'extraction des
+  termes-clés.
 
-  Après observation du contenu des notices, nous remarquons un second facteur~:
-  l'organisation du discours dans les différentes disciplines. Pour chaque
-  discipline, le lecteur visé n'est pas le même et le discours est donc organisé
-  différemment. Dans le cas de documents se basant sur des faits concrets, tels
-  que les documents d'Archéologie, le lecteur (archéologue ou non) a besoin
-  d'une définition du contexte et des relations entre les faits donnés. Un
-  document insistant sur déférents éléments importants et créant des liens entre
-  ces éléments est plus aisé à traiter qu'un document se reposant sur un acquis
-  supposé du lecteur (et donc non explicité). Une observation similaire
+  Dans un second temps, nous constatons que la capacité à créer des liens entre
+  différentes unités textuelles peut aider lors de l'extraction des termes-clés.
+  Après observation du contenu des notices, nous remarquons que l'organisation
+  du discours du résumé dans les différentes disciplines est un second facteur
+  influant sur la difficulté de la tâche d'extraction de termes-clés. Pour
+  chaque discipline, le lecteur visé n'est pas le même et le résumé est donc
+  organisé différemment. Dans le cas de documents se basant sur des faits
+  concrets, tels que les documents d'Archéologie, le lecteur (archéologue ou
+  non) a besoin d'une définition du contexte et des relations entre les faits
+  donnés. Un document insistant sur différents éléments importants et créant des
+  liens entre ces éléments est plus aisé à traiter qu'un document se reposant
+  sur un acquis supposé (non explicité) du lecteur. Une observation similaire
   peut-être faite pour les travaux analytiques, où les hypothèses sont
   clairement explicitées. En contradiction, les documents au sujet de travaux
   expérimentaux sont très techniques et se reposent sur un acquis supposé du
