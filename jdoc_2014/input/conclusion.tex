@@ -1,0 +1,26 @@
+\section{Conclusion et perspectives}
+\label{sec:conclusion_et_perspectives}
+  Dans ce travail, nous proposons une méthode à base de graphe pour
+  l'extraction non-supervisée de termes-clés. Cette méthode groupe les
+  termes-clés candidats par sujets, détermine quels sont ceux les plus
+  importants, puis extrait le terme-clé candidat qui représente le mieux chacun
+  des sujets les plus importants. Cette nouvelle méthode offre plusieurs
+  avantages vis-à-vis des précédentes méthodes à base de graphe. Dans un premier
+  temps, le groupement des termes-clés potentiels en sujets distincts permet le
+  rassemblement d'informations utiles qui sont éparpillés avec les autres
+  méthodes. Dans un second temps, le choix d'un seul terme-clé pour représenter
+  l'un des sujets les plus importants permet d'extraire un ensemble ne contenant
+  pas de termes-clés redondants -- pour $k$ termes-clés extraits, exactement $k$
+  sujets sont couverts.
+
+  Plusieurs perspectives émergent de ce travail. Tout d'abord, le groupement
+  qui est effectué est un peu naïf, car il ne prend pas en compte l'ambiguïté
+  sémantique des mots et les relations synonymiques que certain entretiennent.
+  Il est donc envisagé d'effectuer un groupement de meilleure qualité, à partir
+  de connaissances linguistiques. Enfin, la stratégie de sélection qui consiste
+  à extraire, pour chaque sujet, le candidat qui apparait en premier dans le
+  document doit être confrontée à d'autres stratégies (sélectionner le candidat
+  le plus fréquent, le candidat le plus similaire aux autres candidats du sujet,
+  etc.). Il est même envisageable de chercher la solution la plus optimale au
+  moyen de technique de Recherche Opérationnelle.
+

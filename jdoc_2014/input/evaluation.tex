@@ -1,0 +1,79 @@
+\section{Évaluation}
+\label{sec:evaluation}
+  Pour valider notre approche, nous réalisons une expérience d'extraction
+  automatique de termes-clés à partir d'une collection de documents de test dont
+  nous connaissons déjà les termes-clés. L'objectif est de proposer la méthode
+  capable d'extraire le plus de termes-clés en commun avec ces termes-clés de
+  référence, associés pour chaque document.
+
+  \subsection{Collection de test}
+  \label{subsec:donnees_de_test}
+    Pour notre expérience, nous utilisons la collection de documents
+    Wikinews\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}.
+    Wikinews est une collection de 100 articles journalistiques français
+    extraits du site Web WikiNews\footnote{\url{http://fr.wikinews.org/}} entre
+    les mois de mai et décembre 2012, puis annotés en termes-clés avec l'aide de
+    trois étudiants pour chaque article.
+
+  \subsection{Mesures d'évaluation}
+  \label{subsec:mesures_d_evaluation}
+    Nous mesurons la performance de chaque méthode d'extraction automatique de
+    termes-clés en termes de précision (P), rappel (R) et F-mesure (F) lorsque
+    10 termes-clés sont extraits, c'est-à-dire les 10 termes-clés candidats
+    ayant le meilleur score d'importance. La précision mesure la capacité d'une
+    méthode à extraire un minimum de termes-clés erronés, le rappel mesure sa
+    capacité à fournir le plus de termes-clés corrects et la F-mesure est le
+    compromis entre la précision et le rappel.
+
+  \subsection{Méthodes de référence pour l'extraction de termes-clés}
+  \label{subsec:systemes_de_reference_pour_l_extraction_de_termes_cles}
+    % Comment les baselines sont-elles choisies ?
+    Dans nos expériences, nous comparons TopicRank avec trois autres
+    méthodes non-supervisées d'extraction automatique de termes-clés. Nous
+    choisissons TextRank et SingleRank, les deux méthodes qui sont la
+    fondation des méthodes à base de graphe, ainsi que la pondération TF-IDF,
+    qui consiste à donner un score d'importance élevé aux termes-clés dont les
+    mots sont fréquents et spécifiques au document analysé\footnote{Il est
+    important de noter que la notion de spécificité calculée par TF-IDF requière
+    une collection de documents (non annotée). Ceci, rend donc TF-IDF difficile
+    à battre avec une méthode tirant uniquement profit des informations
+    contenues dans le document.}.
+
+  \subsection{Comparaison de TopicRank avec l'existant}
+  \label{subsec:comparaison_de_topicrank_avec_l_existant}
+    % Que représente le tableau ?
+    Le tableau~\ref{tab:resultats_globaux} montre la performance de TopicRank
+    comparée à celle des trois méthodes de référence.
+    % Que peut-on dire globalement ?
+    %Globalement, TopicRank donne de meilleurs résultats que les méthodes de
+    %référence utilisées.
+    % Que peut-on dire de plus ? (analyse plus approfondie)
+    Comparée aux méthodes à base de graphe existantes, TopicRank donne des
+    résultats significativement meilleurs, et confirme ainsi l'importance de
+    grouper les termes-clés candidats représentant le même sujet afin de
+    rassembler des informations (complémentaires) utiles à l'algorithme
+    d'ordonnancement par importance. De plus, il est important de noter le gain
+    de TopicRank vis-à-vis de la méthode TF-IDF, car cette dernière fait l'usage
+    de statistiques extraites de documents supplémentaires, alors que TopicRank
+    utilise uniquement le document à analyser. 
+    \begin{table}
+      \centering
+      \begin{tabular}{rccc}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{WikiNews}}\\
+        \cmidrule(r){2-4}
+        & P & R & F\\
+        \midrule
+        TF-IDF & 33,9 & 35,9 & 34,3$^{~}$\\
+        TextRank & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$\\
+        SingleRank & 19,4 & 20,7 & 19,7$^{~}$\\
+        TopicRank & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$\\
+        \bottomrule
+      \end{tabular}
+      \caption{Résultats de l'extraction de 10 termes-clés avec TF-IDF,
+               TextRank, SingleRank et TopicRank. $\dagger$ indique une
+               amélioration significative de TopicRank vis-à-vis de TextRank et
+               SingleRank, à 0,001 pour le t-test de Student.
+               \label{tab:resultats_globaux}}
+    \end{table}
+

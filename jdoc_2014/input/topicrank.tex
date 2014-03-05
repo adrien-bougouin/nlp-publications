@@ -1,0 +1,76 @@
+\section{Extraction de termes-clés avec TopicRank}
+\label{sec:extraction_de_termes_cles_avec_topicrank}
+  % Qu'est-ce que TopicRank ?
+  TopicRank modélise un document sous la forme d'un graphe de sujets.
+  % Quels problèmes résout-il ?
+  Cette méthode se différencie des autres méthodes à base de graphe, car, plutôt
+  que de chercher les mots importants du document, elle cherche ses sujets
+  importants.
+  % Quel en est le fonctionnement général ?
+  Dans un premier temps, les sujets sont identifiés, dans un second temps ils
+  sont ordonnés, puis les candidats les plus représentatifs des $k$ meilleurs
+  sujets sont extraits comme termes-clés.
+
+  \subsection{Identification des sujets}
+  \label{subsec:identification_des_sujets}
+    % Que nous faut-il pour identifier les sujets ?
+    La première étape de l'identification des sujets consiste à extraire les
+    termes-clés candidats.
+    % Quels candidats composent les sujets ?
+    Pour ce faire, nous suivons \newcite{wan2008expandrank} et
+    \newcite{hassan2010conundrums} en extrayant les plus longues séquences de
+    noms, de noms propres et d'adjectifs.
+
+    % Comment détectons nous deux candidats appartenant au même sujet ?
+    La seconde étape de l'identification des sujets consiste à grouper les
+    termes-clés candidats lorsqu'ils appartiennent au même sujet.
+    Dans le soucis de proposer une méthode ne faisant pas l'usage de données
+    supplémentaires, nous optons pour un groupement lexical des candidats.
+    Ceux-ci sont groupés lorsqu'ils partagent un nombre suffisant (définition
+    d'un seuil) de mots.
+
+  \subsection{Ordonnancement des sujets}
+  \label{subsec:ordonnancement_des_sujets}
+    % Quel est le but de l'ordonnancement ?
+    % Comment est-il effectué ?
+    L'ordonnancement des sujets a pour objectif de trouver quels sont ceux qui
+    ont le plus d'importance dans le document analysé. À l'instar de
+    TextRank~\cite{mihalcea2004textrank}, l'importance des sujets est déterminée
+    à partir d'un graphe.
+
+    % Comment le graphe est-il construit ?
+    Les sujets du document analysé composent les n\oe{}uds d'un graphe complet.
+    Chaque n\oe{}ud est lié aux autres par une relation qui représente la force
+    du lien sémantique entre eux. Plus les candidats de deux sujets sont proches
+    dans le document analysé, plus le lien sémantique entre ces deux sujets est
+    fort.
+
+    % Comment le graphe est-il utilisé pour ordonner les sujets ?
+    % Quelle est l'intuition de PageRank/TextRank ?
+    Une fois le graphe construit, l'algorithme d'ordonnancement de TextRank est
+    utilisé pour identifier quels sont les sujets les plus importants du
+    document. Cet ordonnancement se fonde sur le principe de recommandation,
+    ou de vote, c'est-à-dire un sujet est d'autant plus important qu'il est
+    fortement lié à un grand nombre de sujets et que les sujets avec lesquels il
+    est fortement lié sont importants.
+
+  \subsection{Sélection des termes-clés}
+  \label{subsec:selection_des_termes_cles}
+    % De quoi s'agit-il ?
+    La sélection des termes-clés est la dernière étape de TopicRank. Elle
+    consiste à chercher les termes-clés candidats qui représentent le mieux les
+    sujets importants qui sont abordés dans le document. Dans le but de ne pas
+    extraire de termes-clés redondants, un seul candidat est sélectionné par
+    sujet.
+    % Quel en est le but ?
+    Ainsi, lorsque $k$ termes-clés doivent être extraits, nous nous assurons
+    de couvrir exactement $k$ sujets disctincts.
+
+    % Quelles sont les différentes stratégies envisageable ?
+    La difficulté de ce principe de sélection réside dans la capacité à trouver
+    parmi plusieurs termes-clés candidats d'un même sujet celui qui le
+    représente le mieux. Dans ce travail, nous faisons l'hypothèse qu'un sujet
+    est tout d'abord introduit par sa forme la plus appropriée. Nous
+    sélectionnons donc, pour chaque sujet, le candidat qui apparaît en premier
+    dans le document analysé.
+

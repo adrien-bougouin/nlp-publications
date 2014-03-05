@@ -1,0 +1,280 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Beamer style for JDOC posters
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Option facepict: face picture path
+\def\beamer@jdoc@facepic{}
+\DeclareOptionBeamer{facepic}{%
+  \def\beamer@jdoc@facepic{#1}}
+\ProcessOptionsBeamer
+
+\ProvidesPackage{beamerthemeJDOC}
+
+\RequirePackage{tikz}
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,calc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{listings}
+\usefonttheme{professionalfonts}
+\usepackage{minibox}
+\usepackage{ragged2e}
+\usepackage{url}
+
+% normal math font
+% \usepackage{mathptmx}
+% funny math font
+\usepackage{euler}
+
+%% Tango Colors
+%% http://tango.freedesktop.org/static/cvs/tango-art-tools/palettes/Tango-Palette.svg
+\definecolor{butter1}{RGB}{252,233,79}
+\definecolor{butter2}{RGB}{237,212,0}
+\definecolor{butter3}{RGB}{196,160,0}
+
+\definecolor{chameleon1}{RGB}{138,226,52}
+\definecolor{chameleon2}{RGB}{115,210,22}
+\definecolor{chameleon3}{RGB}{78,154,6}
+
+\definecolor{orange1}{RGB}{252,175,62}
+\definecolor{orange2}{RGB}{245,121,0}
+\definecolor{orange3}{RGB}{206,92,0}
+
+\definecolor{skyblue1}{RGB}{114,159,207}
+\definecolor{skyblue2}{RGB}{52,101,164}
+\definecolor{skyblue3}{RGB}{32,74,135}
+
+\definecolor{plum1}{RGB}{173,127,168}
+\definecolor{plum2}{RGB}{117,80,123}
+\definecolor{plum3}{RGB}{92,53,102}
+
+\definecolor{chocolate1}{RGB}{233,185,110}
+\definecolor{chocolate2}{RGB}{193,125,17}
+\definecolor{chocolate3}{RGB}{143,89,2}
+
+\definecolor{scarletred1}{RGB}{239,41,41}
+\definecolor{scarletred2}{RGB}{204,0,0}
+\definecolor{scarletred3}{RGB}{164,0,0}
+
+\definecolor{aluminium1}{RGB}{238,238,236}
+\definecolor{aluminium2}{RGB}{211,215,207}
+\definecolor{aluminium3}{RGB}{186,189,182}
+\definecolor{aluminium4}{RGB}{136,138,133}
+\definecolor{aluminium5}{RGB}{85,87,83}
+\definecolor{aluminium6}{RGB}{46,52,54}
+
+%% Default Definition
+\colorlet{colorprimary}{skyblue1}
+\colorlet{colorsecondary}{skyblue2}
+\colorlet{colortertiary}{skyblue3}
+\colorlet{colorquaternary}{colortertiary!50!black}
+
+\setbeamercolor*{palette primary}{fg=white,bg=colorsecondary}
+\setbeamercolor*{palette secondary}{fg=white,bg=colortertiary}
+\setbeamercolor*{palette tertiary}{fg=white,bg=colorquaternary}
+\setbeamercolor*{palette quaternary}{fg=white,bg=colorprimary}
+
+%% Colors
+\setbeamercolor*{lineup}{parent=palette primary}
+\setbeamercolor*{linemid}{parent=palette secondary}
+\setbeamercolor*{linebottom}{parent=palette tertiary}
+\setbeamercolor*{title}{parent=palette quaternary}
+
+%% Text Color
+\setbeamercolor*{normal text}{fg=aluminium6}
+\setbeamercolor*{titlelike}{fg=aluminium6}
+\setbeamercolor*{frametitle}{fg=aluminium6}
+\setbeamercolor*{framesubtitle}{fg=aluminium6}
+\setbeamercolor*{part title}{fg=aluminium6}
+\setbeamercolor*{structure}{fg=aluminium6}
+
+\setbeamercolor*{alerted text}{fg=scarletred1}
+
+\setbeamercolor*{item}{fg=colorsecondary}
+\setbeamercolor*{section in toc}{fg=colorsecondary}
+\setbeamercolor*{caption name}{fg=colorsecondary}
+
+%% Block Color
+\setbeamercolor{block title}{fg=white,bg=colorsecondary}
+\setbeamercolor{block body}{fg=black,bg=colorprimary!20}
+
+%% Items: Circle
+\defbeamertemplate{itemize item}{circlealt}%
+                  {\small\raise.2ex\hbox{\donotcoloroutermaths$\bullet$}}
+\defbeamertemplate{itemize subitem}{circlealt}%
+                  {\small\raise.1ex\hbox{\donotcoloroutermaths$\circ$}}
+\defbeamertemplate{itemize subsubitem}{circlealt}%
+                  {\scriptsize\raise.1ex\hbox{\donotcoloroutermaths$\bullet$}}
+\setbeamertemplate{items}[circlealt]
+
+%% Margins
+\geometry{hmargin=2cm}
+\newskip\bigskipamount \bigskipamount = .5cm plus .25cm minus .25cm
+
+%% Font
+\setbeamerfont{headline}{size=\fontsize{32pt}{2em}\selectfont}
+\setbeamerfont{section in head/foot}{series=\bfseries}
+\setbeamerfont{block title}{series=\bfseries}
+\setbeamerfont{block alerted title}{series=\bfseries}
+\setbeamerfont{frametitle}{series=\bfseries}
+\setbeamerfont{frametitle}{size=\Large}
+\setbeamerfont{caption}{size=\normalsize}
+\setbeamerfont{caption name}{size=\normalsize}
+
+% Bibliography
+\setbeamertemplate{bibliography item}[text]
+\setbeamerfont{bibliography item}{size=\footnotesize}
+\setbeamerfont{bibliography entry author}{size=\footnotesize}
+
+%% beamer explicitly turns off linespacing in the headline.
+%% Re-enable linespacing configuration in the headline
+%% http://tex.stackexchange.com/a/66208
+\def\beamer@typesetheadorfoot#1{% typeset the head or footline
+  {\parskip0pt %\offinterlineskip%
+    \hbox{%
+      \hskip-\Gm@lmargin%
+      \hbox{%
+        \vbox{%
+          \@tempdima=\textwidth%
+          \textwidth=\paperwidth%
+          \hsize=\textwidth%
+          \def\\{,}%
+          \usebeamertemplate***{#1}%
+        }}%
+      \hskip-\Gm@rmargin%
+    }}\hfill%
+}
+%set some beamer theme options
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+\setbeamertemplate{sections/subsections in toc}[square]
+\beamertemplatenavigationsymbolsempty
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Header
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setbeamertemplate{headline}{
+  \leavevmode
+  \vspace{1cm}
+
+  \ifportrait
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% Portrait Header
+
+  %% PRES LUNAM
+  \hspace{2cm}
+  \begin{minipage}{.3\linewidth}
+    PRES LUNAM\\
+    \'{E}cole Doctorale STIM\\
+    Sciences et Technologies de\\
+    l'Information et Math\'{e}matiques
+  \end{minipage}\hfill
+  %% Photo
+  \begin{minipage}{.3\linewidth}
+    \ifx\beamer@jdoc@facepic\@empty
+    % Do nothing
+    \else
+    \begin{centering}
+      \vbox{}\vfill
+      \includegraphics[width=.35\textwidth]{\beamer@jdoc@facepic}
+      \vfill
+    \end{centering}
+    \fi
+  \end{minipage}\hfill
+  %% Team Info
+  \begin{minipage}{.3\linewidth}
+    \hfill \minibox{\insertinstitute} \hspace{2cm}
+  \end{minipage}
+
+  \vspace{1cm}
+
+  %% Title
+  \begin{centering}
+    \usebeamerfont{title}\color{colorsecondary}\inserttitle\par%
+  \end{centering}
+
+  \vspace{1.5cm}
+  %% Author info
+  \hspace{8.9cm}
+  \begin{minipage}{.2\linewidth}
+    Directrice~:\\
+    Béatrice DAILLE
+  \end{minipage}
+  \begin{minipage}{.33\linewidth}
+    \begin{center}
+      \insertauthor
+    \end{center}
+  \end{minipage}\hspace{4cm}
+  \begin{minipage}{.2\linewidth}
+    Encadrant~:\\
+    Florian BOUDIN
+  \end{minipage}
+
+  \vspace{.5cm}
+
+  \else
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  %% Landscape Header
+
+  %% PRES LUNAM
+  \hspace{2cm}
+  \begin{minipage}{.25\linewidth}
+    PRES LUNAM\\
+    \'{E}cole Doctorale STIM\\
+    Sciences et Technologies de\\
+    l'Information et Math\'{e}matiques
+  \end{minipage}\hfill
+  %% Title
+  \begin{minipage}{.45\linewidth}
+    \begin{center}
+      \usebeamerfont{title}\color{colorsecondary}\inserttitle\par%
+    \end{center}
+    \begin{center}
+      \insertauthor
+    \end{center}
+  \end{minipage}\hfill
+  %% Photo
+  \begin{minipage}{.10\linewidth}
+    \ifx\beamer@jdoc@facepic\@empty
+    % Do nothing
+    \else
+    \begin{centering}
+      \vbox{}\vfill
+      \includegraphics[width=.5\textwidth]{\beamer@jdoc@facepic}
+      \vfill
+    \end{centering}
+    \fi
+  \end{minipage}\hfill
+  %% Team Info
+  \begin{minipage}{.15\linewidth}
+    \hfill\minibox{\insertinstitute}\hspace{2cm}
+  \end{minipage}
+  %% Author info
+  \begin{center}
+  \end{center}
+  \vspace{.5cm}
+  \fi
+}
+
+% Section
+\renewcommand{\section}[1]{
+\vspace{1cm}
+\par\vskip\medskipamount%
+   \begin{center}
+   {\textcolor{colorsecondary}{\textbf{\Large #1}}}
+   {\parskip0pt\par}
+   \end{center}
+  {\parskip0pt\par}
+  \justifying
+}
+
+\renewcommand{\subsection}[1]{
+\vspace{1cm}
+\par\vskip\medskipamount%
+   \begin{center}
+   \vskip0.8cm
+   {\textcolor{colorprimary}{\textbf{\textsl{\large #1}}}}
+   {\parskip0pt\par}
+   \end{center}
+   \justifying
+}
+
