@@ -37,7 +37,7 @@
 \newtheorem{property}{Property}
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
 
-\title{Candidate Extraction Impact on Automatic Keyphrase Extraction}
+\title{Selecting Candidates for Automatic Keyphrase Extraction}
 
 \author{
   Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
@@ -51,27 +51,16 @@
   \maketitle
   \begin{abstract}
     Keyphrase extraction is the task of identifying single or multi-word
-    expressions that best represent the content of a document. A wide range of
-    methods were proposed to automatically extract keyphrases. Regardless the
-    differences between them, we observe common steps. Among them, we are
-    interested by the extraction of keyphrase candidates, i.e.~textual units
-    from which the keyphrases are extracted. This step is critical, because it
-    sets limits of the best possible performance of the keyphrase extraction.
-    Hence, we propose an analysis of the impact of various candidate extraction
-    methods on different keyphrase extraction methods. As another contribution,
-    we propose a new candidate extraction method which extracts noun phrases and
-    filters their adjective modifiers under specific conditions.
-%    Among these steps, the
-%    most important ones are the extraction of keyphrase candidates and the
-%    classification, or ranking, of them. Many methods about the core problem of
-%    classifying, or ranking, the keyphrase candidates are proposed, but no work
-%    dedicated to the analysis of the impact of the various candidate extraction
-%    methods has been done. In this paper, we present the common candidate
-%    extraction methods and show their impact on different keyphrase extraction
-%    methods that belong to different categories. As another contribution, we
-%    present a new keyphrase extraction method that extracts noun and proper noun
-%    sequences and (when an adjective modifies it) makes the decision whether it
-%    can be extracted with its adjective modifier or not.
+    expressions that best represent the content of a document. Most keyphrase
+    extraction methods rely on a candidate selection step. This step selects the
+    textual units that can be extracted as keyphrases and is, therefore, one of
+    the most critical step. In this paper, we compare the commonly used methods
+    for candidate selection and propose a new approach that filters irrelevant
+    adjective modifiers from noun phrases. Experiments show that our approach
+    reduces the number of extracted candidates without lowering the performance
+    of keyphrase extraction methods. The refined noun phrases extracted by our
+    approach induce the best results for every supervised and unserpervised
+    methods that we use.
   \end{abstract}
 
   \input{input/candidate_extraction.tex}
