@@ -50,17 +50,11 @@
 \begin{document}
   \maketitle
   \begin{abstract}
-    Keyphrase extraction is the task of identifying single or multi-word
-    expressions that best represent the content of a document. Most keyphrase
-    extraction methods rely on a candidate selection step. This step selects the
-    textual units that can be extracted as keyphrases and is, therefore, one of
-    the most critical step. In this paper, we compare the commonly used methods
-    for candidate selection and propose a new approach that filters irrelevant
-    adjective modifiers from noun phrases. Experiments show that our approach
-    reduces the number of extracted candidates without lowering the performance
-    of keyphrase extraction methods. The refined noun phrases extracted by our
-    approach induce the best results for every supervised and unserpervised
-    methods that we use.
+    Keyphrase extraction is the task of identifying single or multi-word expressions that best represent the content of a document. 
+    Most automatic keyphrase extraction methods rely on a candidate selection step, in which only the textual units that have similar properties to keyphrases are kept.
+    Candidate selection therefore plays an important role in keyphrase extraction since it determines the upper bound of recall performance. %, as well as the number of candidates to be analyzed in subsequent steps.
+    In this paper, we compare three commonly used methods for candidate selection and propose a new approach that generates refined noun phrases by filtering out irrelevant adjective modifiers.
+    Through experiments carried out on three standard datasets of different languages and domains, we show that our approach reduces the number of selected candidates and improves keyphrase extraction performance when used with either supervised or unsupervised methods.
   \end{abstract}
 
   \input{input/candidate_extraction.tex}
