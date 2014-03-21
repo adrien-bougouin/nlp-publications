@@ -146,36 +146,29 @@
     keyphrase property concerns the size of keyphrases.
     
     \begin{property}\label{prop:informativity}
-      Keyphrases bear the minimum information representing an important topic or
-      concept (e.g.~``T-2 Buckeye'' instead of ``two-seat T-2 Buckeye'').
+      Keyphrases are small-sized textual units; Keyphrases usually contain one
+      up to three words (e.g.~``storms'', ``hurricane expert'', ``annual
+      hurricane forecast'').
     \end{property}
 
-    Second, we observe from both English and French datasets that almost every
-    keyphrase contains one or more nouns and half of the keyphrases are modified
-    using one or more adjectives.
-    %In French, the usage of prepositions and determiners is 
-    %more frequent than in English. In English, prepositional expressions are
-    %often replaced by non-prepositional variants, but such variants cannot be
-    %generated in French. Finnaly, unexpected Part-of-Speech, such as foreign
-    %words, are not rare in the DEFT dataset, which contains French scientific
-    %papers refering to English technical terms.
-    %
-    Among these adjectives, it is important to note the usage of relational
-    adjectives. Although they are less used than attributive adjectives, their
-    similar properties to
+    Second, we observe that almost every keyphrase contains a noun and half of
+    the keyphrases are modified by an adjective. Among the adjectives, it is
+    important to note the usage of relational adjectives (e.g.~``annual'').
+    Although they are less used than attributive adjectives, their similar
+    properties to
     nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} make them
     more likely to be relevant keyphrase modifiers than other adjectives.
-    Indeed, adjectives, such as ``huge'', are not relevant keyphrase
-    modifiers, but some candidate selection methods may, for example, only
-    select ``huge wildfires'', leading to a miss of the rightful candidate
-    ``wildfires''. In opposition, relational adjectives, such as
-    ``presidential'', are noun substitutes that have a classificatory or
-    taxonomic meaning~\cite{mcnally2004relationaladjectives}, which makes them
-    more relevant as keyphrase modifiers.
+    Indeed, an adjective such as ``huge'' is not a relevant keyphrase modifier,
+    but some candidate selection methods (see
+    Section~\ref{sec:candidate_extraction}) may, for example, only select ``huge
+    wildfires'' and miss the rightful candidate ``wildfires''. In opposition, a
+    relational adjective is a noun substitute that have a classificatory or
+    taxonomic meaning~\cite{mcnally2004relationaladjectives}, which makes it
+    more relevant as a keyphrase modifier.
 
     \begin{property}\label{prop:noun_phrases}
-      Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by one
-      or more adjectives (e.g.~``\underline{annual} hurricane forecast'').
+      Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by an
+      adjective (e.g.~``\underline{annual} hurricane forecast'').
     \end{property}
 
     To give an idea of the observed POS tag patterns,
@@ -245,21 +238,21 @@
   properties~\ref{prop:informativity} and~\ref{prop:noun_phrases}.
 
   \paragraph{}
-  As a contribution to the candidate selection, we propose to extract
+  As a contribution to the candidate selection step, we propose to extract
   \textbf{refined noun phrases} (refined NPs) by adding a decision process
-  during the selection of noun, proper noun and adjective sequences. According
-  to the fact that some adjectives do not add important information to the noun
-  phrase they modify (e.g.~``\underline{huge} wildfires''), we propose to
-  select noun phrases and to keep their adjective modifier (if they have one)
-  under specific conditions:
-  \begin{enumerate}
-    \item{the adjective is a relational adjective, or}
-    \item{the adjective co-occurs at least two times with the noun phrase it
-          modifies.}
-  \end{enumerate}
-  This method can be seen as a refinement of the selection of the longest noun
-  phrases and NP-chunks. It also fits both properties~\ref{prop:informativity}
-  and~\ref{prop:noun_phrases}.
+  during the selection of noun, proper noun and adjective sequences. Indeed,
+  assuming that adjectives are not always relevant modifiers, that they are
+  implicit or add extra information (e.g.~``huge wildfires''), we do believe
+  that they must be kept under specific conditions. First, we assume that a
+  frequent modification of a noun phrase by the same adjective (at least twice)
+  is a clue of its usefulness. Second, we consider relational adjectives as a
+  specific class of adjectives and assume that they are always useful. Indeed,
+  relational adjectives have a denominal function, they can be replaced by nouns
+  in prepositional phrases and should, therefore, be treated like nouns. Also,
+  they have a classificatory or toxonomic
+  meaning~\cite{mcnally2004relationaladjectives} that has shown to be useful for
+  other tasks, such as topic detection or term
+  extraction~\cite{daille2001relationaladjectives}.
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
@@ -431,7 +424,8 @@
       Tables~\ref{tab:tfidf_results},~\ref{tab:topicrank_results}~and~\ref{tab:kea_results}
       show the performance of respectively TF-IDF, TopicRank and KEA when
       they extract keyphrases from keyphrase candidates provided by each
-      candidate selection method.
+      candidate selection method. \TODO{Expliquer les faibles scores (en
+      utilisant les compétitions)}
       \begin{table}
         \centering
         \begin{tabular}{rccccccccc}
@@ -507,13 +501,13 @@
                  \label{tab:kea_results}}
       \end{table}
       
-      Gloabally, our method, followed by the selection of longest NPs and
-      NP-chunks, is the one that induces the best performance for each method.
-      This confirms that small candidate sets of high quality are better than
-      exhaustive candidate sets such as n-grams. However, the results of KEA are
-      more stable than the results of TF-IDF and TopicRank. KEA's learning step
-      makes it less sensitive to irrelevant candidates that produce noise
-      affecting the unsupervised methods. \TODO{Too short.}
+      Gloabally, the selection of refined NPs, followed by the selection of
+      longest NPs and NP-chunks, is the one that induces the best performance
+      for each method. This confirms that small candidate sets of high quality
+      are better than exhaustive candidate sets such as n-grams. However, the
+      results of KEA are more stable than the results of TF-IDF and TopicRank.
+      KEA's learning step makes it less sensitive to irrelevant candidates that
+      produce noise affecting the unsupervised methods. \TODO{Too short.}
 
 \section{Conclusion}
 \label{sec:conclusion}
