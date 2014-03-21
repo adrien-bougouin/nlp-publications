@@ -86,16 +86,17 @@
   \subsection{Analysis of Reference Keyphrases}
   \label{subsec:keyphrase_analysis}
     Table~\ref{tab:train_dataset_statistics} shows statistics about the datasets
-    and the keyphrases associated to their documents. First, keyphrases are presented
-    regarding their number of words. Second, the multi-word keyphrases are
-    presented regarding the Part-of-Speech of their words\footnote{We observed
-    that keyphrases containing one word are mostly nouns or proper nouns. Hence,
-    we only show the POS tag statistics of the multi-word keyphrases.}. To
-    obtain these Part-of-Speech, we automatically POS tagged the keyphrases of
-    the English datasets with the Stanford POS
+    and the keyphrases associated to their documents. First, keyphrases are 
+    resented regarding their number of words. Second, the multi-word keyphrases
+    are presented regarding the Part-of-Speech of their words\footnote{We
+    observed that keyphrases containing one word are mostly nouns or proper
+    nouns. Hence, we only show the POS tag statistics of the multi-word
+    keyphrases.}. To obtain these Part-of-Speech, we automatically POS tagged
+    the keyphrases of the English datasets with the Stanford POS
     tagger~\cite{toutanova2003stanfordpostagger} and the keyphrases of the
     French dataset with MElt~\cite{denis2009melt}. To avoid tagging errors, POS
-    tagged keyphrases were manually corrected. 
+    tagged keyphrases were manually corrected.  From the observation of the
+    statistics, we propose two properties:
     \begin{table}
       \centering
       \begin{tabular}{lr|ccc}
@@ -150,15 +151,12 @@
     important to note the usage of relational adjectives
     (e.g.~``presidential''). Although they are less used than attributive
     adjectives, their similar properties to
-    nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} make them
-    more likely to be relevant keyphrase modifiers than other adjectives.
-    Indeed, an adjective such as ``huge'' is almost never a relevant keyphrase
-    modifier, but (for the article \textit{AP880705-0018} of DUC) some candidate
-    selection methods (see Section~\ref{sec:candidate_extraction}) only select
-    ``huge wildfires'' and miss the rightful candidate ``wildfires''. In
-    opposition, a relational adjective is a noun substitute that have a
-    classificatory or taxonomic meaning~\cite{mcnally2004relationaladjectives},
-    which makes it more relevant as a keyphrase modifier.
+    nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} and the
+    fact they have classificatory or taxonomic
+    meaning~\cite{mcnally2004relationaladjectives} make them more likely to be
+    relevant keyphrase modifiers than other adjectives. For example, an
+    attributive adjective such as ``huge'' is almost never a relevant keyphrase
+    modifier.
 
     \begin{property}\label{prop:noun_phrases}
       Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by an
@@ -241,7 +239,11 @@
   conditions. First, we assume that a frequent modification of a noun phrase by
   the same adjective (at least twice) is a clue of its usefulness. Second, we
   consider relational adjectives as a specific class of adjectives and assume
-  that they are always useful. Indeed, relational adjectives have a denominal
+  that they are always useful. This assumption is corroborated by the usefulness
+  of relational adjectives for other tasks such as topic detection or term
+  extraction~\cite{daille2001relationaladjectives}.
+  
+  Indeed, relational adjectives have a denominal
   function, they can be replaced by nouns in prepositional phrases and should,
   therefore, be treated like nouns. Also, they have a classificatory or
   toxonomic meaning~\cite{mcnally2004relationaladjectives} that has shown to be
@@ -365,16 +367,16 @@
         \item{\verb:A? (Nc | Np)+:, for English datasets;}
         \item{\verb:(Nc | Np)+ A?:, for French datasets.}
       \end{itemize}
-      \TODO{A revoir.}
-      We detect relational adjectives using the WordNet lexical
-      database~\cite{miller1995wordnet} for English and its French translation,
-      WoNeF~\cite{pradet2013wonef}, for French. In fact, we do not strictly
-      identify relational adjectives, but we do an approximate detection. We use
-      the WordNet \textit{pertainym} relation and its French equivalent to build
-      a two-sized preffix list of adjectives that have the denominative
-      properties of relational adjectives. Every adjective ending with a preffix
-      of the list is considered a useful adjective and is kept in the noun
-      phrases it modifies.
+      To detect relational adjectives, we use WordNet's \textit{pertainym}
+      relation~\cite{miller1995wordnet} for English and its equivalent in the
+      French translation of WorNet~\cite[WoNeF]{pradet2013wonef}. First we build
+      a list of two-sized preffix that appear in adjectives that have the same
+      denominative property (\textit{pertainym} relation) as relational
+      adjectives. Second, we accept only adjectives that have their suffix in
+      the built list. Because of the usage of the \textit{pertainym} relation,
+      this method makes an approximation of what really is a relational
+      adjective. However, as we are mostly interested in the denominative
+      property of adjectives, so we decide to use this simple method.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
@@ -513,12 +515,19 @@
       \end{table}
       
       Gloabally, the selection of refined NPs, followed by the selection of
-      longest NPs and NP-chunks, is the one that induces the best performance
-      for each method. This confirms that small candidate sets of high quality
-      are better than exhaustive candidate sets such as n-grams. However, the
-      results of KEA are more stable than the results of TF-IDF and TopicRank.
-      KEA's learning step makes it less sensitive to irrelevant candidates that
-      produce noise affecting the unsupervised methods. \TODO{Too short.}
+      longest NPs and NP-chunks, is the method that induces the best performance
+      for each keyphrase extraction method. This shows that our candidate
+      selection is able to remove more noise than commonly used methods. Also,
+      the fact that the selection of n-grams induces the lowest performance
+      confirms that small candidate sets of high quality are better than
+      exhaustive (hence noisy) candidate sets allowing the best recall.
+      
+      Another emerging conclusion from the results is that, due to its
+      learning phase, the supervised method KEA is more stable than the
+      unsupervised methods TF-IDF and TopicRank. When developping unsupervised
+      methods for keyphrase extraction, being able to avoid noise during the
+      candidate selection is very important and we show that filtering out
+      adjectives is one simple, yet efficient, method.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -534,18 +543,14 @@
   modify the same noun phrase and only relational adjectives are accepted as
   keyphrase candidates.
 
-  \TODO{A revoir}
-  We conducted two experiments to compare the quality of the selected candidates
-  and observe their impact on the performance of three keyphrase extraction
-  methods. Our method has shown to reduce the number of selected candidates
-  without significantly lowering the best possible performance. Conforting our
-  intuition that the quality of the selected candidates must prevail over their
-  number, our method induces the best performance on every keyphrase extraction
-  method.
+  To validate our method, we carried out two experiments with three standard
+  datasets. On the first hand, we showed that our method reduces the number of
+  selected candidates without giving up on the best possible recall. On the
+  second hand, we showed that our method induces the best results for every
+  keyphrase extraction methods, which conforts our intuition that the quality of
+  the selected candidates must prevail over their number.
 
-  Regarding the results of our method, we showed that adjectives must not
-  necessary be keyphrase modifiers and that simple linguistic filters can
-  increase the quality of the selected candidates. Hence, future work on
-  candidate selection might focus on more complex linguistic and/or statistical
-  adjective filters.
+  Our results showed that a simple linguistic filtering of adjectives can
+  increase the quality of the selected candidates. In future work, we plan to
+  focus on more complex linguistic and/or statistical adjective filters.
 
