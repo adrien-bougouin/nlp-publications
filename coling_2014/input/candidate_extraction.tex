@@ -1,89 +1,68 @@
 \section{Introduction}
 \label{sec:section}
 
-  Since the last decade, the amount of information available on the web is constantly increasing.
-  While the number of documents continues to grow, the need for efficient information retrieval methods becomes increasingly important.
-  One way to improve retrieval effectiveness is to use keyphrases~\cite{jones1999phrasier}.
-  Keyphrases are single or multi-word expressions that represent the main content of a document.
-  As they describe the key topics in documents, keyphrases are also useful for tasks such as summarization~\cite{avanzo2005keyphrase} or document indexing~\cite{medelyan2008smalltrainingset}.
-  There is, however, only a small number of documents that have keyphrases associated with them.
-  Keyphrase extraction has then attracted a lot of attention recently and many different approaches were proposed~\cite{kim2010semeval}.
+  Since the last decade, the amount of information available on the web is
+  constantly increasing. While the number of documents continues to grow, the
+  need for efficient information retrieval methods becomes increasingly
+  important. One way to improve retrieval effectiveness is to use
+  keyphrases~\cite{jones1999phrasier}. Keyphrases are single or multi-word
+  expressions that represent the main content of a document. As they describe
+  the key topics in documents, keyphrases are also useful for tasks such as
+  summarization~\cite{avanzo2005keyphrase} or document
+  indexing~\cite{medelyan2008smalltrainingset}. There is, however, only a small
+  number of documents that have keyphrases associated with them. Keyphrase
+  extraction has then attracted a lot of attention recently and many different
+  approaches were proposed~\cite{kim2010semeval}.
 
-  % Keyphrases are single or multi-word expressions that represent the main topics
-  % or concepts addressed in a document. Keyphrases are useful in many tasks such
-  % as document summarization~\cite{avanzo2005keyphrase} or document
-  % indexing~\cite{medelyan2008smalltrainingset}. Since the last decade,
-  % information mediums, such as Internet, provide access to huge amounts of
-  % documents. However, many documents do not always have associated keyphrases
-  % and a manual keyphrase annotation of them is not a viable solution. Therefore,
-  % many researchers focus on the automatic keyphrase extraction task.
+  Generally speaking, keyphrase extraction methods can be categorized into two
+  main categories: supervised and unsupervised approaches. Supervised approaches
+  treat keyphrase extraction as a binary classification task, where each phrase
+  is labeled either as ``keyphrase'' or ``non-keyphrase'',
+  e.g.~\cite{witten1999kea}. Conversely, unsupervised approaches usually rank
+  phrases by importance and select the top-ranked ones as keyphrases,
+  e.g.~\cite{mihalcea2004textrank}. Although they tackle the keyphrase
+  extraction problem differently, both supervised and unsupervised methods rely
+  on a candidate selection step. Candidate selection consists in identifying the
+  textual units of a document that have properties similar to those of
+  human-assigned keyphrases. Selecting appropriate keyphrase candidates is
+  particularly important since it determines the upper bound performance of the
+  keyphrase extraction methods.
 
-  Generally speaking, keyphrase extraction methods can be categorized into two main categories: supervised and unsupervised approaches.
-  Supervised approaches treat keyphrase extraction as a binary classification task, where each phrase is labeled either as ``keyphrase'' or ``non-keyphrase'', e.g.~\cite{witten1999kea}.
-  Conversely, unsupervised approaches usually rank phrases by importance and select the top-ranked ones as keyphrases, e.g.~\cite{mihalcea2004textrank}.
-  Although they tackle the keyphrase extraction problem differently, both supervised and unsupervised methods rely on a candidate selection step.
-  Candidate selection consists in identifying the textual units of a document that have properties similar to those of human-assigned keyphrases.
-  Selecting appropriate keyphrase candidates is particularly important since it determines the upper bound performance of the keyphrase extraction methods.
-
-  % The automatic keyphrase extraction task consists in the extraction of the
-  % most important textual units of a document. We distinguish two categories of
-  % keyphrase extraction methods: supervised methods and unsupervised methods. The
-  % first category of methods recasts the keyphrase extraction task as a binary
-  % classification task~\cite{witten1999kea}, whereas the second category often
-  % considers the keyphrase extraction task as a ranking
-  % task~\cite{hassan2010conundrums}. Although they handle the keyphrase
-  % extraction problem in their own different ways, supervised and unsupervised
-  % methods rely on the same preliminary steps. First, documents are preprocessed
-  % (word tokens, sentence boundaries, Part-of-Speech -- POS, etc.). Second,
-  % a set of keyphrase candidates is extracted from the documents. Keyphrase
-  % candidates are textual units that can be extracted as keyphrases; Keyphrase
-  % candidates must have properties known to be properties of human-assigned
-  % keyphrases.
-
-  In previous work, candidate selection is performed either by selecting n-grams, noun phrase chunks or word sequences matching given Part-Of-Speech (POS) patterns~\cite{hulth2003keywordextraction}.
-  In this study, we first analyze the properties of human-assigned keyphrases and discuss how candidates selected by different candidate selection methods satisfy these properties.
-  We then propose a new approach that selects refined noun phrases by filtering out irrelevant adjective modifiers from sequences of noun, proper noun and adjectives.
-  We demonstrate the effectiveness of our approach by comparing the quality of the selected candidate and the performance of state-of-the-art supervised and unsupervised keyphrase extraction methods on three standard datasets of different languages and domains.
+  In previous work, candidate selection is performed either by selecting
+  n-grams, noun phrase chunks or word sequences matching given Part-Of-Speech
+  (POS) patterns~\cite{hulth2003keywordextraction}. In this study, we first
+  analyze the properties of human-assigned keyphrases and discuss how candidates
+  selected by different candidate selection methods satisfy these properties. We
+  then propose a new approach that selects refined noun phrases by filtering out
+  irrelevant adjective modifiers from sequences of nouns, proper nouns and
+  adjectives. We demonstrate the effectiveness of our approach by contrasting
+  the conciseness of the candidates selected by each method, as well as
+  comparing the performance of state-of-the-art supervised and unsupervised
+  keyphrase extraction methods on three standard datasets of different languages
+  and nature.
 
   The rest of this paper is organized as follows.
-  Section~\ref{sec:definition_of_candidate_keyphrases} introduces an analysis of the properties of human-assigned keyphrases.
-  Section~\ref{sec:candidate_extraction} presents the commonly used candidate selection methods and describes our new approach.
-  Experiments are discussed in Section~\ref{sec:evaluation} and Section~\ref{sec:conclusion} concludes this paper.
-
-
-  % The selection of the keyphrase candidates (referred as candidate selection in
-  % the reset of this paper) is one of the most critical steps of the keyphrase
-  % extraction. The nature of the candidates must be carefully defined to suit
-  % the properties of human-assigned keyphrases and, most importantly, to avoid as
-  % much irrelevant candidates as possible. The range of proposed methods to
-  % select candidates is limitted. Commonly use methods select n-grams, NP-chunks
-  % or word sequences matching given patterns~\cite{hulth2003keywordextraction},
-  % while \newcite{kim2009termextraction} use a more sofisticated method that
-  % filters candidates according to statistics learnt from training data. Based on
-  % infered keyphrase properties
-  % (Section~\ref{sec:definition_of_candidate_keyphrases}), we argue the
-  % suitability of the commonly used methods and propose a new method that selects
-  % noun phrases and filters their irrelevant adjective modifiers
-  % (Section~\ref{sec:candidate_extraction}). Using three keyphrase extraction
-  % methods (Section~\ref{sec:keyphrase_extraction}), we analyse the quality of
-  % the candidate sets provide by each candidate selection methods and observe
-  % their impact on keyphrase extraction (Section~\ref{sec:evaluation}). Results
-  % show that the quality of the candidate sets produced by our method is better
-  % and induce a higher performance on each keyphrase extraction method.
+  Section~\ref{sec:definition_of_candidate_keyphrases} introduces an analysis of
+  the properties of human-assigned keyphrases.
+  Section~\ref{sec:candidate_extraction} presents the commonly used candidate
+  selection methods and describes our new approach. Experiments are discussed in
+  Section~\ref{sec:evaluation} and Section~\ref{sec:conclusion} concludes this
+  paper.
 
 \section{What is a Keyphrase?}
 \label{sec:definition_of_candidate_keyphrases}
-  In this section, we determine the properties of a keyphrase. First, we select
-  standard keyphrase extraction datasets. Second, we extract statistics and
-  infer keyphrase properties from their training sets.
+  In this section, we determine two keyphrase properties from the analysis of
+  human assigned keyphrases of three standard datasets. Previous work conducted
+  by \newcite{hulth2003keywordextraction} may look similar. Indeed, she compares
+  the performance of her keyphrase extraction system with distinct candidate
+  selection methods in order to determine what is a good keyphrase candidate.
+  However, her comparison work is result-oriented and based on only one dataset
+  composed of short documents. In opposition, our work rely on statistics
+  extracted from multiple datasets of different size, and nature. Also we only
+  infer general properties.
 
   \subsection{Datasets}
   \label{subsec:keyphrase_extraction_datasets}
-    Keyphrase extraction datasets are collections of documents paired with
-    reference keyphrases given by authors, readers or both. In our work, we use
-    three standard datasets that differ in terms of document size,  type and
-    language.
-
     The \textbf{DUC} dataset \cite{over2001duc} is a collection of 308 English
     news articles covering about 30 topics (e.g.~tornadoes, gun control, etc.).
     This collection is the test dataset of the DUC-2001 summarization evaluation
@@ -106,9 +85,6 @@
 
   \subsection{Analysis of Reference Keyphrases}
   \label{subsec:keyphrase_analysis}
-    In this section, we aim to find general keyphrase properties from the
-    analysis of the training sets of the previously mentioned datasets.
-
     Table~\ref{tab:train_dataset_statistics} shows statistics about the datasets
     and the keyphrases associated to their documents. First, keyphrases are presented
     regarding their number of words. Second, the multi-word keyphrases are
@@ -159,9 +135,9 @@
                \label{tab:train_dataset_statistics}}
     \end{table}
 
-    First, we observe (and confirm previous work observations) that most
-    keyphrases are unigrams or bigrams ($\simeq$ 80\%). Hence, our first
-    keyphrase property concerns the size of keyphrases.
+    First, we observe that most keyphrases are unigrams or bigrams
+    ($\simeq$ 80\%), which confirms previous work observation that small-sized
+    keyphrases are the most frequent.
     
     \begin{property}\label{prop:informativity}
       Keyphrases are small-sized textual units; Keyphrases usually contain one
@@ -171,27 +147,27 @@
 
     Second, we observe that almost every keyphrase contains a noun and half of
     the keyphrases are modified by an adjective. Among the adjectives, it is
-    important to note the usage of relational adjectives(e.g.~``presidential'').
-    Although they are less used than attributive adjectives, their similar
-    properties to
+    important to note the usage of relational adjectives
+    (e.g.~``presidential''). Although they are less used than attributive
+    adjectives, their similar properties to
     nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} make them
     more likely to be relevant keyphrase modifiers than other adjectives.
-    Indeed, an adjective such as ``huge'' is not a relevant keyphrase modifier,
-    but some candidate selection methods (see
-    Section~\ref{sec:candidate_extraction}) may, for example, only select ``huge
-    wildfires'' and miss the rightful candidate ``wildfires''. In opposition, a
-    relational adjective is a noun substitute that have a classificatory or
-    taxonomic meaning~\cite{mcnally2004relationaladjectives}, which makes it
-    more relevant as a keyphrase modifier.
+    Indeed, an adjective such as ``huge'' is almost never a relevant keyphrase
+    modifier, but (for the article \textit{AP880705-0018} of DUC) some candidate
+    selection methods (see Section~\ref{sec:candidate_extraction}) only select
+    ``huge wildfires'' and miss the rightful candidate ``wildfires''. In
+    opposition, a relational adjective is a noun substitute that have a
+    classificatory or taxonomic meaning~\cite{mcnally2004relationaladjectives},
+    which makes it more relevant as a keyphrase modifier.
 
     \begin{property}\label{prop:noun_phrases}
       Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by an
       adjective (e.g.~``annual hurricane forecast'').
     \end{property}
 
-    To give an idea of the observed POS tag patterns,
-    Table~\ref{tab:best_patterns} shows the five most frequent POS tag patterns
-    for English and French keyphrases.
+    To give an insight of the keyphrase POS tag patterns,
+    Table~\ref{tab:best_patterns} shows the five most frequent patterns for
+    English and French.
     \begin{table}[h]
       \centering
       \begin{tabular}{r|lllll}
@@ -224,7 +200,8 @@
   In this section, we present the textual units that are commonly used as
   keyphrase candidates and discuss their consistency regarding the properties
   inferred in Section~\ref{sec:definition_of_candidate_keyphrases}. We also
-  present a new method to selected refined noun phrases as keyphrase candidates.
+  present a new method that selects refined noun phrases as keyphrase
+  candidates.
 
   \paragraph{N-grams} are ordered sequences of $n$ words, where $n$ is usually
   set to 1 up to 3~\cite{witten1999kea}. Extracting n-grams has the benefit to
@@ -245,8 +222,8 @@
   select the longest sequences of nouns, proper nouns and adjectives, namely
   the longest NPs~\cite{hassan2010conundrums}. Candidates selected using both
   approaches fit both properties~\ref{prop:informativity}
-  and~\ref{prop:noun_phrases}. However, the first approach needs training
-  data and is, therefore, not suitable to every situation.
+  and~\ref{prop:noun_phrases}. However, the first approach requires training
+  data and is, therefore, not suitable for every situation.
 
   \paragraph{NP-chunks} are non-recursive noun phrases.
   \newcite{hulth2003keywordextraction} uses them in her work and argues that
@@ -259,18 +236,18 @@
   As a contribution to the candidate selection step, we propose to extract
   \textbf{refined noun phrases} (refined NPs) by adding a decision process
   during the selection of noun, proper noun and adjective sequences. Indeed,
-  assuming that adjectives are not always relevant modifiers, that they are
-  implicit or add extra information (e.g.~``huge wildfires''), we do believe
-  that they must be kept under specific conditions. First, we assume that a
-  frequent modification of a noun phrase by the same adjective (at least twice)
-  is a clue of its usefulness. Second, we consider relational adjectives as a
-  specific class of adjectives and assume that they are always useful. Indeed,
-  relational adjectives have a denominal function, they can be replaced by nouns
-  in prepositional phrases and should, therefore, be treated like nouns. Also,
-  they have a classificatory or toxonomic
-  meaning~\cite{mcnally2004relationaladjectives} that has shown to be useful for
-  other tasks, such as topic detection or term
-  extraction~\cite{daille2001relationaladjectives}.
+  we assume that adjectives are sometimes implicit or add extra information
+  (e.g.~``huge wildfires''). Hence, they must be kept only under specific
+  conditions. First, we assume that a frequent modification of a noun phrase by
+  the same adjective (at least twice) is a clue of its usefulness. Second, we
+  consider relational adjectives as a specific class of adjectives and assume
+  that they are always useful. Indeed, relational adjectives have a denominal
+  function, they can be replaced by nouns in prepositional phrases and should,
+  therefore, be treated like nouns. Also, they have a classificatory or
+  toxonomic meaning~\cite{mcnally2004relationaladjectives} that has shown to be
+  useful for other tasks, such as topic detection or term
+  extraction~\cite{daille2001relationaladjectives}, and that can be useful for
+  keyphrase extraction too.
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
@@ -284,9 +261,9 @@
   \paragraph{TF-IDF~\textnormal{\cite{jones1972tfidf}}} is a weighting scheme
   that represents the significance of a word in a given document. Significant
   words must be both frequent in the document and specific to it. The
-  specificity of a word is determined based on a collection of documents. That
-  the lower is the amount of documents containing a given word, the higher is
-  its specificity. Keyphrase candidates are scored according to the sum of the
+  specificity of a word is determined based on a collection of documents. The
+  lower is the amount of documents containing a given word, the higher is its
+  specificity. Keyphrase candidates are scored according to the sum of the
   TF-IDF weights of their words and the $k$ best candidates are extracted as
   keyphrases.
 
@@ -307,10 +284,10 @@
 
 \section{Experiments}
 \label{sec:evaluation}
-  To observe the impact of the candidate selection methods, we perform two
-  experiments. First, we compare the quality of the candidate selection methods
-  with the set of reference keyphrases. Second, we compare their impact on the
-  keyphrase extraction task, applying them to TF-IDF, TopicRank and KEA.
+  To validate our approach, we perform two experiments. First, we compare the
+  quality of the candidate selection methods with the set of reference
+  keyphrases. Second, we compare their impact on the keyphrase extraction task,
+  applying them to TF-IDF, TopicRank and KEA.
 
   \subsection{Evaluation Measures}
   \label{subsec:keyphrase_extraction_evaluation_measures}
@@ -325,16 +302,16 @@
     The higher is the QR value of a candidate set, the better is its quality.
 
     To evaluate the performance of the keyphrase extraction methods, we use
-    the common precision (P), recall (R) and f-score (F) measures, when a
+    the common measures of precision (P), recall (R) and f-score (F), when a
     maximum of 10 keyphrases are extracted.
 
   \subsection{Preprocessing}
   \label{subsec:preprocessing}
     For each dataset, we apply the following preprocessing steps: sentence
     segmentation, word tokenization and Part-of-Speech tagging. For sentence
-    segmentation, we use the PunktSentenceTokenizer provided by the python
-    Natural Language ToolKit~\cite{bird2009nltk}. For word tokenization, we
-    use the NLTK TreebankWordTokenizer for English and the Bonsai word
+    segmentation, we use the PunktSentenceTokenizer provided by the Python
+    Natural Language ToolKit~\cite[NLTK]{bird2009nltk}. For word tokenization,
+    we use the NLTK TreebankWordTokenizer for English and the Bonsai word
     tokenizer\footnote{The Bonsai word tokenizer is a tool provided with the
     Bonsai PCFG-LA parser:
     \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
