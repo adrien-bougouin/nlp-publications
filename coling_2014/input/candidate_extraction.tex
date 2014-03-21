@@ -1,13 +1,22 @@
 \section{Introduction}
 \label{sec:section}
-  Keyphrases are single or multi-word expressions that represent the main topics
-  or concepts addressed in a document. Keyphrases are useful in many tasks such
-  as document summarization~\cite{avanzo2005keyphrase} or document
-  indexing~\cite{medelyan2008smalltrainingset}. Since the last decade,
-  information mediums, such as Internet, provide access to huge amounts of
-  documents. However, many documents do not always have associated keyphrases
-  and a manual keyphrase annotation of them is not a viable solution. Therefore,
-  many researchers focus on the automatic keyphrase extraction task.
+
+  Since the last decade, the amount of information available on the web is constantly increasing.
+  While the number of documents continues to grow, the need for efficient information retrieval methods becomes increasingly important.
+  One way to improve retrieval effectiveness is to use keyphrases~\cite{jones1999phrasier}.
+  Keyphrases are single or multi-word expressions that represent the main content of a document.
+  As they describe the key topics in documents, keyphrases are useful for many other tasks such as summarization~\cite{avanzo2005keyphrase} or document indexing~\cite{medelyan2008smalltrainingset}.
+  Despite this, only a small number of documents have keyphrases associated with them.
+  Therefore, the automatic keyphrase extraction task has attracted a lot of attention~\cite{kim2010semeval}.
+
+  % Keyphrases are single or multi-word expressions that represent the main topics
+  % or concepts addressed in a document. Keyphrases are useful in many tasks such
+  % as document summarization~\cite{avanzo2005keyphrase} or document
+  % indexing~\cite{medelyan2008smalltrainingset}. Since the last decade,
+  % information mediums, such as Internet, provide access to huge amounts of
+  % documents. However, many documents do not always have associated keyphrases
+  % and a manual keyphrase annotation of them is not a viable solution. Therefore,
+  % many researchers focus on the automatic keyphrase extraction task.
 
   The automatic keyphrase extraction task consists in the extraction of the
   most important textual units of a document. We distinguish two categories of
@@ -118,7 +127,7 @@
         \multicolumn{2}{l|}{\textbf{Multi-word keyphrases}}\\
         \multicolumn{2}{r|}{Containing noun(s)} & 94.5\% & 98.7\% & 93.3\%\\
         \multicolumn{2}{r|}{Containing proper noun(s)} & 17.1\% & $~~$4.3\% & $~~$6.9\%\\
-        \multicolumn{2}{r|}{Containing (non-relational) adjective(s)} & 32.5\% & 40.5\% & 29.9\%\\
+        \multicolumn{2}{r|}{Containing attributive adjective(s)} & 32.5\% & 40.5\% & 29.9\%\\
         \multicolumn{2}{r|}{Containing relational adjective(s)} & 20.0\% & 11.1\% & 37.2\%\\
         \multicolumn{2}{r|}{Containing verb(s)} & $~~$1.0\% & $~~$4.0\% & $~~$1.0\%\\
         \multicolumn{2}{r|}{Containing adverb(s)} & $~~$1.6\% & $~~$0.7\% & $~~$1.3\%\\
@@ -152,8 +161,8 @@
     %papers refering to English technical terms.
     %
     Among these adjectives, it is important to note the usage of relational
-    adjectives. Although they are less used than non-relational adjectives,
-    their similar properties to
+    adjectives. Although they are less used than attributive adjectives, their
+    similar properties to
     nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} make them
     more likely to be relevant keyphrase modifiers than other adjectives.
     Indeed, adjectives, such as ``huge'', are not relevant keyphrase
@@ -179,23 +188,23 @@
         \multicolumn{1}{r}{} & \multicolumn{4}{l}{\textbf{Pattern}} & \textbf{Example}\\
         \midrule
         \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{English}\end{sideways}} & \verb:Nc: & \verb:Nc: & & & \textit{``hurricane expert''}\\ % AP880409-0015
-        & \verb:nA: & \verb:Nc: & & & \textit{``turbulent summer''}\\ % AP880409-0015
+        & \verb:aA: & \verb:Nc: & & & \textit{``turbulent summer''}\\ % AP880409-0015
         & \verb:Nc: & & & & \textit{``storms''}\\ % AP880409-0015
         & \verb:rA: & \verb:Nc: & & & \textit{``Chinese earthquake''}\\ % AP890228-0019
-        & \verb:nA: & \verb:Nc: & \verb:Nc: & & \textit{``annual hurricane forecast''}\\ % AP880409-0015
+        & \verb:aA: & \verb:Nc: & \verb:Nc: & & \textit{``annual hurricane forecast''}\\ % AP880409-0015
         \hline%\addlinespace[1.5\defaultaddspace]
         \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{French}\end{sideways}} & \verb:Nc: & & & & \textit{``patrimoine'' (``cultural heritage'')}\\ % as_2002_007048ar
         & \verb:Np: & & & & \textit{``Indonésie'' (``Indonesia'')}\\ % as_2001_000235ar
         & \verb:Nc: & \verb:rA: & & & \textit{``tradition orale'' (``oral tradition'')}\\ % as_2002_007048ar
-        & \verb:Nc: & \verb:nA: & & & \textit{``anthropologie réflexive'' (``reflexive anthropology'')}\\ % as_2004_011288ar
+        & \verb:Nc: & \verb:aA: & & & \textit{``anthropologie réflexive'' (``reflexive anthropology'')}\\ % as_2004_011288ar
         & \verb:Nc: & \verb:Sp: & \verb:D: & \verb:Nc: & \textit{``conservation de la nature'' (``nature conservation'')}\\ % as_2005_011742ar
         & \verb:Nc: & \verb:Sp: & \verb:Nc: & & \textit{``traduction en anglais'' (``English translation'')}\\ % meta_2003_006958ar
         \bottomrule
       \end{tabular}
       \caption{Frequent POS tag patterns. POS tags belong to the Multex format,
-               except \texttt{rA} and \texttt{nA} which stands for,
+               except \texttt{rA} and \texttt{aA} which stands for,
                respectively, \textit{relational adjective} and
-               \textit{non-relational adjective}.
+               \textit{attributive adjective}.
                \label{tab:best_patterns}}
     \end{table}
 
