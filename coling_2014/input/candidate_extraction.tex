@@ -367,16 +367,16 @@
         \item{\verb:A? (Nc | Np)+:, for English datasets;}
         \item{\verb:(Nc | Np)+ A?:, for French datasets.}
       \end{itemize}
-      To detect relational adjectives, we use WordNet's \textit{pertainym}
-      relation~\cite{miller1995wordnet} for English and its equivalent in the
-      French translation of WorNet~\cite[WoNeF]{pradet2013wonef}. First we build
-      a list of two-sized preffix that appear in adjectives that have the same
-      denominative property (\textit{pertainym} relation) as relational
-      adjectives. Second, we accept only adjectives that have their suffix in
-      the built list. Because of the usage of the \textit{pertainym} relation,
-      this method makes an approximation of what really is a relational
-      adjective. However, as we are mostly interested in the denominative
-      property of adjectives, so we decide to use this simple method.
+      To detect relational adjectives, we use two lists of known suffixes of
+      relational adjectives in English (``al'' and ``ic'') and French (``ain'',
+      ``aire'', ``al'', ``el'', ``eux'', ``ien'', ``ier'', ``ique'', ``ois'')
+      and paired them with lexical databases. Using
+      WordNet~\cite{miller1995wordnet} for English and its translation in
+      French~\cite[WoNeF]{pradet2013wonef}, we also consider that adjectives
+      having a pertainym relationship are relational adjectives. This last
+      condition to detect relational adjectives is an approximation, because
+      adjectives having a pertainym relationship are derived from a noun, but
+      not necessarily relational adjectives.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
