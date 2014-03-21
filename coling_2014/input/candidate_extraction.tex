@@ -19,7 +19,7 @@
   % many researchers focus on the automatic keyphrase extraction task.
 
   Generally speaking, keyphrase extraction methods can be categorized into two main categories: supervised and unsupervised approaches.
-  Supervised approaches treat keyphrase extraction as a binary classification task, where each phrase is labeled either as keyphrase or non-keyphrase, e.g.~\cite{witten1999kea}.
+  Supervised approaches treat keyphrase extraction as a binary classification task, where each phrase is labeled either as ``keyphrase'' or ``non-keyphrase'', e.g.~\cite{witten1999kea}.
   Conversely, unsupervised approaches usually rank phrases by importance and select the top-ranked ones as keyphrases, e.g.~\cite{mihalcea2004textrank}.
   Although they tackle the keyphrase extraction problem differently, both supervised and unsupervised methods rely on a candidate selection step.
   Candidate selection consists in identifying the textual units of a document that have properties similar to those of human-assigned keyphrases.
@@ -42,8 +42,8 @@
 
   In previous work, candidate selection is performed either by selecting n-grams, noun phrase chunks or word sequences matching given Part-Of-Speech (POS) patterns~\cite{hulth2003keywordextraction}.
   In this study, we first analyze the properties of human-assigned keyphrases and discuss how candidates selected by different candidate selection methods satisfy these properties.
-  We then propose a new approach that selects refined noun phrases by filtering out irrelevant adjective modifiers from the longest sequences of noun and adjectives.
-  We demonstrate the effectiveness of our approach by comparing the performance of state-of-the-art supervised and unsupervised keyphrase extraction methods on three standard datasets of different languages and domains.
+  We then propose a new approach that selects refined noun phrases by filtering out irrelevant adjective modifiers from sequences of noun, proper noun and adjectives.
+  We demonstrate the effectiveness of our approach by comparing the quality of the selected candidate and the performance of state-of-the-art supervised and unsupervised keyphrase extraction methods on three standard datasets of different languages and domains.
 
   The rest of this paper is organized as follows.
   Section~\ref{sec:definition_of_candidate_keyphrases} introduces an analysis of the properties of human-assigned keyphrases.
@@ -98,7 +98,7 @@
     containing 144 documents and a test set containing 100 documents. The
     associated keyphrases are provided by both authors and readers.
 
-    The \textbf{DEFT} dataset \cite{Paroubek2012deft} is a collection of 234
+    The \textbf{DEFT} dataset \cite{paroubek2012deft} is a collection of 234
     French scientific papers belonging to the \textit{Humanities and Social
     Sciences} domain. DEFT is divided into two sets: a training set containing
     141 documents and a test set containing 93 documents. Keyphrases provided
@@ -171,7 +171,7 @@
 
     Second, we observe that almost every keyphrase contains a noun and half of
     the keyphrases are modified by an adjective. Among the adjectives, it is
-    important to note the usage of relational adjectives (e.g.~``annual'').
+    important to note the usage of relational adjectives(e.g.~``presidential'').
     Although they are less used than attributive adjectives, their similar
     properties to
     nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} make them
@@ -186,7 +186,7 @@
 
     \begin{property}\label{prop:noun_phrases}
       Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by an
-      adjective (e.g.~``\underline{annual} hurricane forecast'').
+      adjective (e.g.~``annual hurricane forecast'').
     \end{property}
 
     To give an idea of the observed POS tag patterns,
@@ -388,11 +388,15 @@
         \item{\verb:A? (Nc | Np)+:, for English datasets;}
         \item{\verb:(Nc | Np)+ A?:, for French datasets.}
       \end{itemize}
-      Relational adjectives are detected using the WordNet lexical
+      We detect relational adjectives using the WordNet lexical
       database~\cite{miller1995wordnet} for English and its French translation,
-      WoNeF~\cite{pradet2013wonef}, for French. Also, to detect other
-      (potential) relational adjectives, we use a list of two-size suffixes
-      automatically built from WordNet and WoNeF relational adjectives.
+      WoNeF~\cite{pradet2013wonef}, for French. In fact, we do not strictly
+      identify relational adjectives, but we do an approximate detection. We use
+      the WordNet \textit{pertainym} relation and its French equivalent to build
+      a two-sized preffix list of adjectives that have the denominative
+      properties of relational adjectives. Every adjective ending with a preffix
+      of the list is considered a useful adjective and is kept in the noun
+      phrases it modifies.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
@@ -429,7 +433,11 @@
                  \label{tab:candidate_extraction_statistics}}
       \end{table}
 
-      \TODO{Add an analysis of the selected candidates (as in section 2)?}
+      \TODO{Explain why the refined NPs are so different than longest NPs and
+            NP-chunks}
+
+      \TODO{Comparer les proportions d'adjectifs extraits au total et faire le
+            lien avec le tableau de la section 2}
 
   \subsection{Keyphrase Extraction}
   \label{subsec:keyphrase_extraction}
@@ -442,8 +450,15 @@
       Tables~\ref{tab:tfidf_results},~\ref{tab:topicrank_results}~and~\ref{tab:kea_results}
       show the performance of respectively TF-IDF, TopicRank and KEA when
       they extract keyphrases from keyphrase candidates provided by each
-      candidate selection method. \TODO{Expliquer les faibles scores (en
-      utilisant les compétitions)}
+      candidate selection method. The results show a low performance of the
+      three methods. However, our results are in the range of results obtained
+      in previous
+      comparisons~\cite{hassan2010conundrums,kim2010semeval,paroubek2012deft}\footnote{In
+      the case of the SemEval and DEFT evaluation
+      campaigns~\cite{kim2010semeval,paroubek2012deft}, many methods may have
+      better results than our but what we present here are pure methods,
+      i.e.~no parameter tuning has been done to obtain higher results on each
+      dataset.}.
       \begin{table}
         \centering
         \begin{tabular}{rccccccccc}
@@ -531,32 +546,24 @@
 \label{sec:conclusion}
   In this paper, we argued that the candidate selection is a critical step of
   the keyphrase extraction task and studied the impact of various candidate
-  selections over different keyphrase extraction methods.
+  selection methods over different keyphrase extraction methods. Based on a
+  study of human-assigned keyphrases, we infered two keyphrase properties
+  (1.~small-sized 2.~noun phrases) and discussed how commonly used candidate
+  selection methods satisfy them. Also, we assumed that adjectives contained in
+  keyphrase candidates are not always useful and proposed a new method that
+  selects noun phrases and filters out irrelevant adjectives.
 
-  According to the reference keyphrases of three standard datasets, we inferred
-  two general keyphrase properties: (1) keyphrases are mostly noun phrases,
-  which (2) are short (one, two or three words) and bear only sufficient
-  information. Among the candidate selection methods, selecting textual units
-  matching predefined patterns is the best ways to obtain keyphrase candidates
-  that fit both properties.
+  We conducted two experiments to compare the quality of the selected candidates
+  and observe their impact on the performance of three keyphrase extraction
+  methods. Our method has shown to reduce the number of selected candidates
+  without significantly lowering the best possible performance. Conforting our
+  intuition that the quality of the selected candidates must prevail over their
+  number, our method induces the best performance on every keyphrase extraction
+  method.
 
-  To confirm our assertions, we conducted two experiments to compare the quality
-  of the candidate sets and observe their impact on the performance of different
-  keyphrase extraction methods. Experimental results show that unsupervised
-  methods do not have stable results depending on the candidate selection
-  methods. We found that concise candidate sets allowing a high maximum recall
-  induce better results than huge candidate sets allowing a highest maximum
-  recall. In other words, the quality of a candidate set prevails over its
-  exhaustivity.
-
-  We also presented a new candidate selection method that defines noun phrase
-  patterns and filter their adjective modifier in order to keep only relevant
-  ones. Based on the assumption that relational adjectives act as nouns, we
-  decided to keep them, along with the adjectives that frequently modifies the
-  same noun phrase.
-
-  Our work states that adjectives must not necessary be keyphrase modifiers and
-  we showed that simple linguistic filters can increase the quality of the
-  selected candidates. Hence, future work on candidate selection might focus on
-  more complex linguistic and/or statistical filtering methods for adjectives.
+  Regarding the good results, our work stated that adjectives must not necessary
+  be keyphrase modifiers and we showed that simple linguistic filters can
+  increase the quality of the selected candidates. Hence, future work on
+  candidate selection might focus on more complex linguistic and/or statistical
+  adjective filters.
 
