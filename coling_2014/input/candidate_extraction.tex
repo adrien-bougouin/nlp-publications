@@ -5,9 +5,9 @@
   While the number of documents continues to grow, the need for efficient information retrieval methods becomes increasingly important.
   One way to improve retrieval effectiveness is to use keyphrases~\cite{jones1999phrasier}.
   Keyphrases are single or multi-word expressions that represent the main content of a document.
-  As they describe the key topics in documents, keyphrases are useful for many other tasks such as summarization~\cite{avanzo2005keyphrase} or document indexing~\cite{medelyan2008smalltrainingset}.
-  Despite this, only a small number of documents have keyphrases associated with them.
-  Therefore, the automatic keyphrase extraction task has attracted a lot of attention~\cite{kim2010semeval}.
+  As they describe the key topics in documents, keyphrases are also useful for tasks such as summarization~\cite{avanzo2005keyphrase} or document indexing~\cite{medelyan2008smalltrainingset}.
+  There is, however, only a small number of documents that have keyphrases associated with them.
+  Keyphrase extraction has then attracted a lot of attention recently and many different approaches were proposed~\cite{kim2010semeval}.
 
   % Keyphrases are single or multi-word expressions that represent the main topics
   % or concepts addressed in a document. Keyphrases are useful in many tasks such
@@ -18,40 +18,58 @@
   % and a manual keyphrase annotation of them is not a viable solution. Therefore,
   % many researchers focus on the automatic keyphrase extraction task.
 
-  The automatic keyphrase extraction task consists in the extraction of the
-  most important textual units of a document. We distinguish two categories of
-  keyphrase extraction methods: supervised methods and unsupervised methods. The
-  first category of methods recasts the keyphrase extraction task as a binary
-  classification task~\cite{witten1999kea}, whereas the second category often
-  considers the keyphrase extraction task as a ranking
-  task~\cite{hassan2010conundrums}. Although they handle the keyphrase
-  extraction problem in their own different ways, supervised and unsupervised
-  methods rely on the same preliminary steps. First, documents are preprocessed
-  (word tokens, sentence boundaries, Part-of-Speech -- POS, etc.). Second,
-  a set of keyphrase candidates is extracted from the documents. Keyphrase
-  candidates are textual units that can be extracted as keyphrases; Keyphrase
-  candidates must have properties known to be properties of human-assigned
-  keyphrases.
-  
-  The selection of the keyphrase candidates (referred as candidate selection in
-  the reset of this paper) is one of the most critical steps of the keyphrase
-  extraction. The nature of the candidates must be carefully defined to suit
-  the properties of human-assigned keyphrases and, most importantly, to avoid as
-  much irrelevant candidates as possible. The range of proposed methods to
-  select candidates is limitted. Commonly use methods select n-grams, NP-chunks
-  or word sequences matching given patterns~\cite{hulth2003keywordextraction},
-  while \newcite{kim2009termextraction} use a more sofisticated method that
-  filters candidates according to statistics learnt from training data. Based on
-  infered keyphrase properties
-  (Section~\ref{sec:definition_of_candidate_keyphrases}), we argue the
-  suitability of the commonly used methods and propose a new method that selects
-  noun phrases and filters their irrelevant adjective modifiers
-  (Section~\ref{sec:candidate_extraction}). Using three keyphrase extraction
-  methods (Section~\ref{sec:keyphrase_extraction}), we analyse the quality of
-  the candidate sets provide by each candidate selection methods and observe
-  their impact on keyphrase extraction (Section~\ref{sec:evaluation}). Results
-  show that the quality of the candidate sets produced by our method is better
-  and induce a higher performance on each keyphrase extraction method.
+  Generally speaking, keyphrase extraction methods can be categorized into two main categories: supervised and unsupervised approaches.
+  Supervised approaches treat keyphrase extraction as a binary classification task, where each phrase is labeled either as keyphrase or non-keyphrase, e.g.~\cite{witten1999kea}.
+  Conversely, unsupervised approaches usually rank phrases by importance and select the top-ranked ones as keyphrases, e.g.~\cite{mihalcea2004textrank}.
+  Although they tackle the keyphrase extraction problem differently, both supervised and unsupervised methods rely on a candidate selection step.
+  Candidate selection consists in identifying the textual units of a document that have properties similar to those of human-assigned keyphrases.
+  Selecting appropriate keyphrase candidates is particularly important since it determines the upper bound performance of the keyphrase extraction methods.
+
+  % The automatic keyphrase extraction task consists in the extraction of the
+  % most important textual units of a document. We distinguish two categories of
+  % keyphrase extraction methods: supervised methods and unsupervised methods. The
+  % first category of methods recasts the keyphrase extraction task as a binary
+  % classification task~\cite{witten1999kea}, whereas the second category often
+  % considers the keyphrase extraction task as a ranking
+  % task~\cite{hassan2010conundrums}. Although they handle the keyphrase
+  % extraction problem in their own different ways, supervised and unsupervised
+  % methods rely on the same preliminary steps. First, documents are preprocessed
+  % (word tokens, sentence boundaries, Part-of-Speech -- POS, etc.). Second,
+  % a set of keyphrase candidates is extracted from the documents. Keyphrase
+  % candidates are textual units that can be extracted as keyphrases; Keyphrase
+  % candidates must have properties known to be properties of human-assigned
+  % keyphrases.
+
+  In previous work, candidate selection is performed either by selecting n-grams, noun phrase chunks or word sequences matching given Part-Of-Speech (POS) patterns~\cite{hulth2003keywordextraction}.
+  In this study, we first analyze the properties of human-assigned keyphrases and discuss how candidates selected by different candidate selection methods satisfy these properties.
+  We then propose a new approach that selects refined noun phrases by filtering out irrelevant adjective modifiers from the longest sequences of noun and adjectives.
+  We demonstrate the effectiveness of our approach by comparing the performance of state-of-the-art supervised and unsupervised keyphrase extraction methods on three standard datasets of different languages and domains.
+
+  The rest of this paper is organized as follows.
+  Section~\ref{sec:definition_of_candidate_keyphrases} introduces an analysis of the properties of human-assigned keyphrases.
+  Section~\ref{sec:candidate_extraction} presents the commonly used candidate selection methods and describes our new approach.
+  Experiments are discussed in Section~\ref{sec:evaluation} and Section~\ref{sec:conclusion} concludes this paper.
+
+
+  % The selection of the keyphrase candidates (referred as candidate selection in
+  % the reset of this paper) is one of the most critical steps of the keyphrase
+  % extraction. The nature of the candidates must be carefully defined to suit
+  % the properties of human-assigned keyphrases and, most importantly, to avoid as
+  % much irrelevant candidates as possible. The range of proposed methods to
+  % select candidates is limitted. Commonly use methods select n-grams, NP-chunks
+  % or word sequences matching given patterns~\cite{hulth2003keywordextraction},
+  % while \newcite{kim2009termextraction} use a more sofisticated method that
+  % filters candidates according to statistics learnt from training data. Based on
+  % infered keyphrase properties
+  % (Section~\ref{sec:definition_of_candidate_keyphrases}), we argue the
+  % suitability of the commonly used methods and propose a new method that selects
+  % noun phrases and filters their irrelevant adjective modifiers
+  % (Section~\ref{sec:candidate_extraction}). Using three keyphrase extraction
+  % methods (Section~\ref{sec:keyphrase_extraction}), we analyse the quality of
+  % the candidate sets provide by each candidate selection methods and observe
+  % their impact on keyphrase extraction (Section~\ref{sec:evaluation}). Results
+  % show that the quality of the candidate sets produced by our method is better
+  % and induce a higher performance on each keyphrase extraction method.
 
 \section{What is a Keyphrase?}
 \label{sec:definition_of_candidate_keyphrases}
