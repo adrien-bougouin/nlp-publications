@@ -331,13 +331,13 @@
     \subsubsection{Method Settings}
     \label{subsubsec:method_settings}
       For each candidate selection method presented in
-      section~\ref{sec:candidate_extraction}, we configure one method with the
-      parameters that best fit properties~\ref{prop:informativity}
+      section~\ref{sec:candidate_extraction}, we set the parameters in order to
+      best fit as much as possible both properties~\ref{prop:informativity}
       and~\ref{prop:noun_phrases}.
 
       \paragraph{}
       According to Property~\ref{prop:informativity}, we test a \textbf{filtered
-      n-gram selection} method that provides small size n-grams:
+      n-gram selection} method that provides small-sized n-grams:
       $n = \{1..3\}$. The stop words used for the filtering are part of the IR
       Multilingual
       Resources\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
@@ -365,6 +365,7 @@
         \item{\verb:A? (Nc | Np)+:, for English datasets;}
         \item{\verb:(Nc | Np)+ A?:, for French datasets.}
       \end{itemize}
+      \TODO{A revoir.}
       We detect relational adjectives using the WordNet lexical
       database~\cite{miller1995wordnet} for English and its French translation,
       WoNeF~\cite{pradet2013wonef}, for French. In fact, we do not strictly
@@ -522,14 +523,18 @@
 \section{Conclusion}
 \label{sec:conclusion}
   In this paper, we argued that the candidate selection is a critical step of
-  the keyphrase extraction task and studied the impact of various candidate
-  selection methods over different keyphrase extraction methods. Based on a
-  study of human-assigned keyphrases, we infered two keyphrase properties
-  (1.~small-sized 2.~noun phrases) and discussed how commonly used candidate
-  selection methods satisfy them. Also, we assumed that adjectives contained in
-  keyphrase candidates are not always useful and proposed a new method that
-  selects noun phrases and filters out irrelevant adjectives.
+  the keyphrase extraction task. Based on a study of human-assigned keyphrases,
+  we infered two keyphrase properties (1.~small-sized 2.~noun phrases) and
+  discussed how commonly used candidate selection methods satisfy them. To best
+  fit those properties, we also proposed a new method for the selection of
+  keyphrase candidates. Our method rely on the intuition that although
+  keyphrases are noun phrases that can be modified by an adjective, the usage of
+  an adjective in a keyphrase must be justified by its contribution to the
+  meaning of the keyphrase. Hence, only adjectives that are frequently used to
+  modify the same noun phrase and only relational adjectives are accepted as
+  keyphrase candidates.
 
+  \TODO{A revoir}
   We conducted two experiments to compare the quality of the selected candidates
   and observe their impact on the performance of three keyphrase extraction
   methods. Our method has shown to reduce the number of selected candidates
@@ -538,8 +543,8 @@
   number, our method induces the best performance on every keyphrase extraction
   method.
 
-  Regarding the good results, our work stated that adjectives must not necessary
-  be keyphrase modifiers and we showed that simple linguistic filters can
+  Regarding the results of our method, we showed that adjectives must not
+  necessary be keyphrase modifiers and that simple linguistic filters can
   increase the quality of the selected candidates. Hence, future work on
   candidate selection might focus on more complex linguistic and/or statistical
   adjective filters.
