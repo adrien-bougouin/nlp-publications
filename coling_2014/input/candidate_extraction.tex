@@ -29,17 +29,17 @@
   keyphrase extraction methods.
 
   In previous work, candidate selection is performed either by selecting
-  n-grams, noun phrase chunks or word sequences matching given Part-Of-Speech
-  (POS) patterns~\cite{hulth2003keywordextraction}. In this study, we first
-  analyze the properties of human-assigned keyphrases and discuss how candidates
-  selected by different candidate selection methods satisfy these properties. We
-  then propose a new approach that selects refined noun phrases by filtering out
-  irrelevant adjective modifiers from sequences of nouns, proper nouns and
-  adjectives. We demonstrate the effectiveness of our approach by contrasting
-  the conciseness of the candidates selected by each method, as well as
-  comparing the performance of state-of-the-art supervised and unsupervised
-  keyphrase extraction methods on three standard datasets of different languages
-  and nature.
+  n-grams, noun phrase chunks (NP-chunks) or word sequences matching given
+  Part-Of-Speech (POS) patterns~\cite{hulth2003keywordextraction}. In this
+  study, we first analyze the properties of human-assigned keyphrases and
+  discuss how candidates selected by different candidate selection methods
+  satisfy these properties. We then propose a new approach that selects refined
+  noun phrases by filtering out irrelevant adjective modifiers from sequences of
+  nouns, proper nouns and adjectives. We demonstrate the effectiveness of our
+  approach by contrasting the conciseness of the candidates selected by each
+  method, as well as comparing the performance of state-of-the-art supervised
+  and unsupervised keyphrase extraction methods on three standard datasets of
+  different languages and nature.
 
   The rest of this paper is organized as follows.
   Section~\ref{sec:definition_of_candidate_keyphrases} introduces an analysis of
@@ -58,8 +58,8 @@
   selection methods in order to determine what is a good keyphrase candidate.
   However, her comparison work is result-oriented and based on only one dataset
   composed of short documents. In opposition, our work rely on statistics
-  extracted from multiple datasets of different size, and nature. Also we only
-  infer general properties.
+  extracted from multiple datasets of different characteristics (size, nature,
+  etc.) and we only infer general properties.
 
   \subsection{Datasets}
   \label{subsec:keyphrase_extraction_datasets}
@@ -154,9 +154,8 @@
     nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} and the
     fact they have classificatory or taxonomic
     meaning~\cite{mcnally2004relationaladjectives} make them more likely to be
-    relevant keyphrase modifiers than other adjectives. For example, an
-    attributive adjective such as ``huge'' is almost never a relevant keyphrase
-    modifier.
+    relevant keyphrase modifiers than attributive adjectives, such as ``huge''
+    which is almost never relevant as keyphrase modifier.
 
     \begin{property}\label{prop:noun_phrases}
       Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by an
@@ -242,14 +241,6 @@
   that they are always useful. This assumption is corroborated by the usefulness
   of relational adjectives for other tasks such as topic detection or term
   extraction~\cite{daille2001relationaladjectives}.
-  
-  Indeed, relational adjectives have a denominal
-  function, they can be replaced by nouns in prepositional phrases and should,
-  therefore, be treated like nouns. Also, they have a classificatory or
-  toxonomic meaning~\cite{mcnally2004relationaladjectives} that has shown to be
-  useful for other tasks, such as topic detection or term
-  extraction~\cite{daille2001relationaladjectives}, and that can be useful for
-  keyphrase extraction too.
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
@@ -370,13 +361,13 @@
       To detect relational adjectives, we use two lists of known suffixes of
       relational adjectives in English (``al'' and ``ic'') and French (``ain'',
       ``aire'', ``al'', ``el'', ``eux'', ``ien'', ``ier'', ``ique'', ``ois'')
-      and paired them with lexical databases. Using
+      combined with two lexical databases. In fact, using
       WordNet~\cite{miller1995wordnet} for English and its translation in
       French~\cite[WoNeF]{pradet2013wonef}, we also consider that adjectives
-      having a pertainym relationship are relational adjectives. This last
+      having a pertainym relationship are relational adjectives\footnote{This
       condition to detect relational adjectives is an approximation, because
       adjectives having a pertainym relationship are derived from a noun, but
-      not necessarily relational adjectives.
+      they are not necessarily relational adjectives.}.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
@@ -389,7 +380,7 @@
       methods provide less candidates and allow a lower maximum recall. However,
       for the selection of longest NPs, NP-chunks and refined NPs, the maximum
       recall does not significantly decrease compared to the number of selected
-      candidates and according to the quality ratio, the method that selects
+      candidates. According to the quality ratio, the method that selects
       better candidates is the one selecting refined NPs, followed by the ones
       selecting longest NPs and NP-chunks.
       \begin{table}
@@ -403,11 +394,11 @@
           %\{1..2\}-grams & $~~~$491.0 & 76.6 & 15.6 & 1,633.6 & 61.0 & $~~~$3.7 & 2,566.4 & 67.3 & $~~~$2.6\\
           \{1..3\}-grams & $~~~$596.2 & 90.8 & 15.2 & 2,580.5 & 72.2 & $~~$2.8 & 4,070.2 & 74.1 & $~~~$1.8\\
           %Learned patterns & $~~~$317.6 & 90.6 & 28.5 & 1,227.4 & 69.8 & $~~~$5.7 & 2,148.3 & 76.5 & $~~~$3.6\\
-          Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
+          Longest NPs & $~~~$155.6 & 88.7 & \textbf{57.0} & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
           NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
           %Candidate terms & $~~~$161.8 & 46.1 & 28.5 & $~~~$498.6 & 32.4 & $~~~$6.5 & $~~~$647.0 & 52.8 & \textbf{$~~~$8.2}\\
           %Refined NPs & $~~~$143.1 & 85.2 & \textbf{59.5} & $~~~$563.4 & 60.7 & \textbf{10.8} & $~~~$670.0 & 58.6 & \textbf{$~~$8.7}\\
-          Refined NPs & $~~~$143.1 & 73.9 & \textbf{51.6} & $~~~$563.4 & 58.1 & \textbf{10.3} & $~~~$670.0 & 59.2 & \textbf{$~~$8.8}\\
+          Refined NPs & $~~~$143.1 & 73.9 & 51.6 & $~~~$563.4 & 58.1 & \textbf{10.3} & $~~~$670.0 & 59.2 & \textbf{$~~$8.8}\\
           \bottomrule
         \end{tabular}
         \caption{Candidate selection statistics.
@@ -433,8 +424,8 @@
       they extract keyphrases from keyphrase candidates provided by each
       candidate selection method. The results show a low performance of the
       three methods. However, our results are in the range of results obtained
-      in previous
-      comparisons~\cite{hassan2010conundrums,kim2010semeval,paroubek2012deft}\footnote{In
+      in previous comparative
+      work~\cite{hassan2010conundrums,kim2010semeval,paroubek2012deft}\footnote{In
       the case of the SemEval and DEFT evaluation
       campaigns~\cite{kim2010semeval,paroubek2012deft}, many methods may have
       better results than our but what we present here are pure methods,
@@ -487,8 +478,8 @@
           %Candidate terms & 10.4 & 13.9 & 11.7 & $~~$8.9 & $~~$6.5 & $~~$7.5 & $~~$9.6 & 18.5 & 12.4\\
           %Terms clusters & $~~$5.7 & $~~$7.9 & $~~$6.5 & $~~$6.4 & $~~$4.7 & $~~$5.4 & $~~$8.7 & 16.0 & 11.2\\
           %Refined NPs & \textbf{17.8} & \textbf{23.5} & \textbf{20.0} & \textbf{12.1} & \textbf{$~~$8.3} & \textbf{$~~$9.8} & 11.4 & 21.0 & 14.6\\
-          Refined NPs & \textbf{17.2} & \textbf{22.9} & \textbf{19.4} &
-         \textbf{00.0} & \textbf{$~~$0.0} & \textbf{$~~$0.0} & 00.0 & 00.0 & 00.0\\
+          Refined NPs & \textbf{17.2} & \textbf{22.9} & \textbf{19.4} & \textbf{12.1} & \textbf{$~~$8.3} & \textbf{$~~$9.8} & 11.0 & 20.2 & 14.1\\
+          %Refined NPs & \textbf{17.2} & \textbf{22.9} & \textbf{19.4} & \textbf{00.0} & \textbf{$~~$0.0} & \textbf{$~~$0.0} & 00.0 & 00.0 & 00.0\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
@@ -524,14 +515,13 @@
       selection is able to remove more noise than commonly used methods. Also,
       the fact that the selection of n-grams induces the lowest performance
       confirms that small candidate sets of high quality are better than
-      exhaustive (hence noisy) candidate sets allowing the best recall.
+      exhaustive (hence noisy) candidate sets allowing a better recall.
       
       Another emerging conclusion from the results is that, due to its
       learning phase, the supervised method KEA is more stable than the
       unsupervised methods TF-IDF and TopicRank. When developping unsupervised
       methods for keyphrase extraction, being able to avoid noise during the
-      candidate selection is very important and we show that filtering out
-      adjectives is one simple, yet efficient, method.
+      candidate selection is very important.
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -541,18 +531,18 @@
   discussed how commonly used candidate selection methods satisfy them. To best
   fit those properties, we also proposed a new method for the selection of
   keyphrase candidates. Our method rely on the intuition that although
-  keyphrases are noun phrases that can be modified by an adjective, the usage of
-  an adjective in a keyphrase must be justified by its contribution to the
-  meaning of the keyphrase. Hence, only adjectives that are frequently used to
-  modify the same noun phrase and only relational adjectives are accepted as
-  keyphrase candidates.
+  keyphrases are noun phrases that can be modified by an adjective, the
+  adjectival modification of a keyphrase must be justified by its contribution
+  to the meaning of the keyphrase. Hence, only adjectives that are frequently
+  used to modify the same noun phrase and only relational adjectives are
+  accepted as keyphrase candidates.
 
-  To validate our method, we carried out two experiments with three standard
+  To validate our method, we carried out two experiments on three standard
   datasets. On the first hand, we showed that our method reduces the number of
-  selected candidates without giving up on the best possible recall. On the
-  second hand, we showed that our method induces the best results for every
-  keyphrase extraction methods, which conforts our intuition that the quality of
-  the selected candidates must prevail over their number.
+  selected candidates without significantly decreasing the best possible recall.
+  On the second hand, we showed that, in most cases, our method induces the best
+  results for every keyphrase extraction methods, which conforts our intuition
+  that the quality of the selected candidates must prevail over their number.
 
   Our results showed that a simple linguistic filtering of adjectives can
   increase the quality of the selected candidates. In future work, we plan to

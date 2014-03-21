@@ -35,15 +35,15 @@
 \usepackage{overpic}
 
 \newtheorem{property}{Property}
-\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\TODO[1]{}%\textcolor{red}{[TODO #1]}}
 
 \title{Selecting Candidates for Automatic Keyphrase Extraction}
 
-\author{
-  Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
-  Université de Nantes, LINA, France\\
-  {\tt \{adrien.bougouin,florian.boudin,beatrice.daille\}@univ-nantes.fr}
-}
+%\author{
+%  Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
+%  Université de Nantes, LINA, France\\
+%  {\tt \{adrien.bougouin,florian.boudin,beatrice.daille\}@univ-nantes.fr}
+%}
 
 \date{}
 
@@ -59,18 +59,18 @@
     this paper, we compare three commonly used methods for candidate selection
     and propose a new approach that generates refined noun phrases by filtering
     out irrelevant adjective modifiers. Through experiments carried out on three
-    standard datasets of different languages and domains, we show that our
-    approach reduces the number of selected candidates and improves keyphrase
-    extraction performance when it is used with either supervised or
+    standard datasets of different languages and domains, we show that, in most
+    cases, our approach reduces the number of selected candidates and improves
+    keyphrase extraction performance when it is used with either supervised or
     unsupervised methods.
   \end{abstract}
 
   \input{input/candidate_extraction.tex}
 
-  \section*{Acknowledgements}
-  The authors would like to thank the anonymous reviewers for their useful
-  advice and comments. This work was supported by the French National Research
-  Agency (TermITH project -- ANR-12-CORD-0029).
+%  \section*{Acknowledgements}
+%  The authors would like to thank the anonymous reviewers for their useful
+%  advice and comments. This work was supported by the French National Research
+%  Agency (TermITH project -- ANR-12-CORD-0029).
 
   % include your own bib file like this:
   \bibliographystyle{acl}
