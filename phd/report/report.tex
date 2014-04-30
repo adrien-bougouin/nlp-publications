@@ -1,0 +1,60 @@
+\documentclass{rapport-suivi-LINA}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{charter}
+
+\usepackage{amsmath}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{natbib}
+
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+
+\begin{document}
+  \titre{Indexation automatique en domaine de spécialité}
+  %\soustitre{Le tour du sujet en trois ans}
+  \bourse{ANR}
+
+  \nomdoctorant{Bougouin}
+  \prenomdoctorant{Adrien}
+  \datenaissance{06/06/1989}
+  \courriel{\url{adrien.bougouin@univ-nantes.fr}}
+  \telephone{}
+
+  \equipe{TALN}
+  \nomdirecteur{Daille}
+  \prenomdirecteur{Béatrice}
+  \tauxdirecteur{40}
+  %%%%%%%%%%%%%%%%%%%%
+  %\nomcodirecteur{}
+  %\prenomcodirecteur{}
+  %\tauxcodirecteur{}
+  %\equipecodirecteur{}
+  %%%%%%%%%%%%%%%%%%%%
+  \nomcoencadrant{Boudin}
+  \prenomcoencadrant{Florian}
+  \tauxcoencadrant{60}
+  %\equipecoencadrant{equipe}
+  %%%%%%%%%%%%%%%%%%%%
+  %\nomautrecoencadrant{}
+  %\prenomautrecoencadrant{}
+  %\tauxautrecoencadrant{}
+  %\equipeautrecoencadrant{}
+
+  %\date{}
+
+  \maketitle
+
+%  \begin{abstract}
+%  \end{abstract}
+
+  \input{input/factual_elements.tex}
+  \input{input/context_and_problematic.tex}
+  \input{input/data.tex}
+  \input{input/state_of_the_art.tex}
+  \input{input/contributions.tex}
+
+  \addcontentsline{toc}{chapter}{Bibliographie}
+  \bibliography{../../biblio}
+\end{document}
+
