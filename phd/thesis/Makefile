@@ -2,28 +2,25 @@
 # Makefile
 ################################################################################
 
-report_NAME	= acl2014
-bib_FILE		= ../biblio.bib
+report_NAME	= thesis
+bib_FILE		= ../../biblio.bib
 input_DIR 	= ./input
-include_DIR 	= ./include
-needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(wildcard $(include_DIR)/*) $(bib_FILE)
+needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(bib_FILE)
 
 default: $(report_NAME).pdf
 
 $(report_NAME).pdf: $(report_NAME).tex $(needed_FILES)
-	latex $(report_NAME)
+	pdflatex $<
 	bibtex $(report_NAME)
-	latex $(report_NAME)
-	latex $(report_NAME)
-	dvips $(report_NAME).dvi
-	ps2pdf $(report_NAME).ps
+	pdflatex $<
+	pdflatex $<
 
 ################################################################################
 
 .PHONY: clean mrproper
 
 clean:
-	rm -rf *.aux *.bbl *.blg *.log *.out *.toc *.ps *.dvi
+	rm -rf *.aux *.bbl *.blg *.log *.out *.toc
 
 mrproper: clean
 	rm -rf $(report_NAME).pdf
