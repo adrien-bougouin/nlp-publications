@@ -1,5 +1,53 @@
-\chapter{Contributions du travail de thèse}
-  \section{Sélection de termes-clés candidats}
-  \section{Extraction non-supervisée de termes-clés}
-  \section{Perspectives}
+\chapter{Soumission et publications}
+  Dans ce chapitre, nous énumérons et décrivons brièvement les travaux
+  publiés, ou en cours de relectures, dans des conférences ou des revues.
+
+  \section{\textit{État de l'art des méthodes d'extraction automatique de
+           termes-clés} (cf. Annexe~\ref{sec:recital2013})}
+    Cet article a été publié en 2013 dans la Rencontre des Étudiants Chercheurs
+    en Informatique pour le Traitement Automatique des Langues (RECITAL). Il
+    s'agit d'une version courte de l'état de l'art présenté dans le
+    chapitre~\ref{chap:etat_de_l_art}.
+
+  \section{\textit{TopicRank: Graph-Based Topic Ranking for Keyphrase
+           Extraction} (cf. Annexe~\ref{sec:ijcnlp2013})}
+  \label{sec:resume_ijcnlp2013}
+    Cet article a été publié en 2013 dans la conférence internationale IJCNLP.
+    En nous appuyant sur les faiblesses des méthodes à base de graphe pour
+    l'extraction automatique de termes-clés (ordonnancement basé sur les mots,
+    redondance des termes-clés extraits, etc), nous avons proposé TopicRank.
+    Dans un premier temps, TopicRank regroupe les termes-clés candidats en
+    sujets. Dans un second temps, il ordonne ces sujets par importance selon la
+    méthode TextRank et sélectionne dans chacun des meilleurs sujets le
+    termes-clés candidat qui le représente le mieux (celui qui apparaît en
+    premier dans le texte).
+
+  \section{\textit{Influence des domaines de spécialité dans l'extraction de
+           termes-clés} (cf. Annexe~\ref{sec:taln2014})}
+    Cet article à été accepté pour une présentation à la conférence TALN qui
+    aura lieu en Juillet 2014. À partir des cinq corpus disciplinaires
+    constitués dans le cadre du projet Termith et de deux méthodes d'extraction
+    automatique de termes-clés, nous montrons que certaines disciplines sont
+    plus difficiles à traiter que d'autres et proposons une analyse des facteurs
+    influant sur cette difficulté.
+
+  \section{\textit{TopicRank : ordonnancement de sujets pour l'extraction
+           automatique de termes-clés} (cf. Annexe~\ref{sec:tal2014})}
+    Cet article, soumis (et accepté en seconde relecture) à la revue TAL, est
+    une version étendue de l'article présenté à IJCNLP (cf.
+    Section~\ref{sec:resume_ijcnlp2013}). Il présente des expériences
+    supplémentaires pour le paramétrage de TopicRank, ainsi qu'une analyse des
+    erreurs lors du groupement en sujets.
+
+  \section{\textit{Selecting Candidates for Automatic Keyphrase Extraction} (cf.
+           Annexe~\ref{sec:coling2014})}
+    Dans cet article, soumis à la conférence COLING, nous proposons une nouvelle
+    méthode de sélection de termes-clés candidats. Fondée sur les hypothèses que
+    (1) tous les adjectifs ne contribuent pas au sens d'un terme-clé candidat
+    et (2) les adjectifs relationnels sont, par leur nature taxonomique, plus
+    pertinents en tant que modifieurs dans un terme-clé, notre méthode n'accepte
+    dans les candidats de la forme Nom(s)-Adjectif que les adjectifs dénominaux
+    (l'une des propriété des adjectifs relationnels) et les adjectifs qui
+    co-occurrent plus d'une fois avec le(s) nom(s) du candidat (ils contribuent
+    au sens du candidat).
 

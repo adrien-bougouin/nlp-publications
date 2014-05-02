@@ -7,6 +7,7 @@
 \usepackage{relsize}
 \usepackage{multirow}
 \usepackage{natbib}
+\usepackage{pdfpages}
 
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
 
@@ -56,5 +57,40 @@
 
   \addcontentsline{toc}{chapter}{Bibliographie}
   \bibliography{../../biblio}
+
+  %%%%%%%%%%%%%%%%%%%%
+  % Appendixes
+  \appendix
+  \newpage
+  \pagenumbering{roman}
+  \chapter*{\fontsize{50pt}{12pt}\selectfont\hspace{.275\linewidth}Annexes}
+  \addcontentsline{toc}{part}{Annexes}
+    \chapter{Articles publiés}
+      \section{\textit{État de l'art des méthodes d'extraction automatique de
+               termes-clés}}
+      \label{sec:recital2013}
+        \includepdf[pages=-, templatesize={1.25\textwidth}{1.25\textheight}, frame=true, pagecommand={}]{articles/recital_2013.pdf}
+
+      \section{\textit{TopicRank: Graph-Based Topic Ranking for Keyphrase
+               Extraction}}
+      \label{sec:ijcnlp2013}
+        \includepdf[pages=-, templatesize={1.75\textwidth}{1.75\textheight}, frame=true, pagecommand={}]{articles/ijcnlp_2013.pdf}
+
+    \chapter{Articles acceptés (version non-finale)}
+      \section{\textit{Influence des domaines de spécialité dans l'extraction de
+               termes-clés}}
+      \label{sec:taln2014}
+        \includepdf[pages=-, templatesize={1.75\textwidth}{1.75\textheight}, frame=true, pagecommand={}]{articles/taln_2014.pdf}
+
+    \chapter{Articles soumis (en cours de relecture)}
+      \section{\textit{TopicRank : ordonnancement de sujets pour l'extraction
+               automatique de termes-clés}}
+      \label{sec:tal2014}
+        \includepdf[pages=-, templatesize={1.75\textwidth}{1.75\textheight}, frame=true, pagecommand={}]{articles/tal_2014.pdf}
+
+      \section{\textit{Selecting Candidates for Automatic Keyphrase Extraction}}
+      \label{sec:coling2014}
+        \includepdf[pages=-, templatesize={1.75\textwidth}{1.75\textheight}, frame=true, pagecommand={}]{articles/coling_2014.pdf}
+
 \end{document}
 
