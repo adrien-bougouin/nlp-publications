@@ -36,10 +36,10 @@
   satisfy these properties. We then propose a new approach that selects refined
   noun phrases by filtering out irrelevant adjective modifiers from sequences of
   nouns, proper nouns and adjectives. We demonstrate the effectiveness of our
-  approach by contrasting the conciseness of the candidates selected by each
-  method, as well as comparing the performance of state-of-the-art supervised
-  and unsupervised keyphrase extraction methods on three standard datasets of
-  different languages and nature.
+  approach by looking at the completeness of the sets of selected candidates and
+  by comparing the performance of state-of-the-art supervised and unsupervised
+  keyphrase extraction methods on three standard datasets of different languages
+  and nature.
 
   The rest of this paper is organized as follows.
   Section~\ref{sec:definition_of_candidate_keyphrases} introduces an analysis of
@@ -52,17 +52,11 @@
 \section{What is a Keyphrase?}
 \label{sec:definition_of_candidate_keyphrases}
   In this section, we determine two keyphrase properties from the analysis of
-  human assigned keyphrases of three standard datasets. Previous work conducted
-  by \newcite{hulth2003keywordextraction} may look similar. Indeed, she compares
-  the performance of her keyphrase extraction system with distinct candidate
-  selection methods in order to determine what is a good keyphrase candidate.
-  However, her comparison work is result-oriented and based on only one dataset
-  composed of short documents. In opposition, our work rely on statistics
-  extracted from multiple datasets of different characteristics (size, nature,
-  etc.) and we only infer general properties.
+  human-assigned keyphrases of three standard datasets.
 
   \subsection{Datasets}
   \label{subsec:keyphrase_extraction_datasets}
+    \paragraph{}
     The \textbf{DUC} dataset \cite{over2001duc} is a collection of 308 English
     news articles covering about 30 topics (e.g.~tornadoes, gun control, etc.).
     This collection is the test dataset of the DUC-2001 summarization evaluation
@@ -71,12 +65,14 @@
     training set containing 208 documents and a test set containing 100
     documents.
 
+    \paragraph{}
     The \textbf{SemEval} dataset \cite{kim2010semeval} contains 244 English
     scientific papers collected from the ACM Digital Libraries (conference and
     workshop papers). The papers are divided into two sets: a training set
     containing 144 documents and a test set containing 100 documents. The
     associated keyphrases are provided by both authors and readers.
 
+    \paragraph{}
     The \textbf{DEFT} dataset \cite{paroubek2012deft} is a collection of 234
     French scientific papers belonging to the \textit{Humanities and Social
     Sciences} domain. DEFT is divided into two sets: a training set containing
@@ -87,7 +83,7 @@
   \label{subsec:keyphrase_analysis}
     Table~\ref{tab:train_dataset_statistics} shows statistics about the datasets
     and the keyphrases associated to their documents. First, keyphrases are 
-    resented regarding their number of words. Second, the multi-word keyphrases
+    presented regarding their number of words. Second, the multi-word keyphrases
     are presented regarding the Part-of-Speech of their words\footnote{We
     observed that keyphrases containing one word are mostly nouns or proper
     nouns. Hence, we only show the POS tag statistics of the multi-word
@@ -142,7 +138,7 @@
     
     \begin{property}\label{prop:informativity}
       Keyphrases are small-sized textual units; Keyphrases usually contain one
-      up to three words (e.g.~``storms'', ``hurricane expert'', ``annual
+      up to three words (e.g.~``storms'', ``hurricane expert'' and ``annual
       hurricane forecast'').
     \end{property}
 
@@ -155,7 +151,7 @@
     fact they have classificatory or taxonomic
     meaning~\cite{mcnally2004relationaladjectives} make them more likely to be
     relevant keyphrase modifiers than attributive adjectives, such as ``huge''
-    which is almost never relevant as keyphrase modifier.
+    which is very unlikely to be a relevant keyphrase modifier.
 
     \begin{property}\label{prop:noun_phrases}
       Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by an
@@ -204,7 +200,7 @@
   set to 1 up to 3~\cite{witten1999kea}. Extracting n-grams has the benefit to
   provide almost every candidates that actually match reference keyphrases
   (maximum recall), but the counterpart is that it also provides a huge amount
-  of unrelevant candidates. Therefore, \newcite{witten1999kea} propose to
+  of irrelevant candidates. Therefore, \newcite{witten1999kea} propose to
   select only n-grams that do not contain a stop word (conjunction, preposition,
   determiner or common word) at their beginning or end. Filtered n-gram
   candidates are grammatically uncontrolled and do not fit
@@ -244,12 +240,10 @@
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
-  Once candidates are select, the second step of the keyphrase extraction task
-  is to classify them, as ``keyphrase'' or ``non-keyphrase'', or rank them in
-  order to extract the $k$ bests as keyphrases. In this section, we detail the
-  three keyphrase extraction methods that we use in our study. Two are different
-  unsupervised methods (ranking methods) and one is a supervised method
-  (classification method).
+  Once candidates are selected, the second step of the keyphrase extraction task
+  is to classify them or rank them. In this section, we detail the three
+  keyphrase extraction methods that we use in our study. Two are unsupervised
+  (ranking methods) and one is a supervised (classification method).
 
   \paragraph{TF-IDF~\textnormal{\cite{jones1972tfidf}}} is a weighting scheme
   that represents the significance of a word in a given document. Significant
@@ -277,10 +271,10 @@
 
 \section{Experiments}
 \label{sec:evaluation}
-  To validate our approach, we perform two experiments. First, we compare the
-  quality of the candidate selection methods with the set of reference
-  keyphrases. Second, we compare their impact on the keyphrase extraction task,
-  applying them to TF-IDF, TopicRank and KEA.
+  To validate the effectiveness of our approach, we perform two series of
+  experiments. First, we compare the quality of the selected candidates with the
+  set of reference keyphrases. Second, we compare their impact on the keyphrase
+  extraction task, applying them to TF-IDF, TopicRank and KEA.
 
   \subsection{Evaluation Measures}
   \label{subsec:keyphrase_extraction_evaluation_measures}
@@ -470,7 +464,7 @@
           \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
           %\{1..4\}-grams & $~~$7.1 & $~~$9.7 & $~~$8.1 & & & & & & \\
           %Learned patterns & 14.9 & 19.8 & 16.7 & 12.2 & $~~$8.5 & \textbf{$~~$9.9} & $~~$8.8 & 16.1 & 11.3\\
-          Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & \textbf{11.6} & \textbf{21.5} & \textbf{14.9}\\
+          Longest NPs & \textbf{17.7} & \textbf{23.2} & \textbf{19.8} & 11.6 & $~~$7.9 & $~~$9.3 & \textbf{11.6} & \textbf{21.5} & \textbf{14.9}\\
           NP-chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
           %Sub-compounds & 18.3 & 24.0 & \textbf{20.5} & 11.3 & $~~$7.7 & $~~$9.0 & 11.6 & 21.5 & \textbf{14.9}\\
           %Acabit & 11.2 & 14.2 & 12.3 & 10.2 & $~~$7.1 & $~~$8.3 & $~~$3.4 & $~~$7.9 & $~~$4.7\\
@@ -478,8 +472,7 @@
           %Candidate terms & 10.4 & 13.9 & 11.7 & $~~$8.9 & $~~$6.5 & $~~$7.5 & $~~$9.6 & 18.5 & 12.4\\
           %Terms clusters & $~~$5.7 & $~~$7.9 & $~~$6.5 & $~~$6.4 & $~~$4.7 & $~~$5.4 & $~~$8.7 & 16.0 & 11.2\\
           %Refined NPs & \textbf{17.8} & \textbf{23.5} & \textbf{20.0} & \textbf{12.1} & \textbf{$~~$8.3} & \textbf{$~~$9.8} & 11.4 & 21.0 & 14.6\\
-          Refined NPs & \textbf{17.2} & \textbf{22.9} & \textbf{19.4} & \textbf{12.1} & \textbf{$~~$8.3} & \textbf{$~~$9.8} & 11.0 & 20.2 & 14.1\\
-          %Refined NPs & \textbf{17.2} & \textbf{22.9} & \textbf{19.4} & \textbf{00.0} & \textbf{$~~$0.0} & \textbf{$~~$0.0} & 00.0 & 00.0 & 00.0\\
+          Refined NPs & 17.2 & 22.9 & 19.4 & \textbf{11.9} & \textbf{$~~$8.2} & \textbf{$~~$9.6} & 10.6 & 19.9 & 13.7\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
@@ -509,25 +502,25 @@
                  \label{tab:kea_results}}
       \end{table}
       
-      Gloabally, the selection of refined NPs, followed by the selection of
+      Globally, the selection of refined NPs, followed by the selection of
       longest NPs and NP-chunks, is the method that induces the best performance
       for each keyphrase extraction method. This shows that our candidate
-      selection is able to remove more noise than commonly used methods. Also,
-      the fact that the selection of n-grams induces the lowest performance
-      confirms that small candidate sets of high quality are better than
-      exhaustive (hence noisy) candidate sets allowing a better recall.
+      selection is able to remove more irrelevant candidates than commonly used
+      methods. Also, the fact that the selection of n-grams induces the lowest
+      performance confirms that small candidate sets of high quality are better
+      than exhaustive (hence noisy) candidate sets allowing a better recall.
       
       Another emerging conclusion from the results is that, due to its
       learning phase, the supervised method KEA is more stable than the
-      unsupervised methods TF-IDF and TopicRank. When developping unsupervised
+      unsupervised methods TF-IDF and TopicRank. When developing unsupervised
       methods for keyphrase extraction, being able to avoid noise during the
       candidate selection is very important.
 
 \section{Conclusion}
 \label{sec:conclusion}
-  In this paper, we argued that the candidate selection is a critical step of
+  In this paper, we stated that the candidate selection is a critical step of
   the keyphrase extraction task. Based on a study of human-assigned keyphrases,
-  we infered two keyphrase properties (1.~small-sized 2.~noun phrases) and
+  we inferred two keyphrase properties (1.~small-sized 2.~noun phrases) and
   discussed how commonly used candidate selection methods satisfy them. To best
   fit those properties, we also proposed a new method for the selection of
   keyphrase candidates. Our method rely on the intuition that although
@@ -541,7 +534,7 @@
   datasets. On the first hand, we showed that our method reduces the number of
   selected candidates without significantly decreasing the best possible recall.
   On the second hand, we showed that, in most cases, our method induces the best
-  results for every keyphrase extraction methods, which conforts our intuition
+  results for every keyphrase extraction methods, which comforts our intuition
   that the quality of the selected candidates must prevail over their number.
 
   Our results showed that a simple linguistic filtering of adjectives can
