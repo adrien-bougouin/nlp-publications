@@ -1,2 +1,209 @@
 \chapter{Présentation des données}
+  \section{Données du projet Termith}
+    %% Présentation des collections 
+    Dans le cadre du projet Termith, nous disposons de cinq collections de
+    notices bibliographiques fournies par l'Inist. Ces cinq collections
+    représentent cinq disciplines~: l'archéologie, les sciences de
+    l'information, la linguistique, la psychologie et la chimie. Le corpus
+    d'archéologie est composé de 718 notices représentant des articles français
+    parus entre 2001 et 2012 dans 22 revues (\textit{Paléo}, \textit{Le bulletin
+    de la Société préhistorique française}, etc.)~; Le corpus des sciences de
+    l'information contient 706 notices d'articles français publiés entre 2001 et
+    2012 dans six revues (\textit{Documentaliste -- Sciences de l'information},
+    \textit{Document numérique}, etc.)~; Le corpus de linguistique est constitué
+    de 715 notices d'articles français parus entre 2000 à 2012 dans 12 revues
+    (\textit{Linx~---~Revue des linguistes de l'Université Paris Ouest Nanterre
+    La Défense}, \textit{Travaux de linguistique}, etc.)~; Le corpus de
+    psychologie contient 720 notices d'articles français publiés entre 2001 et
+    2012 dans sept revues (\textit{Enfance}, \textit{Revue internationale de
+    psychologie et de gestion des comportements organisationnels}, etc.)~; Le
+    corpus de chimie est composé de 782 notices d'articles français publiés
+    entre 1983 et 2012 dans quatre revues (\textit{Comptes Rendus de l'Académie
+    des Sciences}, \textit{Comptes Rendus Chimie}, etc.).
+    
+    %% Explication du procesus decréation des notices
+    Chaque notice contient le titre, le résumé et les termes-clés associés au
+    document qu'elle représente. Au total, il peut y avoir quatre ensembles de
+    termes-clés différents~: les termes-clés des auteurs et les termes-clés des
+    indexeurs Inist en français, en anglais et en espagnole. Parmi ces quatre
+    ensembles, nous utilisons pour référence les termes-clés français fournis
+    par les indexeurs de l'Inist, car notre objectif est d'automatiser
+    l'indexation (en termes-clés) telle qu'elle est effectuée à l'Inist. Le
+    processus d'indexation de l'Inist se déroule en deux étapes~: la
+    reconnaissance des concepts contenant l'information dans les documents à
+    indexer, puis la représentation de ces concepts dans le language
+    documentaire (le vocabulaire contrôlé doit être utilisé en priorité). Ce
+    processus fourni donc aussi bien des termes-clés présents dans les documents
+    que des termes-clés qui n'y sont pas.
+
+    Le tableau~\ref{tab:statistiques_des_corpus} présente les caractéristiques
+    principales des collections de notices présentées ci-dessus. Elles sont de
+    petite taille et sont rédigées différemment selon les disciplines
+    (cf.~figure~\ref{fig:exemple_notice_inist}). Les notices d'archéologie, par
+    exemple, font l'objet d'un effort de présentation du contexte historique lié
+    aux travaux présentés, tandis que les notices de chimie, principalement des
+    comptes rendus d'expériences, décrivent sommairement (énumèrent) les
+    expériences réalisées (noms des expériences, éléments chimiques impliqués,
+    etc.). Les termes-clés associés aux documents varient en nombre et en
+    complexité. Par exemple, en archéologie, nous observons qu'un grand nombre
+    de termes-clés sont des entités nommées principalement composées d'un seul
+    mot (e.g.~\og{}Paléolithique\fg{}, \og{}Europe\fg{}, etc.), tandis qu'en
+    chimie, nous observons un usage fréquent de notions générales (dans la
+    discipline) nécessitant une spécialisation presque systématique
+    (e.g.~\og{}\underline{réaction} topotactique\fg{}, \og{}\underline{réaction}
+    sonochimique\fg{}, \og{}\underline{réaction} électrochimique\fg{}, etc.).
+    Enfin, il est important de noter la faible proportion de termes-clés
+    apparaissant dans les notices -- rappel maximum pouvant être obtenu. Par
+    exemple, dans le corpus des sciences de l'information, uniquement 2,8
+    termes-clés peuvent être extraits des notices parmi les 8,7 associés aux
+    notices, en moyenne.
+
+    \begin{table}
+      \centering
+      \begin{tabular}{@{~}r|c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+        \toprule
+        & & \textbf{Sciences} & & &\\ \textbf{Statistique} & \textbf{Archéologie} & \textbf{de} & \textbf{Linguistique} & \textbf{Psychologie} & \textbf{Chimie}\\ & & \textbf{l'Information} & & &\\
+        \hline
+        Documents & 718 & 706 & 715 & 720 & 782\\
+        Mots/doc. & 219,1 & 119,7 & 156,7 & 185,7 & 105,2\\
+        Termes-clés/doc. & 16,6 & 8,5 & 8,7 & 11,6 & 12,8\\
+        Mots/terme-clé & 1,3 & 1,7 & 1,8 & 1,6 & 2,2\\
+        Rappel max. & 62,9~\% & 32,4~\% & 38,8~\% & 27,1~\% & 23,7~\%\\
+        \bottomrule
+      \end{tabular}
+      \caption{Caractéristiques des cinq corpus disciplinaires. La ligne
+               \textit{Rappel max.} indique le pourcentage de termes-clés
+               pouvant être extraits à partir du titre ou du résumé des notices.
+               Cela donne un aperçu des performances maximales que peuvent
+               atteindre des méthodes tenant uniquement compte du contenu des
+               documents traités.
+               \label{tab:statistiques_des_corpus}}
+    \end{table}
+
+    \begin{figure}
+      \framebox[\linewidth]{ % archeologie_09-0054907
+        \parbox{.99\linewidth}{\small
+          \textbf{Variabilité du Gravettien de Kostienki (bassin moyen du Don)
+          et des ter-}
+          ~\hfill\underline{\textit{Archéologie}}\\
+          \textbf{ritoires associés}\\
+
+          Dans la région de Kostienki-Borschevo, on observe l'expression, à ce
+          jour, la plus orientale du modèle européen de l'évolution du
+          Paléolithique supérieur. Elle est différente à la fois du modèle
+          Sibérien et du modèle de l'Asie centrale. Comme ailleurs en Europe, le
+          Gravettien apparaît à Kostienki vers 28 ka (Kostienki 8 /II/). Par la
+          suite, entre 24-20 ka, les techno-complexes gravettiens sont
+          représentés au moins par quatre faciès dont deux, ceux de Kostienki
+          21/III/ et Kostienki 4 /II/, ressemblent au Gravettien occidental et
+          deux autres, Kostienki-Avdeevo et Kostienki 11/II/, sont des faciès
+          propres à l'Europe de l'Est, sans analogie à l'Ouest.\\
+
+          \textbf{Termes-clés~:} \underline{Europe}, Kostienko,
+          \underline{Borschevo}, variation, typologie, industrie osseuse,
+          industrie lithique, Europe centrale, \underline{Avdeevo},
+          \underline{Paléolithique supérieur}, \underline{Gravettien}.
+        }
+      }
+      ~\\~\\
+      \framebox[\linewidth]{ % linguistique_08-0265302
+        \parbox{.99\linewidth}{\small
+          \textbf{Termes techniques et marqueurs d'argumentation : pour
+          débusquer}
+          \hfill\underline{\textit{Linguistique}}\\
+          \textbf{l'argumentation cachée dans les articles de recherche}\\
+
+          Les articles de recherche présentent les résultats d'une expérience
+          qui modifie l'état de la connaissance dans le domaine concerné. Le
+          lecteur néophyte a tendance à considérer qu'il s'agit d'une simple
+          description et à passer à côté de l'argumentation au cours de laquelle
+          le scientifique cherche à convaincre ses pairs de l'innovation et de
+          l'originalité présentées dans l'article et du bien-fondé de sa
+          démarche tout en respectant la tradition scientifique dans laquelle il
+          s'insère. Ces propriétés spécifiques du discours scientifique peuvent
+          s'avérer un obstacle supplémentaire à la compréhension, surtout
+          lorsqu'il s'agit d'un article en langue étrangère. C'est pourquoi il
+          peut être utile d'incorporer dans l'enseignement   des langues de
+          spécialité une sensibilisation aux marqueurs linguistiques
+          (terminologiques et argumentatifs), qui permettent de dépister le
+          développement de cette. Les auteurs s'appuient sur deux articles dans
+          le domaine de la microbiologie.\\
+
+          \textbf{Termes-clés~:} Langue scientifique,
+          \underline{argumentation},  \underline{rhétorique},  \underline{langue
+          de spécialité}, \underline{enseignement des langues}, linguistique
+          appliquée,  \underline{discours scientifique},  \underline{article de
+          recherche}. 
+        }
+      }
+      ~\\~\\
+      \framebox[\linewidth]{ % chimie_90-0137940
+        \parbox{.99\linewidth}{\small
+          \textbf{Etude d'un condensat acide
+          isocyanurique-urée-formaldéhyde}
+          \hfill\underline{\textit{Chimie}}\\
+
+          La synthèse d'un condensat acide isocyanurique-urée-formaldéhyde
+          utilisant la pyridine en tant que solvant a été effectuée par réaction
+          sonochimique.\\
+
+          \textbf{Termes-clés~:} \underline{Réaction sonochimique}, hétérocycle
+          azote, cycle 6 chaînons, ether.
+        }
+      }
+      \caption{Exemple de notices Inist. Les termes-clés soulignés sont ceux qui
+               peuvent être extraits depuis le titre et le résumé des notices.
+               \label{fig:exemple_notice_inist}}
+    \end{figure}
+
+  \section{Autres données}
+    Dans le cadre de publications internationales, nous utilisons aussi d'autres
+    collections de données~: Inspec, \textsc{Duc}, SemEval, WikiNews et
+    \textsc{Deft}. Parmi ces cinq collections de données, Inspec et
+    \textsc{Duc} sont issues de travaux
+    ultérieurs~\citep{hulth2003keywordextraction,wan2008expandrank} et SemEval
+    et \textsc{Deft} sont issues de campagnes
+    d'évaluations~\citep{kim2010semeval,paroubek2012deft}. Voici une brève
+    description de ces collections~:
+
+    \textbf{Inspec}~\citep{hulth2003keywordextraction} est un collection en
+    anglais de résumé d'articles scientifiques provenant de la base de données
+    du même nom. Cette collections contient 2~000 résumés répartis en trois
+    ensemble, un ensemble d'entraînement de 1~000 résumés, un ensemble de
+    développement de 500 résumés et un ensemble de test de 500 résumés. Les
+    termes-clés de référence de cette collection sont assignés par des indexeurs
+    professionnels. Ils sont disponibles en deux versions, l'une pour laquelle
+    les termes-clés sont définis librement par les indexeurs, l'autre pour
+    laquelle les termes-clés sont contrôlés avec un vocabulaire spécifique.
+
+    \textbf{DUC}~\citep{over2001duc} est une collection en anglais issue des
+    données de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
+    concerne les méthodes de résumé automatique, elle ne contient donc
+    originellement pas d'annotations en termes-clés. Cependant, les 308 articles
+    journalistiques de la partie test de DUC-2001 ont été annotés par
+    \cite{wan2008expandrank}.
+
+    \textbf{SemEval}~\citep{kim2010semeval} est la collection en anglais fournie
+    lors de la campagne d'évaluation SemEval-2010 pour la tâche d'extraction
+    automatique de termes-clés. Cette collection contient 244 articles
+    scientifiques (conférences et ateliers) issus de la librairie numérique
+    \textsc{Acm}. La collection est répartie en deux sous-ensembles, un ensemble
+    de 144 documents d'entraînement et un ensemble de 100 documents de test. Les
+    termes-clés assignés par les auteurs et des lecteurs sont disponibles pour
+    cette collection.
+
+    \textbf{WikiNews}\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
+    est une collection de 100 articles journalistiques en français que nous
+    avons extraits du site Web WikiNews\footnote{\url{http://fr.wikinews.org/}}
+    entre les mois de mai et décembre 2012. Chaque document est annoté par au
+    moins trois étudiants, les termes-clés des différents étudiants sont groupés
+    et les redondances lexicales sont automatiquement supprimées.
+
+    \textbf{DEFT}~\citep{paroubek2012deft} est la collection fournie lors de la
+    campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
+    termes-clés. Celle-ci contient 234 documents en français issus de quatre
+    revues de Sciences Humaines et Sociales. La collection est divisée en deux
+    sous-ensembles, un ensemble d'entraînement contenant 141 documents et un
+    ensemble de test contenant 93 documents.  Seuls les termes-clés des auteurs
+    sont disponibles pour cette collection.
 
