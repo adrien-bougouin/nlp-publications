@@ -6,16 +6,16 @@
       (culturelles, historiques, scientifiques, etc.) qu'il rend disponibles
       pour tous. Cependant, le Web est en constante expansion et le nombre
       croissant d'informations disponibles compliquent leur accès, leur
-      recherche. Pour résoudre ce problème, il nous faut nous donner les moyens
-      de représenter et d'organiser efficacement les documents numériques. Dans
-      le contexte de la recherche scientifique, résoudre ce problème est
-      d'autant plus important que la recherche a un impact sur le développement
-      des pays. Favoriser l'accès aux productions scientifiques, que ce soit au
-      niveau mondial ou national, favorise les avancées scientifiques et
-      contribue donc au développement des pays. C'est dans ce but que sont
-      créées les bibliothèques numériques telles que la Bibliothèque
-      Scientifique Numérique (\textsc{Bsn}) fondée en 2009 par le ministère de
-      l'enseignement supérieur et de la recherche français.
+      recherche. Pour résoudre ce problème, il faut représenter et organiser
+      efficacement les documents numériques. Dans le contexte de la recherche
+      scientifique, résoudre ce problème est d'autant plus important que la
+      recherche a un impact sur le développement des pays. Favoriser l'accès aux
+      productions scientifiques, que ce soit au niveau mondial ou national,
+      favorise les avancées scientifiques et contribue donc au développement des
+      pays. C'est dans ce but que sont créées les bibliothèques numériques
+      telles que la Bibliothèque Scientifique Numérique (\textsc{Bsn}) fondée en
+      2009 par le ministère de l'enseignement supérieur et de la recherche
+      français.
 
       %% Réponse à ce besoin (introduction de la notion de termes-clés)
       Afin de mieux comprendre comment l'accès aux informations peut être
@@ -45,12 +45,66 @@
       que possible, issu du vocabulaire de la discipline des documents.
 
       %% Besoin d'aller vers une solution automatique (surcharge => travail
-      %% baclé)
+      %% bâclé)
+      L'extraction manuelle des termes-clés des documents est une tâche coûteuse
+      et chronophage. Pour reprendre l'exemple de l'Inist, le flux d'entrée des
+      notices est parfois trop important et, en réponse à cette surcharge, soit
+      certaines notices ne sont pas indexées avec des termes-clés d'un ingénieur
+      documentaliste, soit le temps accordé pour chaque notice est réduit, au
+      risque de dégrader la qualité du travail d'indexation (p. ex. l'indexeur
+      se concentre sur le résumé et néglige le reste du document). Conscients de
+      ce problème, que ce soit pour des articles scientifiques ou des documents
+      d'autres natures, de nombreux chercheurs s'intéressent à la tâche
+      d'extraction automatique de termes-clés, en témoigne le nombre grandissant
+      d'articles scientifiques sur ce sujet~\citep{hasan2014state_of_the_art}
+      ainsi que l'émergence de campagnes d'évaluation des méthodes d'extraction
+      automatique de termes-clés~\citep{kim2010semeval,paroubek2012deft}.
+      L'extraction automatique de termes-clés consiste à extraire du contenu
+      d'un document les concepts qui y sont importants, c'est-à-dire qui le
+      caractérisent le mieux. Dans un article d'archéologie, par exemple, des
+      termes-clés valides peuvent concerner le type de travail (fouille, mise en
+      valeur d'artefacts, etc.), des données géographiques (pays, régions,
+      etc.), des données chronologiques (années, périodes, sous-périodes, etc.)
+      ou encore des données religieuses (dieux, cultes, etc.).
 
       %% 2 types d'indexations
+      Il existe deux types d'indexations qui peuvent être réalisées par la tâche
+      d'extraction de termes-clés~: l'indexation libre et l'indexation
+      contrôlée~\citep{paroubek2012deft}. La première consiste à assigner des
+      termes-clés sans aucune contrainte, alors que la seconde consiste à
+      assigner des termes-clés contraints par un vocabulaire spécifique au
+      domaine des documents qui doivent être traités. Pour ces deux indexations,
+      nous observons aussi le phénomène d'indexation silencieuse. Cette
+      indexation, difficile à reproduire automatiquement, fait apparaître des
+      termes-clés qui ne sont pas présents dans le document auquel ils sont
+      assigné.
 
       %% 2 catégories de méthodes
+      Dans la littérature, nous observons un comportement commun à
+      toutes les méthodes~: (1) prétraitement du document (segmentation en
+      phrases, segmentation en mots, étiquetage morphosyntaxique des mots,
+      etc.), (2) sélection des termes-clés candidats à partir du document
+      prétraité, (3) analyse des termes-clés candidats (ordonnancement ou
+      classification) et (4) sélection de $k$ candidats en tant que termes-clés,
+      selon le résultat de leur analyse. Nous observons aussi deux catégories de
+      méthodes d'extraction automatique de termes-clés~: les méthodes
+      supervisées et les méthodes non-supervisées. Les premières réduisent la
+      tâche d'extraction de termes-clés à une tâche de classification
+      binaire~\citep{witten1999kea}. Entraînées à partir de collections de
+      documents annotés en termes-clés (exemples), celles-ci classent les
+      termes-clés candidats en tant que \textit{terme-clé} ou \textit{non
+      terme-clé}. Quant aux secondes, elles ordonnent généralement les
+      termes-clés candidats selon leur importance dans le
+      document~\citep{wan2008expandrank}. Les méthodes supervisées sont en
+      général plus performantes que les méthodes non supervisées. Cependant, la
+      faible quantité de données d'apprentissage disponibles couplée à
+      la forte dépendance des méthodes supervisées vis-à-vis du domaine des
+      documents d'apprentissages, poussent les
+      chercheurs à s'intéresser de plus en plus aux méthodes
+      non-supervisées~\citep{hassan2010conundrums}.
 
     \section{Problématique}
       %% Projet ANR
+      % L'Inist fait du libre, contrôlé et silencieux. Silencieux grâce à des
+      % référenciels => Il faut automatiser les référenciels
 
