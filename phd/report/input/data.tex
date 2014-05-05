@@ -25,16 +25,16 @@
     Chaque notice contient le titre, le résumé et les termes-clés associés au
     document qu'elle représente. Au total, il peut y avoir quatre ensembles de
     termes-clés différents~: les termes-clés des auteurs et les termes-clés des
-    indexeurs Inist en français, en anglais et en espagnole. Parmi ces quatre
-    ensembles, nous utilisons pour référence les termes-clés français fournis
-    par les indexeurs de l'Inist, car notre objectif est d'automatiser
-    l'indexation (en termes-clés) telle qu'elle est effectuée à l'Inist. Le
-    processus d'indexation de l'Inist se déroule en deux étapes~: la
-    reconnaissance des concepts contenant l'information dans les documents à
-    indexer, puis la représentation de ces concepts dans le language
-    documentaire (le vocabulaire contrôlé doit être utilisé en priorité). Ce
-    processus fourni donc aussi bien des termes-clés présents dans les documents
-    que des termes-clés qui n'y sont pas.
+    indexeurs de l'Inist en français, en anglais et en espagnole. Parmi ces
+    quatre ensembles, nous prenons pour référence les termes-clés français
+    fournis par les indexeurs de l'Inist, car notre objectif est d'automatiser
+    l'indexation telle qu'elle est effectuée à l'Inist. Le processus
+    d'indexation de l'Inist se déroule en deux étapes~: la reconnaissance des
+    concepts contenant l'information dans les documents à indexer, puis la
+    représentation de ces concepts dans le language documentaire (le vocabulaire
+    contrôlé doit être utilisé en priorité). Ce processus fourni donc aussi bien
+    des termes-clés présents dans les documents que des termes-clés qui n'y sont
+    pas.
 
     Le tableau~\ref{tab:statistiques_des_corpus} présente les caractéristiques
     principales des collections de notices présentées ci-dessus. Elles sont de
@@ -42,21 +42,23 @@
     (cf.~figure~\ref{fig:exemple_notice_inist}). Les notices d'archéologie, par
     exemple, font l'objet d'un effort de présentation du contexte historique lié
     aux travaux présentés, tandis que les notices de chimie, principalement des
-    comptes rendus d'expériences, décrivent sommairement (énumèrent) les
-    expériences réalisées (noms des expériences, éléments chimiques impliqués,
-    etc.). Les termes-clés associés aux documents varient en nombre et en
-    complexité. Par exemple, en archéologie, nous observons qu'un grand nombre
-    de termes-clés sont des entités nommées principalement composées d'un seul
-    mot (e.g.~\og{}Paléolithique\fg{}, \og{}Europe\fg{}, etc.), tandis qu'en
+    comptes rendus d'expériences, décrivent sommairement les expériences
+    réalisées (noms des expériences, éléments chimiques impliqués, etc.). Les
+    termes-clés associés aux documents varient en nombre et en complexité. En
+    archéologie, par exemple, nous observons qu'un grand nombre de termes-clés
+    sont des entités nommées principalement composées d'un seul mot
+    (p. ex.~\og{}Paléolithique\fg{}, \og{}Europe\fg{}, etc.), tandis qu'en
     chimie, nous observons un usage fréquent de notions générales (dans la
     discipline) nécessitant une spécialisation presque systématique
-    (e.g.~\og{}\underline{réaction} topotactique\fg{}, \og{}\underline{réaction}
-    sonochimique\fg{}, \og{}\underline{réaction} électrochimique\fg{}, etc.).
-    Enfin, il est important de noter la faible proportion de termes-clés
-    apparaissant dans les notices -- rappel maximum pouvant être obtenu. Par
-    exemple, dans le corpus des sciences de l'information, uniquement 2,8
-    termes-clés peuvent être extraits des notices parmi les 8,7 associés aux
-    notices, en moyenne.
+    (p. ex..~\og{}\underline{réaction} topotactique\fg{},
+    \og{}\underline{réaction} sonochimique\fg{}, \og{}\underline{réaction}
+    électrochimique\fg{}, etc.). Enfin, il est important de noter la faible
+    proportion de termes-clés apparaissant dans les notices -- rappel maximum
+    pouvant être obtenu. Par exemple, dans le corpus des sciences de
+    l'information, uniquement 2,8 termes-clés peuvent être extraits des notices
+    parmi les 8,7 associés aux notices, en moyenne. Il est donc important de ne
+    pas utiliser que le contenu du résumé des notices pour extraire les
+    termes-clés.
 
     \begin{table}
       \centering
@@ -126,8 +128,8 @@
           peut être utile d'incorporer dans l'enseignement   des langues de
           spécialité une sensibilisation aux marqueurs linguistiques
           (terminologiques et argumentatifs), qui permettent de dépister le
-          développement de cette. Les auteurs s'appuient sur deux articles dans
-          le domaine de la microbiologie.\\
+          développement de cette rhétorique. Les auteurs s'appuient sur deux
+          articles dans le domaine de la microbiologie.\\
 
           \textbf{Termes-clés~:} Langue scientifique,
           \underline{argumentation},  \underline{rhétorique},  \underline{langue
@@ -166,15 +168,16 @@
     d'évaluations~\citep{kim2010semeval,paroubek2012deft}. Voici une brève
     description de ces collections~:
 
-    \textbf{Inspec}~\citep{hulth2003keywordextraction} est un collection en
-    anglais de résumé d'articles scientifiques provenant de la base de données
-    du même nom. Cette collections contient 2~000 résumés répartis en trois
-    ensemble, un ensemble d'entraînement de 1~000 résumés, un ensemble de
-    développement de 500 résumés et un ensemble de test de 500 résumés. Les
-    termes-clés de référence de cette collection sont assignés par des indexeurs
-    professionnels. Ils sont disponibles en deux versions, l'une pour laquelle
-    les termes-clés sont définis librement par les indexeurs, l'autre pour
-    laquelle les termes-clés sont contrôlés avec un vocabulaire spécifique.
+    \textbf{Inspec}~\citep{hulth2003keywordextraction} est une collection en
+    anglais de résumés d'articles scientifiques provenant de la base de données
+    Inspec~\footnote{\url{http://inspecdirect.theiet.org/}}. Cette collections
+    contient 2~000 résumés répartis en trois ensemble~: un ensemble
+    d'entraînement de 1~000 résumés, un ensemble de développement de 500 résumés
+    et un ensemble de test de 500 résumés. Les termes-clés de référence de cette
+    collection sont assignés par des indexeurs professionnels. Ils sont
+    disponibles en deux versions, l'une pour laquelle les termes-clés sont
+    définis librement par les indexeurs, l'autre pour laquelle les termes-clés
+    sont contrôlés avec un vocabulaire spécifique.
 
     \textbf{DUC}~\citep{over2001duc} est une collection en anglais issue des
     données de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
@@ -195,9 +198,9 @@
     \textbf{WikiNews}\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
     est une collection de 100 articles journalistiques en français que nous
     avons extraits du site Web WikiNews\footnote{\url{http://fr.wikinews.org/}}
-    entre les mois de mai et décembre 2012. Chaque document est annoté par au
-    moins trois étudiants, les termes-clés des différents étudiants sont groupés
-    et les redondances lexicales sont automatiquement supprimées.
+    entre les mois de mai et décembre 2012. Chaque document a été annoté par au
+    moins trois étudiants. Les termes-clés des différents étudiants ont été
+    groupés et les redondances lexicales ont été automatiquement supprimées.
 
     \textbf{DEFT}~\citep{paroubek2012deft} est la collection fournie lors de la
     campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
