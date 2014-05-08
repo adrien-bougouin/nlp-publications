@@ -64,12 +64,12 @@
       L'extraction automatique de termes-clés consiste à extraire du contenu
       d'un document les concepts qui y sont importants, c'est-à-dire qui le
       caractérisent le mieux. Dans un article d'archéologie, par exemple, des
-      termes-clés valides peuvent concerner le type de travail (fouille, mise en
-      valeur d'artefacts, etc.), des données géographiques (pays, régions,
-      etc.), des données chronologiques (années, périodes, sous-périodes, etc.)
-      ou encore des données religieuses (dieux, cultes, etc.). Il existe deux
-      types d'indexation pouvant être réalisées par la tâche d'extraction de
-      termes-clés~: l'indexation libre et l'indexation
+      termes-clés valides peuvent concerner les types de travaux (fouilles,
+      mises en valeur d'artefacts, etc.), des données géographiques (pays,
+      régions, etc.), des données chronologiques (années, périodes,
+      sous-périodes, etc.) ou encore des données religieuses (dieux, cultes,
+      etc.). Il existe deux types d'indexation pouvant être réalisées par la
+      tâche d'extraction de termes-clés~: l'indexation libre et l'indexation
       contrôlée~\citep{paroubek2012deft}. La première consiste à assigner des
       termes-clés sans aucune contrainte, alors que la seconde consiste à
       assigner des termes-clés contraints par un vocabulaire (une terminologie)
@@ -77,7 +77,7 @@
       indexations, nous observons aussi le phénomène d'indexation silencieuse.
       Cette indexation, difficile à reproduire automatiquement, fait apparaître
       des termes-clés qui ne sont pas présents dans le document auquel ils sont
-      assignés~\cite{liu2011vocabularygap}. Il peut s'agir de reformulations
+      assignés~\citep{liu2011vocabularygap}. Il peut s'agir de reformulations
       d'expressions utilisées dans le document (p.~ex. \og{}acquisition des
       langues secondes\fg{} devient \og{}acquisition d'une langue seconde\fg{})
       ou de concepts plus généraux décrivant une catégorie à laquelle appartient
@@ -86,13 +86,13 @@
       %% Fonctionnement des méthodes d'extraction automatique de termes-clés
       Dans la littérature, nous observons un comportement commun à toutes les
       méthodes~: les documents sont tout d'abord enrichis linguistiquement
-      (segmentés en phrases, segmentés en mots, étiquetés en parties du
-      discours, etc.), des termes-clés candidats en sont extraits, puis analysés
-      (ordonnés ou classifiés) afin de sélectionner ceux qu'il faut extraire
-      comme termes-clés. Nous observons aussi deux catégories de méthodes
-      d'extraction automatique de termes-clés~: les méthodes supervisées et les
-      méthodes non-supervisées. Les premières réduisent la tâche d'extraction de
-      termes-clés à une tâche de classification binaire~\citep{witten1999kea}.
+      (segmentés en phrases, segmentés en mots, étiquetés grammaticalement,
+      etc.), des termes-clés candidats en sont extraits, puis analysés (ordonnés
+      ou classifiés) afin de sélectionner ceux qu'il faut extraire comme
+      termes-clés. Nous observons aussi deux catégories de méthodes d'extraction
+      automatique de termes-clés~: les méthodes supervisées et les méthodes
+      non-supervisées. Les premières réduisent la tâche d'extraction de
+      termes-clés à une tâche de classification~\citep{witten1999kea}.
       Entraînées à partir de collections de documents annotés en termes-clés,
       celles-ci classent les termes-clés candidats en tant que
       \textit{terme-clé} ou \textit{non terme-clé}. Quant aux secondes, elles
@@ -117,26 +117,29 @@
       objectif est d'automatiser le processus d'indexation des notices
       bibliographiques réalisé par les ingénieurs documentalistes de l'Inist~:
       indexation à la fois libre, contrôlée et silencieuse. En comparaison avec
-      les performances des méthodes pour d'autres tâches du Traitement
+      les performances des méthodes réalisant d'autres tâches du Traitement
       Automatique des Langues (\textsc{Tal}), telles que l'étiquetage
-      morpho-syntaxique (plus de 95~\% de précision), les performances des
+      grammatical (plus de 95~\% de précision), les performances des
       méthodes d'extraction automatique de termes-clés ne sont pas
       satisfaisantes (moins de 50~\% de précision). Il reste encore des
       questions auxquelles il est difficile de répondre, parmi elles~:
       \begin{itemize}
-        \item{Sous quelles formes apparaissent-ils dans les documents~? Quelle
-              est la nature des termes-clés candidats~?}
+        \item{Sous quelles formes les termes-clés apparaissent-ils dans les
+              documents~? Quelle est la nature des termes-clés candidats~?
+              \citep{wang2014keyphraseextractionpreprocessing}}
         \item{Comment identifier les termes-clés qui n'apparaissent pas dans les
-              documents~?}
-        \item{Quelles relations entretiennent les termes-clés dans les
-              documents~?}
+              documents~? \citep{liu2011vocabularygap}}
+        \item{Quelles relations les termes-clés entretiennent-ils entre eux dans
+              les documents~? \citep{boudin2013centrality_measures,
+              lahiri2014boudinlike}}
       \end{itemize}
       mais aussi~:
       \begin{itemize}
         \item{Comment tenir compte de la subjectivité de la tâche lors du
               processus d'évaluation automatique~? Comment détecter
               automatiquement l'extraction d'un termes-clés équivalant à l'un
-              des termes-clés de référence assignés aux documents~?}
+              des termes-clés de référence assignés aux
+              documents~? \citep{zesch2009rprecision}}
       \end{itemize}
 
       %% Définir les difficultés
