@@ -1,0 +1,313 @@
+********************************
+
+L'article décrit une méthode non supervisée d'extraction automatique de termes-clés
+de documents, fondée sur la construction d'un graphe dit des sujets abordés et sur
+l'extraction d'un terme-clé représentatif des différents des sujets du graphe. Il
+est globalement très clair, bien structuré et bien écrit (même si une relecture
+attentive permettrait de corriger les quelques fautes restantes). La comparaison à
+l'existant ainsi que le positionnement par rapport à lui sont bien faits et
+permettent de bien justifier la démarche proposée.
+
+Certains points importants sont toutefois à éclaircir dans une version finale de
+l'article. Parmi ceux-ci, les plus fondamentaux sont les suivants :
+- préciser clairement en introduction, pour chasser toute ambiguïté de l'esprit du
+lecteur, ce qui se cache derrière la notion de terme-clé et, en particulier, en quoi
+cela se détache de l'extraction pure et simple de termes complexes d'un document ou
+d'une collection d'une part, et, d'autre part, en quoi cela se distingue de
+l'extraction (dans le sens "sélection" en recherche d'information) de termes
+d'indexation. On peut d'ailleurs se demander pourquoi votre méthode fondée graphe ne
+pourrait pas s'appliquer a posteriori d'une extraction "standard" de termes
+complexes par exemple ;
+- autre point qui manque de précision : la notion de "sujet", non pas globalement ou
+"philosophiquement / linguistiquement", mais telle que vous vous l'implémentez et la
+manipulez. De plus, la notion de "sujet important" est, elle aussi, non explicitée,
+ce qui fait vraiment défaut pour vous suivre. Est-ce un sujet présent sur une large
+étendue du document, un sujet fortement marqué par rapport à d'autres sujets eux
+aussi fortement marqués, ou autre définition ?
+- dernier point général à mieux travailler : l'analyse des erreurs. Votre analyse
+porte essentiellement sur les aspects précision mais pas sur les aspects rappel.
+Quels termes-clés n'arrivez-vous pas à capturer et pourquoi ?
+
+Autres commentaires au fil du texte
+Section 2
+2.1
+La première phrase est à revoir : ce n'est pas l'objectif de l'extraction que de
+réduire l'espace des solutions (c'est d'extraire !). Telle que formulée
+actuellement, son association avec les suivantes est assez bizarre.
+Page 5, 2e paragraphe : la dernière phrase (en particulier sa fin) est très
+difficilement compréhensible.
+2.2
+Page 7, 2e paragraphe : précisez ce que signifie "documents similaires" dans la
+description des travaux de Wan et Xiao 2008.
+Page 7, 3e paragraphe : précisez ce que signifie "sujet important" dans la dernière
+phrase.
+
+Section 3
+3.1
+Les termes que vous extrayez sont des séquences de noms et adjectifs. Ceci implique
+donc que vous n'extrayez aucun verbe. Ce choix devrait être discuté.
+Que sont c1 et c2 dans l'équation 1 ?
+Le lien entre grouper les termes en fonction du sujet abordé et une mesure de
+Jaccard devrait être mieux expliqué.
+3.2
+Vous expliquez que vous fondez votre calcul sur la distance entre candidats des
+sujets... mais n'expliquez pas pourquoi.
+3.3
+Parmi les stratégies de sélection des termes-clés, vous ne proposez pas la
+couverture (c-à-d l'étendue) du sujet. Pourquoi ?
+Page 11, vous utilisez la notion de référence (et ce, en fait, plusieurs fois dans
+le texte) sans qu'on sache à quelle référence vous faites allusion.
+
+Section 4
+4.1.1
+La première phrase est quelque peu péremptoire. Au minimum, précisez de quel(s)
+type(s) d'évaluation vous parlez.
+Tableau 1 : que signifie concrètement termes manquants (manquant par rapport à quoi ?)
+4.3
+Les valeurs de rappel, précision, F-mesure varient beaucoup d'une collection à une
+autre. Il serait intéressant d'expliquer un peu ce qui peut justifier cette
+constatation.
+
+
+Commentaires sur la forme
+- ôter systématiquement le tiret dans "non supervisé(e)"
+- modifier systématiquement "basé(e) sur" (anglicisme) en "fondé(e) sur"
+- corriger "désambiguïsation" qui est toujours mal ortographié
+- mettre en italique les mots étrangers (exemple : etc., chunks)
+- homogénéiser plus fortement les références bibliographiques (par exemple,
+certaines références correspondant à des articles de proceedings comportent les
+lieux voire numéros de pages, d'autres pas)
+
+ 
+
+********************************
+
+Présentation d'un méthode non supervisée d'extraction de mots clé d'indexation à
+base de graphes de sujets. La méthode présentée a été évaluée sur 4 corpus de
+référence (en francais et en anglais) et comparée à trois méthodes non supervisées.
+La méthode présentée utilise les séquences d'adjectifs et de noms, le stemmer de
+Porter et l'indice de Jaccqard dans un classification hierarchique avec seuillage en
+conjonction avec l'algorithme de page rank dans un graphe complet pour la
+représentation des sujets. Noter que l'analyse d'erreurs n'a été effectuée que sur
+un corpus en francais.
+
+a) abstract 
+
+" fo each of " --> for each of
+
+Un article très clair et de bonne facture, agréable à lire, avec un bibliographie
+étendue et fouillée qui présente une approche ayant de meilleurs résultats que les
+méthodes auxquel elle est comparée avec 3  corpus sur 4. Le papier est clairement
+orienté ingénierie linguistique, dans le bon sens du terme.
+
+Mon seul regret est de ne pas avoir trouvé une discussion sur la difficulté
+intrinsèque de la tâche (taille de l'espace de recherche, compression d'information
+théorique maximale), ni de présentation des aspects psycho-linguistiques/cognitifs
+de la tâche de sélection de mots-clés.
+
+********************************
+
+L'article présente TopicRank, une approache d'extraction de termes-clés sont la
+spécificité et de chercher à limiter la répétition de termes-clés similaire en
+introduisant une phase de classification non supervisée des termes, à l'issue de
+laquelle un seul terme au maximum représentera une classe.
+L'article est la version française et très légèrement étendue d'une communication
+récente à IJCNLP 2013 intitulée "TopicRank: Graph-Based Topic Ranking for Keyphrase
+Extraction".  Des remarques détaillées suivent.
+
+*********
+
+ *  Positionnement: l'introduction détaille les différentes applications de
+l'extraction de termes-clés (indexation, résumé automatique , compression de
+phrases, classification, ...), mais ne discute à aucun moment du positionnement de
+la méthode présentée. Quelle application et quel type de corpus visez-vous ? Cela
+influe considérablement sur la vérité de terrain.
+ 
+ Se dissocier du corpus pour se focaliser exclusivement sur le document traité est
+intéressant, mais je ne sais pas si c'est adéquat. Par exemple, un article traitant
+d'une maladie occulaire pourra avantageusement être indexé par le terme "médecine"
+au sein d'un corpus généraliste. Le même terme-clé sera complètement inadéquat au
+sein d'une collection d'articles d'une revue d'ophtalmologie. Un tel exemple tend à
+démontrer que l'analyse d'un document indépendemment de son contexte est vouée à
+l'échec dans certains cas (dans lesquels IDF est évidemment très bon).
+
+ TopicRank peut fonctionner dans d'autres cas d'utilisation. Il est crucial de les
+définir.
+ 
+ La même confusion se reporte dans l'état de l'art où sont discutées des méthodes
+qui n'ont pas du tout les mêmes objectifs (Eichler/Neumann en indexation, Wan et
+Xiao en résumé de texte).
+
+*********
+
+ * Clarté / Imprécisions.
+
+ - Méthodes supervisées/non supervisées
+ J'ai mis beaucoup de temps à comprendre le passage sur les méthodes supervisées et
+non-supervisées. Il semble que vous définissiez la supervision comme le fait de
+disposer d'un ensemble fini de termes-clés parmi lesquelles choisir, en opposition
+au choix libre des termes, que vous définissez comme non-supervisé (?).
+ Or, la définition usuelle d'une méthode supervisée est qu'elle se nourrit
+d'exemples issus d'une vérité de terrain, parfois extraite de données d'évaluation
+afin de fournir un corpus d'apprentissage.
+ Je ne sais pas s'il s'agit d'un problème de compréhension (ce serait pour le moins
+troublant dans une soumission à un article de revue en TAL), ou d'un problème de
+formulation. Dans le 2nd cas, le malentendu vient sans doute du fait que vous ne
+semblez pas envisager qu'une méthode non supervisée puisse agir sur une liste finie
+de termes-clés prédéfinis.
+ Ce serait pourtant le meilleur moyen pour vous d'évaluer séparément les différentes
+parties de TopicRank (évaluer l'ordonnancement des sujets indépendemment des autres
+étapes par exemple).
+
+ - Exemples : L'article est particulièrement frustrant en ce qui concerne les
+exemples fournis. De nombreux exemples citent des documents qui ne sont pas fournis
+(seul est fourni l'identifiant dans la collection concernée, ce qui est absolument
+illisible, d'autant plus que les collections en question ne sont pas toutes en
+accès libre).
+ Un exemple complet est fourni, ce qui est très bien. Il serait souhaitable de
+l'enrichir en le présentant plus tôt et en l'explicitant au fur et au mesure de la
+section 3. Il serait aussi souhaitable d'indiquer qu'il s'agit de la figure 2 page
+12 et ne pas se contenter d'un simple "voir la section 4", qui oblige le lecteur à
+parcourir le document en long et en large à la recherche désespérée de l'article
+44960 de WikiNews (seul réellement présent parmi les nombreux exemples cités).
+ Sur cet exemple, il aurait été intéressant de connaître les instructions données
+aux annotateurs (quelle application leur a été suggérée ?  "la plus chaude" me
+semble une bien plus mauvaise description du document que "journée la plus chaude"
+par exemple... Qu'est-ce qui justifie ce choix des annotateurs ? Combien
+d'annotateurs ont été employés par document ? Avec quel mesure d'accord ??)
+
+ - Détail en section 5: "étude" et "étudier" sont 2 termes distincts. Il est inexact
+de dire qu'une méthode qui ne permet pas de les réunir introduit du bruit.
+ 
+ *********
+ 
+ * Etat de l'art:
+ En 2.1,
+ - il serait sans doute intéressant d'enrichir la partie sélection des termes clés
+en étudiant les méthodes d'extraction d'unités polylexicales, domaine connexe qui
+aurait dû être évoqué. Il serait également sans doute intéressant de faire appel à
+un outil d'extration d'entités nommées.
+ - Les n-grammes sont définis comme des séquences ordonnées de n mots, pour n
+généralement de 1 à 3. Il faut également souligner que les n-grammes sont
+adjacents!! C'est un détail important, qui les différencie des n-séquences. Par
+ailleurs, pourquoi s'arrêter à 3 ? Est-ce une contrainte de calculabilité ? Une
+contrainte linguistique ?
+ - Dernier paragraphe, attention: la spécificité n'est pas déterminée par TF-IDF,
+mais par IDF (cf l'article de Spärck-Jones que vous citez). Par ailleurs, ce
+paragraphe aurait plus vraisemblablement sa place en 2.2 (ordonnancement des
+candidats).
+ 
+ En 2.2,
+ - il est souhaitable d'argumenter sur les faiblesses des approches concurrentes.
+Pourquoi la fenêtre de co-occurrence poserait-elle un problème? Elle est garante
+d'une association réelle entre les mots (cf les travaux de Jones et Sinclair en
+lexicométrie dans les années 1970).
+ - sur SingleRank, l'argumentation est basée sur un document exemple qui n'est pas
+disponible. Cependant, le défaut est en effet le classement élevé de termes proches
+(avec un mot commun). Mais est-ce vraiment un défaut? Et si oui pourquoi? Pour
+certaines applications (RI par exemple), c'est une bonne chose. Ce qui ramène à la
+discussion manquante sur le positionnememnt applicatif de TopicRank. Il est très
+difficile d'argumenter sur les avantages et les inconvénients des différentes
+méthodes alors que les objectifs n'ont pas été définis.
+ 
+ *********
+ 
+ * Evaluation:
+ En 4.1:
+ - SemEval et DEFT: pourquoi n'utilisez que les 100 (SemEval) et 93 (DEFT) documents
+de test??? Quelle différence y aurait-il eu à utiliser tous les documents (284
+SemEval et 141 DEFT), hormis une amélioration de la significativité de vos
+expériences? Vous connaissez de toutes façons la vérité de terrain pour tous les
+documents et vous ne faites pas d'apprentissage, donc je ne m'explique pas ce
+choix... Les ajustements de paramètres en 4.2 aurait dû être fait sur un corpus
+distinct, mais ce n'est de toutes façons pas le cas (cf ci-dessous).
+ - C'est un point fort que d'avoir développé des annotations pour Wikinews et de les
+partager, mais il faut plus de détails sur le processus (cf ci-dessus).
+ - C'est également une très bonne chose que d'avoir implémenté TextRank et
+SingleRank, s'ils ne sont pas disponibles, mais il faudrait alors partager le code
+(avec la communauté pour d'une part donner un impact maximal à vos travaux, mais
+aussi d'autre part pour rassurer quant à la crédibilité de vos résultats, car en
+l'état actuel des choses, rien ne prouve que la supériorité de votre approche n'est
+pas dûe qu'à une mauvaise implémentation des autres méthodes).
+
+  En 4.2 et 4.3:
+ - TF-IDF est décrit comme une méthode d'apprentissage non-supervisé (!), ce qui est
+très exaggéré pour décrire une méthode qui ne fait qu'utiliser une statistique très
+primaire sur le corpus traité (et qui soit dit en passant n'utilise rien qui soit
+extérieur au corpus!). Il serait peut-être plus précis de décrire votre approche
+comme endogène au document traité, et TD-IDF comme endogène au corpus.
+ - Je ne suis pas convaincu par le choix des méthodes auxquelles TopicRank est
+comparé. Quid par exemple d'ExpandRank, publié par les auteurs de SingleRank (en
+2008, même année que SingleRank) et dont les performances sont nettement
+supérieures ?
+ - Par ailleurs, le paramétrage de TopicRank est effectué, pour ses 3 paramètres,
+sur les données d'évaluation. Autrement, dit, la comparaison aux autres approches
+est visiblement effectuée sur les mêmes jeux de données !! Par ailleurs, les autres
+approches ne sont pas, elles, paramétrées sur les collections concernés.   Le fait
+que les résultats du paramètrage (figure 4) et ceux du test (tableau 2)
+correspondent, indique bien que les mêmes données ont été utilisées.
+ Cela pose un grave problème de crédibilité des résultats. Il serait plus logique de
+tirer profit des données d'entraînement (de DEFT et DUC) pour faire le paramètrage,
+pour TOUTES les approches (pas seulement pour la vôtre, TopicRank!), et ensuite de
+faire une évaluation sur les données de test.
+ - la décomposition expérimentale de SingleRank est intéressante, mais pourquoi ne
+pas faire un travail similaire sur votre approche ?
+
+ En 4.4:
+ - Détail: dire que vous allez vous appuyer sur des exemples en français parce que
+c'est votre langue maternelle est maladroit. L'article est en français, il est donc
+logique de donner des exemples en français, sauf phénomène particulier que vous
+voudriez montrer. Il n'est pas utile de vous embourber dans la justification de ce
+choix.
+ - Hélas, une fois de plus, les exemples sont tirés de documents non disponibles...
+Pour "pays dits", l'extrait suffit, mais pour que cela soit plus lisible, il serait
+préférable de donner l'extrait du document avant de montrer le terme-clé et de
+décrire le problème.
+ - Exemple suivant:  contrairement à ce que vous dites, le terme-clé "économies
+post-socialistes" ne contient pas l'adjectif "économique". Vous devriez parler de
+radical, pas d'adjectif.
+ 
+ 
+*********
+ * Problèmes de français: De nombreuses formulations parlées ("Pour l'extraction,
+l'idée est de", "Les méthodes sont implémentées par nous-mêmes", etc.), et diverses
+fautes (voir ci-dessous pour une sélection) sont dispensées au fil du document.
+
+ "contenu principale"...
+ "Bien que des documents supplémentaires peuvent" ...
+ "désambiguïsassion"  (!!)
+ "sont (...) important"
+ "qui fournie"
+ "le soucis"
+ "travail approfondit"
+ 
+ 
+*********
+
+En résumé, l'idée de réunir les mots-clés similaires sous forme dénominateurs
+communs, les sujets, est très intéressante. Le fait d'avoir créé un jeu de données
+sur Wikinews, distribué à la communauté est un autre point fort (déjà introduit dans
+un colloque cependant). Un autre point fort pourrait être l'implémentation de
+plusieurs méthodes de l'état de l'art, si elle était distribuée (il est
+compréhensible que vous ne vouliez pas partager l'implémentation de votre approche,
+mais curieux de cacher votre implémentation de l'état de l'art, car cela créé une
+inquiétude quant à la crédibilité de vos résultats, qui sont conséquemment
+intégralement invérifiables).
+
+Je relève 2 faiblesses principales dans ce travail. La première est un défaut de
+positionnement, qui nuit à l'article en cascade de son début à sa conclusion : les
+auteurs ne décrivent pas d'application envisagée pour leur outil, ce qui conduit à
+un état de l'art diffus, suivi d'une évaluation qui pose problème, notamment car ses
+objectifs ne sont pas clairs (le choix des méthodes de l'état de l'art est par
+exemple conséquemment sujet à caution).
+La deuxième faiblesse de l'article est, pour d'autres raisons, l'évaluation. Le
+problème le plus crucial est que seule la méthode des auteurs est paramétrée, pas
+les méthodes externes comparées. Et que la méthode des auteurs est paramétrée avec
+les mêmes données qui sont utilisées pour l'évaluation !  Il est enfin dommage de
+n'avoir pas cherché à décomposer les différentes parties de TopicRank pour une
+évaluation individuelle (par exemple, extraction de termes de TopicRank et reste du
+traitement emprunté à TextRank par exemple).
+
+Il existe enfin plusieurs problèmes de rédaction, mais qui seront sans doute
+corrigés facilement après une lecture attentive.
+

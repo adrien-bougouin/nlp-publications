@@ -1,0 +1,120 @@
+----------------------- REVIEW 1 ---------------------
+PAPER: 13
+TITLE: État de l’art des méthodes d’extraction automatique de termes-clés
+AUTHORS: Adrien Bougouin
+
+
+----------- REVIEW -----------
+Bon article qui présente un état de l'art des méthodes d'extraction des mots-clés.
+Il est bien redigé et semble assez intéressant pour quelqu'un qui s'intéresse à
+cette tâche.
+Des pétites precisions:
+
+L'algorithme TextRank de Milhacea est utilisé aussi pour la pondération de phrases
+dans le résumé automatique, pas seulement pour l'extraction de mots-clés.
+
+En outre, DEFT est une campagne d'évaluation internationale surtout francophone: il
+y a des équipes canadiennes, belges, françaises... etc, mais aussi d'autres pays non
+francophones.
+
+Sinon, je pense qu'il faudrait aussi citer l'article de:
+
+Vincent Claveau
+Vectorisation, Okapi et calcul de similarité pour le TAL : pour oublier enfin le
+TF-IDF
+
+apparu en Actes de la conférence conjointe JEP-TALN-RECITAL 2012, volume 2: TALN,
+pages 85–98,
+Grenoble, 4 au 8 juin 2012. c 2012 ATALA & AFCP
+et qui fait une intéressante dissertation sur le TF-IDF.
+
+Relecteur : Juan-Manuel Torres-Moreno
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 13
+TITLE: État de l’art des méthodes d’extraction automatique de termes-clés
+AUTHORS: Adrien Bougouin
+
+
+----------- REVIEW -----------
+L'article présente un état de l'art des travaux en extraction de mots
+clés. 
+
+L'article est bien écrit et facile à lire. L'auteur délimite
+clairement les objectifs de son état de l'art et couvre bien les
+différentes approches possible. Quelques points pourraient être
+améliorés pour donner plus de perspectives à ce travail : 
+
+
+ - L'auteur aurait pu donner un peu plus de détails sur les campagnes
+   d'évaluation liées à cette thématique (SemEval, DEFT). Les données
+   étant identiques pour tous les participants, il me semble que c'est
+   un bon cadre pour bien cerner l'apport de chaque approche (en
+   discussion).
+
+ - L'article mériterait une discussion plus approfondie sur le
+   comportement des approches vis-à-vis des multi-mots ou de leur
+   prise en compte par les approches (les résultats de Liang&al2009
+   montrent bien l'importance de ce point), ainsi que sur
+   l'ordonnancement des la liste des mots/termes-clés extraits.
+
+ - Concernant le paragraphe d'écrivant l'assignation de mots clés
+   (3ème paragraphe de l'introduction -- commençant par "Il existe
+   aussi"), je terminerais la première phrase par "issus d'une liste
+   existante" et j'introduirai plus les différences (et notamment que
+   ça se rapproche plus de l'indexation automatique contrôlée)
+
+ - Parmi les approches statistiques (2.1.1), il existe d'autres
+   mesures de "pertinence" ou de similarité (Okapi BM25,
+   etc.). Pourquoi ne présenter que TF-IDF et Likey ?
+
+On pourrait s'attendre, en conclusion, à la présentation de premières
+expériences.
+
+Relecteur : Thierry Hamon
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 13
+TITLE: État de l’art des méthodes d’extraction automatique de termes-clés
+AUTHORS: Adrien Bougouin
+
+
+----------- REVIEW -----------
+Cet article effectue un état de l'art des différentes méthodes d'extraction de
+termes-clés.
+
+L'article est bien construit et offre une bibliographie très détaillée et
+intéressante, à la fois sur les méthodes supervisées et non supervisées.
+
+Cette étude permet à un lecteur ayant peu de connaissances sur le domaine de se
+faire un avis rapide des différentes voies explorées actuellement.
+
+Quelques remarques toutefois :
+
+- Le document évoque à de nombreuses reprises la mesure TF-IDF ainsi que la mesure
+Likey. Cependant, Okapi, une mesure qui est pourtant bien plus connue que Likey et
+qui a été comparée à TF-IDF, n'est pas réellement discutée (c.f. "Vectorisation,
+Okapi et calcul de similarité pour le TAL : pour oublier enfin le TF-IDF" - Vincent
+Claveau).
+
+- De nombreuses méthodes statistiques sont présentées avec rigueur. Cependant,
+d'autres points mériteraient d'être détaillés :
+* discussion sur les méthodes à base de patrons syntaxiques vs. suite de mots
+(n-grammes de mots)
+* spécificité des termes selon les domaines (cf. travaux de S. Ananiadou). Par
+exemple, les termes de biomédecine ont des spécificités qui mériteraient d'être
+discutés (notamment leur longueur souvent conséquente comparativement à d'autres
+domaines, ceci illustre le caractère spécifique de ces termes).
+
+- Dans la conclusion, il est précisé que " les méthodes supervisées n’utilisent pas
+de propriétés définies à partir des traits [...] linguistiques," 
+Or plusieurs méthodes fondées sur des méthodes supervisées utilisent des
+informations linguistiques, comme  Ercan et Cicekli (2007) cité dans l'article.
+Cette phrase de la conclusion gagnerait à être reformulée. 
+
+
+ Guillaume Tisserant (relecteur principal)
+ Mathieu Roche (relecteur secondaire)
+

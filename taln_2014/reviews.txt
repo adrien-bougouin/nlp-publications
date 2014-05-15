@@ -1,0 +1,369 @@
+----------------------- REVIEW 1 ---------------------
+PAPER: 32
+TITLE: Influence des domaines de spécialité dans l’extraction de termes-clés
+AUTHORS: Adrien Bougouin, Florian Boudin and Béatrice Daille
+
+Adéquation: 2 (Probablement pas)
+Clarté: 3 (Partiellement compréhensible, nécessite un effort.)
+Originalité: 2 (Limité : évidences, apport mineur sur des techniques connues.)
+Justesse: 3 (Raisonnable : l'approche n'est pas fondamentalement mauvaise et au
+moins une des propositions est probablement correcte.)
+Comparaison: 3 (La bibliographie et les comparaisons sont acceptables mais il est
+difficile de situer le travail.)
+Impact: 2 (Impact marginal. Le travail ne sera probablement pas cité.)
+RECOMMANDATION: 2 (Plutôt contre : certains aspects font que je suis contre la
+publication de cet article.)
+CONFIANCE DU RELECTEUR: 3 (Mon évaluation est correcte. J'ai lu l'article avec
+beaucoup d'attention et je connais très bien le domaine.)
+
+----------- COMMENTAIRES à DESTINATION DES AUTEURS -----------
+Cet article compare l'indexation libre non-supervisée dans des corpus issus de cinq
+domaines de spécialité afin d'étudier la différence de complexité de la tâche et de
+perfomance de méthodes d'indexation automatique dans chaque domaine. La présentation
+du travail des auteurs manque de clarté et de détail. Le corpus de travail et sa
+sélection ne sont pas suffisament décrits. Les résultats pourraient également être
+plus détaillés par l'ajout d'exemples et de mesures permettant une comparaison au
+moins indicative avec d'autres travaux. 
+
+Commentaires détaillés:
+(Introduction)
+- le positionnement par rapport à l'indexation libre vs. contrôlée d'une part et
+supervisée vs. non supervisée d'autre part devrait être formulé explicitement. Dans
+la version actuelle, le lecteur pourrait être ammené à penser que les auteurs
+assimilent indexation libre et indexation non-supervisée d'un coté, et indexation
+contrôlée avec indexation supervisée de l'autre. 
+- "les termes-clés, le plus souvent assignés par les auteurs": cette affirmation
+devrait être précisée et étayée concrètement. Des éditeurs scientifiques comme
+Elsevier ou ACM mettent les auteurs à contribution pour fournir des termes-clés.
+D'autres organismes (par exemple, les bibliothèques) peuvent demander à des
+indexeurs spécialisés de fournir des termes-clés pour les revues et ouvrages de leur
+catalogue. Les auteurs ont-ils connaissance de données permettant de déterminer
+quelle est la situation la plus fréquente, dans un cadre général? Ou plus précis? Si
+oui, indiquer les références.  
+- "de nombreux articles n'ont pas de termes-clés associés et compte tenu de leur
+nombre, l'annotation manuelle de ces derniers n'est pas envisageable": cette
+affirmation est vague est donne à penser que l'indexation manuelle à grande échelle
+n'est pas possible. L'exemple de la base documentaire MEDLINE (21 milions d'articles
+du domaine biomédical, indexés manuellement à l'aide du vocabulaire contrôlé MeSH)
+est un contre-exemple significatif. Par ailleurs, la collecte systématique de
+termes-clés par certains éditeurs auprès des auteurs semble également indiquer que
+l'annotation manuelle systématique d'un grand nombre de documents est une réalité. 
+- Un exemple intéressant de développement d'outil informatique pour soutenir
+l'indexation contrôlée (combinant des méthodes supervisée et non supervisée) d'un
+grand nombre d'articles est celui du Medical Text Indexer http://ii.nlm.nih.gov
+(Collections)
+- La méthode d'obtention des "termes-clés" de référence n'est pas claire. Les
+auteurs indiquent qu'elle est "semi-automatique": qu'est-ce que cela signifie?
+Est-ce qu'un outil automatique (lequel?) a été appliqué systématiquement, et les
+résultats validés? Par qui? Selon quels critères? Il est fait mention de
+"terminologies" pour les différents domaines. Le lecteur se demande donc s'il s'agit
+finalement d'indexation controlée fondée sur les terminologies? La situation
+serait-elle hétérogène selon les domaines considérés: indexation contrôlée si une
+terminologie est disponible, libre sinon? Ces points sont extrèmement importants.
+ Il est concevable que les auteurs n'aient pas cette information à leur disposition.
+Cependant, il faudrait évoquer ces problèmes, préciser les hypothèses qui sont
+faites et essayer de les étayer concrètement. Par exemple, la diversité du
+vocabulaire d'indexation (nombre unique de termes clés / nombre total de termes
+clés) peut être un indicateur, en particulier s'il peut être comparé au ratio pour
+les termes clés attribués par les auteurs (la consultation des URLs de l'inist
+suggère que ces données sont disponibles, au moins partiellement), dont on peut
+raisonablement penser qu'ils sont le reflet d'une pratique d'indexation libre. Ces
+informations peuvent également donner une indication sur la difficulté de la tâche
+d'indexation : plus la diversité de termes clés est grande, plus on s'attend à ce
+que l'indexation soit difficile à réaliser. 
+- Il serait donc intéressant d'ajouter au Tableau 1 les informations concernant le
+nombre total de termes clés, et le nombre unique de terme clés pour les termes de
+référence et les termes fournis par les auteurs. 
+- La consultation des URLs données sous la Figure 1 montre que chaque article est
+susceptible de comporter plusieurs listes de mots-clés: des termes en français, en
+anglais, en espagnol et des termes fournis par les auteurs. Il serait souhaitable de
+préciser la source des termes-clés "de référence" utilisés par les auteurs. Par
+ailleurs, les auteurs pourraient également préciser comment s'est effectué le choix
+des corpus de travail, qui comportent un nombre similaire d'articles pour chaque
+spécialité: se trouve-t-il que le même nombre de documents est disponible pour ces
+spécialités? Y a-t-il eu une sélection (sur quel critères?) pour obtenir un nombre
+équivalents d'articles? Le choix des spécialités a-t-il été influencé par la
+disponibilité des articles? Ou bien s'agit-il de l'ensemble des spécialités qui
+étaient disponibles? 
+- La figure 1 présente les informations de manière incomplète, confuse et
+extrèmement biaisée. Il faudrait montrer les titres et résumés d'un coté, et
+l'ensemble des termes clés de l'autre afin d'illustrer le fait que certains termes
+clés ne se trouvent pas dans le texte du titre ou du résumé et de fournir des
+exemples permettant d'apprécier la variation terminologique entre le texte et les
+termes clés (par exemple, dans l'article de linguistique, on trouve le terme
+"discours scientifique" dans le résumé et le terme "Langue scientifique" parmi les
+termes-clé). L'un des fondement de l'indexation contrôlée est justement de maîtriser
+cette variation et d'associer à un document un mot clé correspondant à un concept
+abordé dans le document, quelle que soit la dénotation du concept employée dans le
+texte.  
+Autres problèmes liés à la figure 1: 
+*les notes de bas de page ne correspondent pas à la notice: la note 2 renvoie à la
+notice de l'article de Linguistique et la note 3 à l'article d'Archéologie
+*les passages soulignés ne permettent pas de savoir quels sont les termes clés
+attribués aux articles. Par exemple dans le passage "enseignement des langues de
+spécialité" la mise en page ne permet de comprendre qu'il s'agit des deux termes
+"Langue de spécialité" (au singulier dans la liste de mot clés, au pluriel dans le
+texte) et "Enseignement des langues"
+(Extraction des termes-clés candidats)
+- pour mieux illustrer l'extraction selon les différentes méthodes, il faudrait
+ajouter une figure avec l'ensemble des termes-clés extraits par chaque méthode pour
+l'un des exemples. 
+(Expériences)
+- L'utilisation de la MAP n'est pas suffisante pour comprendre les résultats. Il
+faudrait également indiquer le nombre total de termes extraits par notice, et des
+mesures complémentaires comme  précision, rappel et F-mesure (utilisés par exemple
+par Paroubek et al. )
+- Il faudrait également fournir des points de comparaison permettant d'apprécier les
+résultats: typiquement une baseline qui ordonnerait aléatoirement les termes-clés
+(borne inférieure) et une borne supérieure qui placerait en tête de liste les
+mots-clés de référence trouvés dans le texte; un autre indicateur intéressant
+pourrait être d'utiliser les termes fournis par les auteurs, lorsqu'ils sont
+disponibles. Cela montrerait certainement les limites de la recherche de termes clés
+directement dans le titre et le résumé, puisqu'il est établi que de nombreux termes
+clés n'y figurent pas. 
+(Conclusion)
+- la conclusion principale semble être l'ordonnement des spécialités par difficulté
+pour l'indexation. Les auteurs n'indiquent pas quelles étaient leurs hypothèses a
+priori ;  il semble qu'on aurait pu conclure dès le tableau 1 à l'aide du nombre de
+mots par terme clé : plus les termes clés sont longs, plus ils sont difficiles à
+extraire. Les implications pratiques ne sont pas claires.
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 32
+TITLE: Influence des domaines de spécialité dans l’extraction de termes-clés
+AUTHORS: Adrien Bougouin, Florian Boudin and Béatrice Daille
+
+Adéquation: 3 (Pas sûr)
+Clarté: 5 (Très clair.)
+Originalité: 2 (Limité : évidences, apport mineur sur des techniques connues.)
+Justesse: 3 (Raisonnable : l'approche n'est pas fondamentalement mauvaise et au
+moins une des propositions est probablement correcte.)
+Comparaison: 2 (Une connaissance partielle de l'état de l'art ou une comparaison des
+résultats empiriques inadéquate.)
+Impact: 3 (Intéressant mais pas trop influent. Les travaux seront cités mais
+principalement à titre comparatif ou en tant que source mineure d'inspiration.)
+RECOMMANDATION: 3 (Ambivalent : article de qualité raisonnable mais il n'est pas
+vraiment à la hauteur des standards.)
+CONFIANCE DU RELECTEUR: 3 (Mon évaluation est correcte. J'ai lu l'article avec
+beaucoup d'attention et je connais très bien le domaine.)
+
+----------- COMMENTAIRES à DESTINATION DES AUTEURS -----------
+Les auteurs effectuent des expériences sur l'extraction de termes-clés des textes de
+domaines de spécialité. L'objectif global est de comparer l'efficacité de trois
+approches appliquées aux documents provenant de cinq domaines de spécialité.
+
+Il s'agit d'une tâche importante en particulier pour la gestion et le maintien de
+grosses bases de données bibliographiques.
+Le travail est bien écrit.
+
+J'ai plusieurs remarques de nature méthodologique :
+
+1. Les auteurs devraient positionner mieux leur travail par rapport aux
+problématiques de TAL et montrer quel est l'apport du TAL pour la problématique
+traitée dans leur travail. Actuellement, il s'agit plutôt d'une étude comparative de
+corpus.
+
+2. Les auteurs appliquent trois méthodes existantes avec les paramétrages par
+défaut. Il s'agit de l'extraction de n-grammes, de groupes nominaux et de candidats
+termes. D'une part, il serait nécessaire d'expliquer le fonctionnement de
+l'extracteur de termes et de discuter les différences entre l'extracteur de groupes
+nominaux et l'extracteur de termes, car les deux types d'outils sont typiquement
+fondés sur la détection et l'extraction de groupes nominaux (N PREP N sont des
+groupes nominaux). À mon avis, l'étendu des patrons pris en charge peut faire la
+différence dans les résultats, mais cela n'est pas vraiment lié avec la finalité
+terminologique ou non de l'outil. D'autre part, les auteurs devraient aussi discuter
+quelle est la différence, dans le contexte étudié dans le travail, entre "les unités
+textuelles qui respectent des patrons définis" et "les unités textuelles qui sont
+potentiellement des termes". Les deux ont vocation de représenter les notio!
+ ns du domaine.
+
+3. En relation avec la remarque précédente, les résultats fournis par l'extraction
+de groupes nominaux et de candidats termes sont très proches, mais ce fait n'est pas
+discuté.
+
+4. Les auteurs mentionnent dans le tableau 1 l'annotation des Np, mais ceci n'est
+mentionné nulle part ailleurs dans le travail. De la même manière, la désuffixation
+avec Porter est effectuée mais ceci n'est pas discuté dans les résultats.
+
+5. "Nous estimons qu’un ensemble de candidats est de bonne qualité lorsqu’il fournit
+un maximum de candidats présents dans l’ensemble des termes-clés de référence et
+lorsqu’il fournit peu de candidats non-pertinents" : il s'agit d'une hypothèse très
+standard
+
+6. Le tfidf permet de pondérer les unités textuelles (non pas les extraire). Le
+tfidf semble ne pas être adapté aux documents courts (comme les résumés) et aux
+corpus très gros. À voir s'il ne vaut pas mieux utiliser d'autres mesures. En
+relation avec cela, il existe une littérature grandissante sur le filtrage de
+candidats termes avec des méthodes plus évoluées. Les auteurs devraient s'y référer.
+Juste un exemple de travaux :
+Nakagawa H. and Mori T. 2003. Automatic Term Recognition Based on Statistics of
+Compound Nouns and their Components. Terminology, vol. 9, no. 2, 201-219
+Aze J., Roche M., Kodratoff Y., Sebag M. 2005. Preference Learning in Terminology
+Extraction: A ROCbased Approach. Proceedings of ASMDA’05, 209-219
+Loukachevitch N., Nokel M. An Experimental Study of Term Extraction for Real
+Information-Retrieval Thesauri. Proceedings of TIA 2013
+
+
+
+7. Les 3 catégories qui émergent suite aux résultats devraient être discutées plus.
+Par exemple, dans les travaux expérimentaux on pourrait aussi ajouter la biologie.
+En connaissant un peu le type de résumés produits dans ce domaine, je ne suis pas
+sûre qu'ils respectent la norme de la chimie. Il faudrait que chaque catégorie
+comportent au moins 2 disciplines pour que les résultats soient mieux appuyés.
+
+8. Concernant les résultats sur le corpus Archéologie, les auteurs focalisent sur le
+fait qu'il y a une augmentation des performances avec TopicRank et donc le réseau de
+termes. Une augmentation de 0,007 est en effet observable avec l'extracteur de
+termes, par contre avec les 2 autres méthodes les résultats sont dégradés de 0,03 et
+0,1. Ce serait bien de croiser ces différents résultats et de faire une conclusion
+plus globale.
+
+
+D'autres remarques :
+
+mots-clés : specific domain -> specialized area/field/domain
+
+sec 3.2 : "et seules les unités textuelles se trouvant dans cette terminologie sont
+extraites comme termes-clés candidats" : extrait par TermSuite ? Je ne comprends ce
+que cela veut dire.
+
+sec 3.3 : "TopicRank utilise une mesure de similarité lexicale" : s'agit-il de la
+distance de chaînes d'édition ?
+
+sec 5 : "Dans un premier temps, nous constatons que l’usage d’une mesure de
+spécificité peut améliorer la performance" : la mesure de spécificité est le tfidf ?
+
+sec 5 : "Dans un second temps, nous constatons que la capacité..." : ce serait bien
+de donner un exemple de réseau de termes et de relations qui sont alors établies.
+
+sec 5 : En contradiction -> Au contraire
+
+sec 6 : lieus ?
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 32
+TITLE: Influence des domaines de spécialité dans l’extraction de termes-clés
+AUTHORS: Adrien Bougouin, Florian Boudin and Béatrice Daille
+
+Adéquation: 5 (Certainement)
+Clarté: 4 (Compréhensible par la plupart des lecteurs.)
+Originalité: 3 (Respectable : une contribution originale qui représente une
+extension notable par rapport à l'existant.)
+Justesse: 4 (Solide : propos généralement bien étayés même si certains aspects de
+l'approche ou de l'évaluation ne sont pas tout à fait convaincants.)
+Comparaison: 4 (Références bibliographiques solides mais quelques travaux manquent.)
+Impact: 3 (Intéressant mais pas trop influent. Les travaux seront cités mais
+principalement à titre comparatif ou en tant que source mineure d'inspiration.)
+RECOMMANDATION: 3 (Ambivalent : article de qualité raisonnable mais il n'est pas
+vraiment à la hauteur des standards.)
+CONFIANCE DU RELECTEUR: 3 (Mon évaluation est correcte. J'ai lu l'article avec
+beaucoup d'attention et je connais très bien le domaine.)
+
+----------- COMMENTAIRES à DESTINATION DES AUTEURS -----------
+L'article présente une expérience autour de l'extraction de
+termes-clés dans des articles issus de 5 domaines
+scientifiques. L'objectif est de vérifier l'hypothèse que le
+comportement d'une méthode d'extraction de termes-clés ne peut être la
+même suivant les corpus. A l'issue de cette expérience, les auteurs
+proposent un degré de difficulté disciplinaire.
+
+
+La finalité et l'utilisation de la définition du degré de difficulté d'un domaine
+devrait être mieux présent (on comprend à la fin son utilité). 
+
+La présentation des résultats amène pas mal d'interrogation et de
+discussion. Tout d'abord, on comprend enfin que le degré de difficulté
+correspond à la difficulté qu'aurait l'approche à identifier les
+termes clés. 
+
+En fait, la tâche d'identification des termes clés devrait prendre en
+compte beaucoup plus de paramètres reflétant notamment le fait que la
+manière de concevoir les termes clés est différente dans chaque
+discipline : ce qui peut être liés à des pratiques (par ex. l'usage
+d'un thésaurus pour définir les termes clés dans des disciplines
+d'ingénierie ou en médecine), le niveau de formalisation des
+disciplines (la rédaction d'un article de mathématique et les attentes
+des lecteurs ne sont pas les mêmes que pour un article en archéologie
+ou en TAL). La manière de rédiger peut également amener à l'absence de
+variation terminologique. Les extracteurs de termes peuvent nécessiter
+une adaptation au domaine traité.
+
+Il serait intéressant de prendre en compte des informations
+complémentaires comme la proportion de mots des notices présents dans
+un dictionnaire de langue générale, par discipline. Car considérer le
+mot "réaction" comme étant général est surprenant (pourquoi pas
+"enseignement" et "langue" ?) alors qu'il s'agit plutôt d'un
+homographe, ou d'un mot ayant un sens bien spécifique en chimie et
+assez différent du sens général (et différent de celui que le mot a en
+médecine ou en physique).
+
+Cette problématique me fait penser à d'anciens travaux sur le sujet
+qui pourraient être intéressant à regarder :
+
+@article{Losee&Haas95,
+  author =          "Robert M. Losee and Stephanie W. Haas",
+  title =          "Sublanguage Terms: Dictionaries, Usage, and Automatic Classification",
+  journal =          "Journal of the American Society for Information Science",
+  year =          1995,
+  volume =          46,
+  number =          7,
+  pages =          "519--529",
+}
+
+@article{Haas97,
+  author =          "Stephanie W. Haas",
+  title =          "Disciplinary Variation in Automatic Sublanguage Term Identification",
+  journal =          "Journal of the American Society for Information Science",
+  year =          1997,
+  volume =          48,
+  number = 1,
+  pages =          "67--79",
+}
+
+Concernant la comparaison des performances du TopicRank et de TF-IDF,
+il me semble normal que les performances du TopicRank ne soient pas
+bonnes sur les n-grammes puisque le type de liste de termes (et leur
+distribution) en entrée est bien différent de ce qu'il attend.  Le
+comportement du TF-IDF sur le corpus d'Archéologie peut s'expliquer
+par le nombre de revues utilisées pour constituer le corpus : 22 alors
+que dans les autres domaines on en compte qu'au plus 12. La diversité
+est bien plus grand et peut favoriser le TF-IDF.  Il serait bien de
+pouvoir avoir un nombre équivalent de revues dans tous les domaines.
+
+De même, il faut noter que les notices de chimie sont deux fois plus
+courtes que les notices d'archéologie alors que les termes clés sont
+majoritairement des termes complexes (tandis qu'en archéologie, ce
+sont surtout des termes simples), ce qui peut avoir une influence
+importante sur la reconnaissance des termes clés (la proportion de
+termes-clés reconnaissables dans les notices est une information qui
+pourrait permettre de mieux conclure).
+
+
+Les conclusions sur le degré de difficulté sont à nuancer et
+devraient être vérifiées sur d'autres domaines des sciences "dures"
+(mathématique ou physique par exemple) et dans le domaine biomédical.
+Il me semble que le niveau de difficulté est surtout lié à la capacité
+des outils utilisés à identifier les candidats termes du domaine (que
+donnerait un extracteur adapté à la terminologie de la chimie ?).
+
+
+Dans le tableau 1, vous pourriez mentionner le nombre de termes clé
+pouvant être trouvés dans les notices (ce qui doit correspondre à ce
+que vous indiquez à la fin de la section 2, sinon je ne comprends pas
+le 1,3 associé à 5,8).
+De plus, vous indiquez le pourcentage de termes-clés ne contenant pas
+de noms propres mais vous n'utilisez jamais cette information,
+pourquoi le mentionner, et est-ce utile ?
+
+
+La section 3.3, lors de la description du TopicRank, il me semble que
+vous devriez écrire que "TopicRank groupe les termes candidats selon
+..." et que le "candidat le plus représentatif  [d'un sujet] est
+considéré comme un terme-clé".
+
+Coquille : 
+
+ - résumé en anglais : LinguisticS
+

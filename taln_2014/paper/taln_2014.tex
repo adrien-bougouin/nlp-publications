@@ -1,0 +1,93 @@
+\documentclass[10pt,a4paper,twoside]{article}
+
+\usepackage{times}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+
+% faire les \usepackage dont vous avez besoin AVANT le \usepackage{jeptaln2012} 
+% add the \usepackage for you packages BEFORE the \usepackage{jeptaln2012}
+\usepackage{ifthen}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{lipsum}
+\usepackage{subfigure}
+\usepackage[normalem]{ulem} % normalem pour ne pas souligner les et al. des citations
+\usepackage[inline]{enumitem}
+
+\usepackage{taln2014}
+\usepackage[frenchb]{babel}
+
+\pgfplotsset{compat=1.8}
+\usetikzlibrary{calc, positioning, topaths, shapes, arrows, patterns}
+
+\newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\shortcite{#2}}{\shortcite[#1]{#2}}}
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+%\renewcommand\TODO[1]{}
+%\renewcommand\lipsum[1][]{}
+
+\title{Influence des domaines de spécialité dans l'extraction de termes-clés}
+
+\author{Adrien Bougouin \quad Florian Boudin \quad Béatrice Daille\\
+        LINA -- UMR CNRS 6241, 2 rue de la Houssinière 44322 Nantes Cedex 3, France\\ 
+        prenom.nom@univ-nantes.fr}
+
+% Titre qui apparait en en-tête (1 ligne maxi)
+\fancyhead[CO]{Influence des domaines de spécialité dans l'extraction de termes-clés}
+% Auteurs qui apparaissent en en-tête (1 ligne maxi)
+\fancyhead[CE]{Adrien Bougouin, Florian Boudin, Béatrice Daille}
+
+\begin{document}
+  \maketitle
+
+  \resume{
+    Les termes-clés sont les mots ou les expressions polylexicales qui
+    représentent le contenu principal d'un document. Ils sont utiles pour
+    diverses applications telles que l'indexation automatique ou le résumé
+    automatique, mais ne sont pas toujours disponibles. De ce fait, nous nous
+    intéressons à la tâche d'extraction automatique de termes-clés et, plus
+    particulièrement, à la difficulté de cette tâche lors du traitement de
+    documents appartenant à certaines disciplines scientifiques. Au moyen de
+    cinq corpus représentant cinq disciplines différentes (Archéologie, Sciences
+    de l'Information, Linguistique, Psychologie, Chimie), nous déduisons une
+    échelle de difficulté disciplinaire et analysons les facteurs qui influent
+    sur cette difficulté.
+  }
+
+  \abstract{
+    Keyphrases are single or multi-word expressions that represent the main
+    content of a document. Keyphrases are useful in many applications such as
+    document indexing or text summarization, which are very useful for
+    researchers. However, most documents are not provided with keyphrases. To
+    tackle this problem, researchers propose methods to automatically extract
+    keyphrases from documents of various nature. In this paper, we focus on the
+    difficulty of the automatic keyphrase extraction from scientific papers from
+    various areas. Using five corpora representing five areas (Archaeology,
+    Information Sciences, Linguistic, Psychology and Chemistry), we observe the
+    difficulty scale and analyze factors inducing a higher or a lower
+    difficulty.
+  }
+
+  \motsClefs{Extraction de termes-clés, articles scientifiques, domaines de
+  spécialité, méthodes non-supervisées}{Keyphrase extraction, scientific papers,
+  specific domain, unsupervised methods}
+
+  \input{input/introduction.tex}
+  %\input{input/etat_de_l_art.tex}
+  \input{input/presentation_des_donnees.tex}
+  \input{input/extraction_automatique_de_termes_cles.tex}
+  \input{input/experiences.tex}
+  \input{input/discussion.tex}
+  \input{input/conclusion.tex}
+
+  \section*{Remerciements}
+    Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche
+    portant la référence (ANR-12-CORD-0029).
+
+  \bibliographystyle{taln2002}
+  \bibliography{../../biblio}
+\end{document}
+

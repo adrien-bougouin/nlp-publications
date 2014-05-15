@@ -1,0 +1,219 @@
+============================================================================ 
+IJCNLP 2013 Reviews for Submission #179
+============================================================================ 
+
+Title: TopicRank: Graph-Based Topic Ranking for Keyphrase Extraction
+
+Authors: Adrien Bougouin, Florian Boudin and Beatrice Daille
+============================================================================
+                            REVIEWER #1
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+To what extent is the paper relevant to the conference?: 4
+                 Originality of the work: 4
+                      Technical accuracy: 3
+  Reference to previous/related research: 3
+Presentation (clarity of aims and ideas and overall organisation): 3
+                                 English: 3
+                              Acceptance: 4
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+The paper reports the authors’ efforts in developing a novel unsupervised,
+graph-based approach, TopicRank, for extracting key phrases from documents.
+Noun phrases are extracted from texts as candidate key phrases and clustered
+into topical groups. A document is represented by a complete graph in which
+extracted topics become nodes and strength of the semantic relations between
+topics is used to denote the weight of edges. An existing well-known measure
+TextRank is performed on the constructed graph to rank the topics and identify
+the key topic subset. In the end, the key phrase candidate that best represents
+its group is selected from each key topic groups to form the final key phrase
+set that captures the main topics of the document.
+
+The novelty of the proposed method lies in two aspects: (1) The widely used
+approach uses individual words to form the graph and extracts key phrases by
+grouping adjacent words of key words identified by a graph-based ranking
+measure. In this paper, by clustering noun phrases and constructing a graph
+over the resulting topic groups, the redundancy of the graph is significantly
+reduced. Therefore, key phrases can be extracted more accurately. (2) A
+position offset-based measure is proposed to compute the edge weights that
+represent the semantic relations between topics. This leads to the construction
+of a complete graph that benefits the subsequent key phrase extraction.
+
+The authors evaluated their approach on four datasets of different languages,
+document sizes and domains. They also applied three baseline methods to compare
+with TopicRank, including tuning one of the baseline methods using the settings
+of TopicRank. TopicRank consistently outperforms other methods on three of the
+evaluation datasets.
+
+The paper is well written, and I would like to recommend it for publication if
+the following comments can be appropriately addressed.
+
+Major Comments
+
+1.  The authors should provide a brief evaluation on noun phrase extraction and
+topic clustering results
+
+In this work, the topic identification component is fundamental to the success
+of the key phrase extraction because the graph representation from which key
+phrases are extracted is constructed based on identified topics. Noun phrase
+extraction and topic clustering results deserve individual evaluations because
+of the following potential problems with the proposed method:
+
+(a) Noun phrase extraction
+
+Noun phrase extraction is an open problem because of the existence of
+coordination structures. While the authors extracted the longest sequences of
+nouns and adjectives as noun phrases, ignoring conjunction part-of-speech may
+lead to problems.  For instance, for the noun phrase“hereditary breast and
+ovarian cancer”, the proposed approach will result in wrong phrases
+“hereditary breast” and “ovarian cancer”, leading to a detrimental
+effect on the subsequent process.
+
+(b) Topic clustering
+
+The similarity measure is crucial to the quality of clustering results. The
+implemented criterion is based on “at least 25% of overlapping stems”.
+Could you please provide some examples to explain “25%”? Also, stems
+sometimes over-truncate strings. For instance, “activity” share the same
+stem with “activation”, even though they are semantically distinct. Using
+lemmas might be a better choice than stems here. Further, when clustering noun
+phrases, the current similarity measure ignores the original contexts where
+phrases are extracted. This might not lead to accurate topical groups. For
+instance, the example presented in Figure 3 about “fuzzy”-related phrases
+may be clustered into one group if their original contexts are considered.
+
+A brief evaluation on some samples regarding the above two aspects should be
+sufficient to provide a more in-depth understanding to the performance of key
+phrase extraction.
+
+2. The hypothesis of computing edge weights in Section 3.2.1 needs further
+consideration.
+
+The authors computed the edge weights based on the hypothesis “a strong
+semantic relation if their key phrase candidates often appear close to each
+other in the document”. This might work fine with concise short articles but
+may not work well on longer documents. In a longer document, phrases that are
+far away from each other in terms of offset position might not be semantically
+distinct, especially when co-reference/anaphora is used. This partially
+explains the authors observation in Section 5 “We conclude that it is more
+difficult to treat long documents than short ones”. 
+
+Some kind of paragraph-wise normalization within a document to formula (1) and
+(2) could be useful. 
+
+3. The explanation of Figure 3 in Section 5 is not clear.
+
+The graph constructed by the proposed offset-based method is complete graph.
+Why the examples shown in Figure 3 are not complete graphs? Why there is “a
+deficit of connections” in the sentence “we observe that there is a deficit
+of connections that leads to four connected components.” ?
+
+4. The benefit of using complete graph representation is not obvious.
+
+The authors claimed in Conclusion “The use of a complete graph better
+captures the relations between topics and thus improves the ranking
+performance.” However, this benefit is not clear. According to Table 3, when
+SingleRank uses co-occurrence-based graph over topical clusters, it achieves
+comparable performance to TopicRank across all evaluation datasets. It’s not
+clear how much benefit the complete graph representation brings in. Also, does
+complete graphs affect the speed of running TextRank?
+
+5. The authors might want to distinguish TopicRank from Topic-Sensitive
+PageRank.
+
+Topic-Sensitive PageRank was developed by Haveliwala in 2002 as a topic-biased
+extension of the original PageRank to extract documents that share common
+topics with an input query. TopicRank works on single documents from which key
+phrases are extracted.
+
+Since both TopicRank and Topic-Sensitive PageRank contain a component derived
+from PageRank, the authors probably want to mention Haveliwala’s work and
+distinguish TopicRank from it.
+
+Minor Comments
+
+1.  In Section 3.2.2, even though TextRank is introduced in the previous
+contexts, mentioning TextRank again here would be more clear to readers.
+
+2.  In the third paragraph of Section 5, “The other datasets contain longer
+documents, which may dampened this problem.” Is “alleviate” better than
+“dampen” here?
+
+3.  In the fourth paragraph of Section 5, “Those datasets are composed of
+scientific articles where the main topics are often introduced at the beginning
+and then, conveyed by abbreviations or inherent concept”,  “the full form
+of the main topics” may be more accurate here than “the main topics”.
+
+============================================================================
+                            REVIEWER #2
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+To what extent is the paper relevant to the conference?: 4
+                 Originality of the work: 3
+                      Technical accuracy: 4
+  Reference to previous/related research: 4
+Presentation (clarity of aims and ideas and overall organisation): 3
+                                 English: 3
+                              Acceptance: 3
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This paper presented an unsupervised method for keyphrase extraction. First,
+the proposed method integrated many previous works for topic identification.
+Then, the authors designed a graph–based model for topic ranking. Finally,
+three strategies were used for keyphrase selection. The experiments on four
+different corpuses in English and French show the effectiveness of the proposed
+methods. 
+
+The descriptions of the experiments do not seem to be overly strong:
+1.        How dose the keyphrase golden line look like? Is it a phrase ranking
+list or just phrase list?
+2.        The keyphrase extraction is mainly based on the ranking model. It will
+be better to show the order evaluations in the final results.
+3.        What happens if the number of the keyphrases is changed?
+
+============================================================================
+                            REVIEWER #3
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+To what extent is the paper relevant to the conference?: 4
+                 Originality of the work: 3
+                      Technical accuracy: 4
+  Reference to previous/related research: 5
+Presentation (clarity of aims and ideas and overall organisation): 3
+                                 English: 3
+                              Acceptance: 6
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+Authors presented a graph-based topic ranking algorithm for keyphrase
+extraction.  This is a well-written and an interesting paper. Evaluation showed
+significantly better than state-of-the-art methods so far. There is a minor
+typo in footnote 1 which missed the link of a dataset. I suggested authors put
+all the data (and if possible, the source code) available to public.
+
