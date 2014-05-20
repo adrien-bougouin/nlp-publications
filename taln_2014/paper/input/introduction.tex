@@ -4,29 +4,23 @@
   concept important d'un document auquel il est associé. En pratique, plusieurs
   termes-clés représentant des concepts différents sont associés à un même
   document. Ils forment alors un ensemble à partir duquel il est
-  possible de caractériser, synthétiser, le contenu principal du document. Du
+  possible de caractériser, synthétiser, le contenu du document. Du
   fait de cette capacité de synthèse, les termes-clés sont utilisés dans de
   nombreuses applications telles que le résumé
   automatique~\cite{avanzo2005keyphrase}, la classification de
   documents~\cite{han2007webdocumentclustering} ou l'indexation
-  automatique~\cite{medelyan2008smalltrainingset}. Avec l'essor du numérique et,
-  en particulier, le développement des bibliothèques numériques sur Internet, le
-  nombre d'articles scientifiques auxquels les chercheurs ont accès ne cesse
-  d'augmenter. Les termes-clés, le plus souvent assignés par les auteurs,
-  facilitent l'indexation pour la recherche d'articles scientifiques et donnent
-  un bref aperçu de leur contenu. Cependant, de nombreux articles n'ont pas de
-  termes-clés associés et, compte tenu de leur nombre, l'annotation manuelle de
-  ces derniers n'est pas envisageable. Pour pallier ce problème, de plus en plus
-  de chercheurs s'intéressent à l'extraction automatique de termes-clés à partir
-  d'articles scientifiques et certaines campagnes d'évaluation, telles que
-  DEFT~\cite{paroubek2012deft} et SemEval~\cite{kim2010semeval}, proposent des
-  tâches sur cette problématique.
+  automatique~\cite{medelyan2008smalltrainingset}. Cependant, tous les documents
+  ne sont pas accompagnés de termes-clés et leur extraction manuelle est une
+  tâche coûteuse et chronophage.
+  Pour pallier ce problème, de plus en plus
+  de chercheurs s'intéressent à l'extraction automatique de termes-clés, en
+  témoignent les récentes campagnes
+  d'évaluation~\cite{paroubek2012deft,kim2010semeval}, ainsi que les nombreux
+  travaux sur ce sujet~\cite{hasan2014state_of_the_art}.
 
-  L'extraction automatique de termes-clés, ou indexation libre,
-  consiste à extraire les unités textuelles les plus importantes d'un document,
-  en opposition à l'assignation automatique de termes-clés, ou
-  indexation contrôlée, qui consiste à assigner des termes-clés à partir d'un
-  référentiel donné~\cite{paroubek2012deft}. Parmi les méthodes d'extraction
+  L'extraction automatique de termes-clés consiste à extraire les unités
+  textuelles les plus importantes d'un document, celles qui permettent d'en
+  résumer le contenu. Parmi les méthodes d'extraction
   automatique de termes-clés existantes, nous distinguons deux catégories~: les
   méthodes supervisées et les méthodes non-supervisées. Dans le cadre supervisé,
   la tâche d'extraction de termes-clés est considérée comme une tâche de
@@ -36,59 +30,24 @@
   annotés en termes-clés est nécessaire pour l'apprentissage d'un modèle de
   classification reposant sur divers traits tels que la fréquence du terme-clé
   candidat ou sa position dans le document. Dans le cadre non-supervisé, les
-  méthodes attribuent un score d'importance aux candidats en fonction de divers
-  indicateurs comme leur spécificité par rapport au
-  document~\cite{paukkeri2010likey} ou les relations de coocurrence que leurs
+  méthodes attribuent un score d'importance aux candidats selon divers
+  indicateurs tels que leur degré de spécificité~\cite{paukkeri2010likey} ou les relations de coocurrence que leurs
   mots entretiennent~\cite{mihalcea2004textrank}. Les méthodes supervisées sont
   plus performantes que les méthodes non-supervisées, mais leur besoin en
-  données annotées (pour l'apprentissage) pousse les chercheurs à proposer des
-  méthodes non-supervisées compétitives avec les méthodes supervisées.
+  données d'apprentissage annotées et leur dépendance vis-à-vis du domaine de
+  ces données d'apprentissage poussent les
+  chercheurs à s'intéresser aux méthodes non-supervisées.
 
   Dans cet article, nous nous plaçons dans le contexte de l'extraction
   non-supervisée de termes-clés à partir de documents de nature scientifique.
-  Les documents de cette nature appartiennent à des disciplines variées, chacune
-  possédant une terminologie qui lui est spécifique. Certains chercheurs
-  s'adaptent à ces documents en réduisant l'ensemble des termes-clés candidats à
-  ceux les plus spécifiques~\cite{kim2009termextraction}, ou en tenant compte de
-  la structure des documents pour extraire les termes-clés apparaissant dans les
-  sections les plus favorables~\cite{hofmann2009impactofdocumentstructure}.
-  D'autres chercheurs proposent une analyse de ces documents~:
-  \newcite{shah2003wherearethekeywords} étudient les sections génériques des
-  articles scientifiques et déterminent celles les plus favorables à
-  l'introduction de termes-clés, tandis que
-  \newcite{bertels2012etudesemantiquedesmotscles} analysent la sémantique des
-  termes-clés en domaines de spécialité. Dans la continuité des travaux de
-  \newcite{shah2003wherearethekeywords} et de
-  \newcite{bertels2012etudesemantiquedesmotscles},
-  nous proposons une analyse de l'influence des domaines de spécialité dans
-  l'extraction de termes-clés et faisons l'hypothèse que chaque discipline est
-  traitée avec un degré de difficulté différent. Au moyen de cinq corpus
-  disciplinaires (section~\ref{sec:presentation_des_donnees}), nous utilisons
+  \TODO{Hypothèse}\TODO{Objectif}\TODO{INTÉRÊTS (montrer que les méthodes
+  actuelle sans ressources externes ne sont pas suffisantes, \dots)}
+  Au moyen de cinq corpus disciplinaires
+  (section~\ref{sec:presentation_des_donnees}), nous utilisons
   différentes méthodes d'extraction automatique de termes-clés
   (section~\ref{sec:extraction_automatique_de_termes_cles}) et observons leur
   performance en domaine de spécialité pour déduire l'échelle de difficulté
   disciplinaire (section~\ref{sec:experiences}). Enfin, nous proposons une
   analyse des résultats et déterminons les facteurs qui influent sur cette
   difficulté (section~\ref{sec:discussion}).
-
-%  Dans cet article, nous nous intéressons à la problématique de l'extraction
-%  non-supervisée de termes-clés à partir d'articles scientifiques, et plus
-%  particulièrement à l'impact que peut avoir la discipline scientifique sur les
-%  performances des méthodes. En effet, certaines disciplines comme la
-%  linguistique ou la psychologie sont caractérisées par un fort degré de
-%  recouvrement et d'ambiguïté entre langue de spécialité et langue générale, ce
-%  qui rend la tâche d'extraction de termes-clés plus complexe.
-%  Au moyen de cinq corpus disciplinaires (Archéologie, Sciences de
-%  l'Information, Linguistique, Psychologie et Chimie), nous comparons les
-%  performances de différentes méthodes d'extraction de termes-clés et nous en
-%  déduisons une échelle de difficulté disciplinaire.
-%
-%  L'article est structuré comme suit. Un bref état de l'art est donné dans la
-%  section~\ref{sec:etat_de_l_art}, les données utilisées sont présentées dans la
-%  section~\ref{sec:presentation_des_donnees} et les expériences menées, ainsi
-%  que les résultats obtenus, sont décrits dans la section~\ref{sec:experiences}.
-%  Enfin, une analyse des résultats est donnée dans la
-%  section~\ref{sec:discussion}, puis une conclusion générale et des perspectives
-%  de travaux futurs sont présentés en
-%  section~\ref{sec:conclusion_et_perspectives}.
 

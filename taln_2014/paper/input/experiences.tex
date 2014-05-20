@@ -10,7 +10,7 @@
   \label{subsec:mesure_d_evaluation}
     Afin de mesurer l'échelle de difficulté pour l'extraction automatique de
     termes-clés en domaines de spécialité, nous utilisons la MAP (\textit{Mean
-    Average Precision}), qui mesure la capacité d'une méthode à ordonner
+    Average Precision}), \TODO{À revoir (et argumenter pourquoi pas PRF) + ajouter la formule}qui mesure la capacité d'une méthode à ordonner
     correctement les termes-clés candidats, i.e.~à extraire en premier des
     candidats qui sont présents dans la liste des termes-clés de référence. Dans
     notre évaluation, nous considérons correcte l'extraction d'une variante
@@ -21,6 +21,7 @@
 
   \subsection{Résultats}
   \label{subsec:resultats}
+    \TODO{Donner des exemple d'extraction TF-IDF et TopicRank}
     La figure~\ref{fig:resultats} montre la performance des méthodes
     d'extraction de termes-clés lorsque les candidats extraits sont soit des
     $\{1..3\}$-grammes filtrés, soit des groupes nominaux, soit des candidats
@@ -39,6 +40,7 @@
     difficile, précédée par la Psychologie, la Linguistique et les Sciences de
     l'Information.
 
+    \TODO{Mieux argumenter}
     Nous observons aussi que le choix des candidats a une forte influence sur
     certaines méthodes. Avec les $\{1..3\}$-grammes, TopicRank obtient des
     résultats deux à trois fois inférieurs à ceux obtenus avec les groupes

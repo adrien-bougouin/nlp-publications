@@ -1,176 +1,153 @@
 \section{Collections de données}
 \label{sec:presentation_des_donnees}
-  \begin{table}[b]
+  Nous disposons de cinq collections de notices bibliographiques fournies par
+  l'Inist\footnote{Institut de l'Information Scientifique et Technique~:
+  \url{http://www.inist.fr}} dans le cadre du projet \textsc{Anr}
+  Termith\footnote{TERMinologie et Indexation de Textes en sciences Humaines~:
+  \url{http://www.atilf.fr/ressources/termith/}}~: archéologie, sciences de
+  l'information, linguistique, psychologie et chimie.
+
+  Le corpus d'\textbf{archéologie} est composé de 718 notices. Celles-ci
+  représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
+  (\textit{Paléo}, \textit{Le bulletin de la Société préhistorique française},
+  etc.).
+  Le corpus de \textbf{sciences de l'information} contient 706 notices
+  d'articles publiés entre 2001 et 2012 dans six revues différentes
+  (\textit{Documentaliste -- Sciences de l'information}, \textit{Document
+  numérique}, etc.).
+  Le corpus de \textbf{linguistique} est constitué de 716 notices d'articles
+  parus entre 2000 à 2012 dans 12 revues différentes (\textit{Linx -- Revue des
+  linguistes de l'Université Paris Ouest Nanterre La Défense}, \textit{Travaux
+  de linguistique}, etc.).
+  Le corpus de \textbf{psychologie} contient 720 notices d'articles publiés
+  entre 2001 et 2012 dans sept revues différentes (\textit{Enfance},
+  \textit{Revue internationale de psychologie et de gestion des comportements
+  organisationnels}, etc.).
+  Le corpus de \textbf{chimie} est composé de 782 notices d'articles publiés
+  entre 1983 et 2012 dans quatre revues (\textit{Comptes Rendus de l'Académie
+  des Sciences}, \textit{Comptes Rendus Chimie}, etc.).
+
+  Chaque notice contient le titre, le résumé et les termes-clés d'un document
+  auquel elle est assocée. Les termes-clés sont classés en deux catégories~:
+  \begin{itemize}
+    \item{les termes-clés d'auteurs, assignés librement par les auteurs afin
+          d'attirer le lecteur~;}
+    \item{les termes-clés Inist (en français, en anglais ou en espagnole),
+          assignés par des ingénieurs documentalistes (indexeurs professionnels)
+          selon des règles très précises destinées à améliorer la recherche
+          d'information et à homogénéiser l'indexation des notices. Parmi ces
+          règles~:}
+    \begin{itemize}
+      \item{les termes-clés doivent être du même niveau de spécificité que celui
+            du document et peuvent parfois être accompagnés d'un terme-clé plus
+            générique pour le restituer dans son contexte~;}
+      \item{les termes-clés doivent respecter, autant que possible, le language
+            de la discipline à laquelle appartient le document (termes-clés
+            contrôlés)~;}
+      \item{pour tous les documents d'un même discipline, un même concept doit
+            être représenté par le même terme-clé~;}
+      \item{les termes-clés d'un document doivent présenter tous les concepts
+            qui y sont important, même ceux qui sont implicites.}
+    \end{itemize}
+  \end{itemize}
+  Parmi ces différents ensembles de termes-clés, nous utilisons les termes-clés
+  français assignés par l'Inist.
+
+  Le tableau~\ref{tab:statistiques_des_corpus} présente les caractéristiques des
+  cinq collections de données dont nous disposons. Les notices sont de petite
+  taille et sont rédigées différemment selon les disciplines
+  (cf.~figure~\ref{fig:exemple_notice_inist}). Les notices d'archéologie, par
+  exemple, font l'objet d'un effort de présentation du contexte historique lié
+  aux travaux présentés, tandis que les notices de chimie, principalement des
+  comptes rendus d'expériences, décrivent sommairement (énumèrent) les
+  expériences réalisées (noms des expériences, éléments chimiques impliqués,
+  etc.). Les termes-clés associés aux documents varient en nombre (de 8,5 à
+  16,6) et en complexité. Par exemple, en archéologie, nous observons qu'un
+  grand nombre de termes-clés sont des entités nommées principalement composées
+  d'un seul mot (e.g.~\og{}Paléolithique\fg{}, \og{}Europe\fg{}, etc.), tandis
+  qu'en chimie, nous observons un usage fréquent de notions centrales (dans le
+  language de chimie) nécessitant une spécialisation systématique
+  (e.g.~\og{}\underline{réaction} topotactique\fg{}, \og{}\underline{réaction}
+  sonochimique\fg{}, \og{}\underline{réaction} électrochimique\fg{}, etc.).
+  Nous remarquons aussi une diversité variable selon les disciplines (de 23,0~\%
+  à 40,6~\% de termes-clés différents). En chimie, la diversité plus importante
+  que pour les autres disciplines indique une difficulté a priori plus
+  importante. Enfin, il est important de noter la faible proportion de
+  termes-clés apparaissant dans les notices -- rappel maximum pouvant être
+  obtenu. Par exemple, dans le corpus de chimie, uniquement 3,0 termes-clés
+  peuvent être extraits des notices parmi les 12,8 associés aux notices, en
+  moyenne. Ce dernier point concerne principalement les termes-clés contrôlés,
+  qui peuvent être assignés à un document lorsqu'il contient certaines unités
+  textuelles. Ces règles, dites de déclenchement, sont définies manuellement par
+  les indexeurs professionnels et ne sont pas disponibles pour nos travaux.
+  \begin{table}
     \centering
     \begin{tabular}{@{~}r|ccccc@{~}}
       \toprule
         & & \textbf{Sciences} & & &\\
         \textbf{Statistique} & \textbf{Archéologie} & \textbf{de} & \textbf{Linguistique} & \textbf{Psychologie} & \textbf{Chimie}\\
-        & & \textbf{l'Information} & & &\\
+        & & \textbf{l'information} & & &\\
       \hline
-        Documents & 718 & 706 & 716 & 720 & 782\\
-        Mots/doc. & 219,1 & 119,7 & 156,4 & 185,8 & 104,9\\
-        Termes-clés/doc. & 17,7 & 5,8 & 8,0 & 11,0 & 12,9\\
-        Mots/terme-clé & 1,3 & 1,7 & 1,7 & 1,6 & 2,2\\
-        %Termes-clés extractibles (Rappel max.) & 64,3~\% & 40,2~\% & 41,2~\% & 27,6~\% & 21,9~\%\\
-        %Termes-clés extractibles avec Np & 49,6~\% & 18,7~\% & 9,8~\% & 12,5~\% & 9,2~\%\\
-        Termes-clés ne contenant que des \texttt{Np} & 41,3~\% & 13,9~\% & 7,7~\% & 9,3~\% & 6,7~\%\\
+        Documents & 718 & 706 & 715 & 720 & 782\\
+        Mots/doc. & 219,1 & 119,7 & 156,7 & 185,7 & 105,2\\
+        Termes-clés/doc. & 16,6 & 8,5 & 8,0 & 11,6 & 12,8\\
+        Mots/terme-clé & 1,3 & 1,7 & 1,8 & 1,6 & 2,2\\
+        Diversité des termes-clés & 25,5~\% & 25,0~\% & 23,0~\% & 17,4~\% & 40,6~\% \\~\vspace{-0.75em}\\
+        Termes-clés contrôlés & 79,8~\% & 85,8~\% & 86,9\% & 90,9\% & 83,0~\% \\
+        Termes-clés non contrôlés & 20,2~\% & 14,2~\% & 13,1\% & ~~9,1\% & 17,0~\% \\~\vspace{-0.75em}\\
+        Termes-clés extractibles (Rappel max.) & 62,9~\% & 32,4~\% & 38,8~\% & 27,1~\% & 23,7~\%\\
+        $\hookrightarrow$\hfill\small Termes-clés contrôlés extractibles & \small 48,8~\% & \small 27,9~\% & \small 34,9~\% & \small 24,9~\% & \small 21,7~\% \\
+        $\hookrightarrow$\hfill\small Termes-clés non contrôlés extractibles & \small 14,1~\% & \small ~~4,5~\% & \small ~~3,9~\% & \small ~~2,2~\% & \small ~~2,0~\% \\
       \bottomrule
     \end{tabular}
-    \caption{Caractéristiques des corpus disciplinaires. Le pourcentage de
-             termes-clés ne contenant que des \texttt{Np} correspond au
-             pourcentage de termes-clés de référence qui contiennent uniquement
-             des mots étiquetés \texttt{Np} (nom propre) par l'outil
-             d'étiquetage morphosyntaxique que nous utilisons~\cite[MElt]{denis2009melt}.
+    \caption{Caractéristiques des corpus disciplinaires. La diversité des
+             termes-clés représente la proportion de termes-clés différents dans
+             la discipline $\left(\frac{\mbox{nombre de termes-clés
+             différents}}{\mbox{nombre total de termes-clés}}\right)$.
              \label{tab:statistiques_des_corpus}}
   \end{table}
 
-  Nous disposons de cinq collections de notices bibliographiques fournies par
-  l'Institut de l’Information Scientifique et
-  Technique\footnote{\url{http://www.inist.fr}} (INIST)~: Archéologie, Sciences
-  de l'Information, Linguistique, Psychologie et Chimie. Chacune d'elles
-  contient le titre, le résumé et les termes-clés (de référence) associés à un
-  article. Les termes-clés sont obtenus semi-automatiquement %~:
-  %
-  à partir des textes intégraux (non disponibles pour nos travaux) et à partir
-  de ressources disciplinaires telles qu'une terminologie ou des spécifications
-  précises quant aux types d'information que les termes-clés doivent représenter
-  (e.g.~lieu, période et autre, en Archéologie).
-  %des indexeurs
-  %professionnels vérifient, corrigent et complètent les sorties d'un système
-  %dont les entrées sont un document et un (ou plusieurs) référentiel(s)
-  %terminologique(s). Un référentiel terminologique est une liste disciplinaire
-  %de termes associés manuellement à des déclencheurs, i.e. des unités textuelles
-  %qui, lorsqu'elles sont présentes dans le document, impliquent l'usage du terme
-  %associé en tant que terme-clé. En addition, les indexeurs disposent de règles
-  %d'indexation (non formatées) qui précisent quels types d'informations doivent
-  %être présents dans l'ensemble de termes-clés (e.g. en Archéologie il est
-  %important de connaître la période et la localisation de ce qui fait l'objet de
-  %l'article).
-
-  Le corpus d'\textbf{Archéologie} est composé de 718 notices. Celles-ci
-  représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
-  (\textit{Paléo}, \textit{Le bulletin de la Société préhistorique française},
-  etc.).
-
-  Le corpus de \textbf{Sciences de l'Information} contient 706 notices INIST
-  d'articles publiés entre 2001 et 2012 dans six revues différentes
-  (\textit{Documentaliste -- Sciences de l'information}, \textit{Document
-  numérique}, etc.).
-
-  Le corpus de \textbf{Linguistique} est constitué de 716 notices
-  d'articles parus entre 2000 à 2012 dans 12 revues différentes
-  (\textit{Linx -- Revue des linguistes de l'Université Paris Ouest Nanterre La
-  Défense}, \textit{Travaux de linguistique}, etc.).
-
-  Le corpus de \textbf{Psychologie} contient 720 notices d'articles
-  publiés entre 2001 et 2012 dans sept revues différentes
-  (\textit{Enfance}, \textit{Revue internationale de psychologie et de gestion
-  des comportements organisationnels}, etc.).
-
-  Le corpus de \textbf{Chimie} est composé de 782 notices d'articles
-  publiés entre 1983 et 2012 dans quatre revues (\textit{Comptes Rendus de
-  l'Académie des Sciences}, \textit{Comptes Rendus Chimie}, etc.).
-
-  Le tableau~\ref{tab:statistiques_des_corpus} présente les caractéristiques des
-  cinq collections de données présentées ci-dessus.
-  %
-  Les notices sont de petite taille et sont rédigées différemment selon
-  les disciplines (cf.~figure~\ref{fig:exemple_notice_inist}). Les notices
-  d'Archéologie, par exemple, font l'objet d'un effort de présentation du
-  contexte historique lié aux travaux présentés, tandis que les notices de
-  Chimie, principalement des comptes rendus d'expériences, décrivent
-  sommairement (énumèrent) les expériences réalisées (noms des expériences,
-  éléments chimiques impliqués, etc.). Les termes-clés associés aux documents
-  varient en nombre et en complexité. Par exemple, en Archéologie, nous
-  observons qu'un grand nombre de termes-clés sont des entités nommées
-  principalement composées d'un seul mot (e.g.~\og{}Paléolithique\fg{},
-  \og{}Europe\fg{}, etc.), tandis qu'en Chimie, nous observons un usage fréquent
-  de notions générales nécessitant une spécialisation presque systématique
-  (e.g.~\og{}\underline{réaction} topotactique\fg{}, \og{}\underline{réaction}
-  sonochimique\fg{}, \og{}\underline{réaction} électrochimique\fg{}, etc.).
-  Enfin, il est important de noter la faible proportion de termes-clés
-  apparaissant dans les notices -- rappel maximum pouvant être obtenu. Par
-  exemple, dans le corpus de Sciences de l'Information, uniquement 1,3
-  termes-clés peuvent être extraits des notices parmi les 5,8 associés aux
-  notices, en moyenne.
-  %
-  %Nous observons tout d'abord
-  %une différence concernant la taille des documents. Les notices archéologiques
-  %ont plus de contenu que les autres notices et les notices de Chimie en ont
-  %moins. Ceci est dû au fait que les notices archéologiques font l'objet d'un
-  %effort de présentation du contexte historique auquel s'intéresse l'article,
-  %tandis que les notices de Chimie, représentant en grande partie des comptes
-  %rendus, ne donnent parfois que le nom de l'expérience réalisée et les noms
-  %des éléments chimiques qui entrent en jeu. %Nous remarquons aussi qu'en
-  %%fonction des collections, le nombre moyen de termes-clés assignés aux
-  %%documents varie de 5,8 termes-clés en Sciences de l'Information à 17,7 en
-  %%Archéologie. Cette variation est due à différents facteurs %~:
-  %
-  %dont les ressources disciplinaires.
-  %
-  %\begin{itemize}
-  %  \item{taille des notices~: \TODO{plus de contenu = potentiellement plus de
-  %        termes-clés}~;}
-  %  \item{disponibilité du contenu de l'article~: les indexeurs ont parfois
-  %        accès aux articles intégraux pour compléter l'ensemble de termes-clés
-  %        extrait automatiquement~;}
-  %  \item{référentiel terminologique~: plus un référentiel est précis, plus il
-  %        contient de termes et de déclencheurs, alors plus le nombre de
-  %        termes-clés extraits peut être important~;}
-  %  \item{règles d'indexation~: plus il y a de types d'information nécessaires,
-  %        alors plus il doit y avoir de termes-clés à extraire.}
-  %\end{itemize}
-  %
-  %La longueur des termes-clés varie aussi selon les disciplines. Il est fréquent
-  %que les termes-clés en Archéologie ne soient que des mots, en général des
-  %entités nommées (49,6~\% des termes-clés de références présents dans les
-  %notices contiennent des noms propres) de type \textit{période}
-  %(\og{}Paléolithique\fg{}, \og{}Mésolithique\fg{}, \og{}Néolithique\fg{}, etc.)
-  %ou \textit{lieu} (\og{}Asie\fg{}, \og{}Europe\fg{}, \og{}France\fg{}, etc.),
-  %tandis que les termes-clés en Chimie sont principalement des composés
-  %syntagmatiques, du fait de la spécialisation systématique de certains termes
-  %tels que \og{}composé\fg{}, qui peut être \og{}organique\fg{},
-  %\og{}aliphatique\fg{}, \og{}éthylénique\fg{}, etc. Enfin, nous observons
-  %d'importantes différences entre les proportions de termes-clés ne pouvant être
-  %extraits (sous une quelconque forme fléchie). Cette différence, due à l'usage
-  %de ressources externes lors de l'indexation, a une influence sur les résultats
-  %des méthodes qui extraient uniquement des termes-clés à partir d'unités
-  %textuelles présentes dans les documents.
-
-  \begin{figure}[t]
-    %\subfigure[Archéologie]{
+  \begin{figure}
+    \begin{minipage}{\linewidth}
+      \centering
       % Archeologie_09-0054907_TEI_final.xml
       \framebox[\linewidth]{
         \parbox{.99\linewidth}{
-          \textbf{Variabilité du \underline{gravettien} de \underline{Kostienki}
-          (bassin moyen du Don) et des territoires associés\footnotemark}
+          \textbf{Variabilité du gravettien de Kostienki (bassin moyen du Don)
+          et des territoires
+          associés\footnote{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=20563716}}}
           \hfill\underline{\textit{Archéologie}}\\
 
-          Dans la région de Kostienki-\underline{Borschevo}, on observe
-          l'expression, à ce jour, la plus orientale du modèle européen de
-          l'évolution du \underline{Paléolithique supérieur}. Elle est
-          différente à la fois du modèle Sibérien et du modèle de l'Asie
-          centrale. Comme ailleurs en \underline{Europe}, le Gravettien
-          apparaît à Kostienki vers 28 ka (Kostienki 8 /II/). Par la suite,
-          entre 24-20 ka, les techno-complexes gravettiens sont représentés au
-          moins par quatre faciès dont deux, ceux de Kostienki 21/III/ et
-          Kostienki 4 /II/, ressemblent au Gravettien occidental et deux autres,
-          Kostienki-\underline{Avdeevo} et Kostienki 11/II/, sont des faciès
-          propres à l'Europe de l'Est, sans analogie à l'Ouest.
+          \vspace{-0.5em}
+          Dans la région de Kostienki-Borschevo, on observe l'expression, à ce
+          jour, la plus orientale du modèle européen de l'évolution du
+          Paléolithique supérieur. Elle est différente à la fois du modèle
+          Sibérien et du modèle de l'Asie centrale. Comme ailleurs en Europe, le
+          Gravettien apparaît à Kostienki vers 28 ka (Kostienki 8 /II/). Par la
+          suite, entre 24-20 ka, les techno-complexes gravettiens sont
+          représentés au moins par quatre faciès dont deux, ceux de Kostienki
+          21/III/ et Kostienki 4 /II/, ressemblent au Gravettien occidental et
+          deux autres, Kostienki-Avdeevo et Kostienki 11/II/, sont des faciès
+          propres à l'Europe de l'Est, sans analogie à l'Ouest.\\
+
+          \vspace{-0.5em}
+          \textbf{Termes-clés~:} \underline{Europe}, Kostienko,
+          \underline{Borschevo}, variation, typologie, industrie osseuse,
+          industrie lithique, Europe centrale, \underline{Avdeevo},
+          \underline{Paléolithique supérieur}, \underline{Gravettien}.
         }
       }
-    %}
-    ~\\~\\
-    %\subfigure[Linguistique]{
+      ~\\~\\
       % Linguistique_08-0265302_TEI_final.xml
       \framebox[\linewidth]{
         \parbox{.99\linewidth}{
-          \textbf{Termes techniques et marqueurs d'\underline{argumentation} :
-          pour débusquer l'argumentation cachée dans}
+          \textbf{Termes techniques et marqueurs d'argumentation : pour
+          débusquer l'argumentation cachée dans}
           \hfill\underline{\textit{Linguistique}}\\
-          \textbf{les articles de recherche\footnotemark}\\
+          \textbf{les articles de
+          recherche\footnote{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=17395748}}}\\
 
+          \vspace{-0.5em}
           Les articles de recherche présentent les résultats d'une expérience
           qui modifie l'état de la connaissance dans le domaine concerné. Le
           lecteur néophyte a tendance à considérer qu'il s'agit d'une simple
@@ -181,36 +158,48 @@
           s'insère. Ces propriétés spécifiques du discours scientifique peuvent
           s'avérer un obstacle supplémentaire à la compréhension, surtout
           lorsqu'il s'agit d'un article en langue étrangère. C'est pourquoi il
-          peut être utile d'incorporer dans l'\underline{enseignement des }
-          \underline{\underline{langues} de spécialité} une sensibilisation aux
-          marqueurs linguistiques (terminologiques et argumentatifs), qui
-          permettent de dépister le développement de cette
-          \underline{rhétorique}. Les auteurs s'appuient sur deux articles dans
-          le domaine de la microbiologie.
+          peut être utile d'incorporer dans l'enseignement des langues de
+          spécialité une sensibilisation aux marqueurs linguistiques
+          (terminologiques et argumentatifs), qui permettent de dépister le
+          développement de cette rhétorique. Les auteurs s'appuient sur deux
+          articles dans le domaine de la microbiologie.\\
+
+          \vspace{-0.5em}
+          \textbf{Termes-clés~:} Langue scientifique,
+          \underline{argumentation},  \underline{rhétorique},  \underline{langue
+          de spécialité}, \underline{enseignement des langues}, linguistique
+          appliquée,  \underline{discours scientifique},  \underline{article de
+          recherche}.
         }
       }
-    %}
-    ~\\~\\
-    %\subfigure[Chimie]{
+      ~\\~\\
       % Chimie_90-0137940_TEI_final.xml
       \framebox[\linewidth]{
         \parbox{.99\linewidth}{
-          \textbf{Etude d'un condensat acide isocyanurique-urée-formaldéhyde}\footnotemark
+          \textbf{Etude d'un condensat acide
+          isocyanurique-urée-formaldéhyde}\footnote{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=6719275}}
           \hfill\underline{\textit{Chimie}}\\
 
+          \vspace{-0.5em}
           La synthèse d'un condensat acide isocyanurique-urée-formaldéhyde
-          utilisant la pyridine en tant que solvant a été effectuée par
-          \underline{réaction sonochimique}.
+          utilisant la pyridine en tant que solvant a été effectuée par réaction
+          sonochimique.\\
+
+          \vspace{-0.5em}
+          \textbf{Termes-clés~:} \underline{Réaction sonochimique}, hétérocycle
+          azote, cycle 6 chaînons, ether.
         }
       }
-    %}
-    \caption{Exemple de notices INIST (dont les termes-clés sont soulignés).
+    \end{minipage}
+    \caption{Exemple de notices Inist. Les termes-clés soulignés représentent
+             les concepts explicites dans le contenu de la notice, c'est-à-dire
+             pouvant être extraits depuis le titre ou le résumé de la
+             notice. Conformément au processus d'évaluation standard pour les
+             méthodes d'extraction automatique de termes-clés (cf.
+             section~\ref{subsec:mesure_d_evaluation}), les variantes
+             flexionnelles sont jugées correctes (p.~ex.
+             \og{}langue\underline{s} de  spécialité\fg{} peut être extrait à la
+             place de \og{}langue de spécialité\fg{}).
              \label{fig:exemple_notice_inist}}
   \end{figure}
-  \addtocounter{footnote}{-2}
-  \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=17395748}}
-  \addtocounter{footnote}{1}
-  \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=20563716}}
-  \addtocounter{footnote}{1}
-  \footnotetext{\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=6719275}}
 
