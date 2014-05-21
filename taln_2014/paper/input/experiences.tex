@@ -25,7 +25,7 @@
     \begin{align}
       \text{MAP} &= \frac{1}{\|\text{DOCUMENTS}\|} \sum_{d \in \text{DOCUMENTS}} \frac{\mathlarger\sum_{t_i \in \text{extraction}(d)~\cap~\text{référence}(d)} \text{précision}@i}{\|\text{référence}(d)\|} \label{equ:map}
     \end{align}
-    \hfill\begin{minipage}{.824\linewidth}
+    \hfill\begin{minipage}{.96\linewidth}
       \begin{tabular}{@{}l@{~~-~~}p{.9\linewidth}@{}}
         où & extraction$(d)$ représente l'ensemble ordonné des termes-clés
              candidats $t_i$ de rang $i$ pour le document $d$,\\
@@ -35,7 +35,7 @@
              rang $i$,\\
            & DOCUMENTS est l'ensemble des documents de la collection. \\
       \end{tabular}
-    \end{minipage}
+    \end{minipage}\hfill
     
     En accord avec l'évaluation menée dans les travaux précédents, nous
     considérons correcte l'extraction d'une variante flexionnelle d'un terme-clé
@@ -46,95 +46,51 @@
 
   \subsection{Résultats}
   \label{subsec:resultats}
-    \TODO{Donner des exemple d'extraction TF-IDF et TopicRank}
     La figure~\ref{fig:resultats} montre la performance des méthodes
-    d'extraction de termes-clés lorsque les candidats extraits sont soit des
-    $\{1..3\}$-grammes filtrés, soit des groupes nominaux, soit des candidats
-    termes non filtrés.
-    %
-    Notre hypothèse de départ selon laquelle la tâche d'extraction de
+    d'extraction automatique de termes-clés lorsque les candidats extraits sont
+    soit les $\{1..3\}$-grammes filtrés, soit les plus longues séquences de noms
+    et d'adjectifs, soit tous les candidats termes extraits par TermSuite (sans
+    filtrage). Notre hypothèse de départ selon laquelle la tâche d'extraction de
     termes-clés présente un degré de difficulté différent selon la discipline
-    scientifique se vérifie.
-    %
-    %Nous distinguons effectivement une différence de difficulté pour
-    %l'extraction de termes-clés dans les différentes disciplines.
-    %
-    L'Archéologie
-    est la discipline pour laquelle la tâche d'extraction automatique de
-    termes-clés est la moins difficile, la Chimie étant la discipline la plus
-    difficile, précédée par la Psychologie, la Linguistique et les Sciences de
-    l'Information.
+    scientifique se vérifie. L'archéologie est la discipline pour laquelle la
+    tâche d'extraction automatique de termes-clés est la moins difficile, la
+    chimie étant la discipline la plus difficile, précédée par la psychologie,
+    les sciences de l'information et la linguistique. Quelque soit la discipline
+    traitée, nous pouvons aussi observer la faible performance des méthodes
+    d'extraction de termes-clés (cf. figure~\ref{fig:exemple_extraction}). Ceci
+    peut s'expliquer par le faible rappel maximum pouvant être atteint, ainsi
+    que par l'évaluation stricte qui n'accepte pas les correspondances partiels
+    (p.~ex. \og{}articles\fg{} et \og{}articles de recherche\fg{} qui dans le
+    contexte de la figure~\ref{fig:exemple_extraction} représentent le même
+    concept).
 
-    \TODO{Mieux argumenter}
-    Nous observons aussi que le choix des candidats a une forte influence sur
-    certaines méthodes. Avec les $\{1..3\}$-grammes, TopicRank obtient des
-    résultats deux à trois fois inférieurs à ceux obtenus avec les groupes
-    nominaux ou les candidats termes, %.
-    %
-    tandis que les résultats de la méthode TF-IDF subissent des dégradations
-    négligeables. Cela est dû à l'exhaustivité de l'ensemble de
-    $\{1..3\}$-grammes, faisant de celui-ci un ensemble comportant de nombreux
-    candidats non pertinents qui dégradent les performances de TopicRank
-    (dégradation du groupement en sujets, renforcement de liens non pertinents
-    dans le graphe, etc.). Dans le cas de la méthode TF-IDF, cette dégradation
-    est moins conséquente, car les candidats non pertinents ont une faible
-    spécificité et se trouvent donc principalement en queue du classement par
-    importance des candidats~\cite{kim2009termextraction}. En opposition,
-    lorsque nous comparons les résultats obtenus à partir des candidats termes
-    à ceux obtenus à partir des groupes nominaux, pour le corpus d'Archéologie,
-    nous observons une légère dégradation des résultats de la méthode TF-IDF et
-    une amélioration de ceux de TopicRank. Pour TF-IDF la dégradation des
-    résultats est due à un ajout important, vis-à-vis des groupes nominaux, de
-    candidats composés de déterminants et de prépositions\footnote{Les candidats
-    termes extraits sont environ deux fois plus nombreux que les groupes
-    nominaux et la moitié d'entre eux contiennent des prépositions et des
-    déterminants.}, alors que très peu de termes-clés de référence en
-    contiennent (3,5\%). Dans le cas de TopicRank, sa capacité à créer des liens
-    entre des candidats terminologiquement fondés, regroupés terminologiquement
-    et présents dans des documents riches en informations, tels qu'en
-    Archéologie, est un atout important lors de l'extraction de termes-clés.
-    %
-    %Ceci est dû à l'exhaustivité de l'ensemble
-    %de n-grammes, faisant de celui-ci un ensemble comportant de nombreux
-    %candidats non pertinents qui dégradent les performances de TopicRank
-    %(dégradation du groupement en sujets, renforcement de liens non pertinents
-    %dans le graphe, etc.). Dans le cas de la méthode TF-IDF, cette dégradation
-    %est moins conséquente, car les candidats non pertinents ne sont pas des
-    %unités textuelles spécifiques~\cite{kim2009termextraction}, ils se trouvent
-    %donc en queue du classement.
-    %
-    %Nous observons aussi que, dans le cas de TopicRank, la
-    %performance n'est pas stable selon l'ensemble de candidats utilisé. Les
-    %$\{1..3\}$-grammes dégradent significativement les résultats de TopicRank,
-    %en comparaison avec les autres types de candidats, alors que ce n'est pas le
-    %cas pour la méthode TF-IDF. Ceci est dû au fait que l'ensemble de
-    %$\{1..3\}$-grammes contient un grand nombre de candidats non pertinents qui
-    %ont pour effet de dégrader les résultats de TopicRank, mais pas ceux de la
-    %méthode TF-IDF, car les candidats non pertinents ne sont pas
-    %spécifiques~\cite{kim2009termextraction}. \TODO{Compléter pour les autres
-    %types de candidats.}
-    %
-    %Deux
-    %disciplines se distinguent sur l'échelle de difficulté, l'Archéologie se
-    %veut être la discipline la plus facile pour la tâche d'extraction de
-    %termes-clés, en opposition avec la Chimie qui, elle, est la plus difficile.
-    %Quant aux Sciences de l'Information, à la Linguistique et à la Psychologie,
-    %celles-ci ont sensiblement le même degré de difficulté. Les deux méthodes
-    %d'extraction de termes-clés se distinguent aussi par leur comportement. La
-    %méthode TF-IDF est plus stable que TopicRank lorsque l'on compare les
-    %résultats obtenus à partir des tri-grammes et des termes. En effet, en
-    %comparaison avec l'ensemble de termes, l'ensemble de tri-grammes contient
-    %plus de candidats non pertinants qui dégradent la qualité des groupements en
-    %sujets de TopicRank, tandis que la notion de spécificité incorporée dans
-    %TF-IDF permet de placer ces candidats en queue du classement et donc de
-    %diminuer leur effet négatif.
+    Globalement, les meilleurs résultats sont obtenus avec la méthode TF-IDF.
+    Bien que compétitive avec TF-IDF dans le meilleur cas, nous observons que
+    TopicRank n'est pas stable. En effet, lorsque les $\{1..3\}$-grammes sont
+    utilisés comme candidats nous observons une forte dégradation des résultats
+    de TopicRank, alors que la dégradation des résultats de TF-IDF est plus
+    modérée. Cette différence de comportement face à un ensemble de termes-clés
+    candidats de mauvaise qualité s'explique par le fait que le groupement en
+    sujets de TopicRank n'est pas adapté pour de tels candidats et aussi parce
+    que TF-IDF tire profit de la spécificité des mots (IDF), lui permettant,
+    contrairement à TopicRank, de ne pas attribuer un fort poids aux candidats
+    erronés tels que \og{}d'\fg{} (cf. figure~\ref{fig:exemple_extraction}). En
+    ce qui concerne les résultats obtenus avec les deux autres méthodes de
+    sélection des termes-clés candidats, les performances sont meilleures avec
+    les plus longues séquences de noms et d'adjectifs. Les différences de
+    performances observées avec ces deux méthodes de sélection est
+    principalement liée à la richesse des patrons grammaticaux utilisés par
+    TermSuite. En effet, les patrons grammaticaux avec des déterminants et des
+    prépositions définis dans TermSuite ne reflètent qu'une infime quantité de
+    termes-clés de référence (3,5~\%) et ont donc pour effet d'ajouter plus de
+    bruit que de candidats positifs.
     \begin{figure}
       \centering
       \subfigure[$\{1..3\}$-grammes]{
         \begin{tikzpicture}%[scale=.75]
           \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
           \begin{axis}[axis lines=left,
-                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                       symbolic x coords={Archéologie, Linguistique, Sciences de l'Information, Psychologie, Chimie},
                        xtick=data,
                        enlarge x limits=0.125,
                        x=.1\linewidth,
@@ -155,29 +111,29 @@
                      pattern=north east lines,
                      pattern color=black!40] coordinates{
               (Archéologie, 0.156)
-              (Sciences de l'Information, 0.103)
-              (Linguistique, 0.095)
-              (Psychologie, 0.068)
-              (Chimie, 0.052)
+              (Linguistique, 0.098)
+              (Sciences de l'Information, 0.087)
+              (Psychologie, 0.065)
+              (Chimie, 0.060)
             };
             \addplot[black!66,
                      pattern=north west lines,
                      pattern color=black!66] coordinates{
               (Archéologie, 0.035)
-              (Sciences de l'Information, 0.043)
-              (Linguistique, 0.038)
-              (Psychologie, 0.029)
-              (Chimie, 0.018)
+              (Linguistique, 0.039)
+              (Sciences de l'Information, 0.035)
+              (Psychologie, 0.027)
+              (Chimie, 0.021)
             };
             \legend{TF-IDF, TopicRank}
           \end{axis}
         \end{tikzpicture}
       }
-      \subfigure[Groupes nominaux]{
+      \subfigure[\texttt{/(NOM | ADJ)+/}]{
         \begin{tikzpicture}%[scale=.75]
           \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
           \begin{axis}[axis lines=left,
-                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                       symbolic x coords={Archéologie, Linguistique, Sciences de l'Information, Psychologie, Chimie},
                        xtick=data,
                        enlarge x limits=0.125,
                        x=.1\linewidth,
@@ -198,19 +154,19 @@
                      pattern=north east lines,
                      pattern color=black!40] coordinates{
               (Archéologie, 0.180)
-              (Sciences de l'Information, 0.120)
-              (Linguistique, 0.098)
-              (Psychologie, 0.079)
-              (Chimie, 0.063)
+              (Linguistique, 0.103)
+              (Sciences de l'Information, 0.100)
+              (Psychologie, 0.075)
+              (Chimie, 0.071)
             };
             \addplot[black!66,
                      pattern=north west lines,
                      pattern color=black!66] coordinates{
-              (Archéologie, 0.150)
-              (Sciences de l'Information, 0.128)
-              (Linguistique, 0.095)
-              (Psychologie, 0.078)
-              (Chimie, 0.055)
+              (Archéologie, 0.148)
+              (Linguistique, 0.098)
+              (Sciences de l'Information, 0.094)
+              (Psychologie, 0.073)
+              (Chimie, 0.063)
             };
             \legend{TF-IDF, TopicRank}
           \end{axis}
@@ -220,7 +176,7 @@
         \begin{tikzpicture}%[scale=.75]
           \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
           \begin{axis}[axis lines=left,
-                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
+                       symbolic x coords={Archéologie, Linguistique, Sciences de l'Information, Psychologie, Chimie},
                        xtick=data,
                        enlarge x limits=0.125,
                        x=.1\linewidth,
@@ -240,113 +196,151 @@
             \addplot[black!66,
                      pattern=north east lines,
                      pattern color=black!40] coordinates{
-              (Archéologie, 0.166)
-              (Sciences de l'Information, 0.110)
-              (Linguistique, 0.104)
-              (Psychologie, 0.071)
-              (Chimie, 0.060)
+              (Archéologie, 0.165)
+              (Linguistique, 0.107)
+              (Sciences de l'Information, 0.093)
+              (Psychologie, 0.068)
+              (Chimie, 0.070)
             };
             \addplot[black!66,
                      pattern=north west lines,
                      pattern color=black!66] coordinates{
-              (Archéologie, 0.173)
-              (Sciences de l'Information, 0.096)
-              (Linguistique, 0.104)
-              (Psychologie, 0.076)
-              (Chimie, 0.052)
+              (Archéologie, 0.166)
+              (Linguistique, 0.105)
+              (Sciences de l'Information, 0.078)
+              (Psychologie, 0.072)
+              (Chimie, 0.058)
             };
             \legend{TF-IDF, TopicRank}
           \end{axis}
         \end{tikzpicture}
       }
-%      \subfigure[Candidats termes et entités nommées (NEMESIS)]{
-%        \begin{tikzpicture}[scale=.75]
-%          \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
-%          \begin{axis}[axis lines=left,
-%                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-%                       xtick=data,
-%                       enlarge x limits=0.125,
-%                       x=.1\linewidth,
-%                       xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
-%                       nodes near coords,
-%                       nodes near coords align={vertical},
-%                       every node near coord/.append style={font=\scriptsize},
-%                       ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
-%                       y=\linewidth,
-%                       ymin=0,
-%                       ymax=0.22,
-%                       ybar=10pt,
-%                       ylabel=MAP,
-%                       ylabel style={at={(ticklabel* cs:1)},
-%                                     anchor=south,
-%                                     rotate=270}]
-%            \addplot[black!66,
-%                     pattern=north east lines,
-%                     pattern color=black!40] coordinates{
-%              (Archéologie, 0.171)
-%              (Sciences de l'Information, 0.111)
-%              (Linguistique, 0.104)
-%              (Psychologie, 0.071)
-%              (Chimie, 0.060)
-%            };
-%            \addplot[black!66,
-%                     pattern=north west lines,
-%                     pattern color=black!66] coordinates{
-%              (Archéologie, 0.152)
-%              (Sciences de l'Information, 0.092)
-%              (Linguistique, 0.097)
-%              (Psychologie, 0.072)
-%              (Chimie, 0.050)
-%            };
-%            \legend{TF-IDF, TopicRank}
-%          \end{axis}
-%        \end{tikzpicture}
-%      }
-%      \subfigure[Candidats termes et Np+]{
-%        \begin{tikzpicture}[scale=.75]
-%          \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
-%          \begin{axis}[axis lines=left,
-%                       symbolic x coords={Archéologie, Sciences de l'Information, Linguistique, Psychologie, Chimie},
-%                       xtick=data,
-%                       enlarge x limits=0.125,
-%                       x=.1\linewidth,
-%                       xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
-%                       nodes near coords,
-%                       nodes near coords align={vertical},
-%                       every node near coord/.append style={font=\scriptsize},
-%                       ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
-%                       y=\linewidth,
-%                       ymin=0,
-%                       ymax=0.22,
-%                       ybar=10pt,
-%                       ylabel=MAP,
-%                       ylabel style={at={(ticklabel* cs:1)},
-%                                     anchor=south,
-%                                     rotate=270}]
-%            \addplot[black!66,
-%                     pattern=north east lines,
-%                     pattern color=black!40] coordinates{
-%              (Archéologie, 0.170)
-%              (Sciences de l'Information, 0.110)
-%              (Linguistique, 0.103)
-%              (Psychologie, 0.071)
-%              (Chimie, 0.058)
-%            };
-%            \addplot[black!66,
-%                     pattern=north west lines,
-%                     pattern color=black!66] coordinates{
-%              (Archéologie, 0.175)
-%              (Sciences de l'Information, 0.097)
-%              (Linguistique, 0.104)
-%              (Psychologie, 0.076)
-%              (Chimie, 0.051)
-%            };
-%            \legend{TF-IDF, TopicRank}
-%          \end{axis}
-%        \end{tikzpicture}
-%      }
       \caption{Performance des méthodes d'extraction de termes-clés en domaines
                de spécialité à partir de différents type de candidats.
                \label{fig:resultats}}
+    \end{figure}
+
+    \begin{figure}
+      \begin{minipage}{\linewidth}
+        \centering
+        % Linguistique_08-0265302_TEI_final.xml
+        \framebox[\linewidth]{
+          \parbox{.99\linewidth}{
+            \textbf{Termes techniques et marqueurs d'argumentation : pour
+            débusquer l'argumentation cachée dans}
+            \hfill\underline{\textit{Linguistique}}\\
+            \textbf{les articles de
+            recherche}\\
+
+            \vspace{-0.5em}
+            Les articles de recherche présentent les résultats d'une expérience
+            qui modifie l'état de la connaissance dans le domaine concerné. Le
+            lecteur néophyte a tendance à considérer qu'il s'agit d'une simple
+            description et à passer à côté de l'argumentation au cours de laquelle
+            le scientifique cherche à convaincre ses pairs de l'innovation et de
+            l'originalité présentées dans l'article et du bien-fondé de sa
+            démarche tout en respectant la tradition scientifique dans laquelle il
+            s'insère. Ces propriétés spécifiques du discours scientifique peuvent
+            s'avérer un obstacle supplémentaire à la compréhension, surtout
+            lorsqu'il s'agit d'un article en langue étrangère. C'est pourquoi il
+            peut être utile d'incorporer dans l'enseignement des langues de
+            spécialité une sensibilisation aux marqueurs linguistiques
+            (terminologiques et argumentatifs), qui permettent de dépister le
+            développement de cette rhétorique. Les auteurs s'appuient sur deux
+            articles dans le domaine de la microbiologie.\\
+
+            \vspace{-0.5em}
+            \textbf{Termes-clés de référence~:} Langue scientifique$^*$,
+            \underline{argumentation$^*$},  \underline{rhétorique$^*$}, 
+            \underline{langue de spécialité$^*$}, \underline{enseignement des
+            langues$^*$}, linguistique appliquée$^*$,  \underline{discours
+            scientifique$^*$},  \underline{article de recherche}.\\
+
+            \vspace{-0.5em}
+            \textbf{Termes-clés extraits~:\\}
+            \begin{tabular}{lll}
+              \multicolumn{3}{c}{$\{1..3\}$-grammes}\\
+              \hline~\vspace{-0.75em}\\
+              \multicolumn{3}{p{.975\linewidth}}{\textbf{TF-IDF~:}
+                \textbf{Argumentation},
+                scientifique,
+                articles,
+                d' argumentation,
+                l' argumentation,
+                tradition scientifique,
+                \textbf{discours scientifique},
+                marqueurs.
+              }\\~\vspace{-0.75em}\\
+              \multicolumn{3}{p{.975\linewidth}}{\textbf{TopicRank~:}
+                Articles,
+                d',
+                qu' il s',
+                débusquer l' argumentation,
+                \textbf{articles de recherche},
+                scientifique,
+                s' agit d',
+                marqueurs d' argumentation.
+              }\\~\vspace{-0.75em}\\
+              \multicolumn{3}{c}{\texttt{/(NOM | ADJ)+/}}\\
+              \hline~\vspace{-0.75em}\\
+              \multicolumn{3}{p{.975\linewidth}}{\textbf{TF-IDF~:}
+                \textbf{Argumentation},
+                scientifique,
+                articles,
+                tradition scientifique,
+                \textbf{discours scientifique},
+                marqueurs,
+                microbiologie,
+                domaine.
+              }\\~\vspace{-0.75em}\\
+              \multicolumn{3}{p{.975\linewidth}}{\textbf{TopicRank~:}
+                Article,
+                \textbf{argumentation},
+                recherche,
+                marqueurs,
+                domaine,
+                langue étrangère,
+                scientifique,
+                résultats.
+              }\\~\vspace{-0.75em}\\
+              \multicolumn{3}{c}{Candidats termes}\\
+              \hline~\vspace{-0.75em}\\
+              \multicolumn{3}{p{.975\linewidth}}{\textbf{TF-IDF~:}
+                \textbf{Argumentation},
+                scientifique,
+                tradition scientifique,
+                \textbf{discours scientifique},
+                marqueurs,
+                microbiologie,
+                néophyte,
+                marqueurs d' argumentation.
+              }\\~\vspace{-0.75em}\\
+              \multicolumn{3}{p{.975\linewidth}}{\textbf{TopicRank~:}
+                \textbf{Argumentation},
+                marqueurs,
+                \textbf{articles de recherche},
+                scientifique,
+                techniques,
+                termes,
+                article,
+                langue.
+              }\\
+            \end{tabular}
+          }
+        }
+      \end{minipage}
+      \caption{Exemple d'extraction automatique de (huit) termes-clés à partir
+               de la notice de linguistique présentée dans la
+               figure~\ref{fig:exemple_notice_inist}. Les termes-clés de
+               référence soulignés représentent les concepts pouvant être
+               extraits depuis le titre ou le résumé de la notice. Les
+               termes-clés de référence marqués d'une $^*$ font partie des
+               termes-clés contrôlés. Les termes-clés extraits mis en gras sont
+               les termes-clés correctement extraits. Conformément au processus
+               d'évaluation standard pour les méthodes d'extraction automatique
+               de termes-clés, les variantes flexionnelles sont jugées correctes
+               (p.~ex. \og{}langue\underline{s} de spécialité\fg{} peut être
+               extrait à la place de \og{}langue de spécialité\fg{}).
+               \label{fig:exemple_extraction}}
     \end{figure}
 
