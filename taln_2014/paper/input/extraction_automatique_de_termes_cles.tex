@@ -107,8 +107,8 @@
     les facteurs qui influent sur la difficulté de l'extraction automatique de
     termes-clés.
 
-    La \textbf{sélection des n-grammes filtrés} consiste à extraire toutes les
-    séquences ordonnées de $n$ mots, puis à les filtrer avec un
+    La \textbf{sélection des n-grammes filtrés} consiste à extraire du document
+    toutes les séquences ordonnées de $n$ mots, puis à les filtrer avec un
     anti-dictionnaire regroupant les mots fonctionnels de la langue
     (conjonctions, prépositions, etc.) et les mots courants (\og{}près\fg{},
     \og{}beaucoup\fg{}, etc.). Dans ce travail, nous suivons
@@ -122,7 +122,7 @@
     mais ce qui maximise aussi la quantité de candidats erronés (bruités).
     
     \textit{Exemple de $\{1..3\}$-grammes, extraits à partir de \og{}bassin
-    moyen du Don\fg{} dans la notice d'Archéologie de la
+    moyen du Don\fg{} dans la notice d'archéologie de la
     figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}moyen\fg{},
     \og{}Don\fg{}, \og{}bassin moyen\fg{} et \og{}moyen du Don\fg{}}.
 
@@ -130,13 +130,13 @@
     textuelles qui respectent certains patrons grammaticaux. Les termes-clés
     candidats sélectionnés par reconnaissance de forme ont l'avantage d'avoir
     une nature contrôlée avec précision (p. ex. des groupes nominaux), ce qui
-    les rend plus fondés linguistiquement, ainsi que de meilleur qualité que les
-    n-grammes. Dans ce travail, nous utilisons le patron \texttt{/(NOM | ADJ)+/}
-    afin de sélectionner les plus longues séquences de noms (noms propres
-    inclus) et d'adjectifs~\cite{hassan2010conundrums}.
+    les rend plus fondés linguistiquement, ainsi que de meilleure qualité que
+    les n-grammes. Dans ce travail, nous utilisons le patron
+    \texttt{/(NOM | ADJ)+/} afin de sélectionner les plus longues séquences de
+    noms (noms propres inclus) et d'adjectifs~\cite{hassan2010conundrums}.
     
     \textit{Exemple de groupes nominaux extraits à partir de \og{}bassin moyen
-    du Don\fg{} dans la notice d'Archéologie de la
+    du Don\fg{} dans la notice d'archéologie de la
     figure~\ref{fig:exemple_notice_inist}~: \og{}bassin moyen\fg{} et
     \og{}Don\fg{}.}
 
@@ -145,16 +145,17 @@
     domaine de l'extraction terminologique. En terminologie, un terme est un mot
     ou une séquence de mots représentant un concept spécifique à un domaine, ou
     une discipline. Dans ce travail, nous utilisons l'extracteur terminologique
-    TermSuite~\cite{rocheteau2011termsuite}, capable de détecter des candidats
-    termes (simples et complexes) ainsi que leurs variantes. Contrairement à la
-    méthode de sélection des plus longues séquences de noms et d'adjectifs, la
-    sélection des candidats termes de TermSuite se fonde sur un travail de
-    spécialisation linguistique et terminologique des termes ayant donné lieu à
-    des patrons plus précis (e.g. \texttt{/NOM à NOM/}, \texttt{/NOM en NOM/},
-    \texttt{/ADJ NOM à NOM ADJ/}, etc.).
+    TermSuite~\cite{rocheteau2011termsuite}, qui est capable de détecter des
+    candidats termes (simples et complexes) ainsi que leurs variantes.
+    Contrairement à la méthode de sélection des plus longues séquences de noms
+    et d'adjectifs, la sélection des candidats termes de TermSuite se fonde sur
+    un travail de spécification linguistique et terminologique des termes. Les
+    patrons grammaticaux utilisés par TermSuite sont donc plus précis (p.~ex.
+    \texttt{/NOM à NOM/}, \texttt{/NOM en NOM/}, \texttt{/ADJ NOM à NOM ADJ/},
+    etc.).
     
     \textit{Exemple de candidats termes extraits à partir de \og{}bassin moyen
-    du Don\fg{} dans la notice d'Archéologie de la
+    du Don\fg{} dans la notice d'archéologie de la
     figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}Don\fg{},
     \og{}bassin moyen\fg{} et \og{}bassin moyen du Don\fg{}.}
 
@@ -177,20 +178,20 @@
     représenter simplement et efficacement les unités textuelles d'un document
     et leurs relations en son sein. De plus, ils bénéficient de nombreuses
     études théoriques donnant lieu à des outils et algorithmes efficaces pour
-    résoudre divers problèmes. Ces deux méthodes ont un fonctionnement très
+    résoudre divers problèmes. TF-IDF et TopicRank ont un fonctionnement très
     différent (cf. ci-dessous), ce qui nous permet par la suite d'identifier les
     facteurs qui influent sur la difficulté de l'extraction automatique de
     termes-clés.
 
     La méthode \textbf{TF-IDF} consiste à extraire en tant que termes-clés les
-    candidats dont les mots sont importants. Un mot est considéré
-    important dans un document s'il est fréquent dans le document et s'il a une
-    forte spécificité, celle-ci étant déterminée à partir d'une
-    collection de documents\footnote{Dans ce travail, nous utilisons la
-    collection dont est extrait le document.}~: moins il y a de documents qui
-    contiennent le mot, plus forte est sa spécificité. Simplement, les candidats
-    sont pondérés et ordonnés selon un score d'importance calculé par la somme
-    du poids TF-IDF de leurs mots.
+    candidats dont les mots sont importants. Une score d'importance (TF-IDF) est
+    attribué à chaque mot des candidats et l'importance d'un candidat est
+    calculé par la somme du score d'importance de ses mots. Selon TF-IDF, un mot
+    est considéré important dans un document s'il y est fréquent (TF élevé) et
+    s'il a une forte spécificité (IDF élevé). Cette dernière est déterminée à
+    partir d'une collection de documents\footnote{Dans ce travail, nous
+    utilisons la collection dont est extrait le document.}~: moins il y a de
+    documents qui contiennent le mot, plus forte est sa spécificité.
 
     \textbf{TopicRank}~\cite{bougouin2013topicrank} extrait les termes-clés qui
     représentent les sujets les plus importants d'un document. Tout d'abord,
@@ -213,6 +214,9 @@
     21/III/\fg{} qui représentent des faciès différents (cf.
     figure~\ref{fig:exemple_notice_inist}).
     \begin{align}
-      \text{similarité}(t_1, t_2) &= \frac{\|t_1~\cap~t_2\|}{\|t_1~\cup~t_2\|} \label{equ:similarity}
+      \text{similarité}(c_1, c_2) &= \frac{\|c_1~\cap~c_2\|}{\|c_1~\cup~c_2\|}, \label{equ:similarity}
     \end{align}
+    \begin{center}
+      où $c_1$ et $c_2$ sont deux termes-clés candidats.
+    \end{center}
 

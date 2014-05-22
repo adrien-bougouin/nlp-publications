@@ -1,12 +1,17 @@
 \section{Discussion}
 \label{sec:discussion}
-  Dans cette section, nous revenons sur les résultats présentés dans la
-  section~\ref{sec:experiences} et pointons, pour les différentes disciplines,
-  les variations qui, selon nous, influent sur la difficulté de la tâche
-  d'extraction de termes-clés en domaines de spécialité. À partir des résultats
-  obtenus, nous déduisons l'échelle de difficulté suivante (de la discipline la
-  plus difficile à la plus facile)~:
-  \begin{figure}[h!]
+  À partir des expériences de la section~\ref{sec:experiences},
+  nous constatons la même échelle de difficulté quelque soit la méthode
+  employée (cf. figure~\ref{fig:echelle}), ce qui montre que notre hypothèse de
+  départ est valide. Il est toutefois important de noter qu'en observant les
+  statistiques présentées dans le tableau~\ref{tab:statistiques_des_corpus},
+  nous pouvons déduire la même échelle de difficulté à partir du rappel maximum.
+  Cependant, le rappel maximum ne peut être obtenu en dehors d'un contexte
+  expérmental. Dans cette section, nous nous fondons sur la nature des
+  collections de données et sur les résultats de l'extraction non-supervisée de
+  termes-clés pour déterminer quels sont les facteurs qui influent sur la
+  difficulté de cette tâche.
+  \begin{figure}
     \centering
     \begin{tikzpicture}[thin,
                         align=center,
@@ -21,7 +26,7 @@
       \coordinate (end) at (15.4, 0);
       \node (chimie) at (5.7, -0.3) {\small Chimie};
       \node (psychologie) at (6.3, 0.3) {\small Psychologie};
-      \node (sciences_de_l_information) at (8.1, -0.3) {\small Sciences de l'information};
+      \node (sciences_de_l_information) at (8.1, -0.715) {\small Sciences\\\small de\\\small l'information};
       \node (linguistique) at (9.2, 0.3) {\small Linguistique};
       \node (archeologie) at (14.2, -0.3) {\small Archéologie};
       \draw[-|, thick] (start) node[xshift=-1.75em] (dificile) {\small Difficile} -- (c);
@@ -31,49 +36,36 @@
       \draw[-|, thick] (l) -- (a);
       \draw[->, thick] (a) -- (end) node[xshift=1.25em] (facile) {\small Facile};
     \end{tikzpicture}
-    \caption{
-             \label{fig:}}
+    \caption{Échelle de difficulté, de la discipline la plus difficile à la
+             discipline la plus facile à traiter par les méthodes d'extraction
+             automatique de termes-clés.
+             \label{fig:echelle}}
   \end{figure}
-  Selon cette échelle de difficulté, ainsi que selon nos observations du contenu
-  des notices, nous définissons trois catégories pour lesquelles la difficulté
-  n'est pas la même~:
-  \begin{enumerate}
-    \item{Travaux expérimentaux (Chimie)}
-    \item{Travaux analytiques (Psychologie, Linguistique et Sciences de
-          l'Information)}
-    \item{Travaux pratiques, i.e.~fondés sur des faits non sujets à subjectivité
-          (Archéologie)}
-  \end{enumerate}
-  \TODO{discuter plus ces catégories}
 
-  Dans un premier temps, nous constatons que l'usage d'une pondération fondée
-  sur la spécificité d'un mot vis-à-vis du document
-  peut améliorer\TODO{stabiliser?} la performance des méthodes d'extraction de termes-clés. Nous
-  en déduisons que la nature linguistique des termes utilisés dans une
-  discipline est un facteur influant sur la difficulté de l'extraction des
-  termes-clés pour cette même discipline. Ainsi, une forte tendance à l'usage de
-  composés syntagmatiques constitués de mots généraux dans la discipline, tels
-  que \og{}réaction\fg{} qui est présent dans le terme-clé \og{}réaction
-  topotactique\fg{} en Chimie, augmente la difficulté de l'extraction des
+  Dans un second temps, nous constatons que la pondération fondée sur la
+  spécificité des mots améliore la stabilité, la robustesse, des méthodes
+  d'extraction de termes-clés qui l'utilise. Nous en déduisons que la nature
+  linguistique des termes-clés utilisés dans une discipline, c'est-à-dire le
+  vocabulaire de cette discipline, est un facteur qui influe sur la difficulté
+  de l'extraction des termes-clés pour cette même discipline. Ainsi, une forte
+  tendance à l'usage de composés syntagmatiques constitués de mots centraux dans
+  la discipline, tels que \og{}réaction\fg{} qui est présent dans le terme-clé
+  \og{}réaction topotactique\fg{} en Chimie ou encore le mot \og{}social\fg{}
+  fréquemment utilisé en psychologie (p.~ex. \og{}interaction sociale\fg{} et
+  \og{}environnement social\fg{}), augmente la difficulté de l'extraction des
   termes-clés.
 
-  Dans un second temps, nous constatons que la capacité à créer des liens entre
-  différentes unités textuelles peut aider lors de l'extraction des termes-clés.
-  Après observation du contenu des notices, nous remarquons que l'organisation
-  du discours du résumé dans les différentes disciplines est un second facteur
-  influant sur la difficulté de la tâche d'extraction de termes-clés. Pour
-  chaque discipline, le lecteur visé n'est pas le même et le résumé est donc
-  organisé différemment. Dans le cas de documents se basant sur des faits
-  concrets, tels que les documents d'Archéologie, le lecteur (archéologue ou
-  non) a besoin d'une définition du contexte et des relations entre les faits
-  donnés. Un document insistant sur différents éléments importants et créant des
-  liens entre ces éléments est plus aisé à traiter qu'un document se reposant
-  sur un acquis supposé (non explicité) du lecteur. Une observation similaire
-  peut-être faite pour les travaux analytiques, où les hypothèses sont
-  clairement explicitées. Au contraire, les documents au sujet de travaux
-  expérimentaux sont très techniques et se reposent sur un acquis supposé du
-  lecteur. En Chimie, les notices sont très souvent énumératives et dépourvues
-  de détails explicatifs, superflus pour un initié. Dans ce cas, moins de liens
-  sont établis entre les termes-clés candidats, et la tâche d'extraction
-  automatique de termes-clés est plus difficile.
+  Dans un second temps, nous observons, sauf dans le cas de la psychologie,
+  qu'il y a une correspondance netre l'ordre des disciplines selon la taille des
+  résumés des notices et leur ordre dans l'échelle de difficulté. Ceci
+  s'explique par la façon dont est organisé le discours dans les notices. Si
+  nous prenons les notices d'archéologie, par exemple, celles-ci sont très
+  détaillées. Il est par conséquent aisé d'établir des relations entre les
+  concepts afin de déterminer quels sont ceux les plus importants, à la manière
+  de TopicRank. À l'inverse, les notices de chimie, représentant principalement
+  des comptes rendus d'expériences s'adressent à un lecteur expert pour lequel
+  il est uniquement nécessaire de décrire le context expérimental. L'absence de
+  détails dans les notices de certaines disciplines est donc un facteur qui
+  influe sur la difficulté de l'extraction automatique de termes-clés,
+  difficulté qui peut a priori être détectée à partir de la taille des notices.
 

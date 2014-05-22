@@ -11,31 +11,32 @@
     Afin de mesurer l'échelle de difficulté pour l'extraction automatique de
     termes-clés en domaines de spécialité, nous utilisons la MAP (\textit{Mean
     Average Precision}), qui mesure la capacité d'une méthode à ordonner
-    correctement les termes-clés candidats, c'est-à-dire à extraire en premier des
-    candidats qui sont présents dans la liste des termes-clés de référence (cf.
-    équation~\ref{equ:map}). Alors qu'il est plus courant d'utiliser la
+    correctement les termes-clés candidats, c'est-à-dire à extraire en premier
+    des candidats qui sont présents dans la liste des termes-clés de référence
+    (cf. équation~\ref{equ:map}). Alors qu'il est plus courant d'utiliser la
     précision, le rappel et la f-mesures pour comparer les méthodes entre elles,
     notre choix se porte sur la MAP à cause du nombre variable de termes-clés de
     référence assignés aux documents selon les disciplines (de 8,0 en
     linguistique à 16,6 en archéologie). La MAP étant appliquée à tous les
-    candidats ordonnés et non pas à un sous ensemble (p.~ex. les 10 premiers),
-    comme pour la précision, le rappel et la f-mesure, il ne peut y avoir de
-    biais lorsque nous comparons l'extraction de termes-clés entre deux
-    disciplines.
+    candidats ordonnés et non pas à un sous ensemble (p.~ex. les 10 premiers,
+    pour la précision, le rappel et la f-mesure), il ne peut y avoir de biais
+    lorsque nous comparons l'extraction de termes-clés entre deux disciplines.
     \begin{align}
       \text{MAP} &= \frac{1}{\|\text{DOCUMENTS}\|} \sum_{d \in \text{DOCUMENTS}} \frac{\mathlarger\sum_{t_i \in \text{extraction}(d)~\cap~\text{référence}(d)} \text{précision}@i}{\|\text{référence}(d)\|} \label{equ:map}
     \end{align}
-    \hfill\begin{minipage}{.96\linewidth}
-      \begin{tabular}{@{}l@{~~-~~}p{.9\linewidth}@{}}
-        où & extraction$(d)$ représente l'ensemble ordonné des termes-clés
-             candidats $t_i$ de rang $i$ pour le document $d$,\\
-           & référence$(d)$ représente l'ensemble des termes-clés de référence
-             du document $d$,\\
-           & précision$@i$ représente la précision de l'extraction calculée au
-             rang $i$,\\
-           & DOCUMENTS est l'ensemble des documents de la collection. \\
+    \begin{center}
+      \begin{tabular}{@{}lcl@{}}
+        \multicolumn{2}{l}{où~:}\\
+        & \multicolumn{2}{@{~~~-~~~}l}{extraction$(d)$ founie l'ensemble ordonné
+          des termes-clés candidats $t_i$ de rang $i$ pour le document $d$,}\\
+        & \multicolumn{2}{@{~~~-~~~}l}{référence$(d)$ fournie l'ensemble des
+          termes-clés de référence du document $d$,}\\
+        & \multicolumn{2}{@{~~~-~~~}l}{précision$@i$ représente la précision de
+          l'extraction calculée au rang $i$,}\\
+        & \multicolumn{2}{@{~~~-~~~}l}{DOCUMENTS est l'ensemble des documents de
+          la collection.}\\
       \end{tabular}
-    \end{minipage}\hfill
+    \end{center}
     
     En accord avec l'évaluation menée dans les travaux précédents, nous
     considérons correcte l'extraction d'une variante flexionnelle d'un terme-clé
@@ -61,11 +62,11 @@
     peut s'expliquer par le faible rappel maximum pouvant être atteint, ainsi
     que par l'évaluation stricte qui n'accepte pas les correspondances partiels
     (p.~ex. \og{}articles\fg{} et \og{}articles de recherche\fg{} qui dans le
-    contexte de la figure~\ref{fig:exemple_extraction} représentent le même
-    concept).
+    contexte de la notice de la figure~\ref{fig:exemple_extraction} représentent
+    le même concept).
 
     Globalement, les meilleurs résultats sont obtenus avec la méthode TF-IDF.
-    Bien que compétitive avec TF-IDF dans le meilleur cas, nous observons que
+    Bien que dans le meilleur cas elle soit compétitive avec TF-IDF, la méthode
     TopicRank n'est pas stable. En effet, lorsque les $\{1..3\}$-grammes sont
     utilisés comme candidats nous observons une forte dégradation des résultats
     de TopicRank, alors que la dégradation des résultats de TF-IDF est plus
@@ -77,13 +78,13 @@
     erronés tels que \og{}d'\fg{} (cf. figure~\ref{fig:exemple_extraction}). En
     ce qui concerne les résultats obtenus avec les deux autres méthodes de
     sélection des termes-clés candidats, les performances sont meilleures avec
-    les plus longues séquences de noms et d'adjectifs. Les différences de
-    performances observées avec ces deux méthodes de sélection est
-    principalement liée à la richesse des patrons grammaticaux utilisés par
-    TermSuite. En effet, les patrons grammaticaux avec des déterminants et des
-    prépositions définis dans TermSuite ne reflètent qu'une infime quantité de
-    termes-clés de référence (3,5~\%) et ont donc pour effet d'ajouter plus de
-    bruit que de candidats positifs.
+    les plus longues séquences de noms et d'adjectifs. La différence de
+    performance observée avec ces deux méthodes de sélection est principalement
+    liée à la richesse des patrons grammaticaux utilisés par TermSuite. En
+    effet, ses patrons grammaticaux contenant des déterminants et des
+    prépositions ne reflètent qu'une infime quantité de termes-clés de référence
+    (3,5~\%) et ont donc pour effet d'ajouter plus de bruit que de candidats
+    positifs.
     \begin{figure}
       \centering
       \subfigure[$\{1..3\}$-grammes]{

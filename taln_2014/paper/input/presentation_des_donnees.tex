@@ -1,36 +1,11 @@
 \section{Collections de données}
 \label{sec:presentation_des_donnees}
-  Nous disposons de cinq collections de notices bibliographiques fournies par
-  l'Inist\footnote{Institut de l'Information Scientifique et Technique~:
-  \url{http://www.inist.fr}} dans le cadre du projet \textsc{Anr}
+  Pour ce travail, nous disposons de cinq corpus de notices bibliographiques
+  fournies par l'Inist\footnote{Institut de l'Information Scientifique et
+  Technique~: \url{http://www.inist.fr}} dans le cadre du projet \textsc{Anr}
   Termith\footnote{TERMinologie et Indexation de Textes en sciences Humaines~:
   \url{http://www.atilf.fr/ressources/termith/}}~: archéologie, linguistique,
   sciences de l'information, psychologie et chimie.
-
-  Le corpus d'\textbf{archéologie} est composé de 718 notices. Celles-ci
-  représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
-  (\textit{Paléo}, \textit{Le bulletin de la Société préhistorique française},
-  etc.).
-
-  Le corpus de \textbf{linguistique} est constitué de 716 notices d'articles
-  parus entre 2000 à 2012 dans 12 revues différentes (\textit{Linx -- Revue des
-  linguistes de l'Université Paris Ouest Nanterre La Défense}, \textit{Travaux
-  de linguistique}, etc.).
-
-  Le corpus de \textbf{sciences de l'information} contient 706 notices
-  d'articles publiés entre 2001 et 2012 dans six revues différentes
-  (\textit{Documentaliste -- Sciences de l'information}, \textit{Document
-  numérique}, etc.).
-
-  Le corpus de \textbf{psychologie} contient 720 notices d'articles publiés
-  entre 2001 et 2012 dans sept revues différentes (\textit{Enfance},
-  \textit{Revue internationale de psychologie et de gestion des comportements
-  organisationnels}, etc.).
-
-  Le corpus de \textbf{chimie} est composé de 782 notices d'articles publiés
-  entre 1983 et 2012 dans quatre revues (\textit{Comptes Rendus de l'Académie
-  des Sciences}, \textit{Comptes Rendus Chimie}, etc.).
-
   Chaque notice contient le titre, le résumé et les termes-clés d'un document
   auquel elle est assocée. Les termes-clés sont classés en deux catégories~:
   \begin{itemize}
@@ -57,6 +32,31 @@
   Parmi ces différents ensembles de termes-clés, nous utilisons les termes-clés
   français assignés par l'Inist.
 
+  Le corpus d'\textbf{archéologie} est composé de 718 notices. Celles-ci
+  représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
+  (\textit{Paléo}, \textit{Le bulletin de la Société préhistorique française},
+  etc.).
+
+  Le corpus de \textbf{linguistique} est constitué de 716 notices d'articles
+  parus entre 2000 à 2012 dans 12 revues différentes (\textit{Linx -- Revue des
+  linguistes de l'Université Paris Ouest Nanterre La Défense}, \textit{Travaux
+  de linguistique}, etc.).
+
+  Le corpus de \textbf{sciences de l'information} contient 706 notices
+  d'articles publiés entre 2001 et 2012 dans six revues différentes
+  (\textit{Documentaliste -- Sciences de l'information}, \textit{Document
+  numérique}, etc.).
+
+  Le corpus de \textbf{psychologie} contient 720 notices d'articles publiés
+  entre 2001 et 2012 dans sept revues différentes (\textit{Enfance},
+  \textit{Revue internationale de psychologie et de gestion des comportements
+  organisationnels}, etc.).
+
+  Le corpus de \textbf{chimie} est composé de 782 notices d'articles publiés
+  entre 1983 et 2012 dans quatre revues (\textit{Comptes Rendus de l'Académie
+  des Sciences}, \textit{Comptes Rendus Chimie}, etc.).
+
+
   Le tableau~\ref{tab:statistiques_des_corpus} présente les caractéristiques des
   cinq collections de données dont nous disposons. Les notices sont de petite
   taille et sont rédigées différemment selon les disciplines
@@ -68,22 +68,23 @@
   etc.). Les termes-clés associés aux documents varient en nombre (de 8,5 à
   16,6) et en complexité. Par exemple, en archéologie, nous observons qu'un
   grand nombre de termes-clés sont des entités nommées principalement composées
-  d'un seul mot (e.g.~\og{}Paléolithique\fg{}, \og{}Europe\fg{}, etc.), tandis
+  d'un seul mot (p.~ex.~\og{}Paléolithique\fg{}, \og{}Europe\fg{}, etc.), tandis
   qu'en chimie, nous observons un usage fréquent de notions centrales (dans le
   language de chimie) nécessitant une spécialisation systématique
-  (e.g.~\og{}\underline{réaction} topotactique\fg{}, \og{}\underline{réaction}
+  (p.~ex.~\og{}\underline{réaction} topotactique\fg{}, \og{}\underline{réaction}
   sonochimique\fg{}, \og{}\underline{réaction} électrochimique\fg{}, etc.).
   Nous remarquons aussi une diversité variable selon les disciplines (de 23,0~\%
   à 40,6~\% de termes-clés différents). En chimie, la diversité plus importante
   que pour les autres disciplines indique une difficulté a priori plus
   importante. Enfin, il est important de noter la faible proportion de
-  termes-clés apparaissant dans les notices -- rappel maximum pouvant être
+  termes-clés apparaissant dans les notices --- rappel maximum pouvant être
   obtenu. Par exemple, dans le corpus de chimie, uniquement 3,0 termes-clés
   peuvent être extraits des notices parmi les 12,8 associés aux notices, en
   moyenne. Ce dernier point concerne principalement les termes-clés contrôlés,
-  qui peuvent être assignés à un document lorsqu'il contient certaines unités
-  textuelles. Ces règles, dites de déclenchement, sont définies manuellement par
-  les indexeurs professionnels et ne sont pas disponibles pour nos travaux.
+  qui peuvent être assignés à un document à partir de règles concernant les
+  unités textuelles présentent dans le document. Ces règles, dites de
+  déclenchement, sont définies manuellement par les indexeurs professionnels et
+  ne sont pas disponibles pour ce travail.
   \begin{table}
     \centering
     \begin{tabular}{@{~}r|ccccc@{~}}
@@ -197,7 +198,7 @@
         }
       }
     \end{minipage}
-    \caption{Exemple de notices Inist. Les termes-clés soulignés représentent
+    \caption{Exemples de notices Inist. Les termes-clés soulignés représentent
              les concepts pouvant être extraits depuis le titre ou le résumé de
              la notice. Les termes-clés marqués d'une $^*$ font partie des
              termes-clés contrôlés. Conformément au processus d'évaluation
