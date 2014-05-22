@@ -20,7 +20,7 @@ $(report_NAME).pdf: $(report_NAME).tex $(needed_FILES)
 .PHONY: clean mrproper
 
 clean:
-	rm -rf *.aux *.bbl *.blg *.log *.out *.toc
+	rm -rf *.aux *.bbl *.blg *.log *.out *.toc *.lof *.lot *.brf
 
 mrproper: clean
 	rm -rf $(report_NAME).pdf

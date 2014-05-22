@@ -6,13 +6,34 @@
   d'extraction de termes-clés en domaines de spécialité. À partir des résultats
   obtenus, nous déduisons l'échelle de difficulté suivante (de la discipline la
   plus difficile à la plus facile)~:
-  \begin{enumerate}
-    \item{Chimie}
-    \item{Psychologie}
-    \item{Linguistique}
-    \item{Sciences de l'Information}
-    \item{Archéologie}
-  \end{enumerate}
+  \begin{figure}[h!]
+    \centering
+    \begin{tikzpicture}[thin,
+                        align=center,
+                        scale=1.25,
+                        every node/.style={text centered, transform shape}]
+      \coordinate (start) at (4.5, 0);
+      \coordinate (c) at (5.7, 0);
+      \coordinate (p) at (6.3, 0);
+      \coordinate (s) at (8.1, 0);
+      \coordinate (l) at (9.2, 0);
+      \coordinate (a) at (14.2, 0);
+      \coordinate (end) at (15.4, 0);
+      \node (chimie) at (5.7, -0.3) {\small Chimie};
+      \node (psychologie) at (6.3, 0.3) {\small Psychologie};
+      \node (sciences_de_l_information) at (8.1, -0.3) {\small Sciences de l'information};
+      \node (linguistique) at (9.2, 0.3) {\small Linguistique};
+      \node (archeologie) at (14.2, -0.3) {\small Archéologie};
+      \draw[-|, thick] (start) node[xshift=-1.75em] (dificile) {\small Difficile} -- (c);
+      \draw[-|, thick] (c) -- (p);
+      \draw[-|, thick] (p) -- (s);
+      \draw[-|, thick] (s) -- (l);
+      \draw[-|, thick] (l) -- (a);
+      \draw[->, thick] (a) -- (end) node[xshift=1.25em] (facile) {\small Facile};
+    \end{tikzpicture}
+    \caption{
+             \label{fig:}}
+  \end{figure}
   Selon cette échelle de difficulté, ainsi que selon nos observations du contenu
   des notices, nous définissons trois catégories pour lesquelles la difficulté
   n'est pas la même~:
