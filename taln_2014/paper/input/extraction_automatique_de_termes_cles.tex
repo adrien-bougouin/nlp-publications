@@ -101,7 +101,7 @@
     termes-clés n'a, à notre connaissance, utilisé une telle approche. Compte
     tenu de la nature (disciplinaire) de nos données, nous faisons l'hypothèse
     que les candidats termes, tels que définis dans le domaine de l'extraction
-    terminologique, sont des termes-clés candidats pertinants. Ces trois
+    terminologique, sont des termes-clés candidats pertinents. Ces trois
     méthodes de sélection fournissent des ensembles de candidats de qualités
     différentes (cf. ci-dessous), ce qui nous permet par la suite d'identifier
     les facteurs qui influent sur la difficulté de l'extraction automatique de
@@ -201,7 +201,7 @@
     ordonne les sujets selon leur importance dans le
     graphe~\cite{mihalcea2004textrank}. Enfin, le terme-clé candidat le plus
     représentatif d'un sujet, celui qui apparaît en premier dans le document,
-    est extrait en tant que terme-clé\footnote{Ci nécessaire, les termes-clés
+    est extrait en tant que terme-clé\footnote{Si nécessaire, les termes-clés
     extraits sont pondérés et ordonnés selon le score d'importance de leur sujet
     respectif}.
     
@@ -218,6 +218,7 @@
       \text{similarité}(c_1, c_2) &= \frac{\|c_1~\cap~c_2\|}{\|c_1~\cup~c_2\|}, \label{equ:similarity}
     \end{align}
     \begin{center}
-      où $c_1$ et $c_2$ sont deux termes-clés candidats.
+      où $c_1$ et $c_2$ sont deux termes-clés candidats représentés par des sacs
+      de mots.
     \end{center}
 
