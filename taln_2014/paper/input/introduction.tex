@@ -13,7 +13,7 @@
   tâche coûteuse. Pour pallier ce problème, de plus en plus de chercheurs
   s'intéressent à l'extraction automatique de termes-clés, en témoignent les
   récentes campagnes d'évaluation~\cite{paroubek2012deft,kim2010semeval}, ainsi
-  que les nombreux travaux sur ce sujet~\cite{hasan2014state_of_the_art}.
+  que les nombreux travaux à ce sujet~\cite{hasan2014state_of_the_art}.
 
   L'extraction automatique de termes-clés consiste à extraire du contenu d'un
   document les unités textuelles les plus importantes, celles qui permettent de
@@ -23,18 +23,18 @@
   termes-clés est considérée comme une tâche de
   classification~\cite{witten1999kea} où il s'agit d'attribuer la classe
   \og{}\textit{terme-clé}\fg{} ou \og{}\textit{non terme-clé}\fg{} à des
-  termes-clés candidats extraits du document. Une collection de documents
-  annotés en termes-clés est nécessaire pour l'apprentissage d'un modèle de
-  classification reposant sur divers traits tels que la fréquence du terme-clé
-  candidat ou sa position dans le document. Dans le cadre non-supervisé, les
-  méthodes attribuent un score d'importance aux candidats selon divers
-  indicateurs tels que leur degré de spécificité~\cite{paukkeri2010likey} ou les
-  relations de coocurrence que leurs mots
-  entretiennent~\cite{mihalcea2004textrank}. Les méthodes supervisées sont plus
-  performantes que les méthodes non-supervisées, mais leur besoin en données
-  d'apprentissage annotées et leur dépendance vis-à-vis du domaine de ces
-  données d'apprentissage poussent les chercheurs à s'intéresser aux méthodes
-  non-supervisées.
+  termes-clés candidats sélectionnés dans le document. Une collection de
+  documents annotés en termes-clés est nécessaire pour l'apprentissage d'un
+  modèle de classification reposant sur divers traits tels que la fréquence du
+  terme-clé candidat ou sa position dans le document. Dans le cadre
+  non-supervisé, les méthodes attribuent un score d'importance aux candidats
+  selon divers indicateurs tels que leur degré de
+  spécificité~\cite{jones1972tfidf} ou les relations de coocurrence que leurs
+  mots entretiennent~\cite{mihalcea2004textrank}. En général, les méthodes
+  supervisées sont plus performantes que les méthodes non-supervisées, mais leur
+  besoin en données d'apprentissage annotées et leur dépendance vis-à-vis du
+  domaine de ces données d'apprentissage poussent les chercheurs à s'intéresser
+  aux méthodes non-supervisées.
 
   Dans cet article, nous nous plaçons dans le contexte de l'extraction
   non-supervisée de termes-clés à partir de documents de nature scientifique.
@@ -43,13 +43,13 @@
   puis comparons leur différence de performance afin de vérifier notre
   hypothèse, ainsi que de déterminer quels sont les facteurs qui influent sur la
   difficulté de la tâche d'extraction automatique de termes-clés. De la
-  connaissance de ces facteurs peut émerger le besoin d'utiliser des resources
+  connaissance de ces facteurs peut émerger le besoin d'utiliser des ressources
   externes, telles que des thésaurus, souvent mises de côté dans les travaux
-  portant sur l'extraction automatique de termes-clés. Cela peut aussi permettre
-  de détecter la difficulté en amont de l'extraction non-supervisée de
-  termes-clés afin d'affiner le paramètrage de la méthode utilisée.
+  portant sur l'extraction non-supervisée de termes-clés. Cela peut aussi
+  permettre de détecter la difficulté en amont de l'extraction de termes-clés
+  afin d'affiner le paramétrage de la méthode utilisée.
 
-  Le reste de cet article est organisé comme suit. Dans un premier temps nous
+  Le reste de cet article est organisé comme suit. Dans un premier, temps nous
   présentons les cinq collections de données
   (section~\ref{sec:presentation_des_donnees}) et les méthodes d'extraction de
   termes-clés (section~\ref{sec:extraction_automatique_de_termes_cles}) que nous

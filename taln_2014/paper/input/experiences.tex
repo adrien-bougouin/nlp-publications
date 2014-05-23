@@ -3,20 +3,22 @@
   Dans cette section, nous présentons les expériences menées dans le but
   d'observer l'échelle de difficulté pour l'extraction automatique de
   termes-clés en domaines de spécialité à partir des méthodes TF-IDF et
-  TopicRank et en fonction des candidats qui sont extrait~: $\{1..3\}$-grammes
-  filtrés, plus longues séquences de noms et d'adjectifs et candidats termes.
+  TopicRank et en fonction des candidats qui sont sélectionnés~:
+  $\{1..3\}$-grammes filtrés, plus longues séquences de noms et d'adjectifs et
+  candidats termes.
 
   \subsection{Mesure d'évaluation}
   \label{subsec:mesure_d_evaluation}
     Afin de mesurer l'échelle de difficulté pour l'extraction automatique de
     termes-clés en domaines de spécialité, nous utilisons la MAP (\textit{Mean
     Average Precision}), qui mesure la capacité d'une méthode à ordonner
-    correctement les termes-clés candidats, c'est-à-dire à extraire en premier
+    correctement les termes-clés de référence parmi tous les termes-clés
+    candidats, c'est-à-dire à extraire en premier
     des candidats qui sont présents dans la liste des termes-clés de référence
     (cf. équation~\ref{equ:map}). Alors qu'il est plus courant d'utiliser la
     précision, le rappel et la f-mesures pour comparer les méthodes entre elles,
     notre choix se porte sur la MAP à cause du nombre variable de termes-clés de
-    référence assignés aux documents selon les disciplines (de 8,0 en
+    référence assignés aux documents par discipline (de 8,0 en
     linguistique à 16,6 en archéologie). La MAP étant appliquée à tous les
     candidats ordonnés et non pas à un sous ensemble (p.~ex. les 10 premiers,
     pour la précision, le rappel et la f-mesure), il ne peut y avoir de biais
@@ -34,7 +36,7 @@
         & \multicolumn{2}{@{~~~-~~~}l}{précision$@i$ représente la précision de
           l'extraction calculée au rang $i$,}\\
         & \multicolumn{2}{@{~~~-~~~}l}{DOCUMENTS est l'ensemble des documents de
-          la collection.}\\
+          la collection pour laquelle les termes-clés sont extraits.}\\
       \end{tabular}
     \end{center}
     
@@ -48,50 +50,50 @@
   \subsection{Résultats}
   \label{subsec:resultats}
     La figure~\ref{fig:resultats} montre la performance des méthodes
-    d'extraction automatique de termes-clés lorsque les candidats extraits sont
-    soit les $\{1..3\}$-grammes filtrés, soit les plus longues séquences de noms
-    et d'adjectifs, soit tous les candidats termes extraits par TermSuite (sans
-    filtrage). Notre hypothèse de départ selon laquelle la tâche d'extraction de
-    termes-clés présente un degré de difficulté différent selon la discipline
-    scientifique se vérifie. L'archéologie est la discipline pour laquelle la
-    tâche d'extraction automatique de termes-clés est la moins difficile, la
-    chimie étant la discipline la plus difficile, précédée par la psychologie,
-    les sciences de l'information et la linguistique. Quelque soit la discipline
-    traitée, nous pouvons aussi observer la faible performance des méthodes
-    d'extraction de termes-clés (cf. figure~\ref{fig:exemple_extraction}). Ceci
-    peut s'expliquer par le faible rappel maximum pouvant être atteint, ainsi
-    que par l'évaluation stricte qui n'accepte pas les correspondances partiels
-    (p.~ex. \og{}articles\fg{} et \og{}articles de recherche\fg{} qui dans le
-    contexte de la notice de la figure~\ref{fig:exemple_extraction} représentent
-    le même concept).
+    d'extraction automatique de termes-clés lorsque les candidats sélectionnés
+    sont soit les $\{1..3\}$-grammes filtrés, soit les plus longues séquences de
+    noms et d'adjectifs, soit tous les candidats termes extraits par TermSuite
+    (sans filtrage). Notre hypothèse de départ selon laquelle la tâche
+    d'extraction de termes-clés présente un degré de difficulté différent selon
+    la discipline scientifique se vérifie. L'archéologie est la discipline pour
+    laquelle la tâche d'extraction automatique de termes-clés est la moins
+    difficile, la chimie étant la discipline la plus difficile, précédée par la
+    psychologie, les sciences de l'information et la linguistique. Quelle que
+    soit la discipline traitée, nous pouvons aussi observer la faible
+    performance des méthodes d'extraction de termes-clés (cf. exemple
+    figure~\ref{fig:exemple_extraction}). Ceci peut s'expliquer par le faible
+    rappel maximum pouvant être atteint, ainsi que par l'évaluation stricte qui
+    n'accepte pas les correspondances partielles (p.~ex. \og{}articles\fg{} et
+    \og{}articles de recherche\fg{} qui dans le contexte de la notice de la
+    figure~\ref{fig:exemple_extraction} représentent le même concept).
 
-    Globalement, les meilleurs résultats sont obtenus avec la méthode TF-IDF.
-    Bien que dans le meilleur cas elle soit compétitive avec TF-IDF, la méthode
-    TopicRank n'est pas stable. En effet, lorsque les $\{1..3\}$-grammes sont
-    utilisés comme candidats nous observons une forte dégradation des résultats
-    de TopicRank, alors que la dégradation des résultats de TF-IDF est plus
-    modérée. Cette différence de comportement face à un ensemble de termes-clés
-    candidats de mauvaise qualité s'explique par le fait que le groupement en
-    sujets de TopicRank n'est pas adapté pour de tels candidats et aussi parce
-    que TF-IDF tire profit de la spécificité des mots (IDF), lui permettant,
-    contrairement à TopicRank, de ne pas attribuer un fort poids aux candidats
-    erronés tels que \og{}d'\fg{} (cf. figure~\ref{fig:exemple_extraction}). En
-    ce qui concerne les résultats obtenus avec les deux autres méthodes de
-    sélection des termes-clés candidats, les performances sont meilleures avec
-    les plus longues séquences de noms et d'adjectifs. La différence de
-    performance observée avec ces deux méthodes de sélection est principalement
-    liée à la richesse des patrons grammaticaux utilisés par TermSuite. En
-    effet, ses patrons grammaticaux contenant des déterminants et des
-    prépositions ne reflètent qu'une infime quantité de termes-clés de référence
-    (3,5~\%) et ont donc pour effet d'ajouter plus de bruit que de candidats
-    positifs.
+    Globalement, les meilleurs résultats sont obtenus avec la méthode TF-IDF. De
+    plus, bien que dans le meilleur cas elle soit compétitive avec TF-IDF, la
+    méthode TopicRank n'est pas stable. Lorsque les $\{1..3\}$-grammes
+    sont utilisés comme candidats nous observons une forte dégradation des
+    résultats de TopicRank, alors que la dégradation des résultats de TF-IDF est
+    plus modérée. Cette différence de comportement face à un ensemble de
+    termes-clés candidats de mauvaise qualité s'explique par le fait que le
+    groupement en sujets de TopicRank n'est pas adapté pour de tels candidats et
+    aussi parce que TF-IDF tire profit de la spécificité des mots (IDF), lui
+    permettant, contrairement à TopicRank, de ne pas attribuer un fort poids aux
+    candidats erronés tels que \og{}d'\fg{} (cf.
+    figure~\ref{fig:exemple_extraction}). En ce qui concerne les résultats
+    obtenus avec les deux autres méthodes de sélection des termes-clés
+    candidats, les performances sont meilleures avec les plus longues séquences
+    de noms et d'adjectifs. La différence de performance observée avec ces deux
+    méthodes de sélection est principalement liée à la richesse des patrons
+    grammaticaux utilisés par TermSuite. En effet, ses patrons grammaticaux
+    contenant des déterminants et des prépositions ne reflètent qu'une infime
+    quantité de termes-clés de référence (3,5~\%) et ont donc pour effet
+    d'ajouter plus de bruit que de candidats positifs.
     \begin{figure}
       \centering
       \subfigure[$\{1..3\}$-grammes]{
         \begin{tikzpicture}%[scale=.75]
           \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
           \begin{axis}[axis lines=left,
-                       symbolic x coords={Archéologie, Linguistique, Sciences de l'Information, Psychologie, Chimie},
+                       symbolic x coords={Archéologie, Linguistique, Sciences de l'information, Psychologie, Chimie},
                        xtick=data,
                        enlarge x limits=0.125,
                        x=.1\linewidth,
@@ -113,7 +115,7 @@
                      pattern color=black!40] coordinates{
               (Archéologie, 0.156)
               (Linguistique, 0.098)
-              (Sciences de l'Information, 0.087)
+              (Sciences de l'information, 0.087)
               (Psychologie, 0.065)
               (Chimie, 0.060)
             };
@@ -122,7 +124,7 @@
                      pattern color=black!66] coordinates{
               (Archéologie, 0.035)
               (Linguistique, 0.039)
-              (Sciences de l'Information, 0.035)
+              (Sciences de l'information, 0.035)
               (Psychologie, 0.027)
               (Chimie, 0.021)
             };
@@ -134,7 +136,7 @@
         \begin{tikzpicture}%[scale=.75]
           \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
           \begin{axis}[axis lines=left,
-                       symbolic x coords={Archéologie, Linguistique, Sciences de l'Information, Psychologie, Chimie},
+                       symbolic x coords={Archéologie, Linguistique, Sciences de l'information, Psychologie, Chimie},
                        xtick=data,
                        enlarge x limits=0.125,
                        x=.1\linewidth,
@@ -156,7 +158,7 @@
                      pattern color=black!40] coordinates{
               (Archéologie, 0.180)
               (Linguistique, 0.103)
-              (Sciences de l'Information, 0.100)
+              (Sciences de l'information, 0.100)
               (Psychologie, 0.075)
               (Chimie, 0.071)
             };
@@ -165,7 +167,7 @@
                      pattern color=black!66] coordinates{
               (Archéologie, 0.148)
               (Linguistique, 0.098)
-              (Sciences de l'Information, 0.094)
+              (Sciences de l'information, 0.094)
               (Psychologie, 0.073)
               (Chimie, 0.063)
             };
@@ -177,7 +179,7 @@
         \begin{tikzpicture}%[scale=.75]
           \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
           \begin{axis}[axis lines=left,
-                       symbolic x coords={Archéologie, Linguistique, Sciences de l'Information, Psychologie, Chimie},
+                       symbolic x coords={Archéologie, Linguistique, Sciences de l'information, Psychologie, Chimie},
                        xtick=data,
                        enlarge x limits=0.125,
                        x=.1\linewidth,
@@ -199,7 +201,7 @@
                      pattern color=black!40] coordinates{
               (Archéologie, 0.165)
               (Linguistique, 0.107)
-              (Sciences de l'Information, 0.093)
+              (Sciences de l'information, 0.093)
               (Psychologie, 0.068)
               (Chimie, 0.070)
             };
@@ -208,7 +210,7 @@
                      pattern color=black!66] coordinates{
               (Archéologie, 0.166)
               (Linguistique, 0.105)
-              (Sciences de l'Information, 0.078)
+              (Sciences de l'information, 0.078)
               (Psychologie, 0.072)
               (Chimie, 0.058)
             };
@@ -216,7 +218,7 @@
           \end{axis}
         \end{tikzpicture}
       }
-      \caption{Performance des méthodes d'extraction de termes-clés en domaines
+      \caption{Performances des méthodes d'extraction de termes-clés en domaines
                de spécialité à partir de différents type de candidats.
                \label{fig:resultats}}
     \end{figure}

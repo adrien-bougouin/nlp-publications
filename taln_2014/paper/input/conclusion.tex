@@ -1,47 +1,57 @@
 \section{Conclusion et perspectives}
 \label{sec:conclusion_et_perspectives}
-  \TODO{rappel de l'hypothèse}
-  Dans cet article nous étudions la difficulté de la tâche d'extraction
-  automatique de termes-clés appliquée à différents domaines scientifiques. Nous
-  utilisons cinq collections disciplinaires de notices bibliographiques annotées
-  en termes-clés dans des conditions réelles d'indexation. Pour l'Archéologie,
-  les Sciences de l'Information, la Linguistique, la Psychologie et la Chimie
-  nous observons l'échelle de difficulté suivante (de la discipline la plus
-  difficile à la plus facile)~:
+  Dans cet article, nous nous intéressons à la tâche d'extraction automatique de
+  termes-clés dans les documents scientifiques et émettons l'hypothèse que sa
+  difficulté est variable selon la discipline des documents traités. Pour
+  vérifier cette hypothèse, nous disposons de notices bibliographiques réparties
+  dans cinq disciplines (archéologie, linguistique, sciences de l'information,
+  psychologie et chimie) auxquelles nous appliquons six systèmes d'extractions
+  automatique de termes-clés différents. En comparant les termes-clés extraits
+  par chaque système avec les termes-clés de référence assignés aux notices dans
+  des conditions réels d'indexation, notre hypothèse se vérifie et nous
+  observons l'échelle suivante (de la discipline la plus facile à la plus
+  difficile)~:
   \begin{enumerate*}
-    \item{Chimie~;}
-    \item{Psychologie~;}
-    \item{Linguistique~;}
-    \item{Sciences de l'Information~;}
     \item{Archéologie~;}
+    \item{Linguistique~;}
+    \item{Sciences de l'information~;}
+    \item{Psychologie~;}
+    \item{Chimie.}
   \end{enumerate*}
 
-  À l'issue de nos expériences et de nos observations à partir du contenu des
-  notices, nous constatons deux facteurs ayant un impact sur la difficulté de la
-  tâche d'extraction automatique de termes-clés. Tout d'abord, le vocabulaire
-  utilisé dans une discipline peut influer sur la difficulté à extraire des
-  termes-clés à partir de documents de cette discipline. Si le vocabulaire
-  spécifique contient des composés syntagmatiques dont certains éléments sont
-  généraux dans la discipline, alors il peut être plus difficile
-  d'extraire des termes-clés de documents de cette discipline. Ensuite, nous
-  observons que l'organisation du résumé peut aider l'extraction de termes-clés.
-  Un résumé riche en explications et en mises en relations des différents
-  éléments est moins difficile à traiter qu'un résumé énumératif.
+  À l'issue de nos expériences et de nos observations du contenu des notices,
+  nous constatons deux facteurs ayant un impact sur la difficulté de la tâche
+  d'extraction automatique de termes-clés. Tout d'abord, nous observons que
+  l'organisation du résumé peut aider l'extraction de termes-clés. Un résumé
+  riche en explications et en mises en relations des différents concepts est
+  moins difficile à traiter qu'un résumé énumératif pauvre en explications.
+  Ensuite, le vocabulaire utilisé dans une discipline peut influer sur la
+  difficulté à extraire les termes-clés des documents de cette discipline. Si le
+  vocabulaire spécifique contient des composés syntagmatiques dont certains
+  éléments sont courants dans la discipline, alors il peut être plus difficile
+  d'extraire les termes-clés des documents de cette discipline.
 
-  Des deux facteurs identifiés émergent deux perspectives de travaux futurs.
-  La nature différente des unités textuelles définies comme termes-clés selon
-  les disciplines implique un besoin d'adapter l'extraction des candidats à la
-  discipline traitée. L'une des ressources disciplinaires utilisées par les
-  indexeurs professionnels étant la spécification précise du type d'information
-  que doivent représenter les termes-clés, il serait intéressant d'utiliser une
-  méthode d'extraction d'information à partir de formulaires (e.g. remplissage
-  de champs \textit{période} et \textit{lieu}, en Archéologie). Une autre perspective serait
-  d'analyser le discours afin de mesurer, en amont, le degré de difficulté de
-  l'extraction des termes-clés. Avec une telle connaissance, nous pourrions
-  proposer une méthode capable de s'adapter au degré de difficulté d'un
-  document, en ajustant automatiquement ses différents paramètres. Néanmoins,
-  l'analyse que nous proposons dans cet article se fonde uniquement sur le
-  contenu de notices. Il serait pertinent d'étendre cette analyse faite à partir
-  de résumés à une analyse faite à partir de textes intégraux.\TODO{Un
-  élargissement du panel de disciplines serait cool (merci)~!}
+  Des deux facteurs identifiés émergent plusieurs perspectives de travaux
+  futurs. Il peut être intéressant d'analyser le discours des documents afin de
+  mesurer, en amont, le degré de difficulté de l'extraction de termes-clés. Avec
+  une telle connaissance, nous pourrions proposer une méthode capable de
+  s'adapter au degré de difficulté en ajustant automatiquement son paramètrage.
+  Cependant, l'analyse que nous proposons dans cet article se fonde uniquement
+  sur le contenu de notices appartenant à cinq disciplines. Il serait pertinent
+  d'étendre cette analyse au contenu intégral des documents scientifiques, ainsi
+  que d'élargir le panel de disciplines utilisées dans ce travail, afin
+  d'établir des catégories de discplines plus ou moins difficiles à traiter
+  (p.~ex. la chimie fait partie des disciplines expérimentales, qui sont
+  difficiles à traiter). Nous oberservons aussi que le vocabulaire utilisé dans
+  une discipline, en particulier celui utilisé pour les termes-clés, peut rendre
+  la tâche d'extraction automatique de termes-clés plus difficile. Il est donc
+  important de bénéficier de resources telles que des thésaurus pour permettre à
+  une méthode d'extraction de termes-clés de s'adapter au domaine. Pour
+  TopicRank, par exemple, avoir connaissance de la terminologie utilisée dans
+  une discipline peut améliorer le choix du terme-clé le plus représentatif d'un
+  sujet. Enfin, il serait intéressant de penser la tâche d'extraction de
+  termes-clés comme une tâche d'extraction d'information pour le remplissage
+  d'un formulaire. En archéologie, par exemple, il pourrait s'agir d'extraire
+  les informations géographiques (pays, régions, etc.), chronologiques (période,
+  culture, etc.), ou encore environnementales (animaux, végétaux, etc.).
 

@@ -83,7 +83,7 @@
     phrase est effectuée par le \textit{PunktSentenceTokenizer} disponible avec
     la librairie Python NLTK~\cite[\textit{Natural Language
     ToolKit}]{bird2009nltk}, la segmentation en mots est effectuée par l'outil
-    Bonsai, du Bonsai PCFG-LA
+    Bonsai du Bonsai PCFG-LA
     parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}}
     et l'étiquetage en parties du discours est réalisé par
     MElt~\cite{denis2009melt}. Tous ces outils sont utilisés avec leurs
@@ -97,8 +97,8 @@
     forme~\cite{hulth2003keywordextraction}. Dans ce travail, nous expérimentons
     trois méthodes différentes~: deux méthodes conformes aux approches standards
     et une méthode sélectionnant les candidats termes obtenus par un extracteur
-    terminologique. Aucuns travaux portant sur l'extraction automatique de
-    termes-clés n'ont, à notre connaissance, utilisés une telle approche. Compte
+    terminologique. Aucun travail portant sur l'extraction automatique de
+    termes-clés n'a, à notre connaissance, utilisé une telle approche. Compte
     tenu de la nature (disciplinaire) de nos données, nous faisons l'hypothèse
     que les candidats termes, tels que définis dans le domaine de l'extraction
     terminologique, sont des termes-clés candidats pertinants. Ces trois
@@ -116,12 +116,13 @@
     \{1..3\}$ ($\{1..3\}$-grammes) lorsque leurs mots en tête et en queue ne
     sont pas présents dans l'anti-dictionnaire fourni par l'université de
     Neuchâtel\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
-    (UniNE). La sélection des n-grammes est très exhaustive, elle fournit un
-    grand nombre de termes-clés candidats, ce qui permmet de maximiser la
-    quantité de candidats présents dans l'ensemble des termes-clés de référence,
-    mais ce qui maximise aussi la quantité de candidats erronés (bruités).
+    (\textit{IR Multilingual Resources at UniNE}). La sélection des n-grammes
+    est très exhaustive, elle fournit un grand nombre de termes-clés candidats,
+    ce qui permet de maximiser la quantité de candidats présents dans l'ensemble
+    des termes-clés de référence, mais ce qui maximise aussi la quantité de
+    candidats erronés (bruités).
     
-    \textit{Exemple de $\{1..3\}$-grammes, extraits à partir de \og{}bassin
+    \textit{Exemples de $\{1..3\}$-grammes sélectionnés à partir de \og{}bassin
     moyen du Don\fg{} dans la notice d'archéologie de la
     figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}moyen\fg{},
     \og{}Don\fg{}, \og{}bassin moyen\fg{} et \og{}moyen du Don\fg{}}.
@@ -135,8 +136,8 @@
     \texttt{/(NOM | ADJ)+/} afin de sélectionner les plus longues séquences de
     noms (noms propres inclus) et d'adjectifs~\cite{hassan2010conundrums}.
     
-    \textit{Exemple de groupes nominaux extraits à partir de \og{}bassin moyen
-    du Don\fg{} dans la notice d'archéologie de la
+    \textit{Exemples de \texttt{/(NOM | ADJ)+/} sélectionnés à partir de
+    \og{}bassin moyen du Don\fg{} dans la notice d'archéologie de la
     figure~\ref{fig:exemple_notice_inist}~: \og{}bassin moyen\fg{} et
     \og{}Don\fg{}.}
 
@@ -154,8 +155,8 @@
     \texttt{/NOM à NOM/}, \texttt{/NOM en NOM/}, \texttt{/ADJ NOM à NOM ADJ/},
     etc.).
     
-    \textit{Exemple de candidats termes extraits à partir de \og{}bassin moyen
-    du Don\fg{} dans la notice d'archéologie de la
+    \textit{Exemples de candidats termes sélectionnés à partir de \og{}bassin
+    moyen du Don\fg{} dans la notice d'archéologie de la
     figure~\ref{fig:exemple_notice_inist}~: \og{}bassin\fg{}, \og{}Don\fg{},
     \og{}bassin moyen\fg{} et \og{}bassin moyen du Don\fg{}.}
 
@@ -184,7 +185,7 @@
     termes-clés.
 
     La méthode \textbf{TF-IDF} consiste à extraire en tant que termes-clés les
-    candidats dont les mots sont importants. Une score d'importance (TF-IDF) est
+    candidats dont les mots sont importants. Un score d'importance (TF-IDF) est
     attribué à chaque mot des candidats et l'importance d'un candidat est
     calculé par la somme du score d'importance de ses mots. Selon TF-IDF, un mot
     est considéré important dans un document s'il y est fréquent (TF élevé) et
