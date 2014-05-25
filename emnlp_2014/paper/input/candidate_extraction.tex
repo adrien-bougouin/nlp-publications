@@ -12,7 +12,7 @@
   indexing~\cite{medelyan2008smalltrainingset}. There is, however, only a small
   number of documents that have keyphrases associated with them. Keyphrase
   extraction has then attracted a lot of attention recently and many different
-  approaches were proposed~\cite{kim2010semeval}.
+  approaches were proposed~\cite{hasan2014state_of_the_art}.
 
   Generally speaking, keyphrase extraction methods can be categorized into two
   main categories: supervised and unsupervised approaches. Supervised approaches
@@ -30,16 +30,16 @@
 
   In previous work, candidate selection is performed either by selecting
   n-grams, noun phrase chunks (NP-chunks) or word sequences matching given
-  Part-Of-Speech (POS) patterns~\cite{hulth2003keywordextraction}. In this
+  Part-of-Speech (POS) patterns~\cite{hulth2003keywordextraction}. In this
   study, we first analyze the properties of human-assigned keyphrases and
   discuss how candidates selected by different candidate selection methods
-  satisfy these properties. We then propose a new approach that selects refined
-  noun phrases by filtering out irrelevant adjective modifiers from sequences of
-  nouns, proper nouns and adjectives. We demonstrate the effectiveness of our
-  approach by looking at the completeness of the sets of selected candidates and
-  by comparing the performance of state-of-the-art supervised and unsupervised
-  keyphrase extraction methods on three standard datasets of different languages
-  and nature.
+  satisfy these properties. We then propose a new approach that filters out
+  irrelevant adjective modifiers from sequences of nouns, proper nouns and
+  adjectives. We demonstrate the effectiveness of our approach by looking at the
+  completeness of the sets of selected candidates and by comparing the
+  performance of state-of-the-art supervised and unsupervised keyphrase
+  extraction methods on three standard datasets of different languages and
+  nature.
 
   The rest of this paper is organized as follows.
   Section~\ref{sec:definition_of_candidate_keyphrases} introduces an analysis of
@@ -51,7 +51,7 @@
 
 \section{What is a Keyphrase?}
 \label{sec:definition_of_candidate_keyphrases}
-  In this section, we determine two keyphrase properties from the analysis of
+  In this section, we infer two keyphrase properties from the analysis of
   human-assigned keyphrases of three standard datasets.
 
   \subsection{Datasets}
@@ -91,8 +91,13 @@
     the keyphrases of the English datasets with the Stanford POS
     tagger~\cite{toutanova2003stanfordpostagger} and the keyphrases of the
     French dataset with MElt~\cite{denis2009melt}. To avoid tagging errors, POS
-    tagged keyphrases were manually corrected.  From the observation of the
-    statistics, we propose two properties:
+    tagged keyphrases were manually corrected. As for relational adjectives,
+    these are detected manually using external resources and well-known suffixes
+    of relational adjectives (as described in
+    Section~\ref{subsubsec:method_settings}).
+    
+    From the observation of the statistics of
+    Table~\ref{tab:train_dataset_statistics}, we propose two properties:
     \begin{table}
       \centering
       \resizebox{\linewidth}{!}{
@@ -129,9 +134,9 @@
                \label{tab:train_dataset_statistics}}
     \end{table}
 
-    First, we observe that most keyphrases are unigrams or bigrams
-    ($\simeq$ 80\%), which confirms previous work observation that small-sized
-    keyphrases are the most frequent.
+    First, we observe, as stated in previous work, that most keyphrases are
+    unigrams or bigrams ($\simeq$ 80\%), i.e.~small-sized keyphrases are the
+    most frequent.
     
     \begin{property}\label{prop:informativity}
       Keyphrases are small-sized textual units; Keyphrases usually contain one
@@ -139,26 +144,19 @@
       hurricane forecast'').
     \end{property}
 
-    \TODO{AdjR stats have changed}
     Second, we observe that almost every keyphrase contains a noun and half of
-    the keyphrases are modified by an adjective. Among the adjectives, it is
-    important to note the usage of relational adjectives
-    (e.g.~``presidential''). \TODO{Define relational adjective} Although they are less used than attributive
-    adjectives, their similar properties to
-    nouns~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise} and the
-    fact they have classificatory or taxonomic
-    meaning~\cite{mcnally2004relationaladjectives} make them more likely to be
-    relevant keyphrase modifiers than attributive adjectives, such as ``huge''
-    which is very unlikely to be a relevant keyphrase modifier.
+    them are modified by an adjective. Most importantly, among these adjectives
+    there is an important amount of relational adjectives. Relational adjectives
+    are \dots. \TODO{AdjR are better than attributive ones.}
 
     \begin{property}\label{prop:noun_phrases}
       Keyphrases are mostly nouns (e.g.~``storms'') that can be modified by an
       adjective (e.g.~``annual hurricane forecast'').
     \end{property}
 
-    To give an insight of the keyphrase POS tag patterns,
-    Table~\ref{tab:best_patterns} shows the five most frequent patterns for
-    English and French.
+    To give more insight about the nature of keyphrases,
+    Table~\ref{tab:best_patterns} shows the five most frequent POS tag sequences
+    for English and French.
     \begin{table*}
       \centering
       \begin{tabular}{@{}r@{~}|@{~}l@{~}l@{~}l@{~}l@{~}l@{}}
@@ -166,18 +164,18 @@
         \multicolumn{1}{r}{} & \multicolumn{4}{@{}l}{\textbf{Pattern}} & \textbf{Example}\\
         \midrule
         \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{English}\end{sideways}}
-        & \verb:Nc: & \verb:Nc: & & & \textit{``hurricane expert''}\\ % AP880409-0015
-        & \verb:Nc: & & & & \textit{``storms''}\\ % AP880409-0015
-        & \verb:rA: & \verb:Nc: & & & \textit{``Chinese earthquake''}\\ % AP890228-0019
-        & \verb:aA: & \verb:Nc: & & & \textit{``turbulent summer''}\\ % AP880409-0015
-        & \verb:aA: & \verb:Nc: & \verb:Nc: & & \textit{``annual hurricane forecast''}\\ % AP880409-0015
+        & \texttt{Nc} & \texttt{Nc} & & & \textit{``hurricane expert''}\\ % AP880409-0015
+        & \texttt{Nc} & & & & \textit{``storms''}\\ % AP880409-0015
+        & \texttt{rA} & \texttt{Nc} & & & \textit{``Chinese earthquake''}\\ % AP890228-0019
+        & \texttt{aA} & \texttt{Nc} & & & \textit{``turbulent summer''}\\ % AP880409-0015
+        & \texttt{aA} & \texttt{Nc} & \texttt{Nc} & & \textit{``annual hurricane forecast''}\\ % AP880409-0015
         \hline%\addlinespace[1.5\defaultaddspace]
         \multirow{5}{*}[-2pt]{\begin{sideways}\textbf{French}\end{sideways}}
-        & \verb:Nc: & & & & \textit{``patrimoine'' (``cultural heritage'')}\\ % as_2002_007048ar
-        & \verb:Nc: & \verb:rA: & & & \textit{``tradition orale'' (``oral tradition'')}\\ % as_2002_007048ar
-        & \verb:Np: & & & & \textit{``Indonésie'' (``Indonesia'')}\\ % as_2001_000235ar
-        & \verb:Nc: & \verb:Sp: & \verb:D: & \verb:Nc: & \textit{``conservation de la nature'' (``nature conservation'')}\\ % as_2005_011742ar
-        & \verb:Nc: & \verb:Sp: & \verb:Nc: & & \textit{``traduction en anglais'' (``English translation'')}\\ % meta_2003_006958ar
+        & \texttt{Nc} & & & & \textit{``patrimoine'' (``cultural heritage'')}\\ % as_2002_007048ar
+        & \texttt{Nc} & \texttt{rA} & & & \textit{``tradition orale'' (``oral tradition'')}\\ % as_2002_007048ar
+        & \texttt{Np} & & & & \textit{``Indonésie'' (``Indonesia'')}\\ % as_2001_000235ar
+        & \texttt{Nc} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & \textit{``conservation de la nature'' (``nature conservation'')}\\ % as_2005_011742ar
+        & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & \textit{``traduction en anglais'' (``English translation'')}\\ % meta_2003_006958ar
         \bottomrule
       \end{tabular}
       \caption{Frequent POS tag patterns. POS tags belong to the Multex format,
@@ -225,6 +223,7 @@
   properties~\ref{prop:informativity} and~\ref{prop:noun_phrases}.
 
   \paragraph{}
+  \TODO{Refined patterns?}
   As a contribution to the candidate selection step, we propose to extract
   \textbf{refined noun phrases} (refined NPs) by adding a decision process
   during the selection of noun, proper noun and adjective sequences. Indeed,
@@ -340,18 +339,20 @@
       The \textbf{NP-chunk selection} is also performed using pattern matching.
       Only basic patterns are used:
       \begin{itemize}
-        \item{\verb:Np+ | (A+ Nc) | Nc+:, for English datasets;}
-        \item{\verb:Np+ | (A? Nc A+) | (A Nc) | Nc+:, for French datasets.}
+        \item{\texttt{Np+ |~(A+~Nc) |~Nc+}, for English datasets;}
+        \item{\texttt{Np+ |~(A?~Nc~A+) |~(A~Nc) |~Nc+}, for French datasets.}
       \end{itemize}
 
       \paragraph{}
+      \TODO{Refined patterns?}
       The \textbf{refined NPs} are also selected using pattern matching. The
       patterns we use are related to the position of relational adjectives in
       the target language:
       \begin{itemize}
-        \item{\verb:A? (Nc | Np)+:, for English datasets;}
-        \item{\verb:(Nc | Np)+ A?:, for French datasets.}
+        \item{\texttt{A? (Nc~|~Np)+}, for English datasets;}
+        \item{\texttt{(Nc~|~Np)+ A?}, for French datasets.}
       \end{itemize}
+      \TODO{+filtering}
       To detect relational adjectives, we use two lists of known suffixes of
       relational adjectives in English (``al'', ``ant'', ``ary'', ``ic'',
       ``ous'' and ``ive'') and French (``ain'', ``aire'', ``al'', ``el'',
@@ -383,9 +384,10 @@
           & Cand./Doc. & R$_{max}$ & QR & Cand./Doc. & R$_{max}$ & QR & Cand./Doc. & R$_{max}$ & QR\\
           \midrule
           \{1..3\}-grams & $~~~$596.2 & 90.8 & 15.2 & 2580.5 & 72.2 & $~~$2.8 & 4070.2 & 74.1 & $~~~$1.8\\
-          Longest NPs & $~~~$155.6 & 88.7 & \textbf{57.0} & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
+          Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
           NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
-          Refined NPs & $~~~$143.1 & 73.9 & 51.6 & $~~~$563.4 & 58.1 & \textbf{10.3} & $~~~$670.0 & 59.2 & \textbf{$~~$8.8}\\
+          Refined pattern & $~~~$145.6 & 87.7 & \textbf{60.2} & $~~~$583.6 & 61.0 & 10.5 & $~~~$766.9 & 60.3 & $~~$7.9\\
+          $\hookrightarrow$\hfill{}+filtering & $~~~$139.0 & 75.5 & 54.3 & $~~~$520.3 & 58.8 & \textbf{11.3} & $~~~$731.2 & 60.3 & \textbf{$~~$8.2}\\
           \bottomrule
         \end{tabular}
         \caption{Candidate selection statistics.
@@ -429,10 +431,10 @@
           & P & R & F & P & R & F & P & R & F\\
           \midrule
           \{1..3\}-grams & 14.3 & 19.0 & 16.1 & $~~$9.0 & $~~$6.0 & $~~$7.2 & $~~$6.7 & 12.5 & $~~$8.6\\
-          Longest NPs & \textbf{24.2} & \textbf{31.7} & \textbf{27.0} & 11.7 & $~~$7.9 & $~~$9.3 & $~~$9.5 & 17.6 & 12.1\\
+          Longest NPs & 24.2 & 31.7 & 27.0 & 11.7 & $~~$7.9 & $~~$9.3 & $~~$9.5 & 17.6 & 12.1\\
           NP-chunks & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & $~~$9.5 & $~~$9.6 & 17.9 & 12.3\\
-          Refined NPs & 22.6 & 30.0 & 25.4 & \textbf{12.3} & \textbf{$~~$8.3} &
-     \textbf{$~~$9.8} & \textbf{10.1} & \textbf{18.6} & \textbf{12.9}\\
+          Refined pattern & \textbf{24.9} & \textbf{32.5} & \textbf{27.8} & 12.2 & $~~$8.2 & $~~$9.7 & $~~$9.8 & 17.9 & 12.5\\
+          $\hookrightarrow$\hfill{}+filtering & 22.8 & 30.3 & 25.6 & \textbf{12.2} & \textbf{$~~$8.3} & \textbf{$~~$9.8} & \textbf{10.6} & \textbf{19.5} & \textbf{13.6}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
@@ -448,9 +450,10 @@
           & P & R & F & P & R & F & P & R & F\\
           \midrule
           \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
-          Longest NPs & \textbf{17.7} & \textbf{23.2} & \textbf{19.8} & 11.6 & $~~$7.9 & $~~$9.3 & \textbf{11.6} & \textbf{21.5} & \textbf{14.9}\\
+          Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & \textbf{11.6} & \textbf{21.5} & \textbf{14.9}\\
           NP-chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
-          Refined NPs & 17.2 & 22.9 & 19.4 & \textbf{11.9} & \textbf{$~~$8.2} & \textbf{$~~$9.6} & 10.6 & 19.9 & 13.7\\
+          Refined pattern & \textbf{17.9} & \textbf{23.4} & \textbf{20.0} & 12.2 & $~~$8.3 & $~~$9.8 & 11.4 & 21.1 & 14.6\\
+          $\hookrightarrow$\hfill{}+filtering & 17.4 & 23.2 & 19.6 & \textbf{12.2} & \textbf{$~~$8.5} & \textbf{$~~$9.9} & 11.2 & 20.8 & 14.4\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
@@ -467,9 +470,9 @@
           \midrule
           \{1..3\}-grams & 12.0 & 16.6 & 13.7 & 19.4 & 13.7 & 15.9 & 13.4 & 25.3 & 17.3\\
           Longest NPs & 14.5 & 19.9 & 16.5 & 19.6 & 13.7 & 16.0 & 14.1 & 26.3 & 18.1\\
-          NP-chunks & 13.5 & 18.6 & 15.4 & 19.5 & 13.7 & 16.0 & \textbf{14.3} & \textbf{26.8} & \textbf{18.4}\\
-          Refined NPs & \textbf{14.7} & \textbf{20.3} & \textbf{16.8} &
-         \textbf{20.8} & \textbf{14.6} & \textbf{17.0} & 14.1 & 26.5 & 18.2\\
+          NP-chunks & 13.5 & 18.6 & 15.4 & 19.5 & 13.7 & 16.0 & 14.3 & 26.8 & 18.4\\
+          Refined pattern & 14.4 & 19.7 & 16.4 & 20.6 & 14.4 & 16.8 & \textbf{14.5} & \textbf{27.2} & \textbf{18.7}\\
+          $\hookrightarrow$\hfill{}+filtering & \textbf{14.7} & \textbf{20.3} & \textbf{16.8} & \textbf{20.8} & \textbf{14.6} & \textbf{17.0}& \textbf{14.5} & \textbf{27.2} & \textbf{18.7}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
