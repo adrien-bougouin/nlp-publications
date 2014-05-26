@@ -135,7 +135,7 @@
     \end{table}
 
     First, we observe, as stated in previous work, that most keyphrases are
-    unigrams or bigrams ($\simeq$ 80\%), i.e.~small-sized keyphrases are the
+    unigrams or bigrams ($\simeq$~80\%), i.e.~small-sized keyphrases are the
     most frequent.
     
     \begin{property}\label{prop:informativity}
@@ -190,8 +190,8 @@
   In this section, we present the textual units that are commonly used as
   keyphrase candidates and discuss their consistency regarding the properties
   inferred in Section~\ref{sec:definition_of_candidate_keyphrases}. We also
-  present a new method that selects refined noun phrases as keyphrase
-  candidates.
+  propose a new approach that filters out adjectives that do not significantly
+  contribute to the meaning of a noun phrase.
 
   \paragraph{N-grams} are ordered sequences of $n$ words, where $n$ is usually
   set to 1 up to 3~\cite{witten1999kea}. Extracting n-grams has the benefit to
@@ -202,6 +202,8 @@
   determiner or common word) at their beginning or end. Filtered n-gram
   candidates are grammatically uncontrolled and do not fit
   properties~\ref{prop:informativity} and~\ref{prop:noun_phrases}.
+
+  \TODO{Example}
 
   \paragraph{Textual units matching given POS tag patterns} are textual units of
   specific syntactic forms. Extracting such textual units ensures grammaticality
@@ -215,6 +217,8 @@
   and~\ref{prop:noun_phrases}. However, the first approach requires training
   data and is, therefore, not suitable for every situation.
 
+  \TODO{Example}
+
   \paragraph{NP-chunks} are non-recursive noun phrases.
   \newcite{hulth2003keywordextraction} uses them in her work and argues that
   they are less arbitrary and more linguistically justified than other
@@ -222,19 +226,24 @@
   minimal) noun phrases, they are consistent with both
   properties~\ref{prop:informativity} and~\ref{prop:noun_phrases}.
 
+  \TODO{Example}
+
   \paragraph{}
-  \TODO{Refined patterns?}
   As a contribution to the candidate selection step, we propose to extract
   \textbf{refined noun phrases} (refined NPs) by adding a decision process
   during the selection of noun, proper noun and adjective sequences. Indeed,
   we assume that adjectives are sometimes implicit or add extra information
   (e.g.~``huge wildfires''). Hence, they must be kept only under specific
-  conditions. First, we assume that a frequent modification of a noun phrase by
-  the same adjective (at least twice) is a clue of its usefulness. Second, we
-  consider relational adjectives as a specific class of adjectives and assume
-  that they are always useful. This assumption is corroborated by the usefulness
-  of relational adjectives for other tasks such as topic detection or term
+  conditions. First, regarding property~\ref{prop:informativity} we estimate
+  that only one adjective should be part of a keyphrase candidate. Second, we
+  assume that a frequent modification of a noun phrase by the same adjective
+  (at least twice) is a clue of its usefulness. Third, we consider relational
+  adjectives as a specific class of adjectives and assume that they are always
+  useful. This assumption is corroborated by the usefulness of relational
+  adjectives for other tasks such as topic detection or term
   extraction~\cite{daille2001relationaladjectives}.
+
+  \TODO{Example}
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
@@ -242,7 +251,6 @@
   is to classify them or rank them. In this section, we detail the three
   keyphrase extraction methods that we use in our study. Two are unsupervised
   (ranking methods) and one is a supervised (classification method).
-  \TODO{Add SingleRank???}
 
   \paragraph{TF-IDF~\textnormal{\cite{jones1972tfidf}}} is a weighting scheme
   that represents the significance of a word in a given document. Significant
@@ -280,8 +288,8 @@
     To quantify the capacity of the keyphrase candidate selection methods to
     provide suitable candidates and avoid irrelevant ones, we compute the
     number of selected candidates (Cand./Doc.) and confront it with the
-    maximum recall (R$_{max}$) that can be achieved. To do so, we compute a quality
-    ratio (QR):
+    maximum recall (R$_{max}$) that can be achieved. To do so, we compute a
+    quality ratio (QR):
     \begin{align}
       \text{QR} &= \frac{\text{R$_{max}$}}{\text{Cand./Doc.}} \times 100
     \end{align}
@@ -322,59 +330,71 @@
       and~\ref{prop:noun_phrases}.
 
       \paragraph{}
-      According to Property~\ref{prop:informativity}, we test a \textbf{filtered
-      n-gram selection} method that provides small-sized n-grams:
-      $n = \{1..3\}$. The stop words used for the filtering are part of the IR
-      Multilingual
+      According to Property~\ref{prop:informativity}, we test a filtered n-gram
+      selection method that provides small-sized n-grams: $n = \{1..3\}$
+      (\textbf{\{1..3\}-grams}). The stop words used for the filtering are part
+      of the IR Multilingual
       Resources\footnote{\url{http://members.unine.ch/jacques.savoy/clef/index.html}}
       provided by the University of Neuchâtel (UniNE).
 
       \paragraph{}
       Following both Property~\ref{prop:noun_phrases} and previous
-      work~\cite{hassan2010conundrums}, we use \textbf{pattern matching} to
-      select the longest noun phrases (longest NPs), i.e.~the longest sequences
-      of nouns, proper nouns and adjectives.
-
-      \paragraph{}
-      The \textbf{NP-chunk selection} is also performed using pattern matching.
-      Only basic patterns are used:
+      work~\cite{hassan2010conundrums}, we use pattern matching to select the
+      longest noun phrases (\textbf{longest NPs}), i.e.~the longest sequences of
+      nouns, proper nouns and adjectives:
       \begin{itemize}
-        \item{\texttt{Np+ |~(A+~Nc) |~Nc+}, for English datasets;}
-        \item{\texttt{Np+ |~(A?~Nc~A+) |~(A~Nc) |~Nc+}, for French datasets.}
+        \item{\texttt{(Nc | Np | A)+}.}
       \end{itemize}
 
       \paragraph{}
-      \TODO{Refined patterns?}
+      The \textbf{NP-chunk} selection is also performed using pattern matching.
+      Only basic patterns are used:
+      \begin{itemize}
+        \item{\texttt{Np+ |~(A+~Nc) |~Nc+}, for English;}
+        \item{\texttt{Np+ |~(A?~Nc~A+) |~(A~Nc) |~Nc+}, for French.}
+      \end{itemize}
+
+      \paragraph{}
       The \textbf{refined NPs} are also selected using pattern matching. The
       patterns we use are related to the position of relational adjectives in
       the target language:
       \begin{itemize}
-        \item{\texttt{A? (Nc~|~Np)+}, for English datasets;}
-        \item{\texttt{(Nc~|~Np)+ A?}, for French datasets.}
+        \item{\texttt{A? (Nc~|~Np)+}, for English;}
+        \item{\texttt{(Nc~|~Np)+ A?}, for French.}
       \end{itemize}
-      \TODO{+filtering}
       To detect relational adjectives, we use two lists of known suffixes of
       relational adjectives in English (``al'', ``ant'', ``ary'', ``ic'',
       ``ous'' and ``ive'') and French (``ain'', ``aire'', ``al'', ``el'',
       ``eux'', ``ien'', ``ier'', ``ique'', ``ois'') combined with two lexical
-      databases: WordNet's pertainym relation~\cite{miller1995wordnet} for
-      English and WoNeF's ``related-to'' relation~\cite{pradet2013wonef} for
+      databases: WordNet and its adjectives' pertainym
+      relations~\cite{miller1995wordnet}, for English, and WoNeF and its
+      adjectivess ``related-to'' relations~\cite{pradet2013wonef}, for
       French.
+
+      Also, to show the effectiveness of our adjective filtering, we use a
+      baseline, namely \textbf{Refined NPs BL}, which extracts keyphrase
+      candidates with the same patterns, but do not filter out the adjectives.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
       Table~\ref{tab:candidate_extraction_statistics} shows the results of the
-      candidate selection methods. The selection of n-grams provides a huge
-      amount of candidates and allows a near perfect maximum
-      recall\footnote{According to the amount of missing keyphrases of the test
-      sets, the maximum recall that can be achieved is 97.2\% for DUC, 87.9\%
-      for SemEval and 88.9\% for DEFT.}, whereas the other candidate selection
-      methods provide less candidates and allow a lower maximum recall. However,
-      for the selection of longest NPs, NP-chunks and refined NPs, the maximum
-      recall does not significantly decrease compared to the number of selected
-      candidates. According to the quality ratio, the method that selects
-      better candidates is the one selecting refined NPs, followed by the ones
-      selecting longest NPs and NP-chunks.
+      candidate selection methods.
+      \TODO{Global observation: no significantly better R$_{max}$ with very
+      productive methods}
+      \TODO{$\Rightarrow$ There are more n-grams than others, but the maximum
+      recall is not significantly higher}
+      \TODO{$\Rightarrow$ On DEFT, we can see the efgectiveness of the filtering}
+%      The selection of n-grams provides a huge
+%      amount of candidates and allows a near perfect maximum
+%      recall\footnote{According to the amount of missing keyphrases of the test
+%      sets, the maximum recall that can be achieved is 97.2\% for DUC, 87.9\%
+%      for SemEval and 88.9\% for DEFT.}, whereas the other candidate selection
+%      methods provide less candidates and allow a lower maximum recall. However,
+%      for the selection of longest NPs, NP-chunks and refined NPs, the maximum
+%      recall does not significantly decrease compared to the number of selected
+%      candidates. According to the quality ratio, the method that selects
+%      better candidates is the one selecting refined NPs, followed by the ones
+%      selecting longest NPs and NP-chunks.
       \begin{table*}
         \centering
         \begin{tabular}{@{}r@{~~}c@{~}c@{~~}c@{~}c@{~}c@{~~}c@{~}c@{~}c@{~~}c@{}}
@@ -386,8 +406,8 @@
           \{1..3\}-grams & $~~~$596.2 & 90.8 & 15.2 & 2580.5 & 72.2 & $~~$2.8 & 4070.2 & 74.1 & $~~~$1.8\\
           Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
           NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
-          Refined pattern & $~~~$145.6 & 87.7 & \textbf{60.2} & $~~~$583.6 & 61.0 & 10.5 & $~~~$766.9 & 60.3 & $~~$7.9\\
-          $\hookrightarrow$\hfill{}+filtering & $~~~$139.0 & 75.5 & 54.3 & $~~~$520.3 & 58.8 & \textbf{11.3} & $~~~$731.2 & 60.3 & \textbf{$~~$8.2}\\
+          Refined NPs BL & $~~~$145.6 & 87.7 & \textbf{60.2} & $~~~$583.6 & 61.0 & 10.5 & $~~~$766.9 & 60.3 & $~~$7.9\\
+          Refined NPs & $~~~$139.0 & 75.5 & 54.3 & $~~~$520.3 & 58.8 & \textbf{11.3} & $~~~$731.2 & 60.3 & \textbf{$~~$8.2}\\
           \bottomrule
         \end{tabular}
         \caption{Candidate selection statistics.
@@ -433,8 +453,8 @@
           \{1..3\}-grams & 14.3 & 19.0 & 16.1 & $~~$9.0 & $~~$6.0 & $~~$7.2 & $~~$6.7 & 12.5 & $~~$8.6\\
           Longest NPs & 24.2 & 31.7 & 27.0 & 11.7 & $~~$7.9 & $~~$9.3 & $~~$9.5 & 17.6 & 12.1\\
           NP-chunks & 21.1 & 28.1 & 23.8 & 11.9 & $~~$8.0 & $~~$9.5 & $~~$9.6 & 17.9 & 12.3\\
-          Refined pattern & \textbf{24.9} & \textbf{32.5} & \textbf{27.8} & 12.2 & $~~$8.2 & $~~$9.7 & $~~$9.8 & 17.9 & 12.5\\
-          $\hookrightarrow$\hfill{}+filtering & 22.8 & 30.3 & 25.6 & \textbf{12.2} & \textbf{$~~$8.3} & \textbf{$~~$9.8} & \textbf{10.6} & \textbf{19.5} & \textbf{13.6}\\
+          Refined NPs BL & \textbf{24.9} & \textbf{32.5} & \textbf{27.8} & 12.2 & $~~$8.2 & $~~$9.7 & $~~$9.8 & 17.9 & 12.5\\
+          Refined NPs & 22.8 & 30.3 & 25.6 & \textbf{12.2} & \textbf{$~~$8.3} & \textbf{$~~$9.8} & \textbf{10.6} & \textbf{19.5} & \textbf{13.6}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
@@ -452,8 +472,8 @@
           \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
           Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & \textbf{11.6} & \textbf{21.5} & \textbf{14.9}\\
           NP-chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
-          Refined pattern & \textbf{17.9} & \textbf{23.4} & \textbf{20.0} & 12.2 & $~~$8.3 & $~~$9.8 & 11.4 & 21.1 & 14.6\\
-          $\hookrightarrow$\hfill{}+filtering & 17.4 & 23.2 & 19.6 & \textbf{12.2} & \textbf{$~~$8.5} & \textbf{$~~$9.9} & 11.2 & 20.8 & 14.4\\
+          Refined NPs BL & \textbf{17.9} & \textbf{23.4} & \textbf{20.0} & 12.2 & $~~$8.3 & $~~$9.8 & 11.4 & 21.1 & 14.6\\
+          Refined NPs & 17.4 & 23.2 & 19.6 & \textbf{12.2} & \textbf{$~~$8.5} & \textbf{$~~$9.9} & 11.2 & 20.8 & 14.4\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
@@ -471,8 +491,8 @@
           \{1..3\}-grams & 12.0 & 16.6 & 13.7 & 19.4 & 13.7 & 15.9 & 13.4 & 25.3 & 17.3\\
           Longest NPs & 14.5 & 19.9 & 16.5 & 19.6 & 13.7 & 16.0 & 14.1 & 26.3 & 18.1\\
           NP-chunks & 13.5 & 18.6 & 15.4 & 19.5 & 13.7 & 16.0 & 14.3 & 26.8 & 18.4\\
-          Refined pattern & 14.4 & 19.7 & 16.4 & 20.6 & 14.4 & 16.8 & \textbf{14.5} & \textbf{27.2} & \textbf{18.7}\\
-          $\hookrightarrow$\hfill{}+filtering & \textbf{14.7} & \textbf{20.3} & \textbf{16.8} & \textbf{20.8} & \textbf{14.6} & \textbf{17.0}& \textbf{14.5} & \textbf{27.2} & \textbf{18.7}\\
+          Refined NPs BL & 14.4 & 19.7 & 16.4 & 20.6 & 14.4 & 16.8 & \textbf{14.5} & \textbf{27.2} & \textbf{18.7}\\
+          Refined NPs & \textbf{14.7} & \textbf{20.3} & \textbf{16.8} & \textbf{20.8} & \textbf{14.6} & \textbf{17.0}& \textbf{14.5} & \textbf{27.2} & \textbf{18.7}\\
           \bottomrule
         \end{tabular}
         \caption{Comparison of candidate selection methods, when 10 keyphrases
