@@ -101,9 +101,9 @@
     termes-clés n'a, à notre connaissance, utilisé une telle approche. Compte
     tenu de la nature (disciplinaire) de nos données, nous faisons l'hypothèse
     que les candidats termes, tels que définis dans le domaine de l'extraction
-    terminologique, sont des termes-clés candidats pertinents. Ces trois
+    terminologique, peuvent aussi être des termes-clés candidats. Ces trois
     méthodes de sélection fournissent des ensembles de candidats de qualités
-    différentes (cf. ci-dessous), ce qui nous permet par la suite d'identifier
+    différentes, ce qui nous permet par la suite d'identifier
     les facteurs qui influent sur la difficulté de l'extraction automatique de
     termes-clés.
 
@@ -147,13 +147,27 @@
     ou une séquence de mots représentant un concept spécifique à un domaine, ou
     une discipline. Dans ce travail, nous utilisons l'extracteur terminologique
     TermSuite~\cite{rocheteau2011termsuite}, qui est capable de détecter des
-    candidats termes (simples et complexes) ainsi que leurs variantes.
+    candidats termes (simples et complexes) ainsi que leurs variantes. Une
+    terminologie est extraite par TermSuite  pour chaque corpus (32~119
+    candidats termes en Archéologie, 16~557 candidats termes en Sciences de
+    l'Information, 21~330 candidats termes en Linguistique, 24~680 candidats
+    termes en Psychologie et 21~020 candidats termes en Chimie) et toutes les
+    entrées de la terminologie apparaissant dans un document de la discipline
+    sont sélectionnés comme termes-clés candidats de ce
+    document\footnote{L'extraction terminologique effectuée depuis tous les
+    documents de chaque collection permet une meilleure précision lors de la
+    détection des variantes des termes. De plus, la taille des
+    collections entre 80~000 et 150~000 mots
+    est faible pour une extraction terminologique, mais ceci est compensé
+    par le haut degré de densité terminologique des collections.}.
+    cette terminologie sont extraites comme termes-clés candidats.
     Contrairement à la méthode de sélection des plus longues séquences de noms
     et d'adjectifs, la sélection des candidats termes de TermSuite se fonde sur
     un travail de spécification linguistique et terminologique des termes. Les
     patrons grammaticaux utilisés par TermSuite sont donc plus précis (p.~ex.
-    \texttt{/NOM à NOM/}, \texttt{/NOM en NOM/}, \texttt{/ADJ NOM à NOM ADJ/},
-    etc.).
+    \texttt{/NOM à NOM/}, \texttt{/NOM en NOM/}, \texttt{/NOM à NOM ADJ/},
+    etc.) et de longueur plus restreinte puisque les structures à deux ou trois
+    mots lexicaux sont privilégiées.
     
     \textit{Exemples de candidats termes sélectionnés à partir de \og{}bassin
     moyen du Don\fg{} dans la notice d'archéologie de la
@@ -180,7 +194,7 @@
     et leurs relations en son sein. De plus, ils bénéficient de nombreuses
     études théoriques donnant lieu à des outils et algorithmes efficaces pour
     résoudre divers problèmes. TF-IDF et TopicRank ont un fonctionnement très
-    différent (cf. ci-dessous), ce qui nous permet par la suite d'identifier les
+    différent, ce qui nous permet par la suite d'identifier les
     facteurs qui influent sur la difficulté de l'extraction automatique de
     termes-clés.
 

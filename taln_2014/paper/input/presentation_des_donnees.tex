@@ -9,7 +9,8 @@
   contient le titre, le résumé et les termes-clés d'un document auquel elle est
   associée. Les termes-clés sont classés en deux catégories~:
   \begin{itemize}
-    \item{les termes-clés d'auteurs, assignés librement par les auteurs~;}
+    \item{les termes-clés d'auteurs, assignés librement par les auteurs pour
+          caractériser leur production~;}
     \item{les termes-clés Inist (en français, en anglais ou en espagnol),
           assignés par des indexeurs professionnels selon des règles précises
           destinées à améliorer la recherche d'information et à homogénéiser
@@ -27,8 +28,7 @@
             qui y sont importants, même ceux qui sont implicites.}
     \end{itemize}
   \end{itemize}
-  Parmi ces différents ensembles de termes-clés, nous utilisons les termes-clés
-  français assignés par l'Inist.
+  Nous utilisons les termes-clés français assignés par l'Inist.
 
   Le corpus d'\textbf{archéologie} est composé de 718 notices. Celles-ci
   représentent des articles parus entre 2001 et 2012 dans 22 revues différentes
@@ -76,10 +76,11 @@
   que pour les autres disciplines, c'est-à-dire un nombre plus important de
   termes-clés différents parmis tous les termes-clés de référence, indique une difficulté a priori plus
   importante. Enfin, il est important de noter la faible proportion de
-  termes-clés apparaissant dans les notices --- rappel maximum pouvant être
+  termes-clés apparaissant dans les notices, à une flexion près --- rappel maximum pouvant être
   obtenu. Par exemple, dans le corpus de chimie, uniquement trois termes-clés
   peuvent être extraits des notices parmi les 12,8 associés aux notices, en
-  moyenne. Ce dernier point concerne principalement les termes-clés contrôlés,
+  moyenne, en comparant les candidats à partir de la racine de leurs mots
+  déterminées avec la méthode de \newcite{porter1980suffixstripping}. Ce dernier point concerne principalement les termes-clés contrôlés,
   qui peuvent être assignés à un document à partir de règles concernant les
   unités textuelles présentent dans le document. Ces règles, dites de
   déclenchement, sont définies manuellement par les indexeurs professionnels et
@@ -109,7 +110,12 @@
              la discipline $\left(\frac{\mbox{nombre de termes-clés
              différents}}{\mbox{nombre total de termes-clés}}\right)$. Les
              termes-clés extractibles sont les termes-clés pouvant être extraits
-             du contenu des documents.
+             du contenu des documents. Conformément au processus d'évaluation
+             standard pour les méthodes d'extraction automatique de termes-clés
+             (cf. section~\ref{subsec:mesure_d_evaluation}), les variantes
+             flexionnelles d'un terme-clé de référence sont jugées correctes
+             (p.~ex. \og{}langue\underline{s} de  spécialité\fg{} peut être
+             extrait à la place de \og{}langue de spécialité\fg{}).
              \label{tab:statistiques_des_corpus}}
   \end{table}
 
@@ -199,15 +205,9 @@
         }
       }
     \end{minipage}
-    \caption{Exemples de notices Inist. Les termes-clés soulignés représentent
-             les concepts pouvant être extraits depuis le titre ou le résumé de
-             la notice. Les termes-clés marqués d'une $^*$ font partie des
-             termes-clés contrôlés. Conformément au processus d'évaluation
-             standard pour les méthodes d'extraction automatique de termes-clés
-             (cf. section~\ref{subsec:mesure_d_evaluation}), les variantes
-             flexionnelles d'un terme-clé de référence sont jugées correctes
-             (p.~ex. \og{}langue\underline{s} de  spécialité\fg{} peut être
-             extrait à la place de \og{}langue de spécialité\fg{}).
+    \caption{Exemples de notices Inist. Les termes-clés soulignés sont ceux qui occurrent dans
+             le titre ou le résumé de la notice. Les termes-clés marqués d'une
+             $^*$ font partie des termes-clés contrôlés.
              \label{fig:exemple_notice_inist}}
   \end{figure}
 

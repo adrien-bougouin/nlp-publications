@@ -20,12 +20,14 @@
 \usepackage{pgfplots}
 \usepackage{url}
 \usepackage{subfigure}
+\usepackage{fancybox}
 
 \pgfplotsset{compat=1.8}
 
 \usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
 
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citeasnoun{#2}}{\citeasnoun[#1]{#2}}}
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
 
 \newtheorem{property}{Propriété}
 
@@ -50,7 +52,7 @@
   quantité de ces documents étant de plus en plus importante, l'extraction
   manuelle des termes-clés n'est pas envisageable et la tâche d'extraction
   automatique de termes-clés suscite alors l'intérêt des chercheurs. Dans cet
-  article nous présentons \textit{TopicRank}, une méthode non-supervisée à base
+  article nous présentons \textit{Topic\-Rank}, une méthode non-supervisée à base
   de graphe pour l'extraction de termes-clés. Cette méthode groupe les
   termes-clés candidats par sujet, ordonne les groupes obtenus, et extrait des
   meilleurs groupes le terme-clé candidat le plus représentatif. Les expériences
@@ -60,13 +62,13 @@
   Keyphrases are single or multi-word expressions that represent the main
   content of a document. As keyphrases are useful in many applications such as
   document indexing or text summarization, and also because the vast amount of
-  data available nowadays can not be manually annotated, the task of
+  data available nowadays cannot be manually annotated, the task of
   automatically extracting keyphrases has attracted considerable attention. In
   this article we present TopicRank, an unsupervised graph-based method for
   keyphrase extraction. This method clusters the keyphrase candidates into
-  topics, ranks these topics and extracts the most representative candidate fo
+  topics, ranks these topics and extracts the most representative candidate for
   each of the best topics. Our experiments show a significant improvement over
-  the state-of-the-art graph based methods for keyphrase extraction.
+  the state-of-the-art graph-based methods for keyphrase extraction.
 }
 
 \motscles{

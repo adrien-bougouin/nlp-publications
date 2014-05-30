@@ -9,6 +9,7 @@
   \label{subsec:cadre_experimental}
     \subsubsection{Données de test}
     \label{subsubsec:donnees_de_test}
+      \TODO{Quels types d'évaluations}
       Les collections de données présentées ci-dessous sont utilisées lors de
       toutes les évaluations. Afin de suivre \newcite{hassan2010conundrums} qui
       soulignent l'importance d'évaluer une méthode avec des collections de
@@ -39,10 +40,10 @@
       \textbf{WikiNews}\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
       est une collection de 100 articles journalistiques en français que nous
       avons extraits du site Web
-      WikiNews\footnote{\url{http://fr.wikinews.org/}} entre les mois de mai et
+      WikiNews\footnote{\url{http://fr.wikinews.org}} entre les mois de mai et
       décembre 2012. Chaque document est annoté par au moins trois étudiants,
       les termes-clés des différents étudiants sont groupés et les redondances
-      lexicales sont automatiquement supprimées.
+      lexicales sont automatiquement supprimées. \TODO{Détailler plus}
 
       \textbf{DEFT}~\cite{paroubek2012deft} est la collection fournie lors de la
       campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
@@ -84,7 +85,7 @@
         \caption{Statistiques sur les données de test utilisées. En accord avec
                  l'évaluation effectuée lors de nos expériences, la proportion
                  de termes-clés manquant est déterminée sans tenir compte de la
-                 flexions des mots.
+                 flexions des mots. \TODO{Rmax}
                  \label{tab:donnees_de_test}}
       \end{table}
 
@@ -119,10 +120,12 @@
       fondation des méthodes à base de graphe, et la pondération TF-IDF. Cette
       dernière consiste à donner un score aux termes-clés candidats en faisant
       la somme des poids TF-IDF des mots qui les composent, puis à sélectionner
-      ceux ayant le plus haut score.
+      ceux ayant le plus haut score. \TODO{Être clair sur pourquoi pas
+      ExpandRank}
 
       % Quelles sont les particularités liées à notre implémentation ?
-      Toutes les méthodes de référence sont implémentées par nous-même. Lorsque
+      Toutes les méthodes de référence sont implémentées par nous-même
+      \TODO{Liens GitHub}. Lorsque
       celles-ci ont des parties communes avec TopicRank, elles bénéficient des
       mêmes composants. De plus, pour améliorer les résultats des méthodes de
       référence, leurs sorties sont filtrées afin de supprimer les termes-clés
@@ -749,6 +752,8 @@
                \label{tab:evaluation_individuelle_des_ameliorations}}
     \end{table}
 
+    \TODO{Bien montrer que SingleRank +toutes les contribution est égale à
+    TopicRank}
     Dans le but de confirmer la pertinence de tous les apports de TopicRank,
     nous réalisons une expérience supplémentaire dans laquelle la méthode
     SingleRank est modifiée de sorte qu'elle ordonne les mots avec un graphe
@@ -785,6 +790,9 @@
 
   \subsection{Analyse des sujets détectés}
   \label{subsec:analyse_des_sujets_générés}
+    \TODO{S'intéresser aussi au termes-clés non détectés?}
+    \TODO{Attention aux exemples foireux}
+
     Dans cette section, nous analysons les groupements en sujets effectués par
     TopicRank et tentons de déterminer quelles sont les causes principales
     d'erreurs. Notre langue maternelle étant le français et les documents de

@@ -17,27 +17,27 @@
                         align=center,
                         scale=1.25,
                         every node/.style={text centered, transform shape}]
-      \coordinate (start) at (4.5, 0);
-      \coordinate (c) at (5.7, 0);
-      \coordinate (p) at (6.3, 0);
-      \coordinate (s) at (8.1, 0);
-      \coordinate (l) at (9.2, 0);
-      \coordinate (a) at (14.2, 0);
-      \coordinate (end) at (15.4, 0);
-      \node (chimie) at (5.7, -0.3) {\small Chimie};
-      \node (psychologie) at (6.3, 0.3) {\small Psychologie};
-      \node (sciences_de_l_information) at (8.1, -0.715) {\small Sciences\\\small de\\\small l'information};
-      \node (linguistique) at (9.2, 0.3) {\small Linguistique};
-      \node (archeologie) at (14.2, -0.3) {\small Archéologie};
-      \draw[-|, thick] (start) node[xshift=-1.75em] (dificile) {\small Difficile} -- (c);
-      \draw[-|, thick] (c) -- (p);
-      \draw[-|, thick] (p) -- (s);
-      \draw[-|, thick] (s) -- (l);
-      \draw[-|, thick] (l) -- (a);
-      \draw[->, thick] (a) -- (end) node[xshift=1.25em] (facile) {\small Facile};
+      \coordinate (end) at (-4.5, 0);
+      \coordinate (c) at (-5.7, 0);
+      \coordinate (p) at (-6.3, 0);
+      \coordinate (s) at (-8.1, 0);
+      \coordinate (l) at (-9.2, 0);
+      \coordinate (a) at (-14.2, 0);
+      \coordinate (start) at (-15.4, 0);
+      \node (chimie) at (-5.7, -0.3) {\small Chimie};
+      \node (psychologie) at (-6.3, 0.3) {\small Psychologie};
+      \node (sciences_de_l_information) at (-8.1, -0.715) {\small Sciences\\\small de\\\small l'information};
+      \node (linguistique) at (-9.2, 0.3) {\small Linguistique};
+      \node (archeologie) at (-14.2, -0.3) {\small Archéologie};
+      \draw[-|, thick] (start) node (facile) {} -- (a);
+      \draw[-|, thick] (a) -- (l);
+      \draw[-|, thick] (l) -- (s);
+      \draw[-|, thick] (s) -- (p);
+      \draw[-|, thick] (p) -- (c);
+      \draw[->, thick] (c) -- (end) node[xshift=2em] (difficile) {\small Difficile};
     \end{tikzpicture}
-    \caption{Échelle de difficulté disciplinaire, de la discipline la plus
-             difficile à la discipline la plus facile à traiter par les méthodes
+    \caption{Échelle de difficulté disciplinaire, de la discipline la moins
+             difficile à la discipline la plus difficile à traiter par les méthodes
              d'extraction automatique de termes-clés.
              \label{fig:echelle}}
   \end{figure}

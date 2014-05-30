@@ -1,20 +1,19 @@
 \section{État de l'art}
 \label{sec:etat_de_l_art}
   TopicRank faisant partie des méthodes non-supervisées, l'état de l'art
-  présenté ici se focalise sur cette catégorie de méthodes.
-  % Quel est le fonctionnement général des méthodes d'extraction automatique de
-  % termes-clés ?
-  L'extraction automatique non-supervisée de termes-clés est une tâche
-  décomposée en général en quatre étapes. Les méthodes non-supervisées traitent
-  les documents généralement un à un. Ils sont tout d'abord enrichis
-  linguistiquement, c'est-à-dire segmentés en phrases, segmentés en mots 
-  et étiquetés en parties du discours. Des termes-clés candidats en sont
-  extraits, puis ordonnés afin de ne sélectionner que les plus pertinents (voir
-  la figure~\ref{fig:etapes_de_l_extraction_de_termes_cles}). L'extraction des
+  présenté ici se focalise sur cette catégorie de méthodes. L'extraction
+  automatique non-supervisée de termes-clés est une tâche décomposée en général
+  en quatre étapes. Les méthodes non-supervisées traitent les documents
+  généralement un à un. Ceux-ci sont tout d'abord enrichis linguistiquement,
+  c'est-à-dire segmentés en phrases, segmentés en mots  et étiquetés
+  grammaticalement. Des termes-clés candidats en sont sélectionnés, puis
+  ordonnés afin de ne sélectionner que les plus pertinents (voir la
+  figure~\ref{fig:etapes_de_l_extraction_de_termes_cles}). La sélection des
   termes-clés candidats et leur ordonnancement sont les deux étapes auxquelles
   nous nous intéressons dans cet article. L'ordonnancement des termes-clés
-  candidats est le c\oe{}ur de la tâche d'extraction de termes-clés, et ses
-  performances dépendent de la qualité des candidats préalablement extraits.
+  candidats est le c\oe{}ur de la tâche d'extraction de termes-clés et ses
+  performances dépendent de la qualité des candidats préalablement
+  sélectionnés~\cite{wang2014keyphraseextractionpreprocessing}.
   \begin{figure}
     \tikzstyle{io}=[
       ellipse,
@@ -29,7 +28,7 @@
       text centered,
       thick,
       rectangle,
-      minimum width=11cm,
+      minimum width=13cm,
       minimum height=2cm,
       fill=cyan!20,
       draw=cyan!33,
@@ -45,7 +44,8 @@
                         every node/.style={text centered, transform shape}]
       \node[io] (document) {document};
       \node[component] (preprocessing) [right=of document] {Prétraitement Linguistique};
-      \node[component] (candidate_extraction) [below=of preprocessing] {Extraction des candidats};
+      \node[component] (candidate_extraction) [below=of preprocessing]
+      {Sélection des termes-clés candidats};
       \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {Ordonnancement des candidats};
       \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés};
       \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
@@ -60,39 +60,41 @@
              termes-clés. \label{fig:etapes_de_l_extraction_de_termes_cles}}
   \end{figure}
 
-  \subsection{Extraction de termes-clés candidats}
+  \subsection{Sélection des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles_candidats}
     % Quel est l'objectif ?
-    L'objectif de l'extraction de termes-clés candidats est de réduire l'espace
-    des solutions possibles, c'est-à-dire toutes les unités textuelles pouvant
-    être extraites du document analysé, aux seules unités textuelles ayant des
-    particularités similaires à celles des termes-clés tels qu'ils peuvent être
-    donnés par des humains. Il y a deux avantages à cela. Le premier, très
-    évident, est la réduction du temps de calcul nécessaire à l'extraction des
-    termes-clés. Le second avantage est la suppression en amont d'unités
-    textuelles non pertinentes, ces dernières pouvant très négativement affecter
-    les performances de l'ordonnancement. Pour distinguer les différents
-    candidats extraits, nous définissons deux catégories~: les candidats
-    positifs, qui sont présents en tant que termes-clés de référence dans nos
-    collections de données, et les candidats non positifs. Parmi les candidats
-    non positifs, nous distinguons deux sous-catégories~: les candidats porteurs
-    d'indices de différentes natures pouvant influencer la promotion de
-    candidats positifs (par exemple, la présence des candidats \og alerte
-    rouge~\fg, \og alerte jaune~\fg\ et \og alerte orange~\fg\ influence
-    l'extraction du candidat positif \og alerte~\fg\ en tant que terme-clé,
-    dans l'article \textit{44960} de notre collection WikiNews -- voir la
-    section~\ref{sec:evaluation}) et les candidats non pertinents, que nous
-    considérons comme des erreurs.
+    L'objectif de la sélection des termes-clés candidats est de déterminer quels
+    sont les unités textuelles qui sont potentiellement des termes-clés,
+    c'est-à-dire celles qui ont des particularités similaires à celles des
+    termes-clés tels qu'ils peuvent être donnés par des humains. Cette étape
+    présente deux avantages. Le premier, très évident, est la réduction du temps
+    de calcul nécessaire à l'extraction des termes-clés. Le second avantage est
+    la suppression en amont d'unités textuelles non pertinentes, ces dernières
+    pouvant affecter négativement les performances de l'ordonnancement. Pour
+    distinguer les différents candidats sélectionnés, nous définissons deux
+    catégories~: les candidats positifs, qui sont présents en tant que
+    termes-clés de référence dans nos collections de données, et les candidats
+    non positifs. Parmi les candidats non positifs, nous distinguons deux
+    sous-catégories~: les candidats porteurs d'indices de différentes natures
+    pouvant influencer la promotion de candidats positifs (par exemple, la
+    présence des candidats \og{}alerte rouge\fg{}, \og{}alerte jaune\fg{} et
+    \og{}alerte orange\fg{} influence l'extraction du candidat positif
+    \og{}alerte\fg{} en tant que terme-clé, dans l'article présenté dans la
+    figure~\ref{fig:recurrent_example}) et les candidats non pertinents, que
+    nous considérons comme des erreurs.
 
     % Quels sont les différentes méthodes utilisées pour extraire les
     % termes-clés candidats ?
     Dans les travaux précédents, trois méthodes d'extraction de candidats sont
     classiquement utilisées~: l'extraction de n-grammes, de chunks nominaux, et
-    d'unités textuelles respectant certains patrons grammaticaux.
+    d'unités textuelles respectant certains patrons grammaticaux. \TODO{Ce
+    travail ne propose pas de nouvelle méthode d'extraction, nous ne présentons
+    pas de méthodes de sélection autres que celles déjà proposées}
 
-    Les n-grammes sont toutes les séquences ordonnées de $n$ mots, avec
-    $n \in 1..m$, où $m$ vaut généralement
-    3~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}.
+    Les n-grammes sont toutes les séquences ordonnées de $n$ mots adjacents,
+    avec $n \in 1..m$, où $m$ vaut généralement
+    3~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction},
+    du fait de l'usage majoritaire de termes-clés composés d'un à trois mots.
     Leur extraction est très exhaustive, elle fournit un grand nombre de
     termes-clés candidats, maximisant ainsi la quantité de candidats positifs,
     la quantité de candidats porteurs d'indices utiles, mais aussi la quantité
@@ -112,15 +114,18 @@
     des segments linguistiquement définis rendant leur extraction plus fiable
     que celle des n-grammes. Les expériences menées par
     \newcite{hulth2003keywordextraction} et \newcite{eichler2010keywe} avec les
-    chunks nominaux montrent une amélioration des performances vis-à-vis de
-    l'usage des n-grammes. Cependant, \newcite{hulth2003keywordextraction}
-    constate qu'en tirant parti de l'étiquetage en parties du discours des
-    termes-clés candidats, l'extraction supervisée de termes-clés à partir de
-    n-grammes donne des performances au-dessus de celles obtenues avec les
-    chunks nominaux. L'usage de ce trait supplémentaire a pour effet de filtrer
-    les n-grammes grammaticalement incorrects, favorisant alors l'extraction des
-    candidats positifs, qui sont plus nombreux que ceux parmi les chunks
-    nominaux.
+    chunks nominaux premettent de meilleures performances  pour l'extraction de
+    termes-clés que les n-grammes. Cependant,
+    \newcite{hulth2003keywordextraction} constate aussi qu'en tirant parti de
+    l'étiquetage en parties du discours des termes-clés candidats, l'extraction
+    supervisée de termes-clés à partir de n-grammes donne des performances
+    au-dessus de celles obtenues avec les chunks nominaux. Cette amélioration
+    s'explique par le fait que les n-grammes qui ne sont pas grammaticalement
+    corrects sont facilement éléminés dans le processus de classification.
+    Cependant, contrairement à \newcite{hulth2003keywordextraction}, nous
+    proposons une méthode d'extraction non-supervisée de termes-clés.
+    Sélectionner les chunks nominaux est donc une solution plus fiable que de
+    sélectionner les n-grammes.
 
     L'extraction d'unités textuelles à partir de patrons grammaticaux prédéfinis
     permet de contrôler avec précision la nature et la grammaticalité des
@@ -135,23 +140,10 @@
     longues séquences de noms (noms propres inclus) et d'adjectifs. Pour des
     méthodes non-supervisées telles que la nôtre, l'extraction des séquences de 
     noms et d'adjectifs est intéressante, car elle ne nécessite ni données
-    supplémentaires, ni adaptation particulière pour une langue donnée (tel que
-    c'est le cas pour l'extraction des chunks nominaux, par exemple).
-
-    % Que veut-on apporter ?
-    Dans le but d'améliorer la qualité des candidats extraits à partir
-    d'articles scientifiques, \newcite{kim2009termextraction} proposent un
-    filtrage des candidats en fonction de leur spécificité vis-à-vis du document
-    analysé. Cette spécificité est déterminée par rapport à la fréquence d'un
-    candidat dans le document et le nombre de documents d'une collection dans
-    lesquels il apparaît~\cite[TF-IDF]{jones1972tfidf}. Intuitivement, un
-    candidat très fréquent dans le document analysé est d'autant plus spécifique
-    à celui-ci s'il est présent dans très peu d'autres documents. Cette approche
-    est intéressante, mais elle requiert des documents  supplémentaires et la
-    définition d'un seuil pour le filtrage. Dans le cas de TopicRank, nous
-    tentons de nous abstraire de l'usage d'autres documents que celui qui est
-    analysé, cette méthode d'extraction de candidats n'est donc pas compatible
-    avec nos objectifs.
+    supplémentaires, ni adaptation particulière pour une langue donnée, tel que
+    c'est le cas pour les chunks nominaux. Dans ce travail, nous utilisons cette
+    méthode de sélection des termes-clés candidats, afin de proposer une méthode
+    la plus indépendante possible de la langue des documents analysés.
 
   \subsection{Ordonnancement des termes-clés candidats}
   \label{subsec:ordonnancement_des_termes_cles_candidats}
@@ -165,8 +157,8 @@
     % Que veut-on apporter ?
     Les méthodes non-supervisées d'extraction automatique de termes-clés
     emploient des techniques très différentes, allant du simple usage de mesures
-    fréquentielles~\cite{jones1972tfidf,paukkeri2010likey} à l'utilisation de
-    modèles de langues obtenus à partir de données
+    fréquentielles~\cite{paukkeri2010likey} à l'utilisation de modèles de
+    langues obtenus à partir de données
     non-annotées~\cite{tomokiyo2003languagemodel}, en passant par la
     construction d'un graphe de co-occurrences~\cite{mihalcea2004textrank}.
     Puisque la méthode que nous présentons dans cet article est une méthode dite
@@ -194,42 +186,47 @@
     mots-clés. Ces mots-clés sont marqués dans le document et les plus longues
     séquences de mots-clés adjacents sont extraites en tant que termes-clés.
     Dans cette méthode, la précision de l'ordonnancement dépend de la qualité du
-    graphe qui elle-même dépend de la fenêtre de co-occurrence. Dans nos
-    travaux, nous créons un graphe dont la qualité ne dépend pas d'un paramètre
-    tel que cette fenêtre de co-occurrence.
+    graphe qui elle-même dépend de la fenêtre de co-occurrence. En effet, les
+    études menées par \newcite{mihalcea2004textrank} et par
+    \newcite{wan2008expandrank}, avec des documents de natures différentes,
+    montrent des valeurs optimales contradictoires pour la fenêtre de
+    cooccurrence utilisée par leurs méthodes qui sont pourtant similaires. Dans
+    nos travaux, nous créons un graphe dont la qualité ne dépend pas d'un
+    paramètre, tel que cette fenêtre de cooccurrence, afin de garantir une
+    meilleure stabilité de notre méthode vis-à-vis des documents analysés.
 
     \newcite{wan2008expandrank} modifient TextRank et proposent SingleRank. Dans
     un premier temps, leur méthode augmente la précision de l'ordonnancement
     grâce à une pondération des liens de co-occurrence avec le nombre de
     co-occurrences des mots liés (deux mots qui co-occurrent deux fois, par
     exemple, sont liés par une arête dont le poids vaut 2).
-    %Ce nouvel ordonnancement utilise plus d'informations présentes dans le
-    %document analysé et est dotant plus efficace quand le document analysé est
-    %de grande taille.
     Dans un second temps, les termes-clés ne sont plus générés, mais ordonnés à
     partir de la somme du score d'importance des mots qui les composent. Cette
     nouvelle méthode donne dans la majorité des cas des résultats meilleurs que
     ceux de TextRank. Cependant, faire la somme du score d'importance des
     mots pour ordonner les candidats est une approche maladroite. En effet, cela
     a pour effet de faire monter dans le classement des candidats redondants.
-    Ainsi, dans le document \textit{as\_2002\_000700ar} de la collection DEFT
-    (voir la section~\ref{sec:evaluation}), le candidat positif
-    \og bio-politique~\fg\ est classé neuvième, alors que les autres candidats
-    qui contiennent entre autres \og bio-politique~\fg\ occupent les
-    classements 2 à 8. Dans nos travaux, nous n'ordonnons pas les termes-clés
-    candidats en fonction des mots qu'ils contiennent et évitons ainsi le
-    problème rencontré avec SingleRank.
+    Ainsi, dans l'exemple de la figure~\ref{fig:recurrent_example}, le candidat
+    positif \og{}alerte~\fg{} est classé quatrième, alors que les autres
+    candidats (non positifs) qui le contiennent (\og{}alerte orange\fg{},
+    \og{}alerte jaune\fg{} et \og{}alerte rouge\fg{}) occupent de meilleurs
+    classement. Dans nos travaux, nous n'ordonnons pas les termes-clés candidats
+    en fonction des mots qu'ils contiennent et évitons ainsi le problème
+    rencontré avec SingleRank.
 
     Toujours dans l'optique d'améliorer l'efficacité de l'ordonnancement,
     \newcite{wan2008expandrank} étendent SingleRank en utilisant des documents
-    similaires au document analysé. Sélectionnés à partir d'une vaste collection
-    couvrant plusieurs thématiques, les documents similaires fournissent plus de
-    données relatives aux mots du document analysé et aux relations qu'ils
-    entretiennent. La méthode consiste à utiliser les co-occurrences observées
-    dans les documents similaires pour ajouter ou renforcer des liens dans le
-    graphe. Cette approche donne des résultats au delà de ceux de SingleRank,
-    mais il est important de noter que ses performances sont fortement liées à
-    la disponibilité de documents similaires à celui qui est analysé.
+    similaires au document analysé, selon la mesure de similarité vectorielle
+    cosinus. Faisant l'hypothèse que ces documents similaires fournissent des
+    données supplémentaires relatives aux mots du document analysé et aux
+    relations qu'ils entretiennent, \newcite{wan2008expandrank} utilisent les
+    relations de co-occurrences observées dans les documents similaires pour
+    ajouter ou renforcer des liens dans le graphe. Cette approche donne des
+    résultats au delà de ceux de SingleRank. Toutefois, ses performances sont
+    fortement liées à la disponibilité de documents similaires à celui qui est
+    analysé. Cette méthode ne peut donc être appliquée que dans un context
+    particulier (p. ex. articles journalistiques traitant du même sujet
+    d'actualité).
 
     À l'instar de \newcite{wan2008expandrank},
     \newcite{tsatsaronis2010semanticrank} tentent d'améliorer TextRank. Dans
@@ -239,16 +236,10 @@
     Wikipedia~\cite{milne2008wikipediasemanticrelatedness}. Les expériences
     menées par les auteurs montrent de moins bons résultats que TextRank.
     Toutefois, en biaisant l'ordonnancement en faveur des mots apparaissant dans
-    le titre du document analysé ou en ajoutant le poids TF-IDF des mots dans le
-    calcul de l'importance des mots, leur méthode est capable de donner de
-    meilleurs résultats que TextRank. Ceci suggère qu'il existe des traits, tels
-    que la première apparition dans le texte et la spécificité des candidats,
-    qui peuvent influencer positivement l'ordonnancement. Dans notre approche,
-    nous estimons que l'ordonnancement des termes-clés candidats vis-à-vis des
-    sujets auxquels ils appartiennent est un moyen de prendre en compte leur
-    spécificité dans le document analysé. En effet, un candidat appartenant à un
-    sujet important d'un document est intuitivement plus spécifique à ce
-    document qu'un candidat appartenant à un sujet moins important.
+    le titre du document analysé ou en ajoutant le poids
+    TF-IDF~\cite{jones1972tfidf} des mots dans le calcul de l'importance des
+    mots, leur méthode est capable de donner de meilleurs résultats que
+    TextRank. \TODO{Argumenter}
 
     L'usage de sujets dans le processus d'ordonnancement de TextRank est à
     l'origine proposé par \newcite{liu2010topicalpagerank}. Reposant sur un
