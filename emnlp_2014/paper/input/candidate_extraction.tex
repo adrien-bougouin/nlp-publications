@@ -193,17 +193,15 @@
   propose a new approach that filters out adjectives that do not significantly
   contribute to the meaning of a noun phrase.
 
-  \paragraph{N-grams} are ordered sequences of $n$ words, where $n$ is usually
-  set to 1 up to 3~\cite{witten1999kea}. Extracting n-grams has the benefit to
-  provide almost every candidates that actually match reference keyphrases
-  (maximum recall), but the counterpart is that it also provides a huge amount
-  of irrelevant candidates. Therefore, \newcite{witten1999kea} propose to
-  select only n-grams that do not contain a stop word (conjunction, preposition,
-  determiner or common word) at their beginning or end. Filtered n-gram
-  candidates are grammatically uncontrolled and do not fit
+  \paragraph{N-grams} are ordered sequences of $n$ adjacent words, where $n$ is
+  usually set to 1 up to 3~\cite{witten1999kea}. Extracting n-grams has the
+  benefit to provide almost every candidates that actually match reference
+  keyphrases (maximum recall), but the counterpart is that it also provides a
+  huge amount of irrelevant candidates. Therefore, \newcite{witten1999kea}
+  propose to select only n-grams that do not contain a stop word (conjunction,
+  preposition, determiner or common word) at their beginning or end. Filtered
+  n-gram candidates are grammatically uncontrolled and do not fit
   properties~\ref{prop:informativity} and~\ref{prop:noun_phrases}.
-
-  \TODO{Example}
 
   \paragraph{Textual units matching given POS tag patterns} are textual units of
   specific syntactic forms. Extracting such textual units ensures grammaticality
@@ -217,8 +215,6 @@
   and~\ref{prop:noun_phrases}. However, the first approach requires training
   data and is, therefore, not suitable for every situation.
 
-  \TODO{Example}
-
   \paragraph{NP-chunks} are non-recursive noun phrases.
   \newcite{hulth2003keywordextraction} uses them in her work and argues that
   they are less arbitrary and more linguistically justified than other
@@ -226,9 +222,8 @@
   minimal) noun phrases, they are consistent with both
   properties~\ref{prop:informativity} and~\ref{prop:noun_phrases}.
 
-  \TODO{Example}
-
   \paragraph{}
+  \TODO{More examples or intuitions}
   As a contribution to the candidate selection step, we propose to extract
   \textbf{refined noun phrases} (refined NPs) by adding a decision process
   during the selection of noun, proper noun and adjective sequences. Indeed,
@@ -242,8 +237,6 @@
   useful. This assumption is corroborated by the usefulness of relational
   adjectives for other tasks such as topic detection or term
   extraction~\cite{daille2001relationaladjectives}.
-
-  \TODO{Example}
 
 \section{Keyphrase Extraction}
 \label{sec:keyphrase_extraction}
@@ -259,7 +252,8 @@
   lower is the amount of documents containing a given word, the higher is its
   specificity. Keyphrase candidates are scored according to the sum of the
   TF-IDF weights of their words and the $k$ best candidates are extracted as
-  keyphrases.
+  keyphrases. To avoid extracting only the longest candidates as keyphrases, we
+  normalize this sum by the length of the candidate plus one.
 
   \paragraph{TopicRank~\textnormal{\cite{bougouin2013topicrank}}} aims to
   extract keyphrases that best represent the main topics of a document.
@@ -373,7 +367,7 @@
 
       Also, to show the effectiveness of our adjective filtering, we use a
       baseline, namely \textbf{Refined NPs BL}, which extracts keyphrase
-      candidates with the same patterns, but do not filter out the adjectives.
+      candidates with the same patterns, but does not filter out the adjectives.
 
     \subsubsection{Result Analysis}
     \label{subsubsec:candidate_extraction_result_analysis}
@@ -469,7 +463,7 @@
           \cmidrule(r){2-4}\cmidrule(lr){5-7}\cmidrule(l){8-10}
           & P & R & F & P & R & F & P & R & F\\
           \midrule
-          \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.7 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
+          \{1..3\}-grams & $~~$7.8 & 10.7 & $~~$8.9 & $~~$9.5 & $~~$6.6 & $~~$7.7 & $~~$6.2 & 11.4 & $~~$8.0\\
           Longest NPs & 17.7 & 23.2 & 19.8 & 11.6 & $~~$7.9 & $~~$9.3 & \textbf{11.6} & \textbf{21.5} & \textbf{14.9}\\
           NP-chunks & 13.3 & 21.5 & 18.3 & 11.7 & $~~$8.0 & $~~$9.4 & 11.1 & 20.7 & 14.4\\
           Refined NPs BL & \textbf{17.9} & \textbf{23.4} & \textbf{20.0} & 12.2 & $~~$8.3 & $~~$9.8 & 11.4 & 21.1 & 14.6\\
@@ -499,6 +493,91 @@
                  are extracted by \textbf{KEA}.
                  \label{tab:kea_results}}
       \end{table*}
+      \begin{figure*}[t]
+        \centering
+        \cornersize{0.05}
+        \Ovalbox{
+          \parbox{.95\linewidth}{\small % I-1 (SemEval)
+            \begin{center}
+              \textbf{Aborting Tasks in BDI Agents}
+            \end{center}
+
+            %\textbf{Abstract}
+
+            \setlength\parindent{12pt}
+            Intelligent agents that are intended to work in dynamic
+            environments must be able to gracefully handle unsuccessful tasks
+            and plans. In addition, such agents should be able to make rational
+            decisions about an appropriate course of action, which may include
+            aborting a task or plan, either as a result of the agent"s own
+            deliberations, or potentially at the request of another agent. In
+            this paper we investigate the incorporation of aborts into a
+            BDI-style  architecture. We discuss some conditions under which
+            aborting a task or plan is appropriate, and how to determine the
+            consequences of such a decision. We augment each plan with an
+            optional abort-method, analogous to the failure method found in some
+            agent programming languages. We provide an operational semantics for
+            the execution cycle in the presence of aborts in the abstract agent
+            language CAN, which enables us to specify a BDI-based execution
+            model without limiting our attention to a particular agent system
+            (such as JACK, Jadex, Jason, or SPARK). A key technical challenge we
+            address is the presence of parallel execution threads and of
+            sub-tasks, which require the agent to ensure that the abort methods
+            for each plan are carried out in an appropriate sequencs. [\dots]
+
+            \setlength\parindent{0pt}\dotfill\\\vspace{-0.7em}
+
+            \textbf{Reference keyphrases (stemmed)}: intellig agent, failur,
+            deal, cleanup method, abort-method, oper semant, task, goal, goal
+            construct, agent, reactiv and delib architectur, agenc formal
+            model.
+
+            \setlength\parindent{0pt}\dotfill\\\vspace{-0.7em}
+
+            \textbf{TF-IDF's Keyphrases:}
+
+            \setlength\parindent{12pt}
+            \textbf{Refined NPs BL:} aborted plan, plan failure, plan, abort,
+            plan clause, active plan, sms plan, applicable plan, alternate plan,
+            plan library.
+
+            \textbf{Refined NPs:} plan failure, plan, abort, plan clause, active
+            plan, sms plan, alternate plan, plan library, plan p, plan
+            representation.
+
+            \setlength\parindent{0pt}\dotfill\\\vspace{-0.7em}
+
+            \textbf{TopicRank's Keyphrases:}
+
+            \setlength\parindent{12pt}
+            \textbf{Refined NPs BL:} plans, unsuccessful task,
+            \underline{failure}, paper, alice, optional abort-method, execution
+            cycle, request, abstract agent language can, \underline{operational
+            semantics}.
+
+            \textbf{Refined NPs:} \underline{tasks}, plan, \underline{failure},
+            optional abort-method, alice, execution cycle, paper, request,
+            \underline{operational semantics}, abstract agent language can.
+
+            \setlength\parindent{0pt}\dotfill\\\vspace{-0.7em}
+
+            \textbf{KEA's Keyphrases:}
+
+            \setlength\parindent{12pt}
+            \textbf{Refined NPs BL:} plan, abort, can, \underline{abort-method},
+            \underline{failure}, \underline{task}, clearance, construct,
+            program, \underline{agent}.
+
+            \textbf{Refined NPs:} plan, abort, can, \underline{abort-method},
+            \underline{failure}, \underline{task}, clearance, construct,
+            \underline{agent}, pap.
+            \setlength\parindent{0pt}
+          }
+        }
+        \caption{Keyphrase extraction examples (top 10). Underlined keyphrases
+                 are correctly extracted keyphrases.
+                 \label{fig:example}}
+      \end{figure*}
       
       Globally, the selection of refined NPs, followed by the selection of
       longest NPs and NP-chunks, is the method that induces the best performance
