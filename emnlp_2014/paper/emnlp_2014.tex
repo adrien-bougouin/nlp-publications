@@ -38,8 +38,8 @@
 \newtheorem{property}{Property}
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
 
-\title{Candidate Selection for Automatic Keyphrase Extraction:\\Dealing with
-       Adjectives}
+\title{Selecting Candidates for Automatic Keyphrase Extraction:\\
+       From Inferred Properties to Simple Strategies}
 
 %\author{
 %  Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
@@ -58,13 +58,14 @@
     only the textual units that have similar properties to keyphrases are kept.
     Candidate selection therefore plays an important role in keyphrase
     extraction since it determines the upper bound of recall performance. In
-    this paper, we discuss commonly used methods for candidate selection and
-    argue that next improvement of candidate selection has to focus on
-    adjectives by deciding which ones can be part of keyphrase candidates.
-    Through experiments carried out on three standard datasets of different
-    languages and domains, we show that filtering out adjectives judged to be of
-    no use to the meaning of keyphrase candidates improves the performance of
-    both supervised and unsupervised keyphrase extraction methods.
+    this paper, we infer two general keyphrase properties, we discuss the
+    consistancy of commonly used methods for candidate selection and we
+    demonstrate that it can be improved by filtering out irrelevant adjectives
+    included in selected candidates. Through experiments carried out on three
+    standard datasets of different languages and domains, we show that, in most
+    cases, filtering out adjectives judged to be of no use to the meaning of
+    keyphrase candidates improves the performance of both supervised and
+    unsupervised keyphrase extraction methods.
   \end{abstract}
 
   \input{input/candidate_extraction.tex}
