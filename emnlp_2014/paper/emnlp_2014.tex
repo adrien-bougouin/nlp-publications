@@ -34,6 +34,7 @@
 \usepackage{subfigure}
 \usepackage{overpic}
 \usepackage{fancybox}
+\usepackage[ruled,vlined]{algorithm2e}
 
 \newtheorem{property}{Property}
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
@@ -59,13 +60,13 @@
     Candidate selection therefore plays an important role in keyphrase
     extraction since it determines the upper bound of recall performance. In
     this paper, we infer two general keyphrase properties, we discuss the
-    consistancy of commonly used methods for candidate selection and we
+    consistency of commonly used methods for candidate selection and we
     demonstrate that it can be improved by filtering out irrelevant adjectives
-    included in selected candidates. Through experiments carried out on three
-    standard datasets of different languages and domains, we show that, in most
-    cases, filtering out adjectives judged to be of no use to the meaning of
-    keyphrase candidates improves the performance of both supervised and
-    unsupervised keyphrase extraction methods.
+    from keyphrase candidates. Through experiments carried out on three standard
+    datasets of different languages and domains, we show that, in most cases,
+    filtering out adjectives judged to be of no use to the meaning of keyphrase
+    candidates improves the performance of both supervised and unsupervised
+    keyphrase extraction methods.
   \end{abstract}
 
   \input{input/candidate_extraction.tex}
