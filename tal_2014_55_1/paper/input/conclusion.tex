@@ -24,15 +24,16 @@
 
   Dans de futurs travaux, il est envisagé d'améliorer le groupement en sujets et
   la sélection du terme-clé candidat le plus représentatif pour chacun d'eux.
-  Ces deux points sont cruciaux et nécessitent un travail plus approfondit
-  linguistiquement.
+  Ces deux points sont cruciaux et nécessitent un travail plus approfondi
+  linguistiquement. \TODO{perspectives sur la selection des candidats (termes
+  complexes, etc.)}
   
   Le groupement actuellement effectué est un groupement naïf. Il a plusieurs
   limitations liées au calcul de similarité employé pour déterminer si deux
   termes-clés candidats expriment le même sujet. En effet, ce calcul ne tient
   compte ni de la synonymie, ni de l'ambiguïté des mots. Aussi, l'usage du
   radical des mots n'est pas sans introduire du bruit lié à certains faux
-  positifs (par exemple, \og \underline{empir}e~\fg\ et
+  positifs (\TODO{attention aux exemples bidons}par exemple, \og \underline{empir}e~\fg\ et
   \og \underline{empir}ique~\fg), mais aussi à certains faux négatifs (par
   exemple, \og \underline{étud}e~\fg\ et \og \underline{étudi}er~\fg). L'ajout
   de connaissances concernant les synonymes permettrait de créer des sujets plus

@@ -9,14 +9,12 @@
   \label{subsec:cadre_experimental}
     \subsubsection{Données de test}
     \label{subsubsec:donnees_de_test}
-      \TODO{Quels types d'évaluations}
-      Les collections de données présentées ci-dessous sont utilisées lors de
-      toutes les évaluations. Afin de suivre \newcite{hassan2010conundrums} qui
-      soulignent l'importance d'évaluer une méthode avec des collections de
-      données aux configurations différentes pour mieux observer et comprendre
-      son comportement, les collections de données utilisées ici diffèrent en
-      termes de langue, nature, taille des documents et types d'annotateur
-      (auteurs, lecteurs ou les deux).
+      Afin de suivre \newcite{hassan2010conundrums} qui soulignent l'importance
+      d'évaluer une méthode avec des collections de données aux configurations
+      différentes pour mieux observer et comprendre son comportement, les
+      collections de données utilisées ici diffèrent en termes de langue,
+      nature, taille des documents et types d'annotateur (auteurs, lecteurs ou
+      les deux).
 
       \textbf{DUC}~\cite{over2001duc} est une collection en anglais issue des
       données de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
@@ -41,9 +39,11 @@
       est une collection de 100 articles journalistiques en français que nous
       avons extraits du site Web
       WikiNews\footnote{\url{http://fr.wikinews.org}} entre les mois de mai et
-      décembre 2012. Chaque document est annoté par au moins trois étudiants,
-      les termes-clés des différents étudiants sont groupés et les redondances
-      lexicales sont automatiquement supprimées. \TODO{Détailler plus}
+      décembre 2012. Pour l'annotation en termes-clés, nous avons demandé à ???
+      étudiants de master en TAL d'extraire (librement) les termes-clés de ???
+      documents. Chaque document à été annoté par au moins trois étudiants, pour
+      un accord inter-annotateurs de ??? selon le coefficient
+      ???~\cite{doe1942paper}.
 
       \textbf{DEFT}~\cite{paroubek2012deft} est la collection fournie lors de la
       campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
@@ -79,13 +79,19 @@
           Mos/document & 900,7 & 5177,7 & 308,5 & 6839,4\\
           Termes-clés/document & 8,1 & 14,7 & 9,6 & 5,2\\
           Mots/termes-clés & 2,1 & 2,1 & 1,7 & 1,6\\
-          Termes-clés manquants & 3,5\% & 22,1\% & 7,6\% & 21,1\% \\
+          %Termes-clés manquants & 3,5\% & 22,1\% & 7,6\% & 21,1\% \\
+          Termes-clés extractibles & 96,5~\% & 77,9~\% & 92,4~\% & 78,9~\% \\
           \bottomrule
         \end{tabular}
-        \caption{Statistiques sur les données de test utilisées. En accord avec
-                 l'évaluation effectuée lors de nos expériences, la proportion
-                 de termes-clés manquant est déterminée sans tenir compte de la
-                 flexions des mots. \TODO{Rmax}
+        \caption{Statistiques sur les données de test utilisées. Les termes-clés
+                 extractibles sont les termes-clés qui peuvent être extraits à
+                 partir du contenu des documents.  Conformément au processus
+                 d'évaluation standard pour les méthodes d'extraction
+                 automatique de termes-clés (cf.
+                 section~\ref{subsubsec:mesures_d_evaluation}), les variantes
+                 flexionnelles d’un terme-clé de référence sont jugées correctes
+                 (p. ex. \og{}température\underline{s}\fg{} peut être extrait à
+                 la place de \og{}température\fg{}).
                  \label{tab:donnees_de_test}}
       \end{table}
 
@@ -120,18 +126,19 @@
       fondation des méthodes à base de graphe, et la pondération TF-IDF. Cette
       dernière consiste à donner un score aux termes-clés candidats en faisant
       la somme des poids TF-IDF des mots qui les composent, puis à sélectionner
-      ceux ayant le plus haut score. \TODO{Être clair sur pourquoi pas
-      ExpandRank}
+      ceux ayant le plus haut score.
 
       % Quelles sont les particularités liées à notre implémentation ?
-      Toutes les méthodes de référence sont implémentées par nous-même
-      \TODO{Liens GitHub}. Lorsque
-      celles-ci ont des parties communes avec TopicRank, elles bénéficient des
-      mêmes composants. De plus, pour améliorer les résultats des méthodes de
-      référence, leurs sorties sont filtrées afin de supprimer les termes-clés
-      candidats dont les mots ont la même forme radicale que ceux d'un candidat
-      mieux classé. Ce filtrage ne dégrade en rien les résultats et a pour effet
-      de faire monter de nouveaux candidats dans le classement.
+      Nous avons nous même implémenté les méthodes de référence. Celles-ci sont
+      disponibles sur
+      GitHub\footnote{\url{https://github.com/adrien-bougouin/KeyBench/tree/ijcnlp_2013}},
+      au même titre que TopicRank. Lorsqu'elles ont des parties communes avec
+      TopicRank, elles bénéficient des mêmes composants. De plus, pour améliorer
+      les résultats des méthodes de référence, leurs sorties sont filtrées afin
+      de supprimer les termes-clés candidats dont les mots ont la même forme
+      radicale que ceux d'un candidat mieux classé. Ce filtrage ne dégrade en
+      rien les résultats et a pour effet de faire monter de nouveaux candidats
+      dans le classement.
 
   \subsection{Analyse empirique de TopicRank}
   \label{subsection:configuration_empirique_de_topicrank}
@@ -142,402 +149,193 @@
     terme-clé candidat le plus représentatif d'un sujet. Deux expériences sont
     réalisées, l'une pour déterminer la configuration de groupement optimale
     (variation du seuil $\zeta$ et de la stratégie de groupement) et l'autre
-    pour déterminer la stratégie de sélection des termes-clés représentatifs.
+    pour déterminer la stratégie de sélection du terme-clé le plus représentatif
+    de chaque sujet.
 
-%    \begin{table}
-%      \centering
-%      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
-%        \toprule
-%        \multirow{2}{*}[-2pt]{\textbf{Seuil $\boldsymbol{\zeta}$}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-%        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
-%        & P & R & F & P & R & F & P & R & F & P & R & F\\
-%        \midrule
-%        0,17 & 18.6 & 23.7 & 20.6 & 14.8 & 10.2 & 12.0 & 34.6 & 37.1 & 35.2 & 10.9 & 20.2 & 14.0\\
-%        \addlinespace[.75\defaultaddspace]
-%        0,25 & 17,7 & 22,6 & \textbf{19,6} & 14,9 & 10,3 & \textbf{12,1} & 35,0 & 37,5 & 35,6 & 11,7 & 21,7 & \textbf{15,1}\\
-%        \addlinespace[.75\defaultaddspace]
-%        0,33 & 17,2 & 22,1 & 19,1 & 13,0 & $~~$9,0 & 10,5 & 35,3 & 37,6 & \textbf{35,8} & 11,3 & 20,9 & 14,5\\
-%        \addlinespace[.75\defaultaddspace]
-%        0,50 & 13,6 & 17,8 & 15,2 & $~~$9,6 & $~~$6,7 & $~~$7,8 & 35,0 & 37,6 & 35,7 & 11,0 & 20,2 & 14,0\\
-%        \addlinespace[.75\defaultaddspace]
-%        0,67 & $~~$9.9 & 13.1 & 11.1 & $~~$10.5 & $~~$7.4 & $~~$8.6 & 35.0 & 37.0 & 35.4 & 11.0 & 20.0 & 14.0\\
-%        \bottomrule
-%      \end{tabular}
-%      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
-%               fonction de la valeur du seuil de similarité.
-%               \label{tab:variation_du_seuil_de_similarite}}
-%    \end{table}
-%    \begin{table}
-%      \centering
-%      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
-%        \toprule
-%        \multirow{2}{*}[-2pt]{\textbf{Groupement}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-%        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
-%        & P & R & F & P & R & F & P & R & F & P & R & F\\
-%        \midrule
-%        Simple & 17,2 & 22,0 & 19,1 & 12,0 & $~~$8,4 & $~~$9,8 & 34,7 & 37,1 & 35,3 & 11,1 & 20,2 & 14,2\\
-%        \addlinespace[.75\defaultaddspace]
-%        Complet & 16,7 & 21,4 & 18,5 & $~~$3,7 & $~~$2,7 & $~~$3,1 & 34,0 & 36,3 & 34,6 & $~~$5,1 & $~~$9,6 & $~~$6,5\\
-%        \addlinespace[.75\defaultaddspace]
-%        Moyen & 17,7 & 22,6 & \textbf{19,6} & 14,9 & 10,3 & \textbf{12,1} & 35,0 & 37,5 & \textbf{35,6} & 11,7 & 21,7 & \textbf{15,1}\\
-%        \bottomrule
-%      \end{tabular}
-%      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
-%               fonction des différentes stratégies de regroupement.
-%               \label{tab:comparaison_des_strategies_de_groupement}}
-%    \end{table}
     \begin{figure}
       \centering
-      \subfigure[DUC]{
-        \begin{tikzpicture}
-          \begin{axis}[axis lines=middle,
-                       x=0.35\linewidth,
-                       xtick={0.0, 0.2, ..., 1.2},
-                       xmin=0.0,
-                       xmax=1.05,
-                       xlabel=$\zeta$,
-                       y=0.003\textheight,
-                       ytick={0, 10, ..., 40},
-                       ymin=0,
-                       ymax=42.5,
-                       ylabel=F,
-                       label style={anchor=south}]
-            % simple
-            \addplot[green!66, mark=x] coordinates{
-              (0.05, 18.2)
-              (0.10, 18.2)
-              (0.15, 18.1)
-              (0.20, 18.3)
-              (0.25, 18.5)
-              (0.30, 19.0)
-              (0.35, 18.5)
-              (0.40, 18.5)
-              (0.45, 18.6)
-              (0.50, 18.6)
-              (0.55, 11.1)
-              (0.60, 11.1)
-              (0.65, 11.1)
-              (0.70, 11.1)
-              (0.75, 11.2)
-              (0.80, 11.2)
-              (0.85, 11.2)
-              (0.90, 11.2)
-              (0.95, 11.2)
-              (1.00, 10.9)
-            };
-            % complet
-            \addplot[cyan!66, mark=+] coordinates{
-              (0.05, 19.7)
-              (0.10, 19.7)
-              (0.15, 19.5)
-              (0.20, 19.2)
-              (0.25, 19.1)
-              (0.30, 18.1)
-              (0.35, 15.2)
-              (0.40, 15.2)
-              (0.45, 15.1)
-              (0.50, 15.1)
-              (0.55, 11.0)
-              (0.60, 11.0)
-              (0.65, 11.0)
-              (0.70, 11.1)
-              (0.75, 11.2)
-              (0.80, 11.2)
-              (0.85, 11.2)
-              (0.90, 11.2)
-              (0.95, 11.2)
-              (1.00, 10.9)
-            };
-            % moyen
-            \addplot[red!66, mark=o] coordinates{
-              (0.05, 21.0)
-              (0.10, 21.4)
-              (0.15, 21.0)
-              (0.20, 20.1)
-              (0.25, 19.6)
-              (0.30, 19.4)
-              (0.35, 18.4)
-              (0.40, 17.0)
-              (0.45, 15.4)
-              (0.50, 15.2)
-              (0.55, 11.1)
-              (0.60, 11.0)
-              (0.65, 11.0)
-              (0.70, 11.1)
-              (0.75, 11.2)
-              (0.80, 11.2)
-              (0.85, 11.2)
-              (0.90, 11.2)
-              (0.95, 11.2)
-              (1.00, 11.2)
-            };
-            \draw ({axis cs:0.10,0}|-{rel axis cs:0,1}) -- ({axis cs:0.10,0}|-{rel axis cs:0,0}) [color=red!66];
-            \node at (axis cs:0.10,40) [color=red!66, anchor=west] {\tiny{0.10}};
-          \end{axis}
-        \end{tikzpicture}
-      }
       \subfigure[SemEval]{
         \begin{tikzpicture}
+          \pgfkeys{/pgf/number format/.cd, use comma, fixed}
           \begin{axis}[axis lines=middle,
-                       x=0.35\linewidth,
+                       x=0.37\linewidth,
                        xtick={0.0, 0.2, ..., 1.2},
                        xmin=0.0,
                        xmax=1.05,
                        xlabel=$\zeta$,
-                       y=0.003\textheight,
-                       ytick={0, 10, ..., 40},
+                       x label style={anchor=west},
+                       y=0.01\textheight,
+                       ytick={0, 5, 10, 15},
                        ymin=0,
-                       ymax=42.5,
+                       ymax=18,
                        ylabel=F,
-                       label style={anchor=south}]
+                       y label style={anchor=south}]
             % simple
             \addplot[green!66, mark=x] coordinates{
-              (0.05, 3.1)
-              (0.10, 3.1)
-              (0.15, 3.1)
-              (0.20, 3.1)
-              (0.25, 3.1)
-              (0.30, 3.5)
-              (0.35, 5.5)
-              (0.40, 5.5)
-              (0.45, 5.7)
-              (0.50, 5.7)
-              (0.55, 7.3)
-              (0.60, 7.3)
-              (0.65, 7.2)
-              (0.70, 8.6)
-              (0.75, 8.4)
-              (0.80, 8.4)
-              (0.85, 8.4)
-              (0.90, 8.4)
-              (0.95, 8.4)
-              (1.00, 8.5)
+              (0.05, 4.2)
+              (0.10, 4.2)
+              (0.15, 4.4)
+              (0.20, 4.7)
+              (0.25, 4.9)
+              (0.30, 5.3)
+              (0.35, 7.4)
+              (0.40, 7.4)
+              (0.45, 7.3)
+              (0.50, 7.3)
+              (0.55, 7.5)
+              (0.60, 7.5)
+              (0.65, 7.5)
+              (0.70, 8.0)
+              (0.75, 8.0)
+              (0.80, 8.0)
+              (0.85, 8.0)
+              (0.90, 8.0)
+              (0.95, 8.0)
+              (1.00, 8.0)
             };
             % complet
             \addplot[cyan!66, mark=+] coordinates{
               (0.05, 11.5)
               (0.10, 11.5)
-              (0.15, 11.3)
-              (0.20, 11.0)
-              (0.25, 9.8)
-              (0.30, 8.3)
-              (0.35, 7.8)
-              (0.40, 7.8)
-              (0.45, 7.8)
-              (0.50, 7.8)
+              (0.15, 10.9)
+              (0.20, 10.3)
+              (0.25, 9.3)
+              (0.30, 7.8)
+              (0.35, 7.6)
+              (0.40, 7.6)
+              (0.45, 7.5)
+              (0.50, 7.5)
+              (0.55, 7.5)
+              (0.60, 7.5)
+              (0.65, 7.6)
+              (0.70, 8.0)
+              (0.75, 8.0)
+              (0.80, 8.0)
+              (0.85, 8.0)
+              (0.90, 8.0)
+              (0.95, 8.0)
+              (1.00, 8.0)
+            };
+            % moyen
+            \addplot[red!66, mark=o] coordinates{
+              (0.05, 12.2)
+              (0.10, 11.7)
+              (0.15, 11.2)
+              (0.20, 11.4)
+              (0.25, 11.1)
+              (0.30, 10.2)
+              (0.35, 8.7)
+              (0.40, 7.7)
+              (0.45, 7.7)
+              (0.50, 7.5)
               (0.55, 7.6)
               (0.60, 7.6)
-              (0.65, 7.6)
-              (0.70, 8.6)
-              (0.75, 8.4)
-              (0.80, 8.4)
-              (0.85, 8.4)
-              (0.90, 8.4)
-              (0.95, 8.4)
-              (1.00, 8.5)
+              (0.65, 7.5)
+              (0.70, 8.0)
+              (0.75, 8.0)
+              (0.80, 8.0)
+              (0.85, 8.0)
+              (0.90, 8.0)
+              (0.95, 8.0)
+              (1.00, 8.0)
             };
-            % moyen
-            \addplot[red!66, mark=o] coordinates{
-              (0.05, 11.0)
-              (0.10, 10.7)
-              (0.15, 11.5)
-              (0.20, 12.3)
-              (0.25, 12.1)
-              (0.30, 11.2)
-              (0.35, 9.6)
-              (0.40, 8.7)
-              (0.45, 7.8)
-              (0.50, 7.8)
-              (0.55, 7.1)
-              (0.60, 7.3)
-              (0.65, 7.6)
-              (0.70, 8.6)
-              (0.75, 8.4)
-              (0.80, 8.4)
-              (0.85, 8.4)
-              (0.90, 8.4)
-              (0.95, 8.4)
-              (1.00, 8.4)
-            };
-            \draw ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=red!66];
-            \node at (axis cs:0.20,40) [color=red!66, anchor=west] {\tiny{0.20}};
-            \legend{Simple, Complet, Moyen}
-          \end{axis}
-        \end{tikzpicture}
-      }
-      \subfigure[WikiNews]{
-        \begin{tikzpicture}
-          \begin{axis}[axis lines=middle,
-                       x=0.35\linewidth,
-                       xtick={0.0, 0.2, ..., 1.2},
-                       xmin=0.0,
-                       xmax=1.05,
-                       xlabel=$\zeta$,
-                       y=0.003\textheight,
-                       ytick={0, 10, ..., 40},
-                       ymin=0,
-                       ymax=42.5,
-                       ylabel=F,
-                       label style={anchor=south}]
-            % simple
-            \addplot[green!66, mark=x] coordinates{
-              (0.05, 34.2)
-              (0.10, 34.2)
-              (0.15, 34.2)
-              (0.20, 34.3)
-              (0.25, 34.6)
-              (0.30, 35.2)
-              (0.35, 35.7)
-              (0.40, 35.7)
-              (0.45, 35.7)
-              (0.50, 35.7)
-              (0.55, 35.1)
-              (0.60, 35.1)
-              (0.65, 35.1)
-              (0.70, 35.4)
-              (0.75, 35.4)
-              (0.80, 35.4)
-              (0.85, 35.4)
-              (0.90, 35.4)
-              (0.95, 35.4)
-              (1.00, 34.9)
-            };
-            % complet
-            \addplot[cyan!66, mark=+] coordinates{
-              (0.05, 35.2)
-              (0.10, 35.2)
-              (0.15, 35.2)
-              (0.20, 35.3)
-              (0.25, 35.3)
-              (0.30, 35.8)
-              (0.35, 35.7)
-              (0.40, 35.7)
-              (0.45, 35.7)
-              (0.50, 35.7)
-              (0.55, 35.1)
-              (0.60, 35.1)
-              (0.65, 35.1)
-              (0.70, 35.4)
-              (0.75, 35.4)
-              (0.80, 35.4)
-              (0.85, 35.4)
-              (0.90, 35.4)
-              (0.95, 35.4)
-              (1.00, 34.9)
-            };
-            % moyen
-            \addplot[red!66, mark=o] coordinates{
-              (0.05, 34.4)
-              (0.10, 34.8)
-              (0.15, 35.0)
-              (0.20, 35.4)
-              (0.25, 35.6)
-              (0.30, 35.7)
-              (0.35, 35.8)
-              (0.40, 35.8)
-              (0.45, 35.7)
-              (0.50, 35.7)
-              (0.55, 35.1)
-              (0.60, 35.1)
-              (0.65, 35.1)
-              (0.70, 35.4)
-              (0.75, 35.4)
-              (0.80, 35.4)
-              (0.85, 35.4)
-              (0.90, 35.4)
-              (0.95, 35.4)
-              (1.00, 35.4)
-            };
-            \draw ({axis cs:0.35,0}|-{rel axis cs:0,1}) -- ({axis cs:0.35,0}|-{rel axis cs:0,0}) [color=red!66];
-            \node at (axis cs:0.35,40) [color=red!66, anchor=west] {\tiny{0.35}};
+            \draw[thick] ({axis cs:0.05,0}|-{rel axis cs:0,1}) -- ({axis cs:0.05,0}|-{rel axis cs:0,0}) [color=red!66];
+            \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+            \node at (axis cs:0.05,17.5) [color=red!66, anchor=west] {\tiny{0,05}};
+            \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+            \legend{Simple, Complète, Moyenne}
           \end{axis}
         \end{tikzpicture}
       }
       \subfigure[DEFT]{
         \begin{tikzpicture}
+          \pgfkeys{/pgf/number format/.cd, use comma, fixed}
           \begin{axis}[axis lines=middle,
-                       x=0.35\linewidth,
+                       x=0.37\linewidth,
                        xtick={0.0, 0.2, ..., 1.2},
                        xmin=0.0,
                        xmax=1.05,
                        xlabel=$\zeta$,
-                       y=0.003\textheight,
-                       ytick={0, 10, ..., 40},
+                       x label style={anchor=west},
+                       y=0.01\textheight,
+                       ytick={0, 5, 10, 15},
                        ymin=0,
-                       ymax=42.5,
+                       ymax=18,
                        ylabel=F,
-                       label style={anchor=south}]
+                       y label style={anchor=south}]
             % simple
             \addplot[green!66, mark=x] coordinates{
-              (0.05, 6.4)
-              (0.10, 6.4)
-              (0.15, 6.4)
-              (0.20, 6.5)
-              (0.25, 6.5)
-              (0.30, 6.5)
-              (0.35, 8.3)
-              (0.40, 8.3)
-              (0.45, 8.3)
-              (0.50, 8.3)
-              (0.55, 13.6)
-              (0.60, 13.6)
-              (0.65, 13.6)
-              (0.70, 14.0)
-              (0.75, 14.0)
-              (0.80, 14.0)
-              (0.85, 14.0)
-              (0.90, 14.0)
-              (0.95, 14.0)
-              (1.00, 13.4)
+              (0.05, 8.6)
+              (0.10, 8.6)
+              (0.15, 8.6)
+              (0.20, 8.6)
+              (0.25, 8.6)
+              (0.30, 8.9)
+              (0.35, 11.1)
+              (0.40, 11.1)
+              (0.45, 11.2)
+              (0.50, 11.2)
+              (0.55, 15.3)
+              (0.60, 15.3)
+              (0.65, 15.3)
+              (0.70, 15.6)
+              (0.75, 15.6)
+              (0.80, 15.6)
+              (0.85, 15.6)
+              (0.90, 15.6)
+              (0.95, 15.6)
+              (1.00, 15.6)
             };
             % complet
             \addplot[cyan!66, mark=+] coordinates{
-              (0.05, 14.3)
-              (0.10, 14.3)
-              (0.15, 14.3)
-              (0.20, 14.3)
-              (0.25, 14.2)
-              (0.30, 13.9)
-              (0.35, 13.9)
-              (0.40, 13.9)
-              (0.45, 14.0)
-              (0.50, 14.0)
-              (0.55, 13.6)
-              (0.60, 13.6)
-              (0.65, 13.6)
-              (0.70, 14.0)
-              (0.75, 14.0)
-              (0.80, 14.0)
-              (0.85, 14.0)
-              (0.90, 14.0)
-              (0.95, 14.0)
-              (1.00, 13.4)
+              (0.05, 15.8)
+              (0.10, 15.8)
+              (0.15, 15.8)
+              (0.20, 15.8)
+              (0.25, 15.9)
+              (0.30, 15.5)
+              (0.35, 16.1)
+              (0.40, 16.1)
+              (0.45, 16.1)
+              (0.50, 16.1)
+              (0.55, 15.6)
+              (0.60, 15.6)
+              (0.65, 15.6)
+              (0.70, 15.6)
+              (0.75, 15.6)
+              (0.80, 15.6)
+              (0.85, 15.6)
+              (0.90, 15.6)
+              (0.95, 15.6)
+              (1.00, 15.6)
             };
             % moyen
             \addplot[red!66, mark=o] coordinates{
-              (0.05, 12.8)
-              (0.10, 13.1)
-              (0.15, 13.6)
-              (0.20, 14.5)
-              (0.25, 15.1)
-              (0.30, 14.8)
-              (0.35, 14.6)
-              (0.40, 14.2)
-              (0.45, 14.3)
-              (0.50, 14.0)
-              (0.55, 13.4)
-              (0.60, 13.6)
-              (0.65, 13.6)
-              (0.70, 14.0)
-              (0.75, 14.0)
-              (0.80, 14.0)
-              (0.85, 14.0)
-              (0.90, 14.0)
-              (0.95, 14.0)
-              (1.00, 13.4)
+              (0.05, 13.8)
+              (0.10, 13.9)
+              (0.15, 14.9)
+              (0.20, 15.4)
+              (0.25, 15.2)
+              (0.30, 15.3)
+              (0.35, 15.3)
+              (0.40, 15.5)
+              (0.45, 15.8)
+              (0.50, 15.9)
+              (0.55, 15.4)
+              (0.60, 15.5)
+              (0.65, 15.6)
+              (0.70, 15.6)
+              (0.75, 15.6)
+              (0.80, 15.6)
+              (0.85, 15.6)
+              (0.90, 15.6)
+              (0.95, 15.6)
+              (1.00, 15.6)
             };
-            \draw ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=red!66];
-            \node at (axis cs:0.25,40) [color=red!66, anchor=west] {\tiny{0.25}};
+            \draw[thick] ({axis cs:0.50,0}|-{rel axis cs:0,1}) -- ({axis cs:0.50,0}|-{rel axis cs:0,0}) [color=red!66];
+            \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+            \node at (axis cs:0.50,17.5) [color=red!66, anchor=west] {\tiny{0,50}};
+            \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
           \end{axis}
         \end{tikzpicture}
       }
@@ -555,67 +353,53 @@
     candidat qui apparaît en premier dans le document pour chaque sujet.
     % Quelle analyse peut-on faire à partir des courbes ?
     Globalement, chaque stratégie de groupement a un comportement qui lui est
-    propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,55.
+    propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,40
+    pour SemEval et 0,55 pour DEFT.
     Avec la stratégie simple, les résultats s'améliorent lorsque le seuil
-    $\zeta$ augmente. Du fait qu'elle ne prenne en compte que la similarité
+    $\zeta$ augmente. Du fait qu'elle ne prend en compte que la similarité
     maximale entre deux candidats de deux groupes, cette stratégie à tendance à
     trop grouper et donc à créer des groupes contenant parfois plusieurs sujets.
     L'augmentation du seuil $\zeta$ a pour effet de restreindre cette tendance
     et la qualité du groupement s'améliore. En opposition, la stratégie
-    complète, qui a le fonctionnement inverse, voie ses résultats se dégrader
-    lorsque $\zeta$ augmente. Finalement, la stratégie moyenne, qui agit en tant
-    que compromis, semble moins sensible aux variations de $\zeta$. Nous
-    observons tout de même une dégradation des résultats jusqu'au point de
+    complète, qui a le fonctionnement inverse, voit ses résultats se dégrader
+    lorsque $\zeta$ augmente. Finalement, la stratégie moyenne agit en
+    compromis. Sur SemEval elle voit ses résultats se dégrader au fur et à
+    mesure que $\zeta$ augmente de même que pour la stratégie complète, mais ses
+    résultats restent supérieurs à ceux obtenus avec la stratégie complète
+    jusqu'au point de convergence. Sur DEFT, ses résultats s'améliore lorsque
+    $\zeta$ augment de même que pour la stratégie simple, mais ils sont tout de
+    même très supérieurs à ceux de la stratégie simple jusqu'au point de
     convergence. Ce point de convergence correspond au moment où les groupes
     sont majoritairement composés de variantes flexionnelles, de variantes
     dérivationnelles où de candidats dont ceux contenant le plus de mots
-    incluent les autres (par exemple, le sujet qui ne contient que \og nouvelles
-    églises~\fg, \og nouvelles églises indépendantes protestantes~\fg,
-    \og nouvelle église indépendante~\fg\ et \og nouvelles églises
-    indépendantes~\fg\ avec le groupement moyen et $\zeta=\text{0,55}$ contient
-    en plus \og églises évangéliques~\fg, ainsi que d'autres, lorsque $\zeta$
-    est plus faible).
+    incluent les autres. %(par exemple, le sujet qui ne contient que \og nouvelles
+    %églises~\fg, \og nouvelles églises indépendantes protestantes~\fg,
+    %\og nouvelle église indépendante~\fg\ et \og nouvelles églises
+    %indépendantes~\fg\ avec le groupement moyen et $\zeta=\text{0,55}$ contient
+    %en plus \og églises évangéliques~\fg, ainsi que d'autres, lorsque $\zeta$
+    %est plus faible).
     % Quels sont les paramètres utilisés ?
-    Après observation des résultats de cette expérience, le seuil $\zeta$ est
-    fixé à 0,25 pour toutes les expériences suivantes. De même, la stratégie de
-    groupement utilisée dans la suite est la stratégie moyenne.
+    Après observation des résultats de cette expérience, nous décidons
+    d'utiliser la stratégie moyenne avec un seuil $\zeta$ de 0,20 pour toutes
+    les expériences suivantes.
 
     La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
     résultats obtenus avec TopicRank et les différentes stratégies de sélection
-    d'un terme-clé candidat par sujet. Ceux-ci confirment ce qui est dit dans la
-    section~\ref{sec:extraction_de_termes_cles_avec_topicrank} concernant le
-    bien fondé de la sélection des candidats les plus fréquents ou des
-    centroïdes. Ces dernières stratégies ont, en effet, tendance à sélectionner
-    des concepts inhérents qui jouent un rôle crucial lors du groupement, mais
-    qui ne sont pas les candidats les plus représentatifs des sujets.
-%    \begin{table}
-%      \centering
-%      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
-%        \toprule
-%        \multirow{2}{*}[-2pt]{\textbf{Sélection}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-%        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
-%        & P & R & F & P & R & F & P & R & F & P & R & F\\
-%        \midrule
-%        Position & 17,7 & 22,6 & \underline{19,6} & 14,9 & 10,3 & \underline{12,1} & 35,0 & 37,5 & \underline{35,6} & 11,7 & 21,7 & \underline{15,1}\\
-%        Fréquence & 15,1 & 18,7 & 16,5 & $~~$1,7 & $~~$1,2 & $~~$1,4 & 25,7 & 27,6 & 26,2 & $~~$1,9 & $~~$3,8 & $~~$2,5\\
-%        Centroïde & 13,0 & 16,3 & 14,3 & $~~$1,9 & $~~$1,2 & $~~$1,5 & 28,1 & 29,9 & 28,5 & $~~$2,6 & $~~$5,0 & $~~$3,4\\
-%        \midrule
-%        Borne haute & 37,1 & 41,1 & 38,6 & 37,6 & 25,8 & \textbf{30,3} & 42,5 & 44,8 & \textbf{42,9} & 14,9 & 28,0 & \textbf{19,3}\\
-%        \bottomrule
-%      \end{tabular}
-%      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
-%               fonction des différentes sélections de termes-clés candidats par
-%               sujets.
-%               \label{tab:variation_de_la_selection_des_candidats}}
-%    \end{table}
+    d'un terme-clé candidat par sujet. Les résultats confirment notre hypothèse
+    qui est que le choix des candidats apparaissant en premier dans le document
+    fournit de meilleurs termes-clés qu'avec les choix du candidat centroïdes ou
+    le plus fréquent de chaque sujet. La stratégie \og{}centroïde\fg{} donne de
+    très faibles résultats tandis que la stratégie \og{}fréquence\fg{} n'est pas
+    aussi stable que la stratégie \og{}position\fg{}.
     \begin{figure}
       \centering
       \begin{tikzpicture}
+        \pgfkeys{/pgf/number format/.cd, use comma, fixed}
         \begin{axis}[axis lines=left,
-                     symbolic x coords={DUC, SemEval, WikiNews, DEFT},
+                     symbolic x coords={SemEval, DEFT},
                      xtick=data,
-                     enlarge x limits=0.25,
-                     x=.19\linewidth,
+                     enlarge x limits=0.5,
+                     x=.3\linewidth,
                      nodes near coords,
                      nodes near coords align={vertical},
                      every node near coord/.append style={font=\tiny},
@@ -623,7 +407,7 @@
                      ytick={0, 10, ..., 50},
                      ymin=0,
                      ymax=52.5,
-                     ybar=4pt,
+                     ybar=8pt,
                      ylabel=F,
                      ylabel style={at={(ticklabel* cs:1)},
                                    anchor=south,
@@ -631,42 +415,34 @@
                      %legend style={at={(0.5,-0.15)},
                      %              anchor=north,
                      %              legend columns=-1}]
-          % fréquence
-          \addplot[green!66,
-                   pattern=north west lines,
-                   pattern color=green!40] coordinates{
-            (DUC,       16.5)
-            (SemEval,   1.4)
-            (WikiNews,  26.2)
-            (DEFT,      2.5)
-          };
           % centroïde
           \addplot[black!66,
                    pattern=north east lines,
                    pattern color=black!40] coordinates{
-            (DUC,       14.3)
-            (SemEval,   1.5)
-            (WikiNews,  25.5)
-            (DEFT,      3.4)
+            (SemEval,   2.6)
+            (DEFT,      4.7)
+          };
+          % fréquence
+          \addplot[green!66,
+                   pattern=north west lines,
+                   pattern color=green!40] coordinates{
+            (SemEval,   7.5)
+            (DEFT,      14.2)
           };
           % position
           \addplot[cyan!66,
                    pattern=horizontal lines,
                    pattern color=cyan!40] coordinates{
-            (DUC,       19.6)
-            (SemEval,   12.1)
-            (WikiNews,  35.6)
-            (DEFT,      15.1)
+            (SemEval,   11.4)
+            (DEFT,      15.4)
           };
           % borne haute
           \addplot[red!66,fill=red!40] coordinates{
-            (DUC,       38.6)
-            (SemEval,   30.3)
-            (WikiNews,  42.9)
-            (DEFT,      19.3)
+            (SemEval,   37.4)
+            (DEFT,      20.8)
           };
 
-          \legend{Fréquence, Centroïde, Position, Borne haute}
+          \legend{Centroïde, Fréquence, Position, Borne haute}
         \end{axis}
       \end{tikzpicture}
       \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
@@ -674,19 +450,102 @@
                sujet.
                \label{fig:variation_de_la_selection_des_candidats}}
     \end{figure}
-    Bien que la sélection à partir de la première position des candidats donne
-    des résultats satisfaisants, nous remarquons qu'il existe encore une marge
-    de progression importante. Les valeurs indiquées par la borne haute
-    représentent les résultats qui pourraient être obtenus avec un oracle. Pour
-    chacun des sujets les plus importants, l'oracle sélectionne toujours un
-    candidat positif, s'il y en a un. La marge de progression allant de 4,2 à
-    19,0 points de f-score est encourageante pour de futurs travaux.
+
+    Enfin, bien que la stratégie \og{}position\fg{} donne les résultats les plus
+    satisfaisants, nous remarquons qu'il existe encore une marge de progression
+    importante. Les valeurs indiquées par la borne haute représentent les
+    résultats qui pourraient être obtenus avec un oracle. Pour chacun des sujets
+    les plus importants, l'oracle sélectionne toujours un candidat positif, s'il
+    y en a un. La marge de progression de 26,0 points de f-score pour SemEval et
+    de 5,4 points de f-score pour DEFT est encourageante pour de futurs travaux.
+
+  \subsection{Paramétrage empirique de SingleRank}
+  \label{subsec:parametrage_empirique_de_singlerank}
+    Contrairement aux autres méthodes de référence, SingleRank possède un
+    paramètre qui est définit arbitrairement, la fenêtre de cooccurrences fixée
+    à 10 par \newcite{wan2008expandrank}. De
+    même que pour TopicRank, nous utilisons les données d'entrainement de
+    SemEval et de DEFT pour déterminer quelle est la valeur optimale de la
+    fenêtre de cooccurrences pour SingleRank dans notre cadre expérimental.
+    \begin{figure}
+      \centering
+      \begin{tikzpicture}
+        \begin{axis}[axis lines=middle,
+                     x=0.025\linewidth,
+                     xtick={2, 4, 6, 8, 10, 12, 14, 16, 18, 20},
+                     xmin=1,
+                     xmax=21,
+                     xlabel=Fenêtre,
+                     x label style={anchor=west},
+                     y=0.01\textheight,
+                     ytick={0, 5, 10, 15},
+                     ymin=0,
+                     ymax=18,
+                     ylabel=F,
+                     y label style={anchor=south}]
+          % semeval
+          \addplot[cyan!66, mark=+] coordinates{
+            (2, 5.0)
+            (3, 5.2)
+            (4, 4.8)
+            (5, 5.1)
+            (6, 5.0)
+            (7, 4.9)
+            (8, 4.9)
+            (9, 4.9)
+            (10, 5.1)
+            (11, 5.1)
+            (12, 5.2)
+            (13, 5.2)
+            (14, 5.2)
+            (15, 5.2)
+            (16, 5.2)
+            (17, 5.2)
+            (18, 5.1)
+            (19, 5.2)
+            (20, 5.2)
+          };
+          % deft
+          \addplot[red!66, mark=o] coordinates{
+            (2, 3.5)
+            (3, 6.1)
+            (4, 6.3)
+            (5, 6.4)
+            (6, 6.8)
+            (7, 6.7)
+            (8, 6.9)
+            (9, 6.9)
+            (10, 7.1)
+            (11, 7.2)
+            (12, 7.1)
+            (13, 7.0)
+            (14, 7.0)
+            (15, 7.0)
+            (16, 7.0)
+            (17, 7.3)
+            (18, 7.3)
+            (19, 7.3)
+            (20, 7.1)
+          };
+          \draw[densely dashed] ({axis cs:12,0}|-{rel axis cs:0,1}) -- ({axis cs:12,0}|-{rel axis cs:0,0}) [color=black!66];
+          \node at (axis cs:12,17.5) [color=black!66, anchor=west] {\tiny{12}};
+        \end{axis}
+      \end{tikzpicture}
+      \caption{Résultats de l'extraction de 10 termes-clés, avec SingleRank,
+               selon la fenêtre de cooccurrence utilisée.
+               \label{fig:variation_de_la_fenetre}}
+    \end{figure}
 
   \subsection{Comparaison de TopicRank avec l'existant}
   \label{subsec:comparaison_de_topicrank_avec_l_existant}
     % Que représente le tableau ?
     Le tableau~\ref{tab:resultats_globaux} montre les performances de TopicRank
-    comparées à celles des trois méthodes de référence.
+    comparées à celles des trois méthodes de référence. Dans la généralité, les
+    performances des méthodes d'extraction de termes-clés sont très basses. De
+    plus, il est avéré que les documents de petite taille tels que ceux de DUC
+    et de WikiNews sont moins difficiles à traiter que les autres
+    documents~\cite{hasan2014state_of_the_art}. \TODO{argumenter}
+
     % Que peut-on dire globalement ?
     Globalement, TopicRank donne de meilleurs résultats que les méthodes de
     référence utilisées.
@@ -719,8 +578,8 @@
         \midrule
         TF-IDF & \textbf{23,8} & \textbf{30,7} & \textbf{26,4} & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
         TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0 & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
-        SingleRank & 22,3 & 28,4 & 24,6 & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$\\
-        TopicRank & 17,7 & 22,6 & 19,6 & \textbf{14,9} & \textbf{10,3} & \textbf{12,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$\\
+        SingleRank & 22,6 & 28,8 & 25,0 & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
+        TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
         \bottomrule
       \end{tabular}
       \caption{Résultats de l'extraction de 10 termes-clés avec TF-IDF,
@@ -738,11 +597,11 @@
         \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
         & P & R & F & P & R & F & P & R & F & P & R & F\\
         \midrule
-        SingleRank & \textbf{22,3} & \textbf{28,4} & \textbf{24,6} & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$\\
+        SingleRank & 22,6 & 28,8 & 25,0 & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
         +complet & 22,2 & 28,1 & 24,5 & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$\\
-        +candidats & 10,0 & 13,1 & 11,2 & $~~$9,6 & $~~$7,0 & $~~$8,0$^\dagger$ & 28,6 & 30,1 & 28,9$^\dagger$ & 10,5 & 19,7 & 13,5$^\dagger$\\
-        +sujets & 18,4 & 23,6 & 20,5 & 14,7 & 10,2 & 11,9$^\dagger$ & 31,0 & 32,8 & 31,4$^\dagger$ & 11,5 & 21,4 & 14,8$^\dagger$\\
-        TopicRank & 17,7 & 22,6 & 19,6 & \textbf{14,9} & \textbf{10,3} & \textbf{12,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$\\
+        +candidats & 10,4 & 13,5 & 11,6 & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & 10,3 & 19,2 & 13,2$^\dagger$\\
+        +sujets & 18,9 & 24,2 & 21,0 & 14,2 & 9,9 & 11,6$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 11,1 & 20,4 & 14,2$^\dagger$\\
+        TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
         \bottomrule
       \end{tabular}
       \caption{Résultats de l'extraction de 10 termes-clés avec chacune des
@@ -752,15 +611,14 @@
                \label{tab:evaluation_individuelle_des_ameliorations}}
     \end{table}
 
-    \TODO{Bien montrer que SingleRank +toutes les contribution est égale à
-    TopicRank}
     Dans le but de confirmer la pertinence de tous les apports de TopicRank,
-    nous réalisons une expérience supplémentaire dans laquelle la méthode
-    SingleRank est modifiée de sorte qu'elle ordonne les mots avec un graphe
-    complet, qu'elle ordonne les termes-clés candidats à la place des mots ou
-    qu'elle ordonne les sujets à la place des mots (respectivement +complet,
-    +candidats et +sujets). Les résultats de ces trois variantes de SingleRank
-    sont présentés dans le
+    nous réalisons une expérience supplémentaire dans laquelle nous appliquons
+    de manière individuelle à SingleRank toutes les modifications successives
+    permettant d'obtenir la méthode TopicRank depuis la méthode SingleRank~:
+    l'usage d'un graphe complet (+complet), la projection des termes-clés
+    candidats dans le graphe (+candidats) et la projection des sujets dans le
+    graphe (+sujets). Les résultats de ces trois variantes de SingleRank sont
+    présentés dans le
     tableau~\ref{tab:evaluation_individuelle_des_ameliorations}. Globalement,
     l'usage des termes-clés candidats, ou des sujets, induit une amélioration
     significative des performances de SingleRank, avec une amélioration plus
@@ -807,7 +665,7 @@
     Lors de l'extraction des candidats, certaines unités textuelles sont
     extraites à cause d'erreurs dans l'étiquetage grammatical. Ces erreurs
     concernent principalement la détection des prépositions composées et la
-    détection des participes. Dans le document \textit{as\_2006\_014935ar}, nous
+    détection des participes. \TODO{revoir l'exemple}Dans le document \textit{as\_2006\_014935ar}, nous
     observons par exemple que \og pays dits~\fg\ est un terme-clé candidats, car
     le participe passé \og dits~\fg\ est considéré comme un adjectif dans la
     phrase \og [\dots] elles ne cessent de se développer à travers le monde et
@@ -816,14 +674,15 @@
     En ce qui concerne les candidats ayant des propriétés particulières, nous
     observons tout d'abord de nombreuses erreurs lorsque les groupements sont
     déclenchés par un adjectif. Ce sont particulièrement les expansions
-    nominales s'effectuant à gauche qui sont la source d'erreurs (\og même
+    nominales s'effectuant à gauche qui sont la source d'erreurs (\TODO{revoir
+    l'exemple}\og même
     langue~\fg\ groupé avec \og même représentation~\fg, \og grands
     traits~\fg\ groupé avec \og grande ignorance~\fg, etc.). Parmi les
     expansions nominales s'effectuant à droite, les adjectifs relationnels sont
     moins sujets aux erreurs que les autres adjectifs. Notons tout de même que
     lorsque ces adjectifs ont attraits au contexte général du document, ils sont
     très fréquemment utilisés et beaucoup de candidats les contenant sont
-    groupés par erreur. Ainsi, dans le document \textit{as\_2002\_000707ar} qui
+    groupés par erreur. \TODO{revoir l'exemple}Ainsi, dans le document \textit{as\_2002\_000707ar} qui
     examine l'organisation du dialogue politique économique entre les membres de
     la commission européenne, les termes-clés candidats \og forces
     économiques~\fg, \og type économique~\fg, \og délabrement économique~\fg\ et

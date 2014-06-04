@@ -13,7 +13,12 @@
 
   \subsection{Identification des sujets}
   \label{subsec:identification_des_sujets}
-    \TODO{Et donc un sujet c'est quoi pour nous ?}
+    Dans ce travail, un sujet est une information générale ou très spécifique
+    (le plus souvent) véhiculée par au moins une unité textuelle présente dans
+    le document analysé. Nous ne nous reposons donc pas sur une formulation très
+    approfondie d'un sujet, nous groupons seulement les termes-clés candidats
+    lorsque ceux-ci véhiculent la même information.
+
     % Que nous faut-il pour identifier les sujets ?
     La première étape de l'identification des sujets consiste à extraire les
     termes-clés candidats.
@@ -35,18 +40,18 @@
     % Comment détectons nous deux candidats appartenant au même sujet ?
     La seconde étape de l'identification des sujets consiste à grouper les
     termes-clés candidats lorsqu'ils appartiennent au même sujet.
-    Dans le soucis de proposer une méthode ne faisant pas l'usage de données
+    Dans le souci de proposer une méthode ne faisant pas l'usage de données
     supplémentaires, nous optons pour un groupement quelque peu naïf des
-    candidats. Ceux-ci sont groupés en fonction d'une similarité de Jaccard
-    (voir l'équation~\ref{equa:jaccard}) dans laquelle ils sont considérés comme
-    des sacs de mots, les mots étant tronqués selon la méthode de
-    \newcite{porter1980suffixstripping} afin de considérer identiques les
-    variantes flexionnelles et dérivationnelles. Cette mesure est naïve dans le
-    sens où l'ordre des mots, leur ambiguïté et les liens de synonymie ne sont
-    pas pris en compte. À cela s'ajoute aussi des erreurs introduites par la
-    méthode de \newcite{porter1980suffixstripping} (par exemple,
-    \og empire~\fg\ et \og empirique~\fg\ partagent le même radical,
-    \og empir~\fg).
+    candidats. Deux candidats $c_1$ et $c_2$ sont groupés en fonction d'une
+    similarité de Jaccard (voir l'équation~\ref{equa:jaccard}) dans laquelle ils
+    sont considérés comme des sacs de mots, les mots étant tronqués selon la
+    méthode de \newcite{porter1980suffixstripping} afin de considérer identiques
+    les variantes flexionnelles et dérivationnelles. Cette mesure est naïve dans
+    le sens où l'ordre des mots, leur ambiguïté et les liens de synonymie ne
+    sont pas pris en compte. À cela s'ajoute aussi des erreurs introduites par
+    la méthode de \newcite{porter1980suffixstripping} (p. ex., les mots
+    \og{}empire\fg{} et \og{}empirique\fg{} partagent le même radical,
+    \og{}empir\fg{}).
     \begin{align}
       \text{sim}(c_1, c_2) &= \frac{\|c_1 \cap c_2\|}{\|c_1 \cup c_2\|} \label{equa:jaccard}
     \end{align}
@@ -95,12 +100,14 @@
     car $G$ est un graphe complet.}. Le graphe utilisé étant un graphe complet,
     la pondération de ses arêtes est l'étape la plus importante pour rendre
     possible un ordonnancement efficace des sujets. Pour cette pondération, nous
-    choisissons d'utiliser la force du lien sémantique entre les sujets.
-    Contrairement à ce qui est fait dans les autres
-    travaux~\cite{wan2008expandrank,tsatsaronis2010semanticrank,liu2010topicalpagerank},
-    nous ne représentons pas cette force avec le nombre de co-occurrences
-    calculées dans une fenêtre de mots, mais nous utilisons la distance entre 
-    les candidats des sujets dans le document~:
+    suivons \newcite{wan2008expandrank} et utilisons la force du lien sémantique
+    entre les sujets. Cependant, du fait que nous utilisons un graphe complet,
+    il ne nous est pas possible de représenter cette force par le nombre de
+    cooccurrences entre les sujets, comme le font \newcite{wan2008expandrank}
+    pour les mots. Pour pallier ce problème tout en préservant l'intuition
+    derrière l'usage du nombre de cooccurrences, nous représentons la force du
+    liens sémantique entre deux sujets par la distance entre les candidats des
+    sujets dans le document~:
     \begin{align}
       \text{poids}(s_i, s_j) &= \sum_{c_i \in s_i}\ \sum_{c_j \in s_j} \text{dist}(c_i, c_j) \label{math:ponderation}\\
       \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
@@ -159,70 +166,54 @@
     % Laquelle des trois stratégies semble être la mieux ?
     Parmi ces trois stratégies, celle qui semble la plus appropriée est la
     stratégie qui se fonde sur la première position des termes-clés candidats.
-    En effet, sélectionner les candidats les plus fréquents risque de favoriser
-    l'extraction de formes abrégées ou de concepts inhérents au sujet. Par
-    exemple, dans la collection SemEval (voir la section~\ref{sec:evaluation}),
-    le document \textit{C-17} parle de \og réseaux à commutation de
-    paquets~\fg\ (\textit{packet-switched networks}), mais le candidat le plus
-    fréquent dans le sujet correspondant est le concept inhérent
-    \og réseau~\fg\ (\textit{network}). Extraire le centroïde de chaque groupe
-    risque d'avoir un effet similaire, car \og réseau~\fg\ est le sous-composant
-    de nombreux autres candidats tels que \og réseau étendu~\fg\ (\textit{wide
-    area network}), \og réseaux locaux~\fg\ (\textit{local area networks}),
-    \og réseaux informatisés de
-    communication~\fg\ (\textit{computer-communication networks}).
+    Sélectionner les candidats les plus fréquents risque de ne pas être une
+    solution stable selon les types de document, en particulier selon leur
+    taille, tandis que sélectionner les centroïdes risque de ne pas fournir les
+    termes-clés les plus précis. De ce fait, la stratégie fondée sur le fait
+    qu'un sujet est en premier introduit dans sa forme la plus appropriée est la
+    stratégie qui nous semble la plus justifiée.
 
   % Que donne l'extraction ? (exemple)
   La figure~\ref{fig:exemple_topicrank} donne un exemple d'extraction de
-  termes-clés avec TopicRank. Dans cet exemple, Nous observons un groupement
-  correct de toutes les variantes d'\og alertes~\fg, mais aussi un groupement
-  erroné de \og août 2003~\fg\ avec \og août 2012~\fg. Dans ce dernier cas,
-  TopicRank est tout de même capable d'extraire \og août 2012~\fg\ grâce à la
-  sélection du candidat apparaissant en premier. Globalement, l'extraction des
-  termes-clés est correcte et huit termes-clés sur les dix extraits apparaissent
-  dans la référence.
+  termes-clés avec TopicRank à partir du document d'exemple donné dans la
+  figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}. Dans
+  cet exemple, Nous observons un groupement correct de toutes les variantes
+  d'\og alertes~\fg, mais aussi un groupement erroné de \og août 2003~\fg\ avec
+  \og août 2012~\fg. Dans ce dernier cas, TopicRank est tout de même capable
+  d'extraire \og août 2012~\fg\ grâce à la sélection du candidat apparaissant en
+  premier. Globalement, l'extraction des termes-clés est correcte et huit
+  termes-clés sur les dix extraits apparaissent dans l'ensemble de termes-clés
+  assignés par des humains pour ce document (termes-clés de référence).
   \begin{figure}
     \centering
-    \begin{tikzpicture}
-      \node[style={rectangle,
-                   rounded corners,
-                   draw=black,
-                   thick,
-                   inner sep=2pt}](document){
-        \begin{varwidth}{.98\linewidth}
-          \small
-          \textbf{Météo du 19 août 2012~: alerte à la canicule sur la Belgique
-                  et le Luxembourg}
+    \cornersize{0.1}\Ovalbox{
+      \parbox{.99\linewidth}{\small
+        \textbf{Météo du 19 août 2012~: alerte à la canicule sur la
+                Belgique et le Luxembourg}\\
 
-          \indent{
-            A l'exception de la province de Luxembourg, en alerte jaune,
-            l'ensemble de la Belgique est en vigilance orange à la canicule. Le
-            Luxembourg n'est pas épargné par la vague du chaleur : le nord du
-            pays est en alerte orange, tandis que le sud a était placé en
-            alerte rouge.
-          }
+        \setlength\parindent{12pt}\vspace{-0.5em}
+        A l'exception de la province de Luxembourg, en alerte jaune,
+        l'ensemble de la Belgique est en vigilance orange à la canicule. Le
+        Luxembourg n'est pas épargné par la vague du chaleur : le nord du pays
+        est en alerte orange, tandis que le sud a était placé en alerte rouge.
 
-          \indent{
-            En Belgique, la température n'est pas descendue en dessous des
-            23\degre{}C cette nuit, ce qui constitue la deuxième nuit la plus
-            chaude jamais enregistrée dans le royaume. Il se pourrait que ce
-            dimanche soit la journée la plus chaude de l'année. Les températures
-            seront comprises entre 33 et 38\degre{}C. Une légère brise de
-            côte pourra faiblement rafraichir l'atmosphère. Des orages de
-            chaleur sont a prévoir dans la soirée et en début de nuit.
-          }
+        En Belgique, la température n'est pas descendue en dessous des 23°C
+        cette nuit, ce qui constitue la deuxième nuit la plus chaude jamais
+        enregistrée dans le royaume. Il se pourrait que ce dimanche soit la
+        journée la plus chaude de l'année. Les températures seront comprises
+        entre 33 et 38°C. Une légère brise de côte pourra faiblement
+        rafraichir l'atmosphère. Des orages de chaleur sont a prévoir dans la
+        soirée et en début de nuit.
 
-          \indent{
-            Au Luxembourg, le mercure devrait atteindre 32\degre{}C ce dimanche
-            sur l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à
-            32\degre{}C lundi. Une baisse devrait intervenir pour le reste de la
-            semaine. Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait
-            pas être atteint.
-          }
-        \end{varwidth}
-      };
-    \end{tikzpicture}~\\
+        Au Luxembourg, le mercure devrait atteindre 32°C ce dimanche sur
+        l'Oesling et jusqu'à 36°C sur le sud du pays, et 31 à 32°C lundi. Une
+        baisse devrait intervenir pour le reste de la semaine. Néanmoins, le
+        record d'août 2003 (37,9°C) ne devrait pas être atteint.
+      \setlength\parindent{0pt}}
+    }~\\
+
     \vspace{2em}
+
     \begin{overpic}[width=.8\linewidth]{include/44960_topicrank_empty.eps}
       \put(38,100.5){\small[soirée]}
       \put(22,96){\small[oesling]}
@@ -264,30 +255,27 @@
       \put(56,39){\small[mercure]}
       \put(43,51){\small[semaine]}
     \end{overpic}~\\
+
     \vspace{1.5em}
-    \begin{tikzpicture}
-      \node[style={rectangle,
-                   rounded corners,
-                   draw=black,
-                   thick,
-                   inner sep=2pt}](termes_cles){
-        \begin{varwidth}{\linewidth}
-          \small
-          \textbf{Termes-clés extraits par des humains~:}
 
-          luxembourg~; alerte~; météo~; belgique~; août 2012~; chaleur~;
-          température~; chaude~; canicule~; orange~; la plus chaude
+    \cornersize{0.1}\Ovalbox{
+      \parbox{.99\linewidth}{\small
+        \textbf{Termes-clés extraits par des humains~:}
 
-          \textbf{Termes-clés extraits par TopicRank~:}
+        Luxembourg~; alerte~; météo~; belgique~; août 2012~; chaleur~;
+        température~; chaude~; canicule~; orange~; la plus chaude.
 
-          luxembourg~; alerte~; nuit~; belgique~; août 2012~; chaleur~;
-          température~; chaude~; canicule~; dimanche
-        \end{varwidth}
-      };
-    \end{tikzpicture}
+        \textbf{Termes-clés extraits par TopicRank~:}
 
-    \caption{Extraction des termes-clés du document \textit{44960} de WikiNews 
-             (voir la section~\ref{sec:evaluation}), avec TopicRank.
+        \underline{Luxembourg}~; \underline{alerte}~; nuit~;
+        \underline{belgique}~; \underline{août 2012}~; \underline{chaleur}~;
+        \underline{température}~; \underline{chaude}~; \underline{canicule}~;
+        dimanche.
+      }
+    }
+
+    \caption{Exemple d'extraction de termes-clés avec TopicRank. Les termes-clés
+             soulignés sont les termes-clés correctement extraits.
              \label{fig:exemple_topicrank}}
   \end{figure}
 

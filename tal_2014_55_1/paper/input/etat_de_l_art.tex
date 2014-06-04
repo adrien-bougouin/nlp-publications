@@ -1,19 +1,5 @@
 \section{État de l'art}
 \label{sec:etat_de_l_art}
-  TopicRank faisant partie des méthodes non-supervisées, l'état de l'art
-  présenté ici se focalise sur cette catégorie de méthodes. L'extraction
-  automatique non-supervisée de termes-clés est une tâche décomposée en général
-  en quatre étapes. Les méthodes non-supervisées traitent les documents
-  généralement un à un. Ceux-ci sont tout d'abord enrichis linguistiquement,
-  c'est-à-dire segmentés en phrases, segmentés en mots  et étiquetés
-  grammaticalement. Des termes-clés candidats en sont sélectionnés, puis
-  ordonnés afin de ne sélectionner que les plus pertinents (voir la
-  figure~\ref{fig:etapes_de_l_extraction_de_termes_cles}). La sélection des
-  termes-clés candidats et leur ordonnancement sont les deux étapes auxquelles
-  nous nous intéressons dans cet article. L'ordonnancement des termes-clés
-  candidats est le c\oe{}ur de la tâche d'extraction de termes-clés et ses
-  performances dépendent de la qualité des candidats préalablement
-  sélectionnés~\cite{wang2014keyphraseextractionpreprocessing}.
   \begin{figure}
     \tikzstyle{io}=[
       ellipse,
@@ -59,6 +45,20 @@
     \caption{Les quatre principales étapes de l'extraction automatique de
              termes-clés. \label{fig:etapes_de_l_extraction_de_termes_cles}}
   \end{figure}
+  TopicRank faisant partie des méthodes non-supervisées, l'état de l'art
+  présenté ici se focalise sur cette catégorie de méthodes. L'extraction
+  automatique non-supervisée de termes-clés est une tâche décomposée en général
+  en quatre étapes. Les méthodes non-supervisées traitent les documents
+  généralement un à un. Ceux-ci sont tout d'abord enrichis linguistiquement,
+  c'est-à-dire segmentés en phrases, segmentés en mots  et étiquetés
+  grammaticalement. Des termes-clés candidats en sont sélectionnés, puis
+  ordonnés afin de ne sélectionner que les plus pertinents (voir la
+  figure~\ref{fig:etapes_de_l_extraction_de_termes_cles}). La sélection des
+  termes-clés candidats et leur ordonnancement sont les deux étapes auxquelles
+  nous nous intéressons dans cet article. L'ordonnancement des termes-clés
+  candidats est le c\oe{}ur de la tâche d'extraction de termes-clés et ses
+  performances dépendent de la qualité des candidats préalablement
+  sélectionnés~\cite{wang2014keyphraseextractionpreprocessing}.
 
   \subsection{Sélection des termes-clés candidats}
   \label{subsec:extraction_de_termes_cles_candidats}
@@ -66,21 +66,22 @@
     L'objectif de la sélection des termes-clés candidats est de déterminer quels
     sont les unités textuelles qui sont potentiellement des termes-clés,
     c'est-à-dire celles qui ont des particularités similaires à celles des
-    termes-clés tels qu'ils peuvent être donnés par des humains. Cette étape
-    présente deux avantages. Le premier, très évident, est la réduction du temps
-    de calcul nécessaire à l'extraction des termes-clés. Le second avantage est
-    la suppression en amont d'unités textuelles non pertinentes, ces dernières
-    pouvant affecter négativement les performances de l'ordonnancement. Pour
-    distinguer les différents candidats sélectionnés, nous définissons deux
-    catégories~: les candidats positifs, qui sont présents en tant que
-    termes-clés de référence dans nos collections de données, et les candidats
-    non positifs. Parmi les candidats non positifs, nous distinguons deux
-    sous-catégories~: les candidats porteurs d'indices de différentes natures
-    pouvant influencer la promotion de candidats positifs (par exemple, la
-    présence des candidats \og{}alerte rouge\fg{}, \og{}alerte jaune\fg{} et
-    \og{}alerte orange\fg{} influence l'extraction du candidat positif
-    \og{}alerte\fg{} en tant que terme-clé, dans l'article présenté dans la
-    figure~\ref{fig:recurrent_example}) et les candidats non pertinents, que
+    termes-clés tels qu'ils peuvent être donnés par des humains. Nous savons par
+    exemple que les termes-clés sont majoritairement constitués de noms et
+    d'adjectifs. Cette étape présente deux avantages. Le premier, très évident,
+    est la réduction du temps de calcul nécessaire à l'extraction des
+    termes-clés. Le second avantage est la suppression en amont d'unités
+    textuelles non pertinentes, ces dernières pouvant affecter négativement les
+    performances de l'ordonnancement. Pour distinguer les différents candidats
+    sélectionnés, nous définissons deux catégories~: les candidats positifs, qui
+    sont présents en tant que termes-clés de référence dans nos collections de
+    données, et les candidats non positifs. Parmi les candidats non positifs,
+    nous distinguons deux sous-catégories~: les candidats porteurs d'indices de
+    différentes natures pouvant influencer la promotion de candidats positifs
+    (par exemple, la présence des candidats \og{}alerte rouge\fg{}, \og{}alerte
+    jaune\fg{} et \og{}alerte orange\fg{} influence l'extraction du candidat
+    positif \og{}alerte\fg{} en tant que terme-clé, dans l'article présenté dans
+    la figure~\ref{fig:recurrent_example}) et les candidats non pertinents, que
     nous considérons comme des erreurs.
 
     % Quels sont les différentes méthodes utilisées pour extraire les
@@ -109,7 +110,17 @@
     En effet, la phase d'apprentissage de celles-ci les rend moins sensibles aux
     éventuels candidats erronés (bruit) par rapport aux méthodes supervisées.
 
-    \TODO{Exemple de n-grammes}
+    \textit{
+      Exemples de $\{1..3\}$-grammes sélectionnés dans le phrase \og{}Une légère
+      brise de côte pourra faiblement rafraichir l'atmosphère.\fg{} dans
+      l'exemple de la figure~\ref{fig:recurrent_example}
+      page~\pageref{fig:recurrent_example}~: \og{}légère\fg{}, \og{}brise\fg{},
+      \og{}côte\fg{}, \og{}pourra\fg{}, \og{}faiblement\fg{},
+      \og{}rafraichir\fg{}, \og{}atmosphère\fg{}, \og{}légère brise\fg{},
+      \og{}côte pourra\fg{}, \og{}pourra faiblement\fg{}, \og{}faiblement
+      rafraichir\fg{}, \og{}brise de côte\fg{}, \og{}côte pourra
+      faiblement\fg{}, \og{}pourra faiblement rafraichir\fg{} et \og{}rafraichir
+      l'atmosphère\fg{}.}
 
     Les chunks nominaux sont des syntagmes non récursifs dont la tête est un
     nom, accompagné de ses éventuels déterminants et modifieurs usuels. Ce sont
@@ -129,7 +140,11 @@
     Sélectionner les chunks nominaux est donc une solution plus fiable que de
     sélectionner les n-grammes.
 
-    \TODO{Exemple de chunks nominaux}
+    \textit{Exemples de chunks nominaux sélectionnés dans le phrase \og{}Une
+    légère brise de côte pourra faiblement rafraichir l'atmosphère.\fg{} dans
+    l'exemple de la figure~\ref{fig:recurrent_example}
+    page~\pageref{fig:recurrent_example}~: \og{}une légère brise\fg{},
+    \og{}côte\fg{} et \og{}l'atmosphère\fg{}.}
 
     L'extraction d'unités textuelles à partir de patrons grammaticaux prédéfinis
     permet de contrôler avec précision la nature et la grammaticalité des
@@ -145,11 +160,13 @@
     méthodes non-supervisées telles que la nôtre, l'extraction des séquences de 
     noms et d'adjectifs est intéressante, car elle ne nécessite ni données
     supplémentaires, ni adaptation particulière pour une langue donnée, tel que
-    c'est le cas pour les chunks nominaux. Dans ce travail, nous utilisons cette
-    méthode de sélection des termes-clés candidats, afin de proposer une méthode
-    la plus indépendante possible de la langue des documents analysés.
+    c'est le cas pour les chunks nominaux.
 
-    \TODO{Exemple de plus longues séquences de noms et adjectifs}
+    \textit{Exemples de plus longues séquences de noms et d'adjectifs
+    sélectionnées dans le phrase \og{}Une légère brise de côte pourra faiblement
+    rafraichir l'atmosphère.\fg{} dans l'exemple de la
+    figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}~:
+    \og{}légère brise\fg{}, \og{}côte\fg{} et \og{}atmosphère\fg{}.}
 
   \subsection{Ordonnancement des termes-clés candidats}
   \label{subsec:ordonnancement_des_termes_cles_candidats}
@@ -182,8 +199,9 @@
     compression multi-phrase~\cite{boudin2013multisentencecompression} et la
     désambiguïsassion de texte~\cite{schwab2013desambiguisation}. Dans le cas de
     TextRank, les n\oe{}uds du graphe sont les mots du document et les arrêtes
-    sont leurs relations de co-occurrences dans une fenêtre de 2 mots. Un score
-    d'importance est calculé pour chaque mot à partir de l'algorithme 
+    représentent leurs relations d'adjacence dans le document, c'est-à-dire
+    leurs relations de co-occurrence dans une fenêtre de 2 mots. Un score
+    d'importance est calculé pour chaque mot à partir de l'algorithme
     PageRank~\cite{brin1998pagerank} qui est issu de la mesure de centralité des
     vecteurs propres. Le principe utilisé est celui de la recommandation, ou du
     vote, c'est-à-dire un mot est d'autant plus important qu'il co-occurre avec
@@ -191,34 +209,32 @@
     aussi important. Les mots les plus importants sont considérés comme des
     mots-clés. Ces mots-clés sont marqués dans le document et les plus longues
     séquences de mots-clés adjacents sont extraites en tant que termes-clés.
-    Dans cette méthode, la précision de l'ordonnancement dépend de la qualité du
-    graphe qui elle-même dépend de la fenêtre de co-occurrence. En effet, les
-    études menées par \newcite{mihalcea2004textrank} et par
-    \newcite{wan2008expandrank}, avec des documents de natures différentes,
-    montrent des valeurs optimales contradictoires pour la fenêtre de
-    cooccurrence utilisée par leurs méthodes qui sont pourtant similaires. Dans
-    nos travaux, nous créons un graphe dont la qualité ne dépend pas d'un
-    paramètre, tel que cette fenêtre de cooccurrence, afin de garantir une
-    meilleure stabilité de notre méthode vis-à-vis des documents analysés.
+    \TODO{Problème du fait de la pondération de mots}
 
     \newcite{wan2008expandrank} modifient TextRank et proposent SingleRank. Dans
-    un premier temps, leur méthode augmente la précision de l'ordonnancement
-    grâce à une pondération des liens de co-occurrence avec le nombre de
-    co-occurrences des mots liés (deux mots qui co-occurrent deux fois, par
-    exemple, sont liés par une arête dont le poids vaut 2).
-    Dans un second temps, les termes-clés ne sont plus générés, mais ordonnés à
-    partir de la somme du score d'importance des mots qui les composent. Cette
-    nouvelle méthode donne dans la majorité des cas des résultats meilleurs que
-    ceux de TextRank. Cependant, faire la somme du score d'importance des
-    mots pour ordonner les candidats est une approche maladroite. En effet, cela
-    a pour effet de faire monter dans le classement des candidats redondants.
-    Ainsi, dans l'exemple de la figure~\ref{fig:recurrent_example}, le candidat
-    positif \og{}alerte~\fg{} est classé quatrième, alors que les autres
-    candidats (non positifs) qui le contiennent (\og{}alerte orange\fg{},
-    \og{}alerte jaune\fg{} et \og{}alerte rouge\fg{}) occupent de meilleurs
-    classement. Dans nos travaux, nous n'ordonnons pas les termes-clés candidats
-    en fonction des mots qu'ils contiennent et évitons ainsi le problème
-    rencontré avec SingleRank.
+    un premier temps, leur méthode augmente la précision de l'ordonnancement en
+    utilisant une fenêtre de cooccurrence élargie à 10 (empiriquement) et en
+    pondérant les arêtes par le nombre de co-occurrences entre les mots qu'elles
+    relient. Dans un second temps, les termes-clés ne sont plus générés, mais
+    ordonnés à partir de la somme du score d'importance des mots qui les
+    composent. Cette nouvelle méthode donne dans la majorité des cas des
+    résultats meilleurs que ceux de TextRank. Dans cette méthode, la précision
+    de l'ordonnancement dépend de la qualité du graphe qui elle-même dépend de
+    la fenêtre de co-occurrence, en témoignent les observations contradictoires
+    de \newcite{mihalcea2004textrank} et de \newcite{wan2008expandrank}
+    lorsqu'ils appliquent leurs méthodes avec différentes fenêtres sur des
+    documents de natures différentes. De plus, faire la somme du score
+    d'importance des mots pour ordonner les candidats est une approche
+    maladroite qui a pour conséquence de faire monter dans le classement des
+    candidats redondants. Ainsi, dans l'exemple de la
+    figure~\ref{fig:recurrent_example}, le candidat positif \og{}alerte~\fg{}
+    est classé quatrième par SingleRank, alors que les autres candidats (non
+    positifs) qui le contiennent (\og{}alerte orange\fg{}, \og{}alerte
+    jaune\fg{} et \og{}alerte rouge\fg{}) occupent de meilleurs classement. Dans
+    nos travaux, nous créons un graphe dont la qualité ne dépend pas de la
+    fenêtre de cooccurrence. Aussi, nous n'ordonnons pas les termes-clés
+    candidats selon les mots qu'ils contiennent et évitons alors le problème de
+    redondance rencontré par SingleRank.
 
     Toujours dans l'optique d'améliorer l'efficacité de l'ordonnancement,
     \newcite{wan2008expandrank} étendent SingleRank en utilisant des documents
@@ -231,8 +247,7 @@
     résultats au delà de ceux de SingleRank. Toutefois, ses performances sont
     fortement liées à la disponibilité de documents similaires à celui qui est
     analysé. Cette méthode ne peut donc être appliquée que dans un context
-    particulier (p. ex. articles journalistiques traitant du même sujet
-    d'actualité).
+    particulier, context que nous ne pouvons garantir dans ce travail.
 
     À l'instar de \newcite{wan2008expandrank},
     \newcite{tsatsaronis2010semanticrank} tentent d'améliorer TextRank. Dans
