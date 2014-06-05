@@ -2,48 +2,71 @@
 \label{sec:evaluation}
   Pour valider notre approche, nous réalisons une première série d'évaluations
   visant à déterminer la configuration optimale de TopicRank. Nous comparons 
-  ensuite TopicRank aux méthodes précédentes et analysons l'impact de chacune de
+  ensuite TopicRank aux travaux précédents et analysons l'impact de chacune de
   nos contributions.
 
   \subsection{Cadre expérimental}
   \label{subsec:cadre_experimental}
-    \subsubsection{Données de test}
+    \subsubsection{Méthodes de référence pour l'extraction de termes-clés}
+    \label{subsubsec:systemes_de_reference_pour_l_extraction_de_termes_cles}
+      % Comment les baselines sont-elles choisies ?
+      Dans nos expérimentations, nous comparons TopicRank avec trois autres
+      méthodes non-supervisées d'extraction automatique de termes-clés. Nous
+      choisissons TextRank et SingleRank, les deux méthodes qui sont la
+      fondation des méthodes à base de graphe, et la pondération TF-IDF. Cette
+      dernière consiste à donner un score aux termes-clés candidats en faisant
+      la somme des poids TF-IDF des mots qui les composent, puis à sélectionner
+      ceux ayant le plus haut score.
+
+      % Quelles sont les particularités liées à notre implémentation ?
+      Au même titre que pour TopicRank, nous proposons une implémentation des
+      méthodes de référence disponible sur la plate-forme de développement
+      collaboratif
+      GitHub\footnote{\url{https://github.com/adrien-bougouin/KeyBench/tree/ijcnlp_2013}}.
+      Dans un souci de comparaison, lorsque les méthodes de référence partagent
+      le même comportement que TopicRank, celui-ci est réaliser par le même
+      composant.
+
+    \subsubsection{Collections de données}
     \label{subsubsec:donnees_de_test}
       Afin de suivre \newcite{hassan2010conundrums} qui soulignent l'importance
       d'évaluer une méthode avec des collections de données aux configurations
       différentes pour mieux observer et comprendre son comportement, les
-      collections de données utilisées ici diffèrent en termes de langue,
-      nature, taille des documents et types d'annotateur (auteurs, lecteurs ou
-      les deux).
+      collections de données utilisées dans ce travail diffèrent en termes de
+      langue, nature, taille des documents et types d'annotateur (auteurs,
+      lecteurs ou les deux).
 
       \textbf{DUC}~\cite{over2001duc} est une collection en anglais issue des
       données de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
       concerne les méthodes de résumé automatique, elle ne contient donc
       originellement pas d'annotations en termes-clés. Cependant, les 308
       articles journalistiques de la partie test de DUC-2001 ont été annotés par
-      \newcite{wan2008expandrank}. Lors de nos expériences, nous utilisons ces
-      308 documents.
+      \newcite{wan2008expandrank}. Nous utilisons ces 308 documents pour la
+      comparaison de TopicRank avec les méthodes de référence.
 
       \textbf{SemEval}~\cite{kim2010semeval} est la collection en anglais
       fournie lors de la campagne d'évaluation SemEval-2010 pour la tâche
-      d'extraction automatique de termes-clés. Cette collection contient 284
+      d'extraction automatique de termes-clés. Cette collection contient 244
       articles scientifiques (conférences et ateliers) issus de la librairie
-      numérique ACM. La collection est répartie en trois sous-ensembles, un
-      ensemble de 40 documents d'essais, un ensemble de 144 documents
-      d'entraînement et un ensemble de 100 documents de test. Lors de nos
-      expériences, nous utilisons les 100 documents de l'ensemble de test. En ce
-      qui concerne les termes-clés associés aux documents, ils correspondent à
-      la combinaison de ceux donnés par les auteurs et des lecteurs.
+      numérique ACM. La collection est répartie en deux sous-ensembles, un
+      ensemble de 144 documents d'entraînement et un ensemble de 100 documents
+      de test. Lors de nos expériences, nous utilisons les 144 documents
+      d'entraînement pour paramétrer TopicRank et SingleRank, et les 100
+      documents de l'ensemble de test pour la comparaison de TopicRank avec les
+      méthodes de référence. En ce qui concerne les termes-clés associés aux
+      documents, ils correspondent à la combinaison de ceux donnés par les
+      auteurs et des lecteurs.
 
       \textbf{WikiNews}\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
       est une collection de 100 articles journalistiques en français que nous
       avons extraits du site Web
       WikiNews\footnote{\url{http://fr.wikinews.org}} entre les mois de mai et
-      décembre 2012. Pour l'annotation en termes-clés, nous avons demandé à ???
-      étudiants de master en TAL d'extraire (librement) les termes-clés de ???
+      décembre 2012. Pour l'annotation en termes-clés, nous avons demandé à \textcolor{red}{???}
+      étudiants de master en TAL d'extraire (librement) les termes-clés de \textcolor{red}{???}
       documents. Chaque document à été annoté par au moins trois étudiants, pour
-      un accord inter-annotateurs de ??? selon le coefficient
-      ???~\cite{doe1942paper}.
+      un accord inter-annotateurs de \textcolor{red}{???} selon le coefficient
+      \textcolor{red}{???}~\cite{doe1942paper}. Nous utilisons les 308 documents de Wikinews pour
+      la comparaison de TopicRank avec les méthodes de référence.
 
       \textbf{DEFT}~\cite{paroubek2012deft} est la collection fournie lors de la
       campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
@@ -51,17 +74,19 @@
       revues de Sciences Humaines et Sociales. La collection est divisée en deux
       sous-ensembles, un ensemble d'entraînement contenant 141 documents et un
       ensemble de test contenant 93 documents. Lors de nos expériences, nous
-      utilisons les 93 documents de l'ensemble de test. Seuls les termes-clés
-      des auteurs sont disponibles pour cette collection.
+      utilisons les 141 documents d'entraînement pour paramétrer TopicRank et
+      SingleRank, et les 93 documents de l'ensemble de test pour la comparaison
+      de TopicRank avec les méthodes de référence. Seuls les termes-clés des
+      auteurs sont disponibles pour cette collection.
 
       Le tableau~\ref{tab:donnees_de_test} donne les statistiques extraites des
-      quatre collections de données présentées ci-dessus. Les données sont
-      divisées en deux langues (anglais et français), avec pour chaque langue
-      une collection de documents courts (articles journalistiques) et une
-      collection de documents de plus grande taille (articles scientifiques). Il
-      est aussi important de noter qu'en fonction du type d'annotateurs, le
-      nombre de termes-clés associés varie, de même que le nombre de termes-clés
-      n'apparaissant pas dans les documents.
+      ensembles de test des quatre collections de données présentées ci-dessus.
+      Les données sont divisées en deux langues (anglais et français), avec pour
+      chaque langue une collection de documents courts (articles
+      journalistiques) et une collection de documents de plus grande taille
+      (articles scientifiques). Il est aussi important de noter qu'en fonction
+      du type d'annotateurs, le nombre de termes-clés associés varie, de même
+      que le nombre de termes-clés n'apparaissant pas dans les documents.
       \begin{table}
         \centering
         \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
@@ -112,46 +137,25 @@
     \subsubsection{Mesures d'évaluation}
     \label{subsubsec:mesures_d_evaluation}
       Les performances des méthodes d'extraction de termes-clés sont exprimées
-      en termes de précision (P), rappel (R) et f-score (f1-mesure, F). Afin de
-      ne pas considérer fausse l'extraction d'une variante flexionnelle d'un
-      terme-clé de référence, les opérations de comparaison sont effectuées à
-      partir de la forme radicale des mots.
-
-    \subsubsection{Méthodes de référence pour l'extraction de termes-clés}
-    \label{subsubsec:systemes_de_reference_pour_l_extraction_de_termes_cles}
-      % Comment les baselines sont-elles choisies ?
-      Dans nos expérimentations, nous comparons TopicRank avec trois autres
-      méthodes non-supervisées d'extraction automatique de termes-clés. Nous
-      choisissons TextRank et SingleRank, les deux méthodes qui sont la
-      fondation des méthodes à base de graphe, et la pondération TF-IDF. Cette
-      dernière consiste à donner un score aux termes-clés candidats en faisant
-      la somme des poids TF-IDF des mots qui les composent, puis à sélectionner
-      ceux ayant le plus haut score.
-
-      % Quelles sont les particularités liées à notre implémentation ?
-      Nous avons nous même implémenté les méthodes de référence. Celles-ci sont
-      disponibles sur
-      GitHub\footnote{\url{https://github.com/adrien-bougouin/KeyBench/tree/ijcnlp_2013}},
-      au même titre que TopicRank. Lorsqu'elles ont des parties communes avec
-      TopicRank, elles bénéficient des mêmes composants. De plus, pour améliorer
-      les résultats des méthodes de référence, leurs sorties sont filtrées afin
-      de supprimer les termes-clés candidats dont les mots ont la même forme
-      radicale que ceux d'un candidat mieux classé. Ce filtrage ne dégrade en
-      rien les résultats et a pour effet de faire monter de nouveaux candidats
-      dans le classement.
+      en termes de précision (P), rappel (R) et f-score (f1-mesure, F). En
+      accord avec l'évaluation menée dans les travaux précédents, nous
+      considérons correcte l'extraction d'une variante flexionnelle d'un
+      terme-clé de référence~\cite{kim2010semeval}. Les opérations de
+      comparaison entre les termes-clés de référence et les termes-clés extraits
+      sont donc effectuées à partir de la racine des mots qui les composent en
+      utilisant la méthode de racinisation de
+      \newcite{porter1980suffixstripping}.
 
   \subsection{Analyse empirique de TopicRank}
   \label{subsection:configuration_empirique_de_topicrank}
-    À ce stade des expérimentations, nous tentons de déterminer quels sont les
-    paramètres optimaux pour TopicRank. En effet, TopicRank possède trois points
-    de variabilités~: le seuil de groupement ($\zeta$), la stratégie de
-    groupement (simple, complète ou moyenne) et la stratégie de sélection du
-    terme-clé candidat le plus représentatif d'un sujet. Deux expériences sont
-    réalisées, l'une pour déterminer la configuration de groupement optimale
-    (variation du seuil $\zeta$ et de la stratégie de groupement) et l'autre
-    pour déterminer la stratégie de sélection du terme-clé le plus représentatif
-    de chaque sujet.
-
+    Dans cette section, nous effectuons des expériences préliminaires afin de
+    déterminer quel est la configuration optimale de TopicRank. En utilisant les
+    ensembles d'entraînement de SemEval et de DEFT, nous réalisons deux
+    expériences durant lesquels nous faisont varier, dans un premier temps, le
+    seuil de groupement ($\zeta$) et la stratégie de groupement (simple,
+    complète et moyenne), puis dans un second temps, la stratégie de sélection
+    du terme-clé candidat le plus représentatif de chacun des sujets les plus
+    importants.
     \begin{figure}
       \centering
       \subfigure[SemEval]{
@@ -164,7 +168,7 @@
                        xmax=1.05,
                        xlabel=$\zeta$,
                        x label style={anchor=west},
-                       y=0.01\textheight,
+                       y=0.0125\textheight,
                        ytick={0, 5, 10, 15},
                        ymin=0,
                        ymax=18,
@@ -257,7 +261,7 @@
                        xmax=1.05,
                        xlabel=$\zeta$,
                        x label style={anchor=west},
-                       y=0.01\textheight,
+                       y=0.0125\textheight,
                        ytick={0, 5, 10, 15},
                        ymin=0,
                        ymax=18,
@@ -339,45 +343,37 @@
           \end{axis}
         \end{tikzpicture}
       }
-      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
+      \caption{Résultats de l'extraction de 10 termes-clés avec TopicRank, en
                fonction de la stratégie de regroupement et de la valeur du seuil
-               de similarité $\zeta$.
+               de similarité $\zeta$, sur les ensembles d'entraînement de
+               SemEval et de DEFT.
                \label{fig:variation_du_seuil_de_similarite}}
     \end{figure}
 
     % Variation du seuil de similarité et de la stratégie de groupement
     La figure~\ref{fig:variation_du_seuil_de_similarite} présente les résultats
     de TopicRank lorsque nous faisons varier le seuil $\zeta$ avec un pas de
-    0,05 pour toutes les stratégies de groupement. La stratégie de sélection
-    d'un terme-clé par sujet utilisée est celle qui consiste à sélectionner le
-    candidat qui apparaît en premier dans le document pour chaque sujet.
+    0,05 pour toutes les stratégies de groupement\footnote{La stratégie de
+    sélection du terme-clé le plus représentatif par sujet utilisée dans cette
+    expérience est celle qui consiste à sélectionner le candidat qui apparaît en
+    premier dans le document, pour chaque sujet.}.
     % Quelle analyse peut-on faire à partir des courbes ?
     Globalement, chaque stratégie de groupement a un comportement qui lui est
     propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,40
-    pour SemEval et 0,55 pour DEFT.
-    Avec la stratégie simple, les résultats s'améliorent lorsque le seuil
-    $\zeta$ augmente. Du fait qu'elle ne prend en compte que la similarité
-    maximale entre deux candidats de deux groupes, cette stratégie à tendance à
-    trop grouper et donc à créer des groupes contenant parfois plusieurs sujets.
-    L'augmentation du seuil $\zeta$ a pour effet de restreindre cette tendance
-    et la qualité du groupement s'améliore. En opposition, la stratégie
-    complète, qui a le fonctionnement inverse, voit ses résultats se dégrader
-    lorsque $\zeta$ augmente. Finalement, la stratégie moyenne agit en
-    compromis. Sur SemEval elle voit ses résultats se dégrader au fur et à
-    mesure que $\zeta$ augmente de même que pour la stratégie complète, mais ses
-    résultats restent supérieurs à ceux obtenus avec la stratégie complète
-    jusqu'au point de convergence. Sur DEFT, ses résultats s'améliore lorsque
-    $\zeta$ augment de même que pour la stratégie simple, mais ils sont tout de
-    même très supérieurs à ceux de la stratégie simple jusqu'au point de
-    convergence. Ce point de convergence correspond au moment où les groupes
-    sont majoritairement composés de variantes flexionnelles, de variantes
-    dérivationnelles où de candidats dont ceux contenant le plus de mots
-    incluent les autres. %(par exemple, le sujet qui ne contient que \og nouvelles
-    %églises~\fg, \og nouvelles églises indépendantes protestantes~\fg,
-    %\og nouvelle église indépendante~\fg\ et \og nouvelles églises
-    %indépendantes~\fg\ avec le groupement moyen et $\zeta=\text{0,55}$ contient
-    %en plus \og églises évangéliques~\fg, ainsi que d'autres, lorsque $\zeta$
-    %est plus faible).
+    pour SemEval et 0,55 pour DEFT. Avec la stratégie simple, les résultats
+    s'améliorent lorsque le seuil $\zeta$ augmente. Du fait qu'elle ne prend en
+    compte que la similarité maximale entre deux candidats de deux groupes,
+    cette stratégie à tendance à trop grouper et donc à créer des groupes
+    contenant parfois plusieurs sujets. L'augmentation du seuil $\zeta$ a pour
+    effet de restreindre cette tendance et la qualité du groupement s'améliore.
+    En opposition, la stratégie complète, qui a le fonctionnement inverse, voit
+    ses résultats se dégrader lorsque $\zeta$ augmente. Enfin, la stratégie
+    moyenne agit en compromis. Sur SemEval, son comportement est le même que
+    celui de la stratégie complète, mais ses résultats sont supérieurs jusqu'au
+    point de convergence. Sur DEFT, son comportement est le même que celui de la
+    stratégie simple, mais ses résultats sont très supérieurs jusqu'au point de
+    convergence. Ce point de convergence correspond à la valeur du seuil $\zeta$
+    pour laquelle les sujets créés sont les mêmes quelque soit la stratégie.
     % Quels sont les paramètres utilisés ?
     Après observation des résultats de cette expérience, nous décidons
     d'utiliser la stratégie moyenne avec un seuil $\zeta$ de 0,20 pour toutes
@@ -387,10 +383,17 @@
     résultats obtenus avec TopicRank et les différentes stratégies de sélection
     d'un terme-clé candidat par sujet. Les résultats confirment notre hypothèse
     qui est que le choix des candidats apparaissant en premier dans le document
-    fournit de meilleurs termes-clés qu'avec les choix du candidat centroïdes ou
-    le plus fréquent de chaque sujet. La stratégie \og{}centroïde\fg{} donne de
+    fournit de meilleurs termes-clés que le choix des candidats centroïdes ou
+    des candidats les plus fréquents. La stratégie \og{}centroïde\fg{} donne de
     très faibles résultats tandis que la stratégie \og{}fréquence\fg{} n'est pas
-    aussi stable que la stratégie \og{}position\fg{}.
+    aussi stable que la stratégie \og{}position\fg{}. Enfin, bien que la
+    stratégie \og{}position\fg{} donne les résultats les plus satisfaisants,
+    nous remarquons qu'il existe encore une marge de progression importante. Les
+    valeurs indiquées par la borne haute représentent les résultats qui
+    pourraient être obtenus avec un oracle. Pour chacun des sujets les plus
+    importants, l'oracle sélectionne toujours un candidat positif, s'il y en a
+    un. La marge de progression de 26,0 points de f-score pour SemEval et de 5,4
+    points de f-score pour DEFT est encourageante pour de futurs travaux.
     \begin{figure}
       \centering
       \begin{tikzpicture}
@@ -416,23 +419,23 @@
                      %              anchor=north,
                      %              legend columns=-1}]
           % centroïde
-          \addplot[black!66,
+          \addplot[green!66,
                    pattern=north east lines,
-                   pattern color=black!40] coordinates{
+                   pattern color=green!40] coordinates{
             (SemEval,   2.6)
             (DEFT,      4.7)
           };
           % fréquence
-          \addplot[green!66,
+          \addplot[cyan!66,
                    pattern=north west lines,
-                   pattern color=green!40] coordinates{
+                   pattern color=cyan!40] coordinates{
             (SemEval,   7.5)
             (DEFT,      14.2)
           };
           % position
-          \addplot[cyan!66,
+          \addplot[black!66,
                    pattern=horizontal lines,
-                   pattern color=cyan!40] coordinates{
+                   pattern color=black!40] coordinates{
             (SemEval,   11.4)
             (DEFT,      15.4)
           };
@@ -451,22 +454,24 @@
                \label{fig:variation_de_la_selection_des_candidats}}
     \end{figure}
 
-    Enfin, bien que la stratégie \og{}position\fg{} donne les résultats les plus
-    satisfaisants, nous remarquons qu'il existe encore une marge de progression
-    importante. Les valeurs indiquées par la borne haute représentent les
-    résultats qui pourraient être obtenus avec un oracle. Pour chacun des sujets
-    les plus importants, l'oracle sélectionne toujours un candidat positif, s'il
-    y en a un. La marge de progression de 26,0 points de f-score pour SemEval et
-    de 5,4 points de f-score pour DEFT est encourageante pour de futurs travaux.
-
   \subsection{Paramétrage empirique de SingleRank}
   \label{subsec:parametrage_empirique_de_singlerank}
     Contrairement aux autres méthodes de référence, SingleRank possède un
-    paramètre qui est définit arbitrairement, la fenêtre de cooccurrences fixée
-    à 10 par \newcite{wan2008expandrank}. De
-    même que pour TopicRank, nous utilisons les données d'entrainement de
-    SemEval et de DEFT pour déterminer quelle est la valeur optimale de la
-    fenêtre de cooccurrences pour SingleRank dans notre cadre expérimental.
+    paramètre qui est définit arbitrairement~: la fenêtre de cooccurrences fixée
+    à 10 par \newcite{wan2008expandrank}. De même que pour TopicRank, nous
+    utilisons les ensembles d'entrainement de SemEval et de DEFT pour déterminer
+    qu'elle est la valeur optimale de la fenêtre de cooccurrences pour
+    SingleRank dans notre cadre expérimental\footnote{Nous ne répétons pas cette
+    expérience pour TextRank, car le critère d'adjacence (fenêtre de valeur 2)
+    est un critère fort dans la méthode TextRank.}.
+
+    La figure~\ref{fig:variation_de_la_fenetre} présente les résultats de
+    SingleRank lorsque nous faisons varier la fenêtre de coocurrence de deux à
+    20 mots avec un pas de un. Globalement, nous observons une stabilité des
+    performances de SingleRank quelque soit la valeur utilisée pour la fenêtre
+    de coocurrences, avec des résultats optimaux obtenus lorsque celle-ci vaut
+    12. Dans les expériences suivantes, nous fixons donc la fenêtre de
+    coocurrences de SingleRank à 12.
     \begin{figure}
       \centering
       \begin{tikzpicture}
@@ -477,7 +482,7 @@
                      xmax=21,
                      xlabel=Fenêtre,
                      x label style={anchor=west},
-                     y=0.01\textheight,
+                     y=0.0125\textheight,
                      ytick={0, 5, 10, 15},
                      ymin=0,
                      ymax=18,
@@ -542,9 +547,13 @@
     Le tableau~\ref{tab:resultats_globaux} montre les performances de TopicRank
     comparées à celles des trois méthodes de référence. Dans la généralité, les
     performances des méthodes d'extraction de termes-clés sont très basses. De
-    plus, il est avéré que les documents de petite taille tels que ceux de DUC
-    et de WikiNews sont moins difficiles à traiter que les autres
-    documents~\cite{hasan2014state_of_the_art}. \TODO{argumenter}
+    plus, il est avéré que les documents de grande taille, tels que ceux de
+    SemEval et de DEFT, sont plus difficiles à traiter que les autres documents.
+    Ceci est dû au fait que, bien que les longs documents soient plus riches, le
+    nombre de termes-clés candidats qui y sont sélectionnés est tellement
+    important (p.~ex. environ 900 candidats sont sélectionnés par TopicRank pour
+    chaque documents de DEFT) que touver les termes-clés parmi eux est plus
+    difficile~\cite{hasan2014state_of_the_art}.
 
     % Que peut-on dire globalement ?
     Globalement, TopicRank donne de meilleurs résultats que les méthodes de
@@ -553,18 +562,16 @@
     Comparée à la méthode TF-IDF, TopicRank donne de meilleurs résultats pour
     SemEval, WikiNews et DEFT. Cette supériorité vis-à-vis de TF-IDF est
     importante à noter, car cette méthode obtient de bons résultats en tirant
-    parti de statistiques extraites de documents supplémentaires (apprentissage
-    non-supervisé), alors que TopicRank n'utilise que le document à analyser.
+    parti de statistiques extraites de documents supplémentaires, alors que TopicRank n'utilise que le document à analyser.
     Comparée aux autres méthodes à base de graphe, TopicRank donne des
     résultats significativement meilleurs pour SemEval, WikiNews et DEFT. Ceci
     confirme donc que le groupement des candidats permet de rassembler des
     informations améliorant la précision de l'ordonnancement. En ce qui concerne
-    DUC, notre méthode est toujours significativement meilleure que TextRank,
-    mais elle ne l'est pas vis-à-vis des autres méthodes. Aux vues de la borne
-    haute de la figure~\ref{fig:variation_de_la_selection_des_candidats}, l'une
-    des raisons pour lesquelles les résultats sont moins bons pour DUC est que
+    DUC, notre méthode est aussi significativement meilleure que TextRank,
+    mais elle ne l'est pas vis-à-vis de SingleRank. D'après la borne haute,
+    l'une des raisons à la plus faible performance de TopicRank pour DUC est que
     la stratégie de sélection des candidats les plus représentatifs des sujets
-    n'est pas adaptée. En effet, la différence avec la borne haute est de 19,0
+    est moins adaptée. En effet, la différence avec la borne haute est de 20,5
     points de f-score. Une analyse plus approfondie des différents apports de
     TopicRank peut aussi donner une piste sur les raisons de ces moins bons
     résultats.
@@ -580,6 +587,8 @@
         TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0 & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
         SingleRank & 22,6 & 28,8 & 25,0 & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
         TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
+        \midrule
+        \textbf{Borne haute} & \textbf{39,1} & \textbf{43,2} & \textbf{40,6} & \textbf{42,9} & \textbf{29,4} & \textbf{34,5} & \textbf{42,7} & \textbf{45,0} & \textbf{43,1} & \textbf{14,9} & \textbf{28,0} & \textbf{19,3}\\
         \bottomrule
       \end{tabular}
       \caption{Résultats de l'extraction de 10 termes-clés avec TF-IDF,
@@ -629,7 +638,7 @@
     avec les candidats représentant d'autres sujets. L'usage d'un graphe
     complet, quant à lui, n'améliore pas significativement les résultats de
     SingleRank. Ceux-ci sont compétitifs vis-à-vis de ceux obtenus en
-    construisant un graphe de co-occurrences. Nous pensons tout de même que
+    construisant un graphe de co-occurrences. Toutefois, nous pensons que
     l'usage du graphe complet est à privilégier afin d'éviter la fenêtre de
     co-occurrences.
     
@@ -640,62 +649,57 @@
     les documents de DUC, peu de répétition des candidats, notamment ceux de
     plus d'un mot. Le graphe créé contient alors moins de relations de
     co-occurrences que lorsque les n\oe{}uds sont les mots du document et est
-    donc moins précis pour l'ordonnancement. Ceci se confirme avec la
-    figure~\ref{fig:variation_de_la_selection_des_candidats} qui montre que
-    l'extraction des candidats les plus fréquents, pour chaque sujet de DUC,
-    donne des résultats proches de ceux obtenus avec l'extraction des candidats
-    apparaissant en premier dans le document.
+    donc moins précis pour l'ordonnancement.
 
-  \subsection{Analyse des sujets détectés}
-  \label{subsec:analyse_des_sujets_générés}
-    \TODO{S'intéresser aussi au termes-clés non détectés?}
-    \TODO{Attention aux exemples foireux}
+  \section{Analyse d'erreurs}
+  \label{sec:analyse_d_erreurs}
+    Dans cette section, nous proposons d'analyser les erreurs de TopicRank. Dans
+    un premier temps, nous analysons les sujets que détecte TopicRank, puis dans
+    une second temps, nous analysons les termes-clés de référence qui n'ont pas
+    été extraits par TopicRank.
 
-    Dans cette section, nous analysons les groupements en sujets effectués par
-    TopicRank et tentons de déterminer quelles sont les causes principales
-    d'erreurs. Notre langue maternelle étant le français et les documents de
-    WikiNews étant de trop courts pour que nous puissions observer un nombre
-    significatif de groupements en sujets, nos observations ci-dessous sont
-    faites à partir des documents de la collection DEFT. Nous distinguons deux
-    types d'erreurs~: celles qui sont liées à du bruit introduit dans les
-    groupes et celles qui sont liées à des candidats ayant des propriétés
-    particulières.
+    \subsection{Analyse des sujets détectés}
+    \label{subsec:analyse_des_sujets_générés}
+      Dans cette section, nous analysons les groupements en sujets effectués par
+      TopicRank afin de déterminer quelles sont les principales causes
+      d'erreurs.
 
-    Nous observons des erreurs liées à l'extraction des termes-clés candidats.
-    Lors de l'extraction des candidats, certaines unités textuelles sont
-    extraites à cause d'erreurs dans l'étiquetage grammatical. Ces erreurs
-    concernent principalement la détection des prépositions composées et la
-    détection des participes. \TODO{revoir l'exemple}Dans le document \textit{as\_2006\_014935ar}, nous
-    observons par exemple que \og pays dits~\fg\ est un terme-clé candidats, car
-    le participe passé \og dits~\fg\ est considéré comme un adjectif dans la
-    phrase \og [\dots] elles ne cessent de se développer à travers le monde et
-    particulièrement dans les \underline{pays dits} ``du sud'' [\dots]~\fg.
+      Dans un premier temps, nous observons des erreurs liées à la sélection des
+      termes-clés candidats. Lors de cette étape, certaines unités textuelles
+      sont sélectionnées comme candidats à cause d'erreurs de l'étiquetage
+      grammatical. Ces erreurs concernent principalement la détection des
+      prépositions composées et la détection des participes. Par exemple, dans
+      la phrase \og{}[\dots] elles ne cessent de se développer à travers le
+      monde et particulièrement dans les pays dits ``du sud''
+      [\dots]\fg{}\footnote{Exemple issue de l'article d'anthropologie
+      \textit{Le marché parallèle du médicament en milieu rural au Sénégal}
+      (\url{http://id.erudit.org/iderudit/014935ar}) de la collection DEFT.}, le
+      participe passé \og{}dits\fg{} est considéré comme un adjectifs par
+      l'outils MElt, ce qui entraîne la sélection erronée du termes-clés
+      candidat \og{}pays dits\fg{}.
 
-    En ce qui concerne les candidats ayant des propriétés particulières, nous
-    observons tout d'abord de nombreuses erreurs lorsque les groupements sont
-    déclenchés par un adjectif. Ce sont particulièrement les expansions
-    nominales s'effectuant à gauche qui sont la source d'erreurs (\TODO{revoir
-    l'exemple}\og même
-    langue~\fg\ groupé avec \og même représentation~\fg, \og grands
-    traits~\fg\ groupé avec \og grande ignorance~\fg, etc.). Parmi les
-    expansions nominales s'effectuant à droite, les adjectifs relationnels sont
-    moins sujets aux erreurs que les autres adjectifs. Notons tout de même que
-    lorsque ces adjectifs ont attraits au contexte général du document, ils sont
-    très fréquemment utilisés et beaucoup de candidats les contenant sont
-    groupés par erreur. \TODO{revoir l'exemple}Ainsi, dans le document \textit{as\_2002\_000707ar} qui
-    examine l'organisation du dialogue politique économique entre les membres de
-    la commission européenne, les termes-clés candidats \og forces
-    économiques~\fg, \og type économique~\fg, \og délabrement économique~\fg\ et
-    \og économies postsocialistes~\fg\ sont groupés par erreur, car ils
-    partagent tous l'adjectif \og économique~\fg. Outre ces groupements erronés,
-    nous observons aussi de mauvais groupements lorsque les candidats ne
-    contiennent que très peu de mots. En effet, pour les candidats de deux mots,
-    il ne suffit que d'un seul mot en commun pour les grouper. Ces candidats
-    étant très fréquents, ils sont la cause de nombreuses erreurs.
+      Dans un second temps, nous observons de nombreuses erreurs lorsque les
+      groupements sont déclenchés par un adjectif. Ce sont particulièrement les
+      expansions nominales s'effectuant à gauche qui sont la source d'erreurs
+      (p.~ex. \og{}même langue\fg{} groupé avec \og{}même représentation\fg{}).
+      Parmi les expansions nominales s'effectuant à droite, les adjectifs
+      relationnels sont moins sujets aux erreurs que les autres adjectifs.
+      Notons tout de même que lorsque ces adjectifs ont attraits au contexte
+      général du document, ils sont très fréquemment utilisés et beaucoup de
+      candidats les contenant sont groupés par erreur (p.~ex. \og{}forces
+      économiques\fg{} groupé avec \og{}délabrement économique\fg{}). Outre ces
+      groupements erronés, nous observons aussi de mauvais groupements lorsque
+      les candidats ne contiennent que très peu de mots. En effet, pour les
+      candidats de deux mots, il ne suffit que d'un seul mot en commun pour les
+      grouper. Ces candidats étant très fréquents, ils sont la cause de
+      nombreuses erreurs.
 
-%    En plus, nous observons des erreurs liées à l'utilisation des radicaux lors
-%    du calcul de la similarité de Jaccard. Des candidats tels que \og empire
-%    ottoman~\fg\ et \og définition empirique~\fg\ sont alors groupés du fait que
-%    les mots \og empire~\fg\ et \og empirique~\fg\ partagent le même radical
-%    (\og empir~\fg) selon la méthode de \newcite{porter1980suffixstripping} .
+    \subsection{Analyse des faux négatifs}
+    \label{subsec:analyse_faux_négatifs}
+      Dans cette section, nous analysons les termes-clés de référence qui n'ont
+      pas été extrait par TopicRank. Plus particulièrement, nous nous
+      intéressons à ceux qui sont présents dans les 10 sujets jugés les plus
+      importants.
+
+      \TODO{}
 

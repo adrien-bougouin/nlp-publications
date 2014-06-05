@@ -10,9 +10,8 @@
   multi-phrase~\cite{boudin2013multisentencecompression}, la classification de
   documents~\cite{han2007webdocumentclustering}, ou l'indexation automatique de
   documents~\cite{medelyan2008smalltrainingset}, qui nous intéresse plus
-  particulièrement. Pourtant, de nombreux documents, tels que ceux accessibles
-  par Internet, ou collections de documents, telles que les actes de
-  conférences, n'en sont pas accompagnées et la quantité de document à traiter
+  particulièrement. Pourtant, de nombreux documents, tels que ceux disponibles
+  sur Internet, n'en sont pas accompagnées et la quantité de documents à traiter
   est aujourd'hui trop importante pour que l'annotation de leurs termes-clés
   soit effectuée manuellement. C'est pourquoi de nombreux chercheurs se penchent
   sur la problématique de l'extraction automatique de termes-clés, en témoigne
@@ -62,68 +61,68 @@
       }
     \end{minipage}
     \caption{Exemple de termes-clés mis en évidence dans un article
-             journalistique.}
+             journalistique du site Web WikiNews.}
              \label{fig:recurrent_example}
   \end{figure}
 
   L'extraction automatique de termes-clés consiste à sélectionner dans un
-  document les unités textuelles les plus importantes parmi une ensemble de
+  document les unités textuelles les plus importantes parmi un ensemble de
   termes-clés candidats sélectionnés dans le document. Les termes-clés candidats
   doivent être de nature similaire à celles des termes-clés assignés par des
   humains. Ils sont sélectionnés à partir d'hypothèses simples (contient des
   noms, contient des adjectifs, etc.) et ne remplissent pas nécessairement les
-  critères d'un terme tel que défini pour l'extraction terminologique. Parmi les
+  critères d'un terme tel que défini en extraction terminologique. Parmi les
   différentes méthodes d'extraction automatique de termes-clés proposées dans la
   littérature, deux grandes catégories émergent~: les méthodes supervisées et
   les méthodes non-supervisées. Les premières tirent profit d'une collection de
   documents annotés en termes-clés et apprennent, en amont, un modèle de
   classification binaire permettant, par la suite, de déterminer quels sont
-  parmi les termes-clés candidats d'un document à analyser ceux qui sont des
-  termes-clés et ceux qui n'en sont pas. Quant aux secondes, les méthodes
-  non-supervisées, celles-ci attribuent un score d'importance à chaque terme-clé
-  candidat en fonction de divers indicateurs comme par exemple la fréquence, les
-  relations de cooccurrences ou la position dans le document. Du fait de leur
-  phase d'apprentissage, les méthodes supervisées sont en général plus
-  performantes que les méthodes non-supervisées. Cependant, la faible quantité
-  de documents annotés en termes-clés disponibles couplée à la forte dépendance
-  des modèles de classification vis-à-vis du type de documents à partir desquels
-  ils sont appris, poussent les chercheurs à s'intéresser de plus en plus aux
-  méthodes non-supervisées~\cite{hassan2010conundrums}.
+  parmi les termes-clés candidats d'un document ceux qui sont des termes-clés et
+  ceux qui n'en sont pas. Quant aux secondes, les méthodes non-supervisées,
+  celles-ci attribuent un score d'importance à chaque terme-clé candidat en
+  fonction de divers indicateurs comme par exemple la fréquence, les relations
+  de cooccurrences ou la position dans le document. Du fait de leur phase
+  d'apprentissage, les méthodes supervisées sont en général plus performantes
+  que les méthodes non-supervisées. Cependant, la faible quantité de documents
+  annotés en termes-clés disponibles couplée à la forte dépendance des modèles
+  de classification vis-à-vis du type de documents à partir desquels ils sont
+  appris, poussent les chercheurs à s'intéresser de plus en plus aux méthodes
+  non-supervisées~\cite{hassan2010conundrums}.
 
   Les méthodes d'extraction de termes-clés non-supervisées les plus étudiées
   sont sans conteste celles basée sur TextRank~\cite{mihalcea2004textrank}, qui
-  est une méthode d'ordonnancement d'unités textuelles à partir de graphe. Les
-  graphes sont un moyen naturel de représenter les unités textuelles et les
-  relations qui les relient, et ils sont utilisés dans de nombreuses
+  est une méthode d'ordonnancement d'unités textuelles à partir d'un graphe. Un
+  graphe est un moyen naturel de représenter les unités textuelles et les
+  relations qu'elles entretiennent. Ils sont utilisés dans de nombreuses
   applications du TAL~\cite{kozareva2013textgraphs}. Dans le cadre de
   l'extraction de termes-clés, le principe est de représenter le document sous
   la forme d'un graphe dans lequel les n\oe{}uds correspondent aux mots et les
-  arêtes correspondent à des relations de co-occurrences dans une fenêtre de
+  arêtes correspondent à leurs relations de co-occurrences dans une fenêtre de
   mots. Un score d'importance est alors calculé pour chaque mot selon un
-  principe de recommandation, c'est-à-dire un mot est d'autant plus important
+  principe de recommandation~: un mot est d'autant plus important
   s'il co-occurre avec un grand nombre de mots et si les mots avec lesquels il
-  co-occurre sont eux aussi importants. Les mots les plus importants sont
-  ensuite assemblés pour générer les termes-clés.
+  co-occurre sont eux aussi importants. Enfin, les mots les plus importants
+  servent à générer des termes-clés pour le document.
 
   Dans cet article, nous présentons TopicRank \footnote{Cette article est une
   version étendu de \cite{bougouin2013topicrank}.}, une méthode non-supervisée
   d'extraction de termes-clés basée sur TextRank. TopicRank groupe les
   termes-clés candidats selon leur appartenance à un sujet, représente le
-  document sous la forme d'un graphe complet de sujets, ordonne les sujets selon
-  leur importance, puis sélectionne pour chacun des meilleurs sujets son
-  candidat le plus représentatif. La notion de sujet est vague, tant elle peut
-  exprimer un thème ou un domaine général (par exemple, \og le traitement
-  automatique des langues~\fg) ou plus spécifique (par exemple, \og l'extraction
-  non-supervisée de termes-clés~\fg). Ici, nous nous intéressons aux sujets les
-  plus spécifiques, car ils caractérisent avec plus de précision le contenu d'un
-  document. Notre approche possède plusieurs avantages, par rapport à TextRank,
-  que nous détaillons ci-dessous~:
+  document sous la forme d'un graphe complet de sujets, ordonne les sujets par
+  importance selon le principe de recommandation, puis sélectionne pour chacun
+  des meilleurs sujets son candidat le plus représentatif. La notion de sujet
+  est vague, tant elle peut exprimer un thème ou un domaine général (par
+  exemple, \og le traitement automatique des langues~\fg) ou plus spécifique
+  (par exemple, \og l'extraction non-supervisée de termes-clés~\fg). Ici, nous
+  nous intéressons aux sujets les plus spécifiques, car ils caractérisent avec
+  plus de précision le contenu d'un document. Notre approche possède plusieurs
+  avantages, par rapport à TextRank, que nous détaillons ci-dessous~:
   \begin{enumerate}
     \item{Le regroupement des termes-clés candidats en sujets supprime en amont
           les problèmes de redondance dans les termes-clés extraits.}
-    \item{Le fait d'utiliser des sujets à la place des mots permet de construire
-          un graphe plus compact, de renforcer le poids des arêtes dans le
-          graphe et d'améliorer la qualité de l'ordonnancement.}
+    \item{L'usage de sujets à la place de mots permet de construire un graphe
+          plus compact, de renforcer le poids des arêtes dans le graphe et
+          d'améliorer la qualité de l'ordonnancement.}
     \item{La construction d'un graphe complet permet de supprimer le paramètre
           de la fenêtre de mots et de capturer de manière plus précise le niveau
           de relation entre les sujets.}
@@ -139,6 +138,7 @@
   d'extraction automatique de termes-clés en section~\ref{sec:etat_de_l_art},
   nous décrivons le fonctionnement de TopicRank en
   section~\ref{sec:extraction_de_termes_cles_avec_topicrank} et présentons son
-  évaluation approfondie en section~\ref{sec:evaluation}. Enfin, nous concluons
-  et discutons des travaux futurs dans la
+  évaluation approfondie en section~\ref{sec:evaluation}. Enfin, nous analysons
+  les erreurs de TopicRank dans la section~\ref{sec:analyse_d_erreurs}, puis
+  nous concluons et discutons des travaux futurs dans la
   section~\ref{sec:conclusion_et_perspectives}.

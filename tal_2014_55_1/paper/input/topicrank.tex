@@ -13,29 +13,29 @@
 
   \subsection{Identification des sujets}
   \label{subsec:identification_des_sujets}
-    Dans ce travail, un sujet est une information générale ou très spécifique
-    (le plus souvent) véhiculée par au moins une unité textuelle présente dans
-    le document analysé. Nous ne nous reposons donc pas sur une formulation très
+    Dans ce travail, un sujet est une information générale ou (le plus souvent)
+    spécifique véhiculée par au moins une unité textuelle présente dans le
+    document analysé. Nous ne nous reposons donc pas sur une formulation
     approfondie d'un sujet, nous groupons seulement les termes-clés candidats
     lorsque ceux-ci véhiculent la même information.
 
     % Que nous faut-il pour identifier les sujets ?
-    La première étape de l'identification des sujets consiste à extraire les
+    La première étape de l'identification des sujets consiste à sélectionner les
     termes-clés candidats.
     % Quels candidats composent les sujets ?
     Afin de réaliser une identification de qualité des sujets, nous excluons
-    l'extraction des n-grammes qui fournie beaucoup plus de candidats non
-    pertinents que les autres méthodes. Parmi l'extraction des chunks nominaux
-    et l'extraction des plus longues séquences de noms et d'adjectifs, nous
+    la sélection des n-grammes qui fournie beaucoup plus de candidats non
+    pertinents que les autres méthodes. Parmi la sélection des chunks nominaux
+    et la sélection des plus longues séquences de noms et d'adjectifs, nous
     suivons \newcite{wan2008expandrank} et \newcite{hassan2010conundrums} en
-    choisissant d'extraire les plus longues séquences de noms et d'adjectifs.
-    Cette méthode présente l'avantage de fournir plus de candidats positifs que
-    l'extraction des chunks nominaux tout en n'introduisant pas un nombre
-    significatif de candidats non pertinents. De plus, l'extraction des plus
-    longues séquences de noms et d'adjectifs fournit des candidats
-    grammaticalement corrects et requiert une adaptation limitée pour le
-    traitement de documents d'une autre langue, telle que le français ou
-    l'anglais.
+    choisissant de sélectionner les plus longues séquences de noms et
+    d'adjectifs comme termes-clés candidats. Cette méthode présente l'avantage
+    de fournir plus de candidats positifs que l'extraction des chunks nominaux
+    tout en n'introduisant pas un nombre significatif de candidats non
+    pertinents. De plus, l'extraction des plus longues séquences de noms et
+    d'adjectifs fournit des candidats grammaticalement corrects et requiert une
+    adaptation limitée pour le traitement de documents d'une autre langue, telle
+    que le français ou l'anglais.
 
     % Comment détectons nous deux candidats appartenant au même sujet ?
     La seconde étape de l'identification des sujets consiste à grouper les
@@ -49,7 +49,7 @@
     les variantes flexionnelles et dérivationnelles. Cette mesure est naïve dans
     le sens où l'ordre des mots, leur ambiguïté et les liens de synonymie ne
     sont pas pris en compte. À cela s'ajoute aussi des erreurs introduites par
-    la méthode de \newcite{porter1980suffixstripping} (p. ex., les mots
+    la méthode de \newcite{porter1980suffixstripping} (p. ex. les mots
     \og{}empire\fg{} et \og{}empirique\fg{} partagent le même radical,
     \og{}empir\fg{}).
     \begin{align}
@@ -129,7 +129,7 @@
       \text{importance}(s_i) = (1 - \lambda) + \lambda \times \sum_{s_j \in V_i} \frac{\text{poids}(s_i, s_j) \times \text{importance}(s_j)}{\sum_{s_k \in V_j} \text{poids}(s_j, s_k)} \label{math:textrank}
     \end{align}
     où $V_i$ est l'ensemble des sujets connectés au
-    sujet\footnote{$V_i = \{v_i\ |\ \forall{v_j in V}, v_j \neq v_i\}$, car $G$
+    sujet\footnote{$V_i = \{v_i\ |\ \forall{v_j \in V}, v_j \neq v_i\}$, car $G$
     est un graphe complet.} $s_i$ et où $\lambda$ est un facteur d'atténuation
     définit à 0,85, tel que recommandé par \newcite{brin1998pagerank}.
 
@@ -138,9 +138,8 @@
     % De quoi s'agit-il ?
     La sélection des termes-clés est la dernière étape de TopicRank. Elle
     consiste à chercher les termes-clés candidats qui représentent le mieux les
-    sujets importants qui sont abordés dans le document. Dans le but de ne pas
-    extraire de termes-clés redondants, un seul candidat est sélectionné par
-    sujet.
+    sujets importants. Dans le but de ne pas extraire de termes-clés redondants,
+    un seul candidat est sélectionné par sujet.
     % Quel en est le but ?
     Ainsi, pour $k$ sujets, $k$ termes-clés non redondant couvrant exactement
     $k$ sujets sont extraits.
@@ -169,13 +168,13 @@
     Sélectionner les candidats les plus fréquents risque de ne pas être une
     solution stable selon les types de document, en particulier selon leur
     taille, tandis que sélectionner les centroïdes risque de ne pas fournir les
-    termes-clés les plus précis. De ce fait, la stratégie fondée sur le fait
-    qu'un sujet est en premier introduit dans sa forme la plus appropriée est la
-    stratégie qui nous semble la plus justifiée.
+    termes-clés les plus précis. De ce fait, supposer qu'un sujet est en premier
+    introduit dans sa forme la plus appropriée est la stratégie qui nous semble
+    la plus justifiée.
 
   % Que donne l'extraction ? (exemple)
   La figure~\ref{fig:exemple_topicrank} donne un exemple d'extraction de
-  termes-clés avec TopicRank à partir du document d'exemple donné dans la
+  termes-clés avec TopicRank à partir de l'exemple de la
   figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}. Dans
   cet exemple, Nous observons un groupement correct de toutes les variantes
   d'\og alertes~\fg, mais aussi un groupement erroné de \og août 2003~\fg\ avec
@@ -183,13 +182,13 @@
   d'extraire \og août 2012~\fg\ grâce à la sélection du candidat apparaissant en
   premier. Globalement, l'extraction des termes-clés est correcte et huit
   termes-clés sur les dix extraits apparaissent dans l'ensemble de termes-clés
-  assignés par des humains pour ce document (termes-clés de référence).
+  assignés par des humains pour ce document.
   \begin{figure}
     \centering
     \cornersize{0.1}\Ovalbox{
       \parbox{.99\linewidth}{\small
-        \textbf{Météo du 19 août 2012~: alerte à la canicule sur la
-                Belgique et le Luxembourg}\\
+        Météo du 19 août 2012~: alerte à la canicule sur la Belgique et le
+        Luxembourg\\
 
         \setlength\parindent{12pt}\vspace{-0.5em}
         A l'exception de la province de Luxembourg, en alerte jaune,
