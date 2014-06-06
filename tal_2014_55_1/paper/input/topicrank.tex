@@ -1,7 +1,7 @@
 \section{Extraction de termes-clés avec TopicRank}
 \label{sec:extraction_de_termes_cles_avec_topicrank}
   % Qu'est-ce que TopicRank ?
-  TopicRank est une méthode non-supervisée d'extraction de termes-clés qui
+  TopicRank est une méthode non supervisée d'extraction de termes-clés qui
   modélise un document sous la forme d'un graphe de sujets.
   % Quels problèmes résout-il ?
   Elle se différencie des autres méthodes à base de graphe, car, plutôt que de
@@ -23,19 +23,19 @@
     La première étape de l'identification des sujets consiste à sélectionner les
     termes-clés candidats.
     % Quels candidats composent les sujets ?
-    Afin de réaliser une identification de qualité des sujets, nous excluons
-    la sélection des n-grammes qui fournie beaucoup plus de candidats non
-    pertinents que les autres méthodes. Parmi la sélection des chunks nominaux
+    Afin de réaliser une identification de qualité des sujets, nous excluons la
+    sélection des n-grammes qui fournit beaucoup plus de candidats non
+    pertinents que les autres méthodes. Parmi la sélection des \textit{chunks} nominaux
     et la sélection des plus longues séquences de noms et d'adjectifs, nous
     suivons \newcite{wan2008expandrank} et \newcite{hassan2010conundrums} en
-    choisissant de sélectionner les plus longues séquences de noms et
-    d'adjectifs comme termes-clés candidats. Cette méthode présente l'avantage
-    de fournir plus de candidats positifs que l'extraction des chunks nominaux
-    tout en n'introduisant pas un nombre significatif de candidats non
-    pertinents. De plus, l'extraction des plus longues séquences de noms et
-    d'adjectifs fournit des candidats grammaticalement corrects et requiert une
-    adaptation limitée pour le traitement de documents d'une autre langue, telle
-    que le français ou l'anglais.
+    sélectionnant les plus longues séquences de noms et d'adjectifs. Cette
+    méthode présente l'avantage de fournir plus de candidats positifs que
+    l'extraction des \textit{chunks} nominaux tout en n'introduisant pas un nombre
+    significatif de candidats non pertinents. De plus, l'extraction des plus
+    longues séquences de noms et d'adjectifs fournit des candidats
+    grammaticalement corrects et requiert une adaptation limitée pour le
+    traitement de documents d'une autre langue, telle que le français ou
+    l'anglais.
 
     % Comment détectons nous deux candidats appartenant au même sujet ?
     La seconde étape de l'identification des sujets consiste à grouper les
@@ -104,10 +104,9 @@
     entre les sujets. Cependant, du fait que nous utilisons un graphe complet,
     il ne nous est pas possible de représenter cette force par le nombre de
     cooccurrences entre les sujets, comme le font \newcite{wan2008expandrank}
-    pour les mots. Pour pallier ce problème tout en préservant l'intuition
-    derrière l'usage du nombre de cooccurrences, nous représentons la force du
-    liens sémantique entre deux sujets par la distance entre les candidats des
-    sujets dans le document~:
+    pour les mots. Pour préserver l'intuition derrière l'usage du nombre de
+    cooccurrences, nous représentons la force du lien sémantique entre deux
+    sujets par la distance entre les candidats des sujets dans le document~:
     \begin{align}
       \text{poids}(s_i, s_j) &= \sum_{c_i \in s_i}\ \sum_{c_j \in s_j} \text{dist}(c_i, c_j) \label{math:ponderation}\\
       \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
@@ -147,7 +146,7 @@
     % Quelles sont les différentes stratégies envisageable ?
     La difficulté de ce principe de sélection réside dans la capacité à trouver
     parmi plusieurs termes-clés candidats d'un même sujet celui qui le
-    représente le mieux. Nous distinguons trois stratégies de sélection pouvant
+    représente le mieux. Nous proposons trois stratégies de sélection pouvant
     répondre à ce problème~:
     \begin{itemize}
       \item{la première position~: en supposant qu'un sujet est tout d'abord
@@ -159,8 +158,9 @@
             sélectionné pour un sujet est celui qui est le plus fréquent dans le
             document analysé;}
       \item{le centroïde~: le terme-clé candidat sélectionné pour un sujet est
-            celui qui a la plus haute similarité avec les autres candidats du
-            sujet (voir l'équation~\ref{equa:jaccard}).}
+            celui qui a la plus forte similarité avec les autres candidats du
+            sujet (voir l'équation~\ref{equa:jaccard}
+            page~\pageref{equa:jaccard}).}
     \end{itemize}
     % Laquelle des trois stratégies semble être la mieux ?
     Parmi ces trois stratégies, celle qui semble la plus appropriée est la
@@ -170,13 +170,13 @@
     taille, tandis que sélectionner les centroïdes risque de ne pas fournir les
     termes-clés les plus précis. De ce fait, supposer qu'un sujet est en premier
     introduit dans sa forme la plus appropriée est la stratégie qui nous semble
-    la plus justifiée.
+    la plus appropriée.
 
   % Que donne l'extraction ? (exemple)
   La figure~\ref{fig:exemple_topicrank} donne un exemple d'extraction de
   termes-clés avec TopicRank à partir de l'exemple de la
   figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}. Dans
-  cet exemple, Nous observons un groupement correct de toutes les variantes
+  cet exemple, nous observons un groupement correct de toutes les variantes
   d'\og alertes~\fg, mais aussi un groupement erroné de \og août 2003~\fg\ avec
   \og août 2012~\fg. Dans ce dernier cas, TopicRank est tout de même capable
   d'extraire \og août 2012~\fg\ grâce à la sélection du candidat apparaissant en
