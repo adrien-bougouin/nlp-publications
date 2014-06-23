@@ -1,0 +1,100 @@
+\documentclass[14pt, xcolor={usenames, dvipsnames}]{beamer}
+%\documentclass[handout, 14pt, xcolor={usenames, dvipsnames}]{beamer}
+
+\usepackage{etex}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Times Roman clone
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage[round]{natbib}
+\usepackage{tikz}
+\usepackage[labelformat=empty]{caption}
+\usepackage{colortbl}
+\usepackage{ulem}
+\usepackage{multicol}
+\usepackage[overlay]{textpos}
+\usepackage{multirow}
+\usepackage{ifthen}
+\usepackage{relsize}
+\usepackage{ragged2e}
+\usepackage{rotating}
+
+\usetheme{Boadilla}
+\setbeamercovered{transparent}
+\setbeamertemplate{frametitle continuation}{\ifthenelse{\equal{\insertcontinuationcount}{1}}{}{(suite)}}
+\setbeamertemplate{sections/subsections in toc}[square]
+\setbeamertemplate{blocks}[rounded][shadow=false]
+\setbeamertemplate{footline}{\vskip2pt}
+\setbeamertemplate{enumerate items}[square]
+\setbeamertemplate{itemize item}{\footnotesize$\blacksquare$}
+\setbeamertemplate{itemize subitem}{\scriptsize$\blacktriangleright$}
+\beamertemplatenavigationsymbolsempty
+
+\usetikzlibrary{positioning, topaths, shapes, arrows}
+
+\renewcommand\cite[2][]{\citep[#1]{#2}}
+\let\oldtextsc\textsc\renewcommand\textsc[1]{\rmfamily\oldtextsc{#1}}
+
+\title{Influence des domaines de spécialité dans l'extraction de termes-clés}
+\titlegraphic{
+  \vspace{-1.5em}
+  \begin{center}
+    \begin{tabular}{c@{\hspace{.25em}}c@{\hspace{1em}}c@{\hspace{.9em}}c}
+      \multirow{3}{*}{\includegraphics[height=4em]{logos/taln.eps}}\\
+      & \includegraphics[height=1.7em]{logos/univ_nantes.eps} &
+      \includegraphics[height=1.7em]{logos/lina.eps} &
+      \includegraphics[height=1.7em]{logos/termith.eps}\\
+    \end{tabular}
+  \end{center}
+}
+\author{Adrien Bougouin \and Florian Boudin \and Béatrice Daille}
+\institute{\normalsize{Université de Nantes, LINA}}
+\date{2 Juillet 2014}
+
+\begin{document}
+  \renewcommand*{\theenumii}{\alph{enumii}}
+  \renewcommand*{\theenumiii}{\roman{enumiii}}
+  \addtobeamertemplate{block begin}{\setlength\abovedisplayskip{0pt}}
+
+  \begin{frame}
+    \titlepage
+  \end{frame}
+  \setbeamertemplate{footline}{\hfill\textbf{\textcolor{blue}{\insertframenumber{\ \ }}}\vskip2pt}
+  \setcounter{framenumber}{0}
+
+  \input{input/introduction.tex}
+  \begin{frame}{Plan}
+    \tableofcontents
+  \end{frame}
+  \AtBeginSection[]{
+    \begin{frame}{Plan}
+      \tableofcontents[currentsection]
+    \end{frame}
+  }
+  \input{input/donnees.tex}
+  \input{input/extraction_de_termes_cles.tex}
+  \input{input/experiences.tex}
+  \input{input/conclusion_et_perspectives.tex}
+  \begin{frame}
+    \vfill
+    \begin{beamercolorbox}[center,shadow=true,rounded=true]{frametitle} 
+      \Huge{\textbf{\textsc{Merci}}}
+    \end{beamercolorbox}
+    \cite{bougouin2013topicrank}
+    \vfill
+  \end{frame}
+  \section*{Références}
+    \begin{frame}[allowframebreaks]{Références}
+      \def\newblock{\hskip .11em plus .33em minus .07em}
+      \bibliographystyle{frplainnat}
+      \bibliography{../../biblio}
+    \end{frame}
+  \input{input/supplements.tex}
+\end{document}
+

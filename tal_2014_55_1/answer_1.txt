@@ -1,0 +1,92 @@
+Nous souhaitons remercier les relecteurs pour l'attention qu'ils ont
+portée à notre article. Dans cette nouvelle version de notre article, nous
+tentons de suivre les conseils des relecteurs en étant plus précis sur le
+vocabulaire utilisé, en chassant les précédentes ambiguïtés, en
+présentant de nouvelles expériences et en ajoutant une analyse des faux
+négatifs.
+
+Dans la suite de cette réponse, nous reprenons quelques interrogations
+des relecteurs et tentons d'y répondre.
+
+- "Quelle application et quel type de corpus visez-vous ? Cela influe
+considérablement sur la vérité de terrain."
+
+Dans notre travail, nous sommes intéressés par l'indexation en
+termes-clés réalisée par les ingénieurs documentalistes travaillant au sein
+d'instituts tels que l'INIST. Toutefois, dans ce travail comme dans beaucoup
+d'autres travaux portant sur l'extraction de termes-clés, nous ne nous
+focalisons pas uniquement sur cette application. Nous proposons une
+approche possédant divers points de variabilités qui peuvent être
+utilisés pour une adaptation à un problème particulier.
+ 
+- "Se dissocier du corpus pour se focaliser exclusivement sur le document traité est
+intéressant, mais je ne sais pas si c'est adéquat. Par exemple, un article traitant
+d'une maladie occulaire pourra avantageusement être indexé par le terme "médecine"
+au sein d'un corpus généraliste. Le même terme-clé sera complètement inadéquat au
+sein d'une collection d'articles d'une revue d'ophtalmologie. Un tel exemple tend à
+démontrer que l'analyse d'un document indépendemment de son contexte est vouée à
+l'échec dans certains cas (dans lesquels IDF est évidemment très bon)."
+
+L'exemple montre en effet que l'usage de documents supplémentaires peut
+aider l'extraction automatique de termes-clés (voir la méthode TF-IDF). Dans
+notre travail, nous nous intéressons à l'importance qui est donnée aux
+différentes unités textuelles au sein même du document, pas dans un
+contexte plus global. TopicRank a donc pour avantage premier d'être
+applicable pour tout type de documents, sans requérir de données
+supplémentaires.
+
+- "Il semble que vous définissiez la supervision comme le fait de
+disposer d'un ensemble fini de termes-clés parmi lesquelles choisir, en opposition
+au choix libre des termes, que vous définissez comme non-supervisé (?)."
+ Or, la définition usuelle d'une méthode supervisée est qu'elle se nourrit
+d'exemples issus d'une vérité de terrain, parfois extraite de données d'évaluation
+afin de fournir un corpus d'apprentissage."
+
+Il s'agit d'un manque de clarté que nous avons résolu dans la nouvelle
+version de l'article. La définition usuelle que vous donnez est la bonne.
+
+- "Les n-grammes sont définis comme des séquences ordonnées de n mots, pour n
+généralement de 1 à 3. Il faut également souligner que les n-grammes sont
+adjacents!! C'est un détail important, qui les différencie des n-séquences. Par
+ailleurs, pourquoi s'arrêter à 3 ? Est-ce une contrainte de calculabilité ? Une
+contrainte linguistique ?"
+
+La taille maximale des n-grammes est généralement fixée à trois, car les
+termes-clés ne sont rarement constitués de plus de mots. Nous le
+précisons désormais dans l'article.
+
+ - "C'est également une très bonne chose que d'avoir implémenté TextRank et
+SingleRank, s'ils ne sont pas disponibles, mais il faudrait alors partager le code
+(avec la communauté pour d'une part donner un impact maximal à vos travaux, mais
+aussi d'autre part pour rassurer quant à la crédibilité de vos résultats, car en
+l'état actuel des choses, rien ne prouve que la supériorité de votre approche n'est
+pas dûe qu'à une mauvaise implémentation des autres méthodes)."
+
+Nos travaux sont disponibles sur GitHub et un lien est maintenant présent
+dans l'article.
+
+ - "le paramétrage de TopicRank est effectué, pour ses 3 paramètres,
+sur les données d'évaluation. Autrement, dit, la comparaison aux autres approches
+est visiblement effectuée sur les mêmes jeux de données !! Par ailleurs, les autres
+approches ne sont pas, elles, paramétrées sur les collections concernés.   Le fait
+que les résultats du paramètrage (figure 4) et ceux du test (tableau 2)
+correspondent, indique bien que les mêmes données ont été utilisées.
+ Cela pose un grave problème de crédibilité des résultats. Il serait plus logique de
+tirer profit des données d'entraînement (de DEFT et DUC) pour faire le paramètrage,
+pour TOUTES les approches (pas seulement pour la vôtre, TopicRank!), et ensuite de
+faire une évaluation sur les données de test."
+
+Nous réalisons désormais le paramétrage de TopicRank à partir des
+données d'entraînement à notre disposition (page 15). De plus, nous déterminons la
+fenêtre de cooccurrence optimale pour SingleRank (page 17).
+
+ - "la décomposition expérimentale de SingleRank est intéressante, mais pourquoi ne
+pas faire un travail similaire sur votre approche ?"
+
+La méthode SingleRank plus les trois apports +complet, +candidats et
++sujets équivaut à la méthode TopicRank. Nous présentons maintenant
+cette décomposition expérimentale de sorte que cela soit plus clair
+(page 19).
+
+Merci pour vos conseils.
+
