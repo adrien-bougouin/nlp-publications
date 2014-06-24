@@ -1,5 +1,104 @@
 \section{Extraction de termes-clés}
-  \begin{frame}[allowframebreaks]{Extraction de termes-clés}
-    \framesubtitle{}
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{Chaîne de traitements}
+
+    \tikzstyle{io}=[
+      ellipse,
+      minimum width=5cm,
+      minimum height=2cm,
+      fill=green!20,
+      draw=green!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
+    \tikzstyle{component}=[
+      text centered,
+      thick,
+      rectangle,
+      minimum width=12.5cm,
+      minimum height=2.5cm,
+      fill=cyan!20,
+      draw=cyan!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
+
+    \begin{center}
+      \begin{tikzpicture}[thin,
+                          align=center,
+                          scale=.4,
+                          node distance=2cm,
+                          every node/.style={text centered, transform shape}]
+        \node[io] (document) {document};
+        \node[component] (preprocessing) [right=of document] {Prétraitement};
+        \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
+        \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
+          \begin{tabular}{r|l}
+            Classification & des candidats\\
+            Ordonnancement & \\
+          \end{tabular}
+        };
+        \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection de termes-clés};
+        \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
+
+        \path[->, thick] (document) edge (preprocessing);
+        \path[->, thick] (preprocessing) edge (candidate_extraction);
+        \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
+        \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
+        \path[->, thick] (keyphrase_selection) edge (keyphrases);
+
+        \visible<2->{
+            \node[draw=red, dashed, yshift=-1cm, minimum width=13cm, minimum
+          height=7.5cm, label={[xshift=-5.75cm]\Large\textbf{\textcolor{red}{c\oe{}ur}}}] (core) at (candidate_extraction.south) {};
+          \visible<3->{
+            \coordinate[xshift=3.5em, yshift=1em] (classification) at (candidate_classification_and_ranking.west);
+            \coordinate[xshift=-6em, yshift=5em] (supervised_coordinates) at (candidate_classification_and_ranking.west);
+            \coordinate[xshift=.5em, yshift=-1em] (ranking) at (candidate_classification_and_ranking.west);
+            \coordinate[xshift=-6em, yshift=-5em] (unsupervised_coordinates) at (candidate_classification_and_ranking.west);
+
+            \node (supervised) at (supervised_coordinates) {\Large\textbf{supervisé}};
+            \node (unsupervised) at (unsupervised_coordinates) {\Large\textbf{non-supervisé}};
+
+            \path[->] (supervised) edge (classification);
+            \path[->] (unsupervised) edge (ranking);
+          }
+          \visible<4->{
+            \node[draw, ellipse] (unsupervised) at (unsupervised_coordinates) {\Large\textbf{non-supervisé}};
+          }
+        }
+      \end{tikzpicture}
+    \end{center}
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{Prétraitement}
+
+    \begin{enumerate}
+      \item<1->{Segmentation en phrases}
+      \begin{itemize}
+        \item{\textit{PunktSentenceTokenzer} de la librairie \textsc{Nltk}}
+        \item{Modèle appri à partir d'articles dans Le Monde}
+      \end{itemize}
+      \item<2->{Segmentation des phrases en mots}
+      \begin{itemize}
+        \item{Outil Bonsai}
+        \item{Segmentateur à base d'expressions régulières}
+      \end{itemize}
+      \item<3->{Étiquetage grammatical des mots}
+      \begin{itemize}
+        \item{Outil MElt}
+        \item{Modèle appri à partir du French TreeBank}
+      \end{itemize}
+    \end{enumerate}
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{Sélection des candidats}
+
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{Ordonnancement des candidats}
+
   \end{frame}
 

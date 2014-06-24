@@ -31,9 +31,13 @@
 \setbeamertemplate{sections/subsections in toc}[square]
 \setbeamertemplate{blocks}[rounded][shadow=false]
 \setbeamertemplate{footline}{\vskip2pt}
+\setbeamertemplate{itemize/enumerate body begin}{\small}
+\setbeamertemplate{itemize/enumerate subbody begin}{\footnotesize}
+\setbeamertemplate{itemize/enumerate subsubbody begin}{\scriptsize}
 \setbeamertemplate{enumerate items}[square]
 \setbeamertemplate{itemize item}{\footnotesize$\blacksquare$}
 \setbeamertemplate{itemize subitem}{\scriptsize$\blacktriangleright$}
+\setbeamertemplate{itemize subsubitem}{\tiny$\square$}
 \beamertemplatenavigationsymbolsempty
 
 \usetikzlibrary{positioning, topaths, shapes, arrows}
@@ -86,7 +90,6 @@
     \begin{beamercolorbox}[center,shadow=true,rounded=true]{frametitle} 
       \Huge{\textbf{\textsc{Merci}}}
     \end{beamercolorbox}
-    \cite{bougouin2013topicrank}
     \vfill
   \end{frame}
   \section*{Références}

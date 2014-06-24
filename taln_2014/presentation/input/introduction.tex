@@ -1,9 +1,9 @@
 \section*{Introduction}
   \begin{frame}{Introduction}
-  \framesubtitle{}%Problèmatique}
+    \framesubtitle{Contexte}
 
     \begin{block}{\underline{Termes-clés} (mots-clés)}
-      \begin{itemize}\small
+      \begin{itemize}
         \item{Mots ou \underline{expressions polylexicales}}
         \item{Aperçu d'un document}
         \item{Donnés par les auteurs, des lecteurs ou des \alt<3->{\textbf{documentalistes}}{documentalistes}}
@@ -12,14 +12,14 @@
 
     \begin{block}<2->{Applications}
       \begin{minipage}{.5\linewidth}
-        \begin{itemize}\small
+        \begin{itemize}
           \item{\alt<3->{\textbf{Indexation de documents}}{Indexation de documents}}
           \item{Résumé automatique}
           \item{Classification de documents}
         \end{itemize}
       \end{minipage}
       \begin{minipage}{.48\linewidth}
-        \begin{itemize}\small
+        \begin{itemize}
           \item{Expansion de requêtes}
           \item{Ciblage (\textit{marketing})}
           \item{etc.}
@@ -29,11 +29,11 @@
   \end{frame}
 
   \begin{frame}{Introduction}
-  \framesubtitle{}%Problèmatique}
+    \framesubtitle{Contexte}
 
-    \begin{block}{Indexation d'articles scientifiques}
+    \begin{block}{Indexation de documents scientifiques}
       Créations de notices bibliographiques~:
-      \begin{itemize}\small
+      \begin{itemize}
         \item{Titre}
         \item{Auteurs}
         \item{Résumé}
@@ -44,6 +44,8 @@
   \end{frame}
 
   \begin{frame}{Introduction}
+    \framesubtitle{Exemple}
+
     \begin{exampleblock}{\footnotesize Variabilité du \textbf{\normalsize
                          Gravettien} de Kostienki (bassin moyen du Don) et des
                          territoires associés}\footnotesize
@@ -64,12 +66,38 @@
         \underline{Descripteurs (termes-clés)~:} \textbf{Europe}, Kostienko,
         \textbf{Borschevo}, variation, typologie, industrie osseuse, industrie
         lithique, Europe centrale, \textbf{Avdeevo}, \textbf{Paléolithique
-        supérieur}, \textbf{Gravettien}.
+        supérieur},
+        \textbf{Gravettien}.\hfill\underline{\scriptsize\textit{Archéologie}}
       }
     \end{exampleblock}
+  \end{frame}
 
-    \begin{alertblock}<2->{Mais\dots}\small
-        L'assignation de termes-clés est une tâche coûteuse.
+  \begin{frame}{Introduction}
+    \framesubtitle{Problèmatique}
+
+    \begin{alertblock}{Mais\dots}
+        L'assignation de termes-clés est une tâche coûteuse.\\
+        $\Rightarrow$ Il faut extraire les termes-clés automatiquement.
     \end{alertblock}
+
+    \begin{block}<2->{Extraction automatique de termes-clés}
+      \begin{itemize}
+        \item{Extraction des termes-clés \textbf{contenus dans} le titre/résumé}
+        \item{Terme-clé $=$ unité textuelle \textbf{importante} dans le
+              document}
+          \begin{itemize}
+            \item{Fréquente et spécifique (TF-IDF)}
+            \item{Centrale~\cite[TextRank]{mihalcea2004textrank}}
+          \end{itemize}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{Introduction}
+    \framesubtitle{Hypothèse}
+
+    Il est plus difficile d'extraire les termes-clés pour certaines disciplines
+    que pour d'autres.\\~\\
+    $\Rightarrow$ Quels sont les facteurs qui influent sur cette difficulté~?
   \end{frame}
 
