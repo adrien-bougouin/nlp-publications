@@ -70,35 +70,275 @@
     \end{center}
   \end{frame}
 
-  \begin{frame}{Extraction de termes-clés}
-    \framesubtitle{Prétraitement}
+%  \begin{frame}{Extraction de termes-clés}
+%    \framesubtitle{}
+%
+%    \tikzstyle{io}=[
+%      ellipse,
+%      minimum width=5cm,
+%      minimum height=2cm,
+%      fill=green!20,
+%      draw=green!33,
+%      transform shape,
+%      font={\Large\bfseries}
+%    ]
+%    \tikzstyle{component}=[
+%      text centered,
+%      thick,
+%      rectangle,
+%      minimum width=12.5cm,
+%      minimum height=2.5cm,
+%      fill=cyan!20,
+%      draw=cyan!33,
+%      transform shape,
+%      font={\Large\bfseries}
+%    ]
+%
+%    \begin{center}
+%      \begin{tikzpicture}[thin,
+%                          align=center,
+%                          scale=.4,
+%                          node distance=2cm,
+%                          every node/.style={text centered, transform shape}]
+%        \node[io] (document) {document};
+%        \node[component] (preprocessing) [right=of document] {Prétraitement};
+%        \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
+%        \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
+%          \begin{tabular}{r|l}
+%            Classification & des candidats\\
+%            Ordonnancement & \\
+%          \end{tabular}
+%        };
+%        \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection de termes-clés};
+%        \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
+%
+%        \path[->, thick] (document) edge (preprocessing);
+%        \path[->, thick] (preprocessing) edge (candidate_extraction);
+%        \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
+%        \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
+%        \path[->, thick] (keyphrase_selection) edge (keyphrases);
+%
+%        \node[draw, thick, minimum width=12.5cm, minimum height=2.5cm] (current) at (preprocessing) {\Large\textbf{Prétraitement}};
+%      \end{tikzpicture}
+%    \end{center}
+%  \end{frame}
+%
+%  \begin{frame}{Extraction de termes-clés}
+%    \framesubtitle{Prétraitement}
+%
+%    \begin{enumerate}
+%      \item{Segmentation en phrases}
+%      \item{Segmentation des phrases en mots}
+%      \item{Étiquetage grammatical des mots}
+%    \end{enumerate}
+%  \end{frame}
 
-    \begin{enumerate}
-      \item<1->{Segmentation en phrases}
-      \begin{itemize}
-        \item{\textit{PunktSentenceTokenzer} de la librairie \textsc{Nltk}}
-        \item{Modèle appri à partir d'articles dans Le Monde}
-      \end{itemize}
-      \item<2->{Segmentation des phrases en mots}
-      \begin{itemize}
-        \item{Outil Bonsai}
-        \item{Segmentateur à base d'expressions régulières}
-      \end{itemize}
-      \item<3->{Étiquetage grammatical des mots}
-      \begin{itemize}
-        \item{Outil MElt}
-        \item{Modèle appri à partir du French TreeBank}
-      \end{itemize}
-    \end{enumerate}
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{}
+
+    \tikzstyle{io}=[
+      ellipse,
+      minimum width=5cm,
+      minimum height=2cm,
+      fill=green!20,
+      draw=green!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
+    \tikzstyle{component}=[
+      text centered,
+      thick,
+      rectangle,
+      minimum width=12.5cm,
+      minimum height=2.5cm,
+      fill=cyan!20,
+      draw=cyan!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
+
+    \begin{center}
+      \begin{tikzpicture}[thin,
+                          align=center,
+                          scale=.4,
+                          node distance=2cm,
+                          every node/.style={text centered, transform shape}]
+        \node[io] (document) {document};
+        \node[component] (preprocessing) [right=of document] {Prétraitement};
+        \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
+        \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
+          \begin{tabular}{r|l}
+            Classification & des candidats\\
+            Ordonnancement & \\
+          \end{tabular}
+        };
+        \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection de termes-clés};
+        \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
+
+        \path[->, thick] (document) edge (preprocessing);
+        \path[->, thick] (preprocessing) edge (candidate_extraction);
+        \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
+        \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
+        \path[->, thick] (keyphrase_selection) edge (keyphrases);
+
+        \node[draw, thick, minimum width=12.5cm, minimum height=2.5cm] (current) at (candidate_extraction) {\Large\textbf{Sélection des candidats}};
+      \end{tikzpicture}
+    \end{center}
   \end{frame}
 
   \begin{frame}{Extraction de termes-clés}
     \framesubtitle{Sélection des candidats}
 
+    Deux approches classiques~:
+    \begin{itemize}
+      \item{Extraction des n-grammes}
+        \begin{itemize}
+          \item{De un à trois}
+          \item{Filtrage avec un anti-dictionnaire}
+        \end{itemize}
+      \item{Reconnaissance de formes}
+        \begin{itemize}
+          \item{\texttt{(NOM | ADJ)+}}
+        \end{itemize}
+    \end{itemize}
+
+    \uncover<2->{
+      Une approche non explorée jusqu'alors~:
+      \begin{itemize}
+        \item{Extraction des candidats termes}
+        \begin{itemize}
+          \item{Formes très précises~:}
+          \begin{itemize}
+            \item{\texttt{NOM à NOM}}
+            \item{\texttt{NOM en NOM}}
+            \item{\texttt{NOM à NOM ADJ}}
+            \item{etc.}
+          \end{itemize}
+        \end{itemize}
+      \end{itemize}
+    }
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{Sélection des candidats --- Exemples}
+
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{l|l|l}
+        \toprule
+        \multicolumn{3}{c}{\textit{\og{}bassin moyen du Don\fg{}}}\\
+        \multicolumn{1}{c|}{$\{1..3\}$-grammes} & \multicolumn{1}{c|}{\texttt{(NOM | ADJ)+}} & \multicolumn{1}{c}{Candidats termes} \\
+        \hline
+        \textit{\og{}bassin\fg{}} & \textit{\og{}bassin moyen\fg{}} & \textit{\og{}bassin\fg{}} \\
+         \textit{\og{}moyen\fg{}} & \textit{\og{}Don\fg{}} & \textit{\og{}Don\fg{}} \\
+          \textit{\og{}Don\fg{}} & & \textit{\og{}bassin moyen\fg{}} \\
+        \textit{\og{}bassin moyen\fg{}} & & \textit{\og{}bassin moyen du Don\fg{}} \\
+        \textit{\og{}moyen du Don\fg{}} & & \\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{}
+
+    \tikzstyle{io}=[
+      ellipse,
+      minimum width=5cm,
+      minimum height=2cm,
+      fill=green!20,
+      draw=green!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
+    \tikzstyle{component}=[
+      text centered,
+      thick,
+      rectangle,
+      minimum width=12.5cm,
+      minimum height=2.5cm,
+      fill=cyan!20,
+      draw=cyan!33,
+      transform shape,
+      font={\Large\bfseries}
+    ]
+
+    \begin{center}
+      \begin{tikzpicture}[thin,
+                          align=center,
+                          scale=.4,
+                          node distance=2cm,
+                          every node/.style={text centered, transform shape}]
+        \node[io] (document) {document};
+        \node[component] (preprocessing) [right=of document] {Prétraitement};
+        \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
+        \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
+          \begin{tabular}{r|l}
+            Classification & des candidats\\
+            Ordonnancement & \\
+          \end{tabular}
+        };
+        \node[component] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection de termes-clés};
+        \node[io] (keyphrases) [right=of keyphrase_selection] {termes-clés};
+
+        \path[->, thick] (document) edge (preprocessing);
+        \path[->, thick] (preprocessing) edge (candidate_extraction);
+        \path[->, thick] (candidate_extraction) edge (candidate_classification_and_ranking);
+        \path[->, thick] (candidate_classification_and_ranking) edge (keyphrase_selection);
+        \path[->, thick] (keyphrase_selection) edge (keyphrases);
+
+        \node[draw, thick, minimum width=12.5cm, minimum height=2.5cm] (current)
+        at (candidate_classification_and_ranking) {\Large\bfseries
+          \begin{tabular}{r|l}
+            \sout{Classification} & des candidats\\
+            Ordonnancement & \\
+          \end{tabular}
+        };
+      \end{tikzpicture}
+    \end{center}
   \end{frame}
 
   \begin{frame}{Extraction de termes-clés}
     \framesubtitle{Ordonnancement des candidats}
 
+    \begin{itemize}
+      \item{De nombreuses méthodes}
+      \item{Diverses approches}
+      \item{Parmi elles~:}
+      \begin{itemize}
+        \item{TF$\times$IDF}
+        \item{TopicRank~\cite{bougouin2013topicrank}}
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{Ordonnancement des candidats --- TF$\times$IDF}
+
+    \begin{block}{Hypothèse}
+      Dans un document, un mot est d'autant plus important qu'il est spécifique
+      (IDF) et fréquent dans le document (TF).
+    \end{block}
+
+    \begin{align*}
+      \text{importance}(\text{candidat}) = \sum_{\text{mot} \in \text{candidat}} \text{TF$\times$IDF}(\text{mot})
+    \end{align*}
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}
+    \framesubtitle{Ordonnancement des candidats --- TopicRank}
+
+    \begin{block}{Hypothèses}
+      \begin{enumerate}
+        \item{Plusieurs candidats désignent le même sujet (concept)}
+        \item{Seul le candidat le plus représentatif du sujet doit être extrait}
+        \item{Les sujets qui co-occurrent se recommandent mutuellement~:}
+        \begin{itemize}
+          \item{Plus un sujet cooccurre avec d'autres sujets, plus il est
+                important}
+          \item{Plus un sujet est important, plus les sujets avec lesquels il
+                cooccurre sont important}
+        \end{itemize}
+      \end{enumerate}
+    \end{block}
   \end{frame}
 

@@ -1,5 +1,200 @@
 \section{Expériences}
   \begin{frame}[allowframebreaks]{Expériences}
-    \framesubtitle{}
+    \framesubtitle{Configuration}
+
+    \begin{itemize}
+      \item{Cinq disciplines~:}
+      \begin{itemize}
+        \item{Archéologie}
+        \item{Linguistique}
+        \item{Sciences de l'information}
+        \item{Psychologie}
+        \item{Chimie}
+      \end{itemize}
+      \item{Six systèmes d'extraction de termes-clés}
+      \begin{itemize}
+        \item{$\{1..3\}$-grammes\hfill$\longrightarrow$ TF$\times$IDF\hspace{14.75em}~}
+        \item{\texttt{(NOM | ADJ)+}\hfill$\longrightarrow$ TF$\times$IDF\hspace{14.75em}~}
+        \item{Candidats termes\hfill$\longrightarrow$ TF$\times$IDF\hspace{14.75em}~}
+        \item{$\{1..3\}$-grammes\hfill$\longrightarrow$ TopicRank\hspace{13.915em}~}
+        \item{\texttt{(NOM | ADJ)+}\hfill$\longrightarrow$ TopicRank\hspace{13.915em}~}
+        \item{Candidats termes\hfill$\longrightarrow$ TopicRank\hspace{13.915em}~}
+      \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}[allowframebreaks]{Expériences}
+    \framesubtitle{Mesure d'évaluation}
+
+    \begin{itemize}
+      \item{Évaluation de l'ordonnancement des candidats}
+      \item{MAP (\textit{Mean Average Precision})~:}
+      \footnotesize
+      \begin{align*}
+        \text{MAP} = \frac{1}{\|\text{DOCUMENTS}\|} \sum_{d \in \text{DOCUMENTS}} \frac{\mathlarger\sum_{t \in \text{CORRECTS}_d} \text{précision}@\text{rang}_d(t)}{\|\text{REFERENCE}_d\|}
+      \end{align*}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Expériences}
+    \framesubtitle{Résultats et observations}
+
+    \vspace{.25em}
+
+    \begin{minipage}{.49\linewidth}
+      \begin{figure}
+        \centering
+        \subfigure[$\{1..3\}$-grammes]{
+          \begin{tikzpicture}[scale=.5]
+            \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
+            \begin{axis}[axis lines=left,
+                         symbolic x coords={Archéologie, Sciences de l'information, Linguistique, Psychologie, Chimie},
+                         xtick=data,
+                         enlarge x limits=0.125,
+                         x=.3\linewidth,
+                         xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                         nodes near coords,
+                         nodes near coords align={vertical},
+                         every node near coord/.append style={font=\scriptsize},
+                         ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+                         y=2.25\linewidth,
+                         ymin=0,
+                         ymax=0.22,
+                         ybar=10pt,
+                         ylabel=MAP,
+                         ylabel style={at={(ticklabel* cs:1)},
+                                       anchor=south,
+                                       rotate=270}]
+              \addplot[Blue,
+                       pattern=north east lines,
+                       pattern color=Blue] coordinates{
+                (Archéologie, 0.156)
+                (Linguistique, 0.098)
+                (Sciences de l'information, 0.087)
+                (Psychologie, 0.065)
+                (Chimie, 0.060)
+              };
+              \addplot[ForestGreen,
+                       pattern=north west lines,
+                       pattern color=ForestGreen] coordinates{
+                (Archéologie, 0.035)
+                (Linguistique, 0.039)
+                (Sciences de l'information, 0.035)
+                (Psychologie, 0.027)
+                (Chimie, 0.021)
+              };
+              \legend{TF-IDF, TopicRank}
+            \end{axis}
+          \end{tikzpicture}
+        }
+      \end{figure}
+    \end{minipage}\hfill
+    \begin{minipage}{.49\linewidth}
+      \begin{figure}
+        \centering
+        \subfigure[Candidats termes]{
+          \begin{tikzpicture}[scale=.5]
+            \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
+            \begin{axis}[axis lines=left,
+                         symbolic x coords={Archéologie, Sciences de l'information, Linguistique, Psychologie, Chimie},
+                         xtick=data,
+                         enlarge x limits=0.125,
+                         x=.3\linewidth,
+                         xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                         nodes near coords,
+                         nodes near coords align={vertical},
+                         every node near coord/.append style={font=\scriptsize},
+                         ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+                         y=2.25\linewidth,
+                         ymin=0,
+                         ymax=0.22,
+                         ybar=10pt,
+                         ylabel=MAP,
+                         ylabel style={at={(ticklabel* cs:1)},
+                                       anchor=south,
+                                       rotate=270}]
+              \addplot[Blue,
+                       pattern=north east lines,
+                       pattern color=Blue] coordinates{
+                (Archéologie, 0.165)
+                (Linguistique, 0.107)
+                (Sciences de l'information, 0.093)
+                (Psychologie, 0.068)
+                (Chimie, 0.070)
+              };
+              \addplot[ForestGreen,
+                       pattern=north west lines,
+                       pattern color=ForestGreen] coordinates{
+                (Archéologie, 0.166)
+                (Linguistique, 0.105)
+                (Sciences de l'information, 0.078)
+                (Psychologie, 0.072)
+                (Chimie, 0.058)
+              };
+              \legend{TF-IDF, TopicRank}
+            \end{axis}
+          \end{tikzpicture}
+        }
+      \end{figure}
+    \end{minipage}
+
+    \begin{minipage}{.49\linewidth}
+      \begin{figure}
+        \centering
+        \subfigure[\texttt{(NOM | ADJ)+}]{
+          \begin{tikzpicture}[scale=.5]
+            \pgfkeys{/pgf/number format/.cd, use comma, fixed, fixed zerofill, precision=3}
+            \begin{axis}[axis lines=left,
+                         symbolic x coords={Archéologie, Sciences de l'information, Linguistique, Psychologie, Chimie},
+                         xtick=data,
+                         enlarge x limits=0.125,
+                         x=.3\linewidth,
+                         xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                         nodes near coords,
+                         nodes near coords align={vertical},
+                         every node near coord/.append style={font=\scriptsize},
+                         ytick={0, 0.100, 0.200, 0.300, 0.400, 0.500},
+                         y=2.25\linewidth,
+                         ymin=0,
+                         ymax=0.22,
+                         ybar=10pt,
+                         ylabel=MAP,
+                         ylabel style={at={(ticklabel* cs:1)},
+                                       anchor=south,
+                                       rotate=270}]
+              \addplot[Blue,
+                       pattern=north east lines,
+                       pattern color=Blue] coordinates{
+                (Archéologie, 0.180)
+                (Linguistique, 0.103)
+                (Sciences de l'information, 0.100)
+                (Psychologie, 0.075)
+                (Chimie, 0.071)
+              };
+              \addplot[ForestGreen,
+                       pattern=north west lines,
+                       pattern color=ForestGreen] coordinates{
+                (Archéologie, 0.148)
+                (Linguistique, 0.098)
+                (Sciences de l'information, 0.094)
+                (Psychologie, 0.073)
+                (Chimie, 0.063)
+              };
+              \legend{TF-IDF, TopicRank}
+            \end{axis}
+          \end{tikzpicture}
+        }
+      \end{figure}
+    \end{minipage}\hfill
+    \begin{minipage}{.5\linewidth}
+      \begin{itemize}
+        \item<2->{Même échelle de difficulté pour TF-IDF et TopicRank}
+        \item<3->{Meilleur stabilité du TF-IDF}
+        \begin{itemize}
+          \item[$\Rightarrow$]{Spécificité IDF}
+        \end{itemize}
+        \item<4->{La performance de TopicRank dépend de la qualité des candidats}
+      \end{itemize}
+    \end{minipage}
   \end{frame}
 

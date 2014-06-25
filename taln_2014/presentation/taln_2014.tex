@@ -24,6 +24,8 @@
 \usepackage{relsize}
 \usepackage{ragged2e}
 \usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{pgfplots}
 
 \usetheme{Boadilla}
 \setbeamercovered{transparent}
@@ -40,10 +42,12 @@
 \setbeamertemplate{itemize subsubitem}{\tiny$\square$}
 \beamertemplatenavigationsymbolsempty
 
-\usetikzlibrary{positioning, topaths, shapes, arrows}
+\pgfplotsset{compat=1.8}
+\usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
 
 \renewcommand\cite[2][]{\citep[#1]{#2}}
 \let\oldtextsc\textsc\renewcommand\textsc[1]{\rmfamily\oldtextsc{#1}}
+\renewcommand\thesubfigure{}
 
 \title{Influence des domaines de spécialité dans l'extraction de termes-clés}
 \titlegraphic{
