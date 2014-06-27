@@ -193,8 +193,9 @@
     \begin{itemize}
       \item{Extraction des n-grammes}
         \begin{itemize}
-          \item{De un à trois}
+          \item{$n \subseteq \{1..3\}$}
           \item{Filtrage avec un anti-dictionnaire}
+          \item[\textcolor{red}{\scriptsize$\blacktriangleright$}]{Sursélection des candidats $\Rightarrow$ faible qualité}
         \end{itemize}
       \item{Reconnaissance de formes}
         \begin{itemize}
@@ -207,6 +208,7 @@
       \begin{itemize}
         \item{Extraction des candidats termes}
         \begin{itemize}
+          \item{Utilisation de TTC Terme Suite}
           \item{Formes très précises~:}
           \begin{itemize}
             \item{\texttt{NOM à NOM}}
@@ -226,6 +228,7 @@
       \begin{tabular}{l|l|l}
         \toprule
         \multicolumn{3}{c}{\textit{\og{}bassin moyen du Don\fg{}}}\\
+        \midrule
         \multicolumn{1}{c|}{$\{1..3\}$-grammes} & \multicolumn{1}{c|}{\texttt{(NOM | ADJ)+}} & \multicolumn{1}{c}{Candidats termes} \\
         \hline
         \textit{\og{}bassin\fg{}} & \textit{\og{}bassin moyen\fg{}} & \textit{\og{}bassin\fg{}} \\
@@ -315,8 +318,8 @@
     \framesubtitle{Ordonnancement des candidats --- TF$\times$IDF}
 
     \begin{block}{Hypothèse}
-      Dans un document, un mot est d'autant plus important qu'il est spécifique
-      (IDF) et fréquent dans le document (TF).
+      Dans un document, un mot est d'autant plus important qu'il  y est fréquent
+      (TF) et spécifique (IDF).
     \end{block}
 
     \begin{align*}
@@ -331,7 +334,7 @@
       \begin{enumerate}
         \item{Plusieurs candidats désignent le même sujet (concept)}
         \item{Seul le candidat le plus représentatif du sujet doit être extrait}
-        \item{Les sujets qui co-occurrent se recommandent mutuellement~:}
+        \item{Les sujets qui cooccurrent se recommandent mutuellement~:}
         \begin{itemize}
           \item{Plus un sujet cooccurre avec d'autres sujets, plus il est
                 important}

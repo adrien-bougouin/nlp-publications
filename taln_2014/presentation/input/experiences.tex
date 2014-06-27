@@ -1,5 +1,5 @@
-\section{Expériences}
-  \begin{frame}{Expériences}
+\section{Expérience}
+  \begin{frame}{Expérience}
     \framesubtitle{Configuration}
 
     \begin{itemize}
@@ -23,7 +23,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}[allowframebreaks]{Expériences}
+  \begin{frame}[allowframebreaks]{Expérience}
     \framesubtitle{Mesure d'évaluation}
 
     \begin{itemize}
@@ -36,7 +36,7 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Expériences}
+  \begin{frame}{Expérience}
     \framesubtitle{Résultats et observations}
 
     \vspace{.125em}
@@ -66,17 +66,15 @@
                                        anchor=south,
                                        rotate=270}]
               \addplot[Blue,
-                       pattern=north east lines,
-                       pattern color=Blue] coordinates{
+                       fill=Blue] coordinates{
                 (Archéologie, 0.156)
                 (Linguistique, 0.098)
                 (Sciences de l'information, 0.087)
                 (Psychologie, 0.065)
                 (Chimie, 0.060)
               };
-              \addplot[ForestGreen,
-                       pattern=north west lines,
-                       pattern color=ForestGreen] coordinates{
+              \addplot[WildStrawberry,
+                       fill=WildStrawberry] coordinates{
                 (Archéologie, 0.035)
                 (Linguistique, 0.039)
                 (Sciences de l'information, 0.035)
@@ -114,17 +112,15 @@
                                        anchor=south,
                                        rotate=270}]
               \addplot[Blue,
-                       pattern=north east lines,
-                       pattern color=Blue] coordinates{
+                       fill=Blue] coordinates{
                 (Archéologie, 0.180)
                 (Linguistique, 0.103)
                 (Sciences de l'information, 0.100)
                 (Psychologie, 0.075)
                 (Chimie, 0.071)
               };
-              \addplot[ForestGreen,
-                       pattern=north west lines,
-                       pattern color=ForestGreen] coordinates{
+              \addplot[WildStrawberry,
+                       fill=WildStrawberry] coordinates{
                 (Archéologie, 0.148)
                 (Linguistique, 0.098)
                 (Sciences de l'information, 0.094)
@@ -163,17 +159,15 @@
                                        anchor=south,
                                        rotate=270}]
               \addplot[Blue,
-                       pattern=north east lines,
-                       pattern color=Blue] coordinates{
+                       fill=Blue] coordinates{
                 (Archéologie, 0.165)
                 (Linguistique, 0.107)
                 (Sciences de l'information, 0.093)
                 (Psychologie, 0.068)
                 (Chimie, 0.070)
               };
-              \addplot[ForestGreen,
-                       pattern=north west lines,
-                       pattern color=ForestGreen] coordinates{
+              \addplot[WildStrawberry,
+                       fill=WildStrawberry] coordinates{
                 (Archéologie, 0.166)
                 (Linguistique, 0.105)
                 (Sciences de l'information, 0.078)
@@ -200,38 +194,37 @@
     }}
   \end{frame}
 
-  \begin{frame}{Expériences}
+  \begin{frame}{Expérience}
     \framesubtitle{}
 
-    Observations~:
+    \uncover<1,2,3,4,5>{Observations~:}
     \begin{enumerate}
-      \item{Même échelle de difficulté pour les deux méthodes}
-      \item{Meilleure stabilité du TF-IDF selon le type des candidats}
+      \item<2>{Même échelle de difficulté pour les deux méthodes}
+      \item<3>{Meilleure stabilité du TF-IDF en fonction de la qualité des
+            candidats}
       \begin{itemize}
         \item[$\Rightarrow$]{Les candidats retournés sont les candidats
                              spécifiques}
       \end{itemize}
-      \item{Plus les candidats sont de bonne qualité, plus TopicRank est
+      \item<4>{Plus les candidats sont de bonne qualité, plus TopicRank est
             compétitif avec TF-IDF}
     \end{enumerate}
 
-    \uncover<2->{
-      Conclusion~:
-      \begin{enumerate}
-        \item<2>{Il y a bien une influence de la discipline sur la difficulté de
-              l'extraction de termes-clés}
-        \item<2>{La présence ou non, dans les termes-clés, de mots à usage courant dans le language de la
-              discipline est un facteur influent}
-        \begin{itemize}
-          \item[$\rightarrow$]{\textit{\og{}\underline{réaction}
-                               sonochimique\fg{}, \og{}\underline{réaction}
-                               électrochimique\fg{}, etc.}}
-        \end{itemize}
-        \item{La cohésion au sein du texte est un facteur influent}
-      \end{enumerate}
-    }
+    Conclusions~:
+    \begin{enumerate}
+      \item<2,6>{Il y a bien une influence de la discipline sur la difficulté de
+            l'extraction de termes-clés}
+      \item<3,6>{La présence ou non, dans les termes-clés, de mots à usage courant dans le language de la
+            discipline est un facteur influent}
+      \begin{itemize}
+        \item[$\rightarrow$]{\textit{\og{}\underline{réaction}
+                             sonochimique\fg{}, \og{}\underline{réaction}
+                             électrochimique\fg{}, etc.}}
+      \end{itemize}
+      \item<4->{La cohésion au sein du texte est un facteur influent}
+    \end{enumerate}
 
-    \visible<3->{
+    \visible<5>{
       \begin{textblock*}{\textwidth}(0\textwidth, -0.907\textheight)
         \setbeamertemplate{blocks}[rounded][shadow=true]
 

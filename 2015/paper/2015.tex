@@ -23,23 +23,92 @@
 %\setlength\titlebox{5cm}
 
 \usepackage[utf8]{inputenc}
-\usepackage{amsmath}
-\usepackage{relsize}
-\usepackage{xfrac}
-\usepackage{booktabs}
-\usepackage{multirow}
-\usepackage{rotating}
-\usepackage{lipsum}
-\usepackage{color}
-\usepackage{subfigure}
-\usepackage{overpic}
-\usepackage{fancybox}
-\usepackage[ruled,vlined]{algorithm2e}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tikz}
+
+\usetikzlibrary{shapes}
 
 \newtheorem{definition}{Definition}
 \newtheorem{property}{Property}
 
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+
+% TikZ database node
+% http://tex.stackexchange.com/questions/123854/display-database-instance-relationship-with-tikz
+\tikzstyle{database}=[
+  draw,
+  align=center,
+  minimum width=5.5em,
+  minimum height=6.5em,
+  cylinder,
+  cylinder uses custom fill,
+  cylinder body fill=white,
+  cylinder end fill=white,
+  shape border rotate=90,
+  aspect=0.5
+]
+
+% TikZ document node
+% http://tex.stackexchange.com/questions/103688/folded-paper-shape-tikz
+\makeatletter
+\pgfdeclareshape{doc}{
+  \inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{north}
+  \inheritanchor[from=rectangle]{south}
+  \inheritanchor[from=rectangle]{west}
+  \inheritanchor[from=rectangle]{east}
+  % ... and possibly more
+  \backgroundpath{% this is new
+    % store lower right in xa/ya and upper right in xb/yb
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    % compute corner of ‘‘flipped page’’
+    \pgf@xc=\pgf@xb \advance\pgf@xc by-10pt % this should be a parameter
+    \pgf@yc=\pgf@yb \advance\pgf@yc by-10pt
+    % construct main path
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpathclose
+    % add little corner
+    \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+  }
+}
+\makeatother
+\tikzstyle{document}=[
+  draw,
+  align=center,
+  color=black,
+  fill=white,
+  minimum width=5.5em,
+  minimum height=6.5em,
+  shape=doc,
+  inner sep=2ex
+]
+\newcommand\drawdatabase[1]{
+  \begin{tikzpicture}
+    \node[database] (database) {#1};
+  \end{tikzpicture}
+}
+\newcommand\drawdocument[1]{
+  \begin{tikzpicture}
+    \node[document] (document) {#1};
+  \end{tikzpicture}
+}
+\newcommand\drawcorpus[1]{
+  \begin{tikzpicture}
+    \node[document] (background) {#1};
+    \node[document] at ([xshift=.25em, yshift=-.25em]background) (middle) {#1};
+    \node[document] at ([xshift=.25em, yshift=-.25em]middle) (foreground) {#1};
+  \end{tikzpicture}
+}
 
 \title{Association-Based Keyphrase Indexing of Bibliographic Records}
 
@@ -62,6 +131,17 @@
   \input{input/topicrank.tex}
   \input{input/apriori.tex}
   \input{input/new_approach.tex}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{tikzpicture}
+    \node (database) {\drawdatabase{Test}};
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \node (document) {\drawdocument{Test}};
+  \end{tikzpicture}
+  \begin{tikzpicture}
+    \node (corpus) {\drawcorpus{Test}};
+  \end{tikzpicture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
   \input{input/experiments.tex}
   \input{input/conclusion.tex}
 
