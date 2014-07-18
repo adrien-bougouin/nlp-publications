@@ -3,7 +3,7 @@
   Dans cette section, nous proposons d'analyser les erreurs de TopicRank. Dans
   un premier temps, nous analysons les sujets que détecte TopicRank, puis dans
   un second temps, nous analysons les termes-clés de référence qui ne sont pas
-  extraits par TopicRank.
+  extraits par Topic\-Rank.
 
   \subsection{Analyse des sujets détectés}
   \label{subsec:analyse_des_sujets_générés}
@@ -13,7 +13,7 @@
 
     Nous observons des erreurs liées à la sélection des
     termes-clés candidats. Lors de cette étape, certaines unités textuelles sont
-    sélectionnées comme candidats à cause des erreurs de l'étiquetage
+    sélectionnées comme candidats à cause des erreurs lors de l'étiquetage
     grammatical. Ces erreurs concernent principalement la détection des
     prépositions composées et la détection des participes. Par exemple, dans la
     phrase \og{}[\dots] elles ne cessent de se développer à travers le monde et
@@ -30,10 +30,10 @@
     \og{}même langue\fg{} groupé avec \og{}même représentation\fg{}). Parmi les
     expansions nominales s'effectuant à droite, les adjectifs relationnels sont
     moins sujets aux erreurs que les autres adjectifs. Notons tout de même que
-    lorsque ces adjectifs ont attraits au contexte général du document, ils sont
+    lorsque ces adjectifs sont liés au contexte général du document, ils sont
     très fréquemment utilisés et beaucoup de candidats les contenant sont
     groupés par erreur (p.~ex. \og{}forces économiques\fg{} peut être groupé 
-    avec \og{}délabrement économique\fg{} dans un document en économie). Outre
+    avec \og{}délabrement économique\fg{} dans un document en économie). Outres
     ces groupements erronés, nous observons aussi de mauvais groupements lorsque
     les candidats ne contiennent que très peu de mots. Pour les candidats de
     deux mots, il ne suffit que d'un seul mot en commun pour les grouper. Ces
@@ -54,10 +54,10 @@
     elle échoue parfois.
 
     La seconde source d'erreurs est la spécialisation des termes-clés de
-    référence. Nous observons deux problèmes de sous- et
-    sur-spécialisation de certains termes-clés extraits vis-à-vis des termes-clés
-    de référence. Dans le cas de la sous-spécialisation, nous pouvons citer, par
-    exemple, \og{}papillons\fg{} qui est extrait à la place de \og{}papillons
+    référence. Nous observons deux problèmes de sous- et sur-spécialisation de
+    certains termes-clés extraits vis-à-vis des termes-clés de référence. Dans
+    le cas de la sous-spécialisation, nous pouvons citer, par exemple,
+    \og{}papillons\fg{} qui est extrait à la place de \og{}papillons
     mutants\fg{}\footnote{Exemple issue de l'article journalistique
     \textit{Fukushima fait muter les papillons}
     (\url{http://fr.wikinews.org/w/index.php?oldid=432477}) de la collection
@@ -71,7 +71,7 @@
     (\url{http://fr.wikinews.org/w/index.php?oldid=479948}) de la collection
     WikiNews.}. La raison principale de ce problème est l'aspect libre de
     l'annotation manuelle des termes-clés. Toutefois, privilégier les
-    spécialisations par les adjectifs (p.~ex. \og{}mutants\fg{}) et, au
-    contraire, éviter les spécialisation par les noms (p.~ex. \og{}député\fg{})
-    semble être une hypothèse à vérifier.
+    modifications adjectivales (p.~ex. \og{}mutants\fg{}) et, au contraire,
+    éviter les modifications nominales (p.~ex. \og{}député\fg{}) semble être une
+    hypothèse à vérifier.
 

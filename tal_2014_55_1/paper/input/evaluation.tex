@@ -10,13 +10,22 @@
     \subsubsection{Méthodes de référence pour l'extraction de termes-clés}
     \label{subsubsec:systemes_de_reference_pour_l_extraction_de_termes_cles}
       % Comment les baselines sont-elles choisies ?
-      Dans nos expérimentations, nous comparons TopicRank avec trois autres
+      Dans nos expérimentations, nous comparons TopicRank à trois autres
       méthodes non supervisées d'extraction automatique de termes-clés. Nous
       choisissons TextRank et SingleRank, les deux méthodes qui sont la
-      fondation des méthodes à base de graphe, et la pondération TF-IDF, qui
-      consiste à donner un score aux termes-clés candidats en faisant la somme
-      des poids TF-IDF des mots qui les composent, puis à sélectionner ceux
-      ayant le plus haut score.
+      fondation des méthodes à base de graphe, et la méthode de pondération
+      TF-IDF. Cette dernière méthode consiste à extraire en tant que termes-clés
+      les candidats dont les mots sont importants, un mot étant considéré
+      important dans un document s'il y est fréquent (TF élevé) et s'il a une
+      forte spécificité (IDF élevé) calculée à partir de toute une collection de
+      documents\footnote{Dans ce travail, nous utilisons la collection dont est
+      extrait le document.} de sorte que moins il y a de documents qui
+      contiennent le mot, plus forte est sa spécificité. TF-IDF prenant en
+      compte la totalité du corpus, il s'agit de montrer que TopicRank est
+      capable d'extraire le contenu principal d'un document sans nécessiter de
+      données supplémentaires et qu'il est donc applicable à des documents de
+      tous types pour lesquels aucun travail de collecte préalable n'est
+      nécessaire.
 
       % Quelles sont les particularités liées à notre implémentation ?
       Au même titre que TopicRank, nous proposons une implémentation des
@@ -33,21 +42,21 @@
       d'évaluer une méthode avec des collections de données aux configurations
       différentes pour mieux observer et comprendre son comportement, les
       collections de données utilisées dans ce travail diffèrent en termes de
-      langue, nature, taille des documents et types d'annotateur (auteurs,
+      langue, nature, taille des documents et types d'annotateurs (auteurs,
       lecteurs ou les deux).
 
       \textbf{DUC}~\cite{over2001duc} est une collection en anglais issue des
-      données de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
-      concerne les méthodes de résumé automatique, elle ne contient donc
-      originellement pas d'annotations en termes-clés. Cependant, les 308
-      articles journalistiques de la partie test de DUC-2001 ont été annotés par
-      \newcite{wan2008expandrank}. Nous utilisons ces 308 documents pour
-      comparer TopicRank avec les méthodes de référence.
+      données de la campagne d'évaluation DUC-2001 qui concerne les méthodes de
+      résumé automatique. Elle ne contient donc originellement pas d'annotations
+      en termes-clés. Cependant, les 308 articles journalistiques de la partie
+      test de DUC-2001 ont été annotés par \newcite{wan2008expandrank}. Nous
+      utilisons ces 308 documents pour comparer TopicRank avec les méthodes de
+      référence.
 
       \textbf{SemEval}~\cite{kim2010semeval} est la collection en anglais
       fournie lors de la campagne d'évaluation SemEval-2010 pour la tâche
       d'extraction automatique de termes-clés. Cette collection contient 244
-      articles scientifiques (conférences et ateliers) issus de la librairie
+      articles scientifiques (conférences et ateliers) issus de la bibliothèque
       numérique ACM. La collection est répartie en deux sous-ensembles~: un
       ensemble de 144 documents d'entraînement et un ensemble de 100 documents
       de test. Lors de nos expériences, nous utilisons les 100 documents de
@@ -61,22 +70,22 @@
       est une collection de 100 articles journalistiques en français que nous
       avons extraits du site Web
       WikiNews\footnote{\url{http://fr.wikinews.org}} entre les mois de mai et
-      décembre 2012. Pour l'annotation en termes-clés, nous avons demandé à neuf
-      étudiants de master en TAL d'extraire (librement) les termes-clés de 33
-      documents, de sorte que chaque document soit annoté par au moins trois
+      de décembre 2012. Pour l'annotation en termes-clés, nous avons demandé à
+      neuf étudiants de master en TAL d'extraire (librement) les termes-clés de
+      33 documents, de sorte que chaque document soit annoté par au moins trois
       étudiants. Nous utilisons les 100 documents de Wikinews pour comparer
       TopicRank avec les méthodes de référence.
 
       \textbf{DEFT}~\cite{paroubek2012deft} est la collection fournie lors de la
       campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
       termes-clés. Celle-ci contient 234 documents en français issus de quatre
-      revues de Sciences Humaines et Sociales. La collection est divisée en deux
+      revues de Sciences Humaines et Sociales. Elle est divisée en deux
       sous-ensembles~: un ensemble d'entraînement contenant 141 documents et un
       ensemble de test contenant 93 documents. Lors de nos expériences, nous
       utilisons les 93 documents de l'ensemble de test pour comparer TopicRank
       avec les méthodes de référence et les 141 documents d'entraînement pour
       paramétrer TopicRank et SingleRank. Dans cette collection, seuls les
-      termes-clés des auteurs sont disponibles pour cette collection.
+      termes-clés des auteurs sont disponibles.
 
       Le tableau~\ref{tab:donnees_de_test} donne les statistiques extraites des
       ensembles de test des quatre collections de données présentées ci-dessus.
@@ -123,15 +132,15 @@
     \label{subsubsec:pretraitement}
       Chaque document des collections de données utilisées subit les mêmes
       prétraitements. Chaque document est tout d'abord segmenté en phrases, puis
-      en mots et enfin étiqueté en parties du discours. La segmentation en mots
+      en mots et enfin étiqueté grammaticalement. La segmentation en mots
       est effectuée par le TreeBankWordTokenizer, disponible avec la librairie
       python NLTK~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
       l'anglais et par l'outil Bonsai, du Bonsai PCFG-LA
       parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
-      pour le français. Quant à l'étiquetage en parties du discours, il est
+      pour le français. Quant à l'étiquetage grammatical, il est
       réalisé avec le Stanford POS tagger~\cite{toutanova2003stanfordpostagger}
-      pour l'anglais, et avec MElt~\cite{denis2009melt} pour le français. Tous
-      ces outils sont utilisés avec leur configuration par défaut.
+      pour l'anglais et avec l'outil MElt~\cite{denis2009melt} pour le français.
+      Tous ces outils sont utilisés avec leur configuration par défaut.
 
     \subsubsection{Mesures d'évaluation}
     \label{subsubsec:mesures_d_evaluation}
@@ -358,21 +367,21 @@
     premier dans le document, pour chaque sujet.}.
     % Quelle analyse peut-on faire à partir des courbes ?
     Globalement, chaque stratégie de groupement a un comportement qui lui est
-    propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,40
-    pour SemEval et 0,55 pour DEFT. Avec la stratégie simple, les résultats
-    s'améliorent lorsque le seuil $\zeta$ augmente. Du fait qu'elle ne prend en
-    compte que la similarité maximale entre deux candidats de deux groupes,
-    cette stratégie à tendance à trop grouper et donc à créer des groupes
-    contenant parfois plusieurs sujets. L'augmentation du seuil $\zeta$ a pour
-    effet de restreindre cette tendance et la qualité du groupement s'améliore.
-    En opposition, la stratégie complète, qui a le fonctionnement inverse, voit
-    ses résultats se dégrader lorsque $\zeta$ augmente. Enfin, la stratégie
-    moyenne agit en compromis. Sur SemEval, son comportement est le même que
-    celui de la stratégie complète, mais ses résultats sont supérieurs jusqu'au
-    point de convergence. Sur DEFT, son comportement est le même que celui de la
-    stratégie simple, mais ses résultats sont très supérieurs jusqu'au point de
-    convergence. Ce point de convergence correspond à la valeur du seuil $\zeta$
-    pour laquelle les sujets créés sont les mêmes quelle que soit la stratégie.
+    propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,70, ce
+    point de convergence correspondant à la valeur du seuil $\zeta$ pour
+    laquelle les sujets créés sont les mêmes quelle que soit la stratégie. Avec
+    la stratégie simple, les résultats s'améliorent lorsque le seuil $\zeta$
+    augmente. Du fait qu'elle ne prend en compte que la similarité maximale
+    entre deux candidats de deux groupes, cette stratégie à tendance à trop
+    grouper et donc à créer des groupes contenant parfois plusieurs sujets.
+    L'augmentation du seuil $\zeta$ a pour effet de restreindre cette tendance
+    et la qualité du groupement s'améliore. En opposition, la stratégie
+    complète, qui a le fonctionnement inverse, voit ses résultats se dégrader
+    lorsque $\zeta$ augmente. Enfin, la stratégie moyenne agit en compromis.
+    Pour SemEval, son comportement est le même que celui de la stratégie
+    complète, mais ses résultats sont supérieurs jusqu'au point de convergence.
+    Pour DEFT, son comportement est le même que celui de la stratégie simple,
+    mais ses résultats sont très supérieurs jusqu'au point de convergence.
     % Quels sont les paramètres utilisés ?
     Après observation des résultats de cette expérience, nous décidons
     d'utiliser la stratégie moyenne avec un seuil $\zeta$ de 0,20 pour toutes
@@ -532,6 +541,7 @@
           };
           \draw[densely dashed] ({axis cs:12,0}|-{rel axis cs:0,1}) -- ({axis cs:12,0}|-{rel axis cs:0,0}) [color=black!66];
           \node at (axis cs:12,17.5) [color=black!66, anchor=west] {\tiny{12}};
+          \legend{SemEval, DEFT}
         \end{axis}
       \end{tikzpicture}
       \caption{Résultats de l'extraction de 10 termes-clés, avec SingleRank,

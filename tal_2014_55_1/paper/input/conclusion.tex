@@ -1,18 +1,17 @@
 \section{Conclusion et perspectives}
 \label{sec:conclusion_et_perspectives}
-  Dans ce travail, nous proposons une méthode à base de graphe pour
-  l'extraction non supervisée de termes-clés. Cette méthode groupe les
-  termes-clés candidats par sujet, détermine quels sont ceux les plus
-  importants, puis extrait le terme-clé candidat qui représente le mieux chacun
-  des sujets les plus importants. Cette nouvelle méthode offre plusieurs
-  avantages vis-à-vis des précédentes à base de graphe. Dans un premier temps,
-  le groupement des termes-clés potentiels en sujets distincts permet de
-  rassembler des indices utiles auparavant éparpillés. Dans un second temps,
-  le choix d'un seul terme-clé pour représenter un des sujets les plus
-  importants permet d'extraire un ensemble de termes-clés non redondants ---
-  pour $k$ termes-clés extraits, exactement $k$ sujets sont couverts.
-  Finalement, le graphe est complet et ne requiert plus le paramétrage d'une
-  fenêtre de cooccurrences, contrairement aux autres méthodes à base de graphe.
+  Dans ce travail, nous proposons une méthode à base de graphe pour l'extraction
+  non supervisée de termes-clés. Cette méthode groupe les termes-clés candidats
+  en sujets, détermine quels sont ceux les plus importants, puis extrait le
+  terme-clé candidat qui représente le mieux chacun des sujets les plus
+  importants. Cette nouvelle méthode offre plusieurs avantages vis-à-vis des
+  précédentes à base de graphe. Le groupement des termes-clés potentiels en
+  sujets distincts permet de rassembler des indices utiles auparavant éparpillés
+  et le choix d'un seul terme-clé pour représenter un sujet important permet
+  d'extraire un ensemble de termes-clés non redondants ( pour $k$ termes-clés
+  extraits, exactement $k$ sujets sont couverts). Enfin, le graphe est complet
+  et ne requiert plus le paramétrage d'une fenêtre de cooccurrences,
+  contrairement aux autres méthodes à base de graphe.
 
   Les bons résultats de notre méthode montrent la pertinence d'un groupement en
   sujets des candidats pour ensuite les ordonner. Les expériences
@@ -24,24 +23,23 @@
   Nous avons aussi effectué une analyse d'erreurs à partir de laquelle trois
   perspectives de travaux futurs émergent~:
 
-  Nous avons pour objectif d'améliorer la sélection des
-  termes-clés candidats. Aussi, des méthodes empruntées à d'autres domaines du
-  TAL peuvent être appliquées. Il semble, par exemple, pertinent d'évaluer
-  l'apport des méthodes d'extraction
-  terminologiques~\cite{castellvi2001automatictermdetection} pour la sélection
-  des termes-clés candidats.
+  Nous avons pour objectif d'améliorer la sélection des termes-clés candidats.
+  Aussi, des méthodes empruntées à d'autres domaines du TAL peuvent être
+  appliquées. Il semble, par exemple, pertinent d'évaluer l'apport des méthodes
+  d'extraction terminologiques~\cite{castellvi2001automatictermdetection} pour
+  la sélection des termes-clés candidats.
   
   Nous envisageons également d'améliorer le groupement en sujets,
   car celui-ci est très naïf et ne tient compte ni de la synonymie, ni de
-  l'ambiguïté des mots. Aussi, l'usage du
+  l'ambiguïté des mots. De plus, l'usage du
   radical~\cite{porter1980suffixstripping} des mots n'est pas sans introduire du
   bruit lié à certains faux positifs (p.~ex. \og{}\underline{empir}e\fg{} et
   \og{}\underline{empir}ique\fg{}). L'ajout de connaissances concernant les
   synonymes permettrait de créer des sujets plus complets et une étape de
   désambiguïsation éviterait un groupement systématique des termes-clés
-  candidats ayant un ou plusieurs mots en commun. Quant à la méthode de
-  \newcite{porter1980suffixstripping}, nous envisageons de la remplacer par une
-  méthode de lemmatisation. Enfin, d'un point de vue plus technique, il faudrait
+  candidats ayant un ou plusieurs mots en commun. Nous envisageons aussi de
+  remplacer la racinisation de \newcite{porter1980suffixstripping} par une
+  méthode de lemmatisation. D'un point de vue plus technique, il faudrait
   explorer différentes méthodes de groupement, dont le groupement spectral
   (\textit{spectral clustering}) qui, dans d'autres travaux portant sur
   l'extraction automatique de termes-clés~\cite{liu2009keycluster}, montre de
@@ -51,7 +49,7 @@
   orienter notre travail vers des critères plus efficaces pour la définition
   d'une stratégie \og{}optimale\fg{} de sélection du terme-clé le plus
   représentatif d'un sujet. Un apprentissage supervisé à partir de certains
-  critères est aussi envisageable, au même titre que l'usage de méthodes
+  critères est aussi envisagé, au même titre que l'usage de méthodes
   d'optimisation, telles que celle utilisée par
   \newcite{ding2011binaryintegerprogramming} dans leur méthode d'extraction
   automatique de termes-clés.

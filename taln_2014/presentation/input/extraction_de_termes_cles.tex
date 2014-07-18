@@ -29,7 +29,7 @@
                           scale=.4,
                           node distance=2cm,
                           every node/.style={text centered, transform shape}]
-        \node[io] (document) {document};
+        \node[io] (document) {Notice};
         \node[component] (preprocessing) [right=of document] {Prétraitement};
         \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
         \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
@@ -100,7 +100,7 @@
 %                          scale=.4,
 %                          node distance=2cm,
 %                          every node/.style={text centered, transform shape}]
-%        \node[io] (document) {document};
+%        \node[io] (document) {notice};
 %        \node[component] (preprocessing) [right=of document] {Prétraitement};
 %        \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
 %        \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
@@ -163,7 +163,7 @@
                           scale=.4,
                           node distance=2cm,
                           every node/.style={text centered, transform shape}]
-        \node[io] (document) {document};
+        \node[io] (document) {notice};
         \node[component] (preprocessing) [right=of document] {Prétraitement};
         \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
         \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
@@ -208,7 +208,7 @@
       \begin{itemize}
         \item{Extraction des candidats termes}
         \begin{itemize}
-          \item{Utilisation de TTC Terme Suite}
+          \item{Utilisation de TermSuite}
           \item{Formes très précises~:}
           \begin{itemize}
             \item{\texttt{NOM à NOM}}
@@ -231,11 +231,11 @@
         \midrule
         \multicolumn{1}{c|}{$\{1..3\}$-grammes} & \multicolumn{1}{c|}{\texttt{(NOM | ADJ)+}} & \multicolumn{1}{c}{Candidats termes} \\
         \hline
-        \textit{\og{}bassin\fg{}} & \textit{\og{}bassin moyen\fg{}} & \textit{\og{}bassin\fg{}} \\
-         \textit{\og{}moyen\fg{}} & \textit{\og{}Don\fg{}} & \textit{\og{}Don\fg{}} \\
-          \textit{\og{}Don\fg{}} & & \textit{\og{}bassin moyen\fg{}} \\
-        \textit{\og{}bassin moyen\fg{}} & & \textit{\og{}bassin moyen du Don\fg{}} \\
-        \textit{\og{}moyen du Don\fg{}} & & \\
+        \textit{\og{}bassin\fg{}} & \textit{\og{}bassin moyen\fg{}} & \textit{\og{}bassin moyen du Don\fg{}} \\
+         \textit{\og{}moyen\fg{}} & \textit{\og{}Don\fg{}} & $\hookrightarrow$ \textit{\og{}bassin\fg{}} \\
+          \textit{\og{}Don\fg{}} & & $\hookrightarrow$ \textit{\og{}moyen\fg{}} \\
+        \textit{\og{}bassin moyen\fg{}} & & $\hookrightarrow$ \textit{\og{}Don\fg{}} \\
+        \textit{\og{}moyen du Don\fg{}} & & $\hookrightarrow$ \textit{\og{}bassin moyen\fg{}} \\
         \bottomrule
       \end{tabular}
     }
@@ -271,7 +271,7 @@
                           scale=.4,
                           node distance=2cm,
                           every node/.style={text centered, transform shape}]
-        \node[io] (document) {document};
+        \node[io] (document) {notice};
         \node[component] (preprocessing) [right=of document] {Prétraitement};
         \node[component] (candidate_extraction) [below=of preprocessing] {Sélection des candidats};
         \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {
@@ -301,24 +301,10 @@
   \end{frame}
 
   \begin{frame}{Extraction de termes-clés}
-    \framesubtitle{Ordonnancement des candidats}
-
-    \begin{itemize}
-      \item{De nombreuses méthodes}
-      \item{Diverses approches}
-      \item{Parmi elles~:}
-      \begin{itemize}
-        \item{TF$\times$IDF}
-        \item{TopicRank~\cite{bougouin2013topicrank}}
-      \end{itemize}
-    \end{itemize}
-  \end{frame}
-
-  \begin{frame}{Extraction de termes-clés}
-    \framesubtitle{Ordonnancement des candidats --- TF$\times$IDF}
+    \framesubtitle{TF$\times$IDF}
 
     \begin{block}{Hypothèse}
-      Dans un document, un mot est d'autant plus important qu'il  y est fréquent
+      Dans une notice, un mot est d'autant plus important qu'il  y est fréquent
       (TF) et spécifique (IDF).
     \end{block}
 
@@ -328,7 +314,7 @@
   \end{frame}
 
   \begin{frame}{Extraction de termes-clés}
-    \framesubtitle{Ordonnancement des candidats --- TopicRank}
+    \framesubtitle{TopicRank}
 
     \begin{block}{Hypothèses}
       \begin{enumerate}

@@ -3,7 +3,7 @@
   Un terme-clé, couramment appelé mot-clé, est un mot ou une expression
   polylexicale permettant de caractériser une partie du contenu d'un document.
   Groupés ensemble, les termes-clés d'un document permettent de définir les
-  principaux sujets abordés dans un document (cf. exemple
+  principaux sujets (concepts) abordés dans un document (cf. exemple
   figure~\ref{fig:recurrent_example}). Ils sont alors utiles dans de
   nombreuses applications du Traitement Automatique des Langues (TAL), telles
   que  le résumé automatique~\cite{avanzo2005keyphrase}, la compression
@@ -86,7 +86,7 @@
   d'apprentissage, les méthodes supervisées sont en général plus performantes
   que les méthodes non supervisées. Cependant, la faible quantité de documents
   annotés en termes-clés disponibles couplée à la forte dépendance des modèles
-  de classification vis-à-vis du type de documents à partir desquels ils sont
+  de classification vis-à-vis du type des documents à partir desquels ils sont
   appris, poussent les chercheurs à s'intéresser de plus en plus aux méthodes
   non supervisées~\cite{hassan2010conundrums}.
 
@@ -94,16 +94,16 @@
   sont sans conteste celles fondée sur TextRank~\cite{mihalcea2004textrank}, qui
   est une méthode d'ordonnancement d'unités textuelles à partir d'un graphe. Un
   graphe est un moyen naturel de représenter les unités textuelles et les
-  relations qu'elles entretiennent. Ils sont utilisés dans de nombreuses
-  applications du TAL~\cite{kozareva2013textgraphs}. Dans le cadre de
-  l'extraction de termes-clés, le principe est de représenter le document sous
-  la forme d'un graphe dans lequel les n\oe{}uds correspondent aux mots et les
-  arêtes correspondent à leurs relations de cooccurrences dans une fenêtre de
-  mots. Un score d'importance est alors calculé pour chaque mot selon un
-  principe de recommandation~: un mot est d'autant plus important
-  s'il cooccurre avec un grand nombre de mots et si les mots avec lesquels il
-  cooccurre sont eux aussi importants. Enfin, les mots les plus importants
-  servent à générer des termes-clés pour le document.
+  relations qu'elles entretiennent et de nombreuses applications du TAL en font
+  l'usage~\cite{kozareva2013textgraphs}. Dans le cadre de l'extraction de
+  termes-clés, le principe est de représenter le document sous la forme d'un
+  graphe dans lequel les n\oe{}uds correspondent aux mots et les arêtes
+  correspondent à leurs relations de cooccurrences dans une fenêtre de mots. Un
+  score d'importance est alors calculé pour chaque mot selon le principe de
+  recommandation~: un mot est d'autant plus important s'il cooccurre avec un
+  grand nombre de mots et si les mots avec lesquels il cooccurre sont eux aussi
+  importants. Enfin, les mots les plus importants servent à générer des
+  termes-clés pour le document.
 
   Dans cet article, nous présentons TopicRank \footnote{Cette article est une
   version étendue de \cite{bougouin2013topicrank}.}, une méthode non supervisée
@@ -111,13 +111,13 @@
   termes-clés candidats selon leur appartenance à un sujet, représente le
   document sous la forme d'un graphe complet de sujets, ordonne les sujets par
   importance selon le principe de recommandation, puis sélectionne pour chacun
-  des meilleurs sujets le terme-clé candidat qui le représente le plus. La
-  notion de sujet est vague, tant elle peut exprimer un thème ou un domaine
+  des meilleurs sujets le terme-clé candidat qui le représente le mieux. La
+  notion de sujet est vague tant elle peut exprimer un thème, ou un domaine,
   général (p.~ex. \og{}traitement automatique des langues\fg{}) ou plus
   spécifique (p.~ex. \og{}extraction non supervisée de termes-clés\fg{}). Ici,
-  nous nous intéressons aux sujets les plus spécifiques, car ils caractérisent
-  avec plus de précision le contenu d'un document. Notre approche possède
-  plusieurs avantages, par rapport à TextRank, que nous détaillons ci-dessous~:
+  nous considérons comme sujet toute information véhiculée par au moins une
+  unité textuelle du document analysé. Notre approche possède plusieurs
+  avantages, en comparaison avec TextRank, que nous détaillons ci-dessous~:
   \begin{enumerate}
     \item{Le regroupement des termes-clés candidats en sujets supprime en amont
           les problèmes de redondance dans les termes-clés extraits.}
@@ -135,11 +135,12 @@
   détaillons l'impact de chacune des contributions que nous proposons.
 
   % Quel est notre plan ?
-  L'article est structuré comme suit. Après un état de l'art des méthodes
-  d'extraction automatique de termes-clés en section~\ref{sec:etat_de_l_art},
-  nous décrivons le fonctionnement de Topic\-Rank en
-  section~\ref{sec:extraction_de_termes_cles_avec_topicrank} et présentons son
-  évaluation approfondie en section~\ref{sec:evaluation}. Enfin, nous analysons
-  les erreurs de TopicRank dans la section~\ref{sec:analyse_d_erreurs}, puis
-  nous concluons et discutons des travaux futurs dans la
-  section~\ref{sec:conclusion_et_perspectives}.
+  L'article est structuré comme suit. Après un état de l'art des méthodes non
+  supervisées d'extraction automatique de termes-clés en
+  section~\ref{sec:etat_de_l_art}, nous décrivons le fonctionnement de
+  Topic\-Rank en section~\ref{sec:extraction_de_termes_cles_avec_topicrank} et
+  présentons son évaluation approfondie en section~\ref{sec:evaluation}. Enfin,
+  nous analysons les erreurs de TopicRank dans la
+  section~\ref{sec:analyse_d_erreurs}, puis nous concluons et discutons des
+  travaux futurs dans la section~\ref{sec:conclusion_et_perspectives}.
+

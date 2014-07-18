@@ -22,6 +22,7 @@
 \usepackage{subfigure}
 \usepackage{fancybox}
 \usepackage{multicol}
+\usepackage[inline]{enumitem}
 
 \pgfplotsset{compat=1.8}
 
@@ -34,7 +35,8 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\submitted[06/06/2014]{TAL~55-1}{2}
+%\submitted[06/06/2014]{TAL~55-1}{R}
+\journal{TAL. Volume 55 -- n° 1/2014}{0}{0}
 
 \title[TopicRank]{TopicRank~: ordonnancement de sujets pour l'extraction
                   automatique de termes-clés}
@@ -42,7 +44,8 @@
 \author{Adrien Bougouin\fup{*} \andauthor\ Florian Boudin\fup{*}} 
 
 \address{\fup{*} LINA - UMR CNRS 6241, Université de Nantes\\
-         UFR de Sciences et Techniques, 2 rue de la Houssinière, 44322 Nantes, France\\
+         UFR de Sciences et Techniques, 2 rue de la Houssinière, 44322 Nantes,
+         France\\
          \textit{prenom.nom}@univ-nantes.fr}
 
 \resume{
@@ -55,10 +58,11 @@
   automatique de termes-clés suscite alors l'intérêt des chercheurs. Dans cet
   article nous présentons \textit{Topic\-Rank}, une méthode non supervisée à
   base de graphe pour l'extraction de termes-clés. Cette méthode groupe les
-  termes-clés candidats par sujet, ordonne les sujets et extrait de chacun des
+  termes-clés candidats en sujets, ordonne les sujets et extrait de chacun des
   meilleurs sujets le terme-clé candidat qui le représente le mieux. Les
   expériences réalisées montrent une amélioration significative vis-à-vis de
-  l'état de l'art des méthodes à base de graphe pour l'extraction de termes-clés.
+  l'état de l'art des méthodes à base de graphe pour l'extraction non supervisée
+  de termes-clés.
 }\abstract{
   Keyphrases are single or multi-word expressions that represent the main
   content of a document. As keyphrases are useful in many applications such as
