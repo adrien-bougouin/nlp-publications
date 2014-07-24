@@ -96,11 +96,7 @@
     terminologique~\cite{castellvi2001automatictermdetection}, détection de
     collocation~\cite{pearce2002collocationdetection}, etc.
 
-    Les n-grammes sont toutes les séquences ordonnées de $n$ mots adjacents,
-    avec $n \in 1..m$, $m$ vallant généralement
-    3~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}
-    du fait que les termes-clés de référence sont majoritairement constitués
-    d'un à trois mots ($\simeq$ 90~\%). Leur extraction est très exhaustive, elle fournit un
+    Les n-grammes sont toutes les séquences ordonnées de $n$ mots adjacents. Leur extraction est très exhaustive, elle fournit un
     grand nombre de termes-clés candidats, maximisant la quantité de candidats
     positifs, la quantité de candidats porteurs d'indices utiles, mais aussi la
     quantité de candidats non pertinents. Pour pallier en partie ce problème, il
@@ -130,8 +126,7 @@
     est un nom accompagné de ses éventuels déterminants et modifieurs usuels.
     Ils sont linguistiquement définis et donc plus fiables que les n-grammes,
     comme le montrent les expériences menées par
-    \newcite{hulth2003keywordextraction} et \newcite{eichler2010keywe} avec les
-    \textit{chunks} nominaux. Cependant, \newcite{hulth2003keywordextraction}
+    \newcite{hulth2003keywordextraction} et \newcite{eichler2010keywe}. Cependant, \newcite{hulth2003keywordextraction}
     constate que l'usage de l'étiquetage grammatical des termes-clés candidats
     lors de l'extraction supervisée de termes-clés permet d'éliminer les
     n-grammes grammaticalement incorrects et d'obtenir de meilleurs performances
@@ -193,7 +188,7 @@
     ont l'avantage de présenter de manière simple et efficace les unités
     textuelles d'un document et les relations qu'elles entretiennent. Dans le
     cas de TextRank, les n\oe{}uds du graphe sont les mots du document et leurs
-    arrêtes représentent leurs relations d'adjacence dans le document,
+    arêtes représentent leurs relations d'adjacence dans le document,
     c'est-à-dire leurs relations de cooccurrences dans une fenêtre de 2 mots. Un
     score d'importance est calculé pour chaque mot à partir de l'algorithme
     PageRank~\cite{brin1998pagerank} qui est issu de la mesure de centralité des
@@ -265,7 +260,7 @@
     d'obtenir un rang global pour chaque mot. Dans notre travail, nous émettons
     aussi l'hypothèse que le sujet auquel appartient une unité textuelle doit
     jouer un rôle majeur dans le processus d'ordonnancement. Cependant, dans le
-    but de proposer une méthode générique qui ne requière aucun travail
+    but de proposer une méthode générique qui ne requièrt aucun travail
     préalable, nous tentons de nous abstraire de l'usage de documents
     supplémentaires et n'utilisons pas le modèle LDA.
 

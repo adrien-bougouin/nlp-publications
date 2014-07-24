@@ -8,7 +8,7 @@
   précédentes à base de graphe. Le groupement des termes-clés potentiels en
   sujets distincts permet de rassembler des indices utiles auparavant éparpillés
   et le choix d'un seul terme-clé pour représenter un sujet important permet
-  d'extraire un ensemble de termes-clés non redondants ( pour $k$ termes-clés
+  d'extraire un ensemble de termes-clés non redondants (pour $k$ termes-clés
   extraits, exactement $k$ sujets sont couverts). Enfin, le graphe est complet
   et ne requiert plus le paramétrage d'une fenêtre de cooccurrences,
   contrairement aux autres méthodes à base de graphe.
@@ -33,12 +33,11 @@
   car celui-ci est très naïf et ne tient compte ni de la synonymie, ni de
   l'ambiguïté des mots. De plus, l'usage du
   radical~\cite{porter1980suffixstripping} des mots n'est pas sans introduire du
-  bruit lié à certains faux positifs (p.~ex. \og{}\underline{empir}e\fg{} et
-  \og{}\underline{empir}ique\fg{}). L'ajout de connaissances concernant les
+  bruit lié à certains faux positifs. L'ajout de connaissances concernant les
   synonymes permettrait de créer des sujets plus complets et une étape de
   désambiguïsation éviterait un groupement systématique des termes-clés
   candidats ayant un ou plusieurs mots en commun. Nous envisageons aussi de
-  remplacer la racinisation de \newcite{porter1980suffixstripping} par une
+  remplacer la racinisation par une
   méthode de lemmatisation. D'un point de vue plus technique, il faudrait
   explorer différentes méthodes de groupement, dont le groupement spectral
   (\textit{spectral clustering}) qui, dans d'autres travaux portant sur

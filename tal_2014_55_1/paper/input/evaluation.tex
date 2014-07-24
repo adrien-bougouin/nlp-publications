@@ -15,7 +15,7 @@
       choisissons TextRank et SingleRank, les deux méthodes qui sont la
       fondation des méthodes à base de graphe, et la méthode de pondération
       TF-IDF. Cette dernière méthode consiste à extraire en tant que termes-clés
-      les candidats dont les mots sont importants, un mot étant considéré
+      les candidats dont les mots sont importants. Un mot est considéré
       important dans un document s'il y est fréquent (TF élevé) et s'il a une
       forte spécificité (IDF élevé) calculée à partir de toute une collection de
       documents\footnote{Dans ce travail, nous utilisons la collection dont est
@@ -370,7 +370,7 @@
     propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut 0,70, ce
     point de convergence correspondant à la valeur du seuil $\zeta$ pour
     laquelle les sujets créés sont les mêmes quelle que soit la stratégie. Avec
-    la stratégie simple, les résultats s'améliorent lorsque le seuil $\zeta$
+    la stratégie simple, les résultats s'améliorent lorsque $\zeta$
     augmente. Du fait qu'elle ne prend en compte que la similarité maximale
     entre deux candidats de deux groupes, cette stratégie à tendance à trop
     grouper et donc à créer des groupes contenant parfois plusieurs sujets.

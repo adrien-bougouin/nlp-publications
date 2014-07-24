@@ -11,7 +11,7 @@
   documents~\cite{han2007webdocumentclustering}, ou l'indexation automatique de
   documents~\cite{medelyan2008smalltrainingset}, qui nous intéresse plus
   particulièrement. Pourtant, de nombreux documents, tels que ceux disponibles
-  sur Internet, n'en sont pas accompagnées et la quantité de documents à traiter
+  sur Internet, n'en sont pas accompagnés et la quantité de documents à traiter
   est aujourd'hui trop importante pour que l'annotation de leurs termes-clés
   soit effectuée manuellement. C'est pourquoi de nombreux chercheurs se penchent
   sur la problématique de l'extraction automatique de termes-clés, en témoigne
@@ -75,11 +75,11 @@
   les critères d'un terme tel que défini en extraction terminologique. Parmi les
   différentes méthodes d'extraction automatique de termes-clés proposées dans la
   littérature, deux grandes catégories émergent~: les méthodes supervisées et
-  les méthodes non supervisées. Les premières tirent profit d'une collection de
-  documents annotés en termes-clés et apprennent, en amont, un modèle de
+  les méthodes non supervisées. Les méthodes supervisée tirent profit d'une collection de
+  documents annotés en termes-clés. Elles apprennent, en amont, un modèle de
   classification binaire permettant, par la suite, de déterminer quels sont
   parmi les termes-clés candidats d'un document ceux qui sont des termes-clés et
-  ceux qui n'en sont pas. Quant aux secondes, les méthodes non supervisées,
+  ceux qui n'en sont pas. Les méthodes non supervisées, quant à elles,
   celles-ci attribuent un score d'importance à chaque terme-clé candidat en
   fonction de divers indicateurs, tels que la fréquence, les relations de
   cooccurrences ou la position dans le document. Du fait de leur phase
@@ -91,7 +91,7 @@
   non supervisées~\cite{hassan2010conundrums}.
 
   Les méthodes d'extraction de termes-clés non supervisées les plus étudiées
-  sont sans conteste celles fondée sur TextRank~\cite{mihalcea2004textrank}, qui
+  sont sans conteste celles fondées sur TextRank~\cite{mihalcea2004textrank}, qui
   est une méthode d'ordonnancement d'unités textuelles à partir d'un graphe. Un
   graphe est un moyen naturel de représenter les unités textuelles et les
   relations qu'elles entretiennent et de nombreuses applications du TAL en font
