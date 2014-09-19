@@ -1,0 +1,87 @@
+\section{Experimental Settings}
+\label{sec:experimental_settings}
+  \subsection{Dataset}
+  \label{subsec:dataset}
+    \TODO{introduction}
+
+    \TODO{check}
+    SemEval~\cite{kim2010semeval} contains 244 English scientific papers
+    collected from the ACM Digital Libraries (conference and workshop papers).
+    The papers are divided into two sets: a training set containing 144
+    documents and a test set containing 100 documents. The associated keyphrases
+    are provided by both authors and readers.
+
+  \subsection{Preprocessing}
+  \label{subsec:preprocessing}
+    \TODO{check}
+    For each dataset, we apply the following preprocessing steps: sentence
+    segmentation, word tokenization and Part-of-Speech tagging. For sentence
+    segmentation, we use the PunktSentenceTokenizer provided by the Python
+    Natural Language ToolKit~\cite[NLTK]{bird2009nltk}. For word tokenization,
+    we use the NLTK TreebankWordTokenizer for English and the Bonsai word
+    tokenizer\footnote{The Bonsai word tokenizer is a tool provided with the
+    Bonsai PCFG-LA parser:
+    \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
+    French. As for Part-of-Speech tagging, we use the Stanford POS
+    tagger~\cite{toutanova2003stanfordpostagger} for English and
+    MElt~\cite{denis2009melt} for French.
+
+  \subsection{Baselines}
+  \label{subsec:baselines}
+
+  \subsection{Evaluation Measures}
+  \label{subsec:evaluation_measures}
+    \TODO{check}
+    The performances of TopicRank and the baselines are evaluated in terms of
+    precision, recall and f-score (f1-measure) when a maximum of 10 keyphrases
+    are extracted ($k = 10$). As said before, the candidate and reference
+    keyphrases are stemmed to reduce the number of mismatches.
+
+\section{Results}
+\label{sec:results}
+  \begin{table*}
+    \centering
+    \begin{tabular}{rrrrrrrrrr}
+      \toprule
+      & \multicolumn{9}{c}{Feature sets}\\
+      \cmidrule{2-10}
+      Method & \multicolumn{3}{c}{Undependent} & \multicolumn{3}{c}{Dependent} & \multicolumn{3}{c}{Combination}\\
+      \cmidrule(r){2-4}
+      \cmidrule{5-7}
+      \cmidrule(l){8-10}
+      & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
+      \midrule
+      TopicRankSP & 17.3 & 11.9 & 14.0
+                  & 14.3 & 10.3 & 11.9
+                  & 19.2 & 13.2 & 15.5\\
+      Baseline 1  & 20.3 & 14.1 & 16.5
+                  & 2.1 & 1.5 & 1.7
+                  & 15.0 & 10.6 & 12.3\\
+      Baseline 2  & 0.0 & 0.0 & 0.0
+                  &  &  & 
+                  &  &  & \\
+      \bottomrule
+    \end{tabular}
+    \caption{
+             \label{tab:baseline_comparison}}
+  \end{table*}
+
+  \begin{table}[h]
+    \centering
+    \begin{tabular}{rrrr}
+      \toprule
+      Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
+      \midrule
+      KEA         & 0.0 & 0.0 & 0.0\\
+      TF-IDF      & 13.2 & 8.9 & 10.5\\
+      TopicRank   & 14.9 & 10.3 & 12.1\\
+      TopicRankSP & 19.2 & 13.2 & 15.5\\
+      \bottomrule
+    \end{tabular}
+    \caption{
+             \label{tab:state_of_the_art_comparison}}
+  \end{table}
+
+\section{Error Analysis}
+\label{sec:error_analysis}
+
