@@ -14,26 +14,25 @@
     Nous observons des erreurs liées à la sélection des
     termes-clés candidats. Lors de cette étape, certaines unités textuelles sont
     sélectionnées comme candidats à cause d'erreurs commises lors de l'étiquetage
-    grammatical. Ces erreurs concernent principalement la détection des
-    prépositions composées et la détection des participes. Par exemple, dans la
+    grammatical. Ces erreurs concernent principalement la détection des participes. Par exemple, dans la
     phrase \og{}[\dots] elles ne cessent de se développer à travers le monde et
-    particulièrement dans les pays dits ``du sud'' [\dots]\fg{}\footnote{Exemple
+    particulièrement dans les pays dits ``du sud''~[\dots]\fg{}\footnote{Exemple
     issu de l'article d'anthropologie \textit{Le marché parallèle du médicament
     en milieu rural au Sénégal} (\url{http://id.erudit.org/iderudit/014935ar})
-    de la collection DEFT.}, le participe passé \og{}dits\fg{} est considéré
-    comme un adjectif par l'outils MElt, ce qui entraîne la sélection erronée du
-    termes-clés candidat \og{}pays dits\fg{}.
+    de la collection DEFT.}, \og{}dits\fg{} est un adjectif
+    par l'outils MElt, ce qui entraîne la sélection erronée du terme-clé
+    candidat \og{}pays dits\fg{}.
 
     Nous observons également de nombreuses erreurs lorsque les
     groupements sont déclenchés par un adjectif. Ce sont particulièrement les
-    expansions nominales s'effectuant à gauche qui en sont la cause (p.~ex.
+    expansions nominales s'effectuant à gauche qui en sont la cause (par exemple
     \og{}même langue\fg{} groupé avec \og{}même représentation\fg{}). Parmi les
     expansions nominales s'effectuant à droite, les adjectifs relationnels sont
     moins sujets aux erreurs que les autres adjectifs. Notons tout de même que
     lorsque ces adjectifs sont liés au contexte général du document, ils sont
     très fréquemment utilisés et beaucoup de candidats les contenant sont
-    groupés par erreur (p.~ex. \og{}forces économiques\fg{} peut être groupé 
-    avec \og{}délabrement économique\fg{} dans un document en économie). Outres
+    groupés par erreur (par exemple \og{}forces économiques\fg{} peut être groupé 
+    avec \og{}délabrement économique\fg{} dans un document d'économie). Outres
     ces groupements erronés, nous observons aussi de mauvais groupements lorsque
     les candidats ne contiennent que très peu de mots. Pour les candidats de
     deux mots, il ne suffit que d'un seul mot en commun pour les grouper. Ces
@@ -43,7 +42,7 @@
   \label{subsec:analyse_faux_négatifs}
     Dans cette section, nous analysons les termes-clés de référence qui n'ont
     pas été extraits par TopicRank. Plus particulièrement, nous nous intéressons
-    à ceux qui sont présents dans les 10 sujets jugés les plus importants de
+    à ceux qui sont présents dans les dix sujets jugés les plus importants de
     chaque document, mais qui n'ont pas été sélectionnés pour les représenter.
     Nous observons deux sources d'erreurs.
 
@@ -54,7 +53,7 @@
     elle échoue parfois.
 
     La seconde source d'erreurs est la spécialisation des termes-clés de
-    référence. Nous observons deux problèmes de sous- et sur-spécialisation de
+    référence. Nous observons deux problèmes de sous et sur-spécialisation de
     certains termes-clés extraits vis-à-vis des termes-clés de référence. Dans
     le cas de la sous-spécialisation, nous pouvons citer, par exemple,
     \og{}papillons\fg{} qui est extrait à la place de \og{}papillons
@@ -71,7 +70,7 @@
     (\url{http://fr.wikinews.org/w/index.php?oldid=479948}) de la collection
     WikiNews.}. La raison principale de ce problème est l'aspect libre de
     l'annotation manuelle des termes-clés. Toutefois, privilégier les
-    modifications adjectivales (p.~ex. \og{}mutants\fg{}) et, au contraire,
-    éviter les modifications nominales (p.~ex. \og{}député\fg{}) semble être une
+    modifications adjectivales (par exemple \og{}mutants\fg{}) et, au contraire,
+    éviter les modifications nominales (par exemple \og{}député\fg{}) sembles être une
     hypothèse à vérifier.
 

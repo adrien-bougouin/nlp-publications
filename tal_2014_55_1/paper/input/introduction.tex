@@ -5,7 +5,7 @@
   Groupés ensemble, les termes-clés d'un document permettent de définir les
   principaux sujets (concepts) abordés dans un document (cf. exemple
   figure~\ref{fig:recurrent_example}). Ils sont alors utiles dans de
-  nombreuses applications du Traitement Automatique des Langues (TAL), telles
+  nombreuses applications du traitement automatique des langues (TAL), telles
   que  le résumé automatique~\cite{avanzo2005keyphrase}, la compression
   multi-phrase~\cite{boudin2013multisentencecompression}, la classification de
   documents~\cite{han2007webdocumentclustering}, ou l'indexation automatique de
@@ -62,25 +62,25 @@
     \end{minipage}
     \caption{Exemple de termes-clés mis en évidence dans un article
              journalistique du site Web WikiNews
-             (\texttt{http://fr.wikinews.org/w/index.php?oldid=426443}).}
+             (\texttt{http://fr.wikinews.org/w/index.php?oldid=426443})}
              \label{fig:recurrent_example}
   \end{figure}
 
   L'extraction automatique de termes-clés consiste à sélectionner dans un
   document les unités textuelles les plus importantes parmi un ensemble de
   termes-clés candidats sélectionnés dans le document. Les termes-clés candidats
-  doivent être de nature similaire à celles des termes-clés assignés par des
+  doivent être de nature similaire à celle des termes-clés assignés par des
   humains. Ils sont sélectionnés à partir d'hypothèses simples (contiennent des
   noms, contiennent des adjectifs, etc.) et ne remplissent pas nécessairement
   les critères d'un terme tel que défini en extraction terminologique. Parmi les
   différentes méthodes d'extraction automatique de termes-clés proposées dans la
   littérature, deux grandes catégories émergent~: les méthodes supervisées et
-  les méthodes non supervisées. Les méthodes supervisée tirent profit d'une collection de
+  les méthodes non supervisées. Les méthodes supervisées tirent profit d'une collection de
   documents annotés en termes-clés. Elles apprennent, en amont, un modèle de
   classification binaire permettant, par la suite, de déterminer quels sont
   parmi les termes-clés candidats d'un document ceux qui sont des termes-clés et
   ceux qui n'en sont pas. Les méthodes non supervisées, quant à elles,
-  celles-ci attribuent un score d'importance à chaque terme-clé candidat en
+  attribuent un score d'importance à chaque terme-clé candidat en
   fonction de divers indicateurs, tels que la fréquence, les relations de
   cooccurrences ou la position dans le document. Du fait de leur phase
   d'apprentissage, les méthodes supervisées sont en général plus performantes
@@ -95,17 +95,17 @@
   est une méthode d'ordonnancement d'unités textuelles à partir d'un graphe. Un
   graphe est un moyen naturel de représenter les unités textuelles et les
   relations qu'elles entretiennent et de nombreuses applications du TAL en font
-  l'usage~\cite{kozareva2013textgraphs}. Dans le cadre de l'extraction de
+  usage~\cite{kozareva2013textgraphs}. Dans le cadre de l'extraction de
   termes-clés, le principe est de représenter le document sous la forme d'un
   graphe dans lequel les n\oe{}uds correspondent aux mots et les arêtes
-  correspondent à leurs relations de cooccurrences dans une fenêtre de mots. Un
+  à leurs relations de cooccurrences dans une fenêtre de mots. Un
   score d'importance est alors calculé pour chaque mot selon le principe de
   recommandation~: un mot est d'autant plus important s'il cooccurre avec un
   grand nombre de mots et si les mots avec lesquels il cooccurre sont eux aussi
   importants. Enfin, les mots les plus importants servent à générer des
   termes-clés pour le document.
 
-  Dans cet article, nous présentons TopicRank \footnote{Cette article est une
+  Dans cet article, nous présentons TopicRank\footnote{Cette article est une
   version étendue de \cite{bougouin2013topicrank}.}, une méthode non supervisée
   d'extraction de termes-clés fondée sur TextRank. TopicRank groupe les
   termes-clés candidats selon leur appartenance à un sujet, représente le
@@ -113,21 +113,21 @@
   importance selon le principe de recommandation, puis sélectionne pour chacun
   des meilleurs sujets le terme-clé candidat qui le représente le mieux. La
   notion de sujet est vague tant elle peut exprimer un thème, ou un domaine,
-  général (p.~ex. \og{}traitement automatique des langues\fg{}) ou plus
-  spécifique (p.~ex. \og{}extraction non supervisée de termes-clés\fg{}). Ici,
+  général (par exemple \og{}traitement automatique des langues\fg{}) ou plus
+  spécifique (par exemple \og{}extraction non supervisée de termes-clés\fg{}). Ici,
   nous considérons comme sujet toute information véhiculée par au moins une
   unité textuelle du document analysé. Notre approche possède plusieurs
   avantages, en comparaison avec TextRank, que nous détaillons ci-dessous~:
-  \begin{enumerate}
-    \item{Le regroupement des termes-clés candidats en sujets supprime en amont
-          les problèmes de redondance dans les termes-clés extraits.}
-    \item{L'usage de sujets à la place de mots permet de construire un graphe
+  \begin{itemize}
+    \item{regroupement des termes-clés candidats en sujets supprime en amont
+          les problèmes de redondance dans les termes-clés extraits~;}
+    \item{usage de sujets à la place de mots permet de construire un graphe
           plus compact, de renforcer le poids des arêtes dans le graphe et
-          d'améliorer la qualité de l'ordonnancement.}
-    \item{La construction d'un graphe complet permet de supprimer le paramètre
+          d'améliorer la qualité de l'ordonnancement~;}
+    \item{construction d'un graphe complet permet de supprimer le paramètre
           de la fenêtre de cooccurrences et de capturer de manière plus précise
           le niveau de relation entre les sujets.}
-  \end{enumerate}
+  \end{itemize}
 
   Pour évaluer notre méthode, nous utilisons quatre collections de test aux
   propriétés différentes (nature des documents, taille des documents, langue,

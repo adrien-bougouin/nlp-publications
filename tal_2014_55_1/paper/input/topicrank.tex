@@ -9,15 +9,15 @@
   % Quel en est le fonctionnement général ?
   Notre méthode repose sur les trois étapes suivantes qui seront détaillées dans
   la suite~:
-  \begin{enumerate*}
-    \item{ Identification des sujets~;}
-    \item{Ordonnancement des sujets~;}
-    \item{Sélection des termes-clés.}
-  \end{enumerate*}
+  \begin{itemize*}
+    \item[]{identification des sujets~;}
+    \item[]{ordonnancement des sujets~;}
+    \item[]{sélection des termes-clés.}
+  \end{itemize*}
 
   \subsection{Identification des sujets}
   \label{subsec:identification_des_sujets}
-    Dans ce travail, un sujet est une information générale ou (le plus souvent)
+    Dans ce travail, un sujet est une information générale ou le plus souvent
     spécifique véhiculée par au moins une unité textuelle présente dans le
     document analysé. Nous ne nous reposons donc pas sur une formulation
     approfondie d'un sujet, nous groupons seulement les termes-clés candidats
@@ -45,7 +45,7 @@
     candidats $c_1$ et $c_2$ sont groupés en fonction d'une similarité de
     Jaccard par laquelle ils sont considérés comme des sacs de mots tronqués
     selon la méthode de racinisation\footnote{Cette racinisation a pour effet de
-    grouper les candidats qui varient uniquement en terme de flexion ou de
+    grouper les candidats qui varient uniquement en termes de flexion ou de
     dérivation.} de \newcite{porter1980suffixstripping}~:
     \begin{align}
       \text{sim}(c_1, c_2) &= \frac{\|c_1 \cap c_2\|}{\|c_1 \cup c_2\|} \label{equa:jaccard}
@@ -53,7 +53,7 @@
     Cette mesure est naïve dans le sens où l'ordre des mots, leur ambiguïté et
     les liens de synonymie ne sont pas pris en compte. À cela s'ajoute aussi des
     erreurs introduites par l'usage de la méthode de
-    \newcite{porter1980suffixstripping} (p. ex. les mots \og{}empire\fg{} et
+    \newcite{porter1980suffixstripping} (par exemple les mots \og{}empire\fg{} et
     \og{}empirique\fg{} partagent le même radical, \og{}empir\fg{}).
 
     % Comment groupons nous les candidats d'un même sujet ?
@@ -79,7 +79,7 @@
     \end{itemize}
     L'une ou l'autre de ces stratégies est à privilégier en fonction du type des
     candidats extraits. Pour des candidats qui ont de forts recouvrements, tels
-    que les n-grammes, il semble par exemple plus pertinent d'utiliser la
+    que les n-grammes, il semble plus pertinent d'utiliser la
     stratégie complète qui est la moins agglomérative. Dans le cas de TopicRank,
     où les candidats sont de meilleure qualité que les n-grammes, la stratégie
     moyenne est une meilleure alternative.
@@ -159,22 +159,22 @@
             document analysé;}
       \item{le centroïde~: le terme-clé candidat sélectionné pour un sujet est
             celui qui est le plus similaire aux autres candidats du sujet (voir
-            l'équation~\ref{equa:jaccard} page~\pageref{equa:jaccard}).}
+            l'équation~\ref{equa:jaccard}).}
     \end{itemize}
     % Laquelle des trois stratégies semble être la mieux ?
     Parmi ces trois stratégies, celle qui semble la plus appropriée est la
     stratégie qui se fonde sur la première position des termes-clés candidats.
     Sélectionner les candidats les plus fréquents risque de ne pas être une
-    solution stable selon les types de document, en particulier selon leur
+    solution stable selon les types de documents, en particulier selon leur
     taille, tandis que sélectionner les centroïdes risque de ne pas fournir les
     termes-clés les plus précis.
 
   % Que donne l'extraction ? (exemple)
   La figure~\ref{fig:exemple_topicrank} donne un exemple d'extraction de
   termes-clés avec TopicRank à partir de l'exemple de la
-  figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}. Dans
+  figure~\ref{fig:recurrent_example}. Dans
   cet exemple, nous observons un groupement correct de toutes les variantes
-  d'\og alertes~\fg, mais aussi un groupement erroné de \og août 2003~\fg\ avec
+  de \og alertes~\fg, mais aussi un groupement erroné de \og août 2003~\fg\ avec
   \og août 2012~\fg. Dans ce dernier cas, TopicRank est tout de même capable
   d'extraire \og août 2012~\fg\ grâce à la sélection du candidat apparaissant en
   premier. Globalement, l'extraction des termes-clés est correcte et huit

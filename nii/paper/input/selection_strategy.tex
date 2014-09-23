@@ -1,14 +1,72 @@
-\section{Topic Labelling}
-\label{sec:topic_labelling}
-  \subsection{}
-  \label{}
+\section{Supervised Keyphrase Selection\\from Topical Clusters}
+\label{sec:supervised_keyphrase_selection_from_topical_clusters}
+  Leveraging TopicRank's topic clustering and ranking, we propose a supervised
+  method that extracts keyphrases from the best topics. To stay consistent to
+  \newcite{bougouin2013topicrank} that stated keyphrases must be topically
+  unredundant, we extract only one keyphrase per cluster. Instead of being the
+  first appearing candidate keyphrase, the keyphrase we extract is the one that
+  our trained model considers most appropriate.
+
+  \TODO{talk about SVM}
+
+  \subsection{Training samples}
+  \label{subsec:training_samples}
+    \TODO{Explain why it is important to ballance the training samples
+    (especially for SVM?)}
+
+    In order to ballance the training, we select positive and negative examples
+    from a set of relevant clusters instead of a set of all clusters. We
+    consider relevant every cluster where it is actually possible to
+    discriminate one reference keyphrase out of multiple candidate keyphrases.
+    As they do not fit this situation, we exclude clusters bearing either a
+    single candidate or only negative examples.
 
   \subsection{Features}
   \label{subsec:features}
+    Previous work using machine learning selected features that helps to
+    determine the keyphrase likelyhood of a candidate. In our work, we also rely
+    on such common features
+    (cf.~Section~\ref{subsubsec:topically_undependent_features}), but we also
+    rely on new features related to the appropriateness of a candidate as a
+    member of the topic
+    (cf.~Section~\ref{subsubsec:topically_dependent_features}). In contrast, we
+    call the first category of features ``topically undependent features'' and
+    the second category ``topically dependent features''.
+
     \subsubsection{Topically Undependent Features}
     \label{subsubsec:topically_undependent_features}
-      \paragraph{}
+      \TODO{introduction + length feature}
+
+      \paragraph{Structural features} Previous work showed that position-based
+      features are good indicator of the keyphrase likelyhood of a candidate.
+      Among others, \newcite{witten1999kea} used the position of the
+      first occurrence of the candidate, while most recently
+      \newcite{nguyen2007keadocumentstructure} used a vector of frequencies
+      within generic sections (abstract, introduction, related work, motivation
+      and conclusions). In this work, we use four structural features: the
+      position of the first occurrence of the candidate (normalized by the total
+      number of words in the document) and three binary features if the
+      candidate appears, respectively, in the first, second or last third of the
+      document.
+
+      \paragraph{Distributional features} We use three features that relies on
+      candidate distributions to determine their importance (TF-IDF), the
+      lexical cohesion of their words \TODO{cite lopez2010humb} (GDC) and their
+      relevancy as keyphrases. First introduced by
+      \newcite{frank1999keafrequency}, the relevancy of a candidate as a
+      keyphrase is simply the number of times the candidate is used as a
+      keyphrase in the training corpus (normalized by the number of documents in
+      the training corpus).
+      \TODO{show equations}
 
     \subsubsection{Topically Dependent Features}
     \label{subsubsec:topically_dependent_features}
+      \begin{itemize}
+        \item{Average (clustering) similarity}
+        \item{Number of cluster candidates sharing common word (normalized)}
+      \end{itemize}
+
+  \subsection{Keyphrase extraction}
+  \label{subsec:keyphrase_extraction}
+    \TODO{brief description of the algorithm}
 

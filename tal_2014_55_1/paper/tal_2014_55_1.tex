@@ -36,10 +36,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %\submitted[06/06/2014]{TAL~55-1}{R}
-\journal{TAL. Volume 55 -- n° 1/2014}{00}{00}
+\journal{TAL. Volume 55 -- n° 1/2014}{1}{25}
 
-\title[TopicRank]{TopicRank~: ordonnancement de sujets pour l'extraction
-                  automatique de termes-clés}
+\title[TopicRank]{TopicRank~: ordonnancement de sujets\\
+                  pour l'extraction automatique\\
+                  de termes-clés}
 
 \author{Adrien Bougouin\fup{*} \andauthor\ Florian Boudin\fup{*}} 
 
@@ -48,48 +49,33 @@
          France\\
          \textit{prenom.nom}@univ-nantes.fr}
 
-\resume{
-  Les termes-clés sont les mots ou les expressions polylexicales qui
-  représentent le contenu principal d'un document. Ils sont utiles pour diverses
-  applications telles que l'indexation automatique ou le résumé automatique,
-  mais ne sont cependant pas disponibles pour la plupart des documents. La
-  quantité de ces documents étant de plus en plus importante, l'extraction
-  manuelle des termes-clés n'est pas envisageable et la tâche d'extraction
-  automatique de termes-clés suscite alors l'intérêt des chercheurs. Dans cet
-  article nous présentons \textit{Topic\-Rank}, une méthode non supervisée à
-  base de graphe pour l'extraction de termes-clés. Cette méthode groupe les
-  termes-clés candidats en sujets, ordonne les sujets et extrait de chacun des
-  meilleurs sujets le terme-clé candidat qui le représente le mieux. Les
-  expériences réalisées montrent une amélioration significative vis-à-vis de
-  l'état de l'art des méthodes à base de graphe pour l'extraction non supervisée
-  de termes-clés.
-}\abstract{
-  Keyphrases are single or multi-word expressions that represent the main
-  content of a document. As keyphrases are useful in many applications such as
-  document indexing or text summarization, and also because the vast amount of
-  data available nowadays cannot be manually annotated, the task of
-  automatically extracting keyphrases has attracted considerable attention. In
-  this article we present TopicRank, an unsupervised graph-based method for
-  keyphrase extraction. This method clusters the keyphrase candidates into
-  topics, ranks these topics and extracts the most representative candidate for
-  each of the best topics. Our experiments show a significant improvement over
-  the state-of-the-art graph-based methods for keyphrase extraction.
-}
-
-\motscles{
-  extraction de termes-clés,
-  groupement en sujets,
-  ordonnancement de sujets,
-  méthode non supervisée,
-  méthode à base de graphe
-}
-\keywords{
-  keyphrase extraction,
-  topic clustering,
-  topic ranking,
-  unsupervised method,
-  graph-based method
-}
+\resume{Les termes-clés sont les mots ou les expressions polylexicales qui
+représentent le contenu principal d'un document. Ils sont utiles pour diverses
+applications telles que l'indexation automatique ou le résumé automatique, mais
+ne sont cependant pas disponibles pour la plupart des documents. La quantité de
+ces documents étant de plus en plus importante, l'extraction manuelle des
+termes-clés n'est pas envisageable et la tâche d'extraction automatique de
+termes-clés suscite alors l'intérêt des chercheurs. Dans cet article nous
+présentons \textit{Topic\-Rank}, une méthode non supervisée à base de graphe
+pour l'extraction de termes-clés. Cette méthode groupe les termes-clés candidats
+en sujets, ordonne les sujets et extrait de chacun des meilleurs sujets le
+terme-clé candidat qui le représente le mieux. Les expériences réalisées
+montrent une amélioration significative vis-à-vis de l'état de l'art des
+méthodes à base de graphe pour l'extraction non supervisée de termes-clés.}
+\abstract{Keyphrases are single or multi-word expressions that represent the
+main content of a document. As keyphrases are useful in many applications such
+as document indexing or text summarization, and also because the vast amount of
+data available nowadays cannot be manually annotated, the task of automatically
+extracting keyphrases has attracted considerable attention. In this article we
+present TopicRank, an unsupervised graph-based method for keyphrase extraction.
+This method clusters the keyphrase candidates into topics, ranks these topics
+and extracts the most representative candidate for each of the best topics. Our
+experiments show a significant improvement over the state-of-the-art graph-based
+methods for keyphrase extraction.}
+\motscles{extraction de termes-clés, groupement en sujets, ordonnancement de
+sujets, méthode non supervisée, méthode à base de graphe}
+\keywords{keyphrase extraction, topic clustering, topic ranking, unsupervised
+method, graph-based method}
 
 %\date{}
 \begin{document}
@@ -104,10 +90,10 @@
 \input{input/analyse_d_erreurs.tex}
 \input{input/conclusion.tex}
 
-%\acknowledgements{
-%  Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche
-%  portant la référence (ANR-12-CORD-0029).
-%}
+\acknowledgements{
+  Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche
+  portant la référence (ANR-12-CORD-0029).
+}
 
 \bibliography{../../biblio}
 

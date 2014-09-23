@@ -45,7 +45,7 @@
       langue, nature, taille des documents et types d'annotateurs (auteurs,
       lecteurs ou les deux).
 
-      \textbf{DUC}~\cite{over2001duc} est une collection en anglais issue des
+      DUC~\cite{over2001duc} est une collection en anglais issue des
       données de la campagne d'évaluation DUC-2001 qui concerne les méthodes de
       résumé automatique. Elle ne contient donc originellement pas d'annotations
       en termes-clés. Cependant, les 308 articles journalistiques de la partie
@@ -53,7 +53,7 @@
       utilisons ces 308 documents pour comparer TopicRank avec les méthodes de
       référence.
 
-      \textbf{SemEval}~\cite{kim2010semeval} est la collection en anglais
+      SemEval~\cite{kim2010semeval} est la collection en anglais
       fournie lors de la campagne d'évaluation SemEval-2010 pour la tâche
       d'extraction automatique de termes-clés. Cette collection contient 244
       articles scientifiques (conférences et ateliers) issus de la bibliothèque
@@ -66,7 +66,7 @@
       sont les termes-clés des auteurs combinés aux termes-clés donnés par des
       étudiants.
 
-      \textbf{WikiNews}\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
+      WikiNews\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
       est une collection de 100 articles journalistiques en français que nous
       avons extraits du site Web
       WikiNews\footnote{\url{http://fr.wikinews.org}} entre les mois de mai et
@@ -76,10 +76,10 @@
       étudiants. Nous utilisons les 100 documents de Wikinews pour comparer
       TopicRank avec les méthodes de référence.
 
-      \textbf{DEFT}~\cite{paroubek2012deft} est la collection fournie lors de la
+      DEFT~\cite{paroubek2012deft} est la collection fournie lors de la
       campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
       termes-clés. Celle-ci contient 234 documents en français issus de quatre
-      revues de Sciences Humaines et Sociales. Elle est divisée en deux
+      revues de sciences humaines et sociales. Elle est divisée en deux
       sous-ensembles~: un ensemble d'entraînement contenant 141 documents et un
       ensemble de test contenant 93 documents. Lors de nos expériences, nous
       utilisons les 93 documents de l'ensemble de test pour comparer TopicRank
@@ -97,34 +97,32 @@
       que le nombre de termes-clés n'apparaissant pas dans les documents.
       \begin{table}
         \centering
-        \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
-          \toprule
+        \begin{tabular}{@{~}l@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c@{~}}
+          \hline
           \textbf{Statistique} & \textbf{DUC} & \textbf{SemEval} & \textbf{WikiNews} & \textbf{DEFT}\\
-          \midrule
+          \hline
           Langue & Anglais & Anglais & Français & Français\\
+          \hline
           Nature & Journalistique & Scientifique & Journalistique & Scientifique\\
+          \hline
           \multirow{3}{*}[.35em]{Annotateurs} & \multirow{3}{*}[.35em]{Lecteurs} & Auteurs & \multirow{3}{*}[.35em]{Lecteurs} & \multirow{3}{*}[.35em]{Auteurs}\\
           \addlinespace[-.7\defaultaddspace]
           & & \& & &\\
           \addlinespace[-.7\defaultaddspace]
           & & Lecteurs & &\\
+          \hline
           Documents & 308 & 100 & 100 & 93\\
-          Mos/document & 900,7 & 5177,7 & 308,5 & 6839,4\\
+          Mots/document & 900,7 & 5~177,7 & 308,5 & 6~839,4\\
           Termes-clés/document & 8,1 & 14,7 & 9,6 & 5,2\\
           Mots/termes-clés & 2,1 & 2,1 & 1,7 & 1,6\\
+          \hline
           %Termes-clés manquants & 3,5\% & 22,1\% & 7,6\% & 21,1\% \\
           Termes-clés extractibles & 96,5~\% & 77,9~\% & 92,4~\% & 78,9~\% \\
-          \bottomrule
+          \hline
         \end{tabular}
         \caption{Statistiques sur les données de test utilisées. Les termes-clés
                  extractibles sont les termes-clés qui peuvent être extraits à
-                 partir du contenu des documents.  Conformément au processus
-                 d'évaluation standard pour les méthodes d'extraction
-                 automatique de termes-clés (cf.
-                 section~\ref{subsubsec:mesures_d_evaluation}), les variantes
-                 flexionnelles d’un terme-clé de référence sont jugées correctes
-                 (p. ex. \og{}température\underline{s}\fg{} peut être extrait à
-                 la place de \og{}température\fg{}).
+                 partir du contenu des documents.
                  \label{tab:donnees_de_test}}
       \end{table}
 
@@ -159,8 +157,8 @@
     Dans cette section, nous effectuons des expériences préliminaires afin de
     déterminer quelle est la configuration optimale de TopicRank. En utilisant
     les ensembles d'entraînement de SemEval et de DEFT, nous réalisons deux
-    expériences durant lesquels nous faisons varier, dans un premier temps, le
-    seuil de groupement ($\zeta$) et la stratégie de groupement (simple,
+    expériences durant lesquelles nous faisons varier, dans un premier temps, le
+    seuil de similarité ($\zeta$) et la stratégie de groupement (simple,
     complète et moyenne), puis dans un second temps, la stratégie de sélection
     du terme-clé candidat le plus représentatif de chacun des sujets les plus
     importants.
@@ -351,16 +349,16 @@
           \end{axis}
         \end{tikzpicture}
       }
-      \caption{Résultats de l'extraction de 10 termes-clés avec TopicRank, en
+      \caption{Résultats de l'extraction de dix termes-clés avec TopicRank, en
                fonction de la stratégie de regroupement et de la valeur du seuil
                de similarité $\zeta$, sur les ensembles d'entraînement de
-               SemEval et de DEFT.
+               SemEval et de DEFT
                \label{fig:variation_du_seuil_de_similarite}}
     \end{figure}
 
     % Variation du seuil de similarité et de la stratégie de groupement
     La figure~\ref{fig:variation_du_seuil_de_similarite} présente les résultats
-    de TopicRank lorsque nous faisons varier le seuil $\zeta$ avec un pas de
+    de TopicRank lorsque nous faisons varier le seuil~$\zeta$ avec un pas de
     0,05 pour toutes les stratégies de groupement\footnote{La stratégie de
     sélection du terme-clé le plus représentatif par sujet utilisée dans cette
     expérience est celle qui consiste à sélectionner le candidat qui apparaît en
@@ -392,10 +390,10 @@
     d'un terme-clé candidat par sujet. Les résultats confirment notre hypothèse
     qui est que le choix des candidats apparaissant en premier dans le document
     fournit de meilleurs termes-clés que le choix des candidats centroïdes ou
-    des candidats les plus fréquents. La stratégie \og{}centroïde\fg{} donne de
-    très faibles résultats tandis que la stratégie \og{}fréquence\fg{} n'est pas
-    aussi stable que la stratégie \og{}position\fg{}. Enfin, bien que la
-    stratégie \og{}position\fg{} donne les résultats les plus satisfaisants,
+    des candidats les plus fréquents. La stratégie centroïde donne de
+    très faibles résultats tandis que la stratégie fréquence n'est pas
+    aussi stable que la stratégie position. Enfin, bien que la
+    stratégie position donne les résultats les plus satisfaisants,
     nous remarquons qu'il existe encore une marge de progression importante. Les
     valeurs indiquées par la borne haute représentent les résultats qui
     pourraient être obtenus avec un oracle. Pour chacun des sujets les plus
@@ -456,9 +454,9 @@
           \legend{Centroïde, Fréquence, Position, Borne haute}
         \end{axis}
       \end{tikzpicture}
-      \caption{Résultats de l'extraction de 10 termes-clés, avec TopicRank, en
+      \caption{Résultats de l'extraction de dix termes-clés, avec TopicRank, en
                fonction des différentes sélections de termes-clés candidats par
-               sujet.
+               sujet
                \label{fig:variation_de_la_selection_des_candidats}}
     \end{figure}
 
@@ -466,7 +464,7 @@
   \label{subsec:parametrage_empirique_de_singlerank}
     Contrairement aux autres méthodes de référence, SingleRank possède un
     paramètre qui est définit arbitrairement~: la fenêtre de cooccurrences fixée
-    à 10 par \newcite{wan2008expandrank}. De même que pour TopicRank, nous
+    à dix par \newcite{wan2008expandrank}. De même que pour TopicRank, nous
     utilisons les ensembles d'entrainement de SemEval et de DEFT pour déterminer
     qu'elle est la valeur optimale de la fenêtre de cooccurrences pour
     SingleRank dans notre cadre expérimental\footnote{Nous ne répétons pas cette
@@ -474,7 +472,7 @@
     est un critère fort dans la méthode TextRank.}.
 
     La figure~\ref{fig:variation_de_la_fenetre} présente les résultats de
-    SingleRank lorsque nous faisons varier la fenêtre de cooccurrence de deux à
+    SingleRank lorsque nous faisons varier la fenêtre de cooccurrences de deux à
     20 mots avec un pas de un. Globalement, nous observons une stabilité des
     performances de SingleRank quelle que soit la valeur utilisée pour la fenêtre
     de cooccurrences, avec des résultats optimaux obtenus lorsque celle-ci vaut
@@ -544,8 +542,8 @@
           \legend{SemEval, DEFT}
         \end{axis}
       \end{tikzpicture}
-      \caption{Résultats de l'extraction de 10 termes-clés, avec SingleRank,
-               selon la fenêtre de cooccurrence utilisée.
+      \caption{Résultats de l'extraction de dix termes-clés, avec SingleRank,
+               selon la fenêtre de cooccurrences utilisée
                \label{fig:variation_de_la_fenetre}}
     \end{figure}
 
@@ -559,19 +557,19 @@
     SemEval et de DEFT, sont plus difficiles à traiter que les autres documents.
     Ceci est dû au fait que, bien que les longs documents soient plus riches, le
     nombre de termes-clés candidats qui y sont sélectionnés est tellement
-    important (p.~ex. environ 900 candidats sont sélectionnés par TopicRank pour
-    chaque documents de DEFT) que trouver les termes-clés parmi eux est plus
+    important (par exemple environ 900 candidats sont sélectionnés par TopicRank pour
+    chaque document de DEFT) que trouver les termes-clés parmi eux est plus
     difficile~\cite{hasan2014state_of_the_art}.
 
     % Que peut-on dire globalement ?
     Globalement, TopicRank donne de meilleurs résultats que les méthodes de
     référence utilisées.
     % Que peut-on dire de plus ? (analyse plus approfondie)
-    Comparée à la méthode TF-IDF, TopicRank donne de meilleurs résultats pour
+    Comparé à la méthode TF-IDF, TopicRank donne de meilleurs résultats pour
     SemEval, WikiNews et DEFT. Cette supériorité vis-à-vis de TF-IDF est
     importante à noter, car cette méthode obtient de bons résultats en tirant
     parti de statistiques extraites de documents supplémentaires, alors que
-    TopicRank n'utilise que le document à analyser. Comparée aux autres méthodes
+    TopicRank n'utilise que le document à analyser. Comparé aux autres méthodes
     à base de graphe, TopicRank donne des résultats significativement meilleurs
     pour SemEval, WikiNews et DEFT. Ceci confirme donc que le groupement des
     candidats permet de rassembler des informations pour améliorer la précision
@@ -585,21 +583,21 @@
     piste sur les raisons de ses moins bons résultats.
     \begin{table}
       \centering
-      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
+      \begin{tabular}{@{~}l@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
+        \hline
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|@{~}}{\textbf{DUC}} & \multicolumn{3}{c|@{~}}{\textbf{SemEval}} & \multicolumn{3}{c|@{~}}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
         & P & R & F & P & R & F & P & R & F & P & R & F\\
-        \midrule
+        \hline
         TF-IDF & \textbf{23,8} & \textbf{30,7} & \textbf{26,4} & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
         TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0 & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
         SingleRank & 22,6 & 28,8 & 25,0 & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
         TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
-        \midrule
+        \hline
         \textbf{Borne haute} & \textbf{31,6} & \textbf{35,3} & \textbf{33,0} & \textbf{33,8} & \textbf{23,3} & \textbf{27,3} & \textbf{41,7} & \textbf{44,1} & \textbf{42,2} & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}\\
-        \bottomrule
+        \hline
       \end{tabular}
-      \caption{Résultats de l'extraction de 10 termes-clés avec TF-IDF,
+      \caption{Résultats de l'extraction de dix termes-clés avec TF-IDF,
                TextRank, SingleRank et TopicRank. $\dagger$ indique une
                amélioration significative de TopicRank vis-à-vis de TextRank et
                SingleRank, à 0,001 pour le t-test de Student.
@@ -608,20 +606,20 @@
 
     \begin{table}
       \centering
-      \begin{tabular}{@{~}r@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
-        \cmidrule(r){2-4}\cmidrule(r){5-7}\cmidrule(r){8-10}\cmidrule{11-13}
+      \begin{tabular}{@{~}l@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
+        \hline
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|@{~}}{\textbf{DUC}} & \multicolumn{3}{c|@{~}}{\textbf{SemEval}} & \multicolumn{3}{c|@{~}}{\textbf{WikiNews}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
         & P & R & F & P & R & F & P & R & F & P & R & F\\
-        \midrule
+        \hline
         SingleRank & 22,6 & 28,8 & 25,0 & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
-        +complet & 22,2 & 28,1 & 24,5 & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$\\
-        +candidats & 10,4 & 13,5 & 11,6 & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & 10,3 & 19,2 & 13,2$^\dagger$\\
-        +sujets & 18,9 & 24,2 & 21,0 & 14,2 & 9,9 & 11,6$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 11,1 & 20,4 & 14,2$^\dagger$\\
+        + complet & 22,2 & 28,1 & 24,5 & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$\\
+        + candidats & 10,4 & 13,5 & 11,6 & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & 10,3 & 19,2 & 13,2$^\dagger$\\
+        + sujets & 18,9 & 24,2 & 21,0 & 14,2 & 9,9 & 11,6$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 11,1 & 20,4 & 14,2$^\dagger$\\
         TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
-        \bottomrule
+        \hline
       \end{tabular}
-      \caption{Résultats de l'extraction de 10 termes-clés avec chacune des
+      \caption{Résultats de l'extraction de dix termes-clés avec chacune des
                contributions de TopicRank appliquées séparément à SingleRank.
                $\dagger$ indique une amélioration significative vis-à-vis de
                SingleRank, à 0,001 pour le t-test de Student.
@@ -632,12 +630,12 @@
     nous réalisons une expérience supplémentaire dans laquelle nous appliquons
     individuellement à SingleRank toutes les modifications successives
     permettant d'obtenir la méthode TopicRank depuis la méthode SingleRank~:
-    l'usage d'un graphe complet (+complet), la projection des termes-clés
-    candidats dans le graphe (+candidats) et la projection des sujets dans le
-    graphe (+sujets). Les résultats de ces trois variantes de SingleRank sont
+    l'usage d'un graphe complet (+ complet), la projection des termes-clés
+    candidats dans le graphe (+ candidats) et la projection des sujets dans le
+    graphe (+ sujets). Les résultats de ces trois variantes de SingleRank sont
     présentés dans le
     tableau~\ref{tab:evaluation_individuelle_des_ameliorations}. Globalement,
-    l'usage des termes-clés candidats, ou des sujets, induit une amélioration
+    l'usage des termes-clés candidats, ou sujets, induit une amélioration
     significative des performances de SingleRank, avec une amélioration plus
     importante en utilisant les sujets. Cela confirme la pertinence d'ordonner
     directement les candidats, plutôt que les mots, ainsi que la pertinence de

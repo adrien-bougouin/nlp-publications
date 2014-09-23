@@ -29,7 +29,7 @@
                         node distance=2cm,
                         every node/.style={text centered, transform shape}]
       \node[io] (document) {document};
-      \node[component] (preprocessing) [right=of document] {Prétraitement Linguistique};
+      \node[component] (preprocessing) [right=of document] {Prétraitement linguistique};
       \node[component] (candidate_extraction) [below=of preprocessing]
       {Sélection des termes-clés candidats};
       \node[component] (candidate_classification_and_ranking) [below=of candidate_extraction] {Ordonnancement des candidats};
@@ -43,7 +43,7 @@
       \path[->, thick] (keyphrase_selection) edge (keyphrases);
     \end{tikzpicture}
     \caption{Les quatre principales étapes de l'extraction automatique de
-             termes-clés. \label{fig:etapes_de_l_extraction_de_termes_cles}}
+             termes-clés \label{fig:etapes_de_l_extraction_de_termes_cles}}
   \end{figure}
   Dans cet état de l'art, nous nous focalisons sur la catégorie de méthodes à
   laquelle appartient TopicRank, c'est-à-dire les méthodes non supervisées.
@@ -52,7 +52,7 @@
   documents un à un. Ceux-ci sont tout d'abord enrichis linguistiquement,
   c'est-à-dire segmentés en phrases, segmentés en mots  et étiquetés
   grammaticalement. Des termes-clés candidats y sont sélectionnés, puis
-  ordonnés afin de n'extraire que les termes-clés les plus pertinents (voir la
+  ordonnés afin de n'extraire que les plus pertinents (voir la
   figure~\ref{fig:etapes_de_l_extraction_de_termes_cles}). La sélection des
   termes-clés candidats et leur ordonnancement sont les deux étapes auxquelles
   nous nous intéressons dans cet état de l'art. Si l'ordonnancement des
@@ -67,22 +67,22 @@
     L'objectif de la sélection des termes-clés candidats est de déterminer
     quelles sont les unités textuelles qui sont potentiellement des termes-clés,
     c'est-à-dire les unités textuelles qui ont des particularités similaires à
-    celles des termes-clés tels qu'ils peuvent être donnés par des humains. Nous
+    celles des termes-clés définis par des humains. Nous
     savons par exemple que les termes-clés sont majoritairement constitués de
     noms et d'adjectifs. Cette étape de sélection des termes-clés présente deux
     avantages. Le premier est la réduction du temps de calcul nécessaire à
     l'extraction des  termes-clés. Le second est la suppression d'unités
-    textuelles non pertinentes, ces dernières pouvant affecter négativement les
+    textuelles non pertinentes pouvant affecter négativement les
     performances de l'ordonnancement. Pour distinguer les différents candidats
     sélectionnés, nous définissons deux catégories~: les candidats positifs, qui
     correspondent aux termes-clés assignés par des humains (termes-clés de
     référence), et les candidats non positifs. Parmi les candidats non positifs,
     nous distinguons deux sous-catégories~: les candidats porteurs d'indices de
     différentes natures pouvant influencer la promotion de candidats positifs
-    (p. ex. la présence des candidats \og{}alerte rouge\fg{}, \og{}alerte
+    (par exemple la présence des candidats \og{}alerte rouge\fg{}, \og{}alerte
     jaune\fg{} et \og{}alerte orange\fg{} influence l'extraction du candidat
     positif \og{}alerte\fg{} en tant que terme-clé, dans l'exemple de la
-    figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}) et
+    figure~\ref{fig:recurrent_example}) et
     les candidats non pertinents, que nous considérons comme des erreurs.
 
     % Quels sont les différentes méthodes utilisées pour extraire les
@@ -102,7 +102,7 @@
     quantité de candidats non pertinents. Pour pallier en partie ce problème, il
     est courant d'utiliser un anti-dictionnaire pour filtrer les candidats. Ce
     dernier regroupe les mots fonctionnels de la langue (conjonctions,
-    prépositions, etc.) et les mots courants (\og particulier~\fg, \og près~\fg,
+    prépositions,~etc.) et les mots courants (\og particulier~\fg, \og près~\fg,
     \og beaucoup~\fg, etc.). Un n-gramme contenant un mot présent dans
     l'anti-dictionnaire en début ou en fin n'est pas considéré comme un
     terme-clé candidat. Malgré son aspect bruité, ce type d'extraction est
@@ -111,16 +111,15 @@
     La phase d'apprentissage de celles-ci les rend moins sensibles aux éventuels
     candidats erronés (bruit) que les méthodes non supervisées.
 
-    \textit{Exemples de $\{1..3\}$-grammes sélectionnés dans la phrase \og{}Une
-    légère brise de côte pourra faiblement rafraichir l'atmosphère.\fg{} dans
-    l'exemple de la figure~\ref{fig:recurrent_example}
-    page~\pageref{fig:recurrent_example}~: \og{}légère\fg{}, \og{}brise\fg{},
+    Exemples de $\{1..3\}$-grammes sélectionnés dans la phrase \textit{\og{}Une
+    légère brise de côte pourra faiblement rafraichir l'atmosphère\fg{}} dans
+    l'exemple de la figure~\ref{fig:recurrent_example}~: \og{}légère\fg{}, \og{}brise\fg{},
     \og{}côte\fg{}, \og{}pourra\fg{}, \og{}faiblement\fg{},
     \og{}rafraichir\fg{}, \og{}atmosphère\fg{}, \og{}légère brise\fg{},
     \og{}côte pourra\fg{}, \og{}pourra faiblement\fg{}, \og{}faiblement
     rafraichir\fg{}, \og{}brise de côte\fg{}, \og{}côte pourra faiblement\fg{},
     \og{}pourra faiblement rafraichir\fg{} et \og{}rafraichir
-    l'atmosphère\fg{}.}
+    l'atmosphère\fg{}.
 
     Les \textit{chunks} nominaux sont des syntagmes non récursifs dont la tête
     est un nom accompagné de ses éventuels déterminants et modifieurs usuels.
@@ -136,11 +135,10 @@
     nominaux est donc une solution plus fiable que de sélectionner les
     n-grammes.
 
-    \textit{Exemples de \textit{chunks} nominaux sélectionnés dans la phrase
-    \og{}Une légère brise de côte pourra faiblement rafraichir
-    l'atmosphère.\fg{} dans l'exemple de la figure~\ref{fig:recurrent_example}
-    page~\pageref{fig:recurrent_example}~: \og{}une légère brise\fg{},
-    \og{}côte\fg{} et \og{}l'atmosphère\fg{}.}
+    Exemples de \textit{chunks} nominaux sélectionnés dans la phrase
+    \textit{\og{}Une légère brise de côte pourra faiblement rafraichir
+    l'atmosphère\fg{}} dans l'exemple de la figure~\ref{fig:recurrent_example}~: \og{}une légère brise\fg{},
+    \og{}côte\fg{} et \og{}l'atmosphère\fg{}.
 
     La sélection d'unités textuelles à partir de patrons grammaticaux prédéfinis
     permet de contrôler avec précision la nature et la grammaticalité des
@@ -148,27 +146,27 @@
     sélection est plus fondée linguistiquement que celle des n-grammes. Dans ses
     travaux, \newcite{hulth2003keywordextraction} sélectionne les candidats à
     partir des patrons des termes-clés de référence les plus fréquents dans sa
-    collection d'apprentissage (plus de 10 occurrences), tandis que d'autres
+    collection d'apprentissage (plus de dix occurrences), tandis que d'autres
     chercheurs, tels que \newcite{wan2008expandrank} et
     \newcite{hassan2010conundrums}, se concentrent uniquement sur les plus
     longues séquences de noms (noms propres inclus) et d'adjectifs. Pour des
     méthodes non supervisées telles que la nôtre, la sélection des séquences de
     noms et d'adjectifs est intéressante, car elle ne nécessite ni données
-    supplémentaires, ni adaptation particulière pour une langue donnée, tel que
+    supplémentaires, ni adaptation particulière pour une langue donnée,
     c'est le cas pour les \textit{chunks} nominaux.
 
-    \textit{Exemples de plus longues séquences de noms et d'adjectifs
-    sélectionnées dans la phrase \og{}Une légère brise de côte pourra faiblement
-    rafraichir l'atmosphère.\fg{} dans l'exemple de la
-    figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}~:
-    \og{}légère brise\fg{}, \og{}côte\fg{} et \og{}atmosphère\fg{}.}
+    Exemples de plus longues séquences de noms et d'adjectifs
+    sélectionnées dans la phrase \textit{\og{}Une légère brise de côte pourra faiblement
+    rafraichir l'atmosphère\fg{}} dans l'exemple de la
+    figure~\ref{fig:recurrent_example}~:
+    \og{}légère brise\fg{}, \og{}côte\fg{} et \og{}atmosphère\fg{}.
 
   \subsection{Ordonnancement des termes-clés candidats}
   \label{subsec:ordonnancement_des_termes_cles_candidats}
     % Quel est l'objectif ?
     L'étape d'ordonnancement intervient après la sélection des termes-clés
     candidats. Son rôle est de déterminer quels sont parmi les candidats d'un
-    document ceux les plus importants (les termes-clés).
+    document ceux les plus importants.
     % Quels sont les différentes méthodes non supervisées existantes pour
     % l'extraction de termes-clés ?
     % Quels sont les inconvénients des méthodes actuelles ?
@@ -180,7 +178,7 @@
     d'un graphe de cooccurrences~\cite{mihalcea2004textrank}. Puisque la méthode
     que nous présentons dans cet article est une méthode dite \og à base de
     graphe~\fg, nous décrivons ici uniquement les travaux effectués pour cette
-    catégorie de méthodes.
+    catégorie de méthode.
 
     \newcite{mihalcea2004textrank} proposent TextRank, une méthode
     d'ordonnancement d'unités textuelles à partir d'un graphe. Utilisés dans de
@@ -195,7 +193,7 @@
     vecteurs propres. Le principe utilisé est celui de la recommandation (du
     vote)~: un mot est d'autant plus important s'il cooccurre avec un grand
     nombre de mots et si les mots avec lesquels il cooccurre sont eux aussi
-    important. Les mots les plus importants sont considérés comme des mots-clés,
+    importants. Les mots les plus importants sont considérés comme des mots-clés,
     ces mots-clés sont marqués dans le document et les plus longues séquences de
     mots-clés adjacents sont extraites en tant que termes-clés. Bien qu'elle
     utilise une représentation intéressante et efficace d'un document, cette
@@ -205,21 +203,21 @@
 
     \newcite{wan2008expandrank} modifient TextRank et proposent SingleRank. Dans
     un premier temps, leur méthode augmente la précision de l'ordonnancement en
-    utilisant une fenêtre de cooccurrence élargie (empiriquement) à 10 et en
+    utilisant une fenêtre de cooccurrences élargie (empiriquement) à dix et en
     pondérant les arêtes par le nombre de cooccurrences entre les deux mots
     qu'elles relient. Dans un second temps, les termes-clés ne sont plus
     générés, mais ordonnés à partir de la somme des scores d'importance des mots
     qui les composent. Cette nouvelle méthode donne, dans la majorité des cas,
     des résultats meilleurs que ceux de TextRank. Cependant, la précision de
-    l'ordonnancement dépend de la valeur de la fenêtre de cooccurrence qui est
+    l'ordonnancement dépend de la valeur de la fenêtre de cooccurrences qui est
     fixée, en témoignent les observations contradictoires de
     \newcite{mihalcea2004textrank} et de \newcite{wan2008expandrank} lorsqu'ils
     appliquent leurs méthodes avec différentes fenêtres sur des documents de
     natures différentes. De plus, faire la somme des scores d'importance des
     mots pour ordonner les candidats est une approche qui a pour conséquence de
     favoriser les plus longues séquences tout en faisant monter dans le
-    classement des candidats redondants (p. ex. dans l'exemple de la
-    figure~\ref{fig:recurrent_example} page~\pageref{fig:recurrent_example}, le
+    classement des candidats redondants (par exemple dans l'exemple de la
+    figure~\ref{fig:recurrent_example}, le
     candidat positif \og{}alerte~\fg{} est classé quatrième par SingleRank,
     alors que les candidats non positifs \og{}alerte orange\fg{}, \og{}alerte
     jaune\fg{} et \og{}alerte rouge\fg{} qui le contiennent occupent de
@@ -254,13 +252,13 @@
 
     L'usage de sujets dans le processus d'ordonnancement de TextRank est à
     l'origine proposé par \newcite{liu2010topicalpagerank}. Reposant sur un
-    modèle LDA~\cite[Latent Dirichlet Allocation]{blei2003lda}, leur méthode
+    modèle LDA (\textit{Latent Dirichlet Allocation})~\cite{blei2003lda}, leur méthode
     effectue des ordonnancements biaisés par les sujets du document, puis
     fusionne les rangs des mots dans ces différents ordonnancements afin
     d'obtenir un rang global pour chaque mot. Dans notre travail, nous émettons
     aussi l'hypothèse que le sujet auquel appartient une unité textuelle doit
     jouer un rôle majeur dans le processus d'ordonnancement. Cependant, dans le
-    but de proposer une méthode générique qui ne requièrt aucun travail
+    but de proposer une méthode générique qui ne requiert aucun travail
     préalable, nous tentons de nous abstraire de l'usage de documents
     supplémentaires et n'utilisons pas le modèle LDA.
 

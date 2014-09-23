@@ -2,40 +2,44 @@
 \label{sec:experimental_settings}
   \subsection{Dataset}
   \label{subsec:dataset}
-    \TODO{introduction}
-
-    \TODO{check}
-    SemEval~\cite{kim2010semeval} contains 244 English scientific papers
-    collected from the ACM Digital Libraries (conference and workshop papers).
-    The papers are divided into two sets: a training set containing 144
-    documents and a test set containing 100 documents. The associated keyphrases
-    are provided by both authors and readers.
-
-  \subsection{Preprocessing}
-  \label{subsec:preprocessing}
-    \TODO{check}
-    For each dataset, we apply the following preprocessing steps: sentence
-    segmentation, word tokenization and Part-of-Speech tagging. For sentence
-    segmentation, we use the PunktSentenceTokenizer provided by the Python
-    Natural Language ToolKit~\cite[NLTK]{bird2009nltk}. For word tokenization,
-    we use the NLTK TreebankWordTokenizer for English and the Bonsai word
-    tokenizer\footnote{The Bonsai word tokenizer is a tool provided with the
-    Bonsai PCFG-LA parser:
-    \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
-    French. As for Part-of-Speech tagging, we use the Stanford POS
-    tagger~\cite{toutanova2003stanfordpostagger} for English and
-    MElt~\cite{denis2009melt} for French.
+    In this work, we use the SemEval corpus. Built for the task 5 of
+    SemEval-2010~\cite{kim2010semeval}, this corpus contains 244 English
+    scientific papers collected from the ACM Digital Libraries. The papers are
+    divided into two sets: a training set containing 144 documents and a test
+    set containing 100 documents. Three reference keyphrase sets are provided
+    for each paper: author-assigned keyphrases, reader-assigned keyphrases and
+    both author- and reader-assigned keyphrases. As done by
+    \newcite{bougouin2013topicrank}, we use the last keyphrase set for both
+    training and evaluation.
 
   \subsection{Baselines}
   \label{subsec:baselines}
 
+  \subsection{Preprocessing}
+  \label{subsec:preprocessing}
+%    For each document, we apply the following preprocessing steps: sentence
+%    segmentation, word tokenization and Part-of-Speech tagging. For sentence
+%    segmentation, we use the PunktSentenceTokenizer provided by the Python
+%    Natural Language ToolKit~\cite[NLTK]{bird2009nltk}. For word tokenization,
+%    we use the NLTK TreebankWordTokenizer for English and the Bonsai word
+%    tokenizer\footnote{The Bonsai word tokenizer is a tool provided with the
+%    Bonsai PCFG-LA parser:
+%    \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
+%    French. As for Part-of-Speech tagging, we use the Stanford POS
+%    tagger~\cite{toutanova2003stanfordpostagger} for English and
+%    MElt~\cite{denis2009melt} for French.
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    For our method, as well as all baselines, we use Topic\-Rank's outputs.
+    Therefore, our results can directly be compared to results
+    in~\cite{bougouin2013topicrank}.
+
   \subsection{Evaluation Measures}
   \label{subsec:evaluation_measures}
-    \TODO{check}
-    The performances of TopicRank and the baselines are evaluated in terms of
+    The performances of our method and the baselines are evaluated in terms of
     precision, recall and f-score (f1-measure) when a maximum of 10 keyphrases
-    are extracted ($k = 10$). As said before, the candidate and reference
-    keyphrases are stemmed to reduce the number of mismatches.
+    are extracted ($k = 10$ \TODO{remove if not used}). In order to reduce
+    mismatches due to flexions such as plural, candidate and reference
+    keyphrases are stemmed during the evaluation.
 
 \section{Results}
 \label{sec:results}
@@ -51,13 +55,13 @@
       \cmidrule(l){8-10}
       & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
       \midrule
-      TopicRankSP & 17.3 & 11.9 & 14.0
+      TopicRankSP & 17.2 & 12.0 & 14.0
                   & 14.3 & 10.3 & 11.9
-                  & 19.2 & 13.2 & 15.5\\
-      Baseline 1  & 20.3 & 14.1 & 16.5
-                  & 2.1 & 1.5 & 1.7
-                  & 15.0 & 10.6 & 12.3\\
-      Baseline 2  & 0.0 & 0.0 & 0.0
+                  & 19.4 & 13.4 & 15.7\\
+      Baseline 1  & 13.3 & 9.3 & 10.8
+                  & 0.2 & 0.1 & 0.2
+                  & 11.9 & 8.4 & 9.7\\
+      Baseline 2  & 14.0 & 9.8 & 11.4
                   &  &  & 
                   &  &  & \\
       \bottomrule
@@ -72,16 +76,16 @@
       \toprule
       Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
       \midrule
-      KEA         & 0.0 & 0.0 & 0.0\\
+      KEA         & 15.9 & 11.3 & 13.1\\
       TF-IDF      & 13.2 & 8.9 & 10.5\\
       TopicRank   & 14.9 & 10.3 & 12.1\\
-      TopicRankSP & 19.2 & 13.2 & 15.5\\
+      TopicRankSP & 19.4 & 13.4 & 15.7\\
       \bottomrule
     \end{tabular}
     \caption{
              \label{tab:state_of_the_art_comparison}}
   \end{table}
 
-\section{Error Analysis}
-\label{sec:error_analysis}
+%\section{Error Analysis}
+%\label{sec:error_analysis}
 
