@@ -14,6 +14,7 @@
 
   \subsection{Baselines}
   \label{subsec:baselines}
+    \TODO{Baselines derived from our method, then common baselines}
 
   \subsection{Preprocessing}
   \label{subsec:preprocessing}
@@ -37,12 +38,16 @@
   \label{subsec:evaluation_measures}
     The performances of our method and the baselines are evaluated in terms of
     precision, recall and f-score (f1-measure) when a maximum of 10 keyphrases
-    are extracted ($k = 10$ \TODO{remove if not used}). In order to reduce
-    mismatches due to flexions such as plural, candidate and reference
-    keyphrases are stemmed during the evaluation.
+    are extracted. In order to reduce mismatches due to flexions such as plural,
+    candidate and reference keyphrases are stemmed during the evaluation.
 
 \section{Results}
 \label{sec:results}
+  \TODO{Explain better results of SVM than SVM+Clusters (more than one keyphrase
+  per cluster)}
+  \TODO{Explain poor results of SVM+Clusters on dependent features}
+  \TODO{Most of all the different sampling is responsible for it}
+
   \begin{table*}
     \centering
     \begin{tabular}{rrrrrrrrrr}
@@ -55,20 +60,25 @@
       \cmidrule(l){8-10}
       & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
       \midrule
-      TopicRankSP & 17.2 & 12.0 & 14.0
-                  & 14.3 & 10.3 & 11.9
-                  & 19.4 & 13.4 & 15.7\\
-      Baseline 1  & 13.3 & 9.3 & 10.8
-                  & 0.2 & 0.1 & 0.2
-                  & 11.9 & 8.4 & 9.7\\
-      Baseline 2  & 14.0 & 9.8 & 11.4
-                  &  &  & 
-                  &  &  & \\
+      %TopicRank+SVM & 17.2 & 12.0 & 14.0
+      %              & 14.3 & 10.3 & 11.9
+      %              & 19.4 & 13.4 & 15.7\\
+      TopicRank+SVM & 21.5 & 15.1 & 17.6
+                    & 9.0 & 6.5 & 7.5
+                    & 24.2 & 16.7 & 19.6\\
+      SVM+Clusters  & 13.3 & 9.3 & 10.8
+                    & 0.2 & 0.1 & 0.2
+                    & 11.9 & 8.4 & 9.7\\
+      SVM           & 15.0 & 10.5 & 12.2
+                    &  &  & 
+                    &  &  & \\
       \bottomrule
     \end{tabular}
     \caption{
              \label{tab:baseline_comparison}}
   \end{table*}
+
+  \TODO{t-test}
 
   \begin{table}[h]
     \centering
@@ -76,10 +86,13 @@
       \toprule
       Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
       \midrule
-      KEA         & 15.9 & 11.3 & 13.1\\
-      TF-IDF      & 13.2 & 8.9 & 10.5\\
-      TopicRank   & 14.9 & 10.3 & 12.1\\
-      TopicRankSP & 19.4 & 13.4 & 15.7\\
+      KEA           & 18.8 & 13.3 & 15.4\\
+      TF-IDF        & 13.2 & 8.9 & 10.5\\
+      TopicRank     & 14.9 & 10.3 & 12.1\\
+      %TopicRank+SVM & 19.4 & 13.4 & 15.7\\
+      TopicRank+SVM & 24.2 & 16.7 & 19.6\\
+      \midrule
+      Upper bound   & 37.6 & 25.8 & 30.3\\
       \bottomrule
     \end{tabular}
     \caption{

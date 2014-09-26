@@ -7,16 +7,14 @@
   first appearing candidate keyphrase, the keyphrase we extract is the one that
   our trained model considers most appropriate.
 
-  \TODO{talk about SVM}
+  In this work, we decide to use an SVM classifier. SVMs \TODO{\dots} Also, the
+  SVM classifier is the best performing classifier in our approach.
 
   \subsection{Training samples}
   \label{subsec:training_samples}
-    \TODO{Explain why it is important to ballance the training samples
-    (especially for SVM?)}
-
-    In order to ballance the training, we select positive and negative examples
-    from a set of relevant clusters instead of a set of all clusters. We
-    consider relevant every cluster where it is actually possible to
+    In order to better fit our objective, we select positive and negative
+    examples from a set of relevant clusters instead of a set of all clusters.
+    We consider relevant every cluster from which it is actually possible to
     discriminate one reference keyphrase out of multiple candidate keyphrases.
     As they do not fit this situation, we exclude clusters bearing either a
     single candidate or only negative examples.
@@ -35,7 +33,10 @@
 
     \subsubsection{Topically Undependent Features}
     \label{subsubsec:topically_undependent_features}
-      \TODO{introduction + length feature}
+      Topically undependent features help to capture the likelyhood of a
+      candidate as a keyphrase. As done in previous work, we use the length of a
+      candidate (number of words) as a feature, along with other structural and
+      distributional features.
 
       \paragraph{Structural features} Previous work showed that position-based
       features are good indicator of the keyphrase likelyhood of a candidate.
@@ -47,26 +48,66 @@
       position of the first occurrence of the candidate (normalized by the total
       number of words in the document) and three binary features if the
       candidate appears, respectively, in the first, second or last third of the
-      document.
+      document. These last three features are an approximation of the work
+      conducted by \newcite{nguyen2007keadocumentstructure} in a most generic
+      way, as it can be applied to other document than just scientific papers.
 
       \paragraph{Distributional features} We use three features that relies on
-      candidate distributions to determine their importance (TF-IDF), the
-      lexical cohesion of their words \TODO{cite lopez2010humb} (GDC) and their
-      relevancy as keyphrases. First introduced by
-      \newcite{frank1999keafrequency}, the relevancy of a candidate as a
-      keyphrase is simply the number of times the candidate is used as a
-      keyphrase in the training corpus (normalized by the number of documents in
-      the training corpus).
-      \TODO{show equations}
+      candidate distributions to determine their importance (TF-IDF, cf.
+      equation~\ref{equa:tfidf}), the lexical cohesion of their
+      words\footnote{We set a default value to single word candidates (0.5 for
+      nouns and 0.0 for adjectives).} (GDC, cf.
+      equation~\ref{equa:gdc})~\cite{lopez2010humb} and their relevancy as
+      keyphrases. First introduced by \newcite{frank1999keafrequency}, the
+      relevancy of a candidate as a keyphrase is simply the number of times the
+      candidate is used as a keyphrase in the training corpus (normalized by the
+      number of documents in the training corpus).
+
+      \begin{footnotesize}
+        \begin{align}
+          \text{TF-IDF}(c, d) &= \frac{\text{count}(c, d)}{|d|}
+          \times \frac{-\text{log}_2|\{d \in D : c \in d\}|}{|D|} \label{equa:tfidf}\\
+          \text{GDC}(c, d) &= \frac{|c| \times \text{count}(c, d) \times \text{log}_{10}\text{count}(c, d)}{\sum_{w \in c}\text{count}(w, d)}\label{equa:gdc}
+        \end{align}
+      \end{footnotesize}
+
+      where $D$ is the set of every document of a global corpus and
+      $\text{count}(c, d)$ is the number of occurrences of the candidate $c$ in
+      the document $d$.
 
     \subsubsection{Topically Dependent Features}
     \label{subsubsec:topically_dependent_features}
-      \begin{itemize}
-        \item{Average (clustering) similarity}
-        \item{Number of cluster candidates sharing common word (normalized)}
-      \end{itemize}
+      Topically dependent features, unlike topically undependent features, help
+      to capture the appropriateness of a candidate as the representant of its
+      topic. The clustering strategy of \newcite{bougouin2013topicrank} is to
+      add candidates to a cluster if their average stem overlap similarity with
+      the candidates of the cluster is above a given threshold. We decide to
+      use this average similarity as a feature. However,
+      \newcite{bougouin2013topicrank} explained that their clustering similarity
+      is naive for the purpose of topic clustering. Therefore, we also use the
+      average number of candidates (in the cluster) that do not share any word
+      with the candidate. As a consequence, our topically dependent features
+      represent both the similarity and the disimilarity of the candidate
+      regarding the other candidates of the cluster.
 
-  \subsection{Keyphrase extraction}
+  \subsection{Keyphrase Extraction}
   \label{subsec:keyphrase_extraction}
-    \TODO{brief description of the algorithm}
+    To extract keyphrsaes, we propose to apply the trained SVM classifier on
+    TopicRank's topics to choose one keyphrase per each. Then, we rank them
+    with a mixture of their cluster's importance score given by TopicRank and
+    their likelyhood given by the classifier.
+
+    \subsubsection{Keyphrase Selection}
+    \label{subsubsec:keyphrase_selection}
+      For each cluster built by TopicRank, we apply the SVM classifier to
+      determine its best keyphrase. The best keyphrase of a cluster is the one
+      that have the highest confidence overall candidates of the cluster. SVM's
+      confidence score is given by the distance between the candidate and the
+      separating hyperplane: the higher is the distance beetween the candidate
+      and the hyperplane, the more confidence the candidate gets.
+
+    \subsubsection{Keyphrase Ranking}
+    \label{subsubsec:keyphrase_reranking}
+      \TODO{alpha * cluster-score + (1 - alpha) * probability(candidate)}
+      \TODO{probability with SVM is obtained using Platt scaling}
 
