@@ -13,19 +13,27 @@
   Generally speaking, keyphrase extraction methods can be categorized into two
   main categories: supervised and unsupervised approaches. Supervised approaches
   treat keyphrase extraction as a binary classification task, where each phrase
-  is labeled either as ``keyphrase'' or ``non-keyphrase'',
-  e.g.~\cite{witten1999kea}. Conversely, unsupervised approaches usually rank
-  phrases by importance and select the top-ranked ones as keyphrases,
-  e.g.~\cite{mihalcea2004textrank}.
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  is labeled either as ``keyphrase'' or ``non-keyphrase''. Many unsupervised
+  methods have been proposed, applying classifiers such as Naive Bayes
+  classifiers~\cite{witten1999kea}, multilayer
+  perceptrons~\cite{sarkar2010neuralnetwork} and SVMs~\cite{zhang2006svm} with
+  various features such as the first position~\cite{witten1999kea}, document
+  sections~\cite{nguyen2007keadocumentstructure} and known keyphrase
+  distributions~\cite{frank1999keafrequency}. Conversely, unsupervised
+  approaches usually rank phrases by importance and select the top-ranked ones
+  as keyphrases. Unsupervised approaches proposed so far have involved a number
+  of techniques including clustering~\cite{liu2009keycluster}, graph-based
+  ranking~\cite{mihalcea2004textrank} and even
+  both~\cite{bougouin2013topicrank}.
+
   In the current state of the keyphrase extraction task, supervised methods
   outperform unsupervised methods. Taking advantage of statistical features
-  (frequency, document frequency, etc.) and/or linguistic features extracted
-  from training documents paired with reference keyphrases, supervised methods
-  are able identify among candidate keyphrases the ones most likely to be
-  keyphrases. In opposition, unsupervised methods only rely on the analysed
-  document (sometimes using extra information) to determine the importance of
-  each candidate keyphrase in regard of the document.
+  and/or linguistic features extracted from training documents paired with
+  reference keyphrases, supervised methods are able to identify among candidate
+  keyphrases the ones most likely to be keyphrases. In opposition, unsupervised
+  methods only rely on the analysed document (sometimes using extra information)
+  to determine the importance of each candidate keyphrase in regard of the
+  document.
 
   In order to extract the most likely keyphrases without neglecting their actual
   importance within the analysed document, we present a work that combines both
@@ -36,11 +44,11 @@
   machine learning to extract the most likely keyphrase of each important topic.
   \TODO{Results show that\dots}
 
-  The rest of this paper is organized as follows. Section~\ref{sec:background}
-  gives an overview of previous work on keyphrase extraction,
-  Section~\ref{sec:supervised_keyphrase_selection_from_topical_clusters}
-  describes our new approach, Section~\ref{sec:experimental_settings} details
-  our experimentations and Section~\ref{sec:results} presents the evaluation
-  results. Finally, we conclude and discuss about future work in
-  Section~\ref{sec:conclusion_and_future_work}.
+%  The rest of this paper is organized as follows. Section~\ref{sec:topicrank}
+%  presents TopicRank,
+%  Section~\ref{sec:supervised_keyphrase_selection_from_topical_clusters}
+%  describes our new approach, Section~\ref{sec:experimental_settings} details
+%  our experimentations and Section~\ref{sec:results} presents the evaluation
+%  results. Finally, we conclude and discuss about future work in
+%  Section~\ref{sec:conclusion_and_future_work}.
 

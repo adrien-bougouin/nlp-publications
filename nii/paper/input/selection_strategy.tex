@@ -108,6 +108,20 @@
 
     \subsubsection{Keyphrase Ranking}
     \label{subsubsec:keyphrase_reranking}
-      \TODO{alpha * cluster-score + (1 - alpha) * probability(candidate)}
-      \TODO{probability with SVM is obtained using Platt scaling}
+      To rank the keyphrases, our method benefits from both topic ranking and
+      machine learning. The ranking score is obtained as follow:
+
+      \begin{footnotesize}
+        \begin{align}
+          \text{score}(c) &= \alpha \times \text{cluster\_score}(c) + (1 - \alpha) \times Pr(c)
+        \end{align}
+      \end{footnotesize}
+
+      where $\text{cluster\_score}(c)$ is the importance score given by
+      TopicRank for the cluster to which candidate $c$ belongs and $Pr(c)$ is
+      the probability that candidate $c$ is a keyphrase according to the SVM
+      classifier. As SVMs do not provide probability scores, we use the Platt
+      scaling~\cite{platt1999probabilisticsvm} to obtain $Pr(c)$. Finally, we
+      empiracally set $\alpha$ to 0.75, meaning that more importance is given to
+      TopicRank's score.
 

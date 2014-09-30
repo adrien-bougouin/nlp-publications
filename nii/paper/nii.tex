@@ -8,10 +8,15 @@
 \setlength\titlebox{6.5cm}    % Expanding the titlebox
 
 \usepackage[utf8]{inputenc}
-\usepackage{color}
+\usepackage[usenames, dvipsnames]{xcolor}
 \usepackage{url}
 \usepackage{booktabs}
 \usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+
+\pgfplotsset{compat=1.8}
+\usetikzlibrary{patterns, shapes, positioning, backgrounds}
 
 \newtheorem{property}{Property}
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
@@ -47,7 +52,8 @@
   \end{abstract}
 
   \input{input/introduction.tex}
-  \input{input/background.tex}
+  %\input{input/background.tex}
+  \input{input/topicrank.tex}
   \input{input/selection_strategy.tex}
   \input{input/evaluation.tex}
   \input{input/conclusion.tex}
