@@ -2,7 +2,7 @@
 \begin{frame}[t]{Related work}
     \framesubtitle{Unsupervised methods}
 
-    Mostly ranking techniques using:
+    Mostly ranking techniques that use:
     \begin{itemize}
       \item<2->{language models}
       \item<3->{clusters}
@@ -385,7 +385,7 @@
               \node[main node, fill=BurntOrange!50] (university) {university};
               \node[main node] (duke) [above left=of university.north] {duke};
               \node[main node] (library) [above=of university.north east] {library};
-              \node[main node] (press) [below left=of university.south] {press};
+              \node[main node, fill=BurntOrange!50] (press) [below left=of university.south] {press};
               \node[main node] (cornell) [below right=of university.south] {cornell};
 
               \path[JungleGreen!50] (university) edge node[anchor=west] {\textcolor{black}{$w$}} (library);
@@ -400,14 +400,14 @@
               \path[JungleGreen!50] (skills) edge node[anchor=west] {\textcolor{black}{$w$}} (further);
 
               % connected component
-              \node[main node, fill=BurntOrange!50] (scholarly) [right=of library.north east] {scholarly};
+              \node[main node] (scholarly) [right=of library.north east] {scholarly};
               \node[main node] (communication) [below=of scholarly.west] {communication};
               \node[main node, fill=BurntOrange!50] (publishing) [below right=of scholarly.south] {publishing};
               \node[main node] (scene) [above right=of publishing.west] {scene};
-              \node[main node] (initiative) [below=of publishing.west] {initiative};
+              \node[main node, fill=BurntOrange!50] (initiative) [below=of publishing.west] {initiative};
               \node[main node, fill=BurntOrange!50] (journal) [below right=of scene.north east] {journal};
               \node[main node, fill=BurntOrange!50] (electronic) [below=of journal.east] {electronic};
-              \node[main node] (joint) [below=of electronic.north west] {joint};
+              \node[main node, fill=BurntOrange!50] (joint) [below=of electronic.north west] {joint};
 
               \path[JungleGreen!50] (communication) edge node[anchor=west] {\textcolor{black}{$w$}} (scholarly);
               \path[JungleGreen!50] (publishing) edge node[anchor=west] {\textcolor{black}{$w$}} (scholarly);
@@ -416,30 +416,33 @@
               \path[JungleGreen!50] (publishing) edge node[anchor=west] {\textcolor{black}{$w$}} (initiative);
               \path[JungleGreen!50] (journal) edge node[anchor=west] {\textcolor{black}{$w$}} (electronic);
               \path[JungleGreen!50] (joint) edge node[anchor=west] {\textcolor{black}{$w$}} (electronic);
+              \path[JungleGreen!50] (joint) edge node[anchor=west] {\textcolor{black}{$w$}} (initiative);
 
               % connected component
               \node[main node] (new) [below=of skills.south] {new};
-              \node[main node, fill=BurntOrange!50] (role) [below=of new.south east] {role};
+              \node[main node] (role) [below=of new.south east] {role};
 
               \path[JungleGreen!50] (new) edge node[anchor=west] {\textcolor{black}{$w$}} (role);
 
               % connected component
-              \node[main node] (digital) [right=of new.south east] {digital};
+              \node[main node, fill=BurntOrange!50] (digital) [right=of new.south east] {digital};
               \node[main node, fill=BurntOrange!50] (libraries) [below =of cornell.south] {libraries};
               \node[main node] (research) [right =of libraries.south east] {research};
 
+              \path[JungleGreen!50] (digital) edge node[anchor=west]
+              {\textcolor{black}{$w$}} (press);
               \path[JungleGreen!50] (digital) edge node[anchor=west] {\textcolor{black}{$w$}} (libraries);
               \path[JungleGreen!50] (libraries) edge node[anchor=west] {\textcolor{black}{$w$}} (research);
 
               % connected component
-              \node[main node, fill=BurntOrange!50] (relevant) [below right=of research.north] {relevant};
+              \node[main node] (relevant) [below right=of research.north] {relevant};
               \node[main node] (experience) [below left=of relevant.south west] {experience};
 
               \path[JungleGreen!50] (relevant) edge node[anchor=west] {\textcolor{black}{$w$}} (experience);
 
               % connected component
               \node[main node] (model) [below=of digital.south east] {model};
-              \node[main node, fill=BurntOrange!50] (economic) [below right=of model.south east] {economic};
+              \node[main node] (economic) [below right=of model.south east] {economic};
 
               \path[JungleGreen!50] (model) edge node[anchor=west] {\textcolor{black}{$w$}} (economic);
 
@@ -710,9 +713,55 @@
 
   \begin{frame}{Related work}
     \framesubtitle{Supervised methods}
+
+    \uncover<+->{Train various classifiers:}
+    \begin{itemize}
+      \item<+->{Naive Bayes\hfill\cite{witten1999kea}}
+      \item<+->{MaxEnt\hfill\cite{sujian2003maximumentropy}}
+      \item<+->{Decision trees\hfill\cite{ercan2007lexicalchains}}
+      \item<+->{Multilayer perceptrons\hfill\cite{sarkar2010neuralnetwork}}
+      \item<+->{Support Vector Machines (SVMs)\hfill\cite{zhang2006svm}}
+    \end{itemize}~\\
+
+    \uncover<+->{with many different features:}
+    \vspace{-.75em}
+    \begin{multicols}{3}
+      \begin{itemize}
+        \item<+->{Length}
+        \item<+->{First position}
+        \item<+->{Part-of-Speeches}
+        \item<+->{Frequency ($TF$)}
+        \item<+->{Inverse document frequency ($IDF$)}
+        \item<+->{$TF \times IDF$}
+        \item<+->{Generic sections}
+      \end{itemize}
+    \end{multicols}
+
+    \uncover<+->{$\Rightarrow$ Currently the best performing approach}
   \end{frame}
 
   \begin{frame}{Related work}
-    \framesubtitle{Conclusion}
+    \framesubtitle{Two categories / Two visions}
+
+    \uncover<+->{
+      \begin{block}{Unsupervised vision}
+        How important is a given phrase regarding the others?\\
+        $\Rightarrow$ extract the most important phrases
+      \end{block}
+    }
+
+    \uncover<+->{
+      \begin{block}{Supervised vision}
+        How does a given phrase fit the keyphrase caracteristics in a global
+        context?\\
+        $\Rightarrow$ extract the phrases most likely to be a keyphrases
+      \end{block}
+    }
+
+    \uncover<+->{
+      \begin{alertblock}{Then\dots}
+        Why not combining both supervised and unsupervised approaches?
+      \end{alertblock}
+    }
   \end{frame}
 

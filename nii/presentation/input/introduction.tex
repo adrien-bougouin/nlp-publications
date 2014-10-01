@@ -40,7 +40,7 @@
       \centering
       \begin{tikzpicture}[thin,
                           align=center,
-                          scale=.375,
+                          scale=.3,
                           node distance=1.5cm,
                           every node/.style={text centered, transform shape}]
         \node[io] (document) {document};
@@ -51,8 +51,10 @@
           \node[component] (preprocessing2) [right=of preprocessing] {Preprocessing};
           \node[io] (training_documents) [above=of preprocessing2] {training documents};
           \node[component] (candidate_extraction2) [below=of preprocessing2] {Candidate Selection};
-          \node[io] (model) [below=of candidate_extraction2] {classification model};
-          \node[component] (candidate_classification) [below=of model] {Candidate Classification};
+          \node[component] (training) [below=of candidate_extraction2] {Training};
+          \node[io] (model) [below=of training] {classification model};
+          \node[component] (candidate_classification) [below=of model, yshift=-1cm] {Candidate Classification};
+          \node[above=of training_documents, yshift=-1.25cm] (training_label) {\huge training};
         }
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         \node[component] (candidate_ranking) [left=of candidate_classification] {Candidate Ranking};
@@ -71,8 +73,9 @@
         \uncover<3->{
           \path[->, thick] (training_documents) edge (preprocessing2);
           \path[->, thick] (preprocessing2) edge (candidate_extraction2);
-          \path[->, thick] (candidate_extraction2) edge (model);
-          \path[->, thick] (candidate_extraction) edge node [rotate=-30, anchor=south east] {\huge supervised} (candidate_classification);
+          \path[->, thick] (candidate_extraction2) edge (training);
+          \path[->, thick] (training) edge (model);
+          \path[->, thick] (candidate_extraction) edge node [yshift=.5em, rotate=-43, anchor=south east] {\huge supervised} (candidate_classification);
           \path[->, thick] (model) edge (candidate_classification);
           \path[->, thick] (candidate_classification) edge (keyphrase_selection);
         }
@@ -90,27 +93,14 @@
   \end{frame}
 
   \begin{frame}{Introduction}
-    \framesubtitle{Two catégories / Two visions}
+    \framesubtitle{Our work}
 
-    \uncover<+->{
-      \begin{block}{Unsupervised vision}
-        How important is a given phrase regarding the others?\\
-        $\Rightarrow$ extract the most important phrases
-      \end{block}
-    }
-
-    \uncover<+->{
-      \begin{block}{Supervised vision}
-        How does a given phrase fit the keyphrase caracteristics in a global
-        context?\\
-        $\Rightarrow$ extract the phrases most likely to be a keyphrases
-      \end{block}
-    }
-
-    \uncover<+->{
-      \begin{alertblock}{Then\dots}
-        Why not combining both supervised and unsupervised approaches?
-      \end{alertblock}
-    }
+    Combining unsupervised and supervised methods:
+    \begin{enumerate}
+      \item{Clustering candidate keyphrases into topics}
+      \item{Ranking topics \textbf{in an unsupervised way}}
+      \item{Selecting keyphrases from the bes topics \textbf{in a supervised
+            way}}
+    \end{enumerate}
   \end{frame}
 

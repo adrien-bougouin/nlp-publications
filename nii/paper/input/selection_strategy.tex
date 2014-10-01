@@ -16,52 +16,49 @@
     examples from a set of relevant clusters instead of a set of all clusters.
     We consider relevant every cluster from which it is actually possible to
     discriminate one reference keyphrase out of multiple candidate keyphrases.
-    As they do not fit this situation, we exclude clusters bearing either a
+    As they do not fit this situation, we exclude clusters containing either a
     single candidate or only negative examples.
 
   \subsection{Features}
   \label{subsec:features}
     Previous work using machine learning selected features that helps to
     determine the keyphrase likelyhood of a candidate. In our work, we also rely
-    on such common features
-    (cf.~Section~\ref{subsubsec:topically_undependent_features}), but we also
-    rely on new features related to the appropriateness of a candidate as a
-    member of the topic
-    (cf.~Section~\ref{subsubsec:topically_dependent_features}). In contrast, we
+    on such common features, but we also rely on new features related to the
+    appropriateness of a candidate as a member of the topic. In contrast, we
     call the first category of features ``topically undependent features'' and
     the second category ``topically dependent features''.
 
     \subsubsection{Topically Undependent Features}
     \label{subsubsec:topically_undependent_features}
-      Topically undependent features help to capture the likelyhood of a
-      candidate as a keyphrase. As done in previous work, we use the length of a
-      candidate (number of words) as a feature, along with other structural and
-      distributional features.
+      Following previous
+      work~\cite{nguyen2007keadocumentstructure,lopez2010humb}, we use the
+      length of a candidate (number of words) as a feature, along with other
+      structural and distributional features.
 
       \paragraph{Structural features} Previous work showed that position-based
       features are good indicator of the keyphrase likelyhood of a candidate.
-      Among others, \newcite{witten1999kea} used the position of the
-      first occurrence of the candidate, while most recently
+      Among others, \newcite{witten1999kea} used the position of the first
+      occurrence of the candidate, while most recently
       \newcite{nguyen2007keadocumentstructure} used a vector of frequencies
-      within generic sections (abstract, introduction, related work, motivation
-      and conclusions). In this work, we use four structural features: the
-      position of the first occurrence of the candidate (normalized by the total
-      number of words in the document) and three binary features if the
+      within sections of scientific papers (abstract, introduction, conclusions,
+      etc.). In this work, we use four structural features: the position of the
+      first occurrence of the candidate and three binary features if the
       candidate appears, respectively, in the first, second or last third of the
-      document. These last three features are an approximation of the work
-      conducted by \newcite{nguyen2007keadocumentstructure} in a most generic
-      way, as it can be applied to other document than just scientific papers.
+      document. These last features approximate the feature of
+      \newcite{nguyen2007keadocumentstructure}. However, they are not restricted
+      to scientific papers.
 
       \paragraph{Distributional features} We use three features that relies on
-      candidate distributions to determine their importance (TF-IDF, cf.
+      candidate distributions to: determine their importance (TF-IDF, cf.
       equation~\ref{equa:tfidf}), the lexical cohesion of their
       words\footnote{We set a default value to single word candidates (0.5 for
       nouns and 0.0 for adjectives).} (GDC, cf.
       equation~\ref{equa:gdc})~\cite{lopez2010humb} and their relevancy as
       keyphrases. First introduced by \newcite{frank1999keafrequency}, the
       relevancy of a candidate as a keyphrase is simply the number of times the
-      candidate is used as a keyphrase in the training corpus (normalized by the
-      number of documents in the training corpus).
+      candidate is used as a keyphrase in the training corpus.
+
+      \vspace{-1em}
 
       \begin{footnotesize}
         \begin{align}
@@ -70,6 +67,8 @@
           \text{GDC}(c, d) &= \frac{|c| \times \text{count}(c, d) \times \text{log}_{10}\text{count}(c, d)}{\sum_{w \in c}\text{count}(w, d)}\label{equa:gdc}
         \end{align}
       \end{footnotesize}
+
+      \vspace{-1em}
 
       where $D$ is the set of every document of a global corpus and
       $\text{count}(c, d)$ is the number of occurrences of the candidate $c$ in
@@ -93,9 +92,7 @@
   \subsection{Keyphrase Extraction}
   \label{subsec:keyphrase_extraction}
     To extract keyphrsaes, we propose to apply the trained SVM classifier on
-    TopicRank's topics to choose one keyphrase per each. Then, we rank them
-    with a mixture of their cluster's importance score given by TopicRank and
-    their likelyhood given by the classifier.
+    TopicRank's most important topics to choose one keyphrase per each.
 
     \subsubsection{Keyphrase Selection}
     \label{subsubsec:keyphrase_selection}
@@ -106,22 +103,18 @@
       separating hyperplane: the higher is the distance beetween the candidate
       and the hyperplane, the more confidence the candidate gets.
 
-    \subsubsection{Keyphrase Ranking}
+    \subsubsection{Keyphrase Re-Ranking}
     \label{subsubsec:keyphrase_reranking}
       To rank the keyphrases, our method benefits from both topic ranking and
       machine learning. The ranking score is obtained as follow:
-
-      \begin{footnotesize}
-        \begin{align}
-          \text{score}(c) &= \alpha \times \text{cluster\_score}(c) + (1 - \alpha) \times Pr(c)
-        \end{align}
-      \end{footnotesize}
-
-      where $\text{cluster\_score}(c)$ is the importance score given by
-      TopicRank for the cluster to which candidate $c$ belongs and $Pr(c)$ is
-      the probability that candidate $c$ is a keyphrase according to the SVM
-      classifier. As SVMs do not provide probability scores, we use the Platt
-      scaling~\cite{platt1999probabilisticsvm} to obtain $Pr(c)$. Finally, we
+      \begin{align}
+        S(c) &= \alpha \times \text{topicrank}(c) + (1 - \alpha) \times p(c)
+      \end{align}
+      where $\text{topicrank}(c)$ is the importance score given by TopicRank for
+      the cluster to which candidate $c$ belongs and $p(c)$ is the probability
+      that candidate $c$ is a keyphrase according to the SVM classifier. As SVMs
+      do not provide probability scores, we use the Platt
+      scaling~\cite{platt1999probabilisticsvm} to obtain $p(c)$. Finally, we
       empiracally set $\alpha$ to 0.75, meaning that more importance is given to
       TopicRank's score.
 

@@ -3,14 +3,10 @@
   \subsection{Dataset}
   \label{subsec:dataset}
     In this work, we use the SemEval corpus. Built for the task 5 of
-    SemEval-2010~\cite{kim2010semeval}, this corpus contains 244 English
-    scientific papers collected from the ACM Digital Libraries. The papers are
-    divided into two sets: a training set containing 144 documents and a test
-    set containing 100 documents. Three reference keyphrase sets are provided
-    for each paper: author-assigned keyphrases, reader-assigned keyphrases and
-    both author- and reader-assigned keyphrases. As done by
-    \newcite{bougouin2013topicrank}, we use the last keyphrase set for both
-    training and evaluation.
+    SemEval-2010~\cite{kim2010semeval}, Sem\-Eval contains 244 English
+    scientific papers collected from the ACM Digital Libraries. We use SemEval's
+    training set (144 documents) and test set (100 documents) with their sets of
+    combined author- and reader-assigned keyphrases.
 
   \subsection{Baselines}
   \label{subsec:baselines}
@@ -36,10 +32,11 @@
 
   \subsection{Evaluation Measures}
   \label{subsec:evaluation_measures}
-    The performances of our method and the baselines are evaluated in terms of
-    precision, recall and f-score (f1-measure) when a maximum of 10 keyphrases
-    are extracted. In order to reduce mismatches due to flexions such as plural,
-    candidate and reference keyphrases are stemmed during the evaluation.
+    We evaluate the performances of our method and the baselines in terms of
+    precision (P), recall (R) and f-score (f1-measure, F) when at most 10
+    keyphrases are extracted. In order to reduce mismatches due to flexions such
+    as plural, we also stem candidate and reference keyphrases during the
+    evaluation.
 
 \section{Results}
 \label{sec:results}
@@ -183,9 +180,9 @@
 
   \begin{table}[h]
     \centering
-    \begin{tabular}{r|rrr}
-      \toprule
-      Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
+    \begin{tabular}{|r|rrr|}
+      \hline
+      Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c|}{F}\\
       \hline
       KEA           & 18.8 & 13.3 & 15.4\\
       TF-IDF        & 13.2 & 8.9 & 10.5\\
@@ -193,7 +190,7 @@
       TopicRank+SVM & 24.2 & 16.7 & 19.6\\
       \hline
       Upper bound   & 37.6 & 25.8 & 30.3\\
-      \bottomrule
+      \hline
     \end{tabular}
     \caption{
              \label{tab:state_of_the_art_comparison}}
