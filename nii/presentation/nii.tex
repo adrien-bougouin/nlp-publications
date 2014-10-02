@@ -15,15 +15,16 @@
 \usepackage[round]{natbib}
 \usepackage{tikz}
 %\usepackage[labelformat=empty]{caption}
-%\usepackage{colortbl}
+\usepackage{colortbl}
 %\usepackage{ulem}
 \usepackage{multicol}
 %\usepackage[overlay]{textpos}
-%\usepackage{multirow}
+\usepackage{multirow}
 \usepackage{ifthen}
 %\usepackage{relsize}
 %\usepackage{ragged2e}
 %\usepackage{rotating}
+\usepackage{pifont}
 
 \usetheme{Boadilla}
 \setbeamercovered{transparent}
@@ -62,6 +63,8 @@
 
 \renewcommand\cite[2][]{\citep[#1]{#2}}
 \let\oldtextsc\textsc\renewcommand\textsc[1]{\rmfamily\oldtextsc{#1}}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
 
 \title{Supervised Keyphrase Extraction Leveraging Candidate Clustering}
 \subtitle{}
@@ -109,7 +112,7 @@
     \end{beamercolorbox} 
     \vfill
   \end{frame}
-  \input{input/backup.tex}
+  %\input{input/backup.tex}
   \section*{References}
     \begin{frame}[allowframebreaks]{References}
       \def\newblock{\hskip .11em plus .33em minus .07em}

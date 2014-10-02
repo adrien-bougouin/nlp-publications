@@ -1,4 +1,125 @@
 \section{Evaluation}
   \begin{frame}{Evaluation}
+    \framesubtitle{Dataset}
+
+    SemEval
+    \begin{itemize}
+      \item{244 scientific papers}
+      \begin{itemize}
+        \item{144 training documents}
+        \item{100 test documents}
+      \end{itemize}
+      \item{author- and reader-assigned keyphrases}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Evaluation}
+    \framesubtitle{Baselines}
+
+    \begin{block}<+->{Derived baselines}
+      \centering
+      \begin{tabular}{|r|c|c|c|}
+        \hline
+        \multirow{2}{*}[-1.5pt]{Method} & \multicolumn{3}{c|}{Features}\\
+        \cline{2-4}
+        & Independent & Dependent & All\\
+        \hline
+        TopicRank+SVM & \cmark & \cmark & our method\\
+        Clustering+SVM & \cmark & \cmark & \cmark\\
+        SVM & \cmark & \xmark & \xmark\\
+        \hline
+      \end{tabular}
+    \end{block}
+
+    \begin{block}<+->{Classic baselines}
+      \begin{itemize}
+        \item{KEA}
+        \begin{itemize}
+          \item{Naive Bayes}
+          \item{Two features: first position et TF-IDF}
+        \end{itemize}
+        \item{TF-IDF}
+        \item{TopicRank}
+      \end{itemize}
+    \end{block}
+  \end{frame}
+
+  \begin{frame}{Evaluation}
+    \framesubtitle{Measures}
+
+    \begin{itemize}
+      \item{Cut-off at 10 keyphrases}
+      \item{Precision}
+      \item{Recall}
+      \item{F-score}
+      \begin{align}
+        \text{f-score} &= (1 + \beta^2) \times \frac{\text{precision} \times \text{recall}}{(\beta^2 \times precision) + recall} \notag\\
+        \beta &= 1 \notag
+      \end{align}
+      \item{Problem of dealing with gold standard}
+      \item[$\Rightarrow$]{Stemmed form comparisons}
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Evaluation}
+    \framesubtitle{Results}
+
+    \begin{center}
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{|r|rrr|rrr|rrr|}
+          \hline
+          & \multicolumn{9}{c|}{Features}\\
+          \cline{2-10}
+          Method & \multicolumn{3}{c|}{Independent} & \multicolumn{3}{c|}{Dependent}
+          & \multicolumn{3}{c|}{All}\\
+          \cline{2-10}
+          & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c|}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c|}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c|}{F}\\
+          \hline
+          TopicRank+SVM    & 21.5 & 15.1 & 17.6
+                           & 9.0 & 6.5 & 7.5
+                           & \cellcolor{pink}{24.2} & \cellcolor{pink}{16.7} & \cellcolor{pink}{19.6}\\
+          Clustering+SVM  & 13.3 & 9.3 & 10.8
+                           & 0.2 & 0.1 & 0.2
+                           & 11.9 & 8.4 & 9.7\\
+          SVM              & 15.0 & 10.5 & 12.2
+                           &  &  & 
+                           &  &  & \\
+          \hline
+        \end{tabular}
+      }
+    \end{center}
+
+    \uncover<2->{
+      \begin{itemize}
+        \item{Low performance of dependent features}
+        \item{Best performance overall derived baselines}
+      \end{itemize}
+    }
+  \end{frame}
+
+  \begin{frame}{Evaluation}
+    \framesubtitle{Results (next)}
+
+    \begin{center}
+      \begin{tabular}{|r|rrr|}
+        \hline
+        Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c|}{F}\\
+        \hline
+        KEA           & 18.8 & 13.3 & 15.4\\
+        TF-IDF        & 13.2 & 8.9 & 10.5\\
+        TopicRank     & 14.9 & 10.3 & 12.1\\
+        TopicRank+SVM & \cellcolor{pink}{24.2} & \cellcolor{pink}{16.7} & \cellcolor{pink}{19.6}\\
+        \hline
+        TopicRank$_{\text{max}}$   & 37.6 & 25.8 & 30.3\\
+        \hline
+      \end{tabular}
+    \end{center}
+
+    \uncover<2->{
+      \begin{itemize}
+        \item{Best performance over state-of-the-art methods}
+        \item{The dream is not fulfilled\dots}
+      \end{itemize}
+    }
   \end{frame}
 
