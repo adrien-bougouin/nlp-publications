@@ -4,7 +4,7 @@
 
     \begin{enumerate}
       \item<+->{Select the \texttt{(<NOUN>|<ADJ>)+} as candidates}
-      \item<+->{Cluster candidate that ``belong to the same topic''}
+      \item<+->{Cluster candidates that ``belong to the same topic''}
       \begin{itemize}
         \item{stem overlap similarity}
       \end{itemize}
@@ -39,7 +39,7 @@
     \uncover<+->{A new vision (???):}
     \begin{itemize}
       \item<+->{Combination of local importance and global likelyhood}
-      \item<+->{Bigger granuarity for the importance: topic}
+      \item<+->{Bigger granularity for the importance: topic}
       \item<+->{Superised classification on smaller sets: topics}
     \end{itemize}
   \end{frame}
@@ -135,7 +135,7 @@
     \begin{block}<+->{Topically independent features}
       \begin{multicols}{2}
         \begin{itemize}
-          \item<+->{Lenght}
+          \item{Lenght}
           \item<+->{Structural features:}
           \begin{itemize}
             \item{First position}
@@ -158,7 +158,7 @@
 
     \begin{block}<+->{Topically dependent features}
       \begin{itemize}
-        \item<+->{Average stem overlap similarity}
+        \item{Average stem overlap similarity}
         \item<+->{Average number of completely disimilar candidates}
       \end{itemize}
     \end{block}
@@ -189,7 +189,8 @@
       \]
     }
     \uncover<3->{
-      $\alpha = 0.75 \Rightarrow$ more importance is given to the topic ranking
+      $\alpha = 0.75 \Rightarrow$ more importance is given to the unsupervised
+      topic ranking
     }
   \end{frame}
 

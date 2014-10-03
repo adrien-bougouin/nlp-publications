@@ -1,5 +1,5 @@
-\section{Related work}
-\begin{frame}[t]{Related work}
+\section{State-of-the-art}
+\begin{frame}[t]{State-of-the-art}
     \framesubtitle{Unsupervised methods}
 
     Mostly ranking techniques that use:
@@ -9,7 +9,7 @@
       \item<4->{or \textbf{graphs} of word
                 co-occurrences}
       \begin{itemize}
-        \item<5->{weighted with co-occurrence number or semantic measure}
+        \item<5->{weighted with co-occurrence number or semantic measures}
         \item<6->{refined with similar documents}
         \item<7->{biased with topic probabilities}
         \item<8->{modified to rank topics instead of words}
@@ -711,23 +711,23 @@
     }
   \end{frame}
 
-  \begin{frame}{Related work}
+  \begin{frame}{State-of-the-art}
     \framesubtitle{Supervised methods}
 
     \uncover<+->{Train various classifiers:}
     \begin{itemize}
-      \item<+->{Naive Bayes\hfill\cite{witten1999kea}}
+      \item{Naive Bayes\hfill\cite{witten1999kea}}
       \item<+->{MaxEnt\hfill\cite{sujian2003maximumentropy}}
+      \item<+->{Support Vector Machines (SVMs)\hfill\cite{zhang2006svm}}
       \item<+->{Decision trees\hfill\cite{ercan2007lexicalchains}}
       \item<+->{Multilayer perceptrons\hfill\cite{sarkar2010neuralnetwork}}
-      \item<+->{Support Vector Machines (SVMs)\hfill\cite{zhang2006svm}}
     \end{itemize}~\\
 
     \uncover<+->{with many different features:}
     \vspace{-.75em}
     \begin{multicols}{3}
       \begin{itemize}
-        \item<+->{Length}
+        \item<6->{Length}
         \item<+->{First position}
         \item<+->{Part-of-Speeches}
         \item<+->{Frequency ($TF$)}
@@ -737,10 +737,10 @@
       \end{itemize}
     \end{multicols}
 
-    \uncover<+->{$\Rightarrow$ Currently the best performing approach}
+    \uncover<+->{$\Rightarrow$ Currently the best performing methods}
   \end{frame}
 
-  \begin{frame}{Related work}
+  \begin{frame}{State-of-the-art}
     \framesubtitle{Two categories / Two visions}
 
     \uncover<+->{
@@ -754,7 +754,7 @@
       \begin{block}{Supervised vision}
         How does a given phrase fit the keyphrase caracteristics in a global
         context?\\
-        $\Rightarrow$ extract the phrases most likely to be a keyphrases
+        $\Rightarrow$ extract the phrases most likely to be keyphrases
       \end{block}
     }
 

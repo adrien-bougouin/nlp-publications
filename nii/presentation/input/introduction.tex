@@ -16,7 +16,7 @@
           \begin{multicols}{2}
           \begin{itemize}
             \item{Document indexing}
-            \item{Document clusterng}
+            \item{Document clustering}
             \item{Text summarization}
             \item{Query expansion}
             \item{Targeted advertising}
@@ -53,10 +53,10 @@
           \node[component] (candidate_extraction2) [below=of preprocessing2] {Candidate Selection};
           \node[component] (training) [below=of candidate_extraction2] {Training};
           \node[io] (model) [below=of training] {classification model};
-          \node[component] (candidate_classification) [below=of model, yshift=-1cm] {Candidate Classification};
           \node[above=of training_documents, yshift=-1.25cm] (training_label) {\huge training};
         }
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \node[component] (candidate_classification) [below=of model, yshift=-1cm] {Candidate Classification};
         \node[component] (candidate_ranking) [left=of candidate_classification] {Candidate Ranking};
         \node[component, minimum width=19.5cm, xshift=5.25cm] (keyphrase_selection) [below=of candidate_ranking] {Keyphrase Selection};
         \node[io] (keyphrases) [below=of keyphrase_selection] {keyphrases};
@@ -66,8 +66,14 @@
         \uncover<2->{
           \path[->, thick] (candidate_extraction) edge node [rotate=-90, xshift=-.5em, anchor=south] {\huge unsupervised} (candidate_ranking);
         }
+        \uncover<3->{
+          \path[->, thick] (candidate_extraction) edge node [yshift=.5em, rotate=-43, anchor=south east] {\huge supervised} (candidate_classification);
+        }
         \visible<1>{
           \path[->, thick] (candidate_extraction) edge (candidate_ranking);
+        }
+        \visible<1,2>{
+          \path[->, thick] (candidate_extraction) edge (candidate_classification);
         }
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         \uncover<3->{
@@ -75,12 +81,11 @@
           \path[->, thick] (preprocessing2) edge (candidate_extraction2);
           \path[->, thick] (candidate_extraction2) edge (training);
           \path[->, thick] (training) edge (model);
-          \path[->, thick] (candidate_extraction) edge node [yshift=.5em, rotate=-43, anchor=south east] {\huge supervised} (candidate_classification);
           \path[->, thick] (model) edge (candidate_classification);
-          \path[->, thick] (candidate_classification) edge (keyphrase_selection);
         }
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         \path[->, thick] (candidate_ranking) edge (keyphrase_selection);
+        \path[->, thick] (candidate_classification) edge (keyphrase_selection);
         \path[->, thick] (keyphrase_selection) edge (keyphrases);
 
         \begin{pgfonlayer}{background}
@@ -99,7 +104,7 @@
     \begin{enumerate}
       \item{Clustering candidate keyphrases into topics}
       \item{Ranking topics \textbf{in an unsupervised way}}
-      \item{Selecting keyphrases from the bes topics \textbf{in a supervised
+      \item{Selecting keyphrases from the best topics \textbf{in a supervised
             way}}
     \end{enumerate}
   \end{frame}
