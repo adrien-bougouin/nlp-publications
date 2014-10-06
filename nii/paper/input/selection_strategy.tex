@@ -1,14 +1,16 @@
 \section{Supervised Keyphrase Selection\\from Topical Clusters}
 \label{sec:supervised_keyphrase_selection_from_topical_clusters}
   Leveraging TopicRank's topic clustering and ranking, we propose a supervised
-  method that extracts keyphrases from the best topics. To stay consistent to
-  \newcite{bougouin2013topicrank} that stated keyphrases must be topically
-  unredundant, we extract only one keyphrase per cluster. Instead of being the
-  first appearing candidate keyphrase, the keyphrase we extract is the one that
-  our trained model considers most appropriate.
+  method that extracts keyphrases from the important topics. To stay consistent
+  with \newcite{bougouin2013topicrank}, we extract only one keyphrase per
+  cluster. Instead of being the first appearing candidate keyphrase, the
+  keyphrase we extract is the one that our trained classifier considers most
+  appropriate.
 
-  In this work, we decide to use an SVM classifier. SVMs \TODO{\dots} Also, the
-  SVM classifier is the best performing classifier in our approach.
+  In this work, we decide to use an SVM classifier. SVMs are very efficient
+  classifiers. They support a large number of features and learn to weight them
+  appropriatelty. Also, the SVM classifier is the best performing classifier in
+  our approach.
 
   \subsection{Training samples}
   \label{subsec:training_samples}
@@ -25,11 +27,11 @@
     determine the keyphrase likelyhood of a candidate. In our work, we also rely
     on such common features, but we also rely on new features related to the
     appropriateness of a candidate as a member of the topic. In contrast, we
-    call the first category of features ``topically undependent features'' and
+    call the first category of features ``topically independent features'' and
     the second category ``topically dependent features''.
 
-    \subsubsection{Topically Undependent Features}
-    \label{subsubsec:topically_undependent_features}
+    \subsubsection{Topically Independent Features}
+    \label{subsubsec:topically_independent_features}
       Following previous
       work~\cite{nguyen2007keadocumentstructure,lopez2010humb}, we use the
       length of a candidate (number of words) as a feature, along with other
@@ -76,23 +78,23 @@
 
     \subsubsection{Topically Dependent Features}
     \label{subsubsec:topically_dependent_features}
-      Topically dependent features, unlike topically undependent features, help
-      to capture the appropriateness of a candidate as the representant of its
-      topic. The clustering strategy of \newcite{bougouin2013topicrank} is to
-      add candidates to a cluster if their average stem overlap similarity with
-      the candidates of the cluster is above a given threshold. We decide to
-      use this average similarity as a feature. However,
-      \newcite{bougouin2013topicrank} explained that their clustering similarity
-      is naive for the purpose of topic clustering. Therefore, we also use the
-      average number of candidates (in the cluster) that do not share any word
-      with the candidate. As a consequence, our topically dependent features
-      represent both the similarity and the disimilarity of the candidate
-      regarding the other candidates of the cluster.
+      Topically dependent features help to capture the appropriateness of a
+      candidate as the representant of its topic. The clustering strategy of
+      \newcite{bougouin2013topicrank} is to add candidates to a cluster if their
+      average stem overlap similarity with the candidates of the cluster is
+      above a given threshold. We decide to use this average similarity as a
+      feature. However, \newcite{bougouin2013topicrank} explained that their
+      clustering similarity is naive for the purpose of topic clustering.
+      Therefore, we also use the average number of candidates (in the cluster)
+      that do not share any word with the candidate. As a consequence, our
+      topically dependent features represent both the similarity and the
+      disimilarity of the candidate regarding the other candidates of the
+      cluster.
 
   \subsection{Keyphrase Extraction}
   \label{subsec:keyphrase_extraction}
     To extract keyphrsaes, we propose to apply the trained SVM classifier on
-    TopicRank's most important topics to choose one keyphrase per each.
+    TopicRank's important topics to choose one keyphrase per each.
 
     \subsubsection{Keyphrase Selection}
     \label{subsubsec:keyphrase_selection}

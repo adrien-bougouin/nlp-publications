@@ -4,13 +4,25 @@
   \label{subsec:dataset}
     In this work, we use the SemEval corpus. Built for the task 5 of
     SemEval-2010~\cite{kim2010semeval}, Sem\-Eval contains 244 English
-    scientific papers collected from the ACM Digital Libraries. We use SemEval's
-    training set (144 documents) and test set (100 documents) with their sets of
-    combined author- and reader-assigned keyphrases.
+    scientific papers collected from the ACM Digital Libraries. We use
+    Sem\-Eval's training set (144 documents) and test set (100 documents) with
+    their sets of combined author- and reader-assigned keyphrases.
 
   \subsection{Baselines}
   \label{subsec:baselines}
-    \TODO{Baselines derived from our method, then common baselines}
+    In order to show that our method benefits from all aspects of its
+    configuration, we design a set of baselines that slightly diverge from our
+    method (deried baselines). First, To\-picRank plus the SVM classifier
+    trained on either topically independent and dependent features
+    (TopicRank+SVM), while the SVM classifier is trained on all features for our
+    method (TopicRank+SVM$_{all}$). Second the SVM classifier, trained on either
+    topically independent, dependent or all features, is applied to the unranked
+    clusters (Clustering+SVM). Finally, the SVM classifier, trained on topically
+    independent features, is applied candidate keyphrases (SVM).
+
+    For comparison purpose, we also report results of a Naive Bayes classifier
+    trained with the first position and the TF-IDF
+    features~\cite[KEA]{witten1999kea}, TF-IDF and TopicRank.
 
   \subsection{Preprocessing}
   \label{subsec:preprocessing}
@@ -40,98 +52,23 @@
 
 \section{Results}
 \label{sec:results}
-  \TODO{Explain better results of SVM than SVM+Clusters (more than one keyphrase
-  per cluster)}
-  \TODO{Explain poor results of SVM+Clusters on dependent features}
-  \TODO{Most of all the different sampling is responsible for it}
-
-%  \begin{table*}
-%    \centering
-%    \begin{tabular}{rrrrrrrrrr}
-%      \toprule
-%      & \multicolumn{9}{c}{Feature sets}\\
-%      \cmidrule{2-10}
-%      Method & \multicolumn{3}{c}{Undependent} & \multicolumn{3}{c}{Dependent} & \multicolumn{3}{c}{Combination}\\
-%      \cmidrule(r){2-4}
-%      \cmidrule{5-7}
-%      \cmidrule(l){8-10}
-%      & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F} & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c}{F}\\
-%      \midrule
-%      %TopicRank+SVM   & 17.2 & 12.0 & 14.0
-%      %                & 14.3 & 10.3 & 11.9
-%      %                & 19.4 & 13.4 & 15.7\\
-%      TopicRank+SVM    & 21.5 & 15.1 & 17.6
-%                       & 9.0 & 6.5 & 7.5
-%                       & 24.2 & 16.7 & 19.6\\
-%      Clustering+ SVM  & 13.3 & 9.3 & 10.8
-%                       & 0.2 & 0.1 & 0.2
-%                       & 11.9 & 8.4 & 9.7\\
-%      SVM              & 15.0 & 10.5 & 12.2
-%                       &  &  & 
-%                       &  &  & \\
-%      \bottomrule
-%    \end{tabular}
-%    \caption{
-%             \label{tab:baseline_comparison}}
-%  \end{table*}
-%  \begin{figure}
-%    \begin{tikzpicture}%[scale=.75]
-%      \pgfkeys{/pgf/number format/.cd, fixed, fixed zerofill, precision=1}
-%      \begin{axis}[axis lines=left,
-%                   symbolic x coords={Undependent, Dependent, Combination},
-%                   xtick=data,
-%                   enlarge x limits=0.25,
-%                   %x=.25\linewidth,
-%                   xticklabel style={anchor=north east, xshift=.75em,
-%                   yshift=.5em, rotate=12.5},
-%                   nodes near coords,
-%                   nodes near coords align={vertical},
-%                   every node near coord/.append style={font=\scriptsize},
-%                   ytick={0.0, 5.0, 10.0, 15.0, 20.0, 25.0},
-%                   y=0.02\linewidth,
-%                   ymin=0.0,
-%                   ymax=22.0,
-%                   ybar=10pt,
-%                   ylabel=F,
-%                   ylabel style={at={(ticklabel* cs:1)},
-%                                 anchor=south,
-%                                 rotate=270},
-%                   legend style={at={(0.6, 1.0)},
-%                                 anchor=north}]
-%        \addplot[black!66,
-%                 pattern=north west lines,
-%                 pattern color=black!40] coordinates{
-%          (Undependent, 12.2)
-%          (Dependent, 0.0)
-%          (Combination, 0.0)
-%        };
-%        \addplot[black!66,
-%                 pattern=north east lines,
-%                 pattern color=black!40] coordinates{
-%          (Undependent, 10.8)
-%          (Dependent, 0.2)
-%          (Combination, 9.7)
-%        };
-%        \addplot[black!66,
-%                 pattern=horizontal lines,
-%                 pattern color=black!40] coordinates{
-%          (Undependent, 17.6)
-%          (Dependent, 7.5)
-%          (Combination, 19.6)
-%        };
-%        \legend{SVM, Clustering+SVM, TopicRank+SVM}
-%      \end{axis}
-%    \end{tikzpicture}
-%    \caption{
-%             \label{fig:baseline_comparison}}
-%  \end{figure}
+  Figure~\ref{fig:baseline_comparison} presents the performance of our method,
+  compared to six baselines derived from it. On the first hand, we observe that
+  using clusters and their importance score benefits to the keyphrase
+  extraction. Most importantly, adding topically dependent features to the
+  common features improves the performance. However, the performance achieved
+  with the Clustering+SVM method shows that topically dependent features
+  performs poorly when Topic\-Rank's importance score is not used. Additionally,
+  the SVM performance tends to show that using clusters without taking their
+  importance into account is not relevant. Results support our statement that
+  keyphrases should be extracted from important topics.
   \begin{figure}[h]
     \begin{tikzpicture}%[scale=.75]
       \pgfkeys{/pgf/number format/.cd, fixed, fixed zerofill, precision=1}
       \begin{axis}[axis lines=left,
                    symbolic x coords={TopicRank+SVM, Clustering+SVM, SVM},
                    xtick=data,
-                   enlarge x limits=0.25,
+                   enlarge x limits=0.2,
                    %x=.25\linewidth,
                    xticklabel style={anchor=west, rotate=-22.25},
                    nodes near coords,
@@ -141,7 +78,7 @@
                    y=0.025\linewidth,
                    ymin=0.0,
                    ymax=22.0,
-                   ybar=5pt,
+                   ybar=7.5pt,
                    ylabel=F,
                    ylabel style={at={(ticklabel* cs:1)},
                                  anchor=south,
@@ -169,30 +106,40 @@
           (Clustering+SVM, 9.7)
           (TopicRank+SVM, 19.6)
         };
-        \legend{Undependent features, Dependent features, All features}
+        \legend{Independent features, Dependent features, All features}
       \end{axis}
     \end{tikzpicture}
-    \caption{
+    \caption{Performance of TopicRank+SVM$_{all}$ compared to derived baselines
              \label{fig:baseline_comparison}}
   \end{figure}
 
-  \TODO{t-test}
-
+  Also, Table~\ref{tab:state_of_the_art_comparison} presents a comparison of
+  TopicRank+SVM$_{all}$ with TopicRank, TopicRank's best possible performance
+  (TopicRank$_{max}$) and common baselines of previous work. Results show that
+  our method significantly improves TopicRank and significantly outperform
+  TF-IDF and KEA, a robust supervised methods. However, the performance of
+  TopicRank+SVM$_{all}$ is still very low compared to the best possible
+  performance that could be achieved with TopicRank. The naivety of the
+  clustering method TopicRank applies may introduce noise that dampens the
+  performance. Future improvement should focus on a more efficient clustering of
+  the candidates belonging to the same topic.
   \begin{table}[h]
     \centering
     \begin{tabular}{|r|rrr|}
       \hline
       Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c|}{F}\\
       \hline
-      KEA           & 18.8 & 13.3 & 15.4\\
-      TF-IDF        & 13.2 & 8.9 & 10.5\\
-      TopicRank     & 14.9 & 10.3 & 12.1\\
-      TopicRank+SVM & 24.2 & 16.7 & 19.6\\
+      KEA                   & 18.8\textcolor{white}{$^\dagger$} & 13.3\textcolor{white}{$^\dagger$} & 15.4\textcolor{white}{$^\dagger$}\\
+      TF-IDF                & 13.2\textcolor{white}{$^\dagger$} & 8.9\textcolor{white}{$^\dagger$} & 10.5\textcolor{white}{$^\dagger$}\\
+      TopicRank             & 14.9\textcolor{white}{$^\dagger$} & 10.3\textcolor{white}{$^\dagger$} & 12.1\textcolor{white}{$^\dagger$}\\
+      TopicRank+SVM$_{all}$ & 24.2$^\dagger$ & 16.7$^\dagger$ & 19.6$^\dagger$\\
       \hline
-      Upper bound   & 37.6 & 25.8 & 30.3\\
+      TopicRank$_{max}$     & 37.6\textcolor{white}{$^\dagger$} & 25.8\textcolor{white}{$^\dagger$} & 30.3\textcolor{white}{$^\dagger$}\\
       \hline
     \end{tabular}
-    \caption{
+    \caption{Performance of TopicRank+SVM$_{all}$ compared to previous work.
+      $\dagger$ indicates improvement over KEA, TF-IDF and TopicRank at 0.001
+      level using Student's t-test.
              \label{tab:state_of_the_art_comparison}}
   \end{table}
 

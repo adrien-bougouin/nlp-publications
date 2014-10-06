@@ -1,14 +1,28 @@
 \section{TopicRank}
 \label{sec:topicrank}
   TopicRank aims to extract keyphrases that best represent the main topics of a
-  document by using both candidate clustering and graph-based ranking. The most
-  encouraging caracteristic of TopicRank is that its upper bound performance
-  (its best possible performance) is much higher than its current performance.
-  There is still room for improvement.
+  document using both candidate clustering and graph-based ranking.
 
-  At first, \TODO{explain the clustering}
+  At first, TopicRank clusters candidate keyphrases that belongs to the same
+  topic. This topical clustering uses a ``naive'' stem overlap similarity: at
+  the biginning, each candidate is a single cluster and candidates sharing an
+  average of $\unitfrac{1}{4}$ stemmed words with the candidates of a given
+  cluster are added to this cluster.
 
-  Secondly, \TODO{explain the graph-based ranking}
+  Secondly, TopicRank builds a graph of topics and ranks the topic using
+  TextRank~\cite{mihalcea2004textrank}. Every topic is connected to other topics
+  by edges weighted according to the semantics strength between the connected
+  topics. Then, TextRank ranking algorithm gives high importance to topics
+  strongly connected to as most topic as possible and, additionally, important
+  topics contribute more to the importance of the topics they are strongly
+  connected to.
 
-  At last, \TODO{explain the keyphrase per cluster selection strategy}
+  At last, TopicRank extract keyphrases among the candidates of the $N$ most
+  important topics. To avoid topic redundancy, only one keyphrase per topic is
+  extracted. Following previous observations, the strategy to extract the best
+  keyphrase of a topic takes its candidate that appears first in the document.
+  This strategy is currently the weakest link of TopicRank.
+  \newcite{bougouin2013topicrank} showed that the best best possible performance
+  of TopicRank (with a ``perfect'' strategy) is be much higher than its current
+  performance.
 
