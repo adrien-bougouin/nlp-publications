@@ -1,19 +1,22 @@
 \section{TopicRank}
 \label{sec:topicrank}
-  TopicRank aims to extract keyphrases that best represent the main topics of a
-  document using both candidate clustering and graph-based ranking.
+  TopicRank aims to extract keyphrases that best represent the main topics
+  (concepts or ideas) of a document using both candidate clustering and
+  graph-based ranking.
 
   At first, TopicRank clusters candidate keyphrases that belongs to the same
-  topic. This topical clustering uses a ``naive'' stem overlap similarity: at
-  the biginning, each candidate is a single cluster and candidates sharing an
-  average of $\unitfrac{1}{4}$ stemmed words with the candidates of a given
-  cluster are added to this cluster.
+  topic, considering that candidate of the same topic must share as many words
+  as possible. This topical clustering uses a Hierarchical Agglomerative
+  Clustering (HAC) with a ``naive'' stem overlap similarity: at the biginning,
+  each candidate is a single cluster and candidates sharing an average of
+  $\unitfrac{1}{4}$ stemmed words with the candidates of a given cluster are
+  added to this cluster.
 
-  Secondly, TopicRank builds a graph of topics and ranks the topic using
+  Secondly, TopicRank builds a graph of topics and ranks the topics using
   TextRank~\cite{mihalcea2004textrank}. Every topic is connected to other topics
-  by edges weighted according to the semantics strength between the connected
+  by edges weighted according to the semantic strength between the connected
   topics. Then, TextRank ranking algorithm gives high importance to topics
-  strongly connected to as most topic as possible and, additionally, important
+  strongly connected to as most topic as possible. Additionally, important
   topics contribute more to the importance of the topics they are strongly
   connected to.
 
@@ -22,7 +25,7 @@
   extracted. Following previous observations, the strategy to extract the best
   keyphrase of a topic takes its candidate that appears first in the document.
   This strategy is currently the weakest link of TopicRank.
-  \newcite{bougouin2013topicrank} showed that the best best possible performance
-  of TopicRank (with a ``perfect'' strategy) is be much higher than its current
-  performance.
+  \newcite{bougouin2013topicrank} showed that the best possible performance of
+  TopicRank (with a ``perfect'' strategy) can be much higher than its current
+  performance. There is still room for improvement.
 

@@ -12,13 +12,13 @@
   \label{subsec:baselines}
     In order to show that our method benefits from all aspects of its
     configuration, we design a set of baselines that slightly diverge from our
-    method (deried baselines). First, To\-picRank plus the SVM classifier
-    trained on either topically independent and dependent features
-    (TopicRank+SVM), while the SVM classifier is trained on all features for our
-    method (TopicRank+SVM$_{all}$). Second the SVM classifier, trained on either
-    topically independent, dependent or all features, is applied to the unranked
-    clusters (Clustering+SVM). Finally, the SVM classifier, trained on topically
-    independent features, is applied candidate keyphrases (SVM).
+    method (derived baselines). First, To\-picRank plus the SVM classifier
+    trained on either candidate- and cluster-based features (TopicRank+SVM),
+    while the SVM classifier is trained on all features for our method
+    (TopicRank+SVM$_{\text{all}}$). Second the SVM classifier, trained on either
+    candidate-based, cluster-based or all features, is applied to the unranked
+    clusters (Clustering+SVM). Finally, the SVM classifier, trained on
+    candidate-based features, is applied to the candidate keyphrases (SVM).
 
     For comparison purpose, we also report results of a Naive Bayes classifier
     trained with the first position and the TF-IDF
@@ -26,25 +26,15 @@
 
   \subsection{Preprocessing}
   \label{subsec:preprocessing}
-%    For each document, we apply the following preprocessing steps: sentence
-%    segmentation, word tokenization and Part-of-Speech tagging. For sentence
-%    segmentation, we use the PunktSentenceTokenizer provided by the Python
-%    Natural Language ToolKit~\cite[NLTK]{bird2009nltk}. For word tokenization,
-%    we use the NLTK TreebankWordTokenizer for English and the Bonsai word
-%    tokenizer\footnote{The Bonsai word tokenizer is a tool provided with the
-%    Bonsai PCFG-LA parser:
-%    \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
-%    French. As for Part-of-Speech tagging, we use the Stanford POS
-%    tagger~\cite{toutanova2003stanfordpostagger} for English and
-%    MElt~\cite{denis2009melt} for French.
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    For our method, as well as all baselines, we use Topic\-Rank's outputs.
+    For our method, as well as all baselines, we use Topic\-Rank's
+    outputs. %\footnote{Outputs of TopicRank can be obtained from sources at:
+    %\url{http://git.io/topicrank_ijcnlp_2013}.}.
     Therefore, our results can directly be compared to results
     in~\cite{bougouin2013topicrank}.
 
   \subsection{Evaluation Measures}
   \label{subsec:evaluation_measures}
-    We evaluate the performances of our method and the baselines in terms of
+    We evaluate the performance of our method and the baselines in terms of
     precision (P), recall (R) and f-score (f1-measure, F) when at most 10
     keyphrases are extracted. In order to reduce mismatches due to flexions such
     as plural, we also stem candidate and reference keyphrases during the
@@ -52,39 +42,33 @@
 
 \section{Results}
 \label{sec:results}
-  Figure~\ref{fig:baseline_comparison} presents the performance of our method,
-  compared to six baselines derived from it. On the first hand, we observe that
-  using clusters and their importance score benefits to the keyphrase
-  extraction. Most importantly, adding topically dependent features to the
-  common features improves the performance. However, the performance achieved
-  with the Clustering+SVM method shows that topically dependent features
-  performs poorly when Topic\-Rank's importance score is not used. Additionally,
-  the SVM performance tends to show that using clusters without taking their
-  importance into account is not relevant. Results support our statement that
-  keyphrases should be extracted from important topics.
-  \begin{figure}[h]
-    \begin{tikzpicture}%[scale=.75]
+  \begin{figure}
+    \begin{tikzpicture}
       \pgfkeys{/pgf/number format/.cd, fixed, fixed zerofill, precision=1}
       \begin{axis}[axis lines=left,
                    symbolic x coords={TopicRank+SVM, Clustering+SVM, SVM},
                    xtick=data,
                    enlarge x limits=0.2,
-                   %x=.25\linewidth,
-                   xticklabel style={anchor=west, rotate=-22.25},
+                   xticklabel style={font=\footnotesize},
                    nodes near coords,
                    nodes near coords align={vertical},
                    every node near coord/.append style={font=\scriptsize},
-                   ytick={0.0, 5.0, 10.0, 15.0, 20.0, 25.0},
-                   y=0.025\linewidth,
+                   ytick={0.0, 5.0, 10.0, 15.0, 20.0, 25.0, 30.0},
+                   yticklabel style={font=\footnotesize},
+                   y=0.01\linewidth,
                    ymin=0.0,
-                   ymax=22.0,
+                   ymax=36.0,
                    ybar=7.5pt,
                    ylabel=F,
                    ylabel style={at={(ticklabel* cs:1)},
-                                 anchor=south,
-                                 rotate=270},
+                                 anchor=north east,
+                                 yshift=.3em,
+                                 xshift=.3em,
+                                 rotate=270,
+                                 font=\footnotesize},
                    legend style={at={(1.0, 1.0)},
-                                 anchor=north east}]
+                                 anchor=north east,
+                                 font=\footnotesize}]
         \addplot[Cerulean,
                  pattern=north east lines,
                  pattern color=Cerulean] coordinates{
@@ -106,43 +90,56 @@
           (Clustering+SVM, 9.7)
           (TopicRank+SVM, 19.6)
         };
-        \legend{Independent features, Dependent features, All features}
+        \legend{Candidate-based features, Cluster-based features, All features}
       \end{axis}
     \end{tikzpicture}
-    \caption{Performance of TopicRank+SVM$_{all}$ compared to derived baselines
+    \caption{Performance of TopicRank+SVM$_{\text{all}}$ compared to derived
+             baselines
              \label{fig:baseline_comparison}}
   \end{figure}
 
-  Also, Table~\ref{tab:state_of_the_art_comparison} presents a comparison of
-  TopicRank+SVM$_{all}$ with TopicRank, TopicRank's best possible performance
-  (TopicRank$_{max}$) and common baselines of previous work. Results show that
-  our method significantly improves TopicRank and significantly outperform
-  TF-IDF and KEA, a robust supervised methods. However, the performance of
-  TopicRank+SVM$_{all}$ is still very low compared to the best possible
-  performance that could be achieved with TopicRank. The naivety of the
-  clustering method TopicRank applies may introduce noise that dampens the
-  performance. Future improvement should focus on a more efficient clustering of
-  the candidates belonging to the same topic.
-  \begin{table}[h]
+  Figure~\ref{fig:baseline_comparison} presents the performance of our method,
+  compared to six baselines derived from it. On the first hand, we observe that
+  using clusters and their importance score benefits to the keyphrase
+  extraction. Most importantly, adding cluster-based features to the common
+  features (candidate-based features) improves the performance. However, the
+  performance achieved with the Clustering+SVM method shows that cluster-based
+  features performs poorly when Topic\-Rank's importance score is not used.
+  Additionally, the SVM performance tends to show that using clusters without
+  taking their importance into account is not relevant. Results support our
+  assumption that keyphrases should be extracted from important topics.
+
+  \begin{table}
     \centering
     \begin{tabular}{|r|rrr|}
       \hline
       Method & \multicolumn{1}{c}{P} & \multicolumn{1}{c}{R} & \multicolumn{1}{c|}{F}\\
       \hline
-      KEA                   & 18.8\textcolor{white}{$^\dagger$} & 13.3\textcolor{white}{$^\dagger$} & 15.4\textcolor{white}{$^\dagger$}\\
-      TF-IDF                & 13.2\textcolor{white}{$^\dagger$} & 8.9\textcolor{white}{$^\dagger$} & 10.5\textcolor{white}{$^\dagger$}\\
-      TopicRank             & 14.9\textcolor{white}{$^\dagger$} & 10.3\textcolor{white}{$^\dagger$} & 12.1\textcolor{white}{$^\dagger$}\\
-      TopicRank+SVM$_{all}$ & 24.2$^\dagger$ & 16.7$^\dagger$ & 19.6$^\dagger$\\
+      KEA                           & 18.8\textcolor{white}{$^\dagger$} & 13.3\textcolor{white}{$^\dagger$} & 15.4\textcolor{white}{$^\dagger$}\\
+      TF-IDF                        & 13.2\textcolor{white}{$^\dagger$} & 8.9\textcolor{white}{$^\dagger$} & 10.5\textcolor{white}{$^\dagger$}\\
+      TopicRank                     & 14.9\textcolor{white}{$^\dagger$} & 10.3\textcolor{white}{$^\dagger$} & 12.1\textcolor{white}{$^\dagger$}\\
+      TopicRank+SVM$_{\text{all}}$  & 24.2$^\dagger$ & 16.7$^\dagger$ & 19.6$^\dagger$\\
       \hline
-      TopicRank$_{max}$     & 37.6\textcolor{white}{$^\dagger$} & 25.8\textcolor{white}{$^\dagger$} & 30.3\textcolor{white}{$^\dagger$}\\
+      TopicRank$_{\text{max}}$      & 37.6\textcolor{white}{$^\dagger$} & 25.8\textcolor{white}{$^\dagger$} & 30.3\textcolor{white}{$^\dagger$}\\
       \hline
     \end{tabular}
-    \caption{Performance of TopicRank+SVM$_{all}$ compared to previous work.
-      $\dagger$ indicates improvement over KEA, TF-IDF and TopicRank at 0.001
-      level using Student's t-test.
+    \caption{Performance of TopicRank+SVM$_{\text{all}}$ compared to previous
+             work. $\dagger$ indicates improvement over KEA, TF-IDF and
+             TopicRank at 0.001 level using Student's t-test.
              \label{tab:state_of_the_art_comparison}}
   \end{table}
 
-%\section{Error Analysis}
-%\label{sec:error_analysis}
+  Also, Table~\ref{tab:state_of_the_art_comparison} presents a comparison of
+  TopicRank+SVM$_{\text{all}}$ with TopicRank, TopicRank's best possible
+  performance (TopicRank$_{\text{max}}$) and common baselines of previous work.
+  Results show that our method significantly improves TopicRank and
+  significantly outperforms TF-IDF and KEA, a robust supervised methods.
+  However, the performance of TopicRank+SVM$_{\text{all}}$ is still very low
+  compared to TopicRank$_{\text{max}}$. The naivety of the clustering method
+  TopicRank applies may introduce noise that dampens the performance. Future
+  improvement should focus on a more efficient clustering of the candidates
+  belonging to the same topic.
+
+%\section{Example}
+%\label{sec:example}
 

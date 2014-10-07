@@ -22,29 +22,28 @@
   distributions~\cite{frank1999keafrequency}. Conversely, unsupervised
   approaches usually rank phrases by importance and select the top-ranked ones
   as keyphrases. Unsupervised approaches proposed so far have involved a number
-  of techniques including clustering~\cite{liu2009keycluster}, graph-based
-  ranking~\cite{mihalcea2004textrank} and even
+  of techniques including clustering~\cite{matsuo2004wordcooccurrence},
+  graph-based ranking~\cite{mihalcea2004textrank} and even
   both~\cite{bougouin2013topicrank}.
 
   In the current state of the keyphrase extraction task, supervised methods
-  outperform unsupervised methods. Supervised methods take advantage of features
-  extracted from training documents paired with reference keyphrases to identify
-  among candidate keyphrases the ones most likely to be keyphrases. In
-  opposition, most unsupervised methods only rely on the document to analyse.
-  They do not extract the candidates most likely to be keyphrases in a training
-  context. Instead, unsupervised methods generally extract the most important
-  candidates compared to the others in the local context, the document.
+  outperform unsupervised methods~\cite{kim2010semeval}. Supervised methods take
+  advantage of reference keyphrases of a training corpus (supervised knowledge)
+  to identify among candidate keyphrases the ones most likely to be keyphrases.
+  In opposition, unsupervised methods do not used supervised knowledge. They
+  generally extract keyphrases based on their actual importance within the
+  document to analyse. These are two visions that we propose to combine.
 
   In order to extract the most likely keyphrases without neglecting their actual
   importance within the analysed document, we present a work that combines both
-  supervised and unsupervised visions of the keyphrase extraction task. Using
+  unsupervised and supervised approaches of the keyphrase extraction task. Using
   the unsupervised keyphrase extraction method
   Topic\-Rank~\cite{bougouin2013topicrank}, we group candidate keyphrases that
-  represent the same topic, determine the most important topics and apply
-  machine learning to extract the most likely keyphrase of each important topic.
-  Our experiments show that a supervised method can benefit from features
-  related to topical clusters. Our method significantly outperforms TopicRank
-  and the most popular supervised method, KEA.
+  represent the same topic, determine the most important topics and apply an SVM
+  to extract the most likely keyphrase of each important topic. Our experiments
+  show that a supervised method can benefit from features related to topical
+  clusters. Our method significantly outperforms TopicRank and the most popular
+  supervised method, KEA~\cite{witten1999kea}.
 
 %  The rest of this paper is organized as follows. Section~\ref{sec:topicrank}
 %  presents TopicRank,
