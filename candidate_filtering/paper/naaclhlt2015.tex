@@ -1,0 +1,75 @@
+%
+% File naaclhlt2015.tex
+%
+
+\documentclass[11pt,letterpaper]{article}
+\usepackage{naaclhlt2015}
+\usepackage{times}
+\usepackage{latexsym}
+%\setlength\titlebox{6.5cm}    % Expanding the titlebox
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{relsize}
+\usepackage{xfrac}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage{lipsum}
+\usepackage{color}
+\usepackage{subfigure}
+\usepackage{overpic}
+\usepackage{fancybox}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{url}
+
+\newtheorem{property}{Property}
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+
+\title{
+  Selecting Candidates for Automatic Keyphrase Extraction:\\
+  From Inferred Properties to Simple Strategies
+%  \Thanks{
+%    The authors would like to thank the anonymous reviewers for their useful
+%    advice and comments. This work was supported by the French National Research
+%    Agency (TermITH project -- ANR-12-CORD-0029).
+%  }
+}
+
+\author{
+%  Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
+%  Université de Nantes, LINA, France\\
+%  \normalsize\texttt{\{adrien.bougouin,florian.boudin,beatrice.daille\}@univ-nantes.fr
+}
+
+\date{}
+
+\begin{document}
+  \maketitle
+  \begin{abstract}
+    Keyphrase extraction is the task of identifying single or multi-word
+    expressions that best represent the content of a document. Most automatic
+    keyphrase extraction methods rely on a candidate selection step, in which
+    only the textual units that have similar properties to keyphrases are kept.
+    Candidate selection therefore plays an important role in keyphrase
+    extraction since it determines the upper bound of recall performance. In
+    this paper, we infer two general keyphrase properties, we discuss the
+    consistency of commonly used methods for candidate selection and we
+    demonstrate that it can be improved by filtering out irrelevant adjectives
+    from keyphrase candidates. Through experiments carried out on three standard
+    datasets of different languages and domains, we show that, in most cases,
+    filtering out adjectives judged to be of no use to the meaning of keyphrase
+    candidates improves the performance of both supervised and unsupervised
+    keyphrase extraction methods. 
+  \end{abstract}
+
+  \input{input/candidate_filtering.tex}
+
+%  \section*{Acknowledgements}
+%  The authors would like to thank the anonymous reviewers for their useful
+%  advice and comments. This work was supported by the French National Research
+%  Agency (TermITH project -- ANR-12-CORD-0029).
+
+  \bibliographystyle{naaclhlt2015}
+  \bibliography{../../biblio}
+\end{document}

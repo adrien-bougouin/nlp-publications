@@ -22,14 +22,14 @@
 \usepackage{subfigure}
 \usepackage{fancybox}
 \usepackage{multicol}
-\usepackage[inline]{enumitem}
+%\usepackage[inline]{enumitem}
 
-\pgfplotsset{compat=1.8}
+%\pgfplotsset{compat=1.8}
 
-\usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
+\usetikzlibrary{positioning, shapes, arrows, patterns}
 
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citeasnoun{#2}}{\citeasnoun[#1]{#2}}}
-\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\TODO[1]{}%\textcolor{red}{[TODO #1]}}
 
 \newtheorem{property}{Propriété}
 

@@ -2,11 +2,11 @@
 # Makefile
 ################################################################################
 
-report_NAME	= tal_2014_55_1
+report_NAME	= naaclhlt2015
 bib_FILE		= ../../biblio.bib
 input_DIR 	= ./input
-image_DIR 	= ./image
-needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(wildcard $(image_DIR)/*) $(bib_FILE)
+include_DIR 	= ./include
+needed_FILES	= $(wildcard $(input_DIR)/*.tex) $(wildcard $(include_DIR)/*) $(bib_FILE)
 
 default: $(report_NAME).pdf
 

@@ -1,0 +1,154 @@
+\chapter{Introduction}
+\label{chap:main-introduction}
+
+  %-----------------------------------------------------------------------------
+
+  \section{Contexte}
+  \label{sec:main-introduction-context}
+    %% Expression du besoin
+    Avec l'essor du numérique, le Web occupe aujourd'hui une place importante
+    dans notre société. Celui-ci contient tous types d'informations
+    (culturelles, historiques, scientifiques, etc.) qu'il rend disponibles
+    pour tous. Cependant, le Web est en constante expansion et le nombre
+    croissant d'informations disponibles compliquent leur accès, leur
+    recherche. Pour résoudre ce problème, il faut représenter et organiser
+    efficacement les documents numériques. Dans le contexte de la recherche
+    scientifique il est important de résoudre ce problème, car favoriser
+    l'accès aux productions scientifiques, que ce soit au niveau national ou
+    international, favorise les avancées scientifiques. C'est pourquoi
+    certains gouvernements créent des bibliothèques numériques telles que la
+    Bibliothèque Scientifique Numérique (\textsc{Bsn}) fondée en 2009 par le
+    ministère de l'enseignement supérieur et de la recherche français.
+
+    %% Réponse à ce besoin (introduction de la notion de termes-clés)
+    Afin de mieux comprendre comment l'accès aux informations peut être
+    facilité, prenons l'exemple de l'Institut de l'Information Scientifique et
+    Technique (Inist), avec lequel nous collaborons et dont les activités
+    s'organisent aujourd'hui dans le cadre de la \textsc{Bsn}. Créé en 1988,
+    l'Inist possède l'une des plus importantes collections de publications
+    scientifiques d'Europe et fournit plusieurs services pour la Recherche
+    d'Information (\textsc{Ri}), dont le maintient de bases de données
+    bibliographiques. Ces dernières sont composées de notices bibliographiques
+    dont les éléments décrivent chaque document~: titre, auteur(s), résumé et
+    termes-clés. Parmi ces éléments, l'ensemble des termes-clés est l'un des
+    plus importants pour la recherche d'information. En effet, les termes-clés
+    sont les mots ou les expressions qui représentent les concepts importants
+    d'un document\footnote{Un terme-clé est plus communément appelé mot-clé.
+    Cependant, un mot-clé n'étant pas uniquement monolexical, nous utilisons
+    la notion de \textit{terme-clé} pour lever toute ambiguïté. Lorsque dans
+    la suite nous parlons de \textit{mots-clés}, cela ne concerne donc que les
+    monolexicaux.} et c'est cette conceptualisation qui, au delà de résumer et
+    de catégoriser les documents, permet d'établir une correspondance entre le
+    besoin d'un utilisateur et les documents qui y répondent. Les termes-clés
+    sont parfois fournis par les auteurs, mais leur assignation est subjective
+    et peut varier selon les individus. Dans un soucis d'homogénéité, les
+    organismes tels que l'Inist font appel à des ingénieurs documentalistes
+    (indexeurs professionnels) qui assignent des termes-clés en s'assurant,
+    entre autres, qu'ils respectent le vocabulaire spécifique à la discipline
+    du document.
+
+    %% Besoin d'aller vers une solution automatique (surcharge => travail
+    %% bâclé)
+    L'extraction manuelle des termes-clés des documents est une tâche coûteuse
+    et chronophage. Humainement, assigner le mieux possible les termes-clés
+    d'un document nécessite de le lire dans son intégralité. Cependant,
+    lorsque la quantité de documents à traiter est trop importante et que le
+    temps imparti pour traiter un document ne peut excéder une certaine
+    limite, un indexeur aura tendance à ne considérer qu'un sous-ensemble du
+    document (p.~ex. le titre et le résumé uniquement), au risque de dégrader
+    la qualité de l'indexation.
+    Conscients de ce problème, que ce soit pour des articles
+    scientifiques ou des documents d'autres natures, de nombreux chercheurs
+    s'intéressent à la tâche d'extraction automatique de termes-clés, en
+    témoignent le nombre grandissant d'articles scientifiques à ce
+    sujet~\cite{hasan2014state_of_the_art} ainsi que l'émergence de campagnes
+    d'évaluation des méthodes d'extraction automatique de
+    termes-clés~\cite{kim2010semeval,paroubek2012deft}.
+
+    %% Définition et types d'indexations
+    L'extraction automatique de termes-clés consiste à extraire du contenu
+    d'un document les concepts qui y sont importants, c'est-à-dire qui le
+    caractérisent le mieux. Dans un article d'archéologie, par exemple, des
+    termes-clés valides peuvent concerner les types de travaux (fouilles,
+    mises en valeur d'artefacts, etc.), des données géographiques (pays,
+    régions, etc.), des données chronologiques (années, périodes,
+    sous-périodes, etc.) ou encore des données religieuses (dieux, cultes,
+    etc.). Il existe deux types d'indexation pouvant être réalisées par la
+    tâche d'extraction de termes-clés~: l'indexation libre et l'indexation
+    contrôlée~\cite{paroubek2012deft}. La première consiste à assigner des
+    termes-clés sans aucune contrainte, alors que la seconde consiste à
+    assigner des termes-clés contraints par un vocabulaire (une terminologie)
+    spécifique au domaine des documents qui sont traités. Pour ces deux
+    indexations, nous observons aussi le phénomène d'indexation silencieuse.
+    Cette indexation, difficile à reproduire automatiquement, fait apparaître
+    des termes-clés qui ne sont pas présents dans le document auquel ils sont
+    assignés~\cite{liu2011vocabularygap}. Il peut s'agir de reformulations
+    d'expressions utilisées dans le document (p.~ex. \og{}acquisition des
+    langues secondes\fg{} devient \og{}acquisition d'une langue seconde\fg{})
+    ou de concepts plus généraux décrivant une catégorie à laquelle appartient
+    le document (p.~ex. \og{}psycholinguistique\fg{}).
+
+    %% Fonctionnement des méthodes d'extraction automatique de termes-clés
+    Dans la littérature, nous observons un comportement commun à toutes les
+    méthodes~: les documents sont tout d'abord enrichis linguistiquement
+    (segmentés en phrases, segmentés en mots, étiquetés grammaticalement,
+    etc.), des termes-clés candidats en sont extraits, puis analysés (ordonnés
+    ou classifiés) afin de sélectionner ceux qu'il faut extraire comme
+    termes-clés. Nous observons aussi deux catégories de méthodes d'extraction
+    automatique de termes-clés~: les méthodes supervisées et les méthodes
+    non-supervisées. Les premières réduisent la tâche d'extraction de
+    termes-clés à une tâche de classification~\cite{witten1999kea}.
+    Entraînées à partir de collections de documents annotés en termes-clés,
+    celles-ci classent les termes-clés candidats en tant que
+    \textit{terme-clé} ou \textit{non terme-clé}. Quant aux secondes, elles
+    ordonnent généralement les termes-clés candidats selon leur importance
+    dans le document~\cite{wan2008expandrank}. En règle générale, ce sont les
+    méthodes supervisées qui sont les plus performantes. Cependant, la forte
+    dépendance des méthodes supervisées vis-à-vis du domaine des documents
+    d'apprentissages utilisés poussent les chercheurs à s'intéresser de plus
+    en plus aux méthodes non-supervisées~\cite{hassan2010conundrums}. De
+    plus, selon la nature des documents à traiter, des données d'apprentissage
+    peuvent ne pas être disponible.
+
+  %-----------------------------------------------------------------------------
+
+  \section{Problématique}
+  \label{sec:main-introduction-problem_statement}
+    %% Cadre de la thèse
+    Dans le cadre du projet \textsc{Anr} Termith\footnote{Terminologie et
+    Indexation de Textes en sciences Humaines~:
+    \url{http://www.atilf.fr/ressources/termith/}.}, en partenariat avec
+    l'Atilf\footnote{Analyse et Traitement Informatique de la Langue
+    Française.}, l'Inist, le Lidilem\footnote{Linguistique et Didactique des
+    Langues Étrangères et Maternelles.} et l'Inria\footnote{Institut National
+    de Recherche en Informatique et en Automatique.} (Nancy et Saclay), notre
+    objectif est d'automatiser le processus d'indexation des notices
+    bibliographiques réalisé par les ingénieurs documentalistes de l'Inist~:
+    indexation à la fois libre, contrôlée et silencieuse. En comparaison avec
+    les performances des méthodes réalisant d'autres tâches du Traitement
+    Automatique des Langues (\textsc{Tal}), telles que l'étiquetage
+    grammatical (plus de 95~\% de précision), les performances des
+    méthodes d'extraction automatique de termes-clés ne sont pas
+    satisfaisantes (moins de 50~\% de précision). Il reste encore des
+    questions auxquelles il est difficile de répondre, parmi elles~:
+    \begin{itemize}
+      \item{Sous quelles formes les termes-clés apparaissent-ils dans les
+            documents~? Quelle est la nature des termes-clés candidats~?
+            \cite{wang2014keyphraseextractionpreprocessing}}
+      \item{Comment identifier les termes-clés qui n'apparaissent pas dans les
+            documents~? \cite{liu2011vocabularygap}}
+      \item{Quelles relations les termes-clés entretiennent-ils entre eux dans
+            les documents~? \cite{boudin2013centrality_measures,
+            lahiri2014boudinlike}}
+    \end{itemize}
+    mais aussi~:
+    \begin{itemize}
+      \item{Comment tenir compte de la subjectivité de la tâche lors du
+            processus d'évaluation automatique~? Comment détecter
+            automatiquement l'extraction d'un termes-clés équivalant à l'un
+            des termes-clés de référence assignés aux
+            documents~? \cite{zesch2009rprecision}}
+    \end{itemize}
+
+    %% Définir les difficultés
+
