@@ -1,0 +1,47 @@
+\section{Introduction}
+\label{sec: introduction}
+  % - definition of keyphrases
+  % - motivations
+  Keyphrases are words or phrases that give a synoptic picture of what is
+  important within a document. Keyphrases are useful in many tasks such as
+  document clustering~\cite{han2007webdocumentclustering} and document
+  summarization~\cite{litvak2008graphbased}. However, documents do not always
+  contain keyphrases and the daily flow of new documents make manual keyphrase
+  assignment impractical. As a consequence, automatic keyphrase indexing of
+  single documents recently attracts a lot of attention and many different
+  methods were proposed~\cite{hasan2014state_of_the_art}.
+
+  % - definition of the automatic keyphrase indexing task
+  The automatic keyphrase indexing task consists in providing the important
+  concepts addressed by a document. Previous work devides the automatic
+  keyphrase indexing into two categories: Automatic Keyphrase Extraction (AKE)
+  and Automatic Keyphrase Assignment (AKA). AKE is the task of detecting
+  important words or phrases \emph{within} a document. While AKE methods can
+  detect explicit important concepts within a document, they fail to provide
+  implicit ones. In opposition to AKE methods, AKA methods use external
+  information and provide both explicit and implicit important concepts.
+
+  % - address the gap between previous work on AKE and AKA
+  Many AKE methods have been proposed, ranging from supervised to unsupervised
+  methods. Supervised AKE methods recast AKE as a binary classification task,
+  e.g.~\cite{witten1999kea}, whereas unsupervised AKE methods define importance
+  ranking schemes to extract the best words and phrases of a document,
+  e.g.~\cite{mihalcea2004textrank}. Unlike AKE, there is a few proposals for
+  AKA. AKA methods are supervised methods relying on external
+  resources~\cite{medelyan2006keathesaurus} or complex
+  classifiers~\cite{liu2011vocabularygap}. Although AKA is a much difficult
+  task, there is a sizeable amount of keyphrases that do not appears to the
+  documents they must be assigned
+  to~\cite[find a better ref.]{bougouin2013topicrank}. Hence, AKA is a critical
+  task to solve keyphrase indexing.
+
+  % - our propososal
+  This paper proposes a new method to tackle the AKA problem for specific
+  domains. Extending the graph-based AKE method
+  TopicRank~\cite{bougouin2013topicrank}, we first build a bi-graph modeling
+  both relations between words, and phrases, within a document (keyphrase
+  candidates) and relations between terminological entries of the document's
+  domain. Secondly, we rank keyphrase candidates and terminological entries
+  using mutual reinforcement. At last, we extract important keyphrase candidates
+  within the document, as well as terminological entries highlighted by some
+  keyphrase candidates.
