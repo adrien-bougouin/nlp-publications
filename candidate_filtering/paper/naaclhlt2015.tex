@@ -6,7 +6,7 @@
 \usepackage{naaclhlt2015}
 \usepackage{times}
 \usepackage{latexsym}
-%\setlength\titlebox{6.5cm}    % Expanding the titlebox
+%\setlength\titlebox{6.5cm} % Expanding the titlebox
 
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -22,54 +22,70 @@
 \usepackage{fancybox}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{url}
+\usepackage{graphicx}
+
+\setlength{\textfloatsep}{0em}
+\setlength{\floatsep}{0em}
+\setlength{\dbltextfloatsep}{0em}
+\setlength{\dblfloatsep}{0em}
+\setlength{\abovecaptionskip}{.33em}
+\setlength{\belowcaptionskip}{.44em}
 
 \newtheorem{property}{Property}
-\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\TODO[1]{}%\textcolor{red}{[TODO #1]}}
 
 \title{
-  Selecting Candidates for Automatic Keyphrase Extraction:\\
-  From Inferred Properties to Simple Strategies
-%  \Thanks{
-%    The authors would like to thank the anonymous reviewers for their useful
-%    advice and comments. This work was supported by the French National Research
-%    Agency (TermITH project -- ANR-12-CORD-0029).
-%  }
+    Linguistically Motivated Keyphrase Candidate Selection
+    %Selecting Keyphrase Candidates using Relational Adjectives
+    % \Thanks{
+    %     The authors would like to thank the anonymous reviewers for their useful
+    %     advice and comments. This work was supported by the French National Research
+    %     Agency (TermITH project -- ANR-12-CORD-0029).
+    % }
 }
 
-\author{
-%  Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
-%  Université de Nantes, LINA, France\\
-%  \normalsize\texttt{\{adrien.bougouin,florian.boudin,beatrice.daille\}@univ-nantes.fr
-}
+% \author{First Author \\
+%   Affiliation \\
+%   {\tt email@domain} \\\And
+%   Second Author \\
+%   Affiliation \\
+%   {\tt email@domain} \\}
+
+% \author{
+%     Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
+%     Université de Nantes, LINA, France\\
+%     \normalsize\texttt{\{adrien.bougouin,florian.boudin,beatrice.daille\}@univ-nantes.fr
+% }
 
 \date{}
 
 \begin{document}
-  \maketitle
-  \begin{abstract}
-    Keyphrase extraction is the task of identifying single or multi-word
-    expressions that best represent the content of a document. Most automatic
-    keyphrase extraction methods rely on a candidate selection step, in which
-    only the textual units that have similar properties to keyphrases are kept.
-    Candidate selection therefore plays an important role in keyphrase
-    extraction since it determines the upper bound of recall performance. In
-    this paper, we infer two general keyphrase properties, we discuss the
-    consistency of commonly used methods for candidate selection and we
-    demonstrate that it can be improved by filtering out irrelevant adjectives
-    from keyphrase candidates. Through experiments carried out on three standard
-    datasets of different languages and domains, we show that, in most cases,
-    filtering out adjectives judged to be of no use to the meaning of keyphrase
-    candidates improves the performance of both supervised and unsupervised
-    keyphrase extraction methods. 
-  \end{abstract}
-
-  \input{input/candidate_filtering.tex}
-
-%  \section*{Acknowledgements}
-%  The authors would like to thank the anonymous reviewers for their useful
-%  advice and comments. This work was supported by the French National Research
-%  Agency (TermITH project -- ANR-12-CORD-0029).
-
-  \bibliographystyle{naaclhlt2015}
-  \bibliography{../../biblio}
+    \maketitle
+    
+    \begin{abstract}
+        % This paper analyses human-assigned keyphrases and identifies their linguistic properties.
+        % We use these properties to propose a new method for selecting keyphrase candidates.
+        % Through both intrinsic and extrinsic evaluations on three datasets, we show that a linguistically motivated selection of keyphrase candidates improves the keyphrase extraction performance.
+        Keyphrase candidate selection is the task of producing a set of potential keyphrases.
+        This work analyses human-assigned keyphrases and identifies their linguistic properties.
+        We use these properties to select keyphrase candidates.
+        Through both intrinsic and extrinsic comparisons with current candidate selection methods, we show that a
+        linguistically motivated selection of keyphrase candidates improves the keyphrase extraction performance.
+    \end{abstract}
+    
+    
+    \input{input/introduction.tex}
+    \input{input/keyphrase_properties.tex}
+    \input{input/candidate_selection.tex}
+    \input{input/proposed_candidate_selection_method.tex}
+    \input{input/experiments.tex}
+    \input{input/conclusion.tex}
+    
+    % \section*{Acknowledgements}
+    %     The authors would like to thank the anonymous reviewers for their useful
+    %     advice and comments. This work was supported by the French National Research
+    %     Agency (TermITH project -- ANR-12-CORD-0029).
+    
+    \bibliographystyle{naaclhlt2015}
+    \bibliography{../../biblio}
 \end{document}

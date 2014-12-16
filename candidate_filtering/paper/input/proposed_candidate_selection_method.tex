@@ -1,0 +1,19 @@
+\section{Linguistically Refined NPs (LR-NPs)}
+\label{sec:proposed_candidate_selection_method}
+    To get rid of unwanted modifiers within keyphrase candidates, we propose a set of heuristics drawn from the observations presented in Section~\ref{sec:keyphrase_properties}.
+    
+    First, we use more specific POS tag patterns to select candidates: \texttt{A?\,(Nc|Np)+} for English and \texttt{(Nc|Np)+\,A?} for French.
+    These patterns ensure more consistency with Property~\ref{prop:informativity} and, in the case of French, filter out some attributive adjectives (left-side adjectives).
+    
+    Second, we further refine the selected keyphrase candidates by pruning modifiers according to the following rules.
+    As relational adjectives often appear in reference keyphrases, we consider that they are always relevant modifiers and must be preserved in all candidates.
+    We also accept every single-word compound modifier, such as an hyphenated modifier (e.g.~``graph-based'', ``data-driven'', ect.).
+    Indeed, similar to relational adjectives, single-word compound modifiers introduce a relation with a noun.
+    
+    Other modifiers are in turn removed from the keyphrase candidates, except when they bring \textit{useful} information.
+    To assess whether a modifier is useful or not, we simply compare the number of occurrences of a candidate with and without the modifier.
+    If a keyphrase candidate occurs more often unmodified, we prune the candidate from the modifier (e.g.~``\textit{large storms}'' becomes ``\textit{storms}'').
+    
+    To detect relational adjectives, we use external resources: WordNet~\cite{miller1995wordnet} for English and WoNeF~\cite{pradet2013wonef} for French.
+    %We consider an adjective to be relational if it has a pertainym in those resources, or if its suffix matches one of the known suffixes of relational adjectives\footnote{This simple detection technique requires few resources and is easy to adapt for new languages.}: ``al'', ``ant'', ``ary'', ``ic'', ``ous''  or ``ive'' for English~\cite{grabar2006terminologystructuring}; ``ain'', ``aire'', ``al'', ``el'', ``eux'', ``ien'', ``ier'', ``ique'' or ``ois'' for French~\cite{harastani2013relationaladjectivetranslation}.
+    We consider an adjective to be relational if it has a pertainym in those resources, or if its suffix matches one of the known suffixes of relational adjectives: ``al'', ``ant'', ``ary'', ``ic'', ``ous''  or ``ive'' for English~\cite{grabar2006terminologystructuring}; ``ain'', ``aire'', ``al'', ``el'', ``eux'', ``ien'', ``ier'', ``ique'' or ``ois'' for French~\cite{harastani2013relationaladjectivetranslation}.

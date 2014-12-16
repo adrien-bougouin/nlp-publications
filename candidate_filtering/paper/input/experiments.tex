@@ -1,0 +1,85 @@
+\section{Experiments}
+\label{sec:experiments}
+    We validate the effectiveness of our proposed candidate selection method by using two series of experiments.
+    First, we provide a qualitative evaluation of the keyphrase candidates produced by our method and perform a comparison with the other methods.
+    Second, we conduct an end-to-end evaluation by exploiting two keyphrase extraction systems.
+    
+    \subsection{Experimental settings}
+    \label{subsec:experimental_settings}
+        To quantify the capacity of the candidate selection methods to provide suitable candidates and avoid irrelevant ones, we compute the number of selected candidates (Cand./Doc.) and confront it with the best possible performance (maximum recall~--~R$_{\text{max}}$).
+        To do so, we compute a quality ratio (QR):
+        \begin{align}
+            \text{QR} &= \frac{\text{R$_{\text{max}}$}}{\text{Cand./Doc.}} \times 100
+        \end{align}
+        The higher is QR, the better.
+
+        \begin{table*}
+            \centering
+            \begin{tabular}{r|ccc|ccc|ccc}
+                \toprule
+                \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{DUC} (\textit{English})} & \multicolumn{3}{c|}{\textbf{SemEval} (\textit{English})} & \multicolumn{3}{c}{\textbf{DEFT} (\textit{French})}\\
+                \cline{2-10}
+                & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
+                \hline
+                \{1..3\}-grams & $~~~$596.2 & \textbf{90.8} & 15.2 & 2580.5 & \textbf{72.2} & $~~$2.8 & 4070.2 & \textbf{74.1} & $~~~$1.8\\
+                Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
+                NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
+                LR-NPs & \textbf{$~~~$143.8} & 85.3 & \textbf{59.3} & \textbf{$~~~$538.2} & 59.4 & \textbf{11.0} & \textbf{$~~~$738.2} & 60.1 & \textbf{$~~$8.1}\\
+                \bottomrule
+            \end{tabular}
+            \caption{Qualitative comparison of the keyphrase candidate selection methods
+                     \label{tab:candidate_extraction_statistics}}
+        \end{table*}
+
+        \begin{table*}
+            \centering
+            \resizebox{\linewidth}{!}{
+            \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
+                \toprule
+                \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC} (\textit{English})} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval} (\textit{English})} & \multicolumn{6}{c}{\textbf{DEFT} (\textit{French})}\\
+                \cline{2-19}
+                & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+                \cline{2-19}
+                & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
+                \hline
+                \{1..3\}-grams & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
+                Longest NPs & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
+                NP-chunks & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
+                LR-NPs & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
+                \bottomrule
+            \end{tabular}
+            }
+            \caption{Comparison of TF-IDF and KEA applied on top of different candidate selection methods.
+            $\ddagger$ indicates a significant improvement overall candidate sets and $\dagger$ indicates a significant improvement overall candidate sets but the longest NPs at 0.001 level using Student's t-test.
+                     \label{tab:keyphrase_extraction_results}}
+        \end{table*}
+        
+        We measure the impact of each candidate selection method on the keyphrase extraction task using the two following unsupervised and supervised keyphrase extraction methods:
+        \begin{itemize}
+            \item{\textbf{TF-IDF~\cite{jones1972tfidf}:} Word significancy weighting scheme.
+                  Words are weighted based on their frequency in the document and the inverse number of documents in which they appear (specificity);
+                  Candidates are weighted using the sum of  their words' score.}
+            \item{\textbf{KEA~\cite{witten1999kea}:} Naive Bayes classifier trained on two features: the TF-IDF\footnote{KEA computes a TF-IDF based on candidate frequency, whereas our TF-IDF baseline relies on word frequency. KEA's TF-IDF is more efficient on larger documents than smaller ones.} and the first position of each candidate selected within train documents.}
+        \end{itemize}
+        We report the performance of TF-IDF and KEA in terms of precision~(P), 
+        recall~(R) and F1-measure (F) at the top 10 keyphrases.
+        Candidate and reference keyphrases are stemmed to reduce the number 
+        of mismatches.
+    
+    \subsection{Candidate selection evaluation}
+    \label{subsec:candidate_extraction_evaluation}
+        Table~\ref{tab:candidate_extraction_statistics} presents the results of the intrinsic evaluation of the candidate selection methods.
+        %Unsurprisingly, the best maximum recall is achieved by the $\{1..3\}$-grams selection method, but at the cost of a huge number of unrelevant candidates as indicated by the low quality ratio.
+        Unsurprisingly, the best maximum recall is achieved when selecting $\{1..3\}$-grams, but at the cost of a huge number of irrelevant candidates as indicated by the low QR.
+        Among the other selection methods, our method shows a competitive maximum recall while reducing the number of candidates.
+        As a consequence, the LR-NPs quality outperforms other selected candidates quality, which is crucial as it directly affects the performance and time complexity of keyphrase extraction methods~\cite{wang2014keyphraseextractionpreprocessing}.
+        
+        \TODO{examples of true and false positives}
+    
+    \subsection{Keyphrase extraction evaluation}
+    \label{subsec:keyphrase_extraction_evaluation}
+        Table~\ref{tab:keyphrase_extraction_results} shows the results of the extrinsic evaluation of the candidate selection methods.
+        Overall, we observe that the performance of TF-IDF and KEA is closely correlated with the quality of the set of selected candidates.
+        Best results are then obtained when TF-IDF and KEA are applied on LR-NPs (half of them are significantly better).
+        Thus, although our proposed selection method does not achieve the best maximum recall, it still outperforms the other candidate selection  methods.
+        Comparing longest NPs, NP-chunks and LR-NPs demonstrates that it is efficient to use heuristic based on linguistic properties.
