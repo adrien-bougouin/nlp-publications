@@ -34,11 +34,12 @@
 
 \renewcommand\cite[2][]{\ifthenelse{\equal{#1}{}}{\citep{#2}}{\citep[#1]{#2}}}
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citet{#2}}{\citet[#1]{#2}}}
-\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\TODO[1]{\textcolor[rgb]{1, 0, 0}{[TODO #1]}}
+\newcommand\REMARK[1]{\textcolor[rgb]{0, 1, 0}{[#1]}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\titre{TODO}
+\titre{Indexation automatique par termes-clés\\de documents en domaines de spécialités}
 %\soustitre{}
 
 \title{TODO}
@@ -114,7 +115,8 @@
 
   \input{input/introduction.tex}
   \input{input/state_of_the_art.tex}
-  \input{input/contributions.tex}
+  \input{input/automatic_keyphrase_annotation.tex}
+  \input{input/automatic_keyphrase_evaluation.tex}
   \addtocontents{toc}{\bigskip}
   \input{input/conclusion.tex}
 
