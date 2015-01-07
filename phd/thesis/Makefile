@@ -12,7 +12,7 @@ default: $(report_NAME).pdf
 $(report_NAME).pdf: $(report_NAME).tex $(needed_FILES)
 	latex $<
 	bibtex $(report_NAME)
-	latex $<
+	makeindex $(report_NAME).idx
 	latex $<
 	dvips $(report_NAME).dvi
 	ps2pdf $(report_NAME).ps
@@ -22,7 +22,7 @@ $(report_NAME).pdf: $(report_NAME).tex $(needed_FILES)
 .PHONY: clean mrproper
 
 clean:
-	rm -rf *.aux *.bbl *.blg *.log *.out *.toc *.lof *.lot *.brf *.dvi *.ps
+	rm -rf *.aux *.bbl *.blg *.log *.out *.toc *.lof *.lot *.brf *.dvi *.ps *.idx *.ilg *.ind
 
 mrproper: clean
 	rm -rf $(report_NAME).pdf
