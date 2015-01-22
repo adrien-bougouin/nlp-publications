@@ -1,60 +1,34 @@
-\part{Indexation automatique par termes-clés}
-\label{part:main-automatic_keyphrase_annotation}
+\chapter{Contributions à l'indexation automatique par termes-clés}
+\label{chap:main-automatic_keyphrase_annotation}
+  \section{Introduction}
+  \label{sec:main-automatic_keyphrase_annotation-introduction}
+    \TODO{chaine de traitement classique}
+    \TODO{Extraction Vs. Assignation => Libre Vs. Controllé}
 
   %-----------------------------------------------------------------------------
 
-  \chapter{Ressources}
-  \label{chap:main-automatic_keyphrase_annotation-resources}
-    \section{Introduction}
-    \label{sec:main-automatic_keyphrase_annotation-resources-introduction}
+  \section{Sélection des termes-clés candidats}
+  \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}
+    \subsection{Analyse des propriétés des termes-clés}
+    \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties}
 
-    \section{Ressources Termith}
-    \label{sec:main-automatic_keyphrase_annotation-resources-termith_resources}
+    \subsection{Filtrage des modificateurs}
+    \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering}
 
-    \section{Autres ressources}
-    \label{sec:main-automatic_keyphrase_annotation-resources-other_resources}
-      \subsection{Ressources francophones}
-      \label{sec:main-automatic_keyphrase_annotation-resources-other_resources-french_resources}
+    \subsection{Evaluation}
+    \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation}
+      \subsubsection{Evaluation intrinsèque}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
 
-      \subsection{Ressources anglophones}
-      \label{sec:main-automatic_keyphrase_annotation-resources-other_resources-english_resources}
-
-    \section{Conclusion}
-    \label{sec:main-automatic_keyphrase_annotation-resources-conclusion}
+      \subsubsection{Evaluation extrinsèque}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
 
   %-----------------------------------------------------------------------------
 
-  \chapter{Sélection des termes-clés candidats}
-  \label{chap:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}
-    \section{Introduction}
-    \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-introduction}
-
-    \section{Analyse des propriétés des termes-clés}
-    \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties}
-
-    \section{Filtrage des modificateurs}
-    \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering}
-
-    \section{Evaluation}
-    \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation}
-      \subsection{Evaluation intrinsèque}
-      \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
-
-      \subsection{Evaluation extrinsèque}
-      \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
-
-    \section{Conclusion}
-    \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-conclusion}
-
-  %-----------------------------------------------------------------------------
-
-  \chapter{Extraction automatique non supervisée des termes-clés}
-  \label{chap:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction}
-    \section{Introduction}
-    \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-introduction}
-
-    \section{TopicRank}
-    \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank}
+  \section{Extraction automatique non supervisée des termes-clés}
+  \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction}
+    \subsection{TopicRank}
+    \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank}
       % Qu'est-ce que TopicRank ?
       TopicRank est une méthode non supervisée d'extraction de termes-clés qui
       modélise un document sous la forme d'un graphe de sujets.
@@ -67,8 +41,8 @@
       dans la suite~: identification des sujets~; ordonnancement des sujets~;
       sélection des termes-clés.
 
-      \subsection{Identification des sujets}
-      \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
+      \subsubsection{Identification des sujets}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
         Dans ce travail, un sujet est une information générale ou le plus
         souvent spécifique véhiculée par au moins une unité textuelle présente
         dans le document analysé. Nous ne nous reposons donc pas sur une
@@ -139,8 +113,8 @@
         cas de TopicRank, où les candidats sont de meilleure qualité que les
         n-grammes, la stratégie moyenne est une meilleure alternative.
 
-      \subsection{Ordonnancement des sujets}
-      \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_ranking}
+      \subsubsection{Ordonnancement des sujets}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_ranking}
         % Quel est le but de l'ordonnancement ?
         % Comment est-il effectué ?
         L'ordonnancement des sujets a pour objectif de trouver quels sont ceux
@@ -188,8 +162,8 @@
         complet.} $s_i$ et où $\lambda$ est un facteur d'atténuation définit à
         0,85 d'après les recommandations de \newcite{brin1998pagerank}.
 
-      \subsection{Sélection des termes-clés}
-      \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-keyphrase_selection}
+      \subsubsection{Sélection des termes-clés}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-keyphrase_selection}
         % De quoi s'agit-il ?
         La sélection des termes-clés est la dernière étape de TopicRank. Elle
         consiste à chercher les termes-clés candidats qui représentent le mieux
@@ -225,15 +199,15 @@
         particulier selon leur taille, tandis que sélectionner les centroïdes
         risque de ne pas fournir les termes-clés les plus précis.
 
-    \section{Evaluation}
-    \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation}
+    \subsection{Evaluation}
+    \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation}
       Pour valider notre approche, nous réalisons une première série
       d'évaluations visant à déterminer la configuration optimale de TopicRank.
       Nous comparons  ensuite Topic\-Rank aux travaux précédents et analysons
       l'impact de chacune de nos contributions.
       
-      \subsection{Méthodes de référence}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-baselines}
+      \subsubsection{Méthodes de référence}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-baselines}
         % Comment les baselines sont-elles choisies ?
         Dans nos expérimentations, nous comparons TopicRank à trois autres
         méthodes non supervisées d'extraction automatique de termes-clés. Nous
@@ -261,8 +235,8 @@
         partagent le même comportement que TopicRank, celui-ci est réalisé par
         le même composant.
 
-      \subsection{Collections de données}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
+      \subsubsection{Collections de données}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
         Afin de suivre \newcite{hassan2010conundrums} qui soulignent
         l'importance d'évaluer une méthode avec des collections de données aux
         configurations différentes pour mieux observer et comprendre son
@@ -352,8 +326,8 @@
                    \label{tab:donnees_de_test}}
         \end{table}
 
-      \subsection{Prétraitement}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-preprocessing}
+      \subsubsection{Prétraitement}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-preprocessing}
         Chaque document des collections de données utilisées subit les mêmes
         prétraitements. Chaque document est tout d'abord segmenté en phrases,
         puis en mots et enfin étiqueté grammaticalement. La segmentation en mots
@@ -366,8 +340,8 @@
         l'anglais et avec l'outil MElt~\cite{denis2009melt} pour le français.
         Tous ces outils sont utilisés avec leur configuration par défaut.
 
-      \subsection{Mesures d'évaluation}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_measures}
+      \subsubsection{Mesures d'évaluation}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_measures}
         Les performances des méthodes d'extraction de termes-clés sont exprimées
         en termes de précision (P), rappel (R) et f-score (f1-mesure, F). En
         accord avec l'évaluation menée dans les travaux précédents, nous
@@ -378,8 +352,8 @@
         composent en utilisant la méthode de racinisation de
         \newcite{porter1980suffixstripping}.
 
-      \subsection{Analyse empirique de TopicRank}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-empirical_analysis_of_topicrank}
+      \subsubsection{Analyse empirique de TopicRank}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-empirical_analysis_of_topicrank}
         Dans cette section, nous effectuons des expériences préliminaires afin
         de déterminer quelle est la configuration optimale de TopicRank. En
         utilisant les ensembles d'entraînement de SemEval et de DEFT, nous
@@ -689,8 +663,8 @@
                    \label{fig:variation_de_la_selection_des_candidats}}
         \end{figure}
 
-      \subsection{Paramétrage empirique de SingleRank}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-empirical_setting_of_singlerank}
+      \subsubsection{Paramétrage empirique de SingleRank}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-empirical_setting_of_singlerank}
         Contrairement aux autres méthodes de référence, SingleRank possède un
         paramètre qui est définit arbitrairement~: la fenêtre de cooccurrences
         fixée à dix par \newcite{wan2008expandrank}. De même que pour TopicRank,
@@ -777,8 +751,8 @@
                    \label{fig:variation_de_la_fenetre}}
         \end{figure}
 
-      \subsection{Comparaison de TopicRank avec l'existant}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-comparison}
+      \subsubsection{Comparaison de TopicRank avec l'existant}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-comparison}
         % Que représente le tableau ?
         Le tableau~\ref{tab:resultats_globaux} montre les performances de
         TopicRank comparées à celles des trois méthodes de référence. De manière
@@ -889,15 +863,15 @@
         relations de cooccurrences que lorsque les n\oe{}uds sont les mots du
         document et est donc moins précis pour l'ordonnancement.
 
-      \section{Analyse d'erreurs}
-      \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis-}
+      \subsection{Analyse d'erreurs}
+      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis-}
         Dans cette section, nous proposons d'analyser les erreurs de TopicRank.
         Dans un premier temps, nous analysons les sujets que détecte TopicRank,
         puis dans un second temps, nous analysons les termes-clés de référence
         qui ne sont pas extraits par Topic\-Rank.
 
-        \subsection{Analyse des sujets détectés}
-        \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis-detected_topics}
+        \subsubsection{Analyse des sujets détectés}
+        \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis-detected_topics}
           Dans cette section, nous analysons les groupements en sujets effectués
           par Topic\-Rank afin de déterminer quelles sont les principales causes
           d'erreurs.
@@ -933,8 +907,8 @@
           commun pour les grouper. Ces candidats étant très fréquents, ils sont
           la cause de nombreuses erreurs.
 
-        \subsection{Analyse des faux négatifs}
-        \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis-false_negatives}
+        \subsubsection{Analyse des faux négatifs}
+        \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis-false_negatives}
           Dans cette section, nous analysons les termes-clés de référence qui
           n'ont pas été extraits par TopicRank. Plus particulièrement, nous nous
           intéressons à ceux qui sont présents dans les dix sujets jugés les
@@ -971,101 +945,43 @@
           nominales (par exemple \og{}député\fg{}) semblent être une hypothèse à
           vérifier.
 
-    \section{Conclusion}
-    \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-conclusion}
-      Dans ce travail, nous proposons une méthode à base de graphe pour
-      l'extraction non supervisée de termes-clés. Cette méthode groupe les
-      termes-clés candidats en sujets, détermine quels sont ceux les plus
-      importants, puis extrait le terme-clé candidat qui représente le mieux
-      chacun des sujets les plus importants. Cette nouvelle méthode offre
-      plusieurs avantages vis-à-vis des précédentes à base de graphe. Le
-      groupement des termes-clés potentiels en sujets distincts permet de
-      rassembler des indices utiles auparavant éparpillés et le choix d'un seul
-      terme-clé pour représenter un sujet important permet d'extraire un
-      ensemble de termes-clés non redondants (pour $k$ termes-clés extraits,
-      exactement $k$ sujets sont couverts). Enfin, le graphe est complet et ne
-      requiert plus le paramétrage d'une fenêtre de cooccurrences, contrairement
-      aux autres méthodes à base de graphe.
+  %-----------------------------------------------------------------------------
 
-      Les bons résultats de notre méthode montrent la pertinence d'un groupement
-      en sujets des candidats pour ensuite les ordonner. Les expériences
-      supplémentaires montrent aussi qu'il est encore possible d'améliorer notre
-      méthode en proposant une nouvelle stratégie de sélection du terme-clé
-      candidat le plus représentatif d'un sujet (pour un gain maximum allant de
-      4,2 à 15 points de f-score).
+  \section{Indexation automatique supervisée par termes-clés}
+  \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
+    \subsection{TopicRank++}
+    \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topicrank++}
+      \subsubsection{Construction du graph}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topicrank++-graph_construction}
 
-      Nous avons aussi effectué une analyse d'erreurs à partir de laquelle trois
-      perspectives de travaux futurs émergent.
+      \subsubsection{Renforcement mutuel des termes-clés candidats et de référence}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topicrank++-mutual_reinforcement}
 
-      Nous avons pour objectif d'améliorer la sélection des termes-clés
-      candidats. Aussi, des méthodes empruntées à d'autres domaines du TAL
-      peuvent être appliquées. Il semble, par exemple, pertinent d'évaluer
-      l'apport des méthodes d'extraction
-      terminologiques~\cite{castellvi2001automatictermdetection} pour la
-      sélection des termes-clés candidats.
+      \subsubsection{Sélection des termes-clés}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topicrank++-keyphrase_selection}
+
+    \subsection{Evaluation}
+    \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
+      \subsubsection{Méthodes de référence}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
+
+      \subsubsection{Collections de données}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
+
+      \subsubsection{Prétraitements}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-preprocessing}
       
-      Nous envisageons également d'améliorer le groupement en sujets, car
-      celui-ci est très naïf et ne tient compte ni de la synonymie, ni de
-      l'ambiguïté des mots. De plus, l'usage du
-      radical~\cite{porter1980suffixstripping} des mots n'est pas sans
-      introduire du bruit lié à certains faux positifs. L'ajout de connaissances
-      concernant les synonymes permettrait de créer des sujets plus complets et
-      une étape de désambiguïsation éviterait un groupement systématique des
-      termes-clés candidats ayant un ou plusieurs mots en commun. Nous
-      envisageons aussi de remplacer la racinisation par une méthode de
-      lemmatisation. D'un point de vue plus technique, il faudrait explorer
-      différentes méthodes de groupement, dont le groupement spectral
-      (\textit{spectral clustering}) qui, dans d'autres travaux portant sur
-      l'extraction automatique de termes-clés~\cite{liu2009keycluster}, montre
-      de meilleures performances que le groupement hiérarchique agglomératif.
+      \subsubsection{Mesures d'évaluation}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_measures}
+      
+      \subsubsection{Comparaison de TopicRank++ avec l'existant}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-comparison}
 
-      Enfin, une étude détaillée des caractéristiques des termes-clés pourrait
-      orienter notre travail vers des critères plus efficaces pour la définition
-      d'une stratégie \og{}optimale\fg{} de sélection du terme-clé le plus
-      représentatif d'un sujet. Un apprentissage supervisé à partir de certains
-      critères est aussi envisagé, au même titre que l'usage de méthodes
-      d'optimisation, telles que celle utilisée par
-      \newcite{ding2011binaryintegerprogramming} dans leur méthode d'extraction
-      automatique de termes-clés.    
+    \subsection{Analyse d'erreur}
+    \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}
 
   %-----------------------------------------------------------------------------
 
-  \chapter{Indexation automatique supervisée par termes-clés}
-  \label{chap:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
-    \section{Introduction}
-    \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-introduction}
-
-    \section{TopicRank++}
-    \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topicrank++}
-      \subsection{Construction du graph}
-      \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topicrank++-graph_construction}
-
-      \subsection{Renforcement mutuel des termes-clés candidats et de référence}
-      \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topicrank++-mutual_reinforcement}
-
-      \subsection{Sélection des termes-clés}
-      \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topicrank++-keyphrase_selection}
-
-    \section{Evaluation}
-    \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
-      \subsection{Méthodes de référence}
-      \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
-
-      \subsection{Collections de données}
-      \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
-
-      \subsection{Prétraitements}
-      \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-preprocessing}
-      
-      \subsection{Mesures d'évaluation}
-      \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_measures}
-      
-      \subsection{Comparaison de TopicRank++ avec l'existant}
-      \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-comparison}
-
-    \section{Analyse d'erreur}
-    \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}
-
-    \section{Conclusion}
-    \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-conclusion}
+  \section{Conclusion}
+  \label{sec:main-automatic_keyphrase_annotation-conclusion}
 
