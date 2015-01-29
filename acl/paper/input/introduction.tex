@@ -4,44 +4,46 @@
   % - motivations
   Keyphrases are words or phrases that give a synoptic picture of what is
   important within a document. Keyphrases are useful in many tasks such as
-  document clustering~\cite{han2007webdocumentclustering} and document
-  summarization~\cite{litvak2008graphbased}. However, documents do not always
-  contain keyphrases and the daily flow of new documents makes manual keyphrase
-  assignment impractical. As a consequence, automatic keyphrase indexing of
-  single documents recently attracts a lot of attention and many different
-  methods were proposed~\cite{medelyan2006kea++,hasan2014state_of_the_art}.
+  document indexing for digital
+  libraries~\cite{gutwin1999keyphrasesfordigitallibraries} or extractive
+  document summarization~\cite{litvak2008graphbased}. However, documents do not
+  always contain keyphrases and the daily flow of new documents makes the manual
+  keyphrase annotation impractical. As a consequence, automatic keyphrase
+  annotation of single documents recently attracts a lot of attention and many
+  different methods were proposed~\cite{hasan2014state_of_the_art}.
 
-  % - definition of the automatic keyphrase indexing task
-  The automatic keyphrase indexing task consists in automatically detecting the
-  important concepts addressed by a document. Previous work devides the
-  automatic keyphrase indexing into two categories: Automatic Keyphrase
-  Extraction (AKE) and Automatic Keyphrase Assignment (AKA). AKE is the task of
-  detecting important words or phrases \emph{within} a document. AKE methods can
-  identify explicit important concepts within a document, but they fail to
-  discover implicit ones. In opposition, AKA methods use external information
-  and detect both explicit and implicit important concepts.
+  % - definition of the automatic keyphrase annotation task
+  The automatic keyphrase annotation task consists in automatically detecting
+  the important concepts addressed by a document. We divide the automatic
+  keyphrase annotation into two principal categories: Automatic Keyphrase
+  Extraction (AKE) and Automatic Keyphrase Assignment (AKA). AKE detects
+  important words or phrases occuring within the document, whereas AKA provides
+  keyphrases from a domain-specific terminology, without regard to their
+  occurence within the document.
 
-  % - address the gap between previous work on AKE and AKA
-  Many AKE methods have been proposed, ranging from supervised to unsupervised
-  methods. Supervised AKE methods recast AKE as a binary classification task,
-  e.g.~\cite{witten1999kea}, whereas unsupervised AKE methods define importance
-  ranking schemes to extract the best words and phrases of a document,
-  e.g.~\cite{mihalcea2004textrank}. Unlike AKE, there is a few proposals for
-  AKA. AKA methods are supervised methods relying on external
-  resources~\cite{medelyan2006kea++} or complex
-  classifiers~\cite{liu2011vocabularygap}. Intuitively, AKA is a much difficult
-  task than AKE. However, AKA is as important as there is a sizeable amount of
-  keyphrases that do not appear within the documents they are assigned
-  to~\cite[\TODO{find a better ref.}]{bougouin2013topicrank}.
-  \TODO{Better end}
+  % - benefits and drawbacks of each task
+  The automatic keyphrase annotation problem has mainly been tackled using AKE
+  methods. However, statistics from standard evaluation datasets show a sizeable
+  amount of keyphrases that do not occur within their
+  documents~\cite{bougouin2013topicrank}, i.e.~keyphrases impossible to find
+  using AKE methods. In opposition, AKA methods have the ability to bridge this
+  ``vocabulary gap''~\cite{liu2011vocabularygap}, but they fail to discover
+  novel concepts, i.e.~concepts that are not terminological entries yet (or
+  variants).
 
   % - our propososal
-  This paper proposes a new method to tackle the AKA problem for specific
-  domains. Extending the AKE method TopicRank~\cite{bougouin2013topicrank}, we
-  use a graph-based ranking algorithm hover a graph with multiple edge types.
-  Modeling the relations between the words, and phrases, of a document
-  (keyphrase candidates), their relations with domain-specific terminological
-  entries and the relations between these terminological entries, we extract
-  important keyphrase candidates, as well as terminological entries highlighted
-  by the keyphrase candidates.
-  \TODO{Better end}
+  This paper presents a new method performing both AKA to bridge the
+  ``vocabulary gap'' and AKE to discover potentially novel concepts. Leveraging
+  training data with documents associated with reference keyphrases, we
+  simultanously rank these reference keyphrases and the concepts of a document
+  using a unified graph-based algorithm. An importance score is given to every
+  reference keyphrase based on its relationship with the other reference
+  keyphrases and its relationship with the document's concepts. Similarly, an
+  importance score is given to every concept of the document based on its
+  relationship with the other concepts and its relationship with the reference
+  keyphrases.
+
+  \TODO{Results insight}
+
+  \TODO{The rest of this paper is organized as follows\dots}
+

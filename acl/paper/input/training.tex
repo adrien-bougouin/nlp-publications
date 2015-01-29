@@ -1,0 +1,31 @@
+\section{Training}
+\label{sec:training}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=.85]
+      \begin{axis}[
+        view={120}{35},
+        %3d box,
+        grid=major,
+        xmin=0,
+        xmax=10,
+        xtick={0, 2, 4, ..., 10},
+        xlabel=k,
+        ymin=0,
+        ymax=0.95,
+        ytick={0, 0.30, 0.60, 0.90},
+        ylabel=$\lambda$,
+        zmin=8,
+        zmax=22,
+        ztick={5, 10, ..., 30},
+        zlabel=F,
+        zlabel style={rotate=270},
+      ]
+        \addplot3[surf] file {input/data/fig_training_1.csv};
+        \addplot3[surf] file {input/data/fig_training_2.csv};
+      \end{axis}
+    \end{tikzpicture}
+
+    \caption{\label{fig:training}}
+  \end{figure}
+

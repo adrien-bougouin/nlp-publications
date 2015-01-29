@@ -16,15 +16,20 @@
 %% and that of ACL 08 by Joakim Nivre and Noah Smith
 
 \documentclass[11pt]{article}
+
 \usepackage{acl2015}
 \usepackage{times}
 \usepackage{url}
 \usepackage{latexsym}
 \usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{lipsum}
 
 %\setlength\titlebox{5cm}
 
 \newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\FILL[1]{\textcolor{red}{\lipsum[#1]}}
 
 \title{Graph-based Keyphrase Extraction Reinforced\\by Domain-Specific Knowledge}
 
@@ -50,9 +55,16 @@
   \maketitle
 
   \begin{abstract}
+    \FILL{1}
   \end{abstract}
 
   \input{input/introduction.tex}
+  \input{input/related_work.tex}
+  \input{input/topicrankpp.tex}
+  \input{input/experimental_settings.tex}
+  \input{input/training.tex}
+  \input{input/results.tex}
+  \input{input/conclusion.tex}
 
 %  \section*{Acknowledgments}
 %    The authors would like to thank the anonymous reviewers for their useful
