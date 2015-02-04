@@ -2,25 +2,65 @@
 \label{sec:experimental_settings}
   \subsection{Datasets}
   \label{subsec:datasets}
-    \begin{itemize}
-      \item{Inspec}
-      \item{SemEval}
-      \item{Inist (linguistic)}
-    \end{itemize}
+    We run experiments over three datasets: Inspec, SemEval and Inist (ling.),
+    which differ in terms of language, nature and size. The following is the
+    description of each dataset.
+
+    \paragraph{Inspec~\textnormal{\cite{hulth2003keywordextraction}}} contains
+    2000 English abstracts of journal papers collected from the Inspec database.
+    The abstracts cover two fields of Computer Science: Computers and Control;
+    Information Technology. Inspec is divided into three disjoint sets: a trial
+    set containing 500 abstract, a training set containing 1000 abstracts and a
+    test set containing 500 abstracts. \TODO{explain keyphrases set and chose
+    which one to use}
+
+    \paragraph{SemEval~\textnormal{\cite{kim2010semeval}}} contains 244 English
+    scientific papers collected from the ACM Digital Libraries (conference and
+    workshop papers). The papers represent four areas of Computer Science:
+    Distributed Systems; Information Search and Retrieval; Information Search
+    and Retrieval; Social and Behavioral Sciences – Economics. SemEval is
+    divided into two disjoint sets: a training set containing 144 documents and
+    a test set containing 100 documents. The associated keyphrases are provided
+    by both authors and readers.
+
+    \paragraph{Inist (ling.)} \TODO{uncertain yet}
+
+    \paragraph{}
+    Table~\ref{tab:corpus_statistics} shows factual information about each
+    datasets. By looking at these, one can understand the importance of methods
+    like ours. Indeed, ranging from \TODO{0.0\%} to \TODO{100\%}, the percentage
+    of keyphrases impossible to extract from the documents is part of the
+    keyphrases our method is able to find.
 
   \subsection{Preprocessing}
   \label{subsec:preprocessing}
+    We apply the following preprocessing steps to every document of the
+    datasets: sentence segmentation, word tokenization and Part-of-Speech (POS)
+    tagging. We perform sentence segmentation with the PunktSentenceTokenizer
+    provided by the Python Natural Language ToolKit~\cite[NLTK]{bird2009nltk}.
+    We tokenize the sentence into words using the NLTK TreebankWordTokenizer for
+    English and the Bonsai word tokenizer\footnote{The Bonsai word tokenizer is
+    a tool provided with the Bonsai PCFG-LA parser:
+    \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
+    French. Finally, we use the Stanford POS
+    tagger~\cite{toutanova2003stanfordpostagger} for English POS tagging and
+    MElt~\cite{denis2009melt} for French POS tagging.
 
   \subsection{Baselines}
   \label{subsec:baselines}
-    \begin{itemize}
-      \item{TopicRank}
-      \item{TopicRank++ without topical clustering}
-      \item{KEA}
-      \item{KEA++}
-      \item{WAM}
-    \end{itemize}
+    We compare TopicRank++ with two baselines: TopicRank, to measure the
+    improvement induced by the co-ranking, and KEA++, a state-of-the-art AKA
+    method.
+
+    We also evaluate TopicRank++ when only domain keyphrases are extracted
+    (TopicRank++$_\textnormal{\emph{dom.}}$), when only document keyphrases are
+    extracted (TopicRank++$_\textnormal{\emph{doc.}}$) and when the co-ranking
+    is performed with candidate keyphrases instead of topics
+    TopicRank++$_\textnormal{\emph{cdt}}$).
 
   \subsection{Evaluation measures}
   \label{subsec:evaluation_measures}
+    To evaluate the performance of the keyphrase extraction methods, we use the
+    common measures of precision (P), recall (R) and f-score (F). We cut-off the
+    extracted keyphrases at the 10 best ranking ones.
 

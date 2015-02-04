@@ -1,13 +1,146 @@
-\section{Our proposed Method}
+\section{TopicRank++}
 \label{sec:topicrankpp}
   \TODO{Introduction: we build our method on top of TopicRank}
+  \TODO{Refered to TAL paper for the parameter values}
+
+  \subsection{Topical clustering}
+  \label{subsec:topical_clustering}
 
   \subsection{Graph construction}
   \label{subsec:graph_construction}
+
+  \begin{figure*}
+    \newcommand{\xslant}{0.25}
+    \newcommand{\yslant}{0}
+
+    \centering
+    \begin{tikzpicture}[transform shape, scale=.66]
+      % frame
+      \node [draw,
+             rectangle,
+             minimum width=.7\linewidth,
+             minimum height=8em,
+             xslant=\xslant,
+             yslant=\yslant] (domain_graph) {};
+      \node [above=of domain_graph,
+             xshift=.36\linewidth,
+             yshift=8em,
+             anchor=south east] (domain_graph_label) {domain keyphrases};
+
+      \node [draw,
+             circle,
+             above=of domain_graph,
+             xshift=.3\linewidth,
+             yshift=5em] (domain_node1) {$k_1$};
+      \node [draw,
+             circle,
+             above=of domain_graph,
+             xshift=-.3\linewidth,
+             yshift=5em] (domain_node2) {$k_2$};
+      \node [draw,
+             circle,
+             above=of domain_graph,
+             yshift=5em] (domain_node3) {$k_3$};
+      \node [draw,
+             circle,
+             above=of domain_graph,
+             xshift=.15\linewidth,
+             yshift=.75em] (domain_node4) {$k_4$};
+      \node [draw,
+             circle,
+             above=of domain_graph,
+             xshift=-.15\linewidth,
+             yshift=.75em] (domain_node5) {$k_5$};
+
+      \draw (domain_node1) -- (domain_node3);
+      \draw (domain_node2) -- (domain_node3);
+      \draw (domain_node2) -- (domain_node4);
+      \draw (domain_node4) -- (domain_node5);
+      \draw (domain_node4) -- (domain_node3);
+
+      % document
+      \node [draw,
+             rectangle,
+             minimum width=.7\linewidth,
+             minimum height=8em,
+             xslant=\xslant,
+             yslant=\yslant,
+             above=of domain_graph,
+             xshift=-2em] (document_graph) {};
+      \node [below=of document_graph,
+             xshift=-.36\linewidth,
+             yshift=-8em,
+             anchor=north west] (document_graph_label) {document concepts};
+
+      \node [draw,
+             regular polygon,
+             regular polygon sides=8,
+             below=of document_graph,
+             xshift=.3\linewidth,
+             yshift=-5em] (document_node1) {$c_1$};
+      \node [draw,
+             regular polygon,
+             regular polygon sides=8,
+             below=of document_graph,
+             xshift=-.3\linewidth,
+             yshift=-5em] (document_node2) {$c_2$};
+      \node [draw,
+             regular polygon,
+             regular polygon sides=8,
+             below=of document_graph,
+             yshift=-5em] (document_node3) {$c_3$};
+      \node [draw,
+             regular polygon,
+             regular polygon sides=8,
+             below=of document_graph,
+             xshift=.15\linewidth,
+             yshift=-.75em] (document_node4) {$c_4$};
+      \node [draw,
+             regular polygon,
+             regular polygon sides=8,
+             below=of document_graph,
+             xshift=-.15\linewidth,
+             yshift=-.75em] (document_node5) {$c_5$};
+      \node [draw,
+             regular polygon,
+             regular polygon sides=8,
+             below=of document_graph,
+             yshift=-.75em] (document_node6) {$c_6$};
+      \node [draw,
+             regular polygon,
+             regular polygon sides=8,
+             below=of document_graph,
+             xshift=-.225\linewidth,
+             yshift=-5em] (document_node7) {$c_7$};
+
+      \draw (document_node2) -- (document_node7);
+      \draw (document_node2) -- (document_node5);
+      \draw (document_node7) -- (document_node5);
+      \draw (document_node7) -- (document_node3);
+      \draw (document_node5) -- (document_node6);
+      \draw (document_node3) -- (document_node1);
+      \draw (document_node1) -- (document_node4);
+      \draw (document_node3) -- (document_node4);
+
+      % extra link
+      \draw [dashed] (document_node2) -- (domain_node5);
+      \draw [dashed] (document_node5) -- (domain_node5);
+      \draw [dashed] (document_node5) -- (domain_node3);
+      \draw [dashed] (document_node1) -- (domain_node1);
+      \draw [dashed] (document_node4) -- (domain_node4);
+      \draw [dashed] (document_node3) -- (domain_node4);
+    \end{tikzpicture}
+    \caption{Example of a unified graph constructed by TopicRank++ and its two
+             kinds of edges: inner- and outer-graph edges
+             \label{fig:topicrankpp_graph}}
+  \end{figure*}
 
   \subsection{Graph-based co-ranking}
   \label{subsec:graph_based_co_ranking}
 
   \subsection{Keyphrase assignment and extraction}
   \label{subsec:keyphrase_assignment_and_extraction}
+
+  \subsection{Training protocol}
+  \label{subsec:training_protocol}
 

@@ -1,24 +1,91 @@
 \section{Related Work}
 \label{sec:related_work}
-  \TODO{Introduction to the standard pipeline}
+  This section describes previous work on automatic keyphrase annotation (both
+  AKE and AKA), as well as previous employment of graph co-ranking and their
+  benefits to other NLP tasks.
 
-  \subsection{Automatic Keyphrase Extraction}
+  \subsection{Automatic Keyphrase Extraction (AKE)}
   \label{subsec:ake}
-    \begin{itemize}
-      \item{TF-IDF, Likey, etc.}
-      \item{Graph-based methods (focus on TopicRank)}
-      \item{GenEX, KEA, HUMB, etc. (focus on KEA)}
-    \end{itemize}
+    AKE is the most used approach to tackle the automatic keyphrase annotation.
+    Keyphrase candidates are selected within the document, e.g. based on
+    linguistic patterns, then ranked by importance or classified as
+    ``keyphrase'' or ``non-keyphrase''. The ranking is
+    mostly performed by unsupervised methods while the classification is done by
+    supervised methods, i.e. methods that learn from training data. In the first
+    hand, the $N$ most important candidates are extracted as keyphrases. In the
+    other hand, the $N$ candidates classified as keyphrases with the best
+    likelyhood are extracted as keyphrases.
 
-  \subsection{Automatic Keyphrase Assignment}
+    \subsubsection{Unsupervised AKE}
+    \label{subsubsec:unsupervised_ake}
+      The unsupervised methods proposed so far use an important amount of
+      techniques, from frequency-based ranking to graph-based ranking.
+      TF-IDF~\cite{jones1972tfidf} is the most popular frequency-based ranking
+      scheme for keyphrase extraction. TF-IDF compares the number of occurrences
+      of a candidate in the document (Term Frequency, TF) with its specificity
+      (Inverse Document Frequency, IDF) to
+      determine its importance within the document. Graph-based ranking methods
+      are most recent, yet widely
+      used~\cite{mihalcea2004textrank,wan2008expandrank,tsatsaronis2010semanticrank,liu2010topicalpagerank,bougouin2013topicrank}. First introduced by
+      TextRank~\cite{mihalcea2004textrank}, for both extractive summarization
+      and  keyphrase extraction, these methods construct a word co-occurrence
+      graph, use a random walk algorithm to rank the words by importance and
+      finally find the $N$ most important keyphrase candidates of the document
+      based on the important words. The
+      random walk algorithm simulates the ``voting concept'', assuming that two
+      words recommend each other when they co-occur in a given window of words.
+      Alternative rankings have been proposed. \newcite{wan2008expandrank} and
+      \newcite{tsatsaronis2010semanticrank} included edge weights to the
+      random walk, using either co-occurrence numbers or semantic measures.
+      \newcite{liu2010topicalpagerank} used multiple ranking biased with topic
+      probabilities and \newcite{bougouin2013topicrank} ranked topics instead of
+      words.
+
+      This work is based on the unsupervised graph-based ranking method,
+      TopicRank~\cite{bougouin2013topicrank}. TopicRank topically clusters the
+      keyphrase candidates of the document, ranks the topics and extract the
+      most representative keyphrase for each of the $N$ most important topics.
+      Among other graph-based ranking methods, TopicRank is the only method that
+      proposes to cluster similar keyphrase candidates and to rank the clusters
+      instead of the words. By doing so, TopicRank avoids to extract redundant
+      keyphrases and further more gather the recommendation information of all
+      the topically similar keyphrase candidates.
+
+    \subsubsection{Supervised AKE}
+    \label{subsubsec:supervised_ake}
+      The supervised methods that tackle AKE mostly recast the problem as a
+      binary classification problem. Various classifiers are employed and many
+      discriminative features are proposed. KEA~\cite{witten1999kea} set the
+      foundation of supervised AKE. Using a Naive Bayes classifier and two
+      features, \newcite{witten1999kea} showed the efficiency of the first
+      offset position and the TF-IDF weight of a keyphrase candidate as features
+      for AKE. These features are used in combination with structural,
+      linguistic and other features in more complex systems such as
+      HUMB~\cite{lopez2010humb}, the top-ranking system at the task 5 of the
+      SemEval 2010 evaluation compaign~\cite{kim2010semeval}.
+
+      In the current state of AKE, supervised methods perform better than
+      supervised ones. However, their need for annotated data makes them
+      suitable in fewer cases than unsupervised methods. Also, they become
+      specific to the type of the training data. Our method uses such training
+      data and suffers from specificity to them. However, the AKE part is
+      unsupervised so our method can still work in case of data-scarse domains.
+
+  \subsection{Automatic Keyphrase Assignment (AKA)}
   \label{subsec:aka}
+    AKA aims to provide coherent keyphrases for every document of the same
+    domain. Its typical usage is the indexing of documents for digital
+    libraries. \TODO{not in doc. for category mapping purpose}
     \begin{itemize}
-      \item{KEA++ (Automatic Keyphrase Indexing)}
-      \item{WAM (SMT AKA method)}
+      \item{KEA++ (Automatic Keyphrase Indexing)\TODO{better data than us,
+        better design, but more restrictive}}
+      \item{WAM (SMT AKA method) \TODO{explain it is very specific and hard to
+        'prepare' (because we don't want ot use it as a baseline :p)}}
     \end{itemize}
 
   \subsection{Graph co-ranking for NLP}
   \label{subsec:graph_co_ranking_for_nlp}
+    \TODO{hilight the quality of the methods below as much as possible}
     \begin{itemize}
       \item{Xiaojun Wan: Cross-language document summarization}
       \item{Rui Yan: Tweet recommendation}
