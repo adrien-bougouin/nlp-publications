@@ -21,6 +21,7 @@
 \usepackage{tikz}           %
 \usepackage{pgfplots}       %
 \usepackage{makeidx}        %
+\usepackage{amsthm}         % theorem definition and styling
 
 \usetikzlibrary{positioning, shapes, arrows, patterns}
 
@@ -45,8 +46,12 @@
 
 \renewcommand\cite[2][]{\ifthenelse{\equal{#1}{}}{\citep{#2}}{\citep[#1]{#2}}}
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citet{#2}}{\citet[#1]{#2}}}
+
 \newcommand\TODO[1]{\textcolor[rgb]{1, 0, 0}{[TODO #1]}}
 \newcommand\REMARK[1]{\textcolor[rgb]{0, 1, 0}{[#1]}}
+
+\theoremstyle{remark}
+\newtheorem{example}{Exemple}
 
 \makeindex
 

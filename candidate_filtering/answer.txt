@@ -1,0 +1,85 @@
+Dear reviewers,
+
+We would like to thank you for the time spent reviewing our paper and
+providing advices to improve it. First of all, your reviews point out
+that we failed to convey the main contribution of our work, which is
+filtering keyphrase candidates using linguistic properties. We only
+focus on the keyphrase candidate selection step and evaluate our
+proposed approach extrinsically using keyphrase extraction. We will
+carefully re-write our introduction to make that clear.
+
+The following are answers to reviewers' questions and remarks.
+
+REVIEWER #1
+
+"[...] other work not cited in the submission has previously analyzed
+the linguistic structure of key phrases in a similar manner to the
+submission."
+
+We missed the suggested work and will include it in the revised version
+of the paper. The suggested work uses the keyphrase analysis to propose
+features for a supervised keyphrase extraction system. This differs to
+our work as we propose an analysis and a method focused on candidate
+selection. However, some of the paper's observations should be
+considered during our experiments. We will use the 'technical term' and
+'compound tech term' patterns described in the paper to build another baseline.
+
+
+"[...] using co-occurrence frequency (Sec 4) is common to most key
+phrase extraction techniques."
+
+We do not use co-occurrence frequency to determine the relationships
+between candidate keyphrases in the manner of previous work. Here, we
+use co-occurrence frequency to decide if modifiers contribute to the
+information conveyed by the noun phrase it modifies.
+
+
+"[...] evaluating with state-of-the-art algorithms would strengthen the
+paper."
+
+As suggested, we will compare to one top system competing at SemEval
+2010 (task 5). As for using the best system, HUMB, its pipeline makes it
+unpractical in our case. SZTERGAK might be a good state-of-the-art system to
+experiment on.
+
+
+"[...] recall is typically defined as a number between 0 and 1"
+
+We show the percentage of recall, we will clarify this in the paper.
+
+
+"[...] how is the QR measure different from 'precision'?"
+
+As we evaluate a whole set of candidates, precision have a very low
+value and treat unfairly the set of n-gram candidates. Therefore, we
+propose the QR ratio. By definition, the QR ratio is similar to
+precision but fairer in this particular case. We will add such
+explanation.
+
+REVIEWER #2
+
+"It would be good to include computing time in the comparison."
+
+We will include computing time comparison in the paper.
+
+
+"[...] what about resource-scarce languages?"
+
+For languages where no knowledge-bases, such as WordNet or WoNeF, are
+available, one may still detect relational adjectives using pre-defined
+suffixes.
+
+REVIEWER #3
+
+"It isn't clear if this filter would be more generally beneficial for existing
+state-of-the-art keyphrase extraction system."
+
+As suggested by reviewer #1, we will compare to one top system competing at
+SemEval 2010 (task 5).
+
+
+"It wasn't clear to me if Quality Ratio (QR) is a commonly used metric in
+literature, or if it was constructed for the purpose of this paper."
+
+We made up QR for this paper. We will clarify this.
+

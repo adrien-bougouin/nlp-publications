@@ -10,118 +10,120 @@
   \section{Sélection des termes-clés candidats}
   \label{sec:main-state_of_the_art-keyphrase_candidate_selection}
     % Quel est l'objectif ?
-    L'objectif de la sélection des termes-clés candidats est de déterminer
-    quelles sont les unités textuelles qui sont potentiellement des
-    termes-clés, c'est-à-dire les unités textuelles qui ont des particularités
-    similaires à celles des termes-clés définis par des humains. Nous savons
-    par exemple que les termes-clés sont majoritairement constitués de noms et
-    d'adjectifs. Cette étape de sélection des termes-clés présente deux
-    avantages. Le premier est la réduction du temps de calcul nécessaire à
-    l'extraction des  termes-clés. Le second est la suppression d'unités
-    textuelles non pertinentes pouvant affecter négativement les performances
-    de l'ordonnancement. Pour distinguer les différents candidats
-    sélectionnés, nous définissons deux catégories~: les candidats positifs,
-    qui correspondent aux termes-clés assignés par des humains (termes-clés de
-    référence), et les candidats non positifs. Parmi les candidats non
-    positifs, nous distinguons deux sous-catégories~: les candidats porteurs
-    d'indices de différentes natures pouvant influencer la promotion de
-    candidats positifs (par exemple la présence des candidats \og{}alerte
-    rouge\fg{}, \og{}alerte jaune\fg{} et \og{}alerte orange\fg{} influence
-    l'extraction du candidat positif \og{}alerte\fg{} en tant que terme-clé,
-    dans l'exemple de la figure~\ref{fig:recurrent_example}) et les candidats
-    non pertinents, que nous considérons comme des erreurs.
+    La sélection des termes-clés candidats\index{Terme-cle candidat@Terme-clé
+    candidat \textit{(keyphrase candidate)}|textbf} consiste à déterminer
+    quelles sont les unités textuelles qui sont potentiellement des termes-clés,
+    c'est-à-dire les unités textuelles qui ont des particularités similaires à
+    celles des termes-clés définis par des humains. Nous savons par exemple que
+    les termes-clés sont majoritairement constitués de noms et d'adjectifs.
+    Cette étape présente deux avantages. Le premier est la réduction du temps de
+    calcul nécessaire à l'extraction des  termes-clés. Le second est la
+    suppression d'unités textuelles non pertinentes pouvant affecter
+    négativement les performances de l'ordonnancement. Pour distinguer les
+    différents candidats sélectionnés, nous définissons deux catégories~: les
+    candidats positifs\index{Candidat positif@Candidat positif \textit{(positive
+    candidate)}|textbf}, qui correspondent aux termes-clés assignés par des
+    humains (termes-clés de référence), et les candidats négatifs\index{Candidat
+    negatif@Candidat négatif \textit{(negative candidate)}|textbf}. Parmi les
+    candidats négatifs, nous distinguons deux sous-catégories~: les candidats
+    porteurs d'indices\index{Candidat porteur d'indices@Candidat porteur
+    d'indices \textit{(clue candidate)}|textbf} de différentes natures pouvant
+    influencer la promotion de candidats positifs (\TODO{exemple}) et les
+    candidats non pertinents\index{Candidat non pertinent@Candidat non pertinent
+    \textit{(irrelevant candidate)}|textbf}, que nous considérons comme des
+    erreurs de sélection.
 
-    \subsection{Nature des termes-clés candidats classiques}
+    \subsection{Termes-clés candidats classiques}
     \label{subsec:main-state_of_the_art-keyphrase_candidate_selection-keyphrase_candidate_nature}
       % Quels sont les différentes méthodes utilisées pour extraire les
       % termes-clés candidats ?
-      Dans les travaux précédents, trois méthodes d'extraction de candidats sont
-      utilisées~: l'extraction de n-grammes, de \textit{chunks} nominaux, et
-      d'unités textuelles respectant certains patrons grammaticaux. Dans cette
-      section, nous ne présentons que les travaux utilisés pour la sélection des
-      termes-clés candidats. Des travaux connexes pourraient toutefois être
-      considérés~: extraction
-      terminologique~\cite{castellvi2001automatictermdetection}, détection de
-      collocation~\cite{pearce2002collocationdetection}, etc.
+      Dans les travaux précédents, trois type de candidats sont généralement
+      sélectionnés~: les n-grammes, les \textit{chunks} nominaux
+      (NP-\textit{chunks}), et les séquences grammaticalement définies.
 
       \subsubsection{N-grammes}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-automatic_keyphrase_extraction-n_grams}
-        Les n-grammes sont toutes les séquences ordonnées de $n$ mots adjacents.
-        Leur extraction est très exhaustive, elle fournit un grand nombre de
-        termes-clés candidats, maximisant la quantité de candidats positifs, la
-        quantité de candidats porteurs d'indices utiles, mais aussi la quantité
-        de candidats non pertinents. Pour pallier en partie ce problème, il est
-        courant d'utiliser un anti-dictionnaire pour filtrer les candidats. Ce
-        dernier regroupe les mots fonctionnels de la langue (conjonctions,
-        prépositions,~etc.) et les mots courants (\og particulier~\fg, \og
-        près~\fg, \og beaucoup~\fg, etc.). Un n-gramme contenant un mot présent
-        dans l'anti-dictionnaire en début ou en fin n'est pas considéré comme un
-        terme-clé candidat. Malgré son aspect bruité, ce type d'extraction est
-        encore largement utilisé parmi les méthodes
-        supervisées~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction}.
-        La phase d'apprentissage de celles-ci les rend moins sensibles aux
-        éventuels candidats erronés (bruit) que les méthodes non supervisées.
+        Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
+        toutes les séquences ordonnées de $n$ mots adjacents.
 
-        Exemples de $\{1..3\}$-grammes sélectionnés dans la phrase
-        \textit{\og{}Une légère brise de côte pourra faiblement rafraichir
-        l'atmosphère\fg{}} dans l'exemple de la
-        figure~\ref{fig:recurrent_example}~: \og{}légère\fg{}, \og{}brise\fg{},
-        \og{}côte\fg{}, \og{}pourra\fg{}, \og{}faiblement\fg{},
-        \og{}rafraichir\fg{}, \og{}atmosphère\fg{}, \og{}légère brise\fg{},
-        \og{}côte pourra\fg{}, \og{}pourra faiblement\fg{}, \og{}faiblement
-        rafraichir\fg{}, \og{}brise de côte\fg{}, \og{}côte pourra
-        faiblement\fg{}, \og{}pourra faiblement rafraichir\fg{} et
-        \og{}rafraichir l'atmosphère\fg{}.
+        \begin{example}
+          \TODO{$\{1..3\}$-grammes à partir d'une phrase de l'exemple fil rouge}
+        \end{example}
 
-      \subsubsection{Séquence grammaticalement définies}
-      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-automatic_keyphrase_extraction-pos_sequences}
-        La sélection d'unités textuelles à partir de patrons grammaticaux
-        prédéfinis permet de contrôler avec précision la nature et la
-        grammaticalité des candidats à sélectionner. À l'instar des
-        \textit{chunks} nominaux, leur sélection est plus fondée
-        linguistiquement que celle des n-grammes. Dans ses travaux,
-        \newcite{hulth2003keywordextraction} sélectionne les candidats à partir
-        des patrons des termes-clés de référence les plus fréquents dans sa
-        collection d'apprentissage (plus de dix occurrences), tandis que
-        d'autres chercheurs, tels que \newcite{wan2008expandrank} et
-        \newcite{hassan2010conundrums}, se concentrent uniquement sur les plus
-        longues séquences de noms (noms propres inclus) et d'adjectifs. Pour des
-        méthodes non supervisées telles que la nôtre, la sélection des séquences
-        de noms et d'adjectifs est intéressante, car elle ne nécessite ni
-        données supplémentaires, ni adaptation particulière pour une langue
-        donnée, c'est le cas pour les \textit{chunks} nominaux.
-
-        Exemples de plus longues séquences de noms et d'adjectifs sélectionnées
-        dans la phrase \textit{\og{}Une légère brise de côte pourra faiblement
-        rafraichir l'atmosphère\fg{}} dans l'exemple de la
-        figure~\ref{fig:recurrent_example}~: \og{}légère brise\fg{},
-        \og{}côte\fg{} et \og{}atmosphère\fg{}.
+        La sélection des n-grammes est très exhaustive, elle fournit un grand
+        nombre de termes-clés candidats, ce qui maximise la quantité de
+        candidats positifs, la quantité de candidats porteurs d'indices, mais
+        aussi la quantité de candidats non pertinents. Pour réduire cette
+        dernière, il est courant de filtrer les n-grammes avec un
+        anti-dictionnaire\index{Anti-dictionnaire@Anti-dictionnaire
+        \textit{(stopwords)}|textbf}, selon le principe suivant~: un n-gramme
+        contenant un mot de l'anti-dictionnaire en début ou en fin n'est pas
+        considéré comme un terme-clé candidat. L'anti-dictionnaire regroupe les
+        mots fonctionnels de la langue (conjonctions, prépositions,~etc.) et les
+        mots à usage courants (\og{}particulier\fg{}, \og{}près\fg{},
+        \og{}beaucoup\fg{}, etc.).
+        
+        Malgré son aspect bruité, la sélection des n-grammes est largement
+        utilisée pour l'indexation par termes-clés, notamment par les méthodes
+        supervisées~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction},
+        dont la phase d'apprentissage les rend moins sensibles aux éventuels
+        candidats erronés (bruit) que les méthodes non supervisées.
 
       \subsubsection{NP-\textit{chunks}}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-automatic_keyphrase_extraction-np_chunks}
-        Les \textit{chunks} nominaux sont des syntagmes non récursifs dont la
+        Les \textit{chunks} nominaux\index{NP-chunk@NP-\textit{chunk}|textbf}
+        sont des syntagmes\index{Syntagme@Syntagme
+        \textit{(syntagm)}|textbf}\footnote{Syntagme~: Unité syntaxique
+        intermédiaire entre le mot et la phrase. Aussi appelé groupe, le
+        syntagme constitue une unité de sens dont chaque constituant conserve sa
+        signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
         tête est un nom accompagné de ses éventuels déterminants et modifieurs
-        usuels. Ils sont linguistiquement définis et donc plus fiables que les
-        n-grammes, comme le montrent les expériences menées par
-        \newcite{hulth2003keywordextraction} et \newcite{eichler2010keywe}.
-        Cependant, \newcite{hulth2003keywordextraction} constate que l'usage de
-        l'étiquetage grammatical des termes-clés candidats lors de l'extraction
-        supervisée de termes-clés permet d'éliminer les n-grammes
-        grammaticalement incorrects et d'obtenir de meilleurs performances
-        qu'avec les \textit{chunks} nominaux. Contrairement à
-        \newcite{hulth2003keywordextraction}, nous proposons une méthode
-        d'extraction non supervisée de termes-clés. Sélectionner les
-        \textit{chunks} nominaux est donc une solution plus fiable que de
-        sélectionner les n-grammes.
+        usuels.
 
-        Exemples de \textit{chunks} nominaux sélectionnés dans la phrase
-        \textit{\og{}Une légère brise de côte pourra faiblement rafraichir
-        l'atmosphère\fg{}} dans l'exemple de la
-        figure~\ref{fig:recurrent_example}~: \og{}une légère brise\fg{},
-        \og{}côte\fg{} et \og{}l'atmosphère\fg{}.
+        \begin{example}
+          \TODO{NP-\textit{chunks} à partir d'une phrase de l'exemple fil rouge}
+        \end{example}
+        
+        Les NP-\textit{chunks} sont linguistiquement définis et donc plus
+        fiables que les n-grammes. \newcite{hulth2003keywordextraction} le
+        montrent dans ses expériences consacrées à l'apport de connaissances
+        linguistiques pour l'extraction automatique de termes-clés. Cependant,
+        ses propos sont nuancés par un autre de ses constats~: l'usage de
+        l'étiquetage grammatical des n-grammes dans une méthode supervisée
+        d'extraction automatique de termes-clés permet d'éliminer les n-grammes
+        grammaticalement incorrects et induit de meilleures performances qu'avec
+        les \textit{chunks} nominaux.
+
+      \subsubsection{Séquences grammaticalement définies}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-automatic_keyphrase_extraction-pos_sequences}
+        La sélection d'unités textuelles qui forment des séquences
+        grammaticalement définies\index{Sequence grammaticalement
+        definie@Séquence grammaticalement définie \textit{(POS
+        sequence)}|textbf} permet de contrôler avec précision la nature et la
+        grammaticalité des candidats sélectionnés. Pour cela, il faut définir
+        des patrons grammaticaux tels que \texttt{(<NOM> | <ADJ>)*}, qui
+        représente les plus longues séquences de noms et d'adjectifs, d'après la
+        syntaxe des expréssions rationnelles.
+
+        \begin{example}
+          \TODO{Plus longues séquences de noms et d'adjectifs à partir d'une phrase de l'exemple fil rouge}
+        \end{example}
+
+        À l'instar des \textit{chunks} nominaux, la sélection des séquences
+        grammaticalement définies est plus fondée linguistiquement que celle des
+        n-grammes. Dans ses travaux, \newcite{hulth2003keywordextraction}
+        sélectionne les candidats à partir des patrons des termes-clés de
+        référence les plus fréquents dans sa collection d'apprentissage (plus de
+        dix occurrences). D'autres chercheurs, tels que
+        \newcite{wan2008expandrank}, se concentrent uniquement sur les plus
+        longues séquences de noms (noms propres inclus) et d'adjectifs.
+
 
     \subsection{Autres candidats}
     \label{subsec:main-state_of_the_art-keyphrase_candidate_selection-other_candidates}
+      \TODO{voir aussi: extraction
+            terminologique~\cite{castellvi2001automatictermdetection}, détection
+            de collocation~\cite{pearce2002collocationdetection}, etc.}
 
   %-----------------------------------------------------------------------------
 
