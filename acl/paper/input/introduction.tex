@@ -1,7 +1,7 @@
 \section{Introduction}
 \label{sec: introduction}
-  % - definition of keyphrases
-  % - motivations
+  % keyphrase?
+  % => need of automatic keyphrase annotation
   Keyphrases are words or phrases that give a synoptic picture of what is
   important within a document. Keyphrases are useful in many tasks such as
   document indexing for digital
@@ -12,17 +12,18 @@
   annotation of single documents recently attracts a lot of attention and many
   different methods were proposed~\cite{hasan2014state_of_the_art}.
 
-  % - definition of the automatic keyphrase annotation task
+  % automatic keyphrase annotation?
   The automatic keyphrase annotation task consists in automatically detecting
   the important concepts, or topics, addressed by a document. We divide the
   automatic keyphrase annotation into two disjoint categories: Automatic
   Keyphrase Extraction (AKE) and Automatic Keyphrase Assignment (AKA). In the
   first hand, AKE detects important words or phrases occuring within the
-  document. In the other hand, AKA provides keyphrases from a domain-specific
-  terminology, without regard to their occurence within the document.
+  document. In the other hand, AKA provides controlled keyphrases from a
+  domain-specific terminology, or controlled vocabulary, without regard to their
+  occurence within the document.
 
-  % - benefits and drawbacks of each task
-  The automatic keyphrase annotation problem has mainly been tackled using AKE
+  % motivations?
+  The automatic keyphrase annotation problem has mainly been addressed using AKE
   methods. However, statistics from standard evaluation datasets show a sizeable
   amount of keyphrases that do not occur within the
   documents~\cite{bougouin2013topicrank}, i.e.~keyphrases impossible to find
@@ -31,7 +32,8 @@
   specific concepts, i.e.~concepts that are not terminological entries yet (or
   variants).
 
-  % - our propososal
+  % our proposed method?
+  % => its benefits?
   This paper presents a new method performing both AKA, to bridge the
   ``vocabulary gap'', and AKE, to discover potentially novel concepts.
   Leveraging training data containing documents associated with reference
@@ -42,10 +44,10 @@
   document's concepts. Similarly, an importance score is given to every concept
   of the document based on its relationship with the other concepts and its
   relationship with the reference keyphrases. Despite combining both AKE and
-  AKA, our approach conciders already used keyphrases (from training data) as
-  equivalent to terminological entries. Following this assumption reduces the
-  cost of producing domain-specific data, such as thesauri, and makes our method
-  suitable in any case where training data are available.
+  AKA, our approach conciders already used keyphrases (from training data) as a
+  controlled vocabulary. Following this assumption reduces the cost of producing
+  domain-specific data, such as thesauri, and makes our method suitable in any
+  case where training data are available.
 
   \TODO{Results insight}
 
