@@ -2,8 +2,28 @@
 \label{part:main-state_of_the_art}
   \section{Introduction}
   \label{sec:main-state_of_the_art-introduction}
-    \TODO{chaine de traitement classique}
-    \TODO{Extraction Vs. Assignation => Libre Vs. Controllé}    
+    L'indexation automatique par termes-clés est la tâche qui consiste à fournir
+    les unités textuelles caractérisants le contenu principal d'un document~:
+    ses idées, les sujets qu'il aborde, etc. Nous parlons d'indexation, car les
+    termes-clés servent à organiser et à retrouver des documents par ce qui les
+    caractérise, mais il s'agit d'une tâche bien distincte de l'indexation plein
+    texte de la Recherche d'Information.
+
+    Dans la littérature, nous repérons deux indexations automatiques par
+    termes-clés~: l'une est libre, l'autre contrôllée. La première consiste à
+    extraire du document les unités textuelles jugées importantes dans son
+    contexte. Nous parlons d'extraction automatique de termes-clés. La seconde
+    fournit des termes-clés en se fondant sur un vocabulaire contrôllé et sans
+    se restreindre aux unités textuelles présentent dans le document. Nous
+    parlons d'assignation automatique de termes-clés. En amont de ces
+    indexations se trouve aussi une étape récurrente à ne pas négliger~: la
+    sélection des termes-clés candidats, c'est-à-dire les unité textuelles qui
+    sont potentiellement des termes-clés.
+
+    Dans la suite, nous présentons l'étape de sélection des termes-clés
+    candidats, l'extraction automatique de termes-clés, l'assignation
+    automatique de termes-clés et, enfin, le processus d'évaluation de
+    l'indexation automatique par termes-clés.
 
   %-----------------------------------------------------------------------------
 
@@ -129,31 +149,28 @@
 
   \section{Extraction automatique des termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_extraction}
+    \TODO{introduction}
+
     \subsection{Extraction non supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction}
-      Les méthodes non-supervisées d'extraction de termes-clés ont la
-      particularité de s'abstraire du domaine et de la langue des documents à
-      analyser\footnote{L'abstraction de la langue est vraie pour ce qui est
-      de la méthodologie, cependant les prétraitements tels que la
-      segmentation en phrases, en mots et l'étiquetage en parties du discours
-      sont dépendants de la langue.}. Cette abstraction est due au fait que
-      les termes-clés candidats sont analysés avec des règles simples déduites
-      à partir de traits statistiques issus seulement du texte analysé ou bien
-      d'un corpus de référence non annoté.
+      Les méthodes non supervisées d'extraction de termes-clés ordonnent
+      principalement les termes-clés candidats par importance. Elles ont la
+      particularité de s'abstraire du domaine et de la langue du document. Les
+      termes-clés candidats sont analysés avec des règles simples fondées sur
+      des traits statistiques extraits du document ou d'un corpus de référence
+      non annoté.
 
-      De nombreuses approches sont proposées. Certaines se fondent uniquement
-      sur des statistiques alors que d'autres les combinent avec des
-      représentations plus complexes des documents. Ces représentations
-      peuvent aller de groupes de mots sémantiquement similaires à des graphes
-      dont les n\oe{}uds sont des unités textuelles (mots, locutions, phrases,
-      etc.) liées par des arcs qui représentent des liens de recommandation
-      entre elles\footnote{Pour une étude comparative de certaines des
-      méthodes par regroupement \cite{liu2009keycluster} et à base de graphe
-      \cite{mihalcea2004textrank, wan2008expandrank}, voir l'article de
-      \newcite{hassan2010conundrums}.}.
+      De nombreuses approches ont été proposées. Certaines se fondent uniquement
+      sur des statistiques et d'autres les combinent avec des représentations
+      plus complexes du document, principalement des groupes sémantiques et des
+      graphes de cooccurrences de mots. Dans la suite, nous présentons les
+      méthodes proposées pour chacune de ces approches. Il existe aussi une
+      étude comparative des performances de ces
+      méthodes~\cite{hassan2010conundrums}.
 
-      \paragraph{Les approches statistiques}
-        cherchent à définir ce qu'est un terme-clé en s'appuyant sur certains
+      \subsubsection{Les approches statistiques}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-statistical_approaches}
+        Les approches statistiques cherchent à définir ce qu'est un terme-clé en s'appuyant sur certains
         traits statistiques et en étudiant leur rapport avec la notion
         d'importance d'un terme-clé candidat. Plus un terme-clé candidat est
         jugé important vis-à-vis du document analysé, plus celui-ci est
@@ -312,8 +329,9 @@
         \cite{matsuo2004wordcooccurrence, liu2009keycluster,
         mihalcea2004textrank}.
 
-      \paragraph{Les approches par regroupement}
-        définissent des groupes dont les unités textuelles partagent une ou
+      \subsubsection{Les approches par regroupement}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-clustering_approaches}
+        Les approches par regroupement définissent des groupes dont les unités textuelles partagent une ou
         plusieurs caractéristiques communes (similarité lexicale, similarité
         sémantique, etc.). Ainsi, lorsque des termes-clés sont extraits à
         partir de chaque groupe, cela permet de mieux couvrir le document
@@ -370,8 +388,9 @@
         en  utilisant le nombre de mots du groupe auquel appartiennent les
         mots de référence du terme-clé candidat, etc.}.
 
-      \paragraph{Les approches à base de graphe}
-        sont actuellement les plus populaires. Elles consistent à représenter
+      \subsubsection{Les approches à base de graphe}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}
+        Les approches à base de graph sont actuellement les plus populaires. Elles consistent à représenter
         le contenu d'un document sous la forme d'un graphe. La méthodologie
         appliquée est issue de PageRank \cite{brin1998pagerank}, un
         algorithme d'ordonnancement de pages Web (n\oe{}uds du graphe) grâce
@@ -579,8 +598,9 @@
       classification naïve bayésienne et des réseaux de neurones pour
       l'extraction automatique de termes-clés.}.
 
-      \paragraph{Les modèles probabilistes}
-        apprennent des distributions de probabilités pour qu'un terme-clé
+      \subsubsection{Les modèles probabilistes}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-probabilistic_models}
+        Les modèles probabilistes apprennent des distributions de probabilités pour qu'un terme-clé
         candidat soit un terme-clé en fonction de divers traits (un seul trait
         par distribution probabiliste). Les distributions sont ensuite
         combinées pour donner un score de vraisemblance permettant de classer
@@ -705,8 +725,9 @@
         $\lambda$. Elle sert à ordonner les termes-clés candidats selon leur
         pertinence en tant que terme-clé.
 
-      \paragraph{Les arbres de décision}
-        sont des classifieurs dont les branches représentent des tests sur des
+      \subsubsection{Les arbres de décision}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-decision_trees}
+        Les arbres de décision sont des classifieurs dont les branches représentent des tests sur des
         traits des candidats. Ces tests permettent de router les candidats
         vers les feuilles de l'arbre représentant leurs classes respectives
         (\textit{terme-clé} ou \textit{non terme-clé}).
@@ -741,7 +762,8 @@
         \ref{sec:unsupervised_methods}).
 
       \paragraph{Les séparateurs à Vastes Marges (SVM)}
-        sont aussi des classifieurs utilisés par les méthodes d'extraction
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-svms}
+        Les séparateurs à Vastes Margessont aussi des classifieurs utilisés par les méthodes d'extraction
         automatique de termes-clés. Ils exploitent divers traits afin de
         projeter des exemples et des contres-exemples sur un plan, puis ils
         cherchent l'hyperplan qui les sépare. Cet hyperplan sert ensuite dans
@@ -763,8 +785,9 @@
         permet ensuite de contrôler le nombre de termes-clés à extraire (choix
         des $k$ termes-clés candidats les mieux classés).
 
-      \paragraph{GenEx}
-        est un algorithme génétique mis au point par
+      \subsubsection{GenEx}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-genex}
+        GenEx est un algorithme génétique mis au point par
         \newcite{turney1999learningalgorithms}. Il est constitué de deux
         composants. Le premier composant, le géniteur, sert à apprendre des
         paramètres lors de la phase d'apprentissage. Ces paramètres sont
@@ -780,8 +803,9 @@
         servent à déterminer des facteurs multiplicateurs qui sont d'autres
         paramètres. Ces derniers agissent sur le calcul du score d'un candidat.
 
-      \paragraph{Les perceptrons multicouches}
-        peuvent aussi être utilisés pour l'extraction automatique de
+      \subsubsection{Les perceptrons multicouches}
+      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-neural_network}
+        Les perceptrons multicouches peuvent aussi être utilisés pour l'extraction automatique de
         termes-clés \cite{sarkar2010neuralnetwork}. Un perceptron
         multi-couches est un réseau de neurones constitué d'au moins trois
         couches, chaque couche étant composée de neurones. Dans les deux
