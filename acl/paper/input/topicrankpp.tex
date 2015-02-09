@@ -52,11 +52,11 @@
              xshift=-.15\linewidth,
              yshift=.75em] (domain_node5) {$k_5$};
 
-      \draw (domain_node1) -- (domain_node3);
-      \draw (domain_node2) -- (domain_node3);
-      \draw (domain_node2) -- (domain_node4);
-      \draw (domain_node4) -- (domain_node5);
-      \draw (domain_node4) -- (domain_node3);
+      \draw [<->] (domain_node1) -- (domain_node3);
+      \draw [<->] (domain_node2) -- (domain_node3);
+      \draw [<->] (domain_node2) -- (domain_node4);
+      \draw [<->] (domain_node4) -- (domain_node5);
+      \draw [<->] (domain_node4) -- (domain_node3);
 
       % document
       \node [draw,
@@ -113,22 +113,26 @@
              xshift=-.225\linewidth,
              yshift=-5em] (document_node7) {$c_7$};
 
-      \draw (document_node2) -- (document_node7);
-      \draw (document_node2) -- (document_node5);
-      \draw (document_node7) -- (document_node5);
-      \draw (document_node7) -- (document_node3);
-      \draw (document_node5) -- (document_node6);
-      \draw (document_node3) -- (document_node1);
-      \draw (document_node1) -- (document_node4);
-      \draw (document_node3) -- (document_node4);
+      \draw [<->] (document_node2) -- (document_node7);
+      \draw [<->] (document_node2) -- (document_node5);
+      \draw [<->] (document_node7) -- (document_node5);
+      \draw [<->] (document_node7) -- (document_node3);
+      \draw [<->] (document_node5) -- (document_node6);
+      \draw [<->] (document_node3) -- (document_node1);
+      \draw [<->] (document_node1) -- (document_node4);
+      \draw [<->] (document_node3) -- (document_node4);
 
       % extra link
-      \draw [dashed] (document_node2) -- (domain_node5);
-      \draw [dashed] (document_node5) -- (domain_node5);
-      \draw [dashed] (document_node5) -- (domain_node3);
-      \draw [dashed] (document_node1) -- (domain_node1);
-      \draw [dashed] (document_node4) -- (domain_node4);
-      \draw [dashed] (document_node3) -- (domain_node4);
+      \path [->, dashed, bend left=7] (document_node2) edge (domain_node5);
+      \path [->, dashed, bend left=7] (domain_node5) edge (document_node2);
+      \path [->, dashed, bend left=7] (document_node6) edge (domain_node5);
+      \path [->, dashed, bend left=7] (domain_node5) edge (document_node6);
+      \draw [->, dashed, bend left=7] (document_node6) edge (domain_node3);
+      \draw [->, dashed, bend left=7] (domain_node3) edge (document_node6);
+      \draw [->, dashed, bend left=7] (document_node4) edge (domain_node1);
+      \draw [->, dashed, bend left=7] (domain_node1) edge (document_node4);
+      \draw [->, dashed, bend left=7] (document_node3) edge (domain_node4);
+      \draw [->, dashed, bend left=7] (domain_node4) edge (document_node3);
     \end{tikzpicture}
     \caption{Example of a unified graph constructed by TopicRank++ and its two
              kinds of edges: inner- and outer-graph edges
