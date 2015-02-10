@@ -1,40 +1,59 @@
-\chapter{Indexation automatique par termes-clés}
+\chapter[Indexation automatique par termes-clés]{Indexation automatique\\par termes-clés}
 \label{part:main-state_of_the_art}
   \section{Introduction}
   \label{sec:main-state_of_the_art-introduction}
-    L'indexation automatique par termes-clés est la tâche qui consiste à fournir
-    les unités textuelles caractérisants le contenu principal d'un document~:
-    ses idées, les sujets qu'il aborde, etc. Nous parlons d'indexation, car les
-    termes-clés servent à organiser et à retrouver des documents par ce qui les
-    caractérise. Il s'agit cependant d'une tâche bien distincte de l'indexation
-    plein texte de la Recherche d'Information. \TODO{décrire les différences en
-    une phrase}
+    Les termes-clés\index{Terme-cle@Terme-clé \textit{(keyphrase)}|textbf},
+    souvent appelés mots-clés, sont les unités textuelles (mots ou expressions)
+    qui caractérisent le mieux le contenu principal d'un document~: les sujets
+    qu'il aborde, ses idées, etc. Ceux-ci donnent une description précise de ce
+    que contient un document et peuvent servir à la Recherche d'Information
+    (\textsc{Ri}). Nous parlons donc d'indexation par
+    termes-clés\index{Indexation par termes-cles@Indexation par termes-clés
+    \textit{(automatic keyphrase annotation)}|textbf}. Cette indexation ne doit
+    toutefois pas être confondue avec l'indexation dite \og{}plein texte\fg{} au
+    c\oe{}ur de nombreux systèmes de \textsc{Ri}. L'indexation plein texte
+    pondère tous les mots d'un document selon leur importance relative à
+    celui-ci, tandis que l'indexation par termes-clés fournit un ensemble
+    restreint de mots ou expressions qui représentent ses sujets importants,
+    explicites ou non.
 
-    Dans la littérature, nous repérons deux indexations automatiques par
-    termes-clés~: l'une libre, l'autre contrôlée. L'indexation libre consiste à
-    extraire du document les unités textuelles jugées importantes dans son
-    contexte. Nous parlons d'extraction automatique de termes-clés. L'indexation
-    contrôlée fournit des termes-clés en se fondant sur un vocabulaire contrôlé
-    et sans se restreindre aux unités textuelles présentent dans le document.
-    Nous parlons d'assignation automatique de termes-clés.
+    Dans la littérature, nous distinguons deux catégories indexations
+    automatiques par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
+    libre\index{Indexation libre@Indexation libre \textit{(free indexing)}|see
+    {Extraction automatique de termes-clés \textit{(automatic keyphrase
+    extraction)}}} consiste à extraire du document les unités textuelles jugées
+    les plus importantes dans son contexte. Nous parlons d'extraction
+    automatique de termes-clés\index{Extraction automatique de
+    termes-cles@Extraction automatique de termes-clés \textit{(automatic
+    keyphrase extraction)}|textbf}. L'indexation contrôlée\index{Indexation
+    controlee@Indexation contrôlée \textit{(controlled indexing)}|see
+    {Assignation automatique de termes-clés \textit{(automatic keyphrase
+    assignment)}}} fournit les termes-clés en se fondant sur un vocabulaire
+    contrôlé et sans se restreindre aux unités textuelles présentes dans le
+    document. Nous parlons d'assignation automatique de
+    termes-clés\index{Assignation automatique de termes-cles@Assignation
+    automatique de termes-clés \textit{(automatic keyphrase
+    assignment)}|textbf}.
 
-    Dans la suite, nous présentons les méthodes d'extraction
-    automatique de termes-clés et d'assignation automatique de termes-clés. Nous
-    commençons par introduire une étape préliminaire à celles-ci~: la sélection
-    des termes-clés candidats.
+    Dans la suite, nous présentons les tâches d'extraction automatique de
+    termes-clés et d'assignation automatique de termes-clés. Nous commençons par
+    introduire une étape préliminaire à la plupart des méthodes de chacune~: la
+    sélection des termes-clés candidats.
 
   %-----------------------------------------------------------------------------
 
   \section{Sélection des termes-clés candidats}
   \label{sec:main-state_of_the_art-keyphrase_candidate_selection}
     % Quel est l'objectif ?
-    La sélection des termes-clés candidats\index{Terme-cle candidat@Terme-clé
-    candidat \textit{(keyphrase candidate)}|textbf} consiste à déterminer
-    quelles sont les unités textuelles qui sont potentiellement des termes-clés,
-    c'est-à-dire les unités textuelles qui ont des particularités similaires à
-    celles des termes-clés définis par des humains. Nous savons par exemple que
-    les termes-clés sont majoritairement constitués de noms et d'adjectifs.
-    Cette étape présente deux avantages. Le premier est la réduction du temps de
+    La sélection des termes-clés candidats\index{Selection des termes-cles
+    candidats@Sélection des termes-clés candidats \textit{Keyphrase candidate
+    selection}|textbf}\index{Terme-cle candidat@Terme-clé candidat
+    \textit{(keyphrase candidate)}|textbf} consiste à déterminer quelles sont
+    les unités textuelles qui sont potentiellement des termes-clés, c'est-à-dire
+    les unités textuelles qui ont des particularités similaires à celles des
+    termes-clés définis par des humains. Nous savons par exemple que les
+    termes-clés sont majoritairement constitués de noms et d'adjectifs. Cette
+    étape présente deux avantages. Le premier est la réduction du temps de
     calcul nécessaire à l'extraction des  termes-clés. Le second est la
     suppression d'unités textuelles non pertinentes pouvant affecter
     négativement les performances de l'ordonnancement. Pour distinguer les
@@ -124,7 +143,7 @@
 
   %-----------------------------------------------------------------------------
 
-  \section{Extraction automatique des termes-clés}
+  \section{Extraction automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_extraction}
     \TODO{introduction}
 
@@ -145,7 +164,7 @@
       étude comparative des performances de ces
       méthodes~\cite{hassan2010conundrums}.
 
-      \subsubsection{Les approches statistiques}
+      \subsubsection{Méthodes statistiques}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-statistical_approaches}
         Les approches statistiques cherchent à définir ce qu'est un terme-clé en s'appuyant sur certains
         traits statistiques et en étudiant leur rapport avec la notion
@@ -306,7 +325,7 @@
         \cite{matsuo2004wordcooccurrence, liu2009keycluster,
         mihalcea2004textrank}.
 
-      \subsubsection{Les approches par regroupement}
+      \subsubsection{Méthodes par regroupement}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-clustering_approaches}
         Les approches par regroupement définissent des groupes dont les unités textuelles partagent une ou
         plusieurs caractéristiques communes (similarité lexicale, similarité
@@ -365,7 +384,7 @@
         en  utilisant le nombre de mots du groupe auquel appartiennent les
         mots de référence du terme-clé candidat, etc.}.
 
-      \subsubsection{Les approches à base de graphe}
+      \subsubsection{Méthodes à base de graphe}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}
         Les approches à base de graph sont actuellement les plus populaires. Elles consistent à représenter
         le contenu d'un document sous la forme d'un graphe. La méthodologie
@@ -800,7 +819,7 @@
         pour ordonner les termes-clés candidats afin de pouvoir extraire les
         meilleurs, lorsqu'un nombre précis de termes-clés doit être extrait.
 
-  \section{Assignation automatique des termes-clés}
+  \section{Assignation automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_assignment}
     \TODO{voir FASTR + travaux de Natalia Grabar}
 
@@ -822,7 +841,7 @@
     de ce fait de nombreuses mesures d'évaluation sont pessimistes.
       
 
-    \subsection{Mesures de précision, rappel et F-mesure}
+    \subsection{Précision, rappel et F-mesure}
     \label{subsec:main-state_of_the_art-automatic_evaluation_of_keyphrase_annotation-evaluation-precision_recall_and_f_measure}
       En TAL, il est courant d'évaluer une méthode en termes de
       \textbf{précision} et de \textbf{rappel}. Ces deux mesures sont
@@ -857,8 +876,9 @@
             & Non terme-clé & \textsc{FauxNegatifs} & \textsc{VraisNegatifs}\\
             \hline
           \end{tabular}
-          \caption{Matrice de confusion des systèmes d'extraction automatique de
-                   termes-clés. \label{tab:confusionmatrix}}
+          \caption{Matrice de confusion des systèmes d'indexation automatique
+                   par termes-clés
+                  \label{tab:confusion_matrix}}
         \end{center}
       \end{table}
       \begin{align}
