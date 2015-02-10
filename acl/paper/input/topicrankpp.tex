@@ -123,16 +123,11 @@
       \draw [<->] (document_node3) -- (document_node4);
 
       % extra link
-      \path [->, dashed, bend left=7] (document_node2) edge (domain_node5);
-      \path [->, dashed, bend left=7] (domain_node5) edge (document_node2);
-      \path [->, dashed, bend left=7] (document_node6) edge (domain_node5);
-      \path [->, dashed, bend left=7] (domain_node5) edge (document_node6);
-      \draw [->, dashed, bend left=7] (document_node6) edge (domain_node3);
-      \draw [->, dashed, bend left=7] (domain_node3) edge (document_node6);
-      \draw [->, dashed, bend left=7] (document_node4) edge (domain_node1);
-      \draw [->, dashed, bend left=7] (domain_node1) edge (document_node4);
-      \draw [->, dashed, bend left=7] (document_node3) edge (domain_node4);
-      \draw [->, dashed, bend left=7] (domain_node4) edge (document_node3);
+      \path [<->, dashed] (document_node2) edge (domain_node5);
+      \path [<->, dashed] (document_node6) edge (domain_node5);
+      \draw [<->, dashed] (document_node6) edge (domain_node3);
+      \draw [<->, dashed] (document_node4) edge (domain_node1);
+      \draw [<->, dashed] (document_node3) edge (domain_node4);
     \end{tikzpicture}
     \caption{Example of a unified graph constructed by TopicRank++ and its two
              kinds of edges: inner- and outer-graph edges
