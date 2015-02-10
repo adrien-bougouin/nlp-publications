@@ -6,24 +6,22 @@
     les unités textuelles caractérisants le contenu principal d'un document~:
     ses idées, les sujets qu'il aborde, etc. Nous parlons d'indexation, car les
     termes-clés servent à organiser et à retrouver des documents par ce qui les
-    caractérise, mais il s'agit d'une tâche bien distincte de l'indexation plein
-    texte de la Recherche d'Information.
+    caractérise. Il s'agit cependant d'une tâche bien distincte de l'indexation
+    plein texte de la Recherche d'Information. \TODO{décrire les différences en
+    une phrase}
 
     Dans la littérature, nous repérons deux indexations automatiques par
-    termes-clés~: l'une est libre, l'autre contrôllée. La première consiste à
+    termes-clés~: l'une libre, l'autre contrôlée. L'indexation libre consiste à
     extraire du document les unités textuelles jugées importantes dans son
-    contexte. Nous parlons d'extraction automatique de termes-clés. La seconde
-    fournit des termes-clés en se fondant sur un vocabulaire contrôllé et sans
-    se restreindre aux unités textuelles présentent dans le document. Nous
-    parlons d'assignation automatique de termes-clés. En amont de ces
-    indexations se trouve aussi une étape récurrente à ne pas négliger~: la
-    sélection des termes-clés candidats, c'est-à-dire les unité textuelles qui
-    sont potentiellement des termes-clés.
+    contexte. Nous parlons d'extraction automatique de termes-clés. L'indexation
+    contrôlée fournit des termes-clés en se fondant sur un vocabulaire contrôlé
+    et sans se restreindre aux unités textuelles présentent dans le document.
+    Nous parlons d'assignation automatique de termes-clés.
 
-    Dans la suite, nous présentons l'étape de sélection des termes-clés
-    candidats, l'extraction automatique de termes-clés, l'assignation
-    automatique de termes-clés et, enfin, le processus d'évaluation de
-    l'indexation automatique par termes-clés.
+    Dans la suite, nous présentons les méthodes d'extraction
+    automatique de termes-clés et d'assignation automatique de termes-clés. Nous
+    commençons par introduire une étape préliminaire à celles-ci~: la sélection
+    des termes-clés candidats.
 
   %-----------------------------------------------------------------------------
 
@@ -53,97 +51,76 @@
     \textit{(irrelevant candidate)}|textbf}, que nous considérons comme des
     erreurs de sélection.
 
-    \subsection{Termes-clés candidats classiques}
-    \label{subsec:main-state_of_the_art-keyphrase_candidate_selection-keyphrase_candidate_nature}
-      % Quels sont les différentes méthodes utilisées pour extraire les
-      % termes-clés candidats ?
-      Dans les travaux précédents, trois type de candidats sont généralement
-      sélectionnés~: les n-grammes, les \textit{chunks} nominaux
-      (NP-\textit{chunks}), et les séquences grammaticalement définies.
+    Plusieurs méthodes de sélection de candidats sont utilisées, de la simple
+    sélection de n-grammes à la sélection de \textit{chunks} nominaux, en
+    passant par la sélection d'unités textuelles grammaticalement définies.
 
-      \subsubsection{N-grammes}
-      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-automatic_keyphrase_extraction-n_grams}
-        Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
-        toutes les séquences ordonnées de $n$ mots adjacents.
+    ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont toutes
+    les séquences ordonnées de $n$ mots adjacents. La sélection des n-grammes
+    est très exhaustive, elle fournit un grand nombre de termes-clés candidats,
+    ce qui maximise la quantité de candidats positifs, la quantité de candidats
+    porteurs d'indices, mais aussi la quantité de candidats non pertinents. Pour
+    réduire cette dernière, il est courant de filtrer les n-grammes avec un
+    anti-dictionnaire\index{Anti-dictionnaire@Anti-dictionnaire
+    \textit{(stopwords)}|textbf}, selon le principe suivant~: un n-gramme
+    contenant un mot de l'anti-dictionnaire en début ou en fin n'est pas
+    considéré comme un terme-clé candidat. L'anti-dictionnaire regroupe les mots
+    fonctionnels de la langue (conjonctions, prépositions,~etc.) et les mots à
+    usage courants (\og{}particulier\fg{}, \og{}près\fg{}, \og{}beaucoup\fg{},
+    etc.).
+    
+    Malgré son aspect bruité, la sélection des n-grammes est largement utilisée
+    pour l'indexation par termes-clés, notamment par les méthodes
+    supervisées~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction},
+    dont la phase d'apprentissage les rend moins sensibles aux éventuels
+    candidats erronés (bruit) que les méthodes non supervisées.
 
-        \begin{example}
-          \TODO{$\{1..3\}$-grammes à partir d'une phrase de l'exemple fil rouge}
-        \end{example}
+    \begin{example}
+      \TODO{$\{1..3\}$-grammes à partir d'une phrase de l'exemple fil rouge}
+    \end{example}
 
-        La sélection des n-grammes est très exhaustive, elle fournit un grand
-        nombre de termes-clés candidats, ce qui maximise la quantité de
-        candidats positifs, la quantité de candidats porteurs d'indices, mais
-        aussi la quantité de candidats non pertinents. Pour réduire cette
-        dernière, il est courant de filtrer les n-grammes avec un
-        anti-dictionnaire\index{Anti-dictionnaire@Anti-dictionnaire
-        \textit{(stopwords)}|textbf}, selon le principe suivant~: un n-gramme
-        contenant un mot de l'anti-dictionnaire en début ou en fin n'est pas
-        considéré comme un terme-clé candidat. L'anti-dictionnaire regroupe les
-        mots fonctionnels de la langue (conjonctions, prépositions,~etc.) et les
-        mots à usage courants (\og{}particulier\fg{}, \og{}près\fg{},
-        \og{}beaucoup\fg{}, etc.).
-        
-        Malgré son aspect bruité, la sélection des n-grammes est largement
-        utilisée pour l'indexation par termes-clés, notamment par les méthodes
-        supervisées~\cite{witten1999kea,turney1999learningalgorithms,hulth2003keywordextraction},
-        dont la phase d'apprentissage les rend moins sensibles aux éventuels
-        candidats erronés (bruit) que les méthodes non supervisées.
+    ~\\Les \textit{chunks} nominaux\index{NP-chunk@NP-\textit{chunk}|textbf}
+    sont des syntagmes\index{Syntagme@Syntagme
+    \textit{(syntagm)}|textbf}\footnote{Syntagme~: Unité syntaxique
+    intermédiaire entre le mot et la phrase. Aussi appelé groupe, le syntagme
+    constitue une unité de sens dont chaque constituant conserve sa
+    signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
+    tête est un nom accompagné de ses éventuels déterminants et modifieurs
+    usuels. Ils sont linguistiquement définis et donc plus fiables que les
+    n-grammes. \newcite{hulth2003keywordextraction} le montrent dans ses
+    expériences consacrées à l'apport de connaissances linguistiques pour
+    l'extraction automatique de termes-clés. Cependant, ses propos sont nuancés
+    par un autre de ses constats~: l'usage de l'étiquetage grammatical des
+    n-grammes dans une méthode supervisée d'extraction automatique de
+    termes-clés permet d'éliminer les n-grammes grammaticalement incorrects et
+    induit de meilleures performances qu'avec les \textit{chunks} nominaux.
 
-      \subsubsection{NP-\textit{chunks}}
-      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-automatic_keyphrase_extraction-np_chunks}
-        Les \textit{chunks} nominaux\index{NP-chunk@NP-\textit{chunk}|textbf}
-        sont des syntagmes\index{Syntagme@Syntagme
-        \textit{(syntagm)}|textbf}\footnote{Syntagme~: Unité syntaxique
-        intermédiaire entre le mot et la phrase. Aussi appelé groupe, le
-        syntagme constitue une unité de sens dont chaque constituant conserve sa
-        signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
-        tête est un nom accompagné de ses éventuels déterminants et modifieurs
-        usuels.
+    \begin{example}
+      \TODO{NP-\textit{chunks} à partir d'une phrase de l'exemple fil rouge}
+    \end{example}
 
-        \begin{example}
-          \TODO{NP-\textit{chunks} à partir d'une phrase de l'exemple fil rouge}
-        \end{example}
-        
-        Les NP-\textit{chunks} sont linguistiquement définis et donc plus
-        fiables que les n-grammes. \newcite{hulth2003keywordextraction} le
-        montrent dans ses expériences consacrées à l'apport de connaissances
-        linguistiques pour l'extraction automatique de termes-clés. Cependant,
-        ses propos sont nuancés par un autre de ses constats~: l'usage de
-        l'étiquetage grammatical des n-grammes dans une méthode supervisée
-        d'extraction automatique de termes-clés permet d'éliminer les n-grammes
-        grammaticalement incorrects et induit de meilleures performances qu'avec
-        les \textit{chunks} nominaux.
+    ~\\La sélection d'unités textuelles qui forment des séquences
+    grammaticalement définies\index{Sequence grammaticalement definie@Séquence
+    grammaticalement définie \textit{(POS sequence)}|textbf} permet de contrôler
+    avec précision la nature et la grammaticalité des candidats sélectionnés.
+    Pour cela, il faut définir des patrons grammaticaux tels que \texttt{(<NOM>
+    | <ADJ>)*}, qui représente les plus longues séquences de noms et
+    d'adjectifs, d'après la syntaxe des expréssions rationnelles.
 
-      \subsubsection{Séquences grammaticalement définies}
-      \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-automatic_keyphrase_extraction-pos_sequences}
-        La sélection d'unités textuelles qui forment des séquences
-        grammaticalement définies\index{Sequence grammaticalement
-        definie@Séquence grammaticalement définie \textit{(POS
-        sequence)}|textbf} permet de contrôler avec précision la nature et la
-        grammaticalité des candidats sélectionnés. Pour cela, il faut définir
-        des patrons grammaticaux tels que \texttt{(<NOM> | <ADJ>)*}, qui
-        représente les plus longues séquences de noms et d'adjectifs, d'après la
-        syntaxe des expréssions rationnelles.
+    À l'instar des \textit{chunks} nominaux, la sélection des séquences
+    grammaticalement définies est plus fondée linguistiquement que celle des
+    n-grammes. Dans ses travaux, \newcite{hulth2003keywordextraction}
+    sélectionne les candidats à partir des patrons des termes-clés de référence
+    les plus fréquents dans sa collection d'apprentissage (plus de dix
+    occurrences). D'autres chercheurs, tels que \newcite{wan2008expandrank}, se
+    concentrent uniquement sur les plus longues séquences de noms (noms propres
+    inclus) et d'adjectifs.
 
-        \begin{example}
-          \TODO{Plus longues séquences de noms et d'adjectifs à partir d'une phrase de l'exemple fil rouge}
-        \end{example}
+    \begin{example}
+      \TODO{Plus longues séquences de noms et d'adjectifs à partir d'une phrase de l'exemple fil rouge}
+    \end{example}
 
-        À l'instar des \textit{chunks} nominaux, la sélection des séquences
-        grammaticalement définies est plus fondée linguistiquement que celle des
-        n-grammes. Dans ses travaux, \newcite{hulth2003keywordextraction}
-        sélectionne les candidats à partir des patrons des termes-clés de
-        référence les plus fréquents dans sa collection d'apprentissage (plus de
-        dix occurrences). D'autres chercheurs, tels que
-        \newcite{wan2008expandrank}, se concentrent uniquement sur les plus
-        longues séquences de noms (noms propres inclus) et d'adjectifs.
-
-
-    \subsection{Autres candidats}
-    \label{subsec:main-state_of_the_art-keyphrase_candidate_selection-other_candidates}
-      \TODO{voir aussi: extraction
-            terminologique~\cite{castellvi2001automatictermdetection}, détection
-            de collocation~\cite{pearce2002collocationdetection}, etc.}
+    \TODO{autres methodes}
 
   %-----------------------------------------------------------------------------
 
@@ -151,7 +128,7 @@
   \label{sec:main-state_of_the_art-automatic_keyphrase_extraction}
     \TODO{introduction}
 
-    \subsection{Extraction non supervisée}
+    \subsection{Méthodes non supervisées}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction}
       Les méthodes non supervisées d'extraction de termes-clés ordonnent
       principalement les termes-clés candidats par importance. Elles ont la
@@ -577,7 +554,7 @@
         PageRank permettent d'obtenir de meilleurs résultats que l'originale,
         $S_{\lambda}$ étant meilleure.
 
-    \subsection{Extraction supervisée}
+    \subsection{Méthodes supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction}
       Les méthodes supervisées sont des méthodes capables d'apprendre à
       réaliser une tâche particulière, soit ici l'extraction de termes-clés.

@@ -174,7 +174,7 @@
 \if@inEnglish
    \AtBeginDocument{\selectlanguage{english}}
 \else
-   \AtBeginDocument{\selectlanguage{francais}}
+   \AtBeginDocument{\selectlanguage{french}}
 \fi
 
 %%%%%%%%%%   TRADUCTIONS FRANCAISES ET ANGLAISES   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
