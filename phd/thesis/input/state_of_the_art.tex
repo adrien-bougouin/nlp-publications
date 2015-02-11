@@ -3,19 +3,21 @@
   \section{Introduction}
   \label{sec:main-state_of_the_art-introduction}
     Les termes-clés\index{Terme-cle@Terme-clé \textit{(keyphrase)}|textbf},
-    souvent appelés mots-clés, sont les unités textuelles (mots ou expressions)
-    qui caractérisent le mieux le contenu principal d'un document~: les sujets
-    qu'il aborde, ses idées, etc. Ceux-ci donnent une description précise de ce
-    que contient un document et peuvent servir à la Recherche d'Information
-    (\textsc{Ri}). Nous parlons donc d'indexation par
-    termes-clés\index{Indexation par termes-cles@Indexation par termes-clés
-    \textit{(automatic keyphrase annotation)}|textbf}. Cette indexation ne doit
-    toutefois pas être confondue avec l'indexation dite \og{}plein texte\fg{} au
-    c\oe{}ur de nombreux systèmes de \textsc{Ri}. L'indexation plein texte
-    pondère tous les mots d'un document selon leur importance relative à
-    celui-ci, tandis que l'indexation par termes-clés fournit un ensemble
-    restreint de mots ou expressions qui représentent ses sujets importants,
-    explicites ou non.
+    souvent appelés mots-clés\index{Mot-cle@Mot-clé
+    \textit{(keyword)}|textbf}\footnote{Lorsque nous utilisons le terme
+    \og{}mot-clé\fg{}, il s'agit d'un terme-clé composé d'un et un seul mot.},
+    sont les unités textuelles (mots ou expressions) qui caractérisent le mieux
+    le contenu principal d'un document~: les sujets qu'il aborde, ses idées,
+    etc. Ceux-ci donnent une description précise de ce que contient un document
+    et peuvent servir à la Recherche d'Information (\textsc{Ri}). Nous parlons
+    donc d'indexation par termes-clés\index{Indexation par
+    termes-cles@Indexation par termes-clés \textit{(automatic keyphrase
+    annotation)}|textbf}. Cette indexation ne doit toutefois pas être confondue
+    avec l'indexation dite \og{}plein texte\fg{} au c\oe{}ur de nombreux
+    systèmes de \textsc{Ri}. L'indexation plein texte pondère tous les mots d'un
+    document selon leur importance relative à celui-ci, tandis que l'indexation
+    par termes-clés fournit un ensemble restreint de mots ou expressions qui
+    représentent ses sujets importants, explicites ou non.
 
     Dans la littérature, nous distinguons deux catégories indexations
     automatiques par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
@@ -38,7 +40,8 @@
     Dans la suite, nous présentons les tâches d'extraction automatique de
     termes-clés et d'assignation automatique de termes-clés. Nous commençons par
     introduire une étape préliminaire à la plupart des méthodes de chacune~: la
-    sélection des termes-clés candidats.
+    sélection des termes-clés candidats, qui commence à devenir un objet d'étude
+    à part entière~\cite{wang2014keyphraseextractionpreprocessing}.
 
   %-----------------------------------------------------------------------------
 
@@ -71,7 +74,7 @@
     erreurs de sélection.
 
     Plusieurs méthodes de sélection de candidats sont utilisées, de la simple
-    sélection de n-grammes à la sélection de \textit{chunks} nominaux, en
+    sélection de n-grammes jusqu'à la sélection de \textit{chunks} nominaux, en
     passant par la sélection d'unités textuelles grammaticalement définies.
 
     ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont toutes
@@ -105,14 +108,15 @@
     constitue une unité de sens dont chaque constituant conserve sa
     signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
     tête est un nom accompagné de ses éventuels déterminants et modifieurs
-    usuels. Ils sont linguistiquement définis et donc plus fiables que les
-    n-grammes. \newcite{hulth2003keywordextraction} le montrent dans ses
-    expériences consacrées à l'apport de connaissances linguistiques pour
-    l'extraction automatique de termes-clés. Cependant, ses propos sont nuancés
-    par un autre de ses constats~: l'usage de l'étiquetage grammatical des
-    n-grammes dans une méthode supervisée d'extraction automatique de
-    termes-clés permet d'éliminer les n-grammes grammaticalement incorrects et
-    induit de meilleures performances qu'avec les \textit{chunks} nominaux.
+    usuels. Ils sont linguistiquement définis et leur sélection est donc plus
+    fiable que celle des n-grammes. \newcite{hulth2003keywordextraction} le
+    montrent dans ses expériences consacrées à l'apport de connaissances
+    linguistiques pour l'extraction automatique de termes-clés. Cependant, ses
+    propos sont nuancés par un autre de ses constats~: l'usage de l'étiquetage
+    grammatical des n-grammes dans une méthode supervisée d'extraction
+    automatique de termes-clés permet d'éliminer les n-grammes grammaticalement
+    incorrects et induit de meilleures performances qu'avec les \textit{chunks}
+    nominaux.
 
     \begin{example}
       \TODO{NP-\textit{chunks} à partir d'une phrase de l'exemple fil rouge}
@@ -139,7 +143,60 @@
       \TODO{Plus longues séquences de noms et d'adjectifs à partir d'une phrase de l'exemple fil rouge}
     \end{example}
 
-    \TODO{autres methodes}
+    ~\\\TODO{Keyphrase Extraction using Semantic Networks Structure analysis}
+
+    ~\\\TODO{Automatic Keyphrase Extraction from Scientific Documents using
+    N-gram Filtration Technique}
+
+    ~\\\newcite{you2009refinedcandidateset} proposent une méthode plus
+    sofistiquée que les trois précédentes, leur objectif étant de réduire le
+    nombre de candidats sélectionnés sans perdre de candidats positifs ni même
+    augmenter la complexité algorithmique de la sélection. \TODO{modifier la
+    première phrase car la méthode n'est plus en quatrième position} Leur
+    méthode se divise en deux étapes: sélection de candidats préliminaires grâce
+    à une liste de mots-clés, puis réduction de cet ensemble de candidats
+    préliminaires à un ensemble non redondant de candidats porteurs de sens.
+
+    Dans un premier temps, \newcite{you2009refinedcandidateset} extraient les
+    $k$ mots les plus fréquents du document, excluant les mots d'un
+    anti-dictionnaire, et les définissent comme mots-clés du document. Ensuite,
+    chaque occurrence de chaque mot-clé sert à définir au plus sept candidats
+    préliminaires~: le mot-clé lui même, un bi-gramme commençant par le mot-clé,
+    un bi-gramme se terminant par le mot-clé, un tri-gramme commençant par le
+    mot-clé, un tri-gramme se terminant par le mot-clé, un quadri-gramme
+    commençant par le mot-clé et un quadri-gramme se terminant par le
+    mot-clé\footnote{La taille maximale de 4 pour les n-grammes a été fixée par
+    les auteurs après une analyse statistique de leurs données. Cette taille peut
+    diverger selon les données, auquel cas les candidats préliminaires
+    sélectionnés pour chaque occurrence d'un mots-clés peut excéder sept.}.
+
+    \begin{example}
+      \TODO{Un 1-gramme, deux 2-grammes, deux 3-grammes et deux 4-grammes à partir d'une phrase de l'exemple fil rouge}
+    \end{example}
+
+    Dans un second temps, \newcite{you2009refinedcandidateset} analysent chaque
+    7-uplets de $\{1..4\}$-grammes et retirent les candidats préliminaires jugés
+    incomplets, non porteurs de sens. À la fin de cette étape, seuls deux
+    candidats préliminaires sont retenus pour chaque 7-uplet~: l'un commençant par le
+    mot-clé et l'autre se terminant par le mot-clé. Pour cela, ils utilisent
+    deux arbres représentant le chevauchement des $\{1..4\}$-grammes commençant
+    ou se terminant par le mot-clé (\TODO{figure}) et utilisent une heuristique
+    fréquentielle pour parcourir ces graphes et ne retenir qu'un candidat.
+
+    \TODO{Exemple de graphe obtenu à partir de l'exemple précédent (faire
+    référence à ce graph dans le paragraph précédent)}
+
+    Comparée à la sélection des $\{1..3\}$-grammes réalisée dans plusieurs
+    travaux, la méthode de \newcite{you2009refinedcandidateset} réduit
+    significativement le nombre de candidats (environ 75~\%), mais n'induit pas
+    une amélioration significative des performances des méthodes d'indexation
+    par termes-clés.
+
+    ~\\\TODO{KP-Miner: A Keyphrase Extraction System fo English and Arabic
+    Documents}
+
+    ~\\\TODO{Bayesian Text Segmentation for Index Term Identification and
+    Keyphrase Extraction}
 
   %-----------------------------------------------------------------------------
 
