@@ -108,15 +108,31 @@
 
   \subsection{Graph co-ranking for NLP}
   \label{subsec:graph_co_ranking_for_nlp}
-    Graph co-ranking is a powerful technique that simultanously ranks
-    different entities connected together, so that the ranking of specific
-    entities is reinforced by the ranking of the other entities. In the past few
+    Graph co-ranking is a powerful technique that simultanously ranks different
+    entities connected together. The ranking of specific entities is reinforced
+    by the ranking of the other, somehow related, entities. In the past few
     years, this technique has been successfully employed to solve different NLP
-    tasks~\cite{wan2011corankingsummarization,yan2012corankingtweetrecommendation,liu2014corankingopinionextraction}.
+    tasks~\cite{wan2011corankingsummarization,liu2014corankingopinionmining}.
 
-    \begin{itemize}
-      \item{Xiaojun Wan: Cross-language document summarization}
-      \item{Rui Yan: Tweet recommendation}
-      \item{Kang Liu: Opinion mining (check) from online reviews}
-    \end{itemize}
+    \newcite{wan2011corankingsummarization} used graph co-ranking to solve
+    extractive cross-language summarization. To summarize a document written in
+    a source language into a target language, the common approach is to either
+    translate extracted salient sentences from the source language to the target
+    language or translate the document to the target language and extract
+    salient sentences from the translation. However,
+    \newcite{wan2011corankingsummarization} stated that, due to translation
+    errors, salient sentences in the source language may not be salient in the
+    target language. \newcite{wan2011corankingsummarization} solved this problem
+    by co-ranking source language sentences and target language sentences. He
+    achieved the best performance on the standard evaluation dataset
+    DUC-2001~\cite{over2001duc}
+
+    \newcite{liu2014corankingopinionmining} leveraged graph co-ranking to
+    extract opinion targets and opinion words from online reviews. Previous work
+    mainly relied on the intuitions that opinion words usually co-occur with
+    opinion targets in sentences, and that there is a strong modification
+    relationship between them. However, \newcite{liu2014corankingopinionmining}
+    argued that only considering opinion relations is insufficient and deplore
+    the ignorance of word preferred collocations. Their co-ranking algorithm
+    addresses these limitations and achieves higher results than previous work.
 

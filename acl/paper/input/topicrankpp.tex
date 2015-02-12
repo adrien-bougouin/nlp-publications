@@ -1,138 +1,178 @@
 \section{TopicRank++}
 \label{sec:topicrankpp}
-  \TODO{Introduction: we build our method on top of TopicRank}
-  \TODO{Refered to TAL paper for the parameter values}
+  This section presents TopicRank++, a supervised extension of TopicRank that
+  adds AKA. Topic\-Rank works in three steps:
+  \begin{enumerate}
+    \item{Clustering candidate keyphrases that belongs to the same topic.
+          \newcite{bougouin2013topicrank} assumes that candidate of the same
+          topic must share as many words as possible. They uses a Hierarchical
+          Agglomerative Clustering (HAC) with a ``naive'' stem overlap
+          similarity: at the biginning, each candidate is a single cluster and
+          candidates sharing an average of $\unitfrac{1}{4}$ stemmed words with
+          the candidates of a given cluster are added to this cluster.}
+    \item{Building a graph of topics and ranking the topics using
+          TextRank~\cite{mihalcea2004textrank}. Each topic is connected to the
+          other topics by edges weighted according to the semantic strength
+          between the connected topics. TextRank ranking algorithm recursively
+          gives high importance to topics strongly connected to as most
+          important topic as possible.}
+    \item{Extracting keyphrases among the candidates of the $N$ most important
+          topics. To avoid topic redundancy, TopicRank only extracts one
+          keyphrase per topic. Following previous
+          observations~\cite{witten1999kea}, \newcite{bougouin2013topicrank}
+          extract the first occurring candidate from each topic.}
+  \end{enumerate}
 
-  \subsection{Topical clustering}
-  \label{subsec:topical_clustering}
+  To fit our need, TopicRank++ has a different graph construction. We also
+  replace the classic TextRank ranking algorithm by a co-ranking variant and
+  we integrate AKA during the former AKE process.
 
   \subsection{Graph construction}
   \label{subsec:graph_construction}
+    TopicRank++ operates over a unified graph that connects two graphs
+    representing the domain's reference keyphrases, the document's topics and
+    the relations between them. Formally, let $G = (V, E)$ denote the unified
+    graph. Reference keyphrases and topics are vertices $V$, respectively $V_k$
+    and $V_t$, connected to their equals by edges
+    $E_\textnormal{\textit{intra}}$ and connected to the other vertices by edges
+    $E_\textnormal{\textit{outer}}$ (see Figure~\ref{fig:topicrankpp_graph}).
 
-  \begin{figure*}
-    \newcommand{\xslant}{0.25}
-    \newcommand{\yslant}{0}
+    \begin{figure*}
+      \newcommand{\xslant}{0.25}
+      \newcommand{\yslant}{0}
 
-    \centering
-    \begin{tikzpicture}[transform shape, scale=.66]
-      % frame
-      \node [draw,
-             rectangle,
-             minimum width=.7\linewidth,
-             minimum height=8em,
-             xslant=\xslant,
-             yslant=\yslant] (domain_graph) {};
-      \node [above=of domain_graph,
-             xshift=.36\linewidth,
-             yshift=8em,
-             anchor=south east] (domain_graph_label) {domain keyphrases};
+      \centering
+      \begin{tikzpicture}[transform shape, scale=.66]
+        % frame
+        \node [draw,
+               rectangle,
+               minimum width=.7\linewidth,
+               minimum height=8em,
+               xslant=\xslant,
+               yslant=\yslant] (domain_graph) {};
+        \node [above=of domain_graph,
+               xshift=.36\linewidth,
+               yshift=8em,
+               anchor=south east] (domain_graph_label) {domain keyphrases};
 
-      \node [draw,
-             circle,
-             above=of domain_graph,
-             xshift=.3\linewidth,
-             yshift=5em] (domain_node1) {$k_1$};
-      \node [draw,
-             circle,
-             above=of domain_graph,
-             xshift=-.3\linewidth,
-             yshift=5em] (domain_node2) {$k_2$};
-      \node [draw,
-             circle,
-             above=of domain_graph,
-             yshift=5em] (domain_node3) {$k_3$};
-      \node [draw,
-             circle,
-             above=of domain_graph,
-             xshift=.15\linewidth,
-             yshift=.75em] (domain_node4) {$k_4$};
-      \node [draw,
-             circle,
-             above=of domain_graph,
-             xshift=-.15\linewidth,
-             yshift=.75em] (domain_node5) {$k_5$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=.3\linewidth,
+               yshift=5em] (domain_node1) {$k_1$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=-.3\linewidth,
+               yshift=5em] (domain_node2) {$k_2$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               yshift=5em] (domain_node3) {$k_3$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=.15\linewidth,
+               yshift=.75em] (domain_node4) {$k_4$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=-.15\linewidth,
+               yshift=.75em] (domain_node5) {$k_5$};
 
-      \draw [<->] (domain_node1) -- (domain_node3);
-      \draw [<->] (domain_node2) -- (domain_node3);
-      \draw [<->] (domain_node2) -- (domain_node4);
-      \draw [<->] (domain_node4) -- (domain_node5);
-      \draw [<->] (domain_node4) -- (domain_node3);
+        \draw [<->] (domain_node1) -- (domain_node3);
+        \draw [<->] (domain_node2) -- (domain_node3);
+        \draw [<->] (domain_node2) -- (domain_node4);
+        \draw [<->] (domain_node4) -- (domain_node5);
+        \draw [<->] (domain_node4) -- (domain_node3);
 
-      % document
-      \node [draw,
-             rectangle,
-             minimum width=.7\linewidth,
-             minimum height=8em,
-             xslant=\xslant,
-             yslant=\yslant,
-             above=of domain_graph,
-             xshift=-2em] (document_graph) {};
-      \node [below=of document_graph,
-             xshift=-.36\linewidth,
-             yshift=-8em,
-             anchor=north west] (document_graph_label) {document concepts};
+        % document
+        \node [draw,
+               rectangle,
+               minimum width=.7\linewidth,
+               minimum height=8em,
+               xslant=\xslant,
+               yslant=\yslant,
+               above=of domain_graph,
+               xshift=-2em] (document_graph) {};
+        \node [below=of document_graph,
+               xshift=-.36\linewidth,
+               yshift=-8em,
+               anchor=north west] (document_graph_label) {document topics};
 
-      \node [draw,
-             regular polygon,
-             regular polygon sides=8,
-             below=of document_graph,
-             xshift=.3\linewidth,
-             yshift=-5em] (document_node1) {$c_1$};
-      \node [draw,
-             regular polygon,
-             regular polygon sides=8,
-             below=of document_graph,
-             xshift=-.3\linewidth,
-             yshift=-5em] (document_node2) {$c_2$};
-      \node [draw,
-             regular polygon,
-             regular polygon sides=8,
-             below=of document_graph,
-             yshift=-5em] (document_node3) {$c_3$};
-      \node [draw,
-             regular polygon,
-             regular polygon sides=8,
-             below=of document_graph,
-             xshift=.15\linewidth,
-             yshift=-.75em] (document_node4) {$c_4$};
-      \node [draw,
-             regular polygon,
-             regular polygon sides=8,
-             below=of document_graph,
-             xshift=-.15\linewidth,
-             yshift=-.75em] (document_node5) {$c_5$};
-      \node [draw,
-             regular polygon,
-             regular polygon sides=8,
-             below=of document_graph,
-             yshift=-.75em] (document_node6) {$c_6$};
-      \node [draw,
-             regular polygon,
-             regular polygon sides=8,
-             below=of document_graph,
-             xshift=-.225\linewidth,
-             yshift=-5em] (document_node7) {$c_7$};
+        \node [draw,
+               regular polygon,
+               regular polygon sides=8,
+               below=of document_graph,
+               xshift=.3\linewidth,
+               yshift=-5em] (document_node1) {$t_1$};
+        \node [draw,
+               regular polygon,
+               regular polygon sides=8,
+               below=of document_graph,
+               xshift=-.3\linewidth,
+               yshift=-5em] (document_node2) {$t_2$};
+        \node [draw,
+               regular polygon,
+               regular polygon sides=8,
+               below=of document_graph,
+               yshift=-5em] (document_node3) {$t_3$};
+        \node [draw,
+               regular polygon,
+               regular polygon sides=8,
+               below=of document_graph,
+               xshift=.15\linewidth,
+               yshift=-.75em] (document_node4) {$t_4$};
+        \node [draw,
+               regular polygon,
+               regular polygon sides=8,
+               below=of document_graph,
+               xshift=-.15\linewidth,
+               yshift=-.75em] (document_node5) {$t_5$};
+        \node [draw,
+               regular polygon,
+               regular polygon sides=8,
+               below=of document_graph,
+               yshift=-.75em] (document_node6) {$t_6$};
+        \node [draw,
+               regular polygon,
+               regular polygon sides=8,
+               below=of document_graph,
+               xshift=-.225\linewidth,
+               yshift=-5em] (document_node7) {$t_7$};
 
-      \draw [<->] (document_node2) -- (document_node7);
-      \draw [<->] (document_node2) -- (document_node5);
-      \draw [<->] (document_node7) -- (document_node5);
-      \draw [<->] (document_node7) -- (document_node3);
-      \draw [<->] (document_node5) -- (document_node6);
-      \draw [<->] (document_node3) -- (document_node1);
-      \draw [<->] (document_node1) -- (document_node4);
-      \draw [<->] (document_node3) -- (document_node4);
+        \draw [<->] (document_node2) -- (document_node7);
+        \draw [<->] (document_node2) -- (document_node5);
+        \draw [<->] (document_node7) -- (document_node5);
+        \draw [<->] (document_node7) -- (document_node3);
+        \draw [<->] (document_node5) -- (document_node6);
+        \draw [<->] (document_node3) -- (document_node1);
+        \draw [<->] (document_node1) -- (document_node4);
+        \draw [<->] (document_node3) -- (document_node4);
 
-      % extra link
-      \path [<->, dashed] (document_node2) edge (domain_node5);
-      \path [<->, dashed] (document_node6) edge (domain_node5);
-      \draw [<->, dashed] (document_node6) edge (domain_node3);
-      \draw [<->, dashed] (document_node4) edge (domain_node1);
-      \draw [<->, dashed] (document_node3) edge (domain_node4);
-    \end{tikzpicture}
-    \caption{Example of a unified graph constructed by TopicRank++ and its two
-             kinds of edges: inner- and outer-graph edges
-             \label{fig:topicrankpp_graph}}
-  \end{figure*}
+        % extra link
+        \draw [<->, dashed] (document_node2) -- (domain_node5);
+        \draw [<->, dashed] (document_node6) -- (domain_node5);
+        \draw [<->, dashed] (document_node6) -- (domain_node3);
+        \draw [<->, dashed] (document_node4) -- (domain_node1);
+        \draw [<->, dashed] (document_node3) -- (domain_node4);
+
+        % legend
+        \node [right=of document_graph, xshift=2em, yshift=-9.25em] (legend_title) {\underline{Legend:}};
+        \node [below=of legend_title, xshift=-1em, yshift=2em] (begin_inner) {};
+        \node [right=of begin_inner] (end_inner) {: $E_\textnormal{\textit{inner}}$};
+        \node [below=of begin_inner, yshift=1.5em] (begin_outer) {};
+        \node [right=of begin_outer] (end_outer) {: $E_\textnormal{\textit{outer}}$};
+
+        \draw (legend_title.north  -| end_outer.east) rectangle (end_outer.south -| legend_title.west);
+
+        \draw [<->] (begin_inner) -- (end_inner);
+        \draw [<->, dashed] (begin_outer) -- (end_outer);
+      \end{tikzpicture}
+      \caption{Example of a unified graph constructed by TopicRank++ and its two
+               kinds of edges: inner- and outer-graph edges
+               \label{fig:topicrankpp_graph}}
+    \end{figure*}
 
   \subsection{Graph-based co-ranking}
   \label{subsec:graph_based_co_ranking}

@@ -35,19 +35,19 @@
   % our proposed method?
   % => its benefits?
   This paper presents a new method performing both AKA, to bridge the
-  ``vocabulary gap'', and AKE, to discover potentially novel concepts.
-  Leveraging training data containing documents associated with reference
-  keyphrases, we simultanously rank the training reference keyphrases and the
-  concepts of a document using a unified graph-based co-ranking algorithm. An
-  importance score is given to every reference keyphrase based on its
-  relationship with the other reference keyphrases and its relationship with the
-  document's concepts. Similarly, an importance score is given to every concept
-  of the document based on its relationship with the other concepts and its
-  relationship with the reference keyphrases. Despite combining both AKE and
-  AKA, our approach conciders already used keyphrases (from training data) as a
-  controlled vocabulary. Following this assumption reduces the cost of producing
-  domain-specific data, such as thesauri, and makes our method suitable in any
-  case where training data are available.
+  ``vocabulary gap'', and AKE, to discover novel concepts. Leveraging training
+  data containing documents associated with reference keyphrases, we
+  simultanously rank the training reference keyphrases and the concepts of a
+  document using a unified graph-based co-ranking algorithm. An importance score
+  is given to every reference keyphrase based on its relationship with the other
+  reference keyphrases and its similarity to the document's concepts. Similarly,
+  an importance score is given to every concept of the document based on its
+  relationship with the other concepts and its similarity to the reference
+  keyphrases. Despite combining both AKE and AKA, our approach conciders already
+  used keyphrases (from training data) as a controlled vocabulary. Following
+  this assumption reduces the cost of producing domain-specific data, such as
+  thesauri, and makes our method suitable in any case where training data are
+  available.
 
   \TODO{Results insight}
 
