@@ -143,18 +143,31 @@
       \TODO{Plus longues séquences de noms et d'adjectifs à partir d'une phrase de l'exemple fil rouge}
     \end{example}
 
-    ~\\\TODO{Keyphrase Extraction using Semantic Networks Structure analysis}
+    ~\\En plus des trois précédentes méthodes de sélection de termes-clés
+    candidats, d'autre chercheurs comme
+    \newcite{huang2006semanticnetworkstructureanalysis} proposent un filtrage
+    des candidats sélectionnés.
+    \newcite{huang2006semanticnetworkstructureanalysis} filtrent tout d'abord
+    les candidats peu fréquents dans le document, puis mettent ensuite en
+    compétition ceux ayant un mot en commun. Pour chaque groupe de
+    candidats mis en compétitions, un seul candidat peu être retenu comme
+    terme-clé candidat, celui le plus fréquent. Un candidat peut être en
+    compétition dans différents groupes. Dans ce cas, il doit être le
+    \og{}vainqueur\fg{} de chaque groupe pour être retenu.
 
-    ~\\\TODO{Automatic Keyphrase Extraction from Scientific Documents using
-    N-gram Filtration Technique}
+    Le travail de \newcite{huang2006semanticnetworkstructureanalysis}, sur la
+    sélection des termes-clés candidats, fait partie d'un système d'extraction
+    de termes-clés qu'ils ont développés. Ce dernier à fait l'objet d'une
+    évaluation, mais aucune étude n'a été conduite pour montrer l'efficacité de
+    leur filtrage hors des frontières de leur système.
 
-    ~\\\newcite{you2009refinedcandidateset} proposent une méthode plus
-    sofistiquée que les trois précédentes, leur objectif étant de réduire le
-    nombre de candidats sélectionnés sans perdre de candidats positifs ni même
-    augmenter la complexité algorithmique de la sélection. \TODO{modifier la
-    première phrase car la méthode n'est plus en quatrième position} Leur
-    méthode se divise en deux étapes: sélection de candidats préliminaires grâce
-    à une liste de mots-clés, puis réduction de cet ensemble de candidats
+    ~\\Contrairement à \newcite{huang2006semanticnetworkstructureanalysis},
+    \newcite{you2009refinedcandidateset} se sont fixé pour objectif d'améliorer
+    la qualité de l'extraction automatique de termes-clés en réduisant le nombre
+    de candidats sélectionnés sans perdre de candidats positifs ni même
+    augmenter la complexité algorithmique de la sélection. Leur méthode se
+    divise en deux étapes: sélection de candidats préliminaires grâce à une
+    liste de mots-clés, puis réduction de cet ensemble de candidats
     préliminaires à un ensemble non redondant de candidats porteurs de sens.
 
     Dans un premier temps, \newcite{you2009refinedcandidateset} extraient les
@@ -192,11 +205,12 @@
     une amélioration significative des performances des méthodes d'indexation
     par termes-clés.
 
-    ~\\\TODO{KP-Miner: A Keyphrase Extraction System fo English and Arabic
-    Documents}
-
-    ~\\\TODO{Bayesian Text Segmentation for Index Term Identification and
-    Keyphrase Extraction}
+    ~\\Pour contribuer à la sélection des termes-clés candidats,
+    \newcite{newman2012bayesiantextsegmentation} se sont intéressés aux travaux
+    effectués dans le domaine de la segmentation en mots et à l'adaptation de
+    l'un d'eux~\cite{goldwater2009bayesianwordsegmentation} pour la détection
+    des frontières séparant les mots et les expressions dans la phrase.
+    \TODO{détailler le fonctionnement de la méthode}
 
   %-----------------------------------------------------------------------------
 
