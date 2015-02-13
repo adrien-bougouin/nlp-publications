@@ -19,7 +19,7 @@
     par termes-clés fournit un ensemble restreint de mots ou expressions qui
     représentent ses sujets importants, explicites ou non.
 
-    Dans la littérature, nous distinguons deux catégories indexations
+    Dans la littérature, nous distinguons deux catégories d'indexations
     automatiques par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
     libre\index{Indexation libre@Indexation libre \textit{(free indexing)}|see
     {Extraction automatique de termes-clés \textit{(automatic keyphrase
@@ -39,9 +39,10 @@
 
     Dans la suite, nous présentons les tâches d'extraction automatique de
     termes-clés et d'assignation automatique de termes-clés. Nous commençons par
-    introduire une étape préliminaire à la plupart des méthodes de chacune~: la
-    sélection des termes-clés candidats, qui commence à devenir un objet d'étude
-    à part entière~\cite{wang2014keyphraseextractionpreprocessing}.
+    introduire une étape préliminaire à la plupart des méthodes d'extraction et
+    d'assignation automatique de termes-clés~: la sélection des termes-clés
+    candidats, qui devient un objet d'étude à part
+    entière~\cite{wang2014keyphraseextractionpreprocessing}.
 
   %-----------------------------------------------------------------------------
 
@@ -55,34 +56,35 @@
     les unités textuelles qui sont potentiellement des termes-clés, c'est-à-dire
     les unités textuelles qui ont des particularités similaires à celles des
     termes-clés définis par des humains. Nous savons par exemple que les
-    termes-clés sont majoritairement constitués de noms et d'adjectifs. Cette
-    étape présente deux avantages. Le premier est la réduction du temps de
-    calcul nécessaire à l'extraction des  termes-clés. Le second est la
-    suppression d'unités textuelles non pertinentes pouvant affecter
-    négativement les performances de l'ordonnancement. Pour distinguer les
-    différents candidats sélectionnés, nous définissons deux catégories~: les
-    candidats positifs\index{Candidat positif@Candidat positif \textit{(positive
-    candidate)}|textbf}, qui correspondent aux termes-clés assignés par des
-    humains (termes-clés de référence), et les candidats négatifs\index{Candidat
-    negatif@Candidat négatif \textit{(negative candidate)}|textbf}. Parmi les
-    candidats négatifs, nous distinguons deux sous-catégories~: les candidats
-    porteurs d'indices\index{Candidat porteur d'indices@Candidat porteur
-    d'indices \textit{(clue candidate)}|textbf} de différentes natures pouvant
-    influencer la promotion de candidats positifs (\TODO{exemple}) et les
-    candidats non pertinents\index{Candidat non pertinent@Candidat non pertinent
-    \textit{(irrelevant candidate)}|textbf}, que nous considérons comme des
-    erreurs de sélection.
+    termes-clés sont majoritairement constitués de noms et d'adjectifs
+    (\TODO{exemple}). Cette étape présente deux avantages. Le premier est la
+    réduction du temps de calcul nécessaire à l'extraction des  termes-clés. Le
+    second est la suppression d'unités textuelles non pertinentes pouvant
+    affecter négativement les performances de l'ordonnancement. Pour distinguer
+    les différents candidats sélectionnés, nous définissons deux catégories~:
+    les candidats positifs\index{Candidat positif@Candidat positif
+    \textit{(positive candidate)}|textbf}, qui correspondent aux termes-clés
+    assignés par des humains (termes-clés de référence), et les candidats
+    négatifs\index{Candidat negatif@Candidat négatif \textit{(negative
+    candidate)}|textbf}. Parmi les candidats négatifs, nous distinguons deux
+    sous-catégories~: les candidats porteurs d'indices\index{Candidat porteur
+    d'indices@Candidat porteur d'indices \textit{(clue candidate)}|textbf} de
+    différentes natures pouvant influencer la promotion de candidats positifs
+    (\TODO{exemple}) et les candidats non pertinents\index{Candidat non
+    pertinent@Candidat non pertinent \textit{(irrelevant candidate)}|textbf},
+    que nous considérons comme des erreurs de sélection.
 
     Plusieurs méthodes de sélection de candidats sont utilisées, de la simple
     sélection de n-grammes jusqu'à la sélection de \textit{chunks} nominaux, en
     passant par la sélection d'unités textuelles grammaticalement définies.
 
-    ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont toutes
-    les séquences ordonnées de $n$ mots adjacents. La sélection des n-grammes
-    est très exhaustive, elle fournit un grand nombre de termes-clés candidats,
-    ce qui maximise la quantité de candidats positifs, la quantité de candidats
-    porteurs d'indices, mais aussi la quantité de candidats non pertinents. Pour
-    réduire cette dernière, il est courant de filtrer les n-grammes avec un
+    ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
+    toutes les séquences ordonnées de $n$ mots adjacents. La sélection des
+    n-grammes est très exhaustive, elle fournit un grand nombre de termes-clés
+    candidats, ce qui maximise la quantité de candidats positifs, la quantité de
+    candidats porteurs d'indices, mais aussi la quantité de candidats non
+    pertinents. Pour réduire cette dernière, il est courant de filtrer les
+    n-grammes avec un
     anti-dictionnaire\index{Anti-dictionnaire@Anti-dictionnaire
     \textit{(stopwords)}|textbf}, selon le principe suivant~: un n-gramme
     contenant un mot de l'anti-dictionnaire en début ou en fin n'est pas
@@ -107,10 +109,10 @@
     intermédiaire entre le mot et la phrase. Aussi appelé groupe, le syntagme
     constitue une unité de sens dont chaque constituant conserve sa
     signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
-    tête est un nom accompagné de ses éventuels déterminants et modifieurs
+    tête est un nom, accompagné de ses éventuels déterminants et modifieurs
     usuels. Ils sont linguistiquement définis et leur sélection est donc plus
     fiable que celle des n-grammes. \newcite{hulth2003keywordextraction} le
-    montrent dans ses expériences consacrées à l'apport de connaissances
+    montre dans ses expériences consacrées à l'apport de connaissances
     linguistiques pour l'extraction automatique de termes-clés. Cependant, ses
     propos sont nuancés par un autre de ses constats~: l'usage de l'étiquetage
     grammatical des n-grammes dans une méthode supervisée d'extraction
@@ -150,7 +152,7 @@
     \newcite{huang2006semanticnetworkstructureanalysis} filtrent tout d'abord
     les candidats peu fréquents dans le document, puis mettent ensuite en
     compétition ceux ayant un mot en commun. Pour chaque groupe de
-    candidats mis en compétitions, un seul candidat peu être retenu comme
+    candidats mis en compétitions, un seul candidat peut être retenu comme
     terme-clé candidat, celui le plus fréquent. Un candidat peut être en
     compétition dans différents groupes. Dans ce cas, il doit être le
     \og{}vainqueur\fg{} de chaque groupe pour être retenu.
@@ -190,11 +192,15 @@
     Dans un second temps, \newcite{you2009refinedcandidateset} analysent chaque
     7-uplets de $\{1..4\}$-grammes et retirent les candidats préliminaires jugés
     incomplets, non porteurs de sens. À la fin de cette étape, seuls deux
-    candidats préliminaires sont retenus pour chaque 7-uplet~: l'un commençant par le
-    mot-clé et l'autre se terminant par le mot-clé. Pour cela, ils utilisent
-    deux arbres représentant le chevauchement des $\{1..4\}$-grammes commençant
-    ou se terminant par le mot-clé (\TODO{figure}) et utilisent une heuristique
-    fréquentielle pour parcourir ces graphes et ne retenir qu'un candidat.
+    candidats préliminaires peuvent être retenus pour chaque 7-uplet~: l'un
+    commençant par le mot-clé et l'autre se terminant par le mot-clé. Pour cela,
+    les auteurs utilisent deux arbres par mot-clé. Un mot-clé est la racine de
+    chaque arbre et les fils de chaque noeuds sont leurs mots les précédant ou
+    succedant dans les candidats préliminaires. La profondeur de chaque arbre ne
+    peut excéder quatre et un mot apparaissant moins de deux fois forme un
+    n\oe{}ud feuille. Pour sélectionner les termes-clés candidats, il suffit
+    ensuite de parcourir l'arbre en profondeur et de ne retenir que les
+    séquences constituées uniquement de n\oe{}uds non feuilles.
 
     \TODO{Exemple de graphe obtenu à partir de l'exemple précédent (faire
     référence à ce graph dans le paragraph précédent)}
@@ -209,8 +215,15 @@
     \newcite{newman2012bayesiantextsegmentation} se sont intéressés aux travaux
     effectués dans le domaine de la segmentation en mots et à l'adaptation de
     l'un d'eux~\cite{goldwater2009bayesianwordsegmentation} pour la détection
-    des frontières séparant les mots et les expressions dans la phrase.
-    \TODO{détailler le fonctionnement de la méthode}
+    des frontières séparant les mots et les expressions dans la phrase. Leur
+    méthode parcours le document pour apprendre un lexique, ici l'ensemble de
+    termes-clés candidats, en suivant un processus de Dirichlet.
+
+    En ordonnant les entrées de leur lexique par fréquence, ce qui n'est pas une
+    heuristique suffisante pour déterminer l'importance d'un terme-clé candidat,
+    leur approche obtient de meilleurs résultats que la majorité des systèmes
+    états de l'art. Ceci tant à montrer la capacité de leur méthode à fournir
+    des candidats de très bonne qualité.
 
   %-----------------------------------------------------------------------------
 
