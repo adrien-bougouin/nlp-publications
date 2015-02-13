@@ -59,26 +59,26 @@
                circle,
                above=of domain_graph,
                xshift=.3\linewidth,
-               yshift=5em] (domain_node1) {$k_1$};
+             yshift=5em] (domain_node1) {$V_{k_1}$};
         \node [draw,
                circle,
                above=of domain_graph,
                xshift=-.3\linewidth,
-               yshift=5em] (domain_node2) {$k_2$};
+               yshift=5em] (domain_node2) {$V_{k_2}$};
         \node [draw,
                circle,
                above=of domain_graph,
-               yshift=5em] (domain_node3) {$k_3$};
+               yshift=5em] (domain_node3) {$V_{k_3}$};
         \node [draw,
                circle,
                above=of domain_graph,
                xshift=.15\linewidth,
-               yshift=.75em] (domain_node4) {$k_4$};
+               yshift=.75em] (domain_node4) {$V_{k_4}$};
         \node [draw,
                circle,
                above=of domain_graph,
                xshift=-.15\linewidth,
-               yshift=.75em] (domain_node5) {$k_5$};
+               yshift=.75em] (domain_node5) {$V_{k_5}$};
 
         \draw [<->] (domain_node1) -- (domain_node3);
         \draw [<->] (domain_node2) -- (domain_node3);
@@ -105,41 +105,41 @@
                regular polygon sides=8,
                below=of document_graph,
                xshift=.3\linewidth,
-               yshift=-5em] (document_node1) {$t_1$};
+               yshift=-5em] (document_node1) {$V_{t_1}$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
                xshift=-.3\linewidth,
-               yshift=-5em] (document_node2) {$t_2$};
+               yshift=-5em] (document_node2) {$V_{t_2}$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
-               yshift=-5em] (document_node3) {$t_3$};
+             yshift=-5em] (document_node3) {$V_{t_3}$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
                xshift=.15\linewidth,
-               yshift=-.75em] (document_node4) {$t_4$};
+               yshift=-.75em] (document_node4) {$V_{t_4}$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
-               xshift=-.15\linewidth,
-               yshift=-.75em] (document_node5) {$t_5$};
+               xshift=-.1\linewidth,
+               yshift=-.75em] (document_node5) {$V_{t_5}$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
-               yshift=-.75em] (document_node6) {$t_6$};
+               yshift=-.75em] (document_node6) {$V_{t_6}$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
-               xshift=-.225\linewidth,
-               yshift=-5em] (document_node7) {$t_7$};
+               xshift=-.175\linewidth,
+               yshift=-5em] (document_node7) {$V_{t_7}$};
 
         \draw [<->] (document_node2) -- (document_node7);
         \draw [<->] (document_node2) -- (document_node5);
@@ -151,7 +151,7 @@
         \draw [<->] (document_node3) -- (document_node4);
 
         % extra link
-        \draw [<->, dashed] (document_node2) -- (domain_node5);
+        \draw [<->, dashed] (document_node2) -- (domain_node2);
         \draw [<->, dashed] (document_node6) -- (domain_node5);
         \draw [<->, dashed] (document_node6) -- (domain_node3);
         \draw [<->, dashed] (document_node4) -- (domain_node1);
@@ -174,12 +174,53 @@
                \label{fig:topicrankpp_graph}}
     \end{figure*}
 
+    We create edges $E_\textnormal{\textit{intra}}$ between two reference
+    keyphrases or two topics when they co-occur, respectively, as reference
+    keyphrases for a document of the domain or within a sentence of the
+    document. Each edge $E_{\textnormal{\textit{intra}}_{ij}}$ is weighted by
+    the normalized number of co-occurrences, $w_{ij}$ between the reference
+    keyphrases $V_{k_i}$ and $V_{k_j}$ or the topics $V_{t_i}$ and $V_{t_j}$.
+
+    To unify the two graphs, we look for reference keyphrase occurrences within
+    the document. The domain keyphrases can be seen as a category map of the
+    domain. We try to connect the document to its potential categories. An edge
+    $E_{\textnormal{\textit{outer}}_{ij}}$ is created to connect a reference
+    keyphrase $V_{k_i}$ and a topic $V_{t_j}$ if the reference keyphrase is a
+    member of the topic, i.e.~a keyphrase candidate that belongs to the topic.
+    To accept flexions, such as plural flexions, we perform the comparison with
+    stems.
+
   \subsection{Graph-based co-ranking}
   \label{subsec:graph_based_co_ranking}
+    This ranking leverages both the reference keyphrase relations and the topic
+    relations. Based on TextRank's random walk~\cite{mihalcea2004textrank}, our
+    co-ranking algorithm combines the recommendations within each graph in such
+    a way that the random part is replaced by a recommendation comming from the
+    other graph:
+    \begin{tiny}
+      \begin{align}
+        S(V_{t_i}) &= (1 - \lambda) \sum_{E_{\text{outer}_{ji}}}{\frac{S(V_{k_j})}{\mathlarger\sum_{E_{\text{outer}_{jm}}}{1}}} + \lambda \sum_{E_{\text{inner}_{ij}}}{\frac{w_{ij} S(V_{t_j})}{\mathlarger\sum_{E_{\text{inner}_{jm}}}{{w_{jm}}}}}\\
+        S(V_{k_i}) &= (1 - \lambda) \sum_{E_{\text{outer}_{ij}}}{\frac{S(V_{t_j})}{\mathlarger\sum_{E_{\text{outer}_{mj}}}{1}}} + \lambda \sum_{E_{\text{inner}_{ij}}}{\frac{w_{ij} S(V_{k_j})}{\mathlarger\sum_{E_{\text{inner}_{jm}}}{{w_{jm}}}}}
+      \end{align}
+    \end{tiny}
+    This formula embeds two assumptions:
+    \begin{itemize}
+      \item{A reference keyphrase is important if it is strongly linked to other
+            reference keyphrases and a topic is important if it strongly linked
+            to other topics.}
+      \item{A reference keyphrase is important in the context of the document if
+            it is related to the topics within the document and a topic is
+            important if it relates to domain keyphrases.}
+    \end{itemize}
+    The first assumption is the former TextRank assumption, while the second is
+    induced by the unification of both domain keyphrases and document topics.
+
+    The $\lambda$ factor helps to configure the influence of the domain
+    keyphrases over the whole ranking (in percentage). A lower $\lambda$ gives a
+    higher influence of the domain keyphrases than a higher $\lambda$, while
+    $\lambda=0.5$ balance the influence of the domain ranking and the document
+    ranking.
 
   \subsection{Keyphrase assignment and extraction}
   \label{subsec:keyphrase_assignment_and_extraction}
-
-  \subsection{Training protocol}
-  \label{subsec:training_protocol}
 
