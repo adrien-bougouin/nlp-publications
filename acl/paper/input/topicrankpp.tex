@@ -204,14 +204,14 @@
       \end{align}
     \end{tiny}
     This formula embeds two assumptions:
-    \begin{itemize}
+    \begin{enumerate}
       \item{A reference keyphrase is important if it is strongly linked to other
             reference keyphrases and a topic is important if it strongly linked
             to other topics.}
       \item{A reference keyphrase is important in the context of the document if
             it is related to the topics within the document and a topic is
             important if it relates to domain keyphrases.}
-    \end{itemize}
+    \end{enumerate}
     The first assumption is the former TextRank assumption, while the second is
     induced by the unification of both domain keyphrases and document topics.
 
@@ -223,4 +223,48 @@
 
   \subsection{Keyphrase assignment and extraction}
   \label{subsec:keyphrase_assignment_and_extraction}
+    To both assign and extract keyphrases, we first sort the reference
+    keyphrases and the document's topics using their importance score obtained
+    with the co-ranking, then we retain the top $N$ ones.
+
+    We assign reference keyphrases over one condition. A reference keyphrase can
+    be assigned to a document if it is directly or transitively connected to a
+    topic of the document. In other words, if the ranking of a reference
+    keyphrase has not been influenced by the document, we do not consider this
+    reference keyphrase.
+
+    We also change the former strategy of the keyphrase extraction from the best
+    ranking topics. We follow \newcite{bougouin2013topicrank} and extract the
+    first occuring candidates as keyphrases, but we leverage the training data
+    and prioritize the reference keyphrases within the topics. If reference
+    keyphrases are included in the topic, and if they have not been assigned
+    yet, we extract the first occurring one. If a top ranking topic does not
+    contain one or more reference keyphrase, we extract the first occurring
+    candidate.
+
+  \subsection{Extension points}
+  \label{subsec:extension_points}
+    This section discusses possible customizations of TopicRank++. In
+    section~\ref{subsec:graph_based_co_ranking}, we suggest to optimize the
+    value of the $\lambda$ factor to set the appropriate influence of the domain
+    over the document and, inversely, of the document over the domain. In
+    section~\ref{subsec:keyphrase_assignment_and_extraction}, we present a pure
+    mixin of AKA and AKE based on the co-ranking. This last step can be
+    customized to better fit data caracteristics.
+
+    In section~\ref{subsec:keyphrase_assignment_and_extraction}, we assume AKA
+    and AKE to have the same priority. This might not be true in every case.
+    Furthermore, we can assume that AKA has a higher priority, because it
+    provides keyphrases that have already been judge to be keyphrases.
+    Therefore, TopicRank++ could leverage a definition of the ratio of keyphrase
+    to assign.
+
+    Controlling the degree of generalization of an assigned keyphrase is also an
+    interesting customization. Indeed, one may be interested in assigning very
+    specific keyphrases regarding the document(\TODO{example}), whereas one may
+    want to assign more general keyphrases (\TODO{example}). The minimum deph
+    between a reference keyphrase and a document topic encodes this degree of
+    generalization. A reference keyphrase directly connected to a document topic
+    has the lowest generalization regarding the document, followed by the
+    reference keyphrases they are connected to, and so on.
 
