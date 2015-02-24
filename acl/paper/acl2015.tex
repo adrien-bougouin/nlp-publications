@@ -29,6 +29,8 @@
 \usepackage{units}
 \usepackage{amsmath}
 \usepackage{relsize}
+\usepackage{booktabs}
+\usepackage{multirow}
 
 %\setlength\titlebox{5cm}
 
@@ -164,7 +166,19 @@
   \maketitle
 
   \begin{abstract}
-    \FILL{1}
+    Keyphrases are words or multi-words that represent the most important
+    content of a document.
+    Keyphrase extraction consists in annotating a document with the important
+    concepts verbatim in the document. Keyphrase assignment consists in
+    annotating a document with terminological entries, not necessarily verbatim
+    in the document, that describe the important concepts in the document. The
+    former approach is the only approach to be able to find novel concepts,
+    whereas the later approach provides better-formed keyphrases. This paper
+    presents the first method to simultaneously perform keyphrase extraction and
+    keyphrase assignment, taking advantage of both. Our method uses a
+    co-occurrence graph of the document and of its domain, and unified them to
+    rank together document and domain keyphrase candidates. \TODO{Experimental
+    results show \dots}
   \end{abstract}
 
   \input{input/introduction.tex}

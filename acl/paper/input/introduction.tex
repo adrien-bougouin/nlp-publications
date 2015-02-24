@@ -19,8 +19,7 @@
   Keyphrase Extraction (AKE) and Automatic Keyphrase Assignment (AKA). In the
   first hand, AKE detects important words or phrases occuring within the
   document. In the other hand, AKA provides controlled keyphrases from a
-  domain-specific terminology, or controlled vocabulary, without regard to their
-  occurence within the document.
+  domain-specific terminology, even if they do not occur within the document.
 
   % motivations?
   The automatic keyphrase annotation problem has mainly been addressed using AKE
@@ -37,26 +36,26 @@
   This paper presents a new method performing both AKA, to bridge the
   ``vocabulary gap'', and AKE, to discover novel concepts. Leveraging training
   data containing documents associated with reference keyphrases, we
-  simultanously rank the training reference keyphrases and the concepts of a
-  document using a unified graph-based co-ranking algorithm. An importance score
-  is given to every reference keyphrase based on its relationship with the other
-  reference keyphrases and its similarity to the document's concepts. Similarly,
-  an importance score is given to every concept of the document based on its
-  relationship with the other concepts and its similarity to the reference
-  keyphrases. Despite combining both AKE and AKA, our approach conciders already
-  used keyphrases (from training data) as a controlled vocabulary. Following
-  this assumption reduces the cost of producing domain-specific data, such as
-  thesauri, and makes our method suitable in any case where training data are
-  available.
+  simultanously rank the training reference keyphrases and the topics of the
+  document to annotate using a unified graph-based co-ranking algorithm. An
+  importance score is given to each reference keyphrase based on its
+  relationship with the other reference keyphrases and its similarity to the
+  document's concepts. Similarly, an importance score is given to each concept
+  of the document based on its relationship with the other concepts and its
+  similarity to the reference keyphrases. Despite combining both AKE and AKA,
+  our approach conciders already used keyphrases (from training data) as a
+  controlled terminology. Following this assumption reduces the cost of
+  producing domain-specific data and makes our method suitable in any case where
+  training data are available.
 
   \TODO{Results insight}
 
   The rest of this paper is organized as follows. Section~\ref{sec:related_work}
   presents the previous work on automatic keyphrase annotation and the previous
   employments of graph co-ranking for Natural Language Processing (NLP) tasks.
-  Section~\ref{sec:topicrankpp} describes our method and
-  sections~\ref{sec:experimental_settings}~and~\ref{sec:results} presents,
-  respectively, our experimental settings and the comparison results of our
-  method with the baselines. Finally, section~\ref{sec:conclusion} concludes our
-  work and discusses future work.
+  Section~\ref{sec:topicrankpp} describes our method,
+  section~\ref{sec:experimental_settings} presents our experimental settings and
+  section~\ref{sec:results} discusses the comparison results of our method with
+  the baselines. Finally, section~\ref{sec:conclusion} concludes our work and
+  discusses future work.
 

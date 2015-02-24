@@ -2,19 +2,18 @@
 \label{sec:related_work}
   This section describes previous work on automatic keyphrase annotation (both
   AKE and AKA), as well as previous employments of graph co-ranking and their
-  benefits to other NLP tasks.
+  benefit to other NLP tasks.
 
   \subsection{Automatic Keyphrase Extraction (AKE)}
   \label{subsec:ake}
     AKE is the most used approach to tackle the automatic keyphrase annotation.
     Keyphrase candidates are selected within the document, e.g. based on
     linguistic patterns, then ranked by importance or classified as
-    ``keyphrase'' or ``non-keyphrase''. The ranking is
-    mostly performed by unsupervised methods while the classification is done by
-    supervised methods, i.e. methods that learn from training data. Unsupervised
-    methods extract the $N$ most important candidates as keyphrases; Supervised
-    methods extract the $N$ candidates labeled ``keyphrases'' with the highest
-    likelyhood as keyphrases.
+    ``keyphrase'' or ``non-keyphrase''. The ranking is mostly performed by
+    unsupervised methods while the classification is done by supervised methods,
+    i.e. methods that learn from training data. Unsupervised methods extract the
+    $N$ most important candidates; Supervised methods extract the $N$ candidates
+    labeled ``keyphrases'' with the highest likelyhood.
 
     \subsubsection{Unsupervised AKE}
     \label{subsubsec:unsupervised_ake}
@@ -33,20 +32,20 @@
       assuming that two words recommend each other when they co-occur in a given
       window of words. Alternative rankings have been proposed.
       \newcite{wan2008expandrank} and \newcite{tsatsaronis2010semanticrank}
-      included edge weights to the random walk, using either co-occurrence
-      numbers or semantic measures. \newcite{liu2010topicalpagerank} used
-      multiple ranking biased with topic probabilities and
+      added edge weights to the random walk, using either co-occurrence numbers
+      or semantic measures. \newcite{liu2010topicalpagerank} used multiple
+      ranking biased with topic probabilities and
       \newcite{bougouin2013topicrank} ranked topics instead of words.
 
-      This work is based on the unsupervised graph-based ranking method,
+      This work is based on the graph-based ranking method,
       TopicRank~\cite{bougouin2013topicrank}. TopicRank topically clusters the
       keyphrase candidates of the document, ranks the topics and extract the
       most representative keyphrase for each of the $N$ most important topics.
       Among other graph-based ranking methods, TopicRank is the only method that
       proposes to cluster similar keyphrase candidates and to rank the clusters
       instead of the words. By doing so, TopicRank avoids to extract redundant
-      keyphrases and further more gather the recommendation information of all
-      the topically similar keyphrase candidates.
+      keyphrases and further more gather the recommendation information of every
+      topically similar keyphrase candidate.
 
     \subsubsection{Supervised AKE}
     \label{subsubsec:supervised_ake}
@@ -58,16 +57,8 @@
       offset position and the TF-IDF weight of a keyphrase candidate as features
       for AKE. These features are used in combination with structural,
       linguistic and other features in more complex systems such as
-      HUMB~\cite{lopez2010humb}, the top-ranking system at the task 5 of the
-      SemEval 2010 evaluation compaign~\cite{kim2010semeval}.
-
-      In the current state of AKE, supervised methods perform better than
-      unsupervised ones. However, their need for annotated data makes them
-      suitable in fewer cases than unsupervised methods. Also, they become
-      specific to the type of the training data. Our method uses such training
-      data and suffers from specificity to them. However, the AKE part is
-      unsupervised so our method can still work in the case of data-scarse
-      domains.
+      HUMB~\cite{lopez2010humb}, the top-ranking system of the keyphrase
+      extraction task at SemEval 2010~\cite{kim2010semeval}.
 
   \subsection{Automatic Keyphrase Assignment (AKA)}
   \label{subsec:aka}
@@ -81,37 +72,39 @@
     refered to as automatic keyphrase indexing by
     \newcite{medelyan2008smalltrainingset}. KEA++ is an improved version of KEA.
     KEA++ selects candidate keyphrases using a domain-specific thesaurus and add
-    thesaurus information as classification features. The candidate selection
-    first selects n-grams, then replaces the ``ill-formed" ones (e.g. with a
-    plural flexion) with their corresponding thesaurus entry. N-grams with no
-    equivalent thesaurus entry are either removed or replaced by a synonymous
-    entry. The simplification appears at this step, as only occuring candidates
-    and synonyms can be extracted, no general terms. The classification step is
-    improved with a thesaurus relation-based feature: the number of thesaurus
-    links that connect a candidate to the other candidates. These extensions to
-    KEA induces a performance twice higher than the former.
+    thesaurus information as classification features. First, KEA++ selects
+    n-grams and replaces ``ill-formed'' ones (e.g. with a plural flexion) with
+    their corresponding thesaurus entry. N-grams with no equivalent thesaurus
+    entry are either removed or replaced by a synonymous entry. The AKA
+    simplification appears at this step. Only occuring candidates and synonyms
+    can be extracted. Second, KEA++ improves KEA's classification with a
+    thesaurus relation-based feature: the number of thesaurus links that connect
+    a candidate to the other candidates. These addons to KEA induces a
+    performance twice higher.
 
     Another notable method is the one of \newcite{liu2011vocabularygap}. They
     proposed to recast the AKA problem as a Statistical Machine Translation
     (SMT) problem, where document and keyphrases represent the same object in
     two (expressively inequal) languages. By doing so, they provide keyphrases
-    that either occur or not within the document. However, the experiments have
-    been conducted using title and abstract phrases instead of thesaurus entries
-    or reference keyphrases. Therefore, there is no clue about the performance
-    of this method as as a proper AKA method.
+    that either occur or not within the document. Their experiments have
+    been conducted using title and abstract phrases instead of terminological
+    entries. This setting differs from classic AKA setting, but the assummption
+    of \newcite{liu2011vocabularygap} makes their method applicable in more
+    cases than other AKA methods.
 
     Our work presents a similarity with KEA++. Similar to KEA++, we leverage
     relations between candidates and controlled textual units. However, KEA++
-    relies on qualitatively and linguistically better data than our method. The
-    later can be an advantage, but the application scenarii of KEA++ are much
-    more restricted than the application scenarii of our method.
+    relies on qualitatively and linguistically richer data than our method.
+    However, similar to the method of \newcite{liu2011vocabularygap}, the
+    application scenarii of KEA++ are much more restricted than the application
+    scenarii of our method.
 
   \subsection{Graph co-ranking for NLP}
   \label{subsec:graph_co_ranking_for_nlp}
     Graph co-ranking is a powerful technique that simultanously ranks different
     entities connected together. The ranking of specific entities is reinforced
-    by the ranking of the other, somehow related, entities. In the past few
-    years, this technique has been successfully employed to solve different NLP
+    by the ranking of the other kinds of entities. In the past few years, this
+    technique has been successfully employed to tackle different NLP
     tasks~\cite{wan2011corankingsummarization,liu2014corankingopinionmining}.
 
     \newcite{wan2011corankingsummarization} used graph co-ranking to solve

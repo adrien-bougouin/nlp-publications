@@ -2,11 +2,24 @@
 \label{sec:experimental_settings}
   \subsection{Datasets}
   \label{subsec:datasets}
-    We run experiments over two datasets: Inist (ling.) and SemEval, which
-    differ in terms of language, nature and size. The following is the
+    We run experiments over three datasets: Inist (ling.), DUC and SemEval,
+    which differ in terms of language, nature and size. The following is the
     description of each dataset.
 
-    \paragraph{Inist (ling.)} \TODO{uncertain yet}
+    \paragraph{Inist (ling.)} is a collection of 715 bibliographic records that
+    we collected from the French digital library Inist. The bibliographic
+    records contain abstracts of scientific papers in the Linguistic area. The
+    keyphrases are annotated by a single Inist indexer per record. Indexers were
+    given the order to assign keyphrases from a terminology and extract novel
+    concepts if they are important in the context of the paper. We devided the
+    corpus into two disjoint sets: a training set containing 515 bibliographic
+    records and a test set containing 200 bibliographic records.
+
+    \paragraph{DUC~\textnormal{\cite{wan2008expandrank}}} is a collection of 308
+    new articles splitted into 30 topics. The document have been manually
+    annotated by students with 0.70 of inter-agreement (Kappa). DUC has no
+    training set. For each document, we consider its domain to be the other
+    documents of its topics and build the graph accordingly.
 
     \paragraph{SemEval~\textnormal{\cite{kim2010semeval}}} contains 244 English
     scientific papers collected from the ACM Digital Libraries (conference and
@@ -15,14 +28,36 @@
     Artificial Intelligence -- Multiagent Systems; Social and Behavioral
     Sciences -- Economics. SemEval is divided into two disjoint sets: a training
     set containing 144 documents and a test set containing 100 documents. The
-    associated keyphrases are provided by both authors and readers.
+    associated keyphrases are provided by both authors and readers. In the
+    manner of what we do for DUC, the domain keyphrases of a document are the
+    training reference keyphrases associated to documents of the same area of
+    Computer Science.
 
     \paragraph{}
     Table~\ref{tab:corpus_statistics} shows factual information about each
-    datasets. By looking at these, one can understand the importance of methods
-    like ours. Indeed, ranging from \TODO{0.0\%} to \TODO{100\%}, the percentage
-    of keyphrases impossible to extract from the documents is part of the
-    keyphrases our method is able to find.
+    datasets. \TODO{what to notice???}. \TODO{what to conclusde???}.
+    \begin{table*}
+      \centering
+      \begin{tabular}{l|cccc|cc}
+        \toprule
+        \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{2}{c}{\textbf{Keyphrases}}\\
+        \cline{2-7}
+        & Type & Language & Number & Tokens average & Average & Missing\\
+        \hline
+        Inist (ling.) & & & & & &\\
+        \hfill{}train & Abstracts & Fench & 200 & $~~$???.? & $~~$?.? & ??.?\%\\
+        \hfill{}test & Abstracts & Fench & 515 & $~~$147.0 & $~~$?.? & ??.?\%\\
+        \hline
+        DUC & News & English & 308 & $~~$900.7 & $~~$8.1 & $~~$3.5\%\\
+        \hline
+        SemEval & & & & & &\\
+        \hfill{}train & Papers & English & 144 & 5134.6 & 15.4 & 13.5\%\\
+        \hfill{}test & Papers & English & 100 & 5177.7 & 14.7 & 22.1\%\\
+        \bottomrule
+      \end{tabular}
+      \caption{Dataset statistics (missing keyphrases are counted based on
+               their stemmed form). \label{tab:corpora}}
+    \end{table*}
 
   \subsection{Preprocessing}
   \label{subsec:preprocessing}
@@ -40,13 +75,15 @@
 
   \subsection{Baselines}
   \label{subsec:baselines}
-    We compare TopicRank++ with TopicRank and TopicRank++ when only domain
-    keyphrases are extracted (TopicRank++$_\textnormal{\textit{dom.}}$), when
-    only document keyphrases are extracted
-    (TopicRank++$_\textnormal{\textit{doc.}}$) and when the co-ranking is
-    performed with candidate keyphrases instead of topics
-    (TopicRank++$_\textnormal{\textit{cdt}}$).
+    To first show that TopicRank++ effectively leverages from the co-ranking, we
+    compare it to TopicRank and to a simple keyphrase assignment baseline,
+    \textit{references}, that considers training reference keyphrases as a
+    controlled vocabulary and order these by their number of occurrences within
+    the document.
 
+    We also show the performances of TopicRank++ when it only performs AKE
+    (TopicRank++$_\textnormal{\textit{AKE}}$) and when it only performs AKA
+    (TopicRank++$_\textnormal{\textit{AKA}}$).
   \subsection{Evaluation measures}
   \label{subsec:evaluation_measures}
     To evaluate the performance of the keyphrase extraction methods, we use the

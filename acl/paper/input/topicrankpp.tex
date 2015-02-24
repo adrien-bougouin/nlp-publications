@@ -7,7 +7,7 @@
           \newcite{bougouin2013topicrank} assumes that candidate of the same
           topic must share as many words as possible. They uses a Hierarchical
           Agglomerative Clustering (HAC) with a ``naive'' stem overlap
-          similarity: at the biginning, each candidate is a single cluster and
+          similarity: at the beginning, each candidate is a single cluster and
           candidates sharing an average of $\unitfrac{1}{4}$ stemmed words with
           the candidates of a given cluster are added to this cluster.}
     \item{Building a graph of topics and ranking the topics using
@@ -15,7 +15,7 @@
           other topics by edges weighted according to the semantic strength
           between the connected topics. TextRank ranking algorithm recursively
           gives high importance to topics strongly connected to as most
-          important topic as possible.}
+          important topics as possible.}
     \item{Extracting keyphrases among the candidates of the $N$ most important
           topics. To avoid topic redundancy, TopicRank only extracts one
           keyphrase per topic. Following previous
@@ -178,7 +178,7 @@
     keyphrases or two topics when they co-occur, respectively, as reference
     keyphrases for a document of the domain or within a sentence of the
     document. Each edge $E_{\textnormal{\textit{intra}}_{ij}}$ is weighted by
-    the normalized number of co-occurrences, $w_{ij}$ between the reference
+    the normalized number of co-occurrences $w_{ij}$ between the reference
     keyphrases $V_{k_i}$ and $V_{k_j}$ or the topics $V_{t_i}$ and $V_{t_j}$.
 
     To unify the two graphs, we look for reference keyphrase occurrences within
@@ -203,23 +203,22 @@
         S(V_{k_i}) &= (1 - \lambda) \sum_{E_{\text{outer}_{ij}}}{\frac{S(V_{t_j})}{\mathlarger\sum_{E_{\text{outer}_{mj}}}{1}}} + \lambda \sum_{E_{\text{inner}_{ij}}}{\frac{w_{ij} S(V_{k_j})}{\mathlarger\sum_{E_{\text{inner}_{jm}}}{{w_{jm}}}}}
       \end{align}
     \end{tiny}
-    This formula embeds two assumptions:
+    These formula embed two assumptions:
     \begin{enumerate}
       \item{A reference keyphrase is important if it is strongly linked to other
-            reference keyphrases and a topic is important if it strongly linked
-            to other topics.}
-      \item{A reference keyphrase is important in the context of the document if
-            it is related to the topics within the document and a topic is
-            important if it relates to domain keyphrases.}
+            reference keyphrases and a topic is important if it is strongly
+            linked to other topics.}
+      \item{A reference keyphrase is more important in the context of the
+            document if it is related to the topics within the document and a
+            topic is more important if it relates to domain keyphrases.}
     \end{enumerate}
-    The first assumption is the former TextRank assumption, while the second is
+    The first assumption is the former TextRank assumption. The second is
     induced by the unification of both domain keyphrases and document topics.
 
-    The $\lambda$ factor helps to configure the influence of the domain
-    keyphrases over the whole ranking (in percentage). A lower $\lambda$ gives a
-    higher influence of the domain keyphrases than a higher $\lambda$, while
-    $\lambda=0.5$ balance the influence of the domain ranking and the document
-    ranking.
+    The $\lambda$ factor helps to configure the influence of the document topics
+    over the whole ranking (in percentage). A higher $\lambda$ gives a higher
+    influence to the document topics than a lower $\lambda$. $\lambda=0.5$
+    balances the influence of the ranking of the document and of the domain.
 
   \subsection{Keyphrase assignment and extraction}
   \label{subsec:keyphrase_assignment_and_extraction}
@@ -233,38 +232,17 @@
     keyphrase has not been influenced by the document, we do not consider this
     reference keyphrase.
 
-    We also change the former strategy of the keyphrase extraction from the best
-    ranking topics. We follow \newcite{bougouin2013topicrank} and extract the
-    first occuring candidates as keyphrases, but we leverage the training data
-    and prioritize the reference keyphrases within the topics. If reference
-    keyphrases are included in the topic, and if they have not been assigned
-    yet, we extract the first occurring one. If a top ranking topic does not
-    contain one or more reference keyphrase, we extract the first occurring
-    candidate.
+    We extract keyphrases from the topics using the former TopicRank strategy.
+    Only one keyphrase is extracted per topic. The extracted keyphrase is the
+    candidate of the topic that occurs first within the document.
 
-  \subsection{Extension points}
-  \label{subsec:extension_points}
-    This section discusses possible customizations of TopicRank++. In
-    section~\ref{subsec:graph_based_co_ranking}, we suggest to optimize the
-    value of the $\lambda$ factor to set the appropriate influence of the domain
-    over the document and, inversely, of the document over the domain. In
-    section~\ref{subsec:keyphrase_assignment_and_extraction}, we present a pure
-    mixin of AKA and AKE based on the co-ranking. This last step can be
-    customized to better fit data caracteristics.
-
-    In section~\ref{subsec:keyphrase_assignment_and_extraction}, we assume AKA
-    and AKE to have the same priority. This might not be true in every case.
-    Furthermore, we can assume that AKA has a higher priority, because it
-    provides keyphrases that have already been judge to be keyphrases.
-    Therefore, TopicRank++ could leverage a definition of the ratio of keyphrase
-    to assign.
-
-    Controlling the degree of generalization of an assigned keyphrase is also an
-    interesting customization. Indeed, one may be interested in assigning very
-    specific keyphrases regarding the document(\TODO{example}), whereas one may
-    want to assign more general keyphrases (\TODO{example}). The minimum deph
-    between a reference keyphrase and a document topic encodes this degree of
-    generalization. A reference keyphrase directly connected to a document topic
-    has the lowest generalization regarding the document, followed by the
-    reference keyphrases they are connected to, and so on.
+    This AKA and AKE can be further improved. One can set the ratio of
+    keyphrases to assign and keyphrases to extract, or even control the degree
+    of generalization of the assigned keyphrases. One may be interested in
+    assigning very specific keyphrases regarding the document(\TODO{example}),
+    whereas one may want to assign more general keyphrases (\TODO{example}). The
+    minimum deph between a reference keyphrase and a document topic encodes this
+    degree of generalization. A reference keyphrase directly connected to a
+    document topic has the lowest generalization regarding the document,
+    followed by its connected reference keyphrases, and so on.
 

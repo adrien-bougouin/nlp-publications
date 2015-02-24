@@ -1,3 +1,26 @@
 \section{Results and Discussion}
 \label{sec:results}
+  \begin{table*}
+    \centering
+    %\resizebox{\linewidth}{!}{
+      \begin{tabular}{l|ccc|ccc|ccc}
+        \toprule
+        \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{Inist (ling.)}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
+        \cline{2-10}
+        & P & R & F & P & R & F & P & R & F\\
+        \hline
+        TopicRank & 11.3 & 13.1 & 12.0 & 17.8 & 22.7 & 19.7 & 14.6 & 10.1 & 11.8\\
+        \textit{references} & 18.0 & 21.1 & 19.1 & 24.3 & 31.2 & 27.0 & ~~8.5 & ~~6.3 & ~~7.2\\
+        \hline
+        TopicRank++$_\textnormal{\textit{AKE}}$ & 14.6 & 16.8 & 15.4 & 25.5 & 32.4 & 28.1 & 15.2 & 10.6 & 12.4\\
+        TopicRank++$_\textnormal{\textit{AKA}}$ & \textbf{24.9} & \textbf{28.9} & \textbf{26.4} & 25.9 & 33.3 & 28.8 & 11.6 & ~~8.3 & ~~9.5\\
+        \hline
+        TopicRank++ & 19.0 & 22.0 & 20.1 & \textbf{28.4} & \textbf{36.6} & \textbf{31.5} & \textbf{16.4} & \textbf{11.6} & \textbf{13.4}\\
+        \bottomrule
+      \end{tabular}
+    %}
+    \caption{Comparison of TopicRank++ with the baselines. Precision (P), recall
+             (R) and f-measure (F) are reported in percentage.
+             \label{tab:comparison_results}}
+  \end{table*}
 
