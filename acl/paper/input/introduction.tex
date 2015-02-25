@@ -15,38 +15,32 @@
   % automatic keyphrase annotation?
   The automatic keyphrase annotation task consists in automatically detecting
   the important concepts, or topics, addressed by a document. We divide the
-  automatic keyphrase annotation into two disjoint categories: Automatic
-  Keyphrase Extraction (AKE) and Automatic Keyphrase Assignment (AKA). In the
-  first hand, AKE detects important words or phrases occuring within the
-  document. In the other hand, AKA provides controlled keyphrases from a
-  domain-specific terminology, even if they do not occur within the document.
+  automatic keyphrase annotation into two disjoint categories: automatic
+  keyphrase extraction and automatic keyphrase assignment. The first detects
+  important words or phrases occuring within the document. The second provides
+  controlled keyphrases from a domain-specific terminology (controlled
+  vocabulary), even if they do not occur within the document.
 
   % motivations?
-  The automatic keyphrase annotation problem has mainly been addressed using AKE
-  methods. However, statistics from standard evaluation datasets show a sizeable
-  amount of keyphrases that do not occur within the
-  documents~\cite{bougouin2013topicrank}, i.e.~keyphrases impossible to find
-  using AKE methods. AKA methods have the ability to bridge this ``vocabulary
-  gap''~\cite{liu2011vocabularygap} but, in turn, fail to discover novel or more
-  specific concepts, i.e.~concepts that are not terminological entries yet (or
-  variants).
+  The automatic keyphrase annotation problem has mainly been addressed using
+  extraction methods, because they are more practical than keyphrase assignment
+  methods. Unlike assignment methods, extraction methods do not need a manually
+  constructed controlled vocabulary and are able to discover novel concepts,
+  i.e. concepts that do not match entries of a controlled vocabulary. However,
+  keyphrase extraction methods often output ill-formed or inappropriate
+  keyphrases. Both categories of methods are not incompatible and would benefit
+  from each other.
 
   % our proposed method?
   % => its benefits?
-  This paper presents a new method performing both AKA, to bridge the
-  ``vocabulary gap'', and AKE, to discover novel concepts. Leveraging training
-  data containing documents associated with reference keyphrases, we
-  simultanously rank the training reference keyphrases and the topics of the
-  document to annotate using a unified graph-based co-ranking algorithm. An
-  importance score is given to each reference keyphrase based on its
-  relationship with the other reference keyphrases and its similarity to the
-  document's concepts. Similarly, an importance score is given to each concept
-  of the document based on its relationship with the other concepts and its
-  similarity to the reference keyphrases. Despite combining both AKE and AKA,
-  our approach conciders already used keyphrases (from training data) as a
-  controlled terminology. Following this assumption reduces the cost of
-  producing domain-specific data and makes our method suitable in any case where
-  training data are available.
+  This paper presents a graph co-ranking method that performs both keyphrase
+  extraction and keyphrase assignment. Graph co-ranking is a powerfull
+  technique, already employed for various NLP tasks~\cite{}, that reinforce the
+  ranking of specific entities by the ranking of other entities. We
+  simultaneously rank the keyphrase candidates of the document and the entries
+  of a controlled vocabulary. To reduce the cost of producing a controlled
+  vocabulary, we use the keyphrases annotated to training documents (reference
+  keyphrases).
 
   \TODO{Results insight}
 
