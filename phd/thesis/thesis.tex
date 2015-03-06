@@ -7,23 +7,27 @@
   %squeezeCommittee %
 ]{these-LUNAM_mod}
 
-%\usepackage{etex}           % solve compatibility issues
-\usepackage[utf8]{inputenc} %
-\usepackage[T1]{fontenc}    %
-\usepackage{textcomp}       % °, <<, >>, etc.
-\usepackage{times}          %
-\usepackage{natbib}         %
-\usepackage{xifthen}        %
-\usepackage{relsize}        % \mathlarger
-\usepackage{multirow}       %
-\usepackage{booktabs}       % \addlinespace, \toprul, \bottomrule, etc.
-\usepackage{subfigure}      %
-\usepackage{tikz}           %
-\usepackage{pgfplots}       %
-\usepackage{makeidx}        %
-\usepackage{amsthm}         % theorem definition and styling
+%\usepackage{etex}            % solve compatibility issues
+\usepackage[utf8]{inputenc}   %
+\usepackage[T1]{fontenc}      %
+\usepackage{textcomp}         % °, <<, >>, etc.
+\usepackage{times}            %
+\usepackage{natbib}           %
+\usepackage{xifthen}          %
+\usepackage{relsize}          % \mathlarger
+\usepackage{multirow}         %
+\usepackage{booktabs}         % \addlinespace, \toprul, \bottomrule, etc.
+\usepackage{subfigure}        %
+\usepackage{tikz}             %
+\usepackage{pgfplots}         %
+\usepackage{makeidx}          %
+\usepackage{amsthm}           % theorem definition and styling
+\usepackage{epigraph}         % chapter heading quote
+\usepackage[inline]{enumitem} %
 
 \usetikzlibrary{positioning, shapes, arrows, patterns}
+
+\setlength\epigraphwidth{10cm}
 
 \RequirePackage[bookmarks,
                 colorlinks,
@@ -127,18 +131,18 @@
   %\onehalfspacing   % line spacing (not applied on first and last pages)
   %\frontmatter      % forbidden
 
-  %\input{input/acknowledgment.tex}
+%  \input{input/acknowledgment.tex}
 
   \tableofcontents
-  \listoftables
-  \listoffigures
+%  \listoftables
+%  \listoffigures
 
-  \input{input/introduction.tex}
+%  \input{input/introduction.tex}
   \input{input/state_of_the_art.tex}
-  \input{input/resources.tex}
-  \input{input/automatic_keyphrase_annotation.tex}
-  \input{input/automatic_keyphrase_evaluation.tex}
-  \input{input/conclusion.tex}
+%  \input{input/resources.tex}
+%  \input{input/automatic_keyphrase_annotation.tex}
+%  \input{input/automatic_keyphrase_evaluation.tex}
+%  \input{input/conclusion.tex}
 
   \backmatter
 

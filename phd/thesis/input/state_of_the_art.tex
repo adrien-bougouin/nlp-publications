@@ -1,5 +1,14 @@
 \chapter[Indexation automatique par termes-clés]{Indexation automatique\\par termes-clés}
 \label{part:main-state_of_the_art}
+  \epigraph{
+    {\Large``}There is a need for tools that can automatically create
+    keyphrases. Although keyphrases are very useful, only a small minority of
+    the many documents that are available on-line today have
+    keyphrases.{\Large''}
+  }{
+    \newcite{turney1999learningalgorithms}
+  }
+
   \section{Introduction}
   \label{sec:main-state_of_the_art-introduction}
     Les termes-clés\index{Terme-cle@Terme-clé \textit{(keyphrase)}|textbf},
@@ -37,12 +46,14 @@
     automatique de termes-clés \textit{(automatic keyphrase
     assignment)}|textbf}.
 
-    Dans la suite, nous présentons les tâches d'extraction automatique de
-    termes-clés et d'assignement automatique de termes-clés. Nous commençons par
-    introduire une étape préliminaire à la plupart des méthodes d'extraction et
-    d'assignement automatique de termes-clés~: la sélection des termes-clés
-    candidats, qui devient un objet d'étude à part
-    entière~\cite{wang2014keyphraseextractionpreprocessing}.
+    Dans la suite, nous commençons par introduire une étape préliminaire à la
+    plupart des méthodes d'extraction et d'assignement automatique de
+    termes-clés~: la sélection des termes-clés candidats, qui devient un objet
+    d'étude à part entière~\cite{wang2014keyphraseextractionpreprocessing}.
+    Ensuite, nous présentons les tâches d'extraction automatique de termes-clés
+    et d'assignement automatique de termes-clés. Nous terminons par une
+    description du processus d'évaluation des méthodes d'indexation par
+    termes-clés.
 
   %-----------------------------------------------------------------------------
 
@@ -76,9 +87,9 @@
     erreurs de sélection.
 
     Plusieurs méthodes de sélection de candidats sont utilisées, de la simple
-    sélection de n-grammes jusqu'à la sélection d'unités textuelles
-    grammaticalement définies, en passant par la sélection de candidats à partir
-    de méthodes plus complexes.
+    sélection de n-grammes, de chunks nominaux ou d'unités textuelles
+    grammaticalement définies, jusqu'à la sélection de candidats à partir de
+    méthodes plus complexes.
 
     ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
     toutes les séquences ordonnées de $n$ mots adjacents. La sélection des
@@ -87,10 +98,10 @@
     candidats porteurs d'indices, mais aussi la quantité de candidats non
     pertinents. Pour réduire cette dernière, il est courant de filtrer les
     n-grammes avec un
-    anti-dictionnaire\index{Anti-dictionnaire@Anti-dictionnaire
+    antidictionnaire\index{Antidictionnaire@Antidictionnaire
     \textit{(stopwords)}|textbf}, selon le principe suivant~: un n-gramme
-    contenant un mot de l'anti-dictionnaire en début ou en fin n'est pas
-    considéré comme un terme-clé candidat. L'anti-dictionnaire regroupe les mots
+    contenant un mot de l'antidictionnaire en début ou en fin n'est pas
+    considéré comme un terme-clé candidat. L'antidictionnaire regroupe les mots
     fonctionnels de la langue (conjonctions, prépositions,~etc.) et les mots
     d'usage courant (\og{}particulier\fg{}, \og{}près\fg{}, \og{}beaucoup\fg{},
     etc.).
@@ -105,7 +116,7 @@
 
     ~\\Les \textit{chunks} nominaux\index{NP-chunk@NP-\textit{chunk}|textbf}
     sont des syntagmes\index{Syntagme@Syntagme
-    \textit{(syntagm)}|textbf}\footnote{Syntagme~: Unité syntaxique
+    \textit{(syntagm)}|textbf}\footnote{Syntagme~: unité syntaxique
     intermédiaire entre le mot et la phrase. Aussi appelé groupe, le syntagme
     constitue une unité de sens dont chaque constituant conserve sa
     signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
@@ -130,13 +141,13 @@
     avec précision la nature et la grammaticalité des candidats sélectionnés.
     Pour cela, il faut définir des patrons grammaticaux tels que \texttt{(<NOM>
     | <ADJ>)*}, qui représente les plus longues séquences de noms et
-    d'adjectifs, d'après la syntaxe des expréssions rationnelles.
+    d'adjectifs, d'après la syntaxe des expressions rationnelles.
 
     À l'instar des \textit{chunks} nominaux, la sélection des séquences
     grammaticalement définies est plus fondée linguistiquement que celle des
     n-grammes. Dans ses travaux, \newcite{hulth2003keywordextraction}
     sélectionne les candidats à partir des patrons des termes-clés de référence
-    les plus fréquents dans son corpus d'apprentissage. D'autres chercheurs,
+    les plus fréquents dans ses données. D'autres chercheurs,
     tels que \newcite{wan2008expandrank}, se contentent des plus longues
     séquences de noms (noms propres inclus) et d'adjectifs.
 
@@ -145,7 +156,7 @@
     \end{example}
 
     ~\\En plus des trois précédentes méthodes de sélection de termes-clés
-    candidats, d'autre chercheurs comme
+    candidats, d'autres chercheurs comme
     \newcite{huang2006semanticnetworkstructureanalysis} proposent un filtrage
     des candidats sélectionnés.
     Ils filtrent tout d'abord les candidats peu fréquents dans le document, puis
@@ -157,12 +168,12 @@
 
     Le travail de \newcite{huang2006semanticnetworkstructureanalysis}, sur la
     sélection des termes-clés candidats, fait partie d'un système d'extraction
-    de termes-clés qu'ils ont développés. Ce dernier à fait l'objet d'une
+    de termes-clés qu'ils ont développés. Ce dernier a fait l'objet d'une
     évaluation, mais aucune étude n'a été conduite pour montrer l'efficacité de
     leur filtrage hors des frontières de leur système.
 
     ~\\Contrairement à \newcite{huang2006semanticnetworkstructureanalysis},
-    \newcite{you2009refinedcandidateset} on pour objectif précis d'améliorer
+    \newcite{you2009refinedcandidateset} ont pour objectif précis d'améliorer
     la qualité de l'extraction automatique de termes-clés en réduisant le nombre
     de candidats sélectionnés sans perdre de candidats positifs ni même
     augmenter la complexité algorithmique de la sélection. Leur méthode se
@@ -172,16 +183,23 @@
 
     Dans un premier temps, \newcite{you2009refinedcandidateset} extraient les
     $k$ mots les plus fréquents du document, excluant les mots d'un
-    anti-dictionnaire, et les définissent comme mots-clés du document. Ensuite,
+    antidictionnaire, et les définissent comme mots-clés du document. Ensuite,
     chaque occurrence de chaque mot-clé sert à définir au plus sept candidats
-    préliminaires~: le mot-clé lui même, un bi-gramme commençant par le mot-clé,
-    un bi-gramme se terminant par le mot-clé, un tri-gramme commençant par le
-    mot-clé, un tri-gramme se terminant par le mot-clé, un quadri-gramme
-    commençant par le mot-clé et un quadri-gramme se terminant par le
-    mot-clé\footnote{La taille maximale de 4 pour les n-grammes a été fixée par
-    les auteurs après une analyse statistique de leurs données. Cette taille peut
-    diverger selon les données, auquel cas les candidats préliminaires
-    sélectionnés pour chaque occurrence d'un mots-clés peut excéder sept.}.
+    préliminaires~:
+    \begin{enumerate*}
+      \item{le mot-clé lui-même,}
+      \item{un bi-gramme commençant par le mot-clé,}
+      \item{un bi-gramme se terminant par le mot-clé,}
+      \item{un tri-gramme commençant par le mot-clé,}
+      \item{un tri-gramme se terminant par le mot-clé,}
+      \item{un quadri-gramme commençant par le mot-clé et}
+      \item{un quadri-gramme se terminant par le mot-clé\footnote{La taille
+            maximale de 4 pour les n-grammes est fixée par les auteurs après
+            une analyse statistique de leurs données. Cette taille peut diverger
+            selon les données, auquel cas les candidats préliminaires
+            sélectionnés pour chaque occurrence d'un mots-clés peut excéder
+            sept.}.}
+    \end{enumerate*}
 
     \begin{example}
       \TODO{Un 1-gramme, deux 2-grammes, deux 3-grammes et deux 4-grammes à partir d'une phrase de l'exemple fil rouge}
@@ -190,24 +208,26 @@
     Dans un second temps, \newcite{you2009refinedcandidateset} analysent chaque
     7-uplets de $\{1..4\}$-grammes et retirent les candidats préliminaires jugés
     incomplets, non porteurs de sens. À la fin de cette étape, deux candidats
-    préliminaires peuvent séllectionnés à partir de chaque 7-uplet~: l'un
+    préliminaires peuvent être sélectionnés à partir de chaque 7-uplet~: l'un
     commençant par le mot-clé et l'autre se terminant par le mot-clé. Pour cela,
-    les auteurs utilisent deux arbres par mot-clé. Un mot-clé est la racine de
+    les auteurs utilisent des arbres. Un mot-clé est la racine de
     chaque arbre et les fils de chaque noeuds sont leurs mots qui les précèdent
-    ou succèdent dans les candidats préliminaires. La profondeur de chaque arbre
-    ne peut excéder quatre et un mot apparaissant moins de deux fois forme un
-    n\oe{}ud feuille. Pour sélectionner les termes-clés candidats, il suffit
-    ensuite de parcourir l'arbre en profondeur et de ne retenir que les
-    séquences constituées uniquement de n\oe{}uds non feuilles.
+    ou les succèdent dans les candidats préliminaires. Un mot apparaissant moins
+    de deux fois est un
+    n\oe{}ud feuille. Pour sélectionner les termes-clés candidats, les auteurs
+    parcourent ensuite l'arbre en profondeur et ne retiennent que les
+    séquences constituées uniquement de n\oe{}uds non feuilles et de mots ne
+    faisant pas partie d'un antidictionnaire.
 
     \TODO{Exemple de graphe obtenu à partir de l'exemple précédent (faire
-    référence à ce graph dans le paragraph précédent)}
+    référence à ce graphe dans le paragraphe précédent)}
 
     Comparée à la sélection des $\{1..3\}$-grammes, utilisée dans plusieurs
     travaux, la méthode de \newcite{you2009refinedcandidateset} réduit
-    significativement le nombre de candidats (environ 75~\%). Elle n'améliore
-    cependant pas significativement les performances des méthodes d'indexation
-    par termes-clés.
+    significativement le nombre de candidats (environ 75~\%). Leurs expériences
+    montrent cependant que leur méthode de sélection n'améliore pas
+    significativement les performances des méthodes d'indexation par
+    termes-clés.
 
     ~\\Pour contribuer à la sélection des termes-clés candidats,
     \newcite{newman2012bayesiantextsegmentation} s'intéressent aux travaux
@@ -237,8 +257,7 @@
     non supervisée, tandis que la classification est réalisée selon une approche
     supervisée. Contrairement à l'approche non supervisée, l'approche supervisée
     requiert des données d'entraînement afin d'apprendre à partir des
-    caractéristiques des termes-clés de références qui y sont manuellement
-    annotés.
+    caractéristiques des termes-clés qui y sont manuellement annotés.
 
     \subsection{Approche non supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction}
@@ -254,7 +273,7 @@
       sur des statistiques et d'autres les combinent avec des représentations
       plus complexes du document, principalement des groupes sémantiques et des
       graphes de cooccurrences de mots. Dans la suite, nous présentons ces
-      défférentes méthodes, des plus simples aux plus sofistiquées. Notez qu'il
+      différentes méthodes, des plus simples aux plus sophistiquées. Notez qu'il
       existe aussi une étude comparative des performances de certaines d'entre
       elles~\cite{hassan2010conundrums}.
 
@@ -265,53 +284,59 @@
         fréquence) ou sur le nombre de mots qui les composent, soit dans le
         document, soit dans un corpus de référence, ou bien les deux.
 
-        ~\\TF-IDF~\cite{jones1972tfidf} et Likey~\cite{paukkeri2010likey}
+        ~\\\textsc{Tf-Idf}~\cite{jones1972tfidf} et Likey~\cite{paukkeri2010likey}
         sont deux méthodes similaires qui comparent le comportement d'une unité
         textuelle dans le document avec son comportement dans un corpus de
         référence. L'objectif est de trouver celles dont le
         comportement dans le document varie positivement comparé à leur
-        comportement global dans le corpus. Dans TF-IDF et Likey ceci
+        comportement global dans le corpus. Dans \textsc{Tf-Idf} et Likey ceci
         s'exprime par le fait qu'une unité textuelle a une forte importance
         vis-à-vis du document si elle y est très fréquente et si elle l'est
-        peu dans le corpus de référence.
+        peu dans le corpus de référence:
         \begin{align}
-          \text{TF-IDF}(\text{\textit{ut}}) &= TF(\text{\textit{ut}}) \times \log\left(\frac{N}{DF(\text{\textit{ut}})}\right) \label{math:tfidf}\\
+          \text{\textsc{Tf-Idf}}(\text{\textit{ut}}) &= \textsc{Tf}(\text{\textit{ut}}) \times \log\left(\frac{N}{\textsc{Df}(\text{\textit{ut}})}\right) \label{math:tfidf}\\
           \notag\\
           \text{Likey}(\text{\textit{ut}}) &= \frac{\text{rang}_{\text{document}}(\text{\textit{ut}})}{\text{rang}_{\text{corpus}}(\text{\textit{ut}})} \label{math:likey}
         \end{align}\\
-        Dans TF-IDF, $TF$ (\textit{Term Frequency}) représente le nombre
-        d'occurrences d'une unité textuelle \textit{ut} dans le document et $DF$
-        (\textit{Document Frequency}) représente le nombre de documents du
-        corpus de référence dans lequel elle apparaît, $N$ étant son nombre
-        total de documents. Plus le score TF-IDF d'une unité textuelle est
-        élevé, plus celle-ci est importante dans le document. Dans Likey, le
-        rang d'une unité textuelle dans le document et dans le corpus est obtenu
-        à partir de son nombre d'occurrences, respectivement dans le document et
-        dans le corpus. Plus le rapport entre ces deux rangs est faible, plus
-        l'unité textuelle évaluée est importante dans le document.
+        Dans \textsc{Tf-Idf}, $\textsc{Tf}$ (\textit{Term Frequency}) représente
+        le nombre d'occurrences d'une unité textuelle \textit{ut} dans le
+        document, $\textsc{Df}$ (\textit{Document Frequency}) représente le
+        nombre de documents du corpus de référence dans lequel elle apparaît et
+        $N$ est le nombre total de documents du corpus de référence. Plus le
+        score \textsc{Tf-Idf} d'une unité textuelle est élevé, plus celle-ci est
+        importante dans le document. Dans Likey, le rang d'une unité textuelle
+        dans le document et dans le corpus est obtenu à partir de son nombre
+        d'occurrences, respectivement dans le document et dans le corpus. Plus
+        le rapport entre ces deux rangs est faible, plus l'unité textuelle
+        évaluée est importante dans le document.
 
         La granularité de l'unité textuelle peut être définie au mot ou au
-        terme-clé candidat. Si la granularité choisie est le mot, il est
-        courant de déterminer le score d'importance des termes-clés candidat en
-        faisant la somme du score (TF-IDF ou Likey) des mots qui les composent.
+        terme-clé candidat. Si la granularité choisie est le mot, il est courant
+        de déterminer le score d'importance des termes-clés candidat en faisant
+        la somme du score (\textsc{Tf-Idf} ou Likey) des mots qui les composent.
+        Cependant, il est important de noter que faire cette somme favorise les
+        plus longues séquences de mots et fait monter des candidats redondants
+        dans le classement par importance (\TODO{exemple de redondance}).
 
-        ~\\Okapi (ou BM25) \cite{robertson1999okapi} est une mesure alternative
-        à TF-IDF. En Recherche d'Information (\textsc{Ri}), celle-ci est plus
-        utilisée que le TF-IDF. Bien que l'extraction automatique de termes-clés
-        soit une discipline à la frontière entre le \textsc{Tal} et la
-        \textsc{Ri}, la méthode de pondération Okapi n'a, à notre connaissance,
-        pas été appliquée pour l'extraction de termes-clés. Dans l'article de
-        \newcite{claveau2012vectorisation}, Okapi est décrit comme un TF-IDF
-        prenant mieux en compte la longueur des documents. Cette dernière est
-        utilisée pour normaliser le $TF$ ($TF_{BM25}$)~:
+        ~\\Okapi (ou \textsc{Bm}25) \cite{robertson1999okapi} est une mesure
+        alternative à \textsc{Tf-Idf}. En Recherche d'Information (\textsc{Ri}),
+        celle-ci est plus utilisée que le \textsc{Tf-Idf}. Bien que l'extraction
+        automatique de termes-clés soit une discipline à la frontière entre le
+        \textsc{Tal} et la \textsc{Ri}, la méthode de pondération Okapi n'a, à
+        notre connaissance, pas été appliquée pour l'extraction de termes-clés.
+        Dans l'article de \newcite{claveau2012vectorisation}, Okapi est décrit
+        comme un \textsc{Tf-Idf} prenant mieux en compte la longueur des
+        documents. Cette dernière est utilisée pour normaliser le $\textsc{Tf}$
+        ($\textsc{Tf}_{\textsc{Bm}25}$)~:
         \begin{align}
-          \text{Okapi}(\text{\textit{ut}}) &= TF_{BM25}(\text{\textit{ut}}) \times \log\left(\frac{N - DF(\text{\textit{ut}}) + 0,5}{DF(\text{\textit{ut}}) + 0,5}\right) \label{math:okapi}\\
+          \text{Okapi}(\text{\textit{ut}}) &= \textsc{Tf}_{\textsc{Bm}25}(\text{\textit{ut}}) \times \log\left(\frac{N - \textsc{Df}(\text{\textit{ut}}) + 0,5}{\textsc{Df}(\text{\textit{ut}}) + 0,5}\right) \label{math:okapi}\\
           \notag\\
-          TF_{BM25}(\text{\textit{ut}}) &= \frac{TF(\text{\textit{ut}}) \times (k_1 + 1)}{TF(\text{\textit{ut}}) + k_1 \times \left(1 - b + b \times \frac{DL}{DL_{\text{moyenne}}}\right)} \label{math:tf_bm25}
+          \textsc{Tf}_{\textsc{Bm}25}(\text{\textit{ut}}) &= \frac{\textsc{Tf}(\text{\textit{ut}}) \times (k_1 + 1)}{\textsc{Tf}(\text{\textit{ut}}) + k_1 \times \left(1 - b + b \times \frac{\textsc{Dl}}{\textsc{Dl}_{\text{moyenne}}}\right)} \label{math:tf_bm25}
         \end{align}\\
         où $k_1$ est une constante fixée à 2, où $b$ est une constante fixée à
-        $0,75$, où $DL$ représente la longueur du document et où $DL_{moyenne}$
-        représente la longueur moyenne des documents du corpus de référence.
+        $0,75$, où $\textsc{Dl}$ (\textit{Document Length}) représente la
+        longueur du document et où $\textsc{Dl}_{moyenne}$ représente la
+        longueur moyenne des documents du corpus de référence.
 
         ~\\Le travail de \newcite{barker2000nounphrasehead} est un autre exemple
         d'utilisation de la fréquence pour extraire les termes-clés. Se reposant
@@ -320,16 +345,16 @@
         et de celle de leur tête nominale pour déterminer leur importance. Ils
         définissent un candidat important comme étant un candidat informatif et
         fréquent. L'informativité est ici assimilée à sa taille, en nombre de
-        mots~: plus il contient de mots, plus il est informatif. Cependant, pour
-        éviter les répétitions, jugées inesthétiques, de tels candidats
-        informatifs sont parfois abrégés et leur fréquence réel ne reflète pas
-        leur usage. \newcite{barker2000nounphrasehead} proposent alors
-        d'utiliser la fréquence de la tête des candidats pour décider s'ils
-        doivent être extraits ou non. Leur méthode fonctionne en quatre étapes.
-        Ils extraient tout d'abbord les $n$ noms les plus fréquents, ils gardent
-        uniquement les groupes nominaux contenant un de ces noms, puis les
-        ordonnent selon le produit de leur taille et de leur fréquence réel.
-        Enfin, ils extraient les $k$ groupes nominaux de meilleur rang.
+        mots~: plus il contient de mots, plus il est informatif. Pour éviter les
+        répétitions, jugées inesthétiques, de tels candidats informatifs sont
+        parfois abrégés et leur fréquence réel ne reflète pas leur usage. C'est
+        pourquoi \newcite{barker2000nounphrasehead} proposent d'utiliser la
+        fréquence de la tête des candidats pour décider s'ils doivent être
+        extraits ou non. Leur méthode fonctionne en quatre étapes. Ils extraient
+        tout d'abord les $n$ noms les plus fréquents, ils gardent uniquement
+        les groupes nominaux contenant un de ces noms, puis les ordonnent selon
+        le produit de leur taille et de leur fréquence réel. Enfin, ils
+        extraient les $k$ groupes nominaux de meilleur rang.
 
         ~\\\newcite{tomokiyo2003languagemodel} tentent aussi de vérifier
         statistiquement deux propriétés que doit respecter un terme-clé candidat
@@ -340,43 +365,43 @@
           \item{grammaticalité : un terme-clé doit être bien formé
                 syntaxiquement.}
         \end{itemize}
-        Pour vérifier ces deux propriétés, trois modèles de langue ($ML$) sont
-        utilisés (cf. figure~\ref{fig:klml}). Les deux premiers modèles, l'un
-        uni-gramme, $ML_{\text{document}}^1$, l'un n-gramme,
-        $ML_{\text{document}}^N$, sont construits à partir du document. Le
-        dernier, un modèle n-gramme, $ML_{\text{référence}}^N$, est construit à
-        partir d'un corpus de référence. Ce dernier est le modèle de référence,
-        il fournit une vision globale de la distribution des n-grammes dans la
-        langue (français, anglais, etc.). De ce fait, plus la probabilité d'un
-        terme-clé candidat selon le modèle n-gramme du document diverge
-        positivement par rapport à sa probabilité selon le modèle de référence,
-        plus il respecte la propriété d'informativité (cf.
-        équation~\ref{math:informativeness}), et plus la probabilité d'un
-        terme-clé candidat selon le modèle n-gramme du document diverge
-        positivement par rapport à sa probabilité selon le modèle uni-gramme du
-        document, plus il respecte la propriété de grammaticalité (cf.
-        équation~\ref{math:phraseness}). La divergence est exprimée en terme de
-        coût avec la divergence Kullback-Leibler (cf. équation
-        \ref{math:kullbackleibler}). Les termes-clés candidats sont ordonnés
-        dans l'ordre décroissant de la somme des scores d'informativité et de
-        grammaticalité, puis les $k$ termes-clés candidats de meilleur rang sont
-        extraits comme termes-clés.
+        Pour vérifier ces deux propriétés, trois modèles de langue
+        ($\textsc{Ml}$) sont utilisés (cf. figure~\ref{fig:klml}). Les deux
+        premiers modèles, l'un uni-gramme, $\textsc{Ml}_{\text{document}}^1$,
+        l'un n-gramme, $\textsc{Ml}_{\text{document}}^N$, sont construits à
+        partir du document. Le dernier, un modèle n-gramme,
+        $\textsc{Ml}_{\text{référence}}^N$, est construit à partir d'un corpus
+        de référence, c'est le modèle de référence. Il fournit une vision
+        globale de la distribution des n-grammes dans la langue (français,
+        anglais, etc.). De ce fait, plus la probabilité d'un terme-clé candidat
+        selon le modèle n-gramme du document diverge positivement par rapport à
+        sa probabilité selon le modèle de référence, plus il respecte la
+        propriété d'informativité (cf. équation~\ref{math:informativeness}), et
+        plus la probabilité d'un terme-clé candidat selon le modèle n-gramme du
+        document diverge positivement par rapport à sa probabilité selon le
+        modèle uni-gramme du document, plus il respecte la propriété de
+        grammaticalité (cf. équation~\ref{math:phraseness}). La divergence est
+        exprimée en terme de coût avec la divergence Kullback-Leibler (cf.
+        équation \ref{math:kullbackleibler}). Les termes-clés candidats sont
+        ordonnés dans l'ordre décroissant de la somme des scores d'informativité
+        et de grammaticalité, puis les $k$ termes-clés candidats de meilleur
+        rang sont extraits comme termes-clés.
         \begin{align}
-          \text{informativité}(\text{\textit{candidat}}) &= KL_{\text{\textit{candidat}}}(ML_{\text{document}}^{N} || ML_{\text{référence}}^{N}) \label{math:informativeness}\\
+          \text{informativité}(\text{\textit{candidat}}) &= \textsc{Kl}_{\text{\textit{candidat}}}(\textsc{Ml}_{\text{document}}^{N} \| \textsc{Ml}_{\text{référence}}^{N}) \label{math:informativeness}\\
           \notag\\
-          \text{grammaticalité}(\text{\textit{candidat}}) &= KL_{\text{\textit{candidat}}}(ML_{\text{document}}^{N} || ML_{\text{document}}^{1}) \label{math:phraseness}\\
+          \text{grammaticalité}(\text{\textit{candidat}}) &= \textsc{Kl}_{\text{\textit{candidat}}}(\textsc{Ml}_{\text{document}}^{N} \| \textsc{Ml}_{\text{document}}^{1}) \label{math:phraseness}\\
           \notag\\
-          KL_{\text{\textit{candidat}}}(ML || ML') &= ML(\text{\textit{candidat}}) \log \frac{ML(\text{\textit{candidat}})}{ML'(\text{\textit{candidat}})} \label{math:kullbackleibler}\\
+          \textsc{Kl}_{\text{\textit{candidat}}}(\textsc{Ml} \| \textsc{Ml}') &= \textsc{Ml}(\text{\textit{candidat}}) \log \frac{\textsc{Ml}(\text{\textit{candidat}})}{\textsc{Ml}'(\text{\textit{candidat}})} \label{math:kullbackleibler}\\
           \notag\\
-          ML(\text{\textit{candidat}} = m_1\ m_2\ \dots\ m_k) &= \prod_{i = 1}^k P(m_i | m_{i - (N - 1)} m_{i - ((N - 1) - 1)} \dots m_{i - 1}) \notag
+          \textsc{Ml}(\text{\textit{candidat}} = m_1\ m_2\ \dots\ m_k) &= \prod_{i = 1}^k P(m_i | m_{i - (N - 1)} m_{i - ((N - 1) - 1)} \dots m_{i - 1}) \notag
         \end{align}
         \begin{figure}
           \centering
 
           \begin{tikzpicture}
-            \node [fill=@verticalgreen] (ml_n_ref) {$ML_{\textnormal{référence}}^{N}$};
-            \node [fill=@verticalgreen, right=of ml_n_ref, xshift=1em] (ml_n_doc) {$ML_{\textnormal{document}}^{N}$};
-            \node [fill=@verticalgreen, below=of ml_n_doc] (ml_1_doc) {$ML_{\textnormal{document}}^{1}$};
+            \node [fill=@verticalgreen] (ml_n_ref) {$\textsc{Ml}_{\textnormal{référence}}^{N}$};
+            \node [fill=@verticalgreen, right=of ml_n_ref, xshift=1em] (ml_n_doc) {$\textsc{Ml}_{\textnormal{document}}^{N}$};
+            \node [fill=@verticalgreen, below=of ml_n_doc] (ml_1_doc) {$\textsc{Ml}_{\textnormal{document}}^{1}$};
 
             \path [<->] (ml_n_ref) edge node [above, yshift=.75em] {informativité} (ml_n_doc);
             \path [<->] (ml_n_doc) edge node [right, xshift=.75em] {grammaticalité} (ml_1_doc);
@@ -393,7 +418,7 @@
         \newcite{ding2011binaryintegerprogramming} tentent de définir des
         propriétés visant à affiner l'extraction de termes-clés. Les termes-clés
         sont ici restreints aux mots-clés. Ils expriment leurs propriétés sous
-        la forme de contraintes dans un système d'optimization (programmation
+        la forme de contraintes dans un système d'optimisation (programmation
         par les entiers) qui explore l'espace des solutions possibles (toutes
         les combinaisons de mots à extraire). Les contraintes sont les
         suivantes~:
@@ -411,14 +436,15 @@
         solution soit retenue. La contrainte de cohérence est calculée entre
         chaque paire de mots d'une solution. Si deux mots cooccurrent plus que
         selon un seuil donné, alors ceux-ci peuvent être présents dans la même
-        solution, sinon la solution n'est pas retenue. Ces deux contraintes
-        réduisent le champs des possibilités. Il faut ensuite trouver quel
-        ensemble de mots-clés parmi les solution retenue est le meilleur. Pour
-        cela, un score d'importance des mots est calculé et l'ensemble de
-        mots-clés pour lequel la somme du score d'importance des mots est la
-        plus élevée est extrait. Ce score est une somme pondérée du score TF-IDF
-        du mot, d'un bonus s'il est présent dans le titre du document et d'un
-        autre bonus s'il est présent dans la première phrase du document.
+        solution, sinon la solution n'est pas satisfaisante. Ces deux
+        contraintes réduisent le champ des possibilités. Il faut ensuite
+        trouver quel ensemble de mots-clés parmi les solutions satisfaisantes
+        est le meilleur. Pour cela, un score d'importance des mots est calculé
+        et l'ensemble de mots-clés pour lequel la somme du score d'importance
+        des mots est la plus élevée est extrait. Ce score est une somme pondérée
+        du score \textsc{Tf-Idf} du mot, d'un bonus s'il est présent dans le
+        titre du document et d'un autre bonus s'il est présent dans la première
+        phrase du document.
 
       \subsubsection{Méthodes par regroupement}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-clustering_approaches}
@@ -432,7 +458,7 @@
         termes-clés candidats du document avec les groupes de candidats les plus
         fréquents. Faisant l'hypothèse qu'un terme-clé candidat qui cooccurre
         plus que selon toute probabilité avec les candidats fréquents d'un ou
-        plusieurs groupes est plus vraisemblablement un terme-clé, Ils utilisent
+        plusieurs groupes est plus vraisemblablement un terme-clé, ils utilisent
         la mesure $\chi^2$ pour calculer le biais entre la fréquence de
         cooccurrence attendue et la fréquence de cooccurrence réelle d'un
         terme-clé candidat avec les candidats de chaque groupe~:
@@ -452,14 +478,14 @@
         \begin{align}
           \chi^2{'}(\text{\textit{candidat}}) = \chi^2 - \max_{g}\left\{\frac{(\text{fréquence}(\text{\textit{candidat}}, g) - n_tp_g)^2}{n_tp_g}\right\}
         \end{align}
-        Les termes-clés extraits sont les termes-clés candidats ayant le plus
-        fort biais mesuré avec la mesure $\chi^2{'}$.
+        Les termes-clés extraits sont les $k$ termes-clés candidats ayant le
+        plus fort biais mesuré avec la mesure $\chi^2{'}$.
 
         ~\\Dans l'algorithme KeyCluster, \newcite{liu2009keycluster} utilisent
         aussi un regroupement sémantique, mais dans leur cas ils ne considèrent
-        que les mots du document, mots d'un anti-dictionnaire exclus. le mot le
+        que les mots du document, mots d'un antidictionnaire exclus. le mot le
         plus central de chaque groupe est sélectionné comme mot de référence et
-        sert à l'extraction des termes-clé: chaque terme-clé candidat contenant
+        sert à l'extraction des termes-clés: chaque terme-clé candidat contenant
         au moins un mot de référence est extrait comme terme-clé. Cette méthode
         présente l'avantage d'offrir une bonne couverture des sujets abordés
         dans un document, car tous les groupes sémantiques sont représentés par
@@ -480,9 +506,9 @@
         de termes-clés, les n\oe{}uds du graphe sont les mots du document et les
         arêtes qui les connectent représentent leurs relations d'adjacence dans
         le document, c'est-à-dire leurs relations de cooccurrences dans une
-        fenêtre de 2 mots. Un score d'importance est calculé pour chaque mot à
-        partir de l'algorithme PageRank~\cite{brin1998pagerank} qui est issu de
-        la mesure de centralité des vecteurs propres. Le principe utilisé est
+        fenêtre de deux mots. Un score d'importance est calculé pour chaque mot
+        à partir de l'algorithme PageRank~\cite{brin1998pagerank} qui est issu
+        de la mesure de centralité des vecteurs propres. Le principe utilisé est
         celui de la recommandation (du vote)~: un mot est d'autant plus
         important s'il cooccurre avec un grand nombre de mots et si les mots
         avec lesquels il cooccurre sont eux aussi importants. Les mots les plus
@@ -490,55 +516,53 @@
         marqués dans le document et les plus longues séquences de mots-clés
         adjacents sont extraites en tant que termes-clés.
       
-        Soit $G = (N, A)$, le graph non orienté de cooccurrences de mots où les
+        Soit $G = (N, A)$, le graphe non orienté de cooccurrences de mots où les
         n\oe{}uds $N$ représentent les mots du documents, et où les arêtes $A$
         les connectent lorsque les mots cooccurrent dans le document.
-        L'importance de chaque mot est obtenue récursivement selon la formule
-        suivante~:
+        L'importance de chaque mot $n_i$ est obtenue récursivement selon la
+        formule suivante~:
         \begin{align}
-          S(n_i \in N) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} 1} \label{math:textrank}
+          S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{S(n_j)}{|A(n_j)|} \label{math:textrank}
         \end{align}
-        où $\lambda$ est un facteur d'atténuation. Défini entre 0 et 1, il peut
-        être considéré comme la probabilité pour que le n\oe{}ud $n_i$ soit
-        atteint par recommandation.
+        où $A(n_i)$ est l'ensemble des n\oe{}uds connectés au n\oe{}ud $n_i$ et
+        où $\lambda$ est un facteur d'atténuation. Défini entre 0 et 1, ce
+        dernier peut être considéré comme la probabilité pour que le n\oe{}ud
+        $n_i$ soit atteint par recommandation.
 
         ~\\\newcite{wan2008expandrank} modifient TextRank et proposent
         SingleRank. Dans un premier temps, leur méthode augmente la précision de
         l'ordonnancement en utilisant une fenêtre de cooccurrences élargie
         (empiriquement) à dix et en pondérant les arêtes par le nombre de
         cooccurrences entre les deux mots qu'elles connectent (cf.
-        equation~\ref{math:singlerank}). Dans un second
+        équation~\ref{math:singlerank}). Dans un second
         temps, les termes-clés ne sont plus générés à partir des séquences de
         mots-clés dans le document, mais ordonnés à partir de
         la somme du score d'importance des mots qui les composent. Cette
         nouvelle méthode donne, dans la majorité des cas, des résultats
-        meilleurs que ceux de TextRank. Cependant, il est important de noter que
-        faire la somme du score d'importance des mots pour ordonner les
-        candidats favorise les plus longues séquences de mots et fait monter des
-        candidats redondants dans le classement (\TODO{exemple de redondance}).
+        meilleurs que ceux de TextRank.
         \begin{align}
-          S(n_i \in N) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\text{poids}_{ji} \times S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} \text{poids}_{jk}} \label{math:singlerank}
+          S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\text{poids}_{ji} \times S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} \text{poids}_{jk}} \label{math:singlerank}
         \end{align}
 
         ~\\Toujours dans le but d'améliorer l'efficacité de l'ordonnancement
         proposé par \newcite{mihalcea2004textrank}, \newcite{wan2008expandrank}
         étendent SingleRank en utilisant des documents similaires au document
         analysé, selon la mesure de similarité vectorielle cosinus. Faisant
-        l'hypothèse que ces documents similaires fournissent des données
+        l'hypothèse que ces documents similaires fournissent des informations
         supplémentaires relatives aux mots du document et aux relations qu'ils
         entretiennent, ils utilisent les relations de cooccurrences observées
-        dans les documents similaires pour ajouter et renforcer des arcs dans le
-        graphe. Cette approche donne des résultats au-delà de ceux de
+        dans les documents similaires pour ajouter et renforcer des arêtes dans
+        le graphe. Cette approche donne des résultats au-delà de ceux de
         SingleRank. Toutefois, ses performances sont fortement liées à la
         disponibilité de documents similaires. Leur usage peut aussi ajouter et
-        renforcer des connexions qui ne devraient pas l'être s'il ne sont pas
-        suffisement similaires. Pour pallier ce problème, les auteurs pondèrent
+        renforcer des connexions qui ne devraient pas l'être s'ils ne sont pas
+        suffisamment similaires. Pour pallier ce problème, les auteurs pondèrent
         l'impact des documents similaires à partir leur degré de similarité avec
         le document.
 
         ~\\\newcite{tsatsaronis2010semanticrank} tentent eux aussi d'améliorer
-        TextRank. Dans leur méthode, ils créent et pondèrent un arc entre deux
-        mots si et seulement si ceux-ci sont sémantiquement liés dans
+        TextRank. Dans leur méthode, ils créent et pondèrent une arête entre
+        deux mots si et seulement si ceux-ci sont sémantiquement liés dans
         WordNet~\cite{miller1995wordnet} ou dans
         Wikipedia~\cite{milne2008wikipediasemanticrelatedness} (cf.
         équation~\ref{math:semanticrank}). WordNet est une base de données
@@ -547,16 +571,16 @@
         comme l'ensemble de tous les sens possibles pour un mot $n_i$, c'est son
         vecteur sémantique. À partir des vecteurs sémantiques de deux mots $n_i$
         et $n_j$, \newcite{tsatsaronis2010semanticrank} déterminent toutes les
-        paires de sens $P_{ij}$ possibles, ainsi que tous les chemins $C_{i,
-        j}$ possible pour atteindre un sens de $n_j$ à partir d'un sens de $n_i$
-        sont construits. Le score de similarité sémantique avec WordNet est
-        obtenu en trouvant le couple paire sémantique/chemin sémantique pour
-        lequel le produit des mesures sémantiques \textit{Semantic Compactness}
-        ($SCM$) et \textit{Semantic Path Elaboration} ($SPE$), introduites par
-        \newcite{tsatsaronis2010textrelatedness}, est le plus élevé (cf.
-        équation \ref{math:wordnetsemanticrelatedness}). Dans le cas où l'un des
-        termes-clés candidats n'est pas présent dans WordNet, la similarité
-        sémantique est calculée avec les données de Wikipédia (cf.
+        paires de sens $P_{ij}$ possibles, ainsi que tous les chemins $C_{i, j}$
+        possible pour atteindre un sens de $n_j$ à partir d'un sens de $n_i$. Le
+        score de similarité sémantique avec WordNet est obtenu en trouvant le
+        couple paire sémantique/chemin sémantique pour lequel le produit des
+        mesures sémantiques \textit{Semantic Compactness Measure}
+        ($\textsc{Scm}$) et \textit{Semantic Path Elaboration} ($\textsc{Spe}$),
+        introduites par \newcite{tsatsaronis2010textrelatedness}, est le plus
+        élevé (cf. équation \ref{math:wordnetsemanticrelatedness}). Dans le cas
+        où l'un des termes-clés candidats n'est pas présent dans WordNet, la
+        similarité sémantique est calculée avec les données de Wikipédia (cf.
         équation~\ref{math:wikipediasemanticrelatedness}).
         \begin{align}
           \text{poids}_{j, i} &= \left\{\begin{array}{ll}
@@ -566,45 +590,45 @@
             0 & \text{sinon}
           \end{array}\right. \label{math:semanticrank}\\
           \notag\\
-          \text{Sim}_{WN}(n_i, n_j) &= \max_{p \in P_{i, j}}\left\{\max_{c \in C_{i, j}}\left\{SCM(p, c) \times SPE(p, c)\right\}\right\} \label{math:wordnetsemanticrelatedness}\\
+          \text{Sim}_{WN}(n_i, n_j) &= \max_{p \in P_{i, j}}\left\{\max_{c \in C_{i, j}}\left\{\textsc{Scm}(p, c) \times \textsc{Spe}(p, c)\right\}\right\} \label{math:wordnetsemanticrelatedness}\\
           \notag\\
           \text{Sim}_{W}(n_i, n_j) &= \frac{\log(\max(|\text{art}(i)|, |\text{art}(j)|)) - \log(|\text{art}(i) \cup \text{art}(j)|)}{\log(|\text{Wikipedia}|) - \log(\min(|\text{art}(i)|, |\text{art}(j)|))} \label{math:wikipediasemanticrelatedness}\\
           \notag\\
           \text{art}(i) &= \left\{\text{\textit{article}} \in \text{Wikipedia}\ |\ n_i \in \text{\textit{article}}\right\} \notag
         \end{align}
 
-        Cette modification seule donne de moins bon résultats que TextRank.
+        Cette modification seule donne de moins bons résultats que TextRank.
         Toutefois, elle améliore les résultats en combinaison avec un
-        ordonnancement biaisé par le TF-IDF des mots (cf
+        ordonnancement biaisé par le \textsc{Tf-Idf} des mots (cf
         équation~\ref{math:apw}) ou avec un ordonnancement dont le facteur
         $\lambda$ est  propre à chaque mot (cf équation~\ref{math:ppr}). Ce
-        dernier est calculé selon l'apparission ou non du mot dans le titre du
+        dernier est calculé selon l'apparition ou non du mot dans le titre du
         document.
         \begin{align}
-          S_{\text{TF-IDF}}(n_i) &= \frac{1}{2} \times \left(\frac{S(n_i)}{\mathlarger{\max}_{n_j \in N}(S(n_j))} + \frac{\text{TF-IDF}(t_i)}{\mathlarger{\max}_{n_j \in N}(\text{TF-IDF}(t_j))}\right) \label{math:apw}\\
+          S_{\text{\textsc{Tf-Idf}}}(n_i) &= \frac{1}{2} \times \left(\frac{S(n_i)}{\mathlarger{\max}_{n_j \in N}(S(n_j))} + \frac{\text{\textsc{Tf-Idf}}(t_i)}{\mathlarger{\max}_{n_j \in N}(\text{\textsc{Tf-Idf}}(t_j))}\right) \label{math:apw}\\
           \notag\\
-          S_{\lambda}(n_i) &= (1 - \lambda_i) + \lambda_i \times \sum_{n_j \in A_{\text{entrant}}(n_i)} \frac{\text{poids}_{j, i} \times S_{\lambda}(n_j)}{\mathlarger{\sum}_{n_k \in A_{\text{sortant}}(n_j)} p_{j, k}} \label{math:ppr}
+          S_{\lambda}(n_i) &= (1 - \lambda_i) + \lambda_i \times \sum_{n_j \in A(n_i)} \frac{\text{poids}_{j, i} \times S_{\lambda}(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} p_{j, k}} \label{math:ppr}
         \end{align}
 
         ~\\\newcite{liu2010topicalpagerank} reprennent SingleRank et proposent
-        TopicalPageRank (TPR), une méthode qui cherche cette fois-ci à augmenter
+        TopicalPageRank (\textsc{Tpr}), une méthode qui cherche cette fois-ci à augmenter
         la couverture du document par les termes-clés extraits. Pour ce faire,
         ils détectent les sujets du document et ordonnent les mots en fonction
-        de chaque sujets (un ordonnancement par sujet). En utilisant le modèle
+        de chaque sujet (un ordonnancement par sujet). En utilisant le modèle
         \textsc{Lda}~\cite{blei2003lda}, ils biaisent chaque ordonnancement avec
-        un sujets (cf. équation~\ref{math:topicalpagerank}) et donnent le plus
+        un sujet (cf. équation~\ref{math:topicalpagerank}) et donnent le plus
         d'importance aux candidats dont les mots ont un meilleur rang pour le
         plus de sujets (cf. équation~\ref{math:topicalpagerankfinalscore}).
         \begin{align}
-          S(n_i, \text{\textit{sujet}}) &= (1 - \lambda) \times p(\text{\textit{sujet}} | n_i) + \lambda \times \sum_{n_j \in A_{\text{entrant}}(n_i)} \frac{p_{j, i} \times S(n_j)}{\mathlarger{\sum}_{N_k \in A_{sortant}(N_j)} p_{j, k}} \label{math:topicalpagerank}\\
-      \text{TPR}(\text{\textit{candidat}}) &= \mathlarger{\sum}_{\text{\textit{sujet}}} p(\text{\textit{sujet}} | \text{\textit{document}}) \times \sum_{n \in \text{\textit{candidat}}} \text{rang}_{\text{\textit{sujet}}}(n) \label{math:topicalpagerankfinalscore}
+          S(n_i, \text{\textit{sujet}}) &= (1 - \lambda) \times p(\text{\textit{sujet}} | n_i) + \lambda \times \sum_{n_j \in A(n_i)} \frac{p_{j, i} \times S(n_j)}{\mathlarger{\sum}_{N_k \in A(N_j)} p_{j, k}} \label{math:topicalpagerank}\\
+ \textsc{Tpr}(\text{\textit{candidat}}) &= \mathlarger{\sum}_{\text{\textit{sujet}}} \left[p(\text{\textit{sujet}} | \text{\textit{document}}) \times \sum_{n \in \text{\textit{candidat}}} \text{rang}_{\text{\textit{sujet}}}(n)\right] \label{math:topicalpagerankfinalscore}
         \end{align}
 
         ~\\Dans la continuité du travail de \newcite{liu2010topicalpagerank},
         \newcite{zhang2013wordtopicmultirank} ajoutent les sujets déterminés par
         \textsc{Lda} aux n\oe{}uds du graphe de cooccurrences et n'effectuent
         plus qu'un seul ordonnancement. Mots et sujets sont ordonnés
-        simultanément, de sorte qu'un sujet est d'autant plus important
+        simultanément, de sorte qu'un sujet soit d'autant plus important
         s'il est connecté à un grand nombre de mots importants et qu'un mot est
         d'autant plus important s'il cooccurre avec un grand nombre de mots
         importants et s'il est connecté à un grand nombre de sujets importants.
@@ -612,7 +636,7 @@
     \subsection{Approche supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction}
       Les méthodes supervisées apprennent principalement à classer les
-      termes-clés en tant que \og{}terme-clés\fg{} ou \og{}non terme-clé\fg{}.
+      termes-clés en tant que \og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}.
       Leur apprentissage se fait à partir d'un corpus d'apprentissage
       (d'entraînement) dont les documents sont annotés en termes-clés. Les
       termes-clés candidats sont sélectionnés dans ces documents et servent
@@ -622,7 +646,7 @@
       et présentant de nouveaux traits (caractéristiques) discriminants pour
       l'extraction automatique de termes-clés. Dans la suite, nous présentons
       ces méthodes, regroupés par classifieurs, et soulignons les nouveaux
-      traits proposées. Notez qu'il existe aussi une étude comparative des
+      traits proposés. Notez qu'il existe aussi une étude comparative des
       performances des différents classifieurs pour la tache d'extraction
       automatique de termes-clés~\cite{sarkar2012machinelearningcomparison}.
 
@@ -637,15 +661,15 @@
         ~\\\textsc{Kea}~\cite{witten1999kea} est la méthode d'extraction de
         termes-clés la plus populaire. Elle effectue une classification naïve
         bayesienne pour attribuer le score de vraisemblance de chaque terme-clé
-        candidat. Elle combine les distribution probabilistes de deux traits~:
-        la première position du candidat dans le document et son poids TF-IDF.
+        candidat. Elle combine les distributions probabilistes de deux traits~:
+        la première position du candidat dans le document et son poids \textsc{Tf-Idf}.
         L'intuition de \newcite{witten1999kea} est que les termes-clés ont une
-        certaine importance vis-à-vis du document (leur poids TF-IDF) et qu'ils
+        certaine importance vis-à-vis du document (leur poids \textsc{Tf-Idf}) et qu'ils
         font leur première apparition dans des zones similaires du document.
 
         ~\\\textsc{Kea} est une approche très simple qui considère tous les
         traits comme indépendants (principe de la classification naïve
-        bayésienne). Sa simplicité et ses bonnes performances ont suscitées un
+        bayésienne). Sa simplicité et ses bonnes performances ont suscité un
         grand intéret, il en existe de nombreuses variantes. C'est le cas de la
         méthode de \newcite{frank1999keafrequency}, qui utilise comme trait
         supplémentaire le nombre de fois qu'un terme-clé candidat est un exemple
@@ -654,20 +678,21 @@
         améliore les performances de \textsc{Kea}, mais nécessite plus de
         données d'apprentissage.
         
-        ~\\\newcite{turney2003keacoherence} reprend lui aussi \textsc{Kea}. À
-        l'instar de \newcite{ding2011binaryintegerprogramming}, qui estiment que
-        les termes-clés d'un document doivent être cohérent entre eux (cf.
+        ~\\\newcite{turney2003keacoherence} reprend lui aussi \textsc{Kea}.
+        Estimant, comme \newcite{ding2011binaryintegerprogramming}, que les
+        termes-clés d'un document doivent être cohérent entre eux (cf.
         section~\ref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-statistical_approaches}
         page~\pageref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-statistical_approaches:ilp}),
         il ajoute une deuxième classification naïve bayesienne après celle de
         \textsc{Kea}. La première classification sert à ordonner les candidats
         selon leur vraisemblance et la deuxième attribue un nouveau score de
         vraisemblance aux candidats, de sorte que les $L$ meilleurs candidats
-        montent dans le classement s'ils ont un fort lien sémantique avec un ou
-        plusieurs candidat(s) parmi les $K$ meilleurs ($K < L$). La force du
-        lien sémantique est représenté par deux scores (soit $2 \times K$
-        traits)~: le nombre de pages Web contenant les deux candidats et le
-        nombre de titres de pages Web contenant les deux candidats.
+        aient un meilleur score de vraisemblance s'ils ont un fort lien
+        sémantique avec un ou plusieurs candidat(s) parmi les $K$ meilleurs ($K
+        < L$). La force du lien sémantique est représenté par deux scores (soit
+        $2 \times K$ traits)~: le nombre de pages Web contenant les deux
+        candidats et le nombre de titres de pages Web contenant les deux
+        candidats.
 
         ~\\\newcite{nguyen2007keadocumentstructure} améliorent \textsc{Kea} pour
         l'extraction de termes-clés à partir d'articles scientifiques. Faisant
@@ -681,26 +706,27 @@
         termes-clés ont un score de vraisemblance plus élevé.
         
         ~\\\newcite{caragea2014citationenhancedkeyphraseextraction} utilisent
-        eux aussi un classifieur naïf bayesien. Leur méthode repose sur le
-        constat de \newcite{wan2008expandrank} que l'extraction de termes-clés
-        bénéficie des informations extraites dans des documents en liens avec le
-        document dont les termes-clés doivent être extraits (cf.
+        eux aussi un classifieur naïf bayesien. Leur méthode repose sur le même
+        constat que \newcite{wan2008expandrank}~: l'extraction de termes-clés
+        peut bénéficier des informations extraites dans des documents en liens
+        avec le document à partir duquel les termes-clés doivent être extraits
+        (cf.
         section~\ref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}
         page~\pageref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}).
         Travaillant avec des articles scientifiques,
         \newcite{caragea2014citationenhancedkeyphraseextraction} utilisent le
         réseau de citations des documents afin de déterminer leur influence sur
         les autres documents et inversement. En plus des traits existant, ils
-        ajoutent un TF-IDF calculés à partir de la fréquence de chaque candidat
-        dans les contextes citationnels, ainsi que deux traits binaires
+        ajoutent un \textsc{Tf-Idf} calculés à partir de la fréquence de chaque
+        candidat dans les contextes citationnels, ainsi que deux traits binaires
         indiquant si le candidat apparait dans une phrase du document qui cite
-        un autre document ou s'il apparait dans une phrase qui cite le document.
-        Bien que leur méthode obtient de meilleures performances que
-        \textsc{Kea}, les
-        auteurs mettent en évidence un défaut de leur approche. Concidérant les
-        contextes citationnels, un document qui vient d'être publié ne peut pas
-        avoir été cité par d'autres articles et leur extraction de termes-clés
-        pour un document tant à s'améliorer dans le temps.
+        un autre document ou s'il apparait dans une phrase, d'un autre document,
+        qui cite le document. Bien que leur méthode obtient de meilleures
+        performances que \textsc{Kea}, les auteurs mettent en évidence un défaut
+        de leur approche. Concidérant les contextes citationnels, un document
+        qui vient d'être publié ne peut pas avoir été cité par d'autres articles
+        et leur extraction de termes-clés pour un document tant à s'améliorer
+        dans le temps.
 
         ~\\Contrairement à \newcite{witten1999kea}, qui utilisent un classifieur
         naïf bayésien et considèrent que tous les traits sont indépendants,
@@ -713,7 +739,7 @@
         Chaque trait se voit donc attribuer un poids, de sorte que les traits
         les moins arbitraires aient le plus de poids dans la classification. En
         plus des traits cités pour les méthodes précédentes, et à l'instar de
-        \newcite{nguyen2007keadocumentstructure}, ils tirent partie d'autres
+        \newcite{nguyen2007keadocumentstructure}, ils tirent parti d'autres
         traits liés à la nature des documents qu'ils traitent. Ainsi, pour des
         articles journalistiques ils utilisent leur type (information, sport,
         etc.) et la catégorie d'entité nommée des candidats s'ils en sont une
@@ -722,12 +748,12 @@
         ~\\Plus récemment, le travail de \newcite{zhang2008crfkeywordextraction}
         montre l'applicapilité d'un \textsc{Crf} (\textit{Conditional Random
         Field}) à la tâche d'extraction de termes-clés. Ce classifieur a
-        l'intéressante capacité à prédir des séquences de classes, soit à
+        l'intéressante capacité à prédire des séquences de classes, soit à
         étiqueter tout un document en donnant les classes suivantes pour chaque
         mot~: \og{}terme-clé\fg{}, \og{}début d'un terme-clé\fg{}, \og{}partie
         d'un terme-clé\fg{} et \og{}non terme-clé\fg{} (\TODO{etiqueter
         l'exemple fil rouge}). \newcite{zhang2008crfkeywordextraction}
-        reprend les traits présentés précédemment (TF-IDF, première position,
+        reprend les traits présentés précédemment (\textsc{Tf-Idf}, première position,
         section d'article scientifique, etc.) et y ajoute le contexte de
         chaque mot. Nous trouvons cette notion de contexte dans les méthodes non
         supervisées à base de graphe (cf.
@@ -735,15 +761,14 @@
         page~\pageref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}),
         mais il s'agit de la première fois que nous trouvons celle-ci dans une
         méthode supervisée. Le fonctionnement particulier du \textsc{Crf} se
-        prète plus à l'utilisation du contexte que les autres classifieurs.
+        prête plus à l'utilisation du contexte que les autres classifieurs.
 
       \subsubsection{Arbres de décision}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-decision_trees}
         Les arbres de décision sont des classifieurs dont les branches
-        représentent des tests sur les
-        traits des candidats. Ces tests routent les candidats
-        vers les feuilles de l'arbre représentant leur classe respective
-        (\og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}).
+        représentent des tests sur des traits des candidats. Ces tests routent
+        les candidats vers les feuilles de l'arbre représentant leur classe
+        respective (\og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}).
 
         ~\\Dans son article sur l'apprentissage pour l'extraction automatique de
         termes-clés, \newcite{turney1999learningalgorithms} entraîne 50 arbres
@@ -758,7 +783,7 @@
         adjectif~?\fg{}. Contrairement aux autres travaux, celui de
         \newcite{turney1999learningalgorithms} est aussi l'un des seuls à
         décliner les traits à des niveaux de granularité différents. Chaque
-        traits concernent le candidats dans son ensemble et ses mots séparément.
+        trait concernent le candidat dans son ensemble et ses mots séparément.
 
         ~\\\newcite{ercan2007lexicalchains} utilisent eux aussi des arbres de
         décision pour extraire les termes-clés. Les termes-clés sont ici
@@ -766,31 +791,31 @@
         de chaînes lexicales pour la définition de nouveaux traits
         discriminants. Une chaîne lexicale est un graphe de mots liés entre eux
         hiérarchiquement (cf. figure~\ref{fig:lexical_chain}).
-        \newcite{ercan2007lexicalchains} tiennent compte des relations de
-        méronymie/holonymie\footnote{Méronyme~: Mot dont le signifié est une
-        sous-partie de celui d'un autre mot, son holonyme. Par exemple,
+        \newcite{ercan2007lexicalchains} tiennent compte des relations
+        hiérarchiques de méronymie\footnote{Méronyme~: mot dont le signifié est
+        une sous-partie de celui d'un autre mot, son holonyme. Par exemple,
         \og{}bras\fg{} est un méronyme de
-        \og{}corps\fg{}.}$^,$\footnote{Holonyme~: Mot dont le signifié est
+        \og{}corps\fg{}.}/holonymie\footnote{Holonyme~: mot dont le signifié est
         composé de celui d'un autre mot, son méronyme.},
-        d'hyponymie/hyperonymie\footnote{Hyponyme~: Mot dont le signifié est
+        d'hyponymie\footnote{Hyponyme~: mot dont le signifié est
         plus spécifique que celui d'un autre mot, son
-        hyperonyme.}$^,$\footnote{Hyperonyme~: Mot dont le sygnifié est plus
-        général que celui d'un autre mot, son hyponyme.} et de synonymie,
+        hyperonyme.}/hyperonymie\footnote{Hyperonyme~: mot dont le sygnifié est
+        plus général que celui d'un autre mot, son hyponyme.} et de synonymie,
         auxquelles ils donnent un poids (4 pour la méronymie/holonymie, 7 pour
         l'hyponymie/hyperonymie et 10 pour la synonymie). Chaque mot se voit
         attribuer quatre traits correspondant à quatre scores obtenus à partir
         des poids des relations~:
         \begin{enumerate}
-          \item{score de la chaîne lexicale~: somme du poids de toutes les
+          \item{Score de la chaîne lexicale~: somme du poids de toutes les
                 relations de la chaîne lexicale~;}
-          \item{score du mot dans la chaîne lexicale~: somme du poids de toutes
+          \item{Score du mot dans la chaîne lexicale~: somme du poids de toutes
                 les relations du mot avec les autres mots de la chaîne
                 lexicale~;}
-          \item{couverture de la chaîne lexicale~: différence entre la dernière
+          \item{Couverture de la chaîne lexicale~: différence entre la dernière
                 occurrence, dans le document, d'un mot de la chaîne lexicale
-                avec la première occurrence, dans le document, d'un mots de la
+                avec la première occurrence, dans le document, d'un mot de la
                 chaîne lexicale~;}
-          \item{couverture du mots et de ses voisins dans la chaîne lexicale~:
+          \item{Couverture du mot et de ses voisins dans la chaîne lexicale~:
                 de même que la couverture de la chaîne lexicale, mais en tenant
                 compte uniquement du mot et de ses voisins dans la chaîne.}
         \end{enumerate}
@@ -835,114 +860,118 @@
         initialement sont d'autant mieux classés qu'ils ont un fort lien
         sémantique avec d'autres candidats bien classés initialement.
 
-      \subsubsection{Séparateurs à vastes marges (SVM)}
+      \subsubsection{Séparateurs à vastes marges}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-svms}
-        Les séparateurs à vastes marges projettent les exemples et les
-        contres-exemples du corpus d'entraînement sur un plan selon la valeur de
-        leurs traits, puis construisent l'hyperplan qui les sépare. Pour classer
-        les termes-clés candidats d'un document, il suffit ensuite de les
-        projeter sur ce même plan et d'utiliser l'hyperplan appris.
+        Les séparateurs à vastes marges (\textsc{Svm}) projettent les exemples
+        et les contres-exemples du corpus d'entraînement sur un plan selon la
+        valeur de leurs traits, puis construisent l'hyperplan qui les sépare.
+        Pour classer les termes-clés candidats d'un document, il suffit ensuite
+        de les projeter sur ce même plan et d'utiliser l'hyperplan appris.
 
-        ~\\\newcite{zhang2006svm} font l'usage d'un SVM pour extraire les
-        termes-clés en tirant partie de ce qu'ils appellent le contexte global
-        et le contexte local des termes-clés candidats. Ils représentent le
-        contexte global d'un candidats par son TF-IDF, sa première position et
+        ~\\\newcite{zhang2006svm} utilisent un \textsc{Svm} pour extraire les
+        termes-clés à partir de ce qu'ils appellent le contexte global et le
+        contexte local des termes-clés candidats. Ils représentent le contexte
+        global d'un candidats par son \textsc{Tf-Idf}, sa première position et
         ses occurrences dans différentes parties du document, tandis qu'ils
         représentent son contexte local par sa catégorie grammaticale et trois
-        traits encore jamais utilisés auparavant. Les deux premiers sont
+        traits encore jamais utilisés auparavant. Les deux premiers traits sont
         déterminés à partir des dépendances entre les mots. À la manière des
-        méthodes non supervisées à base de graph (cf.
+        méthodes non supervisées à base de graphe (cf.
         section~\ref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}
         page~\pageref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches})
         l'un des traits dénote le nombre de fois que le candidat modifie un mot
         et l'autre dénote le nombre de fois qu'un mot modifie le candidat. Le
-        dernier trait s'appelle le TF-IDF contextuel, il s'agit de la somme du
-        TF-IDF de tous les mots qui cooccurrent avec le candidat. Ce dernier
-        trait indique si un candidat occurre dans un contexte important
-        vis-à-vis du document.
+        dernier trait s'appelle le \textsc{Tf-Idf} contextuel, il s'agit de la
+        somme du \textsc{Tf-Idf} de tous les mots qui cooccurrent avec le
+        candidat. Ce dernier trait indique si un candidat occurre dans un
+        contexte important vis-à-vis du document.
 
         ~\\\newcite{jiang2009rankingsvm} extraient les termes-clés à partir d'un
-        type particulier de SVM, baptisé SVM$^\textnormal{rank}$.
-        SVM$^\textnormal{rank}$ construit plusieurs hyperplans qui permettent
-        d'ordonner les termes-clés candidats. Utilisant le score TF-IDF des
-        candidats, leur taille (en nombre de mots), leur première position, leur
-        entropy et d'autres traits, le travail de
-        \newcite{jiang2009rankingsvm} montre que le classifieur
-        SVM$^\textnormal{rank}$ est plus performant qu'un SVM ou qu'un
-        classifieur naïf bayesien utilisant avec les mêmes traits.
+        type particulier de \textsc{Svm}, baptisé
+        \textsc{Svm}$^\textnormal{rank}$. \textsc{Svm}$^\textnormal{rank}$
+        construit plusieurs hyperplans qui permettent d'ordonner les termes-clés
+        candidats. Utilisant le score \textsc{Tf-Idf} des candidats, leur taille
+        (en nombre de mots), leur première position, leur entropie et d'autres
+        traits, le travail de \newcite{jiang2009rankingsvm} montre que le
+        classifieur \textsc{Svm}$^\textnormal{rank}$ est plus performant qu'un
+        \textsc{Svm} ou qu'un classifieur naïf bayesien utilisant les mêmes
+        traits.
 
         ~\\\newcite{eichler2010keywe} extraient eux aussi les termes-clés à
-        partir d'un SVM$^\textnormal{rank}$. Ils apprennent le
-        SVM$^\textnormal{rank}$ en utilisant trois valeurs pour le rang, la
-        valeur maximale étant attribuée aux exemples d'un document
-        d'apprentissage, la valeur minimale aux contres-exemples du doducment et
-        une valeur intermédiaire a ses contres-exemples qui sont des exemples
-        d'autres documents d'apprentissage. Cette approche peut étre assimilé au
-        trait ajouté à \textsc{Kea} par \newcite{frank1999keafrequency}. Quant
-        aux traits utilisés pour entraîner le SVM$^\text{rank}$, le plus notable
-        se réfère à Wikipedia. L'intuition des auteurs est que si un terme-clé
-        candidat fait l'objet d'un article Wikipedia, alors il est plus
-        vraisemblablement un terme-clé.
+        partir d'un \textsc{Svm}$^\textnormal{rank}$. Ils apprennent le
+        \textsc{Svm}$^\textnormal{rank}$ avec trois valeurs pour le rang. La
+        valeur maximale est attribuée aux exemples d'un document
+        d'apprentissage, la valeur minimale aux contres-exemples du document et
+        une valeur intermédiaire à ses contres-exemples qui sont des exemples
+        d'autres documents d'apprentissage. Cette approche peut être assimilé à
+        celle de \newcite{frank1999keafrequency}, qui estime qu'un terme-clé
+        candidat fréquemment annoté comme terme-clé dans le corpus
+        d'apprentissage est plus vraisemblablement un terme-clé. Quant aux
+        traits utilisés pour entraîner le \textsc{Svm}$^\text{rank}$, le plus
+        notable se réfère à Wikipedia. L'intuition des auteurs est que si un
+        terme-clé candidat fait l'objet d'un article Wikipedia, alors il est
+        plus vraisemblablement un terme-clé.
 
       \subsubsection{Perceptrons multicouches}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-neural_network}
         Les perceptrons multicouches sont des classifieurs qui émulent la
         biologie de l'apprentissage des êtres vivants. Ce sont des réseaux de
-        neurones. Les neurones de la première couche représentent les traits
-        d'un candidat (un neurone par trait), ceux des couches centrales
-        (couches cachées) propagent des scores obtenus selon la valeur des
-        traits et ceux de la dernière couche donnent un score final pour chaque
-        classe \og{}terme-clé\fg{} et \og{}non terme-clé\fg{} (un neurone par
-        classe). La classe ayant le plus haut score est celle du terme-clé
-        candidat pour lequel correspond la valeur des traits.
+        neurones répartis sur au moins trois couches. Les neurones de la
+        première couche représentent les traits d'un candidat (un neurone par
+        trait), ceux des couches intermédiaires (couches cachées) propagent des
+        scores obtenus selon la valeur des traits et ceux de la dernière couche
+        donnent un score final pour chaque classe \og{}terme-clé\fg{} et
+        \og{}non terme-clé\fg{} (un neurone par classe). La classe ayant le plus
+        haut score est celle du terme-clé candidat pour lequel correspond la
+        valeur des traits.
         
         ~\\\newcite{sarkar2010neuralnetwork} utilisent un perceptron multicouche
-        pour classer les termes-clés candidats selon leur TF-IDF, leur position,
-        leur taille (en nombre de mots) et celle de leurs mots (en nombre de
-        caractères). L'une des principales contributions de leur travail est
-        l'apprentissage d'un estimateur capable de donner le degré de confiance
-        d'une classification selon le score attribué à chaque classe. Cette
-        estimateur permet d'ordonner les termes-clé candidats, ceux classés
-        \og{}terme-clé\fg{} en premier dans l'ordre décroissant de leur
-        confiance et ceux classés \og{}non terme-clé\fg{} en dernier dans
+        pour classer les termes-clés candidats selon leur \textsc{Tf-Idf}, leur
+        position, leur taille (en nombre de mots) et celle de leurs mots (en
+        nombre de caractères). L'une des principales contributions de leur
+        travail est l'apprentissage d'un estimateur capable de donner le degré
+        de confiance d'une classification selon le score attribué à chaque
+        classe. Cet estimateur permet d'ordonner les termes-clés candidats,
+        ceux classés \og{}terme-clé\fg{} en premier dans l'ordre décroissant de
+        leur confiance et ceux classés \og{}non terme-clé\fg{} en dernier dans
         l'ordre croissant de leur confiance. Ainsi, la méthode de
         \newcite{sarkar2010neuralnetwork} peut extraire un nombre donné de
         termes-clés, en ajoutant des candidats classés \og{}non terme-clé\fg{}
-        avec un faible confiance si nécessaire.
+        avec une faible confiance si nécessaire.
 
       \subsubsection{Algorithmes génétiques}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-genex}
         Les algorithmes génétiques sont des algorithmes qui donnent une solution
-        approchée à un problème d'optimization. Ce type d'algorithme
-        n'effectue pas de classification et n'est pas nécesssairement supervisé.
+        approchée à un problème d'optimisation. Ce type d'algorithme
+        n'effectue pas de classification et n'est pas nécessairement supervisé.
 
         ~\\\newcite{turney1999learningalgorithms} propose une méthode
         supervisée, GenEx, dont les paramètres sont valués par un algorithme
-        génétique, appelé \textit{Genitor}. L'algorithme d'extraction de
+        génétique, appelé \textit{Genitor}. Un algorithme d'extraction de
         termes-clés, appelé \textit{Extractor}, est appliqué sur le corpus
-        d'apprentissage avec des paramètres initiaux, puis le Genitor fait
-        évoluer la valeur de ces paramètres jusqu'à trouver celle qui maximise
-        les performances de l'extraction. L'extraction des termes-clés d'un
-        document se fait ensuite avec l'\textit{Extractor} et ses paramètres
-        configurés par le \textit{Genitor}. Les paramètres apris sont
-        principalement des seuils limitant la taille des candidats, le nombre de
-        mots importants à considérer pour filtrer les candidats, ou encore le
-        nombre de termes-clés à extraire. Ce sont aussi des facteurs
+        d'apprentissage avec des paramètres initiaux, puis le \textit{Genitor}
+        fait évoluer la valeur de ses paramètres jusqu'à trouver celle qui
+        maximise les performances de l'extraction. L'extraction des termes-clés
+        d'un document se fait ensuite avec l'\textit{Extractor} et ses
+        paramètres configurés par le \textit{Genitor}. Les paramètres appris
+        sont principalement des seuils limitant la taille des candidats, le
+        nombre de mots importants à considérer pour filtrer les candidats, ou
+        encore le nombre de termes-clés à extraire. Ce sont aussi des facteurs
         multiplicateurs utilisés notamment pour le calcul de l'importance des
         mots et des candidats.
 
   \section{Assignement automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_assignment}
-    L'assignement automatique de termes-clés a fait l'objet de moins de travaux
+    L'assignement automatique de termes-clés fait l'objet de moins de travaux
     que l'extraction automatique de termes-clés. Il s'agit aussi d'une tâche
-    plus difficile, car elle doit assigné des entrées d'un vocabulaire contrôlé
+    plus difficile, car elle doit assigner des entrées d'un vocabulaire contrôlé
     en tant que termes-clés d'un document indépendemment de leur apparition dans
     celui-ci.
 
     ~\\\newcite{medelyan2008smalltrainingset} sont les premiers à proposer une
     méthode capable de faire de l'assignement automatique de termes-clés. Leur
     méthode, \textsc{Kea}++, améliore la méthode supervisée d'extraction de
-    termes-clés \textsc{Kea}. Elle utilise un thésaurus\footnote{Thesaurus~:
+    termes-clés \textsc{Kea}. Elle utilise un thésaurus\footnote{Thésaurus~:
     Liste de termes regroupés selon les concepts d'un domaine de connaissance
     qu'ils représentent.} du domaine des documents à traiter pour affiner la
     sélection des candidats et ajouter un trait au classifieur naïf bayesien.
@@ -951,7 +980,7 @@
     entrées du thésaurus sont jugés mal formés et sont éliminés s'ils ne peuvent
     pas être remplacés par une autre forme. \textsc{Kea}++ accepte les entrées
     du thésaurus qui partagent la racine de leurs mots avec un n-gramme du
-    document, aisin que les entrées du thésaurus qui sont des synonymes d'un
+    document, ainsi que les entrées du thésaurus qui sont des synonymes d'un
     n-gramme du document. De cette manière, l'assignement peut s'effectuer. Tous
     les candidats font partie d'un vocabulaire contrôlé et certains d'entre eux
     n'apparaissent pas dans le document.
@@ -970,13 +999,15 @@
     une méthode d'assignement de termes-clés lorsque les données disponibles le
     permettent.
 
-    ~\\\newcite{liu2011vocabularygap} proposent une méthode pouvant
-    effectuer de l'assignement de termes-clés. Leur approche consiste à
-    transformer le problème d'assignement en un problème de traduction. Leur
+    ~\\\newcite{liu2011vocabularygap} proposent une méthode pouvant effectuer de
+    l'assignement de termes-clés. Leur approche consiste à transformer le
+    problème d'indexation par termes-clés en un problème de traduction. Leur
     idée est la suivante~: un document et ses termes-clés expriment le même
     contenu dans deux langues différentes, l'une expressive et l'autre plus
-    concise et plus synthétique. Dans leur travail, ils apprennent un modèle de
-    traduction à partir des éléments du titre à la place des termes-clés annotés
+    concise et plus synthétique. Les termes-clés produits sont limités par ceux
+    utilisés lors de l'apprentissage  et n'apparaissent pas systématiquement
+    dans le document. Dans leur travail, ils apprennent un modèle de traduction
+    à partir des éléments du titre à la place des termes-clés annotés
     manuellement ou d'un vocabulaire contrôlé. Dans leur cas, il ne s'agit donc
     pas rigoureusement d'assignement de termes-clés. Leur approche y est
     toutefois appropriée.
@@ -1005,7 +1036,7 @@
     capacité de la méthode à fournir le plus possible de termes-clés correctes
     (vrais positifs, cf tableau~\ref{tab:confusion_matrix} et
     équation~\ref{math:recall}). Quant à la f-mesure, celle-ci mesure le
-    compromis entre précision et rappel, soit la capicité de la méthode à
+    compromis entre précision et rappel, soit la capacité de la méthode à
     extraire un maximum de termes-clés correctes en faisant un minimum d'erreurs
     (cf. équation~\ref{math:f_measure}).
     \begin{table}
@@ -1038,27 +1069,26 @@
     et que les deux systèmes n'ont que deux propositions pertinentes, alors ils
     ont tous les deux la même précision (20~\%) et le même rappel (20~\%).
     Toutefois, si le premier système classe ces documents en premier et que le
-    second système les classe aux positions neuf et dix, alors le premier système
-    est le meilleur. Lorsque les méthodes d'indexation par termes-clés le
-    permettent, il est intéressant de mesurer leur capacité à classer en premier
-    les vrais positifs. Dans la littérature, quatre mesures, dont certaines
-    empruntées à la \textsc{Ri}, sont utilisées~: la \textsc{Map} (\textit{Mean
-    Average Precision}), la Bpref (\textit{Binary Preference Measure}), la
-    R-précision et la \textsc{Mrr} (\textit{Mean
-    Reciprocal Rank}). La
-    \textsc{Map} mesure pour chaque document la moyenne de la précision à chaque
-    rang ($\textnormal{précision}@\textnormal{rang}$) d'un vrai positif (cf.
-    équation~\ref{math:average_precision}). Avec la Bpref, c'est la seule mesure
-    qui tient compte de tous les vrais positifs. La Bpref est une mesure
-    similaire à la \textsc{Map} qui, contrairement à cette dernière, s'abstrait
-    de la connaissance de tous les termes-clés de référence (cf.
-    équation~\ref{math:bpref}) et qui peut donc,
-    par exemple, s'appliquer dans le cadre d'évaluations manuelles où chaque
-    terme-clé fourni par la méthode est jugé correcte ou non et où tous les
-    termes-clés du document ne sont pas connus. La R-précision est une
-    variante de la précision qui mesure cette dernière dans le cas optimal (tous
-    les termes-clés sont fourni et il n'y a aucune erreur), soit au rang $R$, où
-    $R$ est égale au nombre de termes-clés de référence du document (cf.
+    second système les classe aux positions neuf et dix, alors le premier
+    système est le meilleur. Lorsque les méthodes d'indexation par termes-clés
+    le permettent, il est intéressant de mesurer leur capacité à classer en
+    premier les vrais positifs. Dans la littérature, quatre mesures, dont
+    certaines empruntées à la \textsc{Ri}, sont utilisées~: la \textsc{Map}
+    (\textit{Mean Average Precision}), la Bpref (\textit{Binary Preference
+    Measure}), la R-précision et la \textsc{Mrr} (\textit{Mean Reciprocal
+    Rank}). La \textsc{Map} mesure pour chaque document la moyenne de la
+    précision à chaque rang ($\textnormal{précision}@\textnormal{rang}$) d'un
+    vrai positif (cf. équation~\ref{math:average_precision}). Avec la Bpref, la
+    \textsc{Map} la seule mesure qui tient compte de tous les vrais positifs. La
+    Bpref est une mesure similaire à la \textsc{Map} qui, contrairement à cette
+    dernière, s'abstrait de la connaissance de tous les termes-clés de référence
+    (cf. équation~\ref{math:bpref}). Elle peut donc, par exemple, s'appliquer
+    dans le cadre d'évaluations manuelles où chaque terme-clé fourni par la
+    méthode est jugé correcte ou non par un évaluateur humain et où tous les
+    termes-clés du document ne sont pas connus. La R-précision est une variante
+    de la précision. Elle mesure cette dernière dans le cas optimal (tous les
+    termes-clés sont fournis et il n'y a aucune erreur), soit au rang $R$, où $R$
+    est égale au nombre de termes-clés de référence du document (cf.
     équation~\ref{math:r_precision}). Quant à la \textsc{Mrr}, celle-ci est la
     moins précise, elle ne s'intéresse qu'au meilleur rang obtenu pour un vrai
     positif (cf. équation~\ref{math:reciprocal_rank})
@@ -1079,25 +1109,74 @@
     souplesse à la comparaison entre termes-clés résultant d'une méthode et
     termes-clés de référence en tenant compte de leur
     chevauchement~\cite{zesch2009rprecision,kim2010rprecision}. Ces travaux
-    ne sont toutefois pas utilisés dans les récents travaux.
+    ne sont toutefois pas utilisés pour l'évaluation des récents travaux.
 
   \section{Conclusion}
   \label{sec:main-state_of_the_art-automatic_evaluation_of_keyphrase_annotation-conclusion}
-    \begin{itemize}
-      \item{synthèse sélection des candidats}
-      \item{-> pb}
-      \item{-> perspectives (extr. termino FASTR/TermSuite/Acabit)}
-      \item{synthèse unsupervised AKE}
-      \item{-> pb}
-      \item{-> perspectives}
-      \item{synthèse supervised AKE}
-      \item{-> pb}
-      \item{-> perspectives}
-      \item{synthèse AKA}
-      \item{-> pb}
-      \item{-> perspectives (extr. termino FASTR/TermSuite/Acabit)}
-      \item{synthèse eval}
-      \item{-> pb}
-      \item{-> perspectives}
-    \end{itemize}
+    Dans ce chapitre, nous présentons la tâche d'indexation par termes-clés, de
+    la sélection des termes-clés candidats aux différentes méthodes d'extraction
+    et d'assignement de termes-clés, sans oublier leur évaluation. Nos travaux
+    de recherche s'intéressent à chacun de ces axes, sur la base d'observations
+    critiques des précédents travaux.
+
+    Les méthodes d'indexation par termes-clés sont presque toutes dépendantes
+    de l'étape de sélection des termes-clés candidats. Bien que secondaire à la
+    tâche, cette étape est d'autant plus importante que si elle fournit peu de
+    candidats elle limite les performances d'une méthode d'indexation par
+    termes-clés, soit le rappel maximum théorique, et que si elle fournit
+    beaucoup de candidats elle augmente les risques de fournir des candidats
+    erronés et donc de dégrader les performances de la méthode. Les méthodes de
+    sélection de candidats présentées ont peu de fondements linguistiques.
+    Utiliser des filtres linguistiques ou sélectionner les candidats avec des
+    méthodes d'extraction
+    terminologique~\cite{jacquemin1997fastr,daille2003acabit,rocheteau2011termsuite}
+    sont deux solutions possibles pour extraire des candidats de bonne qualité
+    et en nombre suffisant pour ne pas limiter la meilleure performance
+    théorique.
+
+    Parmi les méthodes d'indexation par termes-clés, la majorité extrait les
+    termes-clés depuis le contenu du document. Cette extraction est réalisée de
+    manière supervisée ou non supervisée. Les méthodes supervisées sont
+    actuellement les plus performantes, cependant, celles-ci sont dépendantes
+    d'un effort humain d'annotation manuelle des documents d'un corpus
+    d'apprentissage et ne peuvent ensuite être appliquées qu'à des documents de
+    même nature et de même domaine. Les méthodes non-supervisées ont l'avantage
+    de s'abstraire de ce besoin, qu'elles pallient avec des représentations plus
+    complexes des documents. Dans nos travaux de recherche, nous nous intéressons
+    à la représentation sous forme de graphe du document. L'hypothèse selon
+    laquelle un mot est important s'il apparait dans le contexte de mots
+    importants est intéressante. Nous pensons toutefois qu'il serait plus
+    pertinent d'ordonner les termes-clés candidats plutôt que les mots. Un autre
+    point qui n'a jamais été abordé est la dispersion dans le graphe des
+    informations relatives à un même concept, où sujet, représenté par plusieurs
+    unités textuelles (plusieurs n\oe{}uds) dans le document.
+
+    L'assignement de termes-clés est une catégorie d'indexation par termes-clés
+    encore peut explorée. Celle-ci fournit des termes-clés d'un vocabulaire
+    contrôlé. Ces termes-clés sont de meilleure qualité (mieux formés) que ceux
+    qui sont extraits d'un document, mais le fait qu'ils n'apparaissent pas
+    nécessairement dans le document rend la tâche plus difficile. De plus, se
+    restreindre aux termes-clés d'un vocabulaire contrôlé ne permet pas de
+    fournir des termes-clés représentant des concepts nouveaux qui ne sont pas
+    encore dans le vocabulaire. Alors que l'assignement de termes-clés est
+    considéré comme une indexation par termes-clés concurrente de l'extraction
+    de termes-clés, il nous semble qu'elle devrait être utilisée en complément,
+    lorsque les ressources disponibles le permettent.
+
+    L'évaluation des méthodes d'indexation par termes-clés est une étape
+    obligatoire pour démontrer leur apport vis-à-vis des précédentes méthodes.
+    Parce qu'une évaluation manuelle est trop coûteuse, les chercheurs évaluent
+    le plus souvent leurs méthodes automatiquement avec des corpus de test dont
+    les documents sont associés à des termes-clés de référence annotés par des
+    humains. Si un terme-clé est le même qu'un terme-clé de référence, alors
+    il est jugé correcte, sinon il est jugé erroné. Ce jugement binaire permet
+    de distinguer les meilleures méthodes, mais il ne permet pas de comparer
+    deux méthodes sur la base de leurs erreurs. Prenons l'exemple extrême de
+    deux méthodes n'ayant fournissent aucun terme-clé correct: l'une fournit
+    des termes-clés qui n'ont aucun point commun avec les termes-clés de
+    référence et l'autre fournit des termes-clés similaires, mais pas
+    identiques, aux termes-clés de référence. Dans ce cas les deux méthodes sont
+    considérées toutes aussi mauvaises. Une évaluation plus souple, prenant en
+    compte la synonymie ou le recouvrement partiel des unités textuelles,
+    pourrait indiquer que la seconde méthode est meilleure que la première.
 
