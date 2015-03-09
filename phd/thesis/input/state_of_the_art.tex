@@ -1,10 +1,9 @@
 \chapter[Indexation automatique par termes-clés]{Indexation automatique\\par termes-clés}
 \label{part:main-state_of_the_art}
-  \epigraph{
-    {\Large``}There is a need for tools that can automatically create
-    keyphrases. Although keyphrases are very useful, only a small minority of
-    the many documents that are available on-line today have
-    keyphrases.{\Large''}
+  \chaptercite{
+    There is a need for tools that can automatically create keyphrases. Although
+    keyphrases are very useful, only a small minority of the many documents that
+    are available on-line today have keyphrases.
   }{
     \newcite{turney1999learningalgorithms}
   }
@@ -15,34 +14,34 @@
     souvent appelés mots-clés\index{Mot-cle@Mot-clé
     \textit{(keyword)}|textbf}\footnote{Lorsque nous utilisons le terme
     \og{}mot-clé\fg{}, il s'agit d'un terme-clé composé d'un et un seul mot.},
-    sont les unités textuelles (mots ou expressions) qui caractérisent le mieux
-    le contenu principal d'un document~: les sujets qu'il aborde, ses idées,
-    etc. Ceux-ci donnent une description précise de ce que contient un document
-    et peuvent servir à la Recherche d'Information (\textsc{Ri}). Nous parlons
-    donc d'indexation par termes-clés\index{Indexation par
-    termes-cles@Indexation par termes-clés \textit{(automatic keyphrase
-    annotation)}|textbf}. Cette indexation ne doit toutefois pas être confondue
-    avec l'indexation dite \og{}plein texte\fg{} au c\oe{}ur de nombreux
-    systèmes de \textsc{Ri}. L'indexation plein texte pondère tous les mots d'un
-    document selon leur importance relative à celui-ci, tandis que l'indexation
-    par termes-clés fournit un ensemble restreint de mots ou expressions qui
-    représentent ses sujets importants, explicites ou non.
+    sont les unités textuelles (mots ou expressions) qui caractérisent le
+    contenu principal d'un document~: les sujets qu'il aborde, ses idées, etc.
+    Ceux-ci donnent une description précise de ce que contient un document et
+    peuvent servir à la Recherche d'Information (\textsc{Ri}). Nous parlons donc
+    d'indexation par termes-clés\index{Indexation par termes-cles@Indexation par
+    termes-clés \textit{(automatic keyphrase annotation)}|textbf}. Cette
+    indexation ne doit toutefois pas être confondue avec l'indexation dite
+    \og{}plein texte\fg{} au c\oe{}ur de nombreux systèmes de \textsc{Ri}.
+    L'indexation plein texte pondère tous les mots d'un document selon leur
+    importance relative à celui-ci, tandis que l'indexation par termes-clés
+    fournit un ensemble restreint de mots ou expressions qui représentent ses
+    sujets importants, explicites ou non.
 
     Dans la littérature, nous distinguons deux catégories d'indexations
     automatiques par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
     libre\index{Indexation libre@Indexation libre \textit{(free indexing)}|see
     {Extraction automatique de termes-clés \textit{(automatic keyphrase
     extraction)}}} consiste à extraire d'un document les unités textuelles
-    jugées les plus importantes dans son contexte. Nous parlons d'extraction
-    automatique de termes-clés\index{Extraction automatique de
-    termes-cles@Extraction automatique de termes-clés \textit{(automatic
+    jugées les plus importantes dans son contexte. Nous parlons
+    d'\emph{extraction automatique de termes-clés}\index{Extraction automatique
+    de termes-cles@Extraction automatique de termes-clés \textit{(automatic
     keyphrase extraction)}|textbf}. L'indexation contrôlée\index{Indexation
     controlee@Indexation contrôlée \textit{(controlled indexing)}|see
     {Assignement automatique de termes-clés \textit{(automatic keyphrase
     assignment)}}} fournit les termes-clés en se fondant sur un vocabulaire
     contrôlé et sans se restreindre aux unités textuelles présentes dans le
-    document. Nous parlons d'assignement automatique de
-    termes-clés\index{Assignement automatique de termes-cles@Assignement
+    document. Nous parlons d'\emph{assignement automatique de
+    termes-clés}\index{Assignement automatique de termes-cles@Assignement
     automatique de termes-clés \textit{(automatic keyphrase
     assignment)}|textbf}.
 
@@ -68,28 +67,30 @@
     les unités textuelles qui ont des particularités similaires à celles des
     termes-clés définis par des humains. Nous savons par exemple que les
     termes-clés sont majoritairement constitués de noms et d'adjectifs
-    (\TODO{exemple}). Cette étape présente deux avantages. Le premier est la
-    réduction du temps de calcul nécessaire à l'extraction ou à l'assignement
-    des termes-clés. Le second est la suppression d'unités textuelles non
-    pertinentes pouvant affecter négativement les performances de
-    l'ordonnancement. Pour distinguer les différents candidats sélectionnés,
-    nous définissons deux catégories~: les candidats positifs\index{Candidat
-    positif@Candidat positif \textit{(positive candidate)}|textbf}, qui
-    correspondent aux termes-clés assignés par des humains (termes-clés de
-    référence), et les candidats négatifs\index{Candidat negatif@Candidat
-    négatif \textit{(negative candidate)}|textbf}. Parmi les candidats négatifs,
-    nous distinguons deux sous-catégories~: les candidats porteurs
-    d'indices\index{Candidat porteur d'indices@Candidat porteur d'indices
-    \textit{(clue candidate)}|textbf} de différentes natures pouvant influencer
-    l'extraction ou l'assignement de candidats positifs (\TODO{exemple}) et les
-    candidats non pertinents\index{Candidat non pertinent@Candidat non pertinent
-    \textit{(irrelevant candidate)}|textbf}, que nous considérons comme des
-    erreurs de sélection.
+    (\TODO{exemple}). La sélection des termes-clés candidats présente deux
+    avantages. Le premier est la réduction du temps de calcul nécessaire à
+    l'extraction ou à l'assignement des termes-clés. Le second est la
+    suppression d'unités textuelles non pertinentes pouvant affecter
+    négativement les performances de l'ordonnancement. Pour distinguer les
+    différents candidats sélectionnés, nous définissons deux catégories~: les
+    candidats positifs\index{Candidat positif@Candidat positif \textit{(positive
+    candidate)}|textbf}, qui correspondent aux termes-clés assignés par des
+    humains (termes-clés de référence), et les candidats négatifs\index{Candidat
+    negatif@Candidat négatif \textit{(negative candidate)}|textbf}. Parmi les
+    candidats négatifs, nous distinguons deux sous-catégories~: les candidats
+    porteurs d'indices\index{Candidat porteur d'indices@Candidat porteur
+    d'indices \textit{(clue candidate)}|textbf} de différentes natures pouvant
+    influencer l'extraction ou l'assignement de candidats positifs
+    (\TODO{exemple}) et les candidats non pertinents\index{Candidat non
+    pertinent@Candidat non pertinent \textit{(irrelevant candidate)}|textbf},
+    que nous considérons comme des erreurs de sélection.
 
     Plusieurs méthodes de sélection de candidats sont utilisées, de la simple
     sélection de n-grammes, de chunks nominaux ou d'unités textuelles
-    grammaticalement définies, jusqu'à la sélection de candidats à partir de
-    méthodes plus complexes.
+    grammaticalement définies, jusqu'à la sélection de candidats à l'aide
+    d'algorithmes pour réduire le nombre de candidats en supprimant ceux qui
+    sont sémantiquement redondants où mal formés. Dans la suite, nous présentons
+    ces différentes méthodes.
 
     ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
     toutes les séquences ordonnées de $n$ mots adjacents. La sélection des
@@ -125,11 +126,9 @@
     fiable que celle des n-grammes. \newcite{hulth2003keywordextraction} le
     montre dans ses expériences consacrées à l'apport de connaissances
     linguistiques pour l'extraction automatique de termes-clés. Cependant, ses
-    propos sont nuancés par un autre de ses constats~: l'usage de la catégorie
-    grammaticale des mots des n-grammes dans une méthode supervisée d'extraction
-    automatique de termes-clés permet d'éliminer les n-grammes grammaticalement
-    incorrects et induit de meilleures performances qu'avec les \textit{chunks}
-    nominaux.
+    propos sont nuancés par un autre de ses constats~: tirer profit de la
+    catégorie grammaticale des mots des n-grammes permet d'obtenir de meilleures
+    performances qu'avec les \textit{chunks} nominaux.
 
     \begin{example}
       \TODO{NP-\textit{chunks} à partir d'une phrase de l'exemple fil rouge}
@@ -158,13 +157,13 @@
     ~\\En plus des trois précédentes méthodes de sélection de termes-clés
     candidats, d'autres chercheurs comme
     \newcite{huang2006semanticnetworkstructureanalysis} proposent un filtrage
-    des candidats sélectionnés.
-    Ils filtrent tout d'abord les candidats peu fréquents dans le document, puis
-    mettent ensuite en compétition ceux ayant un mot en commun. Pour chaque
-    groupe de candidats mis en compétitions, un seul candidat peut être retenu
-    comme terme-clé candidat, celui le plus fréquent. Un candidat peut être en
-    compétition dans différents groupes. Dans ce cas, il doit être le
-    \og{}vainqueur\fg{} de chaque groupe pour être retenu.
+    des candidats sélectionnés. Ils filtrent tout d'abord les candidats peu
+    fréquents dans le document, puis suppriment les candidats redondants avec
+    d'autres en les mettant en compétition. Pour chaque groupe de candidats
+    redondants, un seul candidat peut être retenu comme terme-clé candidat,
+    celui le plus fréquent. Un candidat peut être en compétition dans différents
+    groupes. Dans ce cas, il doit être le \og{}vainqueur\fg{} de chaque groupe
+    pour être retenu.
 
     Le travail de \newcite{huang2006semanticnetworkstructureanalysis}, sur la
     sélection des termes-clés candidats, fait partie d'un système d'extraction
@@ -185,39 +184,24 @@
     $k$ mots les plus fréquents du document, excluant les mots d'un
     antidictionnaire, et les définissent comme mots-clés du document. Ensuite,
     chaque occurrence de chaque mot-clé sert à définir au plus sept candidats
-    préliminaires~:
-    \begin{enumerate*}
-      \item{le mot-clé lui-même,}
-      \item{un bi-gramme commençant par le mot-clé,}
-      \item{un bi-gramme se terminant par le mot-clé,}
-      \item{un tri-gramme commençant par le mot-clé,}
-      \item{un tri-gramme se terminant par le mot-clé,}
-      \item{un quadri-gramme commençant par le mot-clé et}
-      \item{un quadri-gramme se terminant par le mot-clé\footnote{La taille
-            maximale de 4 pour les n-grammes est fixée par les auteurs après
-            une analyse statistique de leurs données. Cette taille peut diverger
-            selon les données, auquel cas les candidats préliminaires
-            sélectionnés pour chaque occurrence d'un mots-clés peut excéder
-            sept.}.}
-    \end{enumerate*}
+    préliminaires~: le mot-clé lui-même et les 2-, 3- et 4-grammes commençant ou
+    se terminant par le mot-clé\footnote{La taille maximale de 4 pour les
+    n-grammes est fixée par les auteurs après une analyse statistique de leurs
+    données. Cette taille peut diverger selon les données, auquel cas les
+    candidats préliminaires sélectionnés pour chaque occurrence d'un mots-clés
+    peut excéder sept.}.
 
     \begin{example}
       \TODO{Un 1-gramme, deux 2-grammes, deux 3-grammes et deux 4-grammes à partir d'une phrase de l'exemple fil rouge}
     \end{example}
 
     Dans un second temps, \newcite{you2009refinedcandidateset} analysent chaque
-    7-uplets de $\{1..4\}$-grammes et retirent les candidats préliminaires jugés
-    incomplets, non porteurs de sens. À la fin de cette étape, deux candidats
-    préliminaires peuvent être sélectionnés à partir de chaque 7-uplet~: l'un
-    commençant par le mot-clé et l'autre se terminant par le mot-clé. Pour cela,
-    les auteurs utilisent des arbres. Un mot-clé est la racine de
-    chaque arbre et les fils de chaque noeuds sont leurs mots qui les précèdent
-    ou les succèdent dans les candidats préliminaires. Un mot apparaissant moins
-    de deux fois est un
-    n\oe{}ud feuille. Pour sélectionner les termes-clés candidats, les auteurs
-    parcourent ensuite l'arbre en profondeur et ne retiennent que les
-    séquences constituées uniquement de n\oe{}uds non feuilles et de mots ne
-    faisant pas partie d'un antidictionnaire.
+    7-uplets de $\{1..4\}$-grammes et choisissent les candidats porteurs de sens
+    en limitant les redondances. Pour chaque 7-uplet, ils construisent un arbre
+    ayant pour racine le mot-clé du 7-uplet et dont chaque n\oe{}ud fils est un
+    mot précédant ou suivant le mot du n\oe{}ud parent, puis ils le parcourent
+    en profondeur et utilisent une heuristique pour ne choisir que deux
+    candidats.
 
     \TODO{Exemple de graphe obtenu à partir de l'exemple précédent (faire
     référence à ce graphe dans le paragraphe précédent)}
@@ -229,8 +213,7 @@
     significativement les performances des méthodes d'indexation par
     termes-clés.
 
-    ~\\Pour contribuer à la sélection des termes-clés candidats,
-    \newcite{newman2012bayesiantextsegmentation} s'intéressent aux travaux
+    ~\\\newcite{newman2012bayesiantextsegmentation} s'intéressent aux travaux
     effectués dans le domaine de la segmentation des phrases en mots et à
     l'adaptation de l'un d'eux~\cite{goldwater2009bayesianwordsegmentation} pour
     la détection des frontières séparant les mots et les expressions dans la
@@ -250,9 +233,10 @@
   \section{Extraction automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_extraction}
     L'extraction automatique de termes-clés est la tâche la plus utilisée pour
-    faire de l'indexation par termes-clés. Les méthodes d'extraction automatique
-    de termes-clés effectuent principalement un ordonnancement ou une
-    classification des termes-clés candidats, puis choisissent les $k$
+    faire de l'indexation par termes-clés. Elle ne nécessite pas de vocabulaire
+    contrôlé et requiert donc moins d'effort humain. Les méthodes d'extraction
+    automatique de termes-clés effectuent principalement un ordonnancement ou
+    une classification des termes-clés candidats, puis choisissent les $k$
     meilleurs. L'ordonnancement est principalement réalisé selon une approche
     non supervisée, tandis que la classification est réalisée selon une approche
     supervisée. Contrairement à l'approche non supervisée, l'approche supervisée
@@ -301,13 +285,13 @@
         Dans \textsc{Tf-Idf}, $\textsc{Tf}$ (\textit{Term Frequency}) représente
         le nombre d'occurrences d'une unité textuelle \textit{ut} dans le
         document, $\textsc{Df}$ (\textit{Document Frequency}) représente le
-        nombre de documents du corpus de référence dans lequel elle apparaît et
-        $N$ est le nombre total de documents du corpus de référence. Plus le
+        nombre de documents du corpus de référence dans lesquels elle apparaît
+        et $N$ est le nombre total de documents du corpus de référence. Plus le
         score \textsc{Tf-Idf} d'une unité textuelle est élevé, plus celle-ci est
-        importante dans le document. Dans Likey, le rang d'une unité textuelle
-        dans le document et dans le corpus est obtenu à partir de son nombre
-        d'occurrences, respectivement dans le document et dans le corpus. Plus
-        le rapport entre ces deux rangs est faible, plus l'unité textuelle
+        importante vis-à-vis du document. Dans Likey, le rang d'une unité
+        textuelle dans le document et dans le corpus est obtenu à partir de son
+        nombre d'occurrences, respectivement dans le document et dans le corpus.
+        Plus le rapport entre ces deux rangs est faible, plus l'unité textuelle
         évaluée est importante dans le document.
 
         La granularité de l'unité textuelle peut être définie au mot ou au
@@ -347,13 +331,13 @@
         fréquent. L'informativité est ici assimilée à sa taille, en nombre de
         mots~: plus il contient de mots, plus il est informatif. Pour éviter les
         répétitions, jugées inesthétiques, de tels candidats informatifs sont
-        parfois abrégés et leur fréquence réel ne reflète pas leur usage. C'est
-        pourquoi \newcite{barker2000nounphrasehead} proposent d'utiliser la
-        fréquence de la tête des candidats pour décider s'ils doivent être
+        parfois abrégés et leur fréquence réelle ne reflète pas leur usage.
+        C'est pourquoi \newcite{barker2000nounphrasehead} proposent d'utiliser
+        la fréquence de la tête des candidats pour décider s'ils doivent être
         extraits ou non. Leur méthode fonctionne en quatre étapes. Ils extraient
         tout d'abord les $n$ noms les plus fréquents, ils gardent uniquement
         les groupes nominaux contenant un de ces noms, puis les ordonnent selon
-        le produit de leur taille et de leur fréquence réel. Enfin, ils
+        le produit de leur taille et de leur fréquence réelle. Enfin, ils
         extraient les $k$ groupes nominaux de meilleur rang.
 
         ~\\\newcite{tomokiyo2003languagemodel} tentent aussi de vérifier
@@ -376,16 +360,16 @@
         anglais, etc.). De ce fait, plus la probabilité d'un terme-clé candidat
         selon le modèle n-gramme du document diverge positivement par rapport à
         sa probabilité selon le modèle de référence, plus il respecte la
-        propriété d'informativité (cf. équation~\ref{math:informativeness}), et
-        plus la probabilité d'un terme-clé candidat selon le modèle n-gramme du
-        document diverge positivement par rapport à sa probabilité selon le
-        modèle uni-gramme du document, plus il respecte la propriété de
-        grammaticalité (cf. équation~\ref{math:phraseness}). La divergence est
-        exprimée en terme de coût avec la divergence Kullback-Leibler (cf.
-        équation \ref{math:kullbackleibler}). Les termes-clés candidats sont
-        ordonnés dans l'ordre décroissant de la somme des scores d'informativité
-        et de grammaticalité, puis les $k$ termes-clés candidats de meilleur
-        rang sont extraits comme termes-clés.
+        propriété d'informativité (cf. équation~\ref{math:informativeness}). De
+        manière similaire, plus la probabilité d'un terme-clé candidat selon le
+        modèle n-gramme du document diverge positivement par rapport à sa
+        probabilité selon le modèle uni-gramme du document, plus il respecte la
+        propriété de grammaticalité (cf. équation~\ref{math:phraseness}). La
+        divergence est exprimée en terme de coût avec la divergence
+        Kullback-Leibler (cf. équation \ref{math:kullbackleibler}). Les
+        termes-clés candidats sont ordonnés dans l'ordre décroissant de la somme
+        des scores d'informativité et de grammaticalité, puis les $k$
+        termes-clés candidats de meilleur rang sont extraits comme termes-clés.
         \begin{align}
           \text{informativité}(\text{\textit{candidat}}) &= \textsc{Kl}_{\text{\textit{candidat}}}(\textsc{Ml}_{\text{document}}^{N} \| \textsc{Ml}_{\text{référence}}^{N}) \label{math:informativeness}\\
           \notag\\
@@ -432,7 +416,7 @@
         La couverture de chaque sujet d'une solution est calculée avec le modèle
         \textit{Latent Dirichlet Allocation} (\textsc{Lda}) \cite{blei2003lda}
         qui donne la probabilité d'occurrence d'un mot sachant un sujet.
-        Celle-ci ne doit pas être inférieur à un certain seuil pour qu'une
+        Celle-ci ne doit pas être inférieure à un certain seuil pour qu'une
         solution soit retenue. La contrainte de cohérence est calculée entre
         chaque paire de mots d'une solution. Si deux mots cooccurrent plus que
         selon un seuil donné, alors ceux-ci peuvent être présents dans la même
@@ -519,7 +503,7 @@
         Soit $G = (N, A)$, le graphe non orienté de cooccurrences de mots où les
         n\oe{}uds $N$ représentent les mots du documents, et où les arêtes $A$
         les connectent lorsque les mots cooccurrent dans le document.
-        L'importance de chaque mot $n_i$ est obtenue récursivement selon la
+        L'importance de chaque mot $n_i$ est obtenue itérativement selon la
         formule suivante~:
         \begin{align}
           S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{S(n_j)}{|A(n_j)|} \label{math:textrank}

@@ -24,10 +24,12 @@
 \usepackage{amsthm}           % theorem definition and styling
 \usepackage{epigraph}         % chapter heading quote
 \usepackage[inline]{enumitem} %
+\usepackage{ragged2e}         % \justifying
 
 \usetikzlibrary{positioning, shapes, arrows, patterns}
 
 \setlength\epigraphwidth{10cm}
+\setlength\epigraphrule{0cm}
 
 \RequirePackage[bookmarks,
                 colorlinks,
@@ -46,7 +48,16 @@
 \geometry{inner=3.5cm, outer=3.5cm, top=4cm, bottom=3.5cm} % CUSTOM
 %\geometry{inner=1.5cm, outer=1.5cm, top=2cm, bottom=2cm}
 
+\setlist[enumerate]{itemsep=0mm}  % minimum spacing between items (it is not
+\setlist[itemize]{itemsep=0mm}    % same as \setlist[...]{noitemsep}
+\renewcommand{\labelitemi}{--}
+\renewcommand{\labelitemii}{-}
+\renewcommand{\labelitemiii}{-}
+\renewcommand{\labelitemiv}{-}
+
 %-------------------------------------------------------------------------------
+
+\newcommand\chaptercite[2]{\epigraph{\justifying{\Large``}\textit{#1}{\Large''}}{--- #2}}
 
 \renewcommand\cite[2][]{\ifthenelse{\equal{#1}{}}{\citep{#2}}{\citep[#1]{#2}}}
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citet{#2}}{\citet[#1]{#2}}}
@@ -64,7 +75,7 @@
 \titre{Indexation automatique par termes-clés\\de documents en domaines de spécialités}
 %\soustitre{}
 
-\title{TODO}
+\title{Automatic Domain-Specific Keyphrase Annotation}
 %\subtitle{}
 
 \author{M.}{Adrien}{Bougouin}
@@ -134,15 +145,15 @@
 %  \input{input/acknowledgment.tex}
 
   \tableofcontents
-%  \listoftables
-%  \listoffigures
+  \listoftables
+  \listoffigures
 
-%  \input{input/introduction.tex}
+  \input{input/introduction.tex}
   \input{input/state_of_the_art.tex}
-%  \input{input/resources.tex}
-%  \input{input/automatic_keyphrase_annotation.tex}
-%  \input{input/automatic_keyphrase_evaluation.tex}
-%  \input{input/conclusion.tex}
+  \input{input/resources.tex}
+  \input{input/automatic_keyphrase_annotation.tex}
+  \input{input/automatic_keyphrase_evaluation.tex}
+  \input{input/conclusion.tex}
 
   \backmatter
 
