@@ -1,10 +1,8 @@
 \chapter{Contributions à l'indexation automatique par termes-clés}
 \chaptermark{Contribution à l'indexation par termes-clés}
 \label{chap:main-automatic_keyphrase_annotation}
-  \chaptercite{
-    We analysed [\dots] the upper-bound performance for [the keyphrase
-    extraction] task, and demonstrated that there is still room for improvement
-    over the task.
+  \smallchaptercite{
+    [\dots] there is still room for improvement over the task.
   }{
     \newcite{kim2010semeval}
   }
@@ -558,7 +556,7 @@
               \end{axis}
             \end{tikzpicture}
           }
-          \caption{Résultats de l'extraction de dix termes-clés avec TopicRank, en
+          \caption[]{Résultats de l'extraction de dix termes-clés avec TopicRank, en
                    fonction de la stratégie de regroupement et de la valeur du seuil
                    de similarité $\zeta$, sur les ensembles d'entraînement de
                    SemEval et de DEFT
@@ -812,11 +810,13 @@
             \textbf{Borne haute} & \textbf{31,6} & \textbf{35,3} & \textbf{33,0} & \textbf{33,8} & \textbf{23,3} & \textbf{27,3} & \textbf{41,7} & \textbf{44,1} & \textbf{42,2} & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}\\
             \hline
           \end{tabular}
-          \caption{Résultats de l'extraction de dix termes-clés avec TF-IDF,
-                   TextRank, SingleRank et TopicRank. $\dagger$ indique une
-                   amélioration significative de TopicRank vis-à-vis de TextRank
-                   et SingleRank, à 0,001 pour le t-test de Student.
-                   \label{tab:resultats_globaux}}
+          \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
+                   TextRank, SingleRank et TopicRank]{
+            Résultats de l'extraction de dix termes-clés avec TF-IDF, TextRank,
+            SingleRank et TopicRank. $\dagger$ indique une amélioration
+            significative de TopicRank vis-à-vis de TextRank et SingleRank, à
+            0,001 pour le t-test de Student.
+            \label{tab:resultats_globaux}}
         \end{table}
 
         \begin{table}
@@ -834,11 +834,15 @@
             TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
             \hline
           \end{tabular}
-          \caption{Résultats de l'extraction de dix termes-clés avec chacune des
+          \caption[Résultats de l'extraction de dix termes-clés avec chacune des
                    contributions de TopicRank appliquées séparément à
-                   SingleRank. $\dagger$ indique une amélioration significative
-                   vis-à-vis de SingleRank, à 0,001 pour le t-test de Student.
-                   \label{tab:evaluation_individuelle_des_ameliorations}}
+                   SingleRank]{
+            Résultats de l'extraction de dix termes-clés avec chacune des
+            contributions de TopicRank appliquées séparément à SingleRank.
+            $\dagger$ indique une amélioration significative vis-à-vis de
+            SingleRank, à 0,001 pour le t-test de Student.
+            \label{tab:evaluation_individuelle_des_ameliorations}
+          }
         \end{table}
 
         Dans le but de confirmer la pertinence de tous les apports de TopicRank,

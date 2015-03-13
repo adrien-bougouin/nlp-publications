@@ -37,18 +37,20 @@
             alors une méthode qui tisse des liens sémantiques entre les
             termes-clés candidats est pénalisée.}
     \end{itemize}
+    \TODO{Le type d'annotation est un autre facteur\dots}
+    \TODO{La conversion en plein text est un autre facteur\dots}
 
-    Dans nos travaux de recherche, nous utilisons six collections de données~:
-    Termith, \textsc{Deft}, Wikinews, Inspec, SemEval et \textsc{Duc}. En accord
-    avec la vision de \newcite{hassan2010conundrums}, celles-ci couvrent deux
-    langues (français et anglais) trois natures de documents (résumé, articles
+    Dans nos travaux de recherche, nous utilisons cinq collections de données~:
+    Termith, \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. En accord avec la
+    vision de \newcite{hassan2010conundrums}, celles-ci couvrent deux langues
+    (français et anglais) trois natures de documents (résumé, articles
     scientifiques et articles journalistiques) et un large évantail de domaines
     (sciences humaines et sociales, informatique, météorologie, catastrophes
     naturelles, etc.). Dans la suite, nous présentons ces six resources.
 
   %-----------------------------------------------------------------------------
 
-  \section{Ressource Termith}
+  \section{Termith}
   \label{sec:main-data_description-termith_data}
     \TODO{penser a parler des referentiels}
     %% Présentation des collections 
@@ -111,54 +113,91 @@
     pas utiliser que le contenu du résumé des notices pour extraire les
     termes-clés.
 
-    \begin{table}
+    \begin{table}[!h]
       \centering
-      \begin{tabular}{@{~}r|c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
-        \toprule
-        & & \textbf{Sciences} & & &\\ \textbf{Statistique} & \textbf{Archéologie} & \textbf{de} & \textbf{Linguistique} & \textbf{Psychologie} & \textbf{Chimie}\\ & & \textbf{l'Information} & & &\\
-        \hline
-        Documents & 718 & 706 & 715 & 720 & 782\\
-        Mots/doc. & 219,1 & 119,7 & 156,7 & 185,7 & 105,2\\
-        Termes-clés/doc. & 16,6 & 8,5 & 8,7 & 11,6 & 12,8\\
-        Mots/terme-clé & 1,3 & 1,7 & 1,8 & 1,6 & 2,2\\
-        Rappel max. & 62,9~\% & 32,4~\% & 38,8~\% & 27,1~\% & 23,7~\%\\
-        \bottomrule
-      \end{tabular}
-      \caption{Caractéristiques des cinq corpus disciplinaires. La ligne
-               \textit{Rappel max.} indique le pourcentage de termes-clés
-               pouvant être extraits à partir du titre ou du résumé des notices.
-               Cela donne un aperçu des performances maximales que peuvent
-               atteindre des méthodes tenant uniquement compte du contenu des
-               documents traités.
-               \label{tab:statistiques_des_corpus}}
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          Linguistique & & & & & & &\\
+          \hfill{}Appr. & Français & Résumé & 515 & 160,5 & Professionnel & 8,6 & 60,6~\% & 1,7\\
+           \hfill{}Test & \ditto & \ditto & 200 & 147,0 & \ditto & 8,9 & 62,8~\% & 1,8\\
+          \hline
+          Sciences de l'infor- & & & & & & &\\
+          mation\hfill{}Appr. & Français & Résumé &  & & & &\\
+          \hfill{}Test & \ditto & \ditto &  & & & &\\
+          \hline
+          Psychologie & & & & & & &\\
+          \hfill{}Appr. & Français & Résumé &  & & & &\\
+          \hfill{}Test & \ditto & \ditto &  & & & &\\
+          \hline
+          Archéologie & & & & & & &\\
+          \hfill{}Appr. & Français & Résumé &  & & & &\\
+          \hfill{}Test & \ditto & \ditto &  & & & &\\
+          \hline
+          Chimie & & & & & & &\\
+          \hfill{}Appr. & Français & Résumé &  & & & &\\
+          \hfill{}Test & \ditto & \ditto &  & & & &\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus Termith
+               \label{tab:termith}}
     \end{table}
 
+% FIXME linguistique pas a jour
+%    \begin{table}
+%      \centering
+%      \begin{tabular}{@{~}r|c@{~~}c@{~~}c@{~~}c@{~~}c@{~}}
+%        \toprule
+%        & & \textbf{Sciences} & & &\\ \textbf{Statistique} & \textbf{Archéologie} & \textbf{de} & \textbf{Linguistique} & \textbf{Psychologie} & \textbf{Chimie}\\ & & \textbf{l'Information} & & &\\
+%        \hline
+%        Documents & 718 & 706 & 715 & 720 & 782\\
+%        Mots/doc. & 219,1 & 119,7 & 156,7 & 185,7 & 105,2\\
+%        Termes-clés/doc. & 16,6 & 8,5 & 8,7 & 11,6 & 12,8\\
+%        Mots/terme-clé & 1,3 & 1,7 & 1,8 & 1,6 & 2,2\\
+%        Rappel max. & 62,9~\% & 32,4~\% & 38,8~\% & 27,1~\% & 23,7~\%\\
+%        \bottomrule
+%      \end{tabular}
+%      \caption{Caractéristiques des cinq corpus disciplinaires. La ligne
+%               \textit{Rappel max.} indique le pourcentage de termes-clés
+%               pouvant être extraits à partir du titre ou du résumé des notices.
+%               Cela donne un aperçu des performances maximales que peuvent
+%               atteindre des méthodes tenant uniquement compte du contenu des
+%               documents traités.
+%               \label{tab:statistiques_des_corpus}}
+%    \end{table}
+
     \begin{figure}
-      \framebox[\linewidth]{ % archeologie_09-0054907
-        \parbox{.99\linewidth}{\small
-          \textbf{Variabilité du Gravettien de Kostienki (bassin moyen du Don)
-          et des ter-}
-          ~\hfill\underline{\textit{Archéologie}}\\
-          \textbf{ritoires associés}\\
-
-          Dans la région de Kostienki-Borschevo, on observe l'expression, à ce
-          jour, la plus orientale du modèle européen de l'évolution du
-          Paléolithique supérieur. Elle est différente à la fois du modèle
-          Sibérien et du modèle de l'Asie centrale. Comme ailleurs en Europe, le
-          Gravettien apparaît à Kostienki vers 28 ka (Kostienki 8 /II/). Par la
-          suite, entre 24-20 ka, les techno-complexes gravettiens sont
-          représentés au moins par quatre faciès dont deux, ceux de Kostienki
-          21/III/ et Kostienki 4 /II/, ressemblent au Gravettien occidental et
-          deux autres, Kostienki-Avdeevo et Kostienki 11/II/, sont des faciès
-          propres à l'Europe de l'Est, sans analogie à l'Ouest.\\
-
-          \textbf{Termes-clés~:} \underline{Europe}, Kostienko,
-          \underline{Borschevo}, variation, typologie, industrie osseuse,
-          industrie lithique, Europe centrale, \underline{Avdeevo},
-          \underline{Paléolithique supérieur}, \underline{Gravettien}.
-        }
-      }
-      ~\\~\\
+%      \framebox[\linewidth]{ % archeologie_09-0054907
+%        \parbox{.99\linewidth}{\small
+%          \textbf{Variabilité du Gravettien de Kostienki (bassin moyen du Don)
+%          et des ter-}
+%          ~\hfill\underline{\textit{Archéologie}}\\
+%          \textbf{ritoires associés}\\
+%
+%          Dans la région de Kostienki-Borschevo, on observe l'expression, à ce
+%          jour, la plus orientale du modèle européen de l'évolution du
+%          Paléolithique supérieur. Elle est différente à la fois du modèle
+%          Sibérien et du modèle de l'Asie centrale. Comme ailleurs en Europe, le
+%          Gravettien apparaît à Kostienki vers 28 ka (Kostienki 8 /II/). Par la
+%          suite, entre 24-20 ka, les techno-complexes gravettiens sont
+%          représentés au moins par quatre faciès dont deux, ceux de Kostienki
+%          21/III/ et Kostienki 4 /II/, ressemblent au Gravettien occidental et
+%          deux autres, Kostienki-Avdeevo et Kostienki 11/II/, sont des faciès
+%          propres à l'Europe de l'Est, sans analogie à l'Ouest.\\
+%
+%          \textbf{Termes-clés~:} \underline{Europe}, Kostienko,
+%          \underline{Borschevo}, variation, typologie, industrie osseuse,
+%          industrie lithique, Europe centrale, \underline{Avdeevo},
+%          \underline{Paléolithique supérieur}, \underline{Gravettien}.
+%        }
+%      }
+%      ~\\~\\
       \framebox[\linewidth]{ % linguistique_08-0265302
         \parbox{.99\linewidth}{\small
           \textbf{Termes techniques et marqueurs d'argumentation : pour
@@ -182,94 +221,362 @@
           développement de cette rhétorique. Les auteurs s'appuient sur deux
           articles dans le domaine de la microbiologie.\\
 
-          \textbf{Termes-clés~:} Langue scientifique,
-          \underline{argumentation},  \underline{rhétorique},  \underline{langue
-          de spécialité}, \underline{enseignement des langues}, linguistique
-          appliquée,  \underline{discours scientifique},  \underline{article de
-          recherche}. 
+          \textbf{Termes-clés~:} Langue scientifique, \underline{argumentation},
+          \underline{rhétorique}, \underline{langue de spécialité},
+          \underline{enseignement des langues}, linguistique appliquée,
+          \underline{discours scientifique}, \underline{article de recherche}. 
         }
       }
-      ~\\~\\
-      \framebox[\linewidth]{ % chimie_90-0137940
-        \parbox{.99\linewidth}{\small
-          \textbf{Etude d'un condensat acide
-          isocyanurique-urée-formaldéhyde}
-          \hfill\underline{\textit{Chimie}}\\
-
-          La synthèse d'un condensat acide isocyanurique-urée-formaldéhyde
-          utilisant la pyridine en tant que solvant a été effectuée par réaction
-          sonochimique.\\
-
-          \textbf{Termes-clés~:} \underline{Réaction sonochimique}, hétérocycle
-          azote, cycle 6 chaînons, ether.
-        }
+%      ~\\~\\
+%      \framebox[\linewidth]{ % chimie_90-0137940
+%        \parbox{.99\linewidth}{\small
+%          \textbf{Etude d'un condensat acide
+%          isocyanurique-urée-formaldéhyde}
+%          \hfill\underline{\textit{Chimie}}\\
+%
+%          La synthèse d'un condensat acide isocyanurique-urée-formaldéhyde
+%          utilisant la pyridine en tant que solvant a été effectuée par réaction
+%          sonochimique.\\
+%
+%          \textbf{Termes-clés~:} \underline{Réaction sonochimique}, hétérocycle
+%          azote, cycle 6 chaînons, ether.
+%        }
+%      }
+      \caption[Exemple de notice Inist]{
+        Exemple de notice Inist. Les termes-clés soulignés sont ceux qui peuvent
+        être extraits.
+        \label{fig:exemple_notice_inist}
       }
-      \caption{Exemple de notices Inist. Les termes-clés soulignés sont ceux qui
-               peuvent être extraits depuis le titre et le résumé des notices.
-               \label{fig:exemple_notice_inist}}
     \end{figure}
 
   %-----------------------------------------------------------------------------
 
-  \section{Ressource \textsc{Deft}}
+  \section[\textsc{Deft}]{\textsc{Deft}~\textnormal{\large\cite{paroubek2012deft}}}
   \label{sec:main-data_description-deft_data}
-    \textbf{\textsc{Deft}}~\citep{paroubek2012deft} est la collection fournie lors de la
-    campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique de
-    termes-clés. Celle-ci contient 234 documents en français issus de quatre
-    revues de Sciences Humaines et Sociales. La collection est divisée en deux
-    sous-ensembles, un ensemble d'entraînement contenant 141 documents et un
-    ensemble de test contenant 93 documents.  Seuls les termes-clés des auteurs
-    sont disponibles pour cette collection.
+    \textsc{Deft} est une campagne d'évaluation francophone qui chaque année
+    s'intéresse à un domaine particulier du \textsc{Tal}. Le corpus éponyme que
+    nous utilisons dans nos travaux est la collection de documents construite
+    dans le cadre de l'édition 2012 de \textsc{Deft}, édition axée sur
+    l'extraction de termes-clés, d'une part, et sur l'assignement de
+    termes-clés, d'une autre part. Le corpus \textsc{Deft} est composé de 234
+    articles français publiés entre 2003 et 2008 dans quatre revues des Sciences
+    Humaines et Sociales~: \textit{Anthropologie et Sociétés},
+    \textit{\textsc{Meta}: Research in Hermeneutics, Phenomenology, and
+    Practical Philosophy}, \textit{Revue des Sciences de l'Éducation} et
+    \textit{\textsc{Ttr}~: traduction, terminologie, rédaction}. Il s'agit du
+    corpus utilisé pour la tâche d'extraction de termes-clés.
+    
+    Le tableau~\ref{tab:deft} présente les différentes caractéristiques du
+    corpus \textsc{Deft}. Celui-ci est divisé en deux sous-ensembles, un
+    ensemble d'apprentissage (appr.) composé de 141 articles et un ensemble de
+    test contenant 93 articles. \TODO{revenir sur les données du tableau + liens
+    avec les facteurs énoncés précédemments} \TODO{répartition équitable}
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Appr. & Français & Scientifique & 141 & 7~276,7 & Auteur & 5,4 & 18,2~\% & 1,7\\
+          \hfill{}Test & \ditto & \ditto & ~~93 & 6~839,4 & \ditto & 5,2 & 21,1~\% & 1,6\\
+          \bottomrule
+        \end{tabular}
+      }
+      \caption{Corpus \textsc{Deft}
+               \label{tab:deft}}
+    \end{table}
+
+    Le corpus \textsc{Deft} est ausssi un corpus au contenu bruité, inparfait.
+    Les articles, originalement au format \textsc{Pdf} (\textit{Portable
+    Document Format}), sont convertis au format \textsc{Text}. Cependant, la
+    conversion n'est pas parfaite~: des caractères spéciaux ne sont pas reconnus
+    et la segmentation en paragraphes a parfois lieu en milieu de phrase. Les
+    figures~\ref{fig:example_deft_ko}~et~\ref{fig:example_deft_ok} montrent deux
+    exemples d'un document bruité et d'un document non bruité, respectivement.
+    \begin{figure}
+      \framebox[\linewidth]{ % meta_2005_019828ar
+        \parbox{.99\linewidth}{\small
+
+          ~~~~Considérée comme une \og{}problem solving activity\fg{} (Guilford
+          1975), la créativité, démystifiée, fait partie du quotidien du
+          traducteur. Victimes d'idées préconçues et erronées sur la notion de
+          \og{}fidélité\fg{}, beaucoup de traducteurs sont insécurisés face à
+          leur créativité. Ils peuvent alors, comme en témoigne un de nos
+          exemples, manquer de courage et jouer la carte de la stratégie du
+          \og{}playing it safe\fg{}, ou bien, lorsque, comme dans un autre cas,
+          leur statut social et professionnel leur donne une certaine assurance,
+          garder leurs solutions créatives et revendiquer leur
+          \og{}trahison\fg{}, toutefois sans pour autant essayer de trouver des
+          légitimations à leurs solutions. Légitimations qui restent la plupart
+          du temps au stade de \og{}mécanismes de justification\fg{} ponctuels.
+          Une analyse des besoins nous permet de montrer comment ces
+          justifications hétéroclites et éparses peuvent venir s'intégrer dans
+          un édifice théorique cohérent, s'appuyant notamment sur des fondements
+          cognitivistes, susceptible de donner au traducteur le courage de sa
+          créativité.
+
+          ~~~~Pour pouvoir déterminer l.utilité d.un quelconque apport théorique
+          à la pratique du traducteur, il
+
+          ~~~~faut commencer par examiner s.il existe un besoin en la matière et
+          quelle en est la nature. Nous le
+
+          ~~~~ferons à l.aide de deux corpus qui se complètent. Le premier est
+          la transcription du débat mené par
+
+          ~~~~un groupe de quatre
+          \og{}\&amp;\#x00A0;semi-professionnels\&amp;\#x00A0;\fg{} de
+          l.Institut de traducteurs et interprètes de
+          
+          ~~~~[\dots]\\
+
+          \textbf{Termes-clés~:} \underline{créativité}, didactique de la
+          traduction, \underline{cognitivisme}, analyse conversationnelle,
+          théorie de la traduction. 
+        }
+      }
+      \caption[Exemple de document de \textsc{Deft}]{
+        Exemple de document de \textsc{Deft}. Les termes-clés soulignés sont
+        ceux qui peuvent être extraits.
+        \label{fig:example_deft_ko}
+      }
+    \end{figure}
+    \begin{figure}
+      \framebox[\linewidth]{ % as_2004_008571ar
+        \parbox{.99\linewidth}{\small
+          ~~~~Bien qu'un grand nombre de travaux ethnographiques novateurs aient
+          été suscités par l'\og{}espace interculturel\fg{} que se partagent
+          Australiens autochtones et non autochtones, notamment dans le domaine
+          des arts visuels, les chercheurs ont accordé moins d'attention aux
+          représentations rituelles publiques auxquelles les Aborigènes ont
+          donné un nouvel essor en tant qu'instruments politiques. On a encore
+          moins écrit sur la (re)construction interne de l'identité sociale
+          autochtone et sa projection dans la production de rituels publics sur
+          la scène néocoloniale australienne contemporaine. Tout en effectuant
+          une remise à jour des recherches précédentes sur la question, le
+          présent article montre comment, au cours des dix dernières années, les
+          leaders rituelles aînées d'une petite localité d'Australie centrale
+          ont inauguré une phase entièrement nouvelle de représentations
+          rituelles - une phase qui diffère substantiellement des formes
+          antérieures d'expérience cérémonielle, qui étaient étroitement liées à
+          la négociation et à l'échange des matériaux rituels.
+
+          ~~~~Pour M. Nampijinpa L.
+
+          ~~~~Depuis que l'anthropologie \og{}a découvert\fg{} la religion
+          australienne – à partir du milieu du XIXe siècle avec les ouvrages de
+          Spencer et Gillen dont les travaux de terrain ont alimenté les
+          recherches de Durkheim, ethnologue en chambre, et de ses héritiers -
+          on s'est beaucoup intéressé aux manifestations rituelles de la
+          cosmologie aborigène connue sous le nom de \og{}Dreaming\fg{},
+          c'est-à-dire \og{}Rêve\fg{} ou \og{}Récit du Rêve\fg{}. Et bien que la
+          fréquence de ce type de représentations cérémonielles ait diminué chez
+          les Aborigènes, cette diminution quantitative n'affecte en rien les
+          résultats analytiques issus de l'étude des usages contemporains du
+          champ rituel. De fait, les modifications fonctionnelles apportées aux
+          cérémonies aborigènes, en raison de l'évolution spectaculaire de leurs
+          objectifs et de leur structure, offrent au chercheur une compréhension
+          inédite de la construction dynamique de l'identité sociale autochtone
+          dans un contexte où la pression coloniale perdure.
+          
+          ~~~~[\dots]\\
+
+          \textbf{Termes-clés~:} \underline{dussart}, \underline{aborigènes},
+          \underline{femmes}, \underline{identité}, \underline{rituel},
+          \underline{warlpiri}, \underline{australie}.
+        }
+      }
+      \caption[Autre exemple de document de \textsc{Deft}]{
+        Autre exemple de document de \textsc{Deft}. Les termes-clés soulignés
+        sont ceux qui peuvent être extraits.
+        \label{fig:example_deft_ok}
+      }
+    \end{figure}
+
+    \newcite{paroubek2012deft} établissent un point de comparaison à l'aide
+    d'étudiants de master en ingénierie multilingue. Le
+    tableau~\ref{tab:deft_human_tests} montre les résultats de l'indexation par
+    termes-clés obtenus pour chacun de ces étudiants. Ceux-ci ont jugé la tâche
+    difficile, comme en témoigne les faibles résultats obtenus (f-mesure moyenne
+    de 21,6~\%). L'indexation par terme-clé est subjective et ils éprouvent des
+    difficultés dans le cas ou une expression dans le texte est reformulée. Ils
+    donnent l'exemple de \og{}traduction française et allemande\fg{} qui est
+    représenté par le terme-clé \og{}traduction allemande et traduction
+    française\fg{}. Ils notent aussi la présence de termes-clés thématiquement
+    redondants et soulignent la contre-intuitivité de ce cas de figure. Ils
+    donnent l'exemple des termes-clés \og{}interprète\fg{} et
+    \og{}interprétation\fg{}. Ces conclusions ne sont pas encourageantes pour
+    l'indexation automatique par termes-clés. Il est possible que les problèmes
+    rencontrés lors des tests humains soient dus à la nature des annotations. La
+    redondance qui semble contre-intuitive en est un exemple. Nous pouvons en
+    effet supposer qu'un auteur à recours à ce genre de procédé pour être
+    certains d'attirer tout lecteur potentiel, par exemple l'un effectuant une
+    recherche par mot-clé avec \og{}interprète\fg{} et l'autre avec
+    \og{}interprétation\fg{}.
+    \begin{table}[!h]
+      \centering
+      \begin{tabular}{l|ccccccc}
+        \toprule
+          \textbf{Mesure} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{P4} & \textbf{P5} & \textbf{P6} & \textbf{P7}\\
+        \hline
+        Précision~\hfill(\%) & 25,0 & 20,0 & 16,7 & 11,8 & 29,2 & 29,2 & 20,8\\
+        Rappel~\hfill(\%) & 25,0 & 20,8 & 16,7 & ~~8,3 & 29,2 & 29,2 & 20,8\\
+        F-mesure~\hfill(\%) & 25,0 & 20,4 & 16,7 & ~~9,8 & 29,2 & 29,2 & 20,8\\
+        \bottomrule
+      \end{tabular}
+      \caption[Résultats de tests humains sur le corpus \textsc{Deft}]{
+        Résultats de tests humains (sept personnes --- P1$..$P7) sur le corpus
+        \textsc{Deft}
+        \label{tab:deft_human_tests}
+      }
+    \end{table}
 
   %-----------------------------------------------------------------------------
 
-  \section{Ressource Wikinews}
+  \section{Wikinews}
   \label{sec:main-data_description-wikinews_data}
-    \textbf{Wikinews}\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
-    est une collection de 100 articles journalistiques en français que nous
-    avons extraits du site Web WikiNews\footnote{\url{http://fr.wikinews.org/}}
-    entre les mois de mai et décembre 2012. Chaque document a été annoté par au
-    moins trois étudiants. Les termes-clés des différents étudiants ont été
-    groupés et les redondances lexicales ont été automatiquement supprimées.
+    Wikinews est une collection de 100 articles journalistiques en français
+    que nous avons collecté sur site web d'information collabotatif
+    WikiNews\footnote{\url{http://fr.wikinews.org/}} entre les mois de mai et
+    décembre 2012\footnote{Les documents et les annotations du corpus Wikinews
+    sont disponibles sur le dépôt GitHub suivant~:
+    \url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}. Le
+    tableau~\ref{tab:wikinews} donne les détails de ce corpus. \TODO{Chaque
+    document a été annoté par au moins trois étudiants. Les termes-clés des
+    différents étudiants ont été groupés et les redondances lexicales ont été
+    automatiquement supprimées.}
+
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Test & Français & Journalistique & 100 & 308,5 & Lecteur & 9,6 & 7,6~\% & 1,7\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus Wikinews
+               \label{tab:wikinews}}
+    \end{table}
+
+    \TODO{exemple}
 
   %-----------------------------------------------------------------------------
 
-  \section{Ressource Inspec}
-  \label{sec:main-data_description-inspec_data}
-    \textbf{Inspec}~\citep{hulth2003keywordextraction} est une collection en
-    anglais de résumés d'articles scientifiques provenant de la base de données
-    Inspec~\footnote{\url{http://inspecdirect.theiet.org/}}. Cette collections
-    contient 2~000 résumés répartis en trois ensemble~: un ensemble
-    d'entraînement de 1~000 résumés, un ensemble de développement de 500 résumés
-    et un ensemble de test de 500 résumés. Les termes-clés de référence de cette
-    collection sont assignés par des indexeurs professionnels. Ils sont
-    disponibles en deux versions, l'une pour laquelle les termes-clés sont
-    définis librement par les indexeurs, l'autre pour laquelle les termes-clés
-    sont contrôlés avec un vocabulaire spécifique.
-
-  %-----------------------------------------------------------------------------
-
-  \section{Ressource Semeval}
+    \section[SemEval]{SemEval~\textnormal{\large\cite{kim2010semeval}}}
   \label{sec:main-data_description-semeval_data}
-    \textbf{SemEval}~\citep{kim2010semeval} est la collection en anglais fournie
-    lors de la campagne d'évaluation SemEval-2010 pour la tâche d'extraction
-    automatique de termes-clés. Cette collection contient 244 articles
-    scientifiques (conférences et ateliers) issus de la librairie numérique
-    \textsc{Acm}. La collection est répartie en deux sous-ensembles, un ensemble
-    de 144 documents d'entraînement et un ensemble de 100 documents de test. Les
-    termes-clés assignés par les auteurs et des lecteurs sont disponibles pour
-    cette collection.
+    À l'instar de \textsc{Deft}, SemEval est une campagne d'évaluation
+    internationale. Le corpus éponyme dont nous disposons est la collection de
+    documents construite pour la tâche 5 de l'édition 2010 de SemEval, tâche
+    consacrée à l'extraction de termes-clés à partir d'articles scientifiques.
+    Le corpus SemEval est constitué de 244 articles scientifiques en anglais
+    issus de la bibliothèque numérique de l'\textsc{Acm} (\textit{Association
+    for Computing Machinery}). Cette bibliothèque regroupe les articles d'une
+    multitude de disciplines de l'informatique. Les documents du corpus SemEval
+    concernent les catégories C2.4 (\textit{Distributed Systems} --- Systèmes
+    distribués), H3.3 (\textit{Information Search and Retrieval} --- Recherche
+    d'information), I2.11 (\textit{Distributed Artificial Intelligence --
+    Multiagent Systems} --- Intelligence artificielle distribué -- Systèmes
+    multi-agents) et J4 (\textit{Social and Behavioral Sciences -- Economics}
+    --- Sciences sociales et comportementales -- Économie) de la classification
+    \textsc{Acm} de 1998.
+    
+    Le tableau~\ref{tab:semeval} présente les caractéristiques de SemEval. La
+    collection est répartie en deux sous-ensembles, un ensemble de 144 documents
+    d'apprentissage et un ensemble de 100 documents de test. \TODO{revenir sur
+    les données du tableau + liens avec les facteurs énoncés précédemments}
+    \TODO{répartition équitable}
+
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Appr. & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
+          \hfill{}Test & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & \ditto\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus SemEval
+               \label{tab:semeval}}
+    \end{table}
+
+    Le tableau~\ref{tab:semeval_annotators} montre la quantité de termes-clés
+    annotés par les auteurs, des lecteurs ou les deux. Ces chiffres, donnés par
+    \newcite{kim2010semeval} montrent qu'il y a effectivement une différence de
+    stratégie entre les auteurs et des lecteurs. Les auteurs donnent peu de
+    termes-clés (nous le voyons aussi avec \textsc{Deft}) comparés aux lecteurs
+    et l'intersection des deux annotations ne couvre qu'un tier, seulement, des
+    termes-clés des auteurs. \TODO{approfondir le lien avec \textsc{Deft}}
+
+    \begin{table}[!h]
+      \centering
+      \begin{tabular}{l|ccc}
+        \toprule
+        \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{3}{c}{\textbf{Annotateur}}\\
+        \cline{2-4}
+        & Auteur & Lecteur & Combinaison\\
+        \hline
+        \hfill{}Appr. & 559 & 1824 & 2223\\
+        \hfill{}Test & 387 & 1217 & 1482\\
+        \bottomrule
+      \end{tabular}
+
+      \caption{Nombre de termes-clés annotés dans SemEval, en fonction des
+               annotateurs
+               \label{tab:semeval_annotators}}
+    \end{table}
 
   %-----------------------------------------------------------------------------
 
-  \section{Ressource DUC}
+  \section[\textsc{Duc}]{\textsc{Duc}~\textnormal{\large\cite{wan2008expandrank}}}
   \label{sec:main-data_description-duc_data}
-    \textbf{DUC}~\citep{over2001duc} est une collection en anglais issue des
-    données de la campagne d'évaluation DUC-2001. Cette campagne d'évaluation
-    concerne les méthodes de résumé automatique, elle ne contient donc
-    originellement pas d'annotations en termes-clés. Cependant, les 308 articles
-    journalistiques de la partie test de DUC-2001 ont été annotés par
-    \cite{wan2008expandrank}.
+    \textsc{Duc} est une campagne d'évaluation internationale axée sur le résumé
+    automatique. Notre collection de documents \textsc{Duc} est issue du corpus
+    construit dans le cadre de l'édition 2001 de la campagne~\cite{over2001duc}.
+    Dans leurs travaux en extraction automatique de termes-clés,
+    \newcite{wan2008expandrank} annotent en termes-clés les 308 documents de
+    tests du corpus de la campagne. Il s'agit de 308 articles journalistiques
+    publiés par six média d'information différents~: \textit{Associated Press
+    Newswire}, \textit{Foreign Broadcast Information Service}, \textit{Financial
+    Times}, \textit{Los Angeles Times}, \textit{San Jose Mercury News} et
+    \textit{Wall Street Journal}. Ceux-ci couvrent 30 sujets d'actualités
+    (tornades, contrôle des armes à feu, etc.).
+    
+    Le tableau~\ref{tab:duc} donne les détails du corpus \textsc{Duc}.
+    \TODO{revenir sur les données du tableau + liens avec les facteurs énoncés
+    précédemments}
+
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Test & Anlgais & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus \textsc{Duc}
+               \label{tab:duc}}
+    \end{table}
 
   %-----------------------------------------------------------------------------
 
@@ -277,8 +584,8 @@
   \label{sec:main-data_description-conclusion}
     Dans ce chapitre, nous présentons les ressources que nous utilisons dans nos
     travaux de recherche. Pour analyser nos travaux, les évaluer et les
-    comparer à d'autres, nous disposons de six collections de données~: Termith,
-    \textsc{Deft}, Wikinews, Inspec, SemEval et \textsc{Duc}. Celles-ci ne
+    comparer à d'autres, nous disposons de cinq collections de données~:
+    Termith, \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. Celles-ci ne
     partagent pas toutes la même langue, des documents de même nature et le même
     domaine. \TODO{Étendre avec les différentes annotations des termes-clés}.
     Cette diversité est importante pour mieux comprendre les points forts et les

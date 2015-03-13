@@ -58,6 +58,9 @@
 %-------------------------------------------------------------------------------
 
 \newcommand\chaptercite[2]{\epigraph{\justifying{\Large``}\textit{#1}{\Large''}}{--- #2}}
+\newcommand\smallchaptercite[2]{\epigraph{\hfill{}{\Large``}\textit{#1}{\Large''}}{--- #2}}
+
+\newcommand\ditto{$_{^\textnormal{\normalsize\textquotedbl}}$}
 
 \renewcommand\cite[2][]{\ifthenelse{\equal{#1}{}}{\citep{#2}}{\citep[#1]{#2}}}
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citet{#2}}{\citet[#1]{#2}}}
