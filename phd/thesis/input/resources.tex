@@ -11,18 +11,23 @@
   \label{sec:main-data_description-introduction}
     Pour les travaux de recherche en indexation automatique par termes-clés, des
     collections de données sont nécessaires à l'évaluation et à la comparaison
-    des nouveaux travaux aux précédents. De nombreuses collections sont
-    accessibles publiquement\footnote{Un grand nombre de collections de données
-    est accessible depuis le dépôt GitHub de Su Nam Kim (\textit{snkim})~:
+    des nouveaux travaux aux précédents. Elles sont généralement réparties en
+    deux ensembles~: un ensemble de documents d'entraînement (ou
+    d'apprentissage), dont les termes-clés de référence servent à paramétrer ou
+    à entraîner une méthode, et un ensemble de documents de test, dont les
+    termes-clés de référence servent à évaluer les performances d'une méthode.
+    De nombreuses collections sont accessibles publiquement\footnote{Un grand
+    nombre de collections de données est accessible depuis le dépôt GitHub de Su
+    Nam Kim (\textit{snkim})~:
     \url{https://github.com/snkim/AutomaticKeyphraseExtraction}.}, elles
-    couvrent différentes langues (français, anglais, etc.), différents domaines
-    (météorologie, sciences humaines et sociales, informatique, etc.) et des
-    documents de différentes natures (résumés, articles scientifiques, articles
-    journalistiques, etc.). Cette diversité est essentielle à
-    la compréhension des points forts et des points faibles d'une
-    méthode~\cite{hassan2010conundrums}, car différents facteurs peuvent
-    influencer les performances des méthodes d'indexation par termes-clés.
-    \newcite{hasan2014state_of_the_art} en énoncent quatre~:
+    couvrent plusieurs langues (français, anglais, etc.), domaines
+    (météorologie, sciences humaines et sociales, informatique, etc.) et natures
+    de documents (résumés, articles scientifiques, articles journalistiques,
+    etc.). Cette diversité est essentielle à la compréhension des points forts
+    et des points faibles d'une méthode~\cite{hassan2010conundrums}, car des
+    facteurs différents peuvent influencer les performances des méthodes
+    d'indexation par termes-clés. \newcite{hasan2014state_of_the_art} en
+    énoncent quatre~:
     \begin{itemize}
       \item{si un document est long, alors le nombre de termes-clés candidats
             pour celui-ci est élevé et l'indexation par termes-clés est plus
@@ -37,75 +42,178 @@
             alors une méthode qui tisse des liens sémantiques entre les
             termes-clés candidats est pénalisée.}
     \end{itemize}
-    Il peut aussi y avoir des variations de performances dues à la mauvaise
-    qualité de certains documents. Dans le cas d'articles scientifiques, par
-    exemple, le format original est très souvent le \textsc{Pdf}, qui est
-    ensuite converti en texte depuis les flux de données du \textsc{Pdf} ou avec
-    des outils d'\textsc{Ocr} (\textit{Optical Character Recognition}).
-    Cependant, ces procédés ne sont pas parfaits, ils ajoutent parfois des fautes
-    d'orthographe (mauvais caractères et problèmes d'accents) et ils ne traitent
-    pas toujours correctement les environnements tels que les notes de pieds de
-    page, les tableaux, les figures et les équations. Deux autres
-    facteurs, que \newcite{hasan2014state_of_the_art} n'évoquent pas, sont la
-    proportions de termes-clés pouvant uniquement être assignés et la catégorie
-    des annotateurs des termes-clés de référence. Nous identifions trois
-    catégories d'annotateurs~: les auteurs des articles, des lecteurs et des
-    indexeurs professionnels. Parmis ces trois catégories, les lecteurs sont les
-    annotateurs les plus libres et impartiaux. Ils n'ont aucun biais vis-à-vis
-    de l'article ou de leur profession. Les auteurs cherchent à attirer les
-    lecteurs, et les indexeurs professionnels aspirent à une annotation homogène
-    entre tous les documents d'un même domaine grâce à des vocabulaires
-    contrôlés. Comparer plusieurs méthodes d'indexation par termes-clés à l'un
-    ou l'autre de ces trois annotateurs peux ne pas conduire aux mêmes
-    conclusions. 
+    Des variations de performance dues à la mauvaise qualité de certains
+    documents sont aussi constatées. Dans le cas d'articles scientifiques, par
+    exemple, le format original est très souvent le \textsc{Pdf}
+    (\textit{Portable Document Format}), qui est ensuite converti en texte
+    depuis les flux de données du \textsc{Pdf} ou avec des outils d'\textsc{Ocr}
+    (\textit{Optical Character Recognition}). Cces procédés ne sont pas
+    parfaits, ils ajoutent parfois des fautes d'orthographe (mauvais caractères
+    et problèmes d'accents) et ils ne traitent pas toujours correctement les
+    environnements tels que les notes de pieds de page, les tableaux, les
+    figures et les équations. Nous identifions deux autres facteurs que
+    \newcite{hasan2014state_of_the_art} n'évoquent pas. Selon les collections de
+    données, la poportion de termes-clés de références n'apparaissant pas dans
+    les documents peut être soit très faible, soit très élevée. Dans certains
+    cas, les méthodes d'extraction de termes-clés sont donc désavantagées.
+    Enfin, la qualification des annotateurs des termes-clés de référence est un
+    facteur à ne pas négliger. Nous observons trois annotateurs différents~: les
+    auteurs des articles, des indexeurs professionnels et des lecteurs. Les
+    auteurs cherchent à attirer le lecteur~; les indexeurs professionnels
+    aspirent à une annotation homogène entre tous les documents d'un même
+    domaine grâce à un vocabulaire contrôlé~; les lecteurs sont plus libres que
+    les auteurs et les indexeurs professionnels. Ils ne sont influencée ni par
+    les termes-clés \og{}à la mode\fg{}, ni par un vocabulaire contrôlé.
 
     Dans nos travaux de recherche, nous utilisons cinq collections de données~:
-    Termith, \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. En accord avec la
-    vision de \newcite{hassan2010conundrums}, celles-ci couvrent deux langues
-    (français et anglais), un large éventail de domaines (sciences humaines et
-    sociales, informatique, météorologie, catastrophes naturelles, etc.) et
-    trois natures de documents (résumé, articles scientifiques et articles
-    journalistiques). Aussi, les annotateurs de chaque collection
-    n'appartiennent pas à la même catégorie.
+    Termith, \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. En accord avec le
+    point de vue de \newcite{hassan2010conundrums}, celles-ci couvrent deux
+    langues (français et anglais), un large éventail de domaines (sciences
+    humaines et sociales, informatique, météorologie, catastrophes naturelles,
+    etc.) et trois natures de documents (résumé, articles scientifiques et
+    articles journalistiques). Les annotateurs de chaque collection reflètent
+    des qualifications différentes.
 
   %-----------------------------------------------------------------------------
 
   \section{Termith}
   \label{sec:main-data_description-termith_data}
-    Termith est le projet \textsc{Anr} qui finance nos travaux. Dans le cadre de
-    ce projet, nous disposons de cinq collections de notices bibliographiques de
-    l'Inist (Institut de l'information scientifique et de la recherche).
-    Une notice bibliographique est une entrée d'un catalogue bibliographique.
-    Chaque entrée décrit un document avec différentes méta-données. Il s'agit
-    d'informations factuelles (titre du document, nom des auteurs, affiliation
-    des auteurs, éditeur, résumé du document, termes-clés des auteurs, etc.) et
-    d'informations (parfois) générées par un indexeur professionnel (résumé,
-    termes-clés, etc.). Pour les termes-clés, l'indexeur est aidé d'une
-    terminologie du domaine (vocabulaire contrôlé) et d'un système à base de
-    règles définies manuellement qui lui propose un terme-clé de la
-    terminologie selon les occurrences d'unités textuelles prédéfinies dans le
-    résumé de la notice ou selon les termes-clés déjà proposés.
+    Le projet Termith met à notre disposition quatre collections de notices
+    bibliographiques de l'Inist (Institut de l'information scientifique et de la
+    recherche). Une notice bibliographique est une entrée d'un catalogue
+    bibliographique. Chaque entrée décrit un document avec différentes
+    méta-données. Il s'agit d'informations factuelles (titre du document, nom
+    des auteurs, affiliation des auteurs, éditeur, résumé du document,
+    termes-clés des auteurs, etc.) et d'informations (parfois) générées par un
+    indexeur professionnel (résumé, termes-clés, etc.). Pour les termes-clés,
+    l'indexeur est aidé d'une terminologie du domaine (vocabulaire contrôlé) et
+    d'un système à base de règles (définies manuellement) qui lui propose un
+    terme-clé de la terminologie selon les occurrences de certaines unités
+    textuelles dans le résumé de la notice ou selon les termes-clés déjà
+    proposés.
+
+    \TODO{définir le méthier d'indexeur}
     
-    Le projet Termith s'intéresse principalement aux sciences humaines et
-    sociales (\textsc{Shs}). Quatre des collections de notices représentent
-    chacune une discipline de \textsc{Shs}~: linguistique, sciences de
-    l'information, psychologie et archéologie. La cinquième collection
-    représente la chimie. Le corpus de linguistique est constitué de 715 notices
-    d'articles français parus entre 2000 et 2012 dans 12 revues
-    (\textit{Linx~---~Revue des linguistes de l'Université Paris Ouest Nanterre
-    La Défense}, \textit{Travaux de linguistique}, etc.)~; le corpus des
-    sciences de l'information contient 706 notices d'articles français publiés
-    entre 2001 et 2012 dans six revues (\textit{Documentaliste -- Sciences de
-    l'information}, \textit{Document numérique}, etc.)~; le corpus de
-    psychologie contient 720 notices d'articles français publiés entre 2001 et
-    2012 dans sept revues (\textit{Enfance}, \textit{Revue internationale de
-    psychologie et de gestion des comportements organisationnels}, etc.)~; le
-    corpus d'archéologie est composé de 718 notices représentant des articles
-    français parus entre 2001 et 2012 dans 22 revues (\textit{Paléo}, \textit{Le
-    bulletin de la Société préhistorique française}, etc.)~; le corpus de chimie
-    est composé de 782 notices d'articles français publiés entre 1983 et 2012
-    dans quatre revues (\textit{Comptes Rendus de l'Académie des Sciences},
-    \textit{Comptes Rendus Chimie}, etc.).
+    Les tableaux~\ref{tab:linguistics_journals}~à~\ref{tab:chemestry_journals}
+    la répartition revue par revue de chacune des collections. Le projet Termith
+    s'intéresse principalement aux sciences humaines et sociales (\textsc{Shs}).
+    De ce fait, trois de ses collections de notices représentent une discipline
+    de \textsc{Shs}~: linguistique, sciences de l'information et archéologie. La
+    quatrième collection représente la chimie. Le corpus de linguistique est
+    constitué de 715 notices d'articles français parus entre 2000 et 2012 dans
+    12 revues~; le corpus des sciences de l'information contient 706 notices
+    d'articles français publiés entre 2001 et 2012 dans six revues~; le corpus
+    de psychologie contient 720 notices d'articles français publiés entre 2001
+    et 2012 dans sept revues~; le corpus d'archéologie est composé de 718
+    notices représentant des articles français parus entre 2001 et 2012 dans 22
+    revues~; le corpus de chimie est composé de 782 notices d'articles français
+    publiés entre 1983 et 2012 dans quatre revues.
+
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          A. sp. Anglais de spécialité & ~~99 & 2001 -- 2012\\
+          Bulletin d'études orientales & ~~~~8 & 2008 -- 2010\\
+          Cahiers de grammaire & ~~~~4 & 2000~~~~~~~~~~~~~\\
+          Cahiers de praxématique~: (Montpellier) & ~~44 & 2006 -- 2009\\
+          Langue française~: (Paris. 1969) & ~~39 & 2011 -- 2012\\
+          Les Cahiers de l'ILCEA & ~~20 & 2004 -- 2007\\
+          Lidil~: (Grenoble) & ~~76 & 2005 -- 2011\\
+          Linx & 146 & 2001 -- 2008\\
+          Mots~: (Paris. 1980) & 112 & 2002 -- 2012\\
+          Recherches linguistiques de Vincennes & ~~37 & 2001 -- 2010\\
+          Travaux de linguistique~: (Gent) & 130 & 2001 -- 2005\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus de linguistique (Termith)
+               \label{tab:linguistics_journals}}
+    \end{table}
+
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          Communication~: (Montréal) & ~~~~2 & 2005~~~~~~~~~~~~~\\
+          Document numérique & 176 & 2001 -- 2012\\
+          Documentaliste~: (Paris) & 385 & 2007 -- 2012\\
+          Questions de communication~: (Nancy) & 135 & 2007 -- 2012\\
+          Études de communication & ~~~~8 & 2009~~~~~~~~~~~~~\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus de sciences de l'information
+               (Termith)
+               \label{tab:information_sciences_journals}}
+    \end{table}
+
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          Annales de Bretagne et des pays de l'Ouest & ~~~~3 & 2001 -- 2008\\
+          Archéosciences & ~~24 & 2007 -- 2011\\
+          Arts asiatiques~: (Paris) & ~~36 & 2001 -- 2006\\
+          Bulletin de correspondance hellénique & ~~~~9 & 2001 -- 2003\\
+          Bulletin de l'Ecole française d'Extrême-Orient & ~~~~4 & 2001~~~~~~~~~~~~~\\
+          Bulletin de la Société préhistorique française & 163 & 2007 -- 2012\\
+          Documents d'archéologie méridionale & ~~51 & 2001 -- 2006\\
+          Gallia & ~~22 & 2001 -- 2007\\
+          Gallia. Préhistoire & ~~26 & 2001 -- 2007\\
+          Journal de la Société des océanistes & ~~~~2 & 2001~~~~~~~~~~~~~\\
+          Paléo~: (Les Eyzies de Tayac-Sireuil) & 137 & 2001 -- 2009\\
+          Paléorient & ~~43 & 2001 -- 2007\\
+          Préhistoire anthropologie méditerranéennes & ~~30 & 2003 -- 2005\\
+          Revue archéologique de Picardie & ~~10 & 2001 -- 2007\\
+          Revue archéologique de l'Est & ~~35 & 2005 -- 2011\\
+          Revue archéologique de l'Ouest & ~~39 & 2006 -- 2011\\
+          Revue archéologique du centre de la France & ~~13 & 2001 -- 2004\\
+          Revue des études grecques~: (Paris) & ~~11 & 2002 -- 2012\\
+          Revue numismatique~: (Paris) & ~~17 & 2001 -- 2005\\
+          Syria & ~~~~7 & 2001~~~~~~~~~~~~~\\
+          Syria~: (Paris) & ~~18 & 2004 -- 2005\\
+          Techniques \& culture~: (Paris) & ~~16 & 2003 -- 2010\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus d'archéologie (Termith)
+               \label{tab:archeology_journals}}
+    \end{table}
+
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{p{.533\linewidth}|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          Canadian Journal of Chemistry & 125 & 1983 -- 1991\\
+          Comptes rendus de l'Académie des sciences. Série 2, Mécanique,
+          physique, chimie, sciences de l'univers, sciences de la terre & 265 & 1985 -- 1990\\
+          Comptes rendus de l'Académie des sciences. Série II, Mécanique,
+          physique, chimie, astronomie & ~~70 & 1994 -- 1997\\
+          Comptes rendus de l'académie des sciences. Série IIc, chimie & 124 & 1998 -- 2001\\
+          Comptes rendus. Chimie & 200 & 2002 -- 2012\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus de chimie (Termith)
+               \label{tab:chemestry_journals}}
+    \end{table}
 
     Le tableau~\ref{tab:termith} présente les caractéristiques du corpus
     Termith. Chaque discipline est divisée en deux sous-ensembles\footnote{Les
@@ -135,10 +243,6 @@
           \hline
           Sciences de l'infor- & & & & & & &\\
           mation\hfill{}Appr. & Français & Résumé & 506 & & & &\\
-          \hfill{}Test & \ditto & \ditto & 200 & & & &\\
-          \hline
-          Psychologie & & & & & & &\\
-          \hfill{}Appr. & Français & Résumé & 520 & & & &\\
           \hfill{}Test & \ditto & \ditto & 200 & & & &\\
           \hline
           Archéologie & & & & & & &\\
@@ -255,12 +359,8 @@
     corpus \textsc{Deft}. Celui-ci est divisé en deux
     sous-ensembles\footnote{Les revues sont réparties équitablement entre chaque
     ensemble.}~: un ensemble d'apprentissage composé de 141 articles et un
-    ensemble de test contenant 93 articles. Contrairement aux documents de
-    Termith, ceux de \textsc{Deft} sont des articles complets et leur taille est
-    plus importante (en moyenne 7~102,9 mots). Les termes-clés dont nous
-    disposons sont ceux des auteurs. Ils sont moins nombreux comparés à ceux de
-    Termith et ils peuvent majoritairement être extraits depuis le contenu des
-    documents.
+    ensemble de test contenant 93 articles. \TODO{plus de détails sur les
+    données du tableau}
     \begin{table}[!h]
       \centering
       \resizebox{\linewidth}{!}{
@@ -282,9 +382,10 @@
     Le corpus \textsc{Deft} est aussi un corpus au contenu bruité, imparfait.
     Du fait de la conversion en texte, les caractères spéciaux ne sont pas
     toujours reconnus et la segmentation en paragraphes a parfois lieu en milieu
-    de phrase. Les
+    de phrases. Les
     figures~\ref{fig:example_deft_ko}~et~\ref{fig:example_deft_ok} montrent deux
-    exemples d'un document bruité et d'un document non bruité, respectivement.
+    exemples d'un document où la segmentation est correcte et d'un document où
+    la segmentation est incorrecte, respectivement.
     \begin{figure}[!h]
       \framebox[\linewidth]{ % meta_2005_019828ar
         \parbox{.99\linewidth}{\small
@@ -380,6 +481,7 @@
       }
     \end{figure}
 
+    \TODO{point de comparaison KESAKO ???}
     \newcite{paroubek2012deft} établissent un point de comparaison à l'aide
     d'étudiants de master en ingénierie multilingue. Le
     tableau~\ref{tab:deft_human_tests} montre les résultats de l'indexation par
@@ -429,14 +531,8 @@
     sont disponibles sur le dépôt GitHub suivant~:
     \url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}.
     
-    Le tableau~\ref{tab:wikinews} donne les détails de ce corpus. S'agissant
-    d'articles journalistiques, les documents de Wikinews sont de petite taille
-    (cf. figure~\ref{fig:example_wikinews}), mais ils sont plus longs que ceux
-    de Termith (en moyenne 308,5 mots). Les termes-clés sont annotés par des
-    lecteurs. Le nombre de mots qui les composent est du même ordre de grandeur
-    que celui des corpus Termith et \textsc{Deft} et le pourcentage de
-    termes-clés ne pouvant pas être extraits (\og{}à assigner\fg{}) est très
-    faible (7,6~\%).
+    Le tableau~\ref{tab:wikinews} donne les détails de ce corpus. \TODO{plus de détails sur les
+    données du tableau}
 
     \begin{table}[!h]
       \centering
@@ -497,7 +593,7 @@
     $\kappa$~\cite{fleiss1971kappa} pour l'annotation manuelle des termes-clés
     de Wikinews. Les termes-clés sont annotés librement, c'est-à-dire sans
     règles ou méthodologie définie, par au moins trois étudiants de master en
-    \textsc{Tal}. L'accord entre les annotateurs est très faible. Il montre la
+    \textsc{Tal}. L'accord entre les annotateurs est très faible. Il confirme la
     subjectivité de la tâche d'indexation par termes-clés et le besoin de
     définir une méthodologie et des règles précises pour associer des
     termes-clés à un document.
@@ -519,17 +615,17 @@
 
   %-----------------------------------------------------------------------------
 
-    \section[SemEval]{SemEval~\textnormal{\large\cite{kim2010semeval}}}
+  \section[SemEval]{SemEval~\textnormal{\large\cite{kim2010semeval}}}
   \label{sec:main-data_description-semeval_data}
-    À l'instar de \textsc{Deft}, SemEval est une campagne d'évaluation
-    internationale. Le corpus éponyme dont nous disposons est la collection de
-    documents construite pour la tâche 5 de l'édition 2010 de SemEval, tâche
-    consacrée à l'extraction de termes-clés à partir d'articles scientifiques.
-    Le corpus SemEval est constitué de 244 articles scientifiques en anglais
-    issus de la bibliothèque numérique de l'\textsc{Acm} (\textit{Association
-    for Computing Machinery}). Cette bibliothèque regroupe les articles de
-    plusieurs disciplines et répartie dans différentes catégorie. Les
-    documents du corpus SemEval concernent les catégories C2.4
+    À l'instar de \textsc{Deft} pour le français, SemEval est une campagne
+    d'évaluation pour l'anglais. Le corpus éponyme dont nous disposons est la
+    collection de documents construite pour la tâche 5 de l'édition 2010 de
+    SemEval, tâche consacrée à l'extraction de termes-clés à partir d'articles
+    scientifiques. Le corpus SemEval est constitué de 244 articles scientifiques
+    en anglais issus de la bibliothèque numérique de l'\textsc{Acm}
+    (\textit{Association for Computing Machinery}). Cette bibliothèque regroupe
+    les articles de plusieurs disciplines et répartie dans différentes
+    catégorie. Les documents du corpus SemEval concernent les catégories C2.4
     (\textit{Distributed Systems} --- Systèmes distribués), H3.3
     (\textit{Information Search and Retrieval} --- Recherche d'information),
     I2.11 (\textit{Distributed Artificial Intelligence -- Multiagent Systems}
@@ -541,17 +637,14 @@
     collection est répartie en deux sous-ensembles\footnote{Les quatres
     catégories \textsc{Acm} sont réparties équitablement entre chaque
     ensemble.}~: un ensemble de 144 documents d'apprentissage et un ensemble de
-    100 documents de test. À l'instar des documents de \textsc{Deft}, ceux de
-    SemEval sont des articles scientifiques de taille importante (en moyenne
-    5~152,3 mots). Trois jeux d'annotations sont fournis avec SemEval~: les
-    termes-clés des auteurs, les termes-clés de lecteurs et les termes-clés des
-    deux premiers jeux d'annotations. Les travaux précédents utilisent le
-    troisième. Afin de pouvoir se comparer à ces travaux, nous utilisons nous
-    aussi la combinaison des termes-clés des auteurs et des lecteurs.
-    Du fait de cette combinaison, le nombre de termes-clés par document est plus
-    élevé que celui des autres corpus dont nous disposons. Ils contiennent en
-    moyenne 2,1 mots et sont majoritairement extractibles depuis le contenu des
-    articles.
+    100 documents de test. Trois jeux d'annotations sont fournis avec SemEval~:
+    les termes-clés des auteurs, les termes-clés de lecteurs et l'union des deux
+    jeux précédents. Dans nos travaux, nous utilisons la combinaison des
+    termes-clés des auteurs et des lecteurs. Du fait de cette combinaison, le
+    nombre de termes-clés par document est plus élevé que celui des autres
+    corpus dont nous disposons. Ils contiennent en moyenne 2,1 mots et sont
+    majoritairement extractibles depuis le contenu des articles. \TODO{plus de détails sur les
+    données du tableau}
 
     \begin{table}[!h]
       \centering
@@ -573,9 +666,7 @@
     \end{table}
 
     La figure~\ref{fig:example_semeval} donne un exemple de document de SemEval.
-    La structure des articles est préservée. Celle-ci permet d'améliorer les
-    performances de l'extraction de termes-clés dans certains
-    travaux~\cite{nguyen2007keadocumentstructure,lopez2010humb}.
+    La structure des articles est préservée. \TODO{super short}
 
     \begin{figure}[!h]
       \framebox[\linewidth]{ % C-17
@@ -632,9 +723,9 @@
     \end{figure}
 
     Le tableau~\ref{tab:semeval_annotators} montre la quantité de termes-clés
-    annotés par les auteurs, des lecteurs ou les deux. Ces chiffres montrent la
-    différence de stratégie entre les auteurs et des lecteurs. Les auteurs
-    donnent peu de termes-clés (nous le voyons aussi avec \textsc{Deft})
+    annotés par les auteurs, des lecteurs ou la réunion des deux. Ces chiffres
+    montrent la différence de stratégie entre les auteurs et des lecteurs. Les
+    auteurs donnent peu de termes-clés (nous le voyons aussi avec \textsc{Deft})
     comparés aux lecteurs et l'intersection des deux annotations ne couvre qu'un
     tiers des termes-clés des auteurs.
 
@@ -666,8 +757,8 @@
     campagne~\cite{over2001duc}. Dans leurs travaux en extraction automatique de
     termes-clés, \newcite{wan2008expandrank} utilisent les 308 documents de test
     du corpus de la campagne et demandent à deux étudiants d'en annoter les
-    termes-clés. Il s'agit de 308 articles journalistiques publiés par six média
-    d'information différents~: \textit{Associated Press Newswire},
+    termes-clés. Il s'agit de 308 articles journalistiques  anglais publiés par
+    six média d'information différents~: \textit{Associated Press Newswire},
     \textit{Foreign Broadcast Information Service}, \textit{Financial Times},
     \textit{Los Angeles Times}, \textit{San Jose Mercury News} et \textit{Wall
     Street Journal}. Ceux-ci couvrent 30 sujets d'actualités (tornades, contrôle
@@ -675,13 +766,8 @@
     
     Le tableau~\ref{tab:duc} donne les détails du corpus \textsc{Duc}. Les
     documents sont des articles journalistiques (cf.
-    figure~\ref{fig:example_duc}). Comme ceux de Wikinews, ces documents sont
-    courts. Ils sont cependant plus élaborés et sont constitués de 900,7 mots en
-    moyenne. Cette différence mise à part, \textsc{Duc} et Wikinews sont très
-    similaires. Leur proportion de termes-clés à assigner est très faible. Ils
-    laissent penser que l'extraction de termes-clés est plus aisée sur les
-    articles journalistiques. L'annotation par des lecteurs joue peut-être aussi
-    un rôle important.
+    figure~\ref{fig:example_duc}). \TODO{plus de détails sur les
+    données du tableau}
 
     \begin{table}[!h]
       \centering
