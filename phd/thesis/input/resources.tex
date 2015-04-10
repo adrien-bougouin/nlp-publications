@@ -498,9 +498,9 @@
       }
     \end{figure}
 
-    \TODO{point de comparaison KESAKO ???}
-    \newcite{paroubek2012deft} établissent un point de comparaison à l'aide
-    d'étudiants de master en ingénierie multilingue. Le
+    \newcite{paroubek2012deft} établissent des performances de référence en
+    demendant à des étudiants de master en ingénierie multilingue d'annoter en
+    termes-clés les documents de \textsc{Deft}. Le
     tableau~\ref{tab:deft_human_tests} montre les résultats de l'indexation par
     termes-clés obtenus pour chacun de ces étudiants. Ceux-ci ont jugé la tâche
     difficile, comme en témoigne les faibles résultats obtenus (f-mesure moyenne
@@ -548,8 +548,13 @@
     sont disponibles sur le dépôt GitHub suivant~:
     \url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}.
     
-    Le tableau~\ref{tab:wikinews} donne les détails de ce corpus. \TODO{plus de détails sur les
-    données du tableau}
+    Le tableau~\ref{tab:wikinews} donne les détails de ce corpus. Il est
+    constitué de 100 documents de test. S'agissant d'articles journalistiques,
+    ce sont des documents de petite taille (cf.
+    figure~\ref{fig:example_wikinews}). Les termes-clés de référence sont des
+    termes-clés de lecteurs. Ces derniers ont attribué 9,6 termes-clés par
+    document en moyenne. Parmi ces termes-clés, seuls 7,6~\% d'entre eux ne
+    peuvent pas être extraits depuis le contenu des articles.
 
     \begin{table}[!h]
       \centering
@@ -654,14 +659,15 @@
     collection est répartie en deux sous-ensembles\footnote{Les quatres
     catégories \textsc{Acm} sont réparties équitablement entre chaque
     ensemble.}~: un ensemble de 144 documents d'apprentissage et un ensemble de
-    100 documents de test. Trois jeux d'annotations sont fournis avec SemEval~:
-    les termes-clés des auteurs, les termes-clés de lecteurs et l'union des deux
+    100 documents de test. À l'instar des documents de \textsc{Deft}, ceux de
+    SemEval sont des articles scientifiques de taille importante (en moyenne
+    5~152,3 mots). Trois jeux d'annotations sont fournis avec SemEval~: les
+    termes-clés des auteurs, les termes-clés de lecteurs et l'union des deux
     jeux précédents. Dans nos travaux, nous utilisons la combinaison des
     termes-clés des auteurs et des lecteurs. Du fait de cette combinaison, le
     nombre de termes-clés par document est plus élevé que celui des autres
     corpus dont nous disposons. Ils contiennent en moyenne 2,1 mots et sont
-    majoritairement extractibles depuis le contenu des articles. \TODO{plus de détails sur les
-    données du tableau}
+    majoritairement extractibles depuis le contenu des articles.
 
     \begin{table}[!h]
       \centering
@@ -783,8 +789,12 @@
     
     Le tableau~\ref{tab:duc} donne les détails du corpus \textsc{Duc}. Les
     documents sont des articles journalistiques (cf.
-    figure~\ref{fig:example_duc}). \TODO{plus de détails sur les
-    données du tableau}
+    figure~\ref{fig:example_duc}). Comme ceux de Wikinews, ces documents sont
+    courts. Ils sont cependant plus élaborés et sont constitués de 900,7 mots en
+    moyenne. Cette différence mise à part, \textsc{Duc} et Wikinews sont très
+    similaires. Leur proportion de termes-clés à assigner est très faible. Ils
+    laissent penser que l'extraction de termes-clés est plus aisée sur les
+    articles journalistiques.
 
     \begin{table}[!h]
       \centering

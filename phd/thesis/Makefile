@@ -12,8 +12,9 @@ default: $(report_NAME).pdf
 $(report_NAME).pdf: $(report_NAME).tex $(needed_FILES)
 	latex $<
 	bibtex $(report_NAME)
-	makeindex -s index_style.ist $(report_NAME).idx
 	latex $<
+	latex $<
+	makeindex -s index_style.ist $(report_NAME).idx
 	latex $<
 	dvips $(report_NAME).dvi
 	ps2pdf $(report_NAME).ps
