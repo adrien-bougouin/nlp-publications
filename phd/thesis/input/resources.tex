@@ -47,23 +47,24 @@
     exemple, le format original est très souvent le \textsc{Pdf}
     (\textit{Portable Document Format}), qui est ensuite converti en texte
     depuis les flux de données du \textsc{Pdf} ou avec des outils d'\textsc{Ocr}
-    (\textit{Optical Character Recognition}). Cces procédés ne sont pas
-    parfaits, ils ajoutent parfois des fautes d'orthographe (mauvais caractères
-    et problèmes d'accents) et ils ne traitent pas toujours correctement les
+    (\textit{Optical Character Recognition}). Ces procédés ne sont pas parfaits,
+    ils ajoutent parfois des fautes d'orthographe (mauvais caractères et
+    problèmes d'accents) et ils ne traitent pas toujours correctement les
     environnements tels que les notes de pieds de page, les tableaux, les
     figures et les équations. Nous identifions deux autres facteurs que
     \newcite{hasan2014state_of_the_art} n'évoquent pas. Selon les collections de
-    données, la poportion de termes-clés de références n'apparaissant pas dans
+    données, la proportion de termes-clés de référence n'apparaissant pas dans
     les documents peut être soit très faible, soit très élevée. Dans certains
-    cas, les méthodes d'extraction de termes-clés sont donc désavantagées.
-    Enfin, la qualification des annotateurs des termes-clés de référence est un
-    facteur à ne pas négliger. Nous observons trois annotateurs différents~: les
-    auteurs des articles, des indexeurs professionnels et des lecteurs. Les
-    auteurs cherchent à attirer le lecteur~; les indexeurs professionnels
-    aspirent à une annotation homogène entre tous les documents d'un même
-    domaine grâce à un vocabulaire contrôlé~; les lecteurs sont plus libres que
-    les auteurs et les indexeurs professionnels. Ils ne sont influencée ni par
-    les termes-clés \og{}à la mode\fg{}, ni par un vocabulaire contrôlé.
+    cas, les méthodes d'extraction de termes-clés sont donc désavantagées. La
+    qualification des annotateurs des termes-clés de référence est un autre
+    facteur. Nous observons trois annotateurs différents~: les auteurs des
+    articles, des indexeurs professionnels et des lecteurs. Les auteurs
+    cherchent à attirer le lecteur~; les indexeurs professionnels (ou ingénieurs
+    documentalistes) aspirent à une annotation homogène entre tous les documents
+    d'un même domaine grâce à un vocabulaire contrôlé~; les lecteurs sont plus
+    libres que les auteurs et les indexeurs professionnels. Ils ne sont
+    influencée ni par les termes-clés \og{}à la mode\fg{}, ni par un vocabulaire
+    contrôlé.
 
     Dans nos travaux de recherche, nous utilisons cinq collections de données~:
     Termith, \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. En accord avec le
@@ -71,7 +72,7 @@
     langues (français et anglais), un large éventail de domaines (sciences
     humaines et sociales, informatique, météorologie, catastrophes naturelles,
     etc.) et trois natures de documents (résumé, articles scientifiques et
-    articles journalistiques). Les annotateurs de chaque collection reflètent
+    articles journalistiques). Les annotateurs de chaque collection ont
     des qualifications différentes.
 
   %-----------------------------------------------------------------------------
@@ -92,22 +93,33 @@
     textuelles dans le résumé de la notice ou selon les termes-clés déjà
     proposés.
 
-    \TODO{définir le méthier d'indexeur}
+    Un indexeur professionnel est un professionnel de
+    l'information--documentation. Il est expert dans un domaine et utilise cette
+    expertise pour organiser et mettre en valeur les connaissances acquises dans
+    le temps. Contrairement aux autres annotateurs de termes-clés (auteur et
+    mecteur), l'indexeur professionnel accorde une grande importance à
+    l'homogénéité de l'indexation des documents d'un même domaine. Cette
+    homogénéité est obtenue grâce à un vocabulaire contrôlé spécifique au
+    domaine, elle permet une cartographie thématique précise des documents d'un
+    domaine. Parce que chaque domaine évolue, l'indexeur  doit mettre à jour son
+    vocabulaire contrôlé. Il est aussi authorisé à attribuer des termes-clés qui
+    ne se trouvent pas dans le vocabulaire. Dans ce cas, le terme-clé n'est pas
+    spécifique au domaine, mais il apporte une précision importante pour à la
+    description du contenu du document. \TODO{exemple}
     
     Les tableaux~\ref{tab:linguistics_journals}~à~\ref{tab:chemestry_journals}
-    la répartition revue par revue de chacune des collections. Le projet Termith
-    s'intéresse principalement aux sciences humaines et sociales (\textsc{Shs}).
-    De ce fait, trois de ses collections de notices représentent une discipline
-    de \textsc{Shs}~: linguistique, sciences de l'information et archéologie. La
-    quatrième collection représente la chimie. Le corpus de linguistique est
-    constitué de 715 notices d'articles français parus entre 2000 et 2012 dans
-    12 revues~; le corpus des sciences de l'information contient 706 notices
-    d'articles français publiés entre 2001 et 2012 dans six revues~; le corpus
-    de psychologie contient 720 notices d'articles français publiés entre 2001
-    et 2012 dans sept revues~; le corpus d'archéologie est composé de 718
-    notices représentant des articles français parus entre 2001 et 2012 dans 22
-    revues~; le corpus de chimie est composé de 782 notices d'articles français
-    publiés entre 1983 et 2012 dans quatre revues.
+    représentent la répartition revue par revue de chacune des collections. Le
+    projet Termith s'intéresse principalement aux sciences humaines et sociales
+    (\textsc{Shs}). De ce fait, trois de ses collections de notices représentent
+    une discipline de \textsc{Shs}~: linguistique, sciences de l'information et
+    archéologie. La quatrième collection représente la chimie. Le corpus de
+    linguistique est constitué de 715 notices d'articles français parus entre
+    2000 et 2012 dans 11 revues~; le corpus des sciences de l'information
+    contient 706 notices d'articles français publiés entre 2001 et 2012 dans
+    cinq revues~; le corpus d'archéologie est composé de 716 notices
+    représentant des articles français parus entre 2001 et 2012 dans 22 revues~;
+    le corpus de chimie est composé de 784 notices d'articles français publiés
+    entre 1983 et 2012 dans cinq revues.
 
     \begin{table}
       \centering
@@ -359,8 +371,13 @@
     corpus \textsc{Deft}. Celui-ci est divisé en deux
     sous-ensembles\footnote{Les revues sont réparties équitablement entre chaque
     ensemble.}~: un ensemble d'apprentissage composé de 141 articles et un
-    ensemble de test contenant 93 articles. \TODO{plus de détails sur les
-    données du tableau}
+    ensemble de test contenant 93 articles. Les documents de \textsc{Deft} étant
+    des articles scientifiques, ils contiennent beaucoup d'informations. Ils ont
+    en moyenne 7~102,9 mots. Les termes-clés de référence fournis avec les
+    documents de \textsc{Deft} sont ceux donnés par les auteurs. Ces derniers en
+    attribuent en moyenne 5,3 par documents. Les termes-clés ne contiennent en
+    moyenne pas plus de 1,7 mots et sont majoritairement présent dans le contenu
+    des documents.
     \begin{table}[!h]
       \centering
       \resizebox{\linewidth}{!}{
