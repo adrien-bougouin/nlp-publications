@@ -21,7 +21,7 @@
     Nam Kim (\textit{snkim})~:
     \url{https://github.com/snkim/AutomaticKeyphraseExtraction}.}, elles
     couvrent plusieurs langues (français, anglais, etc.), domaines
-    (météorologie, sciences humaines et sociales, informatique, etc.) et natures
+    (météorologie, sciences humaines et sociales, informatique, etc.) et genres
     de documents (résumés, articles scientifiques, articles journalistiques,
     etc.). Cette diversité est essentielle à la compréhension des points forts
     et des points faibles d'une méthode~\cite{hassan2010conundrums}, car des
@@ -46,7 +46,7 @@
     documents sont aussi constatées. Dans le cas d'articles scientifiques, par
     exemple, le format original est très souvent le \textsc{Pdf}
     (\textit{Portable Document Format}), qui est ensuite converti en texte
-    depuis les flux de données du \textsc{Pdf} ou avec des outils d'\textsc{Ocr}
+    depuis ses flux de données ou avec des outils d'\textsc{Ocr}
     (\textit{Optical Character Recognition}). Ces procédés ne sont pas parfaits,
     ils ajoutent parfois des fautes d'orthographe (mauvais caractères et
     problèmes d'accents) et ils ne traitent pas toujours correctement les
@@ -56,13 +56,13 @@
     données, la proportion de termes-clés de référence n'apparaissant pas dans
     les documents peut être soit très faible, soit très élevée. Dans certains
     cas, les méthodes d'extraction de termes-clés sont donc désavantagées. La
-    qualification des annotateurs des termes-clés de référence est un autre
+    qualification des annotateurs des termes-clés de référence est le second
     facteur. Nous observons trois annotateurs différents~: les auteurs des
     articles, des indexeurs professionnels et des lecteurs. Les auteurs
     cherchent à attirer le lecteur~; les indexeurs professionnels (ou ingénieurs
     documentalistes) aspirent à une annotation homogène entre tous les documents
     d'un même domaine grâce à un vocabulaire contrôlé~; les lecteurs sont plus
-    libres que les auteurs et les indexeurs professionnels. Ils ne sont
+    libres que les auteurs et les indexeurs professionnels, ils ne sont
     influencée ni par les termes-clés \og{}à la mode\fg{}, ni par un vocabulaire
     contrôlé.
 
@@ -71,7 +71,7 @@
     point de vue de \newcite{hassan2010conundrums}, celles-ci couvrent deux
     langues (français et anglais), un large éventail de domaines (sciences
     humaines et sociales, informatique, météorologie, catastrophes naturelles,
-    etc.) et trois natures de documents (résumé, articles scientifiques et
+    etc.) et trois genres de documents (résumé, articles scientifiques et
     articles journalistiques). Les annotateurs de chaque collection ont
     des qualifications différentes.
 
@@ -83,12 +83,12 @@
     bibliographiques de l'Inist (Institut de l'information scientifique et de la
     recherche). Une notice bibliographique est une entrée d'un catalogue
     bibliographique. Chaque entrée décrit un document avec différentes
-    méta-données. Il s'agit d'informations factuelles (titre du document, nom
-    des auteurs, affiliation des auteurs, éditeur, résumé du document,
-    termes-clés des auteurs, etc.) et d'informations (parfois) générées par un
-    indexeur professionnel (résumé, termes-clés, etc.). Pour les termes-clés,
-    l'indexeur est aidé d'une terminologie du domaine (vocabulaire contrôlé) et
-    d'un système à base de règles (définies manuellement) qui lui propose un
+    méta-données. Il s'agit d'informations factuelles (titre du document,
+    auteurs, affiliation des auteurs, éditeur, résumé du document, termes-clés
+    des auteurs, etc.) et d'informations (parfois) générées par un indexeur
+    professionnel (résumé, termes-clés, etc.). Pour les termes-clés, l'indexeur
+    est aidé d'une terminologie du domaine (vocabulaire contrôlé) et d'un
+    système à base de règles (définies manuellement) qui lui propose un
     terme-clé de la terminologie selon les occurrences de certaines unités
     textuelles dans le résumé de la notice ou selon les termes-clés déjà
     proposés.
@@ -97,7 +97,7 @@
     l'information--documentation. Il est expert dans un domaine et utilise cette
     expertise pour organiser et mettre en valeur les connaissances acquises dans
     le temps. Contrairement aux autres annotateurs de termes-clés (auteur et
-    mecteur), l'indexeur professionnel accorde une grande importance à
+    lecteur), l'indexeur professionnel accorde une grande importance à
     l'homogénéité de l'indexation des documents d'un même domaine. Cette
     homogénéité est obtenue grâce à un vocabulaire contrôlé spécifique au
     domaine, elle permet une cartographie thématique précise des documents d'un
@@ -108,7 +108,7 @@
     description du contenu du document. \TODO{exemple}
     
     Les tableaux~\ref{tab:linguistics_journals}~à~\ref{tab:chemestry_journals}
-    représentent la répartition revue par revue de chacune des collections. Le
+    représentent la répartition, revue par revue, de chacune des collections. Le
     projet Termith s'intéresse principalement aux sciences humaines et sociales
     (\textsc{Shs}). De ce fait, trois de ses collections de notices représentent
     une discipline de \textsc{Shs}~: linguistique, sciences de l'information et
@@ -247,22 +247,22 @@
           \toprule
           \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
           \cline{2-9}
-          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
           \hline
           Linguistique & & & & & & &\\
-          \hfill{}Appr. & Français & Résumé & 515 & 160,5 & Professionnel & 8,6 & 60,6~\% & 1,7\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 515 & 160,5 & Professionnel & 8,6 & 60,6~\% & 1,7\\
            \hfill{}Test & \ditto & \ditto & 200 & 147,0 & \ditto & 8,9 & 62,8~\% & 1,8\\
           \hline
           Sciences de l'infor- & & & & & & &\\
-          mation\hfill{}Appr. & Français & Résumé & 506 & & & &\\
+          mation\hfill{}Appr. & Français & Scientifique (résumé) & 506 & & & &\\
           \hfill{}Test & \ditto & \ditto & 200 & & & &\\
           \hline
           Archéologie & & & & & & &\\
-          \hfill{}Appr. & Français & Résumé & 518 & & & &\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 518 & & & &\\
           \hfill{}Test & \ditto & \ditto & 200 & & & &\\
           \hline
           Chimie & & & & & & &\\
-          \hfill{}Appr. & Français & Résumé & 582 & & & &\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 582 & & & &\\
           \hfill{}Test & \ditto & \ditto & 200 & & & &\\
           \bottomrule
         \end{tabular}
@@ -385,7 +385,7 @@
           \toprule
           \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
           \cline{2-9}
-          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
           \hline
           \hfill{}Appr. & Français & Scientifique & 141 & 7~276,7 & Auteur & 5,4 & 18,2~\% & 1,7\\
           \hfill{}Test & \ditto & \ditto & ~~93 & 6~839,4 & \ditto & 5,2 & 21,1~\% & 1,6\\
@@ -563,7 +563,7 @@
           \toprule
           \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
           \cline{2-9}
-          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
           \hline
           \hfill{}Test & Français & Journalistique & 100 & 308,5 & Lecteur & 9,6 & 7,6~\% & 1,7\\
           \bottomrule
@@ -646,7 +646,7 @@
     scientifiques. Le corpus SemEval est constitué de 244 articles scientifiques
     en anglais issus de la bibliothèque numérique de l'\textsc{Acm}
     (\textit{Association for Computing Machinery}). Cette bibliothèque regroupe
-    les articles de plusieurs disciplines et répartie dans différentes
+    les articles de plusieurs disciplines, qu'elle répartie dans différentes
     catégorie. Les documents du corpus SemEval concernent les catégories C2.4
     (\textit{Distributed Systems} --- Systèmes distribués), H3.3
     (\textit{Information Search and Retrieval} --- Recherche d'information),
@@ -660,14 +660,15 @@
     catégories \textsc{Acm} sont réparties équitablement entre chaque
     ensemble.}~: un ensemble de 144 documents d'apprentissage et un ensemble de
     100 documents de test. À l'instar des documents de \textsc{Deft}, ceux de
-    SemEval sont des articles scientifiques de taille importante (en moyenne
-    5~152,3 mots). Trois jeux d'annotations sont fournis avec SemEval~: les
-    termes-clés des auteurs, les termes-clés de lecteurs et l'union des deux
-    jeux précédents. Dans nos travaux, nous utilisons la combinaison des
-    termes-clés des auteurs et des lecteurs. Du fait de cette combinaison, le
-    nombre de termes-clés par document est plus élevé que celui des autres
-    corpus dont nous disposons. Ils contiennent en moyenne 2,1 mots et sont
-    majoritairement extractibles depuis le contenu des articles.
+    SemEval sont des articles scientifiques (cf.
+    figure~\ref{fig:example_semeval}) de taille importante (en moyenne 5~152,3
+    mots). Trois jeux d'annotations sont fournis avec SemEval~: les termes-clés
+    des auteurs, les termes-clés de lecteurs et l'union des deux jeux
+    précédents. Dans nos travaux, nous utilisons la combinaison des termes-clés
+    des auteurs et des lecteurs. Du fait de cette combinaison, le nombre de
+    termes-clés par document est plus élevé que celui des autres corpus dont
+    nous disposons. Ils contiennent en moyenne 2,1 mots et sont majoritairement
+    extractibles depuis le contenu des articles.
 
     \begin{table}[!h]
       \centering
@@ -676,7 +677,7 @@
           \toprule
           \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
           \cline{2-9}
-          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
           \hline
           \hfill{}Appr. & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
           \hfill{}Test & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & 2,1\\
@@ -687,9 +688,6 @@
       \caption{Corpus SemEval
                \label{tab:semeval}}
     \end{table}
-
-    La figure~\ref{fig:example_semeval} donne un exemple de document de SemEval.
-    La structure des articles est préservée. \TODO{super short}
 
     \begin{figure}[!h]
       \framebox[\linewidth]{ % C-17
@@ -803,7 +801,7 @@
           \toprule
           \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
           \cline{2-9}
-          & Langue & Nature & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
           \hline
           \hfill{}Test & Anlgais & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
           \bottomrule
@@ -853,18 +851,50 @@
     Dans ce chapitre, nous présentons les ressources que nous utilisons dans nos
     travaux de recherche. Pour analyser nos travaux, les évaluer et les comparer
     aux autres, nous disposons de cinq collections de données~: Termith,
-    \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. Celles-ci ne partagent pas
-    toutes la même langue, le même domaine, des documents de même nature et la
-    même catégorie d'annotateurs. Cette diversité est importante, car elle nous
-    permet de mieux comprendre les points forts et les points faibles de nos
-    travaux.
+    \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. Chacune de ces collections
+    est monolingue et uniforme en genre. Elles ont toutefois des configurations
+    différentes (cf. tableau~\ref{tab:corpora_recap}). Cette diversité nous
+    intéresse particulièrement, car \og{}pour comprendre les forces et les
+    faiblesses d'une méthode d'indexation par termes-clés, il est essentiel de
+    l'évaluer avec des collections de données variées\fg{}~\cite{hassan2010conundrums}. Les
+    caractéristiques qu'il nous intéressent de voir varier sont le genre
+    (scientifique ou journalistique), la taille des documents (de 156,7 à
+    7~102,9 mots), la proportion de termes-clés ne pouvant pas être extraits
+    depuis le contenu des documents (de 3,5~\% à 62,1~\%) et la qualification
+    des annotateurs (auteur, lecteur ou indexeur professionnel).
 
-    Nous donnons aussi les caractéristiques de chaque corpus. Certaines d'entre
-    elles sont stables~: les termes-clés sont des mots simples ou des
-    expressions dépassant rarement deux mots et le nombre de termes-clés par
-    documents gravite autour de dix. Nous retrouvons ces deux observations dans
-    de nombreux travaux de recherche en indexation par termes-clés. Dans les
-    travaux précédents, la longueur des candidats est souvent limitée à trois
-    mots et les évaluations sont souvent effectuées lorsque les méthodes
-    extraient cinq, dix et quinze termes-clés.
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{r@{~~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multicolumn{2}{l|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{3-10}
+          & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \multirow{4}{*}[-.5em]{\begin{sideways}Termith\end{sideways}} & Linguistique & Français & Scientifique (résumé) & 715 & 156.7 & Professionnel & 8,7 & 61,2~\% & 1,7\\
+          & Sciences de l'information & \ditto & \ditto & 706 & & \ditto & &\\
+          & Archéologie & \ditto & \ditto & 718 & & \ditto & &\\
+          & Chimie & \ditto & \ditto & 782 & & \ditto & &\\
+          \multicolumn{2}{l|}{\textsc{Deft}} & \ditto & Scientifique & 234 & 7~102,9 & Auteur & 5,3 & 19,4~\% & 1,7\\
+          \multicolumn{2}{l|}{Wikinews} & \ditto & Journalistique & 100 & 308,5 & Lecteur & 9,6 & 7,6~\% & 1,7\\
+          \multicolumn{2}{l|}{Semeval} & Anglais & Scientifique & 244 & 5~152,3 & Auteur~/~Lecteur & 15,1 & 17,0~\% & 2,1\\
+          \multicolumn{2}{l|}{DUC} & \ditto & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Bilan des corpus
+               \label{tab:corpora_recap}}
+    \end{table}
+
+    Au-delà d'être destinées aux evaluations, les collections de données que
+    nous présentons peuvent servir à inférer des propriétés stables de
+    termes-clés. De ces collections, nous pouvons par exemple vérifier les deux
+    propriétés que l'on retrouve dans la plupart des travaux~:
+    \begin{enumerate*}
+      \item{les termes-clés sont des unités textuelles de petite taille,
+            composées de un à trois mots~;}
+      \item{un document ne contient généralement pas plus de dix termes-clés.}
+    \end{enumerate*}
 
