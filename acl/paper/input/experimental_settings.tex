@@ -2,24 +2,48 @@
 \label{sec:experimental_settings}
   \subsection{Datasets}
   \label{subsec:datasets}
-    We run experiments over three datasets: Inist (ling.), DUC and SemEval,
-    which differ in terms of language, nature and size. The following is the
-    description of each dataset.
+    \begin{table*}
+      \centering
+      \begin{tabular}{l|cccc|ccc}
+        \toprule
+        \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{3}{c}{\textbf{Keyphrases}}\\
+        \cline{2-8}
+        & Type & Language & Number & Tokens average & Average & Missing & Diversity\\
+        \hline
+        Inist & & & & & & &\\
+        \hfill{}train & Abstracts & French & 515 & $~~$161 & $~~$8.6 & 60.6\% & 28.1\%\\
+        \hfill{}test & Abstracts & French & 200 & $~~$147 & $~~$8.9 & 62.8\% & 40.4\%\\
+        \hline
+        DUC & News & English & 308 & $~~$901 & $~~$8.1 & $~~$3.5\% & 74.3\%\\
+        \hline
+        SemEval & & & & & & &\\
+        \hfill{}train & Papers & English & 144 & 5135 & 15.4 & 13.5\% & 90.3\%\\
+        \hfill{}test & Papers & English & 100 & 5178 & 14.7 & 22.1\% & 88.9\%\\
+        \bottomrule
+      \end{tabular}
+      \caption{Dataset statistics. Missing represents the percentage of keyphrases
+               that cannot be retrieved within the documents. Diversity shows the
+               percentage of unique keyphrases.
+               \label{tab:corpus_statistics}}
+    \end{table*}
+    We conduct our experiments on three datasets: Inist, DUC and SemEval, which differ
+    in terms of language, nature and size. The following is the description of
+    each dataset.
 
-    \paragraph{Inist (ling.)} is a collection of 715 bibliographic records that
-    we collected from the French digital library Inist. The bibliographic
-    records contain abstracts of scientific papers in the Linguistic area. The
+    \paragraph{Inist} is a collection of 715 bibliographic records that we
+    collected from the French digital library Inist\footnote{The dataset will be soon available.}. The bibliographic records
+    contain abstracts of scientific papers in the Linguistic area. The
     keyphrases are annotated by a single Inist indexer per record. Indexers were
-    given the order to assign keyphrases from a terminology and extract novel
-    concepts if they are important in the context of the paper. We devided the
+    given the instruction to assign keyphrases from a terminology and extract new
+    concepts if they are important in the context of the paper. We divided the
     corpus into two disjoint sets: a training set containing 515 bibliographic
     records and a test set containing 200 bibliographic records.
 
     \paragraph{DUC~\textnormal{\cite{wan2008expandrank}}} is a collection of 308
-    new articles splitted into 30 topics. The document have been manually
+    news articles categorized within 30 topics. The documents have been manually
     annotated by students with 0.70 of inter-agreement (Kappa). DUC has no
-    training set. For each document, we consider its domain to be the other
-    documents of its topics and build the graph accordingly.
+    training set. For each document, we use the other
+    documents of its topic to build the controlled graph.
 
     \paragraph{SemEval~\textnormal{\cite{kim2010semeval}}} contains 244 English
     scientific papers collected from the ACM Digital Libraries (conference and
@@ -28,36 +52,49 @@
     Artificial Intelligence -- Multiagent Systems; Social and Behavioral
     Sciences -- Economics. SemEval is divided into two disjoint sets: a training
     set containing 144 documents and a test set containing 100 documents. The
-    associated keyphrases are provided by both authors and readers. In the
-    manner of what we do for DUC, the domain keyphrases of a document are the
-    training reference keyphrases associated to documents of the same area of
-    Computer Science.
+    associated keyphrases are provided by both authors and readers. As we do for
+    DUC, we use keyphrases annotated on training documents of the same Computer Science
+    area to build the controlled graph.
 
     \paragraph{}
     Table~\ref{tab:corpus_statistics} shows factual information about each
-    datasets. \TODO{what to notice???}. \TODO{what to conclusde???}.
-    \begin{table*}
-      \centering
-      \begin{tabular}{l|cccc|cc}
+    dataset. Each dataset covers a different type of document. Inist contains the
+    shortest documents where most reference keyphrases are missing within the text,
+    DUC contains larger documents where most keyphrases can be found within the text
+    and SemEval is composed of the largest documents with substantially less missing
+    keyphrases than Inist and more than DUC. Moreover, we note differences
+    between the diversity of the keyphrases. Diversity is computed as the ratio of
+    unique keyphrases over the total number of annotated keyphrases and indicates
+    whether or not the annotation is homogeneous, i.e., every documents have been annotated
+    in the exact same manner. The keyphrase annotation on Inist is more homogeneous than
+    the annotation on DUC and SemEval. The latter has a heterogeneous annotation that may
+    handicap the keyphrase assignment.
+    
+  \begin{table*}
+    \centering
+    %\resizebox{\linewidth}{!}{
+      \begin{tabular}{l|ccc@{}|ccc@{}|ccc@{~}}
         \toprule
-        \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{2}{c}{\textbf{Keyphrases}}\\
-        \cline{2-7}
-        & Type & Language & Number & Tokens average & Average & Missing\\
+        \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{Inist}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
+        \cline{2-10}
+        & P & R & F$^{~~~~}$ & P & R & F$^{~~~~}$ & P & R & F$^{~~}$\\
         \hline
-        Inist (ling.) & & & & & &\\
-        \hfill{}train & Abstracts & Fench & 200 & $~~$???.? & $~~$?.? & ??.?\%\\
-        \hfill{}test & Abstracts & Fench & 515 & $~~$147.0 & $~~$?.? & ??.?\%\\
+        TopicRank & 11.3 & 13.1 & 12.0$^{~~~~}$ & 17.8 & 22.7 & 19.7$^{~~~~}$ & 14.6 & 10.1 & 11.8$^{\ddagger}$\\
+        \textit{Assignment} & 18.0 & 21.1 & 19.1$^{\dagger~~}$ & 24.3 & 31.2 & 27.0$^{\dagger~~}$ & ~~8.5 & ~~6.3 & ~~7.2$^{~~}$\\
         \hline
-        DUC & News & English & 308 & $~~$900.7 & $~~$8.1 & $~~$3.5\%\\
+        TopicCoRank$_\textnormal{\textit{extr}}$ & 14.6 & 16.8 & 15.4$^{\dagger~~}$ & 25.5 & 32.4 & 28.1$^{\dagger~~}$ & 15.2 & 10.6 & 12.4$^{\ddagger}$\\
+        TopicCoRank$_\textnormal{\textit{assign}}$ & \textbf{24.9} & \textbf{28.9} & \textbf{26.4$^{\dagger\ddagger}$} & 25.9 & 33.3 & 28.8$^{\dagger~~}$ & 11.6 & ~~8.3 & ~~9.5$^{~~}$\\
         \hline
-        SemEval & & & & & &\\
-        \hfill{}train & Papers & English & 144 & 5134.6 & 15.4 & 13.5\%\\
-        \hfill{}test & Papers & English & 100 & 5177.7 & 14.7 & 22.1\%\\
+        TopicCoRank & 19.0 & 22.0 & 20.1$^{\dagger~~}$ & \textbf{28.4} & \textbf{36.6} & \textbf{31.5$^{\dagger\ddagger}$} & \textbf{16.4} & \textbf{11.6} & \textbf{13.4$^{\ddagger}$}\\
         \bottomrule
       \end{tabular}
-      \caption{Dataset statistics (missing keyphrases are counted based on
-               their stemmed form). \label{tab:corpora}}
-    \end{table*}
+    %}
+    \caption{Comparison of TopicCoRank with the baselines. Precision (P), Recall
+             (R) and F-score (F) are reported in percentage. $\dagger$ and $\ddagger$
+             indicate a significant F-score improvement over, respectively, TopicRank and
+             \textit{Assignment}.
+             \label{tab:comparison_results}}
+  \end{table*}
 
   \subsection{Preprocessing}
   \label{subsec:preprocessing}
@@ -65,7 +102,7 @@
     datasets: sentence segmentation, word tokenization and Part-of-Speech (POS)
     tagging. We perform sentence segmentation with the PunktSentenceTokenizer
     provided by the Python Natural Language ToolKit~\cite[NLTK]{bird2009nltk}.
-    We tokenize the sentence into words using the NLTK TreebankWordTokenizer for
+    We tokenize the sentences into words using the NLTK TreebankWordTokenizer for
     English and the Bonsai word tokenizer\footnote{The Bonsai word tokenizer is
     a tool provided with the Bonsai PCFG-LA parser:
     \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
@@ -75,18 +112,32 @@
 
   \subsection{Baselines}
   \label{subsec:baselines}
-    To first show that TopicRank++ effectively leverages from the co-ranking, we
-    compare it to TopicRank and to a simple keyphrase assignment baseline,
-    \textit{references}, that considers training reference keyphrases as a
-    controlled vocabulary and order these by their number of occurrences within
-    the document.
+    To show the effectiveness of our approach, we
+    compare TopicCoRank with TopicRank and with a simple keyphrase assignment baseline,
+    \textit{Assignment}, that considers training reference keyphrases as a
+    controlled vocabulary and orders these by their number of occurrences within
+    the document. Due to substential differences between TopicCoRank and KEA++, as
+    well as the lack of readily available thesaurus, we do not compare
+    TopicCoRank to KEA++.
 
-    We also show the performances of TopicRank++ when it only performs AKE
-    (TopicRank++$_\textnormal{\textit{AKE}}$) and when it only performs AKA
-    (TopicRank++$_\textnormal{\textit{AKA}}$).
+    We also show the performances of TopicCoRank when it only extracts keyphrases
+    (TopicCoRank$_\textnormal{\textit{extr}}$) and when it only assigns keyphrases
+    (TopicCoRank$_\textnormal{\textit{assign}}$).
   \subsection{Evaluation measures}
   \label{subsec:evaluation_measures}
     To evaluate the performance of the keyphrase extraction methods, we use the
-    common measures of precision (P), recall (R) and f-score (F). We cut-off the
-    extracted keyphrases at the 10 best ranking ones.
+    common measures of precision (P), recall (R) and f-score (F):
+    \begin{align}
+        \text{P} = \frac{\text{\textit{TP}}}{\text{\textit{TP}}+\text{\textit{FP}}},\ \text{R} = \frac{\text{\textit{TP}}}{\text{\textit{TP}} + \text{\textit{FN}}},\ \text{F} = \frac{2 \text{PR}}{\text{P} + \text{R}}
+    \end{align}
+    where $\textnormal{\textit{TP}}$ is the total number of correctly extracted keyphrases (true positives),
+    $\textnormal{\textit{FP}}$ is the total number of erroneously extracted keyphrases (false positives) and
+    $\textnormal{\textit{FN}}$ is the total number of positive keyphrases that have not been extracted (false negatives).
+    We cut-off the extracted keyphrases at the 10 best ranking ones and perform the
+    comparisons with stemmed keyphrases.
+    
+    Consistent with \newcite{hassan2010conundrums}, we also report the performance of
+    TopicCoRank and the baselines in terms of precision-recall curves. To generate the
+    curves, we vary the evaluation cut-off from 1 to the total number of extracted and/or
+    assigned keyphrases.
 

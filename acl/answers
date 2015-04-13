@@ -1,0 +1,34 @@
+Dear reviewers,
+
+Before answering your questions, we would like to thank you for the time you spent reviewing our paper.
+
+Reviewer #1
+-----------
+
+- "their approach only combines the keyphrase extraction and keyphrase assignment method. The novelty is marginal and the contribution of the work is not remarkable."
+
+We do not "only" perform a combination of both approaches. We integrate the concepts of both approaches within the unified graph and let the co-ranking algorithm decides. Also, we specifically present a system that do not use rules to give a prior to one or another approach.
+
+- "Some detail mistake"
+
+Please note that the mistakes have been removed. We also asked a native English speaker to check our paper.
+
+Reviewer #2:
+------------
+
+- "Controlled keyphrase candidates are connected to an automatically extracted topic (or keyphrase) only when the controlled keyphrase candidates have common substring with the automatically extracted keyphrase. [...] According to authors, the controlled keyphrases do not have to appear in a document to which the keyphrases are assigned. But the above requirement on common substrings seems to reduce the chance that such "absent" keyphrases are highly ranked."
+
+The subgraph containing the controlled keyphrase candidates also contains links between the controlled keyphrrase candidates. Therefore, and due to the voting concept, a controlled keyphrase candidate not connected to a node of the other subgraph can be assigned.
+
+- "low precision, recall and F-measures in their experimental results (less than 30 in most cases.) I'm not sure if the comparison of such low level performance figures are actually meaningful."
+
+Current performances on the keyphyrase extraction/assignment task do not perform higher that 30% in most cases, especially scientific documents.
+
+Reviewer #3:
+------------
+
+"As the authors mention, the overall idea of constructing a graph and using measures like Page Rank, etc. for scoring nodes by importance is a well-studied technique."
+
+However, we are the first to propose a co-ranking approach that leverages the domain knowledge, represented by the controlled keyphrases.
+
+Again, thank you.

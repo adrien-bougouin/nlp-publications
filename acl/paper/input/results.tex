@@ -1,26 +1,410 @@
-\section{Results and Discussion}
+\section{Results}
 \label{sec:results}
-  \begin{table*}
-    \centering
-    %\resizebox{\linewidth}{!}{
-      \begin{tabular}{l|ccc|ccc|ccc}
-        \toprule
-        \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{Inist (ling.)}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
-        \cline{2-10}
-        & P & R & F & P & R & F & P & R & F\\
-        \hline
-        TopicRank & 11.3 & 13.1 & 12.0 & 17.8 & 22.7 & 19.7 & 14.6 & 10.1 & 11.8\\
-        \textit{references} & 18.0 & 21.1 & 19.1 & 24.3 & 31.2 & 27.0 & ~~8.5 & ~~6.3 & ~~7.2\\
-        \hline
-        TopicRank++$_\textnormal{\textit{AKE}}$ & 14.6 & 16.8 & 15.4 & 25.5 & 32.4 & 28.1 & 15.2 & 10.6 & 12.4\\
-        TopicRank++$_\textnormal{\textit{AKA}}$ & \textbf{24.9} & \textbf{28.9} & \textbf{26.4} & 25.9 & 33.3 & 28.8 & 11.6 & ~~8.3 & ~~9.5\\
-        \hline
-        TopicRank++ & 19.0 & 22.0 & 20.1 & \textbf{28.4} & \textbf{36.6} & \textbf{31.5} & \textbf{16.4} & \textbf{11.6} & \textbf{13.4}\\
-        \bottomrule
-      \end{tabular}
-    %}
-    \caption{Comparison of TopicRank++ with the baselines. Precision (P), recall
-             (R) and f-measure (F) are reported in percentage.
-             \label{tab:comparison_results}}
-  \end{table*}
+  Table~\ref{tab:comparison_results} summarizes the performance for three datasets of TopicCoRank,  TopicRank, and \textit{Assignment}, the keyphrase assignment baseline.
+  The results show that \textit{Assignment} performs better than TopicRank on Inist and DUC datasets, to the contrary of
+  SemEval. 
+  %Results show the necessity, in some cases, to perform keyphrase assignment over keyphrase extraction.
+  Keyphrase assignment seems to be more appropriate than keyphrase extraction for Inist dand DUC text collections.
+  %Based on observations from table~\ref{tab:corpus_statistics},  heterogeneously annotated are more difficult to treat by keyphrase assignment methods.
+  Keyphrase extraction has to be prefered to keyphrase assignment for datasets such as SemEval that was heterogeneously annotated. 
+  The main result is that TopicCoRank outperforms both TopicRank and \textit{Assignment} on all
+  datasets. 
+  
+  Table~\ref{tab:comparison_results} shows the performance of two variants of TopicCoRank: TopicCoRank$_\textnormal{\textit{extr}}$ performs only  extraction
+  and  TopicCoRank$_\textnormal{\textit{assign}}$ only assignment.
+  The results of TopicCoRank$_\textnormal{\textit{extr}}$ and 
+  TopicCoRank$_\textnormal{\textit{assign}}$ confirm that keyphrase assignment is more appropriate for 
+  Inist and DUC, whereas keyphrase extraction is for SemEval.
+  TopicCoRank outperforms TopicCoRank$_\textnormal{\textit{extr}}$ for all datasets.
+  TopicCoRank outperforms TopicCoRank$_\textnormal{\textit{assign}}$ on DUC and SemEval, but not on Inist.
+  
+  %Inist contains so much missing keyphrases that domain keyphrases must be prioritized over document topics. 
+  The Inist keyphrases are mainly missing keyphrases, i.e., domain keyphrases that do not occur in the bibliographic records. 
+  For such dataset, domain keyphrases need to be prioritized over document topics. This could be done by giving more weight to the outer recommendation during the graph-based co-ranking.
+  
+  TopicCoRank and TopicCoRank$_\textnormal{\textit{extr}}$ outperform TopicCoRank$_\textnormal{\textit{assign}}$ for DUC and SemEval.
+  The graph co-ranking algorithm successfully leverages document topics and
+  controlled keyphrases. It is up to output both new concepts and appropriate controlled keyphrases.
+  The new concepts that are identified could be further used to update domain-specific terminology.
 
+  Table~\ref{tab:assignment_ratio} shows the percentage of assigned keyphrases by TopicCoRank
+  for each dataset. The statistics show that the co-ranking actually works and outputs both
+  domain keyphrases and keyphrases from the document independently.
+  \begin{table}[!h]
+    \centering
+    \begin{tabular}{l|c}
+        \toprule
+        & Assignment ratio\\
+        \hline
+        Inist & 38.7\%\\
+        DUC & 58.6\%\\
+        SemEval & 40.0\%\\
+        \bottomrule
+    \end{tabular}
+    \caption{Percentage of assignment performed by TopicCoRank for 10 keyphrases
+             \label{tab:assignment_ratio}}
+  \end{table}
+  
+  To get a better understanding of the performance of each method, we plot
+  precision-recall curves. Figure~\ref{fig:pr_curves1} shows the precision-recall curves
+  of TopicRank, \textit{Assignment} and TopicCoRank for each dataset. 
+  %Again, we can see that TopicCoRank outperforms the baselines. 
+  TopicCoRank and TopicRank %have the same behavior. 
+  behave similarly.  TopicCoRank is boosted by the keyphrase assignment. It achieves a better
+  maximum precision and a better maximum recall.
+  %boosted by keyphrase assignment. %Figure~\ref{fig:pr_curves2} shows the precision-recall
+  %curves of TopicCoRank$_\textnormal{\textit{extr}}$,
+  %TopicCoRank$_\textnormal{\textit{assign}}$ and TopicCoRank for each dataset. \TODO{\dots}
+  \begin{figure*}
+      \centering
+      \subfigure[Inist]{
+        \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+          \pgfkeys{/pgf/number format/.cd, fixed}
+          \begin{axis}[x=0.0057\linewidth,
+                       xtick={0, 20, 40, ..., 100},
+                       xmin=0,
+                       xmax=40,
+                       xlabel=recall (\%),
+                       x label style={yshift=.34em, font=\small},
+                       y=0.0057\linewidth,
+                       ytick={0, 10, 20, ..., 100},
+                       ymin=0,
+                       ymax=40,
+                       ylabel=precision (\%),
+                       y label style={yshift=-1.1em, font=\small},
+                       legend style={font=\tiny}]
+            \addplot [red, mark=+] file {input/data/inist_topicrank.csv};
+            \addplot [green, mark=-] file {input/data/inist_assignment.csv};
+            \addplot [blue, mark=x] file {input/data/inist_topiccorank.csv};
+            \addplot [dotted, domain=20:40] {(30 * x) / ((2 * x) - 30)};
+            \addplot [dotted, domain=10:40] {(20 * x) / ((2 * x) - 20)};
+            \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
+            \legend{TopicRank, \textit{Assignment}, TopicCoRank};
+          \end{axis}
+          \node at (3.7,2) [anchor=east] {\tiny{F=0.30}};
+          \node at (3.7,1) [anchor=east] {\tiny{F=0.20}};
+          \node at (3.7,0.3) [anchor=east] {\tiny{F=0.10}};
+        \end{tikzpicture}
+      }
+      \subfigure[DUC]{
+        \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+          \pgfkeys{/pgf/number format/.cd, fixed}
+          \begin{axis}[x=0.0038\linewidth,
+                       xtick={0, 20, 40, ..., 100},
+                       xmin=0,
+                       xmax=60,
+                       xlabel=recall (\%),
+                       x label style={yshift=.34em, font=\small},
+                       y=0.0038\linewidth,
+                       ytick={0, 15, 30, ..., 100},
+                       ymin=0,
+                       ymax=60,
+                       ylabel=precision (\%),
+                       y label style={yshift=-1.1em, font=\small},
+                       legend style={font=\tiny}]
+            \addplot [red, mark=+] file {input/data/duc_topicrank.csv};
+            \addplot [green, mark=-] file {input/data/duc_assignment.csv};
+            \addplot [blue, mark=x] file {input/data/duc_topiccorank.csv};
+            \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
+            \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
+            \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
+            \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
+            \legend{TopicRank, \textit{Assignment}, TopicCoRank};
+          \end{axis}
+          \node at (3.7,1.7) [anchor=east] {\tiny{F=0.40}};
+          \node at (3.7,1.1) [anchor=east] {\tiny{F=0.30}};
+          \node at (3.7,0.55) [anchor=east] {\tiny{F=0.20}};
+          \node at (3.7,0.15) [anchor=east] {\tiny{F=0.10}};
+        \end{tikzpicture}
+      }
+      \subfigure[SemEval]{
+        \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+          \pgfkeys{/pgf/number format/.cd, fixed}
+          \begin{axis}[x=0.0057\linewidth,
+                       xtick={0, 20, 40, ..., 100},
+                       xmin=0,
+                       xmax=40,
+                       xlabel=recall (\%),
+                       x label style={yshift=.34em, font=\small},
+                       y=0.0057\linewidth,
+                       ytick={0, 10, 20, ..., 100},
+                       ymin=0,
+                       ymax=40,
+                       ylabel=precision (\%),
+                       y label style={yshift=-1.1em, font=\small},
+                       legend style={font=\tiny}]
+            \addplot [red, mark=+] file {input/data/semeval_topicrank.csv};
+            \addplot [green, mark=-] file {input/data/semeval_assignment.csv};
+            \addplot [blue, mark=x] file {input/data/semeval_topiccorank.csv};
+            \addplot [dotted, domain=20:40] {(30 * x) / ((2 * x) - 30)};
+            \addplot [dotted, domain=10:40] {(20 * x) / ((2 * x) - 20)};
+            \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
+            \legend{TopicRank, \textit{Assignment}, TopicCoRank};
+          \end{axis}
+          \node at (3.7,2) [anchor=east] {\tiny{F=0.30}};
+          \node at (3.7,1) [anchor=east] {\tiny{F=0.20}};
+          \node at (3.7,0.3) [anchor=east] {\tiny{F=0.10}};
+        \end{tikzpicture}
+      }
+      \caption{Precision-recall curves of TopicRank, \textit{Assignment} and TopicCoRank
+               for dataset
+               \label{fig:pr_curves1}}
+  \end{figure*}
+%   \begin{figure*}
+%       \centering
+%       \subfigure[Inist]{
+%         \begin{tikzpicture}
+%           \pgfkeys{/pgf/number format/.cd, fixed}
+%           \begin{axis}[x=0.0038\linewidth,
+%                       xtick={0, 20, 40, ..., 100},
+%                       xmin=0,
+%                       xmax=60,
+%                       xlabel=recall (\%),
+%                       x label style={yshift=.34em},
+%                       y=0.0038\linewidth,
+%                       ytick={0, 10, 20, ..., 100},
+%                       ymin=0,
+%                       ymax=60,
+%                       ylabel=precision (\%),
+%                       y label style={yshift=-1.1em},
+%                       legend style={font=\tiny}]
+%             \addplot [magenta, mark=+] file {input/data/inist_topiccorank_extr.csv};
+%             \addplot [cyan, mark=-] file {input/data/inist_topiccorank_assign.csv};
+%             \addplot [blue, mark=x] file {input/data/inist_topiccorank.csv};
+%             \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
+%             \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
+%             \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
+%             \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
+%             %\legend{TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$, TopicCoRank};
+%           \end{axis}
+%           \node at (3.7,1.7) [anchor=east] {\tiny{F=0.40}};
+%           \node at (3.7,1.1) [anchor=east] {\tiny{F=0.30}};
+%           \node at (3.7,0.55) [anchor=east] {\tiny{F=0.20}};
+%           \node at (3.7,0.15) [anchor=east] {\tiny{F=0.10}};
+%         \end{tikzpicture}
+%       }
+%       \subfigure[DUC]{
+%         \begin{tikzpicture}
+%           \pgfkeys{/pgf/number format/.cd, fixed}
+%           \begin{axis}[x=0.0038\linewidth,
+%                       xtick={0, 20, 40, ..., 100},
+%                       xmin=0,
+%                       xmax=60,
+%                       xlabel=recall (\%),
+%                       x label style={yshift=.34em},
+%                       y=0.0038\linewidth,
+%                       ytick={0, 15, 30, ..., 100},
+%                       ymin=0,
+%                       ymax=60,
+%                       ylabel=precision (\%),
+%                       y label style={yshift=-1.1em},
+%                       legend style={font=\tiny}]
+%             \addplot [magenta, mark=+] file {input/data/duc_topiccorank_extr.csv};
+%             \addplot [cyan, mark=-] file {input/data/duc_topiccorank_assign.csv};
+%             \addplot [blue, mark=x] file {input/data/duc_topiccorank.csv};
+%             \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
+%             \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
+%             \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
+%             \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
+%             %\legend{TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$, TopicCoRank};
+%           \end{axis}
+%           \node at (3.7,1.7) [anchor=east] {\tiny{F=0.40}};
+%           \node at (3.7,1.1) [anchor=east] {\tiny{F=0.30}};
+%           \node at (3.7,0.55) [anchor=east] {\tiny{F=0.20}};
+%           \node at (3.7,0.15) [anchor=east] {\tiny{F=0.10}};
+%         \end{tikzpicture}
+%       }
+%       \subfigure[SemEval]{
+%         \begin{tikzpicture}
+%           \pgfkeys{/pgf/number format/.cd, fixed}
+%           \begin{axis}[x=0.00565\linewidth,
+%                       xtick={0, 20, 40, ..., 100},
+%                       xmin=0,
+%                       xmax=40,
+%                       xlabel=recall (\%),
+%                       x label style={yshift=.34em},
+%                       y=0.00565\linewidth,
+%                       ytick={0, 10, 20, ..., 100},
+%                       ymin=0,
+%                       ymax=40,
+%                       ylabel=precision (\%),
+%                       y label style={yshift=-1.1em},
+%                       legend style={font=\tiny}]
+%             \addplot [magenta, mark=+] file {input/data/semeval_topiccorank_extr.csv};
+%             \addplot [cyan, mark=-] file {input/data/semeval_topiccorank_assign.csv};
+%             \addplot [blue, mark=x] file {input/data/semeval_topiccorank.csv};
+%             \addplot [dotted, domain=20:40] {(30 * x) / ((2 * x) - 30)};
+%             \addplot [dotted, domain=10:40] {(20 * x) / ((2 * x) - 20)};
+%             \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
+%             \legend{TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$, TopicCoRank};
+%           \end{axis}
+%           \node at (3.7,2) [anchor=east] {\tiny{F=0.30}};
+%           \node at (3.7,1) [anchor=east] {\tiny{F=0.20}};
+%           \node at (3.7,0.3) [anchor=east] {\tiny{F=0.10}};
+%         \end{tikzpicture}
+%       }
+%       \caption{Precision-recall curves of TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$ and TopicCoRank
+%               for dataset
+%               \label{fig:pr_curves2}}
+%     \end{figure*}
+
+  The influence of inner and outer recommendations with respect to the ranking is shown in  figure~\ref{fig:lambda_variations}.
+  The curves display the performance of TopicCoRank over the f-score with $\lambda$ ranging from $0.1$ to
+  $0.9$.   We first observe that whatever is the value
+  of $\lambda$, the worst performance of TopicCoRank is in the range of TopicRank's
+  performance. The keyphrase extraction is always improved by the co-ranking. Secondly, a
+  balanced influence induces nearly always the  best performances whatever is the dataset. TopicCoRank leverages
+  both inner and outer recommendations. This means that controlled keyphrases and document topics
+  can benefit from each other. We demonstrated the helpfulness of a co-ranking strategy for the automatic keyphrase
+  annotation task.
+  \begin{figure*}
+      \centering
+      \subfigure[Inist]{
+        \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+          \pgfkeys{/pgf/number format/.cd, fixed}
+          \begin{axis}[x=0.262\linewidth,
+                       xtick={0.1, 0.3, ..., 0.9},
+                       xmin=0.05,
+                       xmax=0.95,
+                       xlabel=$\lambda$,
+                       x label style={yshift=.34em, font=\small},
+                       y=0.0125\textheight,
+                       ytick={0, 2, 4, ..., 34},
+                       ymin=14,
+                       ymax=25,
+                       ylabel=f-score (\%),
+                       y label style={yshift=-1.1em, font=\small}]
+            \addplot[blue, mark=x] coordinates{
+              (0.1, 20.04)
+              (0.2, 20.22)
+              (0.3, 20.37)
+              (0.4, 20.14)
+              (0.5, 20.09)
+              (0.6, 18.46)
+              (0.7, 16.69)
+              (0.8, 15.98)
+              (0.9, 16.43)
+            };
+          \end{axis}
+        \end{tikzpicture}
+      }
+      \subfigure[DUC]{
+        \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+          \pgfkeys{/pgf/number format/.cd, fixed}
+          \begin{axis}[x=0.262\linewidth,
+                       xtick={0.1, 0.3, ..., 0.9},
+                       xmin=0.05,
+                       xmax=0.95,
+                       xlabel=$\lambda$,
+                       x label style={yshift=.34em, font=\small},
+                       y=0.0125\textheight,
+                       ytick={0, 2, 4, ..., 34},
+                       ymin=24,
+                       ymax=35,
+                       ylabel=f-score (\%),
+                       y label style={yshift=-1.1em, font=\small}]
+            \addplot[blue, mark=x] coordinates{
+              (0.10, 31.96)
+              (0.20, 32.24)
+              (0.30, 32.40)
+              (0.40, 31.92)
+              (0.50, 31.53)
+              (0.60, 30.50)
+              (0.70, 28.23)
+              (0.80, 26.61)
+              (0.90, 24.63)
+            };
+          \end{axis}
+        \end{tikzpicture}
+      }
+      \subfigure[SemEval]{
+        \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+          \pgfkeys{/pgf/number format/.cd, fixed}
+          \begin{axis}[x=0.262\linewidth,
+                       xtick={0.1, 0.3, ..., 0.9},
+                       xmin=0.05,
+                       xmax=0.95,
+                       xlabel=$\lambda$,
+                       x label style={yshift=.34em, font=\small},
+                       y=0.0125\textheight,
+                       ytick={0, 2, 4, ..., 34},
+                       ymin=8,
+                       ymax=19,
+                       ylabel=f-score (\%),
+                       y label style={yshift=-1.1em, font=\small}]
+            \addplot[blue, mark=x] coordinates{
+              (0.10, 11.24)
+              (0.20, 11.33)
+              (0.30, 11.39)
+              (0.40, 12.07)
+              (0.50, 13.43)
+              (0.60, 14.49)
+              (0.70, 14.09)
+              (0.80, 13.96)
+              (0.90, 13.28)
+            };
+          \end{axis}
+        \end{tikzpicture}
+      }
+      \caption{Evolution of TopicCoRank's f-score (F) regarding the value of $\lambda$
+               for each dataset
+               \label{fig:lambda_variations}}
+    \end{figure*}
+    
+    As already observed with results shown in table~\ref{tab:comparison_results}, the
+    behavior of TopicCoRank differs between SemEval and the two other datasets. Values
+    of $\lambda$ below $0.5$ induce better performances than above $0.5$ on Inist and
+    DUC, whereas the opposite observation raised from SemEval results. With a higher
+    $\lambda$, the controlled graph highly influences the document topics and these topics get
+    higher importance scores because the relations between topics are richer than
+    between controlled keyphrases (more relations and higher weights). On Inist and DUC,
+    artificially prioritizing keyphrase extraction with a higher $\lambda$ decreases
+    the performance, whereas it increases the performance on SemEval.
+
+    Finally, we provide insight of the improvement of TopicCoRank with an example of
+    keyphrase annotation for the document \texttt{AP890708-0135} in DUC\footnote{A
+    complete version of the document is available on the online AP news archive:
+    \scriptsize\url{http://www.apnewsarchive.com/1989/Forests-Brush-Grass-Burn-In-The-Hot-Dry~-West/id-abcc43e9a37a9e5e1bf5ddfb4a3f0a17}.},
+    namely \textit{Forests, Brush, Grass Burn In The Hot, Dry West}:
+    \begin{center}
+        \begin{varwidth}{.9\linewidth}
+            \textbf{Reference}:
+            \begin{enumerate*}
+                \item{forest fire;}
+                \item{firefighters;}
+                \item{fire crews;}
+                \item{fire lines;}
+                \item{fire season;}
+                \item{federal firefighting effort.}
+            \end{enumerate*}
+            \noindent\rule[0.5ex]{\linewidth}{.5pt}
+            \textbf{TopicRank}:
+            \begin{enumerate*}
+                \item{fire;}
+                \item{acres;}
+                \item{miles;}
+                \item{forest;}
+                \item{wind;}
+                \item{utah.}
+            \end{enumerate*}\\
+            \textbf{\textit{Assignment}}:
+            \begin{enumerate*}
+                \item{fire;}
+                \item{forest;}
+                \item{\underline{firefighters};}
+                \item{utah;}
+                \item{national forest;}
+                \item{wyoming.}
+            \end{enumerate*}\\
+            \textbf{TopicCoRank}:
+            \begin{enumerate*}
+                \item{fire;}
+                \item{\underline{firefighters};}
+                \item{\underline{forest fire};}
+                \item{\underline{fire lines};}
+                \item{\underline{fire season};}
+                \item{utah}.
+            \end{enumerate*}
+        \end{varwidth}
+    \end{center}
+    Underlined keyphrases correspond to correctly extracted and assigned keyphrases.

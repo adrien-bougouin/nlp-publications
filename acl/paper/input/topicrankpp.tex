@@ -1,48 +1,95 @@
-\section{TopicRank++}
+\section{Co-ranking for Keyphrase Annotation}
 \label{sec:topicrankpp}
-  This section presents TopicRank++, a supervised extension of TopicRank that
-  adds AKA. Topic\-Rank works in three steps:
-  \begin{enumerate}
-    \item{Clustering candidate keyphrases that belongs to the same topic.
-          \newcite{bougouin2013topicrank} assumes that candidate of the same
-          topic must share as many words as possible. They uses a Hierarchical
-          Agglomerative Clustering (HAC) with a ``naive'' stem overlap
-          similarity: at the beginning, each candidate is a single cluster and
-          candidates sharing an average of $\unitfrac{1}{4}$ stemmed words with
-          the candidates of a given cluster are added to this cluster.}
-    \item{Building a graph of topics and ranking the topics using
-          TextRank~\cite{mihalcea2004textrank}. Each topic is connected to the
-          other topics by edges weighted according to the semantic strength
-          between the connected topics. TextRank ranking algorithm recursively
-          gives high importance to topics strongly connected to as most
-          important topics as possible.}
-    \item{Extracting keyphrases among the candidates of the $N$ most important
-          topics. To avoid topic redundancy, TopicRank only extracts one
-          keyphrase per topic. Following previous
-          observations~\cite{witten1999kea}, \newcite{bougouin2013topicrank}
-          extract the first occurring candidate from each topic.}
-  \end{enumerate}
 
-  To fit our need, TopicRank++ has a different graph construction. We also
-  replace the classic TextRank ranking algorithm by a co-ranking variant and
-  we integrate AKA during the former AKE process.
+  This section presents TopicCoRank, our keyphrase annotation method.
+  We first describe TopicRank~\cite{bougouin2013topicrank}, a 
+  graph-based ranking approach to keyphrase extraction on which we build on.
+  We then present the unified graph model we adopt, and the co-ranking
+  strategy we propose for performing both keyphrase extraction and assignment.
 
-  \subsection{Graph construction}
+  %This section presents our keyphrase annotation method that performs both keyphrase extraction and assignment. 
+  %We adopt a graph-based approach, cluster keyphrase candidates in topics and add a supervised keyphrase assignment. 
+  %Our approach could be seen as an improvment of TopicRank \cite{bougouin2013topicrank}, we call it TopicCoRank.
+  
+   %'ai rajoue une phrase d'introduction pour expliquer le nom, sinon c'est comme si on indiquait qui on etait
+   %TopicCoRank, a supervised keyphrase assignment extension of TopicRank. 
+  
+%  We first detail TopicRank, then describe the changes that were made to pair the keyphrase extraction 
+%  to the keyphrase assignment.
+  
+  \subsection{TopicRank}
+  \label{subsec:topicrank}
+    TopicRank is an unsupervised graph-based method that topically clusters the
+    keyphrase candidates of a document, ranks the topics and extract the
+    most representative keyphrase for each of the $N$ most important topics. It
+    relies on four main steps: topical clustering, graph construction,
+    graph-based topic ranking and extraction of the most representative keyphrase
+    per topic.
+    
+    Sequences of adjacent words, restricted to nouns and adjectives, are 
+    considered as keyphrase candidates.
+    %
+    %In a document, a topic is usually conveyed by more than one noun phrase.
+    %Consequently, some keyphrase candidates are redundant in regard to the 
+    %topic they represent.
+    In TopicRank, similar keyphrase candidates are clustered into topics based
+    on the words they share.
+    % Here, the assumption is that in a document a topic is usually conveyed 
+    %by more than one noun phrase.
+    %The topical clustering assumes that keyphrase candidates of a same topic
+    %share some words.
+    \newcite{bougouin2013topicrank} use a Hierarchical
+    Agglomerative Clustering (HAC) with a stem overlap similarity: at
+    the beginning, each keyphrase candidate is a single cluster and candidates
+    sharing an average of $\unitfrac{1}{4}$ stemmed words with the candidates of
+    a given cluster are iteratively added to the latter.
+    
+    The identified topics are then used to build a graph.
+    %\newcite{bougouin2013topicrank} ca fait trop d'autocitation
+    A complete graph  is built and the edges are weighted according to the strength of the semantic
+    relation between the connected topics. The closer two topics occur in the
+    document, the stronger is their semantic relation.
+    
+    The ranking of the topics is performed with TextRank, modified to exploit edge
+    weights $w$ by \newcite{wan2008expandrank} (see equation~\ref{math:singlerank}).
+    A topic is important if it is highly connected to other topics and if it is
+    connected to important topics.
+    \begin{align}
+      S(V_i) = (1 - \lambda) + \lambda \sum_{E_{ij}}{\frac{w_{ij}S(V_j)}{\mathlarger\sum_{E_{jk}}{w_{jk}}}}\label{math:singlerank}
+    \end{align}
+      
+    The keyphrase extraction is performed on the $N$  most important topics. To
+    avoid topic redundancy, only one
+    keyphrase per topic is extracted
+    %\newcite{bougouin2013topicrank} extract . ca fait trop d'autocitation
+    Following previous observations~\cite{witten1999kea},
+    the first occurring keyphrase candidate is chosen.
+
+  \subsection{Graph construction for co-ranking}
   \label{subsec:graph_construction}
-    TopicRank++ operates over a unified graph that connects two graphs
-    representing the domain's reference keyphrases, the document's topics and
-    the relations between them. Formally, let $G = (V, E)$ denote the unified
-    graph. Reference keyphrases and topics are vertices $V$, respectively $V_k$
-    and $V_t$, connected to their equals by edges
-    $E_\textnormal{\textit{intra}}$ and connected to the other vertices by edges
-    $E_\textnormal{\textit{outer}}$ (see Figure~\ref{fig:topicrankpp_graph}).
-
+    TopicCoRank operates over an unified graph that connects two graphs
+    representing the controlled keyphrases, the document's topics and
+    the relations between them. Controlled keyphrases are keyphrases
+    that were manually assigned to training documents. We consider the 
+    controlled keyphrases
+    to be our controlled vocabulary for the keyphrase assignment. %\footnote{Unlike
+    %the keyphrase candidates, we do not cluster the domain keyphrases.}.
+    Because controlled keyphrases are presumably non-redundant, we do not 
+    group them by topics as we do for keyphrases candidates.
+    
+    Formally, let
+    $G = (V, E=E_{\textnormal{\textit{in}}} \cup E_{\textnormal{\textit{out}}})$
+    denote the unified graph. Controlled keyphrases and topics are vertices $V$
+    connected to their fellows by edges $E_\textnormal{\textit{in}}$ and
+    connected to the other vertices by edges $E_\textnormal{\textit{out}}$ (see
+    figure~\ref{fig:topicrankpp_graph}).
+    
     \begin{figure*}
       \newcommand{\xslant}{0.25}
       \newcommand{\yslant}{0}
 
       \centering
-      \begin{tikzpicture}[transform shape, scale=.66]
+      \begin{tikzpicture}[transform shape, scale=.75]
         % frame
         \node [draw,
                rectangle,
@@ -53,38 +100,38 @@
         \node [above=of domain_graph,
                xshift=.36\linewidth,
                yshift=8em,
-               anchor=south east] (domain_graph_label) {domain keyphrases};
+               anchor=south east] (domain_graph_label) {controlled keyphrases};
 
         \node [draw,
                circle,
                above=of domain_graph,
                xshift=.3\linewidth,
-             yshift=5em] (domain_node1) {$V_{k_1}$};
+             yshift=5em] (domain_node1) {$V_1$};
         \node [draw,
                circle,
                above=of domain_graph,
                xshift=-.3\linewidth,
-               yshift=5em] (domain_node2) {$V_{k_2}$};
+               yshift=5em] (domain_node2) {$V_2$};
         \node [draw,
                circle,
                above=of domain_graph,
-               yshift=5em] (domain_node3) {$V_{k_3}$};
+               yshift=5em] (domain_node3) {$V_3$};
         \node [draw,
                circle,
                above=of domain_graph,
                xshift=.15\linewidth,
-               yshift=.75em] (domain_node4) {$V_{k_4}$};
+               yshift=.75em] (domain_node4) {$V_4$};
         \node [draw,
                circle,
                above=of domain_graph,
                xshift=-.15\linewidth,
-               yshift=.75em] (domain_node5) {$V_{k_5}$};
+               yshift=.75em] (domain_node5) {$V_5$};
 
-        \draw [<->] (domain_node1) -- (domain_node3);
-        \draw [<->] (domain_node2) -- (domain_node3);
-        \draw [<->] (domain_node2) -- (domain_node4);
-        \draw [<->] (domain_node4) -- (domain_node5);
-        \draw [<->] (domain_node4) -- (domain_node3);
+        \draw (domain_node1) -- (domain_node3);
+        \draw (domain_node2) -- (domain_node3);
+        \draw (domain_node2) -- (domain_node4);
+        \draw (domain_node4) -- (domain_node5);
+        \draw (domain_node4) -- (domain_node3);
 
         % document
         \node [draw,
@@ -105,144 +152,139 @@
                regular polygon sides=8,
                below=of document_graph,
                xshift=.3\linewidth,
-               yshift=-5em] (document_node1) {$V_{t_1}$};
+               yshift=-5em] (document_node1) {$V_6$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
                xshift=-.3\linewidth,
-               yshift=-5em] (document_node2) {$V_{t_2}$};
+               yshift=-5em] (document_node2) {$V_7$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
-             yshift=-5em] (document_node3) {$V_{t_3}$};
+             yshift=-5em] (document_node3) {$V_8$};
         \node [draw,
                regular polygon,
                regular polygon sides=8,
                below=of document_graph,
                xshift=.15\linewidth,
-               yshift=-.75em] (document_node4) {$V_{t_4}$};
-        \node [draw,
-               regular polygon,
-               regular polygon sides=8,
-               below=of document_graph,
-               xshift=-.1\linewidth,
-               yshift=-.75em] (document_node5) {$V_{t_5}$};
-        \node [draw,
-               regular polygon,
-               regular polygon sides=8,
-               below=of document_graph,
-               yshift=-.75em] (document_node6) {$V_{t_6}$};
-        \node [draw,
-               regular polygon,
-               regular polygon sides=8,
-               below=of document_graph,
-               xshift=-.175\linewidth,
-               yshift=-5em] (document_node7) {$V_{t_7}$};
+               yshift=-.75em] (document_node4) {$V_9$};
 
-        \draw [<->] (document_node2) -- (document_node7);
-        \draw [<->] (document_node2) -- (document_node5);
-        \draw [<->] (document_node7) -- (document_node5);
-        \draw [<->] (document_node7) -- (document_node3);
-        \draw [<->] (document_node5) -- (document_node6);
-        \draw [<->] (document_node3) -- (document_node1);
-        \draw [<->] (document_node1) -- (document_node4);
-        \draw [<->] (document_node3) -- (document_node4);
+        \draw (document_node2) -- (document_node3);
+        \draw (document_node3) -- (document_node1);
+        \draw (document_node1) -- (document_node4);
+        \draw (document_node3) -- (document_node4);
 
         % extra link
-        \draw [<->, dashed] (document_node2) -- (domain_node2);
-        \draw [<->, dashed] (document_node6) -- (domain_node5);
-        \draw [<->, dashed] (document_node6) -- (domain_node3);
-        \draw [<->, dashed] (document_node4) -- (domain_node1);
-        \draw [<->, dashed] (document_node3) -- (domain_node4);
+        \draw [dashed] (document_node2) -- (domain_node2);
+        \draw [dashed] (document_node3) -- (domain_node3);
+        \draw [dashed] (document_node4) -- (domain_node1);
+        \draw [dashed] (document_node3) -- (domain_node4);
 
         % legend
         \node [right=of document_graph, xshift=2em, yshift=-9.25em] (legend_title) {\underline{Legend:}};
         \node [below=of legend_title, xshift=-1em, yshift=2em] (begin_inner) {};
-        \node [right=of begin_inner] (end_inner) {: $E_\textnormal{\textit{inner}}$};
+        \node [right=of begin_inner] (end_inner) {: $E_\textnormal{\textit{in}}$};
         \node [below=of begin_inner, yshift=1.5em] (begin_outer) {};
-        \node [right=of begin_outer] (end_outer) {: $E_\textnormal{\textit{outer}}$};
+        \node [right=of begin_outer] (end_outer) {: $E_\textnormal{\textit{out}}$};
 
         \draw (legend_title.north  -| end_outer.east) rectangle (end_outer.south -| legend_title.west);
 
-        \draw [<->] (begin_inner) -- (end_inner);
-        \draw [<->, dashed] (begin_outer) -- (end_outer);
+        \draw (begin_inner) -- (end_inner);
+        \draw [dashed] (begin_outer) -- (end_outer);
       \end{tikzpicture}
-      \caption{Example of a unified graph constructed by TopicRank++ and its two
-               kinds of edges: inner- and outer-graph edges
+      \caption{Example of a unified graph constructed by TopicCoRank and its two
+               kinds of edges
                \label{fig:topicrankpp_graph}}
     \end{figure*}
 
-    We create edges $E_\textnormal{\textit{intra}}$ between two reference
-    keyphrases or two topics when they co-occur, respectively, as reference
-    keyphrases for a document of the domain or within a sentence of the
-    document. Each edge $E_{\textnormal{\textit{intra}}_{ij}}$ is weighted by
-    the normalized number of co-occurrences $w_{ij}$ between the reference
-    keyphrases $V_{k_i}$ and $V_{k_j}$ or the topics $V_{t_i}$ and $V_{t_j}$.
+    We create edges $E_\textnormal{\textit{in}}$ between two controlled
+    keyphrases or two topics when they co-occur, respectively, as keyphrases of
+    a training document or within a sentence of the
+    document. Each edge $E_{\textnormal{\textit{in}}_{ij}}$ is weighted by
+    the normalized number of co-occurrences $w_{ij}$ between the controlled
+    keyphrases or the topics $V_i$ and $V_j$. The weighting scheme of edges
+    $E_\textnormal{\textit{in}}$ is equivalent for both controlled keyphrases and
+    topics. This equivalence is essential to properly co-rank controlled keyphrases
+    and topics.
 
-    To unify the two graphs, we look for reference keyphrase occurrences within
-    the document. The domain keyphrases can be seen as a category map of the
-    domain. We try to connect the document to its potential categories. An edge
-    $E_{\textnormal{\textit{outer}}_{ij}}$ is created to connect a reference
-    keyphrase $V_{k_i}$ and a topic $V_{t_j}$ if the reference keyphrase is a
-    member of the topic, i.e.~a keyphrase candidate that belongs to the topic.
+    To unify the two graphs, we consider the controlled keyphrases as a category map and connect the document to its potential categories. An edge
+    $E_{\textnormal{\textit{out}}_{ij}}$ is created to connect a controlled
+    keyphrase $V_i$ and a topic $V_j$ if the controlled keyphrase is a
+    member of the topic, i.e., a keyphrase candidate that belongs to the topic.
     To accept flexions, such as plural flexions, we perform the comparison with
     stems.
 
   \subsection{Graph-based co-ranking}
   \label{subsec:graph_based_co_ranking}
-    This ranking leverages both the reference keyphrase relations and the topic
-    relations. Based on TextRank's random walk~\cite{mihalcea2004textrank}, our
-    co-ranking algorithm combines the recommendations within each graph in such
-    a way that the random part is replaced by a recommendation comming from the
-    other graph:
-    \begin{tiny}
-      \begin{align}
-        S(V_{t_i}) &= (1 - \lambda) \sum_{E_{\text{outer}_{ji}}}{\frac{S(V_{k_j})}{\mathlarger\sum_{E_{\text{outer}_{jm}}}{1}}} + \lambda \sum_{E_{\text{inner}_{ij}}}{\frac{w_{ij} S(V_{t_j})}{\mathlarger\sum_{E_{\text{inner}_{jm}}}{{w_{jm}}}}}\\
-        S(V_{k_i}) &= (1 - \lambda) \sum_{E_{\text{outer}_{ij}}}{\frac{S(V_{t_j})}{\mathlarger\sum_{E_{\text{outer}_{mj}}}{1}}} + \lambda \sum_{E_{\text{inner}_{ij}}}{\frac{w_{ij} S(V_{k_j})}{\mathlarger\sum_{E_{\text{inner}_{jm}}}{{w_{jm}}}}}
-      \end{align}
-    \end{tiny}
-    These formula embed two assumptions:
-    \begin{enumerate}
-      \item{A reference keyphrase is important if it is strongly linked to other
-            reference keyphrases and a topic is important if it is strongly
-            linked to other topics.}
-      \item{A reference keyphrase is more important in the context of the
-            document if it is related to the topics within the document and a
-            topic is more important if it relates to domain keyphrases.}
-    \end{enumerate}
-    The first assumption is the former TextRank assumption. The second is
-    induced by the unification of both domain keyphrases and document topics.
+    TopicCoRank gives an importance score $S(V_i)$ to every vertex
+    $V_i$ using graph co-ranking (see equation~\ref{math:topiccorank}).
+    Graph co-ranking has been applied with success to many NLP tasks 
+    such as text summarization~\cite{wan2011corankingsummarization}, 
+    tweet recommendation~\cite{yan2012corankingtweetrecommendation} or 
+    opinion mining~\cite{liu2014corankingopinionmining}.
+    
+     % This paper presents TopicCoRank, the first method that performs both keyphrase
+ % extraction and keyphrase assignment, using graph co-ranking. Employed to
+ % tackle various NLP
+ % tasks~\cite{wan2011corankingsummarization,yan2012corankingtweetrecommendation,zhang2013wordtopicmultirank,liu2014corankingopinionmining},
+ % graph co-ranking is a powerfull technique that reinforce the ranking of
+ % specific entities by the ranking of other entities. 
+    
+    The
+    graph co-ranking simulates the ``voting concept'' based on inner and outer
+    recommendations. The inner recommendation $R_\textnormal{\textit{in}}$ of a
+    node comes from nodes of the same graph: a controlled keyphrase is important if
+    it is strongly connected to other controlled keyphrases, and a topic is important
+    if it is strongly connected to other topics (see equation~\ref{math:rin}). The outer recommendation
+    $R_\textnormal{\textit{out}}$ of a node comes from nodes of the other graph:
+    a controlled keyphrase is more important in the context of the document if it is
+    connected to one of its important topics, and a topic is more important if it
+    is connected to important controlled keyphrases (see equation~\ref{math:rout}).
+    \begin{align}
+      S(V_i) &= (1 - \lambda)\ R_{out}(V_i) + \lambda\ R_{in}(V_i)\label{math:topiccorank}\\
+      R_{in}(V_i) &= \sum_{E_{\text{in}_{ij}}}{\frac{w_{ij} S(V_j)}{\mathlarger\sum_{E_{\text{in}_{jk}}}{{w_{jk}}}}}\label{math:rin}\\
+      R_{out}(V_i) &= \sum_{E_{\text{out}_{ji}}}{\frac{S(V_j)}{deg_{\text{\textit{out}}}(V_j)}}\label{math:rout}
+    \end{align}
+    where $deg_\textnormal{\textit{out}}(V_j)$ represents the degree of $V_j$
+    considering only edges $E_\textnormal{\textit{out}}$.
+    $\lambda$ is a factor that configures the influence of the inner recommendation
+    over the outer recommendation ($\lambda \in \{0..1\}$). A higher $\lambda$
+    gives more influence to the inner recommendation and a lower $\lambda$ gives
+    more influence to the outer recommendation. We set $\lambda$ to $0.5$ by
+    default, which balances the influence of each recommendation. However,
+    depending on the nature of the documents to process or the caracteristics of
+    the manual annotation to mimic, one may need to adapt TopicCoRank with a tuned
+    $\lambda$.
 
-    The $\lambda$ factor helps to configure the influence of the document topics
-    over the whole ranking (in percentage). A higher $\lambda$ gives a higher
-    influence to the document topics than a lower $\lambda$. $\lambda=0.5$
-    balances the influence of the ranking of the document and of the domain.
-
-  \subsection{Keyphrase assignment and extraction}
+  \subsection{Keyphrase annotation}
   \label{subsec:keyphrase_assignment_and_extraction}
-    To both assign and extract keyphrases, we first sort the reference
-    keyphrases and the document's topics using their importance score obtained
-    with the co-ranking, then we retain the top $N$ ones.
+    To both assign and extract keyphrases, we sort the controlled
+    keyphrases and the topics based on their importance score $S$. Top $N$ ones are
+    considered as the keyphrases of the document.
 
-    We assign reference keyphrases over one condition. A reference keyphrase can
+    We assign controlled keyphrases over one condition. A controlled keyphrase can
     be assigned to a document if it is directly or transitively connected to a
-    topic of the document. In other words, if the ranking of a reference
-    keyphrase has not been influenced by the document, we do not consider this
-    reference keyphrase.
+    topic of the document. If the ranking of a controlled keyphrase has not been
+    affected by topics of the document nor controlled keyphrases connected to topics,
+    its importance score is not related to the content of the document.
 
     We extract keyphrases from the topics using the former TopicRank strategy.
     Only one keyphrase is extracted per topic. The extracted keyphrase is the
     candidate of the topic that occurs first within the document.
+    \newcite{bougouin2013topicrank} tested other strategies: extracting the most
+    frequent candidate of the topic or extracting its centroid. The strategy to
+    extract the first occurring candidate is the most efficient strategy, but
+    \newcite{bougouin2013topicrank} showed that an optimal, yet unidentified, strategy could
+    perform about twice better.
 
-    This AKA and AKE can be further improved. One can set the ratio of
-    keyphrases to assign and keyphrases to extract, or even control the degree
-    of generalization of the assigned keyphrases. One may be interested in
-    assigning very specific keyphrases regarding the document(\TODO{example}),
-    whereas one may want to assign more general keyphrases (\TODO{example}). The
-    minimum deph between a reference keyphrase and a document topic encodes this
-    degree of generalization. A reference keyphrase directly connected to a
-    document topic has the lowest generalization regarding the document,
-    followed by its connected reference keyphrases, and so on.
-
+    % This AKA and AKE can be further improved. One can set the ratio of
+    % keyphrases to assign and keyphrases to extract, or even control the degree
+    % of generalization of the assigned keyphrases. One may be interested in
+    % assigning very specific keyphrases regarding the document(\TODO{example}),
+    % whereas one may want to assign more general keyphrases (\TODO{example}). The
+    % minimum deph between a reference keyphrase and a document topic encodes this
+    % degree of generalization. A reference keyphrase directly connected to a
+    % document topic has the lowest generalization regarding the document,
+    % followed by its connected reference keyphrases, and so on.
