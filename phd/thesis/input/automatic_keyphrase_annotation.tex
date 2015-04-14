@@ -9,13 +9,51 @@
 
   \section{Introduction}
   \label{sec:main-automatic_keyphrase_annotation-introduction}
-    \TODO{chaine de traitement classique}
-    \TODO{Extraction Vs. Assignation => Libre Vs. Controllé}
+    Nos travaux de recherche en indexation automatique par termes-clés se
+    fondent sur l'analyse que nous présentons dans le
+    chapitre~\ref{chap:main-state_of_the_art}
+    (page~\pageref{chap:main-state_of_the_art}). Nous nous intéressons tout
+    d'abord à l'étape préliminaire de sélection des termes-clés candidats, nous
+    proposons ensuite une nouvelle méthode non supervisée d'extraction de
+    termes-clés, puis nous l'étendons pour répondre au problème d'indexation par
+    termes-clés dans sa globalité~: extraction et assignement.
+
+    La sélection des termes-clés candidats est une étape importante de
+    l'indexation par termes-clés, car elle définit la frontière entre les unités
+    textuelles qui sont potentiellement des termes-clés et celles qui n'en sont
+    pas. Elle fixe ainsi la performance maximale que peuvent atteindre les
+    méthodes d'indexation par termes-clés, c'est le rappel maximal. Dans la
+    littérature, cette étape fait l'objet de peu d'études. Nous proposons donc
+    une analyse des caractéristiques linguistiques des termes-clés de référence
+    de nos collections de données et proposons une méthode de sélection fine des
+    termes-clés candidats.
+
+    L'extraction automatique de termes-clés est la catégorie d'indexation par
+    termes-clés qui fait l'objet du plus grand nombre de travaux. Celle ci se
+    concentre sur les unités textuelles présentes dans le document. Elle
+    peut-être réalisée de manière supervisée, en apprenant à reconnaître les
+    termes-clés selon des caractéristiques diverses, ou de manière non
+    supervisée, en ordonnant les termes-clés candidats par importance. Les
+    méthodes non supervisées ayant un couplage faible (voir inexistant) avec les
+    caractéristiques des données traitées, nous définissons les bases d'un
+    nouvelle méthode d'indexation par termes-clés en commençant par définir une
+    méthode non supervisée d'extraction de termes-clés.
+
+    Notre dernière contribution reprend notre travail en extraction
+    automatique de termes-clés et lui donne la capacité à assigner des
+    termes-clés, c'est-à-dire à fournir des termes-clés qui n'apparaissent pas
+    dans le document. Peut de travaux s'intéresse à l'assignement de
+    termes-clés. Cette aspect de l'indexation automatique par termes-clés est
+    toutefois \TODO{\dots}
 
   %-----------------------------------------------------------------------------
 
   \section{Sélection des termes-clés candidats}
   \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}
+    \TODO{Introduction}
+
+    \subsection{Collections de données}
+    \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-datasets}
     \subsection{Analyse des propriétés linguistiques des termes-clés}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties}
 
@@ -30,10 +68,15 @@
       \subsubsection{Evaluation extrinsèque}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
 
+    \subsection{Bilan}
+    \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-conclusion}
+
   %-----------------------------------------------------------------------------
 
   \section{Extraction automatique non supervisée de termes-clés}
   \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction}
+  \TODO{Introduction}
+
     \subsection{TopicRank}
     \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank}
       % Qu'est-ce que TopicRank ?
@@ -83,7 +126,7 @@
         uniquement en termes de flexion ou de dérivation.} de
         \newcite{porter1980suffixstripping}~:
         \begin{align}
-          \text{sim}(c_1, c_2) &= \frac{\|c_1 \cap c_2\|}{\|c_1 \cup c_2\|} \label{equa:jaccard}
+          \text{sim}(c_1, c_2) &= \frac{|c_1 \cap c_2|}{|c_1 \cup c_2|} \label{equa:jaccard}
         \end{align}
         Cette mesure est naïve dans le sens où l'ordre des mots, leur ambiguïté
         et les liens de synonymie ne sont pas pris en compte. À cela s'ajoute
@@ -244,94 +287,8 @@
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
-        Afin de suivre \newcite{hassan2010conundrums} qui soulignent
-        l'importance d'évaluer une méthode avec des collections de données aux
-        configurations différentes pour mieux observer et comprendre son
-        comportement, les collections de données utilisées dans ce travail
-        diffèrent en termes de langue, nature, taille des documents et types
-        d'annotateurs (auteurs, lecteurs ou les deux).
+        \TODO{Donner les collections et dire pourquoi celles-ci.}
 
-        DUC~\cite{over2001duc} est une collection en anglais issue des données
-        de la campagne d'évaluation DUC-2001 qui concerne les méthodes de résumé
-        automatique. Elle ne contient donc originellement pas d'annotations en
-        termes-clés. Cependant, les 308 articles journalistiques de la partie
-        test de DUC-2001 ont été annotés par \newcite{wan2008expandrank}. Nous
-        utilisons ces 308 documents pour comparer TopicRank avec les méthodes de
-        référence.
-
-        SemEval~\cite{kim2010semeval} est la collection en anglais fournie lors
-        de la campagne d'évaluation SemEval-2010 pour la tâche d'extraction
-        automatique de termes-clés. Cette collection contient 244 articles
-        scientifiques (conférences et ateliers) issus de la bibliothèque
-        numérique ACM. La collection est répartie en deux sous-ensembles~: un
-        ensemble de 144 documents d'entraînement et un ensemble de 100 documents
-        de test. Lors de nos expériences, nous utilisons les 100 documents de
-        l'ensemble de test pour comparer TopicRank avec les méthodes de
-        référence et les 144 documents d'entraînement pour paramétrer TopicRank
-        et SingleRank. En ce qui concerne les termes-clés associés aux
-        documents, ce sont les termes-clés des auteurs combinés aux termes-clés
-        donnés par des étudiants.
-
-        WikiNews\footnote{\url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}
-        est une collection de 100 articles journalistiques en français que nous
-        avons extraits du site Web
-        WikiNews\footnote{\url{http://fr.wikinews.org}} entre les mois de mai et
-        de décembre 2012. Pour l'annotation en termes-clés, nous avons demandé à
-        neuf étudiants de master en TAL d'extraire (librement) les termes-clés
-        de 33 documents, de sorte que chaque document soit annoté par au moins
-        trois étudiants. Nous utilisons les 100 documents de Wikinews pour
-        comparer TopicRank avec les méthodes de référence.
-
-        DEFT~\cite{paroubek2012deft} est la collection fournie lors de la
-        campagne d'évaluation DEFT-2012 pour la tâche d'extraction automatique
-        de termes-clés. Celle-ci contient 234 documents en français issus de
-        quatre revues de sciences humaines et sociales. Elle est divisée en deux
-        sous-ensembles~: un ensemble d'entraînement contenant 141 documents et
-        un ensemble de test contenant 93 documents. Lors de nos expériences,
-        nous utilisons les 93 documents de l'ensemble de test pour comparer
-        TopicRank avec les méthodes de référence et les 141 documents
-        d'entraînement pour paramétrer TopicRank et SingleRank. Dans cette
-        collection, seuls les termes-clés des auteurs sont disponibles.
-
-        Le tableau~\ref{tab:donnees_de_test} donne les statistiques extraites
-        des ensembles de test des quatre collections de données présentées
-        ci-dessus. Les données sont divisées en deux langues (anglais et
-        français), avec pour chaque langue une collection de documents courts
-        (articles journalistiques) et une collection de documents de plus grande
-        taille (articles scientifiques). Il est aussi important de noter qu'en
-        fonction du type d'annotateurs, le nombre de termes-clés associés varie,
-        de même que le nombre de termes-clés n'apparaissant pas dans les
-        documents.
-        \begin{table}
-          \centering
-          \begin{tabular}{@{~}l@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c@{~}}
-            \hline
-            \textbf{Statistique} & \textbf{DUC} & \textbf{SemEval} & \textbf{WikiNews} & \textbf{DEFT}\\
-            \hline
-            Langue & Anglais & Anglais & Français & Français\\
-            \hline
-            Nature & Journalistique & Scientifique & Journalistique & Scientifique\\
-            \hline
-            \multirow{3}{*}[.35em]{Annotateurs} & \multirow{3}{*}[.35em]{Lecteurs} & Auteurs & \multirow{3}{*}[.35em]{Lecteurs} & \multirow{3}{*}[.35em]{Auteurs}\\
-            \addlinespace[-.7\defaultaddspace]
-            & & \& & &\\
-            \addlinespace[-.7\defaultaddspace]
-            & & Lecteurs & &\\
-            \hline
-            Documents & 308 & 100 & 100 & 93\\
-            Mots/document & 900,7 & 5~177,7 & 308,5 & 6~839,4\\
-            Termes-clés/document & 8,1 & 14,7 & 9,6 & 5,2\\
-            Mots/termes-clés & 2,1 & 2,1 & 1,7 & 1,6\\
-            \hline
-            %Termes-clés manquants & 3,5\% & 22,1\% & 7,6\% & 21,1\% \\
-            Termes-clés extractibles & 96,5~\% & 77,9~\% & 92,4~\% & 78,9~\% \\
-            \hline
-          \end{tabular}
-          \caption{Statistiques sur les données de test utilisées. Les termes-clés
-                   extractibles sont les termes-clés qui peuvent être extraits à
-                   partir du contenu des documents.
-                   \label{tab:donnees_de_test}}
-        \end{table}
 
       \subsubsection{Prétraitement}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-preprocessing}
@@ -556,11 +513,15 @@
               \end{axis}
             \end{tikzpicture}
           }
-          \caption[]{Résultats de l'extraction de dix termes-clés avec TopicRank, en
-                   fonction de la stratégie de regroupement et de la valeur du seuil
-                   de similarité $\zeta$, sur les ensembles d'entraînement de
-                   SemEval et de DEFT
-                   \label{fig:variation_du_seuil_de_similarite}}
+          \caption[Résultats de l'extraction de dix termes-clés avec TopicRank,
+                   en fonction de la stratégie de regroupement et de la valeur
+                   du seuil de similarité $\zeta$]{
+            Résultats de l'extraction de dix termes-clés avec TopicRank, en
+            fonction de la stratégie de regroupement et de la valeur du seuil
+            de similarité $\zeta$, sur les ensembles d'entraînement de
+            SemEval et de DEFT
+            \label{fig:variation_du_seuil_de_similarite}
+          }
         \end{figure}
 
         % Variation du seuil de similarité et de la stratégie de groupement
@@ -665,8 +626,8 @@
             \end{axis}
           \end{tikzpicture}
           \caption{Résultats de l'extraction de dix termes-clés, avec TopicRank,
-                   en fonction des différentes sélections de termes-clés
-                   candidats par sujet
+                   en fonction des différentes stratégies de sélections d'un
+                   terme-clé candidats par sujet
                    \label{fig:variation_de_la_selection_des_candidats}}
         \end{figure}
 
@@ -754,7 +715,7 @@
             \end{axis}
           \end{tikzpicture}
           \caption{Résultats de l'extraction de dix termes-clés, avec
-                   SingleRank, selon la fenêtre de cooccurrences utilisée
+                   SingleRank, en fonction de la fenêtre de cooccurrences
                    \label{fig:variation_de_la_fenetre}}
         \end{figure}
 
@@ -816,7 +777,8 @@
             SingleRank et TopicRank. $\dagger$ indique une amélioration
             significative de TopicRank vis-à-vis de TextRank et SingleRank, à
             0,001 pour le t-test de Student.
-            \label{tab:resultats_globaux}}
+            \label{tab:resultats_globaux}
+          }
         \end{table}
 
         \begin{table}
@@ -835,10 +797,10 @@
             \hline
           \end{tabular}
           \caption[Résultats de l'extraction de dix termes-clés avec chacune des
-                   contributions de TopicRank appliquées séparément à
+                   contributions de TopicRank, appliquées séparément à
                    SingleRank]{
             Résultats de l'extraction de dix termes-clés avec chacune des
-            contributions de TopicRank appliquées séparément à SingleRank.
+            contributions de TopicRank, appliquées séparément à SingleRank.
             $\dagger$ indique une amélioration significative vis-à-vis de
             SingleRank, à 0,001 pour le t-test de Student.
             \label{tab:evaluation_individuelle_des_ameliorations}
@@ -877,7 +839,7 @@
         document et est donc moins précis pour l'ordonnancement.
 
       \subsection{Analyse d'erreurs}
-      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis-}
+      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-error_analysis}
         Dans cette section, nous proposons d'analyser les erreurs de TopicRank.
         Dans un premier temps, nous analysons les sujets que détecte TopicRank,
         puis dans un second temps, nous analysons les termes-clés de référence
@@ -958,10 +920,69 @@
           nominales (par exemple \og{}député\fg{}) semblent être une hypothèse à
           vérifier.
 
+      \subsection{Bilan}
+      \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-bilan}
+        Dans ce travail, nous proposons une méthode à base de graphe pour
+        l'extraction non supervisée de termes-clés. Cette méthode groupe les
+        termes-clés candidats en sujets, détermine quels sont ceux les plus
+        importants, puis extrait le terme-clé candidat qui représente le mieux
+        chacun des sujets les plus importants. Cette nouvelle méthode offre
+        plusieurs avantages vis-à-vis des précédentes à base de graphe. Le
+        groupement des termes-clés potentiels en sujets distincts permet de
+        rassembler des indices utiles auparavant éparpillés et le choix d'un
+        seul terme-clé pour représenter un sujet important permet d'extraire un
+        ensemble de termes-clés non redondants (pour $k$ termes-clés extraits,
+        exactement $k$ sujets sont couverts). Enfin, le graphe est complet et ne
+        requiert plus le paramétrage d'une fenêtre de cooccurrences,
+        contrairement aux autres méthodes à base de graphe.
+
+        Les bons résultats de notre méthode montrent la pertinence d'un
+        groupement en sujets des candidats pour ensuite les ordonner. Les
+        expériences supplémentaires montrent aussi qu'il est encore possible
+        d'améliorer notre méthode en proposant une nouvelle stratégie de
+        sélection du terme-clé candidat le plus représentatif d'un sujet (pour
+        un gain maximum allant de 4,2 à 15 points de f-score).
+
+        Nous avons aussi effectué une analyse d'erreurs à partir de laquelle
+        trois perspectives de travaux futurs émergent.
+
+        Nous avons pour objectif d'améliorer la sélection des termes-clés
+        candidats. Aussi, des méthodes empruntées à d'autres domaines du TAL
+        peuvent être appliquées. Il semble, par exemple, pertinent d'évaluer
+        l'apport des méthodes d'extraction
+        terminologiques~\cite{castellvi2001automatictermdetection} pour la
+        sélection des termes-clés candidats.
+        
+        Nous envisageons également d'améliorer le groupement en sujets, car
+        celui-ci est très naïf et ne tient compte ni de la synonymie, ni de
+        l'ambiguïté des mots. De plus, l'usage du
+        radical~\cite{porter1980suffixstripping} des mots n'est pas sans
+        introduire du bruit lié à certains faux positifs. L'ajout de
+        connaissances concernant les synonymes permettrait de créer des sujets
+        plus complets et une étape de désambiguïsation éviterait un groupement
+        systématique des termes-clés candidats ayant un ou plusieurs mots en
+        commun. Nous envisageons aussi de remplacer la racinisation par une
+        méthode de lemmatisation. D'un point de vue plus technique, il faudrait
+        explorer différentes méthodes de groupement, dont le groupement spectral
+        (\textit{spectral clustering}) qui, dans d'autres travaux portant sur
+        l'extraction automatique de termes-clés~\cite{liu2009keycluster}, montre
+        de meilleures performances que le groupement hiérarchique agglomératif.
+
+        Enfin, une étude détaillée des caractéristiques des termes-clés pourrait
+        orienter notre travail vers des critères plus efficaces pour la
+        définition d'une stratégie \og{}optimale\fg{} de sélection du terme-clé
+        le plus représentatif d'un sujet. Un apprentissage supervisé à partir de
+        certains critères est aussi envisagé, au même titre que l'usage de
+        méthodes d'optimisation, telles que celle utilisée par
+        \newcite{ding2011binaryintegerprogramming} dans leur méthode
+        d'extraction automatique de termes-clés.
+
   %-----------------------------------------------------------------------------
 
   \section{Indexation automatique supervisée par termes-clés}
   \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
+    \TODO{Introduction}
+
     \subsection{TopicRank++}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topicrank++}
       \subsubsection{Construction du graph}
@@ -990,8 +1011,11 @@
       \subsubsection{Comparaison de TopicRank++ avec l'existant}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-comparison}
 
-    \subsection{Analyse d'erreur}
+    \subsection{Analyse d'erreurs}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}
+
+    \subsection{Bilan}
+    \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-conclusion}
 
   %-----------------------------------------------------------------------------
 
