@@ -79,73 +79,65 @@
 
   \section{Extraction automatique non supervisée de termes-clés}
   \label{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction}
-  \TODO{Introduction}
+    \TODO{Introduction}
+    \begin{itemize}
+      \item{Reprendre le bilan des approches à base de graphe}
+      \item{Mettre l'accent sur les problèmes que nous tentons de résoudre}
+    \end{itemize}
 
     \subsection{TopicRank}
     \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank}
-      % Qu'est-ce que TopicRank ?
-      TopicRank est une méthode non supervisée d'extraction de termes-clés qui
-      modélise un document sous la forme d'un graphe de sujets.
-      % Quels problèmes résout-il ?
-      Elle se différencie des autres méthodes à base de graphe, car, plutôt que
-      de chercher les mots importants du document, elle cherche ses sujets
-      importants.
-      % Quel en est le fonctionnement général ?
-      Notre méthode repose sur les trois étapes suivantes qui seront détaillées
-      dans la suite~: identification des sujets~; ordonnancement des sujets~;
-      sélection des termes-clés.
+      \TODO{Résumer le fonctionnement de TopicRank (chaque section doit y être)}
 
       \subsubsection{Identification des sujets}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
-        Dans ce travail, un sujet est une information générale ou le plus
-        souvent spécifique véhiculée par au moins une unité textuelle présente
-        dans le document analysé. Nous ne nous reposons donc pas sur une
-        formulation approfondie d'un sujet, nous groupons seulement les
-        termes-clés candidats lorsque ceux-ci véhiculent la même information.
+        Dans ce travail, un sujet représente un thème dans le document véhiculé
+        par une ou plusieures unités textuelles qui partagent le même sens. Il
+        s'agit d'un groupe de termes-clés candidats qui partagent le plus
+        d'unités de sens, de mots.
 
         % Que nous faut-il pour identifier les sujets ?
         La première étape de l'identification des sujets consiste à sélectionner
         les termes-clés candidats.
         % Quels candidats composent les sujets ?
-        Afin de réaliser une identification de qualité des sujets, nous excluons
-        la sélection des n-grammes qui fournit beaucoup plus de candidats non
-        pertinents que les autres méthodes. Concernant le choix entre la
-        sélection des \textit{chunks} nominaux et la sélection des plus longues
-        séquences de noms et d'adjectifs, nous suivons
-        \newcite{wan2008expandrank} et \newcite{hassan2010conundrums} en
-        sélectionnant les plus longues séquences de noms et d'adjectifs. Cette
-        méthode présente l'avantage de fournir des candidats grammaticalement
-        corrects et de ne nécessiter qu'une adaptation limitée pour le
-        traitement de documents d'une autre langue.
+        \TODO{Nous suivons Wan et Xiao, parce que~:}
+        \begin{itemize}
+          \item{simple}
+          \item{(presque) indépendant de la langue}
+          \item{les longues séquences sont "parfaites" pour notre type de
+                groupement}
+        \end{itemize}
 
         % Comment détectons nous deux candidats appartenant au même sujet ?
         La seconde étape de l'identification des sujets consiste à grouper les
         termes-clés candidats lorsqu'ils appartiennent au même sujet. Dans le
         souci de proposer une méthode ne faisant pas l'usage de données
-        supplémentaires, nous optons pour un groupement quelque peu naïf des
-        candidats. Deux candidats $c_1$ et $c_2$ sont groupés en fonction d'une
-        similarité de Jaccard par laquelle ils sont considérés comme des sacs de
+        supplémentaires, nous optons pour un groupement naïf des
+        candidats. Deux candidats $c_1$ et $c_2$ sont groupés selon leur degré
+        de similarité de Jaccard. Ils sont considérés comme des sacs de
         mots tronqués selon la méthode de racinisation\footnote{Cette
         racinisation a pour effet de grouper les candidats qui varient
         uniquement en termes de flexion ou de dérivation.} de
-        \newcite{porter1980suffixstripping}~:
+        \newcite{porter1980suffixstripping} et leur degré de similarité est
+        d'autant plus élevé qu'ils partagent de mots racinisés~:
         \begin{align}
           \text{sim}(c_1, c_2) &= \frac{|c_1 \cap c_2|}{|c_1 \cup c_2|} \label{equa:jaccard}
         \end{align}
-        Cette mesure est naïve dans le sens où l'ordre des mots, leur ambiguïté
-        et les liens de synonymie ne sont pas pris en compte. À cela s'ajoute
+        Cette mesure est naïve, car l'ordre des mots, leur ambiguïté
+        et leur synonymie ne sont pas pris en compte. À cela s'ajoute
         aussi des erreurs introduites par l'usage de la méthode de
         \newcite{porter1980suffixstripping} (par exemple les mots
-        \og{}empire\fg{} et \og{}empirique\fg{} partagent le même radical,
+        \og{}empire\fg{} et \og{}empirique\fg{} partagent le même radical
         \og{}empir\fg{}).
 
         % Comment groupons nous les candidats d'un même sujet ?
-        Une fois la similarité connue entre toutes les paires de candidats, nous
+        La similarité est calculée entre toutes les paires de candidats. Nous
         appliquons l'algorithme de groupement hiérarchique agglomératif
-        (\textit{Hierarchical Agglomerative Clustering -- HAC}). Initialement,
+        (\textit{Hierarchical Agglomerative Clustering -- HAC}) pour grouper les
+        candidats les plus similaires. Initialement,
         chaque candidat représente un groupe et, jusqu'à l'obtention d'un nombre
-        prédéfini de groupes, les deux groupes ayant la plus forte similarité
-        sont unis pour ne former qu'un seul groupe. Afin de ne pas fixer le
+        prédéfini de groupes, ceux ayant la plus forte similarité
+        sont unis pour n'en former qu'un seul. Afin de ne pas fixer le
         nombre de sujets à créer comme condition d'arrêt de l'algorithme, nous
         définissons un seuil de similarité $\zeta$ entre les groupes deux à
         deux. Cette similarité entre deux groupes est déterminée à partir de la
@@ -162,7 +154,7 @@
         \end{itemize}
         L'une ou l'autre de ces stratégies est à privilégier en fonction du type
         des candidats extraits. Pour des candidats qui ont de forts
-        recouvrements, tels que les n-grammes, il semble plus pertinent
+        recouvrements, tels que les n-grammes, il serait plus pertinent
         d'utiliser la stratégie complète qui est la moins agglomérative. Dans le
         cas de TopicRank, où les candidats sont de meilleure qualité que les
         n-grammes, la stratégie moyenne est une meilleure alternative.
@@ -171,8 +163,8 @@
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_ranking}
         % Quel est le but de l'ordonnancement ?
         % Comment est-il effectué ?
-        L'ordonnancement des sujets a pour objectif de trouver quels sont ceux
-        qui ont le plus d'importance dans le document analysé. À l'instar de
+        L'ordonnancement des sujets permet d'établir un ordre d'importance des
+        termes-clés candidats du document. À l'instar de
         \newcite{mihalcea2004textrank}, l'importance des sujets est déterminée à
         partir d'un graphe.
 
