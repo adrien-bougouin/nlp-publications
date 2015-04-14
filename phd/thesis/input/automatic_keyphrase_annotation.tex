@@ -35,16 +35,20 @@
     termes-clés selon des caractéristiques diverses, ou de manière non
     supervisée, en ordonnant les termes-clés candidats par importance. Les
     méthodes non supervisées ayant un couplage faible (voir inexistant) avec les
-    caractéristiques des données traitées, nous définissons les bases d'un
+    caractéristiques des données traitées, nous définissons les bases d'une
     nouvelle méthode d'indexation par termes-clés en commençant par définir une
-    méthode non supervisée d'extraction de termes-clés.
+    méthode non supervisée, à base de graphe, pour l'extraction de termes-clés.
 
     Notre dernière contribution reprend notre travail en extraction
     automatique de termes-clés et lui donne la capacité à assigner des
     termes-clés, c'est-à-dire à fournir des termes-clés qui n'apparaissent pas
-    dans le document. Peut de travaux s'intéresse à l'assignement de
-    termes-clés. Cette aspect de l'indexation automatique par termes-clés est
-    toutefois \TODO{\dots}
+    dans le document. Peu de travaux s'intéressent à l'assignement de
+    termes-clés. Cet aspect de l'indexation automatique par termes-clés requiert
+    un vocabulaire contrôlé de la terminologie du domaine du document pour
+    assigner des termes-clés qui représentent des concepts spécifiques au
+    domaine. Nous utilisons les termes-clés de référence des documents
+    d'entrainement de nos données pour créer un vocabulaire contrôlé et nous
+    l'intégrons au sein du graphe de notre méthode d'extraction.
 
   %-----------------------------------------------------------------------------
 
