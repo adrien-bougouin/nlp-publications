@@ -151,12 +151,18 @@
 \RequirePackage{amsmath}
 \RequirePackage{xcolor}
    \if@greyCover
-      \definecolor{@doctoratcolor}{RGB}{91, 91, 91}
-      \definecolor{@verticalgreen}{RGB}{238, 238, 238}
-      \definecolor{@horizontalgray}{gray}{0.97265}
-      \definecolor{@textgray}{gray}{0.5}
-      \definecolor{@bandeaucolor}{RGB}{190, 190, 190}
-      \definecolor{@titlecolor}{RGB}{116, 116, 116}
+%      \definecolor{@doctoratcolor}{RGB}{91, 91, 91}
+%      \definecolor{@verticalgreen}{RGB}{238, 238, 238}
+%      \definecolor{@horizontalgray}{gray}{0.97265}
+%      \definecolor{@textgray}{gray}{0.5}
+%      \definecolor{@bandeaucolor}{RGB}{190, 190, 190}
+%      \definecolor{@titlecolor}{RGB}{116, 116, 116}
+      \definecolor{@doctoratcolor}{RGB}{0, 0, 0}
+      \definecolor{@verticalgreen}{gray}{0.97}
+      \definecolor{@horizontalgray}{gray}{0.97}
+      \definecolor{@textgray}{RGB}{0, 0, 0}
+      \definecolor{@bandeaucolor}{gray}{0.97}
+      \definecolor{@titlecolor}{RGB}{0, 0, 0}
    \else
       \definecolor{@doctoratcolor}{RGB}{255, 50, 10}
       \definecolor{@verticalgreen}{RGB}{236, 240, 223}
@@ -1207,10 +1213,13 @@
 
    {
    \noindent\color{@bandeaucolor}
-            \rule{0.55\textwidth}
-                 {2.5\baselineskip}
+%            \rule{0.55\textwidth}
+%                 {2.5\baselineskip}
+%            \color{@horizontalgray}
+%            \rule{0.45\textwidth}
+%                 {2.5\baselineskip}
             \color{@horizontalgray}
-            \rule{0.45\textwidth}
+            \rule{\textwidth}
                  {2.5\baselineskip}
    }
 
@@ -1518,7 +1527,8 @@
                                                         [c]
                                                         {0.55\textwidth}
                                                         {~\hfill
-                                                         \textcolor{white}
+                                                         %\textcolor{white}
+                                                         \textcolor{black}
                                                                    {L'UNIVERSIT\'E NANTES ANGERS LE MANS}
                                                          \hfill~}}}%
       }%
