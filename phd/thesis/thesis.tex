@@ -26,6 +26,7 @@
 \usepackage[inline]{enumitem} %
 \usepackage{ragged2e}         % \justifying
 \usepackage{rotating}         % \sideways in table
+\usepackage{lipsum}           %
 
 \usetikzlibrary{positioning, shapes, arrows, patterns}
 
@@ -68,6 +69,8 @@
 
 \newcommand\TODO[1]{\textcolor[rgb]{1, 0, 0}{[TODO #1]}}
 \newcommand\REMARK[1]{\textcolor[rgb]{0, 1, 0}{[#1]}}
+\newcommand\ANNOTATE[2]{\textcolor{blue}{[#1 \textbf{$\rightarrow$ #2}]}}
+\newcommand\FILL[1]{\textcolor{red}{\lipsum[#1]}}
 
 \theoremstyle{remark}
 \newtheorem{example}{Exemple}
