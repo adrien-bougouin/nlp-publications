@@ -54,7 +54,7 @@
     figures et les équations. Nous identifions deux autres facteurs que
     \newcite{hasan2014state_of_the_art} n'évoquent pas. Selon les collections de
     données, la proportion de termes-clés de référence n'apparaissant pas dans
-    les documents peut être soit très faible, soit très élevée. Dans certains
+    les documents est parfois faible, mais parfois élevée. Dans certains
     cas, les méthodes d'extraction de termes-clés sont donc désavantagées. La
     qualification des annotateurs des termes-clés de référence est le second
     facteur. Nous observons trois annotateurs différents~: les auteurs des
@@ -63,7 +63,7 @@
     documentalistes) aspirent à une annotation homogène entre tous les documents
     d'un même domaine grâce à un vocabulaire contrôlé~; les lecteurs sont plus
     libres que les auteurs et les indexeurs professionnels, ils ne sont
-    influencée ni par les termes-clés \og{}à la mode\fg{}, ni par un vocabulaire
+    influencés ni par les termes-clés \og{}à la mode\fg{}, ni par un vocabulaire
     contrôlé.
 
     Dans nos travaux de recherche, nous utilisons cinq collections de données~:
@@ -71,8 +71,8 @@
     point de vue de \newcite{hassan2010conundrums}, celles-ci couvrent deux
     langues (français et anglais), un large éventail de domaines (sciences
     humaines et sociales, informatique, météorologie, catastrophes naturelles,
-    etc.) et trois genres de documents (résumé, articles scientifiques et
-    articles journalistiques). Les annotateurs de chaque collection ont
+    etc.) et trois genres de documents (résumés, articles scientifiques et
+    articles journalistiques). De plus, les annotateurs de chaque collection ont
     des qualifications différentes.
 
   %-----------------------------------------------------------------------------
@@ -102,7 +102,7 @@
     homogénéité est obtenue grâce à un vocabulaire contrôlé spécifique au
     domaine, elle permet une cartographie thématique précise des documents d'un
     domaine. Parce que chaque domaine évolue, l'indexeur  doit mettre à jour son
-    vocabulaire contrôlé. Il est aussi authorisé à attribuer des termes-clés qui
+    vocabulaire contrôlé. Il est aussi autorisé à attribuer des termes-clés qui
     ne se trouvent pas dans le vocabulaire. Dans ce cas, le terme-clé n'est pas
     spécifique au domaine, mais il apporte une précision importante pour à la
     description du contenu du document. \TODO{exemple}
@@ -344,7 +344,8 @@
 %      }
       \caption[Exemple de notice Inist]{
         Exemple de notice Inist. Les termes-clés soulignés sont ceux qui peuvent
-        être extraits.
+        être extraits. \TODO{Changer l'exemple car celui-ci n'est pas en accord
+        avec les éléments du tableau.}
         \label{fig:example_inist}
       }
     \end{figure}
@@ -509,16 +510,15 @@
     donnent l'exemple de \og{}traduction française et allemande\fg{} qui est
     représentée par le terme-clé \og{}traduction allemande et traduction
     française\fg{}. Ils notent aussi la présence de termes-clés d'un même champ
-    sémantique et soulignent la contre-intuitivité de cette redondance. Ils
-    donnent l'exemple des termes-clés \og{}interprète\fg{} et
-    \og{}interprétation\fg{}. Les conclusions ne sont pas encourageantes pour
-    l'indexation automatique par termes-clés. Il est possible que les problèmes
-    rencontrés lors des tests humains soient dus à la nature des annotations. La
-    redondance qui semble contre-intuitive en est un exemple. Nous pouvons en
-    effet supposer qu'un auteur à recours à ce genre de procédé pour être
-    certains d'attirer tout lecteur potentiel, par exemple l'un effectuant une
-    recherche par mot-clé avec \og{}interprète\fg{} et l'autre avec
-    \og{}interprétation\fg{}.
+    sémantique, tels que \og{}interprète\fg{} et \og{}interprétation\fg{}, et
+    soulignent la contre-intuitivité de ce type redondance. Les conclusions ne
+    sont pas encourageantes pour l'indexation automatique par termes-clés. Il
+    est possible que les problèmes rencontrés lors des tests humains soient dus
+    à la nature des annotations. La redondance qui semble contre-intuitive en
+    est un exemple. Nous pouvons en effet supposer qu'un auteur à recours à ce
+    genre de procédé pour être certains d'attirer tout lecteur potentiel, par
+    exemple l'un effectuant une recherche par mot-clé avec \og{}interprète\fg{}
+    et l'autre avec \og{}interprétation\fg{}.
     \begin{table}[!h]
       \centering
       \begin{tabular}{l|ccccccc}
@@ -647,7 +647,7 @@
     en anglais issus de la bibliothèque numérique de l'\textsc{Acm}
     (\textit{Association for Computing Machinery}). Cette bibliothèque regroupe
     les articles de plusieurs disciplines, qu'elle répartie dans différentes
-    catégorie. Les documents du corpus SemEval concernent les catégories C2.4
+    catégories. Les documents du corpus SemEval concernent les catégories C2.4
     (\textit{Distributed Systems} --- Systèmes distribués), H3.3
     (\textit{Information Search and Retrieval} --- Recherche d'information),
     I2.11 (\textit{Distributed Artificial Intelligence -- Multiagent Systems}
@@ -745,10 +745,11 @@
 
     Le tableau~\ref{tab:semeval_annotators} montre la quantité de termes-clés
     annotés par les auteurs, des lecteurs ou la réunion des deux. Ces chiffres
-    montrent la différence de stratégie entre les auteurs et des lecteurs. Les
-    auteurs donnent peu de termes-clés (nous le voyons aussi avec \textsc{Deft})
-    comparés aux lecteurs et l'intersection des deux annotations ne couvre qu'un
-    tiers des termes-clés des auteurs.
+    montrent la différence de stratégie entre les auteurs et des lecteurs.
+    \newcite{kim2010semeval} expliquent que les auteurs donnent peu de
+    termes-clés comparés aux lecteurs et ils ajoutent que l'intersection des
+    deux annotations de l'ensemble de test ne couvre qu'un tiers des termes-clés
+    des auteurs, soulignant ainsi la différence entre les deux.
 
     \begin{table}[!h]
       \centering
@@ -857,7 +858,7 @@
     intéresse particulièrement, car \og{}pour comprendre les forces et les
     faiblesses d'une méthode d'indexation par termes-clés, il est essentiel de
     l'évaluer avec des collections de données variées\fg{}~\cite{hassan2010conundrums}. Les
-    caractéristiques qu'il nous intéressent de voir varier sont le genre
+    caractéristiques que nous faisons varier selon les collections sont le genre
     (scientifique ou journalistique), la taille des documents (de 156,7 à
     7~102,9 mots), la proportion de termes-clés ne pouvant pas être extraits
     depuis le contenu des documents (de 3,5~\% à 62,1~\%) et la qualification
@@ -889,12 +890,19 @@
     \end{table}
 
     Au-delà d'être destinées aux evaluations, les collections de données que
-    nous présentons peuvent servir à inférer des propriétés stables de
-    termes-clés. De ces collections, nous pouvons par exemple vérifier les deux
+    nous présentons peuvent servir à identifier les propriétés stables des
+    termes-clés. De ces collections, nous pouvons par exemple vérifier les trois
     propriétés que l'on retrouve dans la plupart des travaux~:
     \begin{enumerate*}
       \item{les termes-clés sont des unités textuelles de petite taille,
             composées de un à trois mots~;}
+      \item{les termes-clés sont majoritairement des noms ou des groupes
+            nominaux~;}
       \item{un document ne contient généralement pas plus de dix termes-clés.}
     \end{enumerate*}
+    Parmis ces propriétés, seule la seconde se fonde sur des connaissances
+    linguistiques. Il serait intéressant d'étendre ces trois propriétés avec
+    des propriétés linguistiques plus précises, portant par exemple sur la
+    nature des modifieurs dans les groupes nominaux, afin de mieux identifier
+    les frontières d'un termes-clés composé de plusieurs mots (expression).
 
