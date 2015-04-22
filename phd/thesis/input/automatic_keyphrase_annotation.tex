@@ -165,9 +165,10 @@
 %      car elle cherche quels sont les sujets les plus importants d'un document,
 %      pas les mots.
       % Quel en est le fonctionnement général ?
-      TopicRank repose sur les trois étapes suivantes, qui sont détaillées dans
-      la suite~: identification des sujets, ordonnancement des sujets et
-      sélection du terme-clé candidat le plus représentatif de chaque sujet.
+      TopicRank repose sur les quatre étapes suivantes, qui sont détaillées dans
+      la suite~: identification des sujets, construction d'un graphe de sujets,
+      ordonnancement des sujets et sélection du terme-clé candidat le plus
+      représentatif de chaque sujet.
 
       \subsubsection{Identification des sujets}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
@@ -182,14 +183,13 @@
         % Quels candidats composent les sujets ?
         Pour ce travail, nous suivons \newcite{wan2008expandrank} et
         sélectionnons les plus longues séquences de noms, de noms propres et
-        d'adjectifs. Pour celà, nous définissons le patron grammatical
-        suivant~:\texttt{(<NOM> | <ADJ>)*}. Il présente l'avantage d'être simple
-        et adapté à plusieurs langues (anglais, français, etc.), lorsque les
+        d'adjectifs. Nous définissons le patron grammatical
+        suivant~:\texttt{(<NOM> | <ADJ>)*}. Celui-ci présente l'avantage d'être simple
+        et adapté à plusieurs langues, telles que les langues latines (anglais, français, etc.), lorsque les
         outils d'étiquetage grammatical sont disponibles pour la langue
         concernée. De plus, ce patron est gourmand, c'est-à-dire qu'il extrait
         les séquences les plus longues qui le respectent, et il est donc adapté
-        pour le groupement que nous effectuons ensuite. \TODO{trop court et pas
-        suffisamment justifié}
+        pour le groupement que nous effectuons ensuite.
 
         % Comment détectons nous deux candidats appartenant au même sujet ?
         La seconde étape de l'identification des sujets consiste à grouper les
@@ -243,31 +243,27 @@
         n-grammes, la stratégie moyenne est une meilleure alternative.
 
         \TODO{Exemple étape par étape}
+        \TODO{illustrer les stratégies dans l'exemple (ou un autre ?)}
 
-      \subsubsection{Ordonnancement des sujets}
-      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_ranking}
-        % Quel est le but de l'ordonnancement ?
-        % Comment est-il effectué ?
-        L'ordonnancement des sujets permet d'établir un ordre d'importance des
-        sujets du document. À l'instar de \newcite{mihalcea2004textrank}, nous
-        déterminons l'importance des sujets à partir d'un graphe.
+      \subsubsection{Construction du graphe}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-graph_construction}
+        Afin d'identifier les sujets les plus importants du documents, nous
+        utilisons un graphe qui représente tous les sujets du document avec les
+        relations qu'ils entretiennent.
 
         % Comment le graphe est-il construit ?
-        Les sujets du document composent les n\oe{}uds $N$ du graphe complet $G
-        = (N, A)$, où $A$ est l'ensemble des arêtes entre les
-        n\oe{}uds\footnote{$A = \{(n_1, n_2)\ |\ \forall{n_1, n_2 \in N}, n_1
-        \neq n_2\}$, car $G$ est un graphe complet.}. Le graphe utilisé est un
-        graphe complet. Pour permettre l'application de l'algorithme
-        d'ordonnancement à base de graphe, la pondération des arêtes est donc
-        l'étape la plus importante. Pour cette pondération, nous calculons la
-        force du lien sémantique entre les sujets. Cependant, parce que nous
-        utilisons un graphe complet, il ne nous est pas possible de représenter
-        cette force par le nombre de cooccurrences, comme dans les travaux de
-        \newcite{wan2008expandrank}, car les arêtes de poids nul ne sont pas des
-        arêtes. Pour préserver l'intuition derrière l'usage du nombre de
-        cooccurrences, nous représentons la force du lien sémantique entre deux
-        sujets par l'inverse de la distance, en nombre de mots, entre les
-        candidats des sujets dans le document~:
+        Soit le graphe complet $G = (N, A)$ non orienté, composé d'un ensemble
+        de n\oe{}uds $N$ et d'arêtes $A$\footnote{$A = \{(n_1, n_2)\ |\
+        \forall{n_1, n_2 \in N}, n_1 \neq n_2\}$, car $G$ est un graphe
+        complet.}. Les sujets sont représentés par les n\oe{}uds du graphe et
+        les arêtes qui les connectent représentent la force de leur lien
+        sémantique. Contrairement aux travaux précédent, nous ne souhaitons pas
+        utiliser de fenêtre de cooccurrence et ne pouvons donc pas exprimer la
+        force du lien sémantique entre deux sujets par leur nombre de
+        cooccurrences. Pour préserver l'intuition derrière l'usage du nombre de
+        cooccurrences, nous connectons tous les n\oe{}uds deux à deux et
+        exprimons la force de leur lien sémantique à partir de la distance (en
+        nombre de mots) qui les sépare dans le document~:
         \begin{align}
           \text{poids}(n_i, n_j) &= \sum_{c_i \in n_i}\ \sum_{c_j \in n_j} \text{dist}(c_i, c_j) \label{math:ponderation}\\
           \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
@@ -278,21 +274,29 @@
         leurs positions respectives, $\text{pos}(c_i)$ et $\text{pos}(c_j)$,
         dans le document.
 
+      \subsubsection{Ordonnancement des sujets}
+      \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_ranking}
+        % Quel est le but de l'ordonnancement ?
+        % Comment est-il effectué ?
+        L'ordonnancement des sujets doit établir un ordre d'importance des
+        sujets du document.
         % Comment le graphe est-il utilisé pour ordonner les sujets ?
         % Quelle est l'intuition de PageRank/TextRank ?
-        L'algorithme d'ordonnancement de TextRank
-        est appliqué au graphe pour identifier quels sont les sujets les plus importants du
-        document. Cet ordonnancement se fonde sur le principe de recommandation,
+        Pour cela, nous appliquons l'algorithme d'ordonnancement de
+        SingleRank~\cite{wan2008expandrank} à notre graphe
+        de sujets. Cet algorithme se fonde sur le principe de recommandation,
         ou de vote, c'est-à-dire un sujet est d'autant plus important s'il est
         fortement connecté avec un grand nombre de sujets et si les sujets avec
         lesquels il est fortement connecté sont importants~:
         \begin{align}
-          \text{importance}(n_i) = (1 - \lambda) + \lambda \times \sum_{n_j \in N_i} \frac{\text{poids}(n_i, n_j) \times \text{importance}(n_j)}{\sum_{n_k \in N_j} \text{poids}(n_j, n_k)} \label{math:textrank}
+          S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\text{poids}(n_j, n_i) \times S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} \text{poids}(n_i, n_j)}
         \end{align}
-        où $N_i$ est l'ensemble des sujets connectés au sujet\footnote{$N_i =
-        \{n_i\ |\ \forall{n_j \in N}, n_j \neq n_i\}$, car $G$ est un graphe
-        complet.} $n_i$ et où $\lambda$ est un facteur d'atténuation définit à
-        0,85 d'après les recommandations de \newcite{brin1998pagerank}.
+        où $A(n_i)$ est l'ensemble des sujets\footnote{$A(n_i) = \{n_j\ |\
+        \forall{n_j \in N}, n_j \neq n_i\}$, car $G$ est un graphe complet.}
+        connectés au sujet $n_i$ et où $\lambda$ est un facteur d'atténuation.
+        Défini entre 0 et 1, ce dernier peut être considéré comme la probabilité
+        pour que le sujet $n_i$ soit utilisé par recommandation. Nous suivons
+        \newcite{brin1998pagerank} et fixons $\lambda$ à 0,85.
 
       \subsubsection{Sélection des termes-clés}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-keyphrase_selection}
@@ -328,7 +332,8 @@
         stratégie position. Sélectionner les candidats les plus fréquents risque
         de ne pas être une solution stable selon les genres de documents, en
         particulier selon leur taille~; sélectionner les centroïdes risque de ne
-        pas fournir les termes-clés les plus précis\TODO{vague}.
+        pas fournir les termes-clés les plus précis (informatif), car celui-ci
+        représente le tronc commun à la majorité des candidats.
 
       \subsubsection{Exemple}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-example}
@@ -1031,8 +1036,7 @@
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topiccorank}
       TopicCorank diffère de TopicRank par les trois étapes suivantes~:
       construction du graphe, ordonnancement et extraction/assignement des
-      termes-clés. \TODO{Homogénéiser les section de TopicCoRank} \TODO{Mettre
-      l'étape construction du graph dans TopicRank pour plus de cohérence~!?!}
+      termes-clés. \TODO{débrutaliser}
 
       \subsubsection{Construction du graphe}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-graph_construction}
