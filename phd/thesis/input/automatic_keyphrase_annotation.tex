@@ -1022,15 +1022,33 @@
 
   \section{Indexation automatique supervisée par termes-clés}
   \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
-    \TODO{Reprendre le modèle du premier paragraphe d'introduction de
-    l'extraction non supervisée}
+    Dans cet section, nous présentons TopicCoRank, une méthode capable
+    d'effectuer simultanément extraction et assignement de termes-clés,
+    \ANNOTATE{soit la première méthode à considérer pleinement la tâche
+    d'indexation par termes-clés}{Ne vas pas te brûler les ailes Icar.}. Ce
+    travail se fonde sur celui de TopicRank, que nous présentons dans la section
+    précédente. Il s'agit d'une extension supervisée de TopicRank.
 
-    \TODO{Rappel sur les méthodes d'assignement}
-    \TODO{Donner l'intuition qu'il faut faire extraction ET assignement}
+    La tâche d'assignement de termes-clés est la tâche la moins étudiée pour
+    l'indexation automatique par termes-clés. Celle-ci est plus difficile que la
+    tâche d'extraction de termes-clés et requière des données supplémentaires
+    (vocabulaire contrôlé), mais elle possède la capicité à fournir des
+    termes-clés pertinents bien que non présents dans les documents. Notons que
+    le problème des termes-clés pouvant ne pas apparaître dans les documents est
+    tel que certains chercheurs les suppriment des termes-clés de référence de
+    leurs collections de test~\cite{hassan2010conundrums} avant d'évaluer leurs
+    travaux. \TODO{Donner l'intuition qu'il faut faire extraction ET
+    assignement}
 
-    \TODO{Nous proposons de faire les deux avec du co-ranking}
-    \TODO{En gros nous avons TopicRank pour les cas sans données et TopicCoRank
-    pour le autres cas}
+    This paper presents a new keyphrase annotation method that uses a
+    unified-graph to represent the context of a document and its specific
+    domain, then applies a co-ranking algorithm to extract and assign the
+    keyphrases independently. Along with this approach come three contributions.
+    First, we show an easy to reproduce extension of any graph-based keyphrase
+    extraction method. Second, we leverage the reference keyphrases from training
+    data and use them as controlled vocabulary to circumvent the need of an actual
+    one, which may not be available. Third, we do not use manually-defined heuristics
+    to influence the choice of our method between extraction or assignment.
 
     \subsection{TopicCoRank}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topiccorank}
