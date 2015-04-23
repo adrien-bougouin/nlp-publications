@@ -1016,45 +1016,54 @@
         plutôt que des mots. Les expériences supplémentaires montrent qu'il est
         encore possible d'améliorer notre méthode en proposant une nouvelle
         stratégie de sélection du terme-clé candidat le plus représentatif d'un
-        sujet (pour un gain maximum allant de 4,2 à 15 points de f-mesure).
+        sujet (pour un gain maximum allant de 4,2 à 15 points de f-mesure). Il
+        serait aussi intéressant d'explorer plus encore l'usage du graphe et de
+        l'étendre à l'assignement de termes-clés.
 
   %-----------------------------------------------------------------------------
 
   \section{Indexation automatique supervisée par termes-clés}
   \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
     Dans cet section, nous présentons TopicCoRank, une méthode capable
-    d'effectuer simultanément extraction et assignement de termes-clés,
-    \ANNOTATE{soit la première méthode à considérer pleinement la tâche
-    d'indexation par termes-clés}{Ne vas pas te brûler les ailes Icar.}. Ce
-    travail se fonde sur celui de TopicRank, que nous présentons dans la section
-    précédente. Il s'agit d'une extension supervisée de TopicRank.
+    d'effectuer simultanément extraction et assignement de termes-clés, soit la
+    première méthode à considérer les deux aspects de la tâche d'indexation par
+    termes-clés. Ce travail se fonde sur celui de TopicRank, que nous présentons
+    dans la section précédente. Il s'agit d'une extension supervisée de
+    TopicRank.
 
     La tâche d'assignement de termes-clés est la tâche la moins étudiée pour
     l'indexation automatique par termes-clés. Celle-ci est plus difficile que la
-    tâche d'extraction de termes-clés et requière des données supplémentaires
-    (vocabulaire contrôlé), mais elle possède la capicité à fournir des
+    tâche d'extraction de termes-clés et requiert des données supplémentaires
+    (vocabulaire contrôlé), mais elle possède la capacité à fournir des
     termes-clés pertinents bien que non présents dans les documents. Notons que
-    le problème des termes-clés pouvant ne pas apparaître dans les documents est
+    le problème des termes-clés n'apparaissant pas dans les documents est
     tel que certains chercheurs les suppriment des termes-clés de référence de
     leurs collections de test~\cite{hassan2010conundrums} avant d'évaluer leurs
-    travaux. \TODO{Donner l'intuition qu'il faut faire extraction ET
-    assignement}
+    travaux. Si nous prenons l'exemple de l'indexation par termes-clés de
+    référence réalisée pour les collections de données de Termith, la majorité
+    des termes-clés sont obtenus par assignement. Les indexeurs professionnels
+    qui sont intervenus sur ces données avait pour consigne de fournir des
+    termes-clés généraux au domaine (majoritairement par assignement), mais
+    aussi  des termes-clés précis vis-à-vis du contenu des document ou des
+    concepts nouveaux (par extraction). \TODO{Il ne faux donc pas considérer les
+    deux disjointement}
 
-    This paper presents a new keyphrase annotation method that uses a
-    unified-graph to represent the context of a document and its specific
-    domain, then applies a co-ranking algorithm to extract and assign the
-    keyphrases independently. Along with this approach come three contributions.
-    First, we show an easy to reproduce extension of any graph-based keyphrase
-    extraction method. Second, we leverage the reference keyphrases from training
-    data and use them as controlled vocabulary to circumvent the need of an actual
-    one, which may not be available. Third, we do not use manually-defined heuristics
-    to influence the choice of our method between extraction or assignment.
+    Avec TopicCoRank, nous proposons une nouvelle méthode d'indexation par
+    termes-clés qui unifie le graphe repésentatif du document et un graphe
+    représentatif du domaine, c'est-à-dire de ses termes-clés de référence et de
+    leurs relations. De cette manière, nous sommes capable d'extraire et
+    d'assigner des termes-clés simultanément. Concrètement, TopicCoRank combine
+    trois contributions~: une extension applicable à toute méthode d'extraction
+    de termes-clés à base de graphe, une alternative à la construction manuelle
+    d'un vocabulaire contrôlé et une approche purement automatique qui n'utilise
+    pas d'heuristique pour combiner les deux catégories d'indexation par
+    termes-clés.
 
     \subsection{TopicCoRank}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topiccorank}
-      TopicCorank diffère de TopicRank par les trois étapes suivantes~:
-      construction du graphe, ordonnancement et extraction/assignement des
-      termes-clés. \TODO{débrutaliser}
+      TopicCoRank étend sur les étapes suivantes de TopicRank~: construction du
+      graphe, ordonnancement et sélection du terme-clé candidat le plus
+      représentatif de chaque sujet.
 
       \subsubsection{Construction du graphe}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-graph_construction}
@@ -1700,6 +1709,31 @@
 
     \subsection{Bilan}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-conclusion}
+      In this paper, we have proposed a co-ranking approach to performing keyphrase
+      extraction and keyphrase assignment simultaneously. Our method,
+      TopicCoRank, uses keyphrases annotated on training data as a controlled
+      vocabulary. %represented by a graph. 
+      To extract and assign keyphrases to a document, we build two graphs: one with the
+      document topics and one with controlled vocabulary. We design a strategy to unify the two graphs and 
+      choose the keyphrases with  a co-ranking vote.
+      
+      %then co-rank topics and controlled keyphrases.
+      
+      We performed experiments on three datasets of different languages and
+      domains. Results showed that our approach benefits from controlled
+      keyphrases, improving keyphrase annotation as well as both keyphrase extraction and keyphrase assignment.
+
+      This work can be used to annotate keyphrases in the way of professional
+      indexers. TopicCoRank is able to detect new concepts that could be added
+      to terminological data.
+      
+      TopicCoRank can also be adapted to more specific problems. For instance,
+      in some cases it might be interesting to assign very specific keyphrases to the
+      document, whereas in other cases it may be interesting to assign more general keyphrases. The
+      minimum depth between a controlled keyphrase and a document topic within the unified graph encodes this
+      degree of generalization. A controlled keyphrase directly connected to a
+      document topic has the lowest generalization regarding the document,
+      followed by its connected controlled keyphrases, etc.
 
   %-----------------------------------------------------------------------------
 
