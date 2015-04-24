@@ -1013,16 +1013,15 @@
 
         Les bons résultats de notre méthode montrent la pertinence d'un
         groupement des candidats en sujets et d'un ordonnancement de ces sujets,
-        plutôt que des mots. Les expériences supplémentaires montrent qu'il est
-        encore possible d'améliorer notre méthode en proposant une nouvelle
-        stratégie de sélection du terme-clé candidat le plus représentatif d'un
-        sujet (pour un gain maximum allant de 4,2 à 15 points de f-mesure). Il
-        serait aussi intéressant d'explorer plus encore l'usage du graphe et de
-        l'étendre à l'assignement de termes-clés.
+        plutôt que des mots. Les expériences montrent aussi qu'il est encore
+        possible d'améliorer notre méthode en proposant une nouvelle stratégie
+        de sélection du terme-clé candidat le plus représentatif d'un sujet.
+        Dans un premier temps, nous souhaitons explorer plus encore l'usage du
+        graphe et de étendre à l'assignement de termes-clés.
 
   %-----------------------------------------------------------------------------
 
-  \section{Indexation automatique supervisée par termes-clés}
+  \section{Indexation automatique par termes-clés}
   \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
     Dans cet section, nous présentons TopicCoRank, une méthode capable
     d'effectuer simultanément extraction et assignement de termes-clés, soit la
@@ -1032,27 +1031,26 @@
     TopicRank.
 
     La tâche d'assignement de termes-clés est la tâche la moins étudiée pour
-    l'indexation automatique par termes-clés. Celle-ci est plus difficile que la
-    tâche d'extraction de termes-clés et requiert des données supplémentaires
-    (vocabulaire contrôlé), mais elle possède la capacité à fournir des
-    termes-clés pertinents bien que non présents dans les documents. Notons que
-    le problème des termes-clés n'apparaissant pas dans les documents est
-    tel que certains chercheurs les suppriment des termes-clés de référence de
-    leurs collections de test~\cite{hassan2010conundrums} avant d'évaluer leurs
-    travaux. Si nous prenons l'exemple de l'indexation par termes-clés de
-    référence réalisée pour les collections de données de Termith, la majorité
-    des termes-clés sont obtenus par assignement. Les indexeurs professionnels
-    qui sont intervenus sur ces données avait pour consigne de fournir des
-    termes-clés généraux au domaine (majoritairement par assignement), mais
-    aussi  des termes-clés précis vis-à-vis du contenu des document ou des
-    concepts nouveaux (par extraction). \TODO{Il ne faux donc pas considérer les
-    deux disjointement}
+    l'indexation automatique par termes-clés. Elle est plus contraignate que
+    l'extraction de termes-clés, car elle requiert un vocabulaire contrôlé. Elle
+    est aussi plus difficile, car elle doit tisser des liens entre le contenu du
+    document et les entrées du vocabulaire contrôlé alors qu'elles
+    n'apparaissent pas nécessairement dans le document. Si nous prenons
+    l'exemple de l'indexation par termes-clés de référence réalisée pour les
+    collections de données de Termith, la majorité des termes-clés sont obtenus
+    par assignement. Les indexeurs professionnels qui sont intervenus sur ces
+    données avaient pour consigne de fournir des termes-clés généraux au domaine
+    (majoritairement par assignement), mais aussi  des termes-clés précis
+    vis-à-vis du contenu des documents ou des concepts nouveaux (par
+    extraction). Il est donc important de considérer la tâche d'assignement de
+    termes-clés. Cependant, nous pensons que celle-ci doit être réalisée
+    conjointement à la tâche d'extraction, non séparément.
 
     Avec TopicCoRank, nous proposons une nouvelle méthode d'indexation par
     termes-clés qui unifie le graphe repésentatif du document et un graphe
     représentatif du domaine, c'est-à-dire de ses termes-clés de référence et de
     leurs relations. De cette manière, nous sommes capable d'extraire et
-    d'assigner des termes-clés simultanément. Concrètement, TopicCoRank combine
+    d'assigner des termes-clés indifféremment. Concrètement, TopicCoRank apporte
     trois contributions~: une extension applicable à toute méthode d'extraction
     de termes-clés à base de graphe, une alternative à la construction manuelle
     d'un vocabulaire contrôlé et une approche purement automatique qui n'utilise
@@ -1061,30 +1059,39 @@
 
     \subsection{TopicCoRank}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topiccorank}
-      TopicCoRank étend sur les étapes suivantes de TopicRank~: construction du
+      TopicCoRank étend les étapes suivantes de TopicRank~: construction du
       graphe, ordonnancement et sélection du terme-clé candidat le plus
       représentatif de chaque sujet.
 
       \subsubsection{Construction du graphe}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-graph_construction}
-        TopicCoRank operates over a unified graph that connects two graphs
-        representing the controlled keyphrases, the document topics and
-        the relations between them. Controlled keyphrases are keyphrases
-        that were manually assigned to training documents. We consider the 
-        controlled keyphrases
-        to be our controlled vocabulary for the keyphrase assignment. %\footnote{Unlike
-        %the keyphrase candidates, we do not cluster the domain keyphrases.}.
-        As controlled keyphrases are presumably non-redundant, we do not 
-        group them by topics as we do for keyphrase candidates.
-        
-        Let
-        $G = (V, E=E_{\textnormal{\textit{in}}} \cup E_{\textnormal{\textit{out}}})$
-        denote the unified graph. Controlled keyphrases and topics are vertices $V$
-        connected to their fellows by edges $E_\textnormal{\textit{in}}$ and
-        connected to the other vertices by edges $E_\textnormal{\textit{out}}$ (see
-        Figure~\ref{fig:topicrankpp_graph}).
-        
-        \begin{figure*}
+        Afin de réaliser simultanément extraction et assignement de termes-clés,
+        nous unifions deux graphes représentant le document (graphe de sujets)
+        et le domaine auquel il appartient (graphe de termes-clés de
+        référence). Ce dernier graphe est construit à partir des termes-clés de
+        référence des documents d'entrainement fournis avec chaque collection de
+        données. Ces termes-clés ayant déjà été associés à un document, nous
+        nous en servons pour simuler le vocabulaire contrôlé. Contrairement au
+        termes-clés candidats sélectionnés dans le document, les termes-clés de
+        référence ne sont pas jugés redondant. Nous ne groupons donc pas les
+        termes-clés de référence pour le graphe du domaine.
+
+        Soit le graphe unifié $G = (N, A = A_{\textnormal{\textit{interne}}}
+        \cup A_{\textnormal{\textit{externe}}})$ non orienté. $N$ dénote
+        indifféremment les sujets et les termes-clés de référence. $A$ regroupe
+        les arêtes $A_{\textnormal{\textit{interne}}}$ qui connectent deux
+        sujets ou deux termes-clés de référence et les arêtes
+        $A_{\textnormal{\textit{externe}}}$ qui connectent un sujet à un
+        terme-clé de référence (cf. figure~\ref{fig:topiccorank_graph}). Le
+        graphe de sujets et le graphe du domaine sont unifiés grâce aux arêtes
+        $A_{\textnormal{\textit{externe}}}$. Une arête
+        $A_{\textnormal{\textit{externe}}}$ est ajouté pour connecter un sujet
+        et un terme-clé si, et seulement si, le terme-clé fait partie des
+        termes-clés candidats qui composent le sujet \TODO{Nous acceptons les
+        formes fléchies BLABLABLA}. Le domaine est considéré comme une carte
+        conceptuelle et nous connectons le document au domaine par
+        l'intermédiaire des concepts qu'ils partagent.
+        \begin{figure}
           \newcommand{\xslant}{0.25}
           \newcommand{\yslant}{0}
 
@@ -1100,7 +1107,7 @@
             \node [above=of domain_graph,
                    xshift=.36\linewidth,
                    yshift=8em,
-                   anchor=south east] (domain_graph_label) {controlled keyphrases};
+                   anchor=south east] (domain_graph_label) {termes-clés de référence};
 
             \node [draw,
                    circle,
@@ -1145,27 +1152,27 @@
             \node [below=of document_graph,
                    xshift=-.36\linewidth,
                    yshift=-8em,
-                   anchor=north west] (document_graph_label) {document topics};
+                   anchor=north west] (document_graph_label) {sujets du document};
 
             \node [draw,
-                   regular polygon,
+                   circle,
                    regular polygon sides=8,
                    below=of document_graph,
                    xshift=.3\linewidth,
                    yshift=-5em] (document_node1) {$V_6$};
             \node [draw,
-                   regular polygon,
+                   circle,
                    regular polygon sides=8,
                    below=of document_graph,
                    xshift=-.3\linewidth,
                    yshift=-5em] (document_node2) {$V_7$};
             \node [draw,
-                   regular polygon,
+                   circle,
                    regular polygon sides=8,
                    below=of document_graph,
                  yshift=-5em] (document_node3) {$V_8$};
             \node [draw,
-                   regular polygon,
+                   circle,
                    regular polygon sides=8,
                    below=of document_graph,
                    xshift=.15\linewidth,
@@ -1183,11 +1190,11 @@
             \draw [dashed] (document_node3) -- (domain_node4);
 
             % legend
-            \node [right=of document_graph, xshift=2em, yshift=-9.25em] (legend_title) {\underline{Legend:}};
+            \node [right=of document_graph, xshift=2em, yshift=-9.25em] (legend_title) {\underline{Légende~:}};
             \node [below=of legend_title, xshift=-1em, yshift=2em] (begin_inner) {};
-            \node [right=of begin_inner] (end_inner) {: $E_\textnormal{\textit{in}}$};
+            \node [right=of begin_inner] (end_inner) {: $A_\textnormal{\textit{interne}}$};
             \node [below=of begin_inner, yshift=1.5em] (begin_outer) {};
-            \node [right=of begin_outer] (end_outer) {: $E_\textnormal{\textit{out}}$};
+            \node [right=of begin_outer] (end_outer) {: $A_\textnormal{\textit{externe}}$};
 
             \draw (legend_title.north  -| end_outer.east) rectangle (end_outer.south -| legend_title.west);
 
@@ -1196,59 +1203,67 @@
           \end{tikzpicture}
           \caption{Example of a unified graph constructed by TopicCoRank and its two
                    kinds of edges
-                   \label{fig:topicrankpp_graph}}
-        \end{figure*}
+                   \label{fig:topiccorank_graph}}
+        \end{figure}
 
-        To unify the two graphs, we consider the controlled keyphrases as a category map and connect the document to its potential categories. An edge
-        $E_{\textnormal{\textit{out}}_{ij}}$ is created to connect a controlled
-        keyphrase $V_i$ and a topic $V_j$ if the controlled keyphrase is a
-        member of the topic, i.e., a keyphrase candidate in the topic.
-        To accept flexions, such as plural flexions, we perform the comparison with
-        stems.
-        We create edges $E_\textnormal{\textit{in}}$ between two controlled
-        keyphrases or two topics when they co-occur, respectively, as keyphrases of
-        a training document or within a sentence of the
-        document. Each edge $E_{\textnormal{\textit{in}}_{ij}}$ is weighted by
-        the normalized number of co-occurrences $w_{ij}$ between the controlled
-        keyphrases or the topics $V_i$ and $V_j$ within the keyphrase sets of each training document or the document, respectively. The weighting scheme of edges
-        $E_\textnormal{\textit{in}}$ is equivalent for both controlled keyphrases and
-        topics. This equivalence is essential to properly co-rank controlled keyphrases
-        and topics and ensure that not only controlled keyphrases that occur in the document can be assigned.
+        Pour permettre un ordonnancement conjoint des sujets et des termes-clés
+        de référence, nous homogénéisons le schéma de connections des sujets
+        entre eux et des termes-clés de référence entre eux (arêtes
+        $A_\textnormal{\textit{interne}}$). Nous connectons deux sujets ou deux
+        termes-clés de référence lorsqu'il apparaissent dans le même contexte et
+        pondérons leur arête par le nombre de fois que cela se produit.
+        Lorsqu'il s'agit des sujets, le contexte est une phrase du document, et
+        lorsqu'il s'agit des termes-clés de référence, le contexte est
+        l'ensemble des termes-clés de référence d'un document d'entraînement.
 
-      \subsubsection{Renforcement mutuel des termes-clés candidats et de référence}
-      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-mutual_reinforcement}
-        TopicCoRank gives an importance score $S(V_i)$ to every vertex
-        $V_i$ using graph co-ranking (see equation~\ref{math:topiccorank}).
-        Graph co-ranking has been applied with success to many NLP tasks 
-        such as text summarization~\cite{wan2011corankingsummarization}, 
-        tweet recommendation~\cite{yan2012corankingtweetrecommendation} or 
-        opinion mining~\cite{liu2014corankingopinionmining}.
-        
-         % This paper presents TopicCoRank, the first method that performs both keyphrase
-     % extraction and keyphrase assignment, using graph co-ranking. Employed to
-     % tackle various NLP
-     % tasks~\cite{wan2011corankingsummarization,yan2012corankingtweetrecommendation,zhang2013wordtopicmultirank,liu2014corankingopinionmining},
-     % graph co-ranking is a powerfull technique that reinforce the ranking of
-     % specific entities by the ranking of other entities. 
-        
-        The
-        graph co-ranking simulates the ``voting concept'' based on inner and outer
-        recommendations. The inner recommendation $R_\textnormal{\textit{in}}$ of a
-        node comes from nodes of the same graph (see equation~\ref{math:rin}):
+      \subsubsection{Ordonnancement conjoint des sujets et des termes-clés de référence}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-co_ranking}
+        L'ordonnancement conjoint des sujets et des termes-clés de référence
+        établit l'ordre d'importance des sujets du document et des termes-clés
+        de référence du domaine vis-à-vis du document. Pour effectuer cet
+        ordonnancement, nous reprenons le principe de la recommandation et
+        l'adaptons au problème d'ordonnancement conjoint.
+
+        Dans un premier temps, nous reprenons le princicpe de recommandation tel
+        qu'il est définit dans TopicRank~:
         \begin{itemize}
-          \item{a controlled keyphrase is important if it is strongly connected to other
-                controlled keyphrases;}
-          \item{a topic is important if it is strongly connected to other topics.}
+          \item{un sujet est d'autant plus important s'il est fortement connecté
+                à un grand nombre de sujets et si les sujets avec lesquels il
+                est fortement connecté sont importants~;}
+          \item{un terme-clé de référence est d'autant plus important s'il est
+                fortement connecté à un grand nombre de termes-clés de référence
+                et si les termes-clés de référence avec lesquels il est connecté
+                sont importants.}
         \end{itemize}
-        The outer recommendation $R_\textnormal{\textit{out}}$ of a node comes from nodes
-        of the other graph (see equation~\ref{math:rout}):
+        Cette recommandation, que nous qualifions d'interne, permet d'établir
+        l'importance des sujets les uns par rapport aux autres et l'importance
+        des termes-clés de référence les uns par rapport au autre. Cependant,
+        elle ne permet pas de tirer profit des termes-clés de référence
+        importants pour renforcer l'importance des sujets qui y sont connectés
+        et, inversement, elle ne permet pas de tirer profit des sujets
+        importants pour renforcer l'importance des termes-clés de référence
+        auxquels ils sont connectés. De plus, l'importance des termes-clés de
+        référence est indépendante du document et, pour la même collection de
+        donnée, l'importance des termes-clés de référence est toujours la même.
+        Nous ajoutons donc un second principe de recommandation, que nous
+        qualifions d'externe~:
         \begin{itemize}
-          \item{a controlled keyphrase is more important in the context of the document if it
-                is connected to one of its important topics;}
-          \item{a topic is more important if it is connected to important controlled keyphrases.}
+          \item{un sujet est d'autant plus important s'il contient des
+                termes-clés de référence importants~;}
+          \item{un terme-clé de référence est d'autant plus important
+                \textbf{vis-à-vis du contenu du document} s'il est connecté à l'un
+                de ses sujets importants.}
         \end{itemize}
+        Sujets et termes-clés de référence sont ainsi évalués d'après leur usage
+        dans le document et leur usage global dans le domaine. L'ordonnancement
+        des uns joue un rôle sur celui des autres et permet ainsi d'effectuer
+        extraction et assignement conjointement.
+
+        Mathématiquement, nous adaptons la formule d'ordonnancement de TopicRank
+        et remplaçon l'aléa, introduit par $(1 - \lambda)$, par la
+        recommandation externe~:
         \begin{align}
-          S(V_i) &= (1 - \lambda)\ R_{out}(V_i) + \lambda\ R_{in}(V_i)\label{math:topiccorank}\\
+          S(N_i) &= (1 - \lambda)\ R_{\textnormal{\textit{externe}}}(n_i) + \lambda\ R_{\textnormal{\textit{interne}}}(N_i)\label{math:topiccorank}\\
           R_{in}(V_i) &= \sum_{E_{\text{in}_{ij}}}{\frac{w_{ij} S(V_j)}{\mathlarger\sum_{E_{\text{in}_{jk}}}{{w_{jk}}}}}\label{math:rin}\\
           R_{out}(V_i) &= \sum_{E_{\text{out}_{ji}}}{\frac{S(V_j)}{deg_{\text{\textit{out}}}(V_j)}}\label{math:rout}
         \end{align}
