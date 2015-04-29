@@ -111,12 +111,12 @@
     représentent la répartition, revue par revue, de chacune des collections. Le
     projet Termith s'intéresse principalement aux sciences humaines et sociales
     (\textsc{Shs}). De ce fait, trois de ses collections de notices représentent
-    une discipline de \textsc{Shs}~: linguistique, sciences de l'information et
-    archéologie. La quatrième collection représente la chimie. Le corpus de
-    linguistique est constitué de 715 notices d'articles français parus entre
-    2000 et 2012 dans 11 revues~; le corpus des sciences de l'information
-    contient 706 notices d'articles français publiés entre 2001 et 2012 dans
-    cinq revues~; le corpus d'archéologie est composé de 716 notices
+    une discipline de \textsc{Shs}~: linguistique, sciences de l'information
+    (sciences de l'info.) et archéologie. La quatrième collection représente la
+    chimie. Le corpus de linguistique est constitué de 715 notices d'articles
+    français parus entre 2000 et 2012 dans 11 revues~; le corpus des sciences de
+    l'information contient 706 notices d'articles français publiés entre 2001 et
+    2012 dans cinq revues~; le corpus d'archéologie est composé de 716 notices
     représentant des articles français parus entre 2001 et 2012 dans 22 revues~;
     le corpus de chimie est composé de 784 notices d'articles français publiés
     entre 1983 et 2012 dans cinq revues.
@@ -253,8 +253,8 @@
           \hfill{}Appr. & Français & Scientifique (résumé) & 515 & 160,5 & Professionnel & 8,6 & 60,6~\% & 1,7\\
            \hfill{}Test & \ditto & \ditto & 200 & 147,0 & \ditto & 8,9 & 62,8~\% & 1,8\\
           \hline
-          Sciences de l'infor- & & & & & & &\\
-          mation\hfill{}Appr. & Français & Scientifique (résumé) & 506 & & & &\\
+          Sciences de l'info. & & & & & & &\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 506 & & & &\\
           \hfill{}Test & \ditto & \ditto & 200 & & & &\\
           \hline
           Archéologie & & & & & & &\\
@@ -784,7 +784,7 @@
     \textit{Foreign Broadcast Information Service}, \textit{Financial Times},
     \textit{Los Angeles Times}, \textit{San Jose Mercury News} et \textit{Wall
     Street Journal}. Ceux-ci couvrent 30 sujets d'actualités (tornades, contrôle
-    des armes à feu, etc.).
+    des armes à feu, etc.), indiqués explicitement pour chaque documents.
     
     Le tableau~\ref{tab:duc} donne les détails du corpus \textsc{Duc}. Les
     documents sont des articles journalistiques (cf.
@@ -867,16 +867,17 @@
     \begin{table}[!h]
       \centering
       \resizebox{\linewidth}{!}{
-        \begin{tabular}{r@{~~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+        \begin{tabular}{r@{~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
           \toprule
           \multicolumn{2}{l|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
           \cline{3-10}
           & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
           \hline
-          \multirow{4}{*}[-.5em]{\begin{sideways}Termith\end{sideways}} & Linguistique & Français & Scientifique (résumé) & 715 & 156.7 & Professionnel & 8,7 & 61,2~\% & 1,7\\
-          & Sciences de l'information & \ditto & \ditto & 706 & & \ditto & &\\
-          & Archéologie & \ditto & \ditto & 718 & & \ditto & &\\
-          & Chimie & \ditto & \ditto & 782 & & \ditto & &\\
+          \multicolumn{2}{l|}{Termith} & & & & & & & &\\
+          $\drsh$ & Linguistique & Français & Scientifique (résumé) & 715 & 156.7 & Professionnel & 8,7 & 61,2~\% & 1,7\\
+          $\drsh$ & Sciences de l'info. & \ditto & \ditto & 706 & & \ditto & &\\
+          $\drsh$ & Archéologie & \ditto & \ditto & 718 & & \ditto & &\\
+          $\drsh$ & Chimie & \ditto & \ditto & 782 & & \ditto & &\\
           \multicolumn{2}{l|}{\textsc{Deft}} & \ditto & Scientifique & 234 & 7~102,9 & Auteur & 5,3 & 19,4~\% & 1,7\\
           \multicolumn{2}{l|}{Wikinews} & \ditto & Journalistique & 100 & 308,5 & Lecteur & 9,6 & 7,6~\% & 1,7\\
           \multicolumn{2}{l|}{Semeval} & Anglais & Scientifique & 244 & 5~152,3 & Auteur~/~Lecteur & 15,1 & 17,0~\% & 2,1\\

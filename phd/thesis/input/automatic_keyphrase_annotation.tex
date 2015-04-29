@@ -57,15 +57,25 @@
 
   \section{Sélection des termes-clés candidats}
   \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}
-    \TODO{Introduction}
+    \TODO{Dans cette section on fait quoi}
+
+    \TODO{Rappel sur la tâche de sélection des candidats}
+
+    \TODO{Qu'est-ce qu'on veut faire (réduire pour améliorer)} \TODO{comment le
+    fait-on (focale sur les modifieurs des termes-clés candidats)}
+
+    \TODO{1. analyse de prop. ling. des termes-clés de ref} \TODO{2.
+    présentation de notre méthode de filtrage} \TODO{3. évaluation à la fois
+    intrinsec et extrinsec}
 
     \subsection{Collections de données}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-datasets}
+      \TODO{Placer dans un paragraphe de la section analyse}
       Pour ce travail, nous utilisons les collection \textsc{Duc} et SemEval
       pour l'anglais et \textsc{Deft} pour le français. Les collections SemEval
-      et \textsc{Deft} sont divisées en deux ensemble d'entraînement et de test.
-      Nous utilisons donc les ensembles d'entraînement pour notre analyse et
-      l'ensemble de test pour nos expériences. La collection \textsc{Duc}
+      et \textsc{Deft} sont divisées en deux ensembles d'entraînement et de
+      test. Nous utilisons donc les ensembles d'entraînement pour notre analyse
+      et l'ensemble de test pour nos expériences. La collection \textsc{Duc}
       possédant une quantité suffisante de documents, nous la divisons en deux
       ensemble~: un ensemble d'entraînement composé de 208 documents et un
       ensemble de test constitué de 100 documents.
@@ -204,7 +214,7 @@
         \newcite{porter1980suffixstripping} et leur degré de similarité est
         d'autant plus élevé qu'ils partagent de mots racinisés~:
         \begin{align}
-          \text{sim}(c_1, c_2) &= \frac{|c_1 \cap c_2|}{|c_1 \cup c_2|} \label{equa:jaccard}
+          \text{sim}(c_1, c_2) &= \frac{|\textnormal{Porter}(c_1)\ \cap\ \textnormal{Porter}(c_2)|}{|\textnormal{Porter}(c_1)\ \cup\ \textnormal{Porter}(c_2)|} \label{equa:jaccard}
         \end{align}
         Cette mesure est naïve, car l'ordre des mots, leur ambiguïté
         et leur synonymie ne sont pas pris en compte. À cela s'ajoute
@@ -364,31 +374,62 @@
         Wikinews (français), ainsi que les deux collections d'articles
         scientifiques SemEval (anglais) et \textsc{Deft} (français).
 
+        Le tableau~\ref{tab:topicrank:corpora_recap} rappelle les
+        caractéristiques des collections de données que nous utilisons pour
+        évaluer TopicRank. \TODO{rappeler que les collections sont diff.}
+        \begin{table}[!h]
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{l@{~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+              \toprule
+              \multicolumn{2}{l|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+              \cline{3-10}
+              & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+              \hline
+              \multicolumn{2}{l|}{\textsc{Deft}} & & & & & & & &\\
+              $\drsh$ & Appr. & Français & Scientifique & 141 & 7~276,7 & Auteur & 5,4 & 18,2~\% & 1,7\\
+              $\drsh$ & Test & \ditto & \ditto & 93 & 6~839,4 & \ditto & 5,2 & 21,1~\% & 1,6\\
+              \multicolumn{2}{l|}{Wikinews} & \ditto & Journalistique & 100 & 308,5 & Lecteur & 9,6 & 7,6~\% & 1,7\\
+              \multicolumn{2}{l|}{Semeval} & & & & & & & &\\
+              $\drsh$ & Appr. & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
+              $\drsh$ & Test & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & 2,1\\
+              \multicolumn{2}{l|}{\textsc{Duc}} & \ditto & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+              \bottomrule
+            \end{tabular}
+          }
+
+          \caption{Rappel des corpus utilisés pour l'évaluation de TopicRank
+                   \label{tab:topicrank:corpora_recap}}
+        \end{table}
+
       \subsubsection{Prétraitement}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-preprocessing}
-        Chaque document des collections de données utilisées subit les mêmes
-        prétraitements. Chaque document est tout d'abord segmenté en phrases,
-        puis en mots et enfin étiqueté grammaticalement. La segmentation en mots
-        est effectuée par le TreeBankWordTokenizer, disponible avec la librairie
-        python NLTK~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
-        l'anglais et par l'outil Bonsai, du Bonsai PCFG-LA
-        parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
-        pour le français. Quant à l'étiquetage grammatical, il est réalisé avec
-        le Stanford POS tagger~\cite{toutanova2003stanfordpostagger} pour
-        l'anglais et avec l'outil MElt~\cite{denis2009melt} pour le français.
-        Tous ces outils sont utilisés avec leur configuration par défaut.
+        Les documents de chaque collection de données subissent les mêmes
+        prétraitements. Ils sont tout d'abord segmentées en phrases, les phrases
+        sont segmentés en mots, puis les mots sont étiquetés grammaticalement.
+        La segmentation en phrases est réalisée avec la classe
+        \texttt{PunktSentenceTokenizer} du module Python
+        \textsc{Nltk}~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}~;
+        La segmentation des phrases en mots est mise en \oe{}uvre avec la classe
+        \texttt{TreeBankWordTokenizer} de \textsc{Nltk} pour l'anglais et avec
+        l'outil Bonsai, du \textit{Bonsai \textsc{Pcfg-La}
+        parser}\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
+        pour le français~; L'étiquetage grammatical, il est effectué avec le
+        \textit{Stanford \textsc{Pos}
+        tagger}~\cite{toutanova2003stanfordpostagger} pour l'anglais et avec
+        l'outil MElt~\cite{denis2009melt} pour le français. Tous ces outils sont
+        utilisés avec leur configuration par défaut.
 
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_measures}
         Les performances des méthodes d'extraction de termes-clés sont exprimées
-        en termes de précision (P), rappel (R) et f-score (f1-mesure, F). En
+        en termes de précision (P), rappel (R) et f-mesure (f1-mesure, F). En
         accord avec l'évaluation menée dans les travaux précédents, nous
         considérons correcte l'extraction d'une variante flexionnelle d'un
         terme-clé de référence~\cite{kim2010semeval}. Les opérations de
         comparaison entre les termes-clés de référence et les termes-clés
         extraits sont donc effectuées à partir de la racine des mots qui les
-        composent en utilisant la méthode de racinisation de
-        \newcite{porter1980suffixstripping}.
+        composent, selon la méthode de \newcite{porter1980suffixstripping}.
 
       \subsubsection{Analyse empirique de TopicRank}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-empirical_analysis_of_topicrank}
@@ -1023,7 +1064,7 @@
 
   \section{Indexation automatique par termes-clés}
   \label{sec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
-    Dans cet section, nous présentons TopicCoRank, une méthode capable
+    Dans cet section, nous présentons TopicCoRank, une méthode permettant
     d'effectuer simultanément extraction et assignement de termes-clés, soit la
     première méthode à considérer les deux aspects de la tâche d'indexation par
     termes-clés. Ce travail se fonde sur celui de TopicRank, que nous présentons
@@ -1031,23 +1072,23 @@
     TopicRank.
 
     La tâche d'assignement de termes-clés est la tâche la moins étudiée pour
-    l'indexation automatique par termes-clés. Elle est plus contraignate que
-    l'extraction de termes-clés, car elle requiert un vocabulaire contrôlé. Elle
-    est aussi plus difficile, car elle doit tisser des liens entre le contenu du
-    document et les entrées du vocabulaire contrôlé alors qu'elles
-    n'apparaissent pas nécessairement dans le document. Si nous prenons
-    l'exemple de l'indexation par termes-clés de référence réalisée pour les
-    collections de données de Termith, la majorité des termes-clés sont obtenus
-    par assignement. Les indexeurs professionnels qui sont intervenus sur ces
-    données avaient pour consigne de fournir des termes-clés généraux au domaine
-    (majoritairement par assignement), mais aussi  des termes-clés précis
-    vis-à-vis du contenu des documents ou des concepts nouveaux (par
-    extraction). Il est donc important de considérer la tâche d'assignement de
-    termes-clés. Cependant, nous pensons que celle-ci doit être réalisée
-    conjointement à la tâche d'extraction, non séparément.
+    l'indexation automatique par termes-clés. Elle est plus contraignante que
+    l'extraction de termes-clés, car elle requiert un vocabulaire contrôlé
+    coûteux à produire. Elle est aussi plus difficile, car elle doit tisser des
+    liens entre le contenu du document et les entrées du vocabulaire contrôlé
+    alors que ces dernières n'apparaissent pas nécessairement dans le document.
+    Si nous prenons l'exemple de l'indexation par termes-clés de référence
+    réalisée pour les collections de données Termith, la majorité des
+    termes-clés sont obtenus par assignement. Les indexeurs professionnels qui
+    sont intervenus sur ces données avaient pour consignes de fournir des
+    termes-clés généraux au domaine (majoritairement par assignement), mais
+    aussi  des termes-clés précis, vis-à-vis du contenu des documents, ou des
+    concepts nouveaux (par extraction). Il est donc important de considérer la
+    tâche d'assignement de termes-clés. Cependant, nous pensons que celle-ci
+    doit être réalisée conjointement à la tâche d'extraction, non séparément.
 
     Avec TopicCoRank, nous proposons une nouvelle méthode d'indexation par
-    termes-clés qui unifie le graphe repésentatif du document et un graphe
+    termes-clés qui unifie un graphe repésentatif du document et un graphe
     représentatif du domaine, c'est-à-dire de ses termes-clés de référence et de
     leurs relations. De cette manière, nous sommes capable d'extraire et
     d'assigner des termes-clés indifféremment. Concrètement, TopicCoRank apporte
@@ -1056,41 +1097,61 @@
     d'un vocabulaire contrôlé et une approche purement automatique qui n'utilise
     pas d'heuristique pour combiner les deux catégories d'indexation par
     termes-clés.
+        
+    Le travail le plus proche de celui que nous présentons est celui de
+    \newcite{figueroa2014collaborativeranking}. Tout comme nous avec TopicRank,
+    \newcite{figueroa2014collaborativeranking} tentent d'améliorer l'approche à
+    base de graphe TextRank en mettant à profit des informations extraites des
+    données d'entraînement. Leur travail diffère cependant du notre, car ils
+    utilisent la méthode supervisée d'extraction de terme-clé KEA, non pas
+    d'assignement de termes-clés, et combinent sa sortie à celle de TextRank
+    avec un algorithme de fusion de listes ordonnées. Notre travail exploite les
+    données d'entraînement pour ajouter la capacité à assigner des termes-clés.
+    De plus, TopicCoRank ne fusione pas les sortie de deux méthodes, il met en
+    phase le document et son domaine pour extraire des termes-clés du document
+    et en assigner depuis le domaine lorsque c'est nécessaire.
 
     \subsection{TopicCoRank}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topiccorank}
-      TopicCoRank étend les étapes suivantes de TopicRank~: construction du
-      graphe, ordonnancement et sélection du terme-clé candidat le plus
-      représentatif de chaque sujet.
+      TopicCoRank est une extension de TopicRank. Elle étend les étapes
+      suivantes de ce dernier~: construction du graphe, ordonnancement et
+      sélection des termes-clés.
 
       \subsubsection{Construction du graphe}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-graph_construction}
         Afin de réaliser simultanément extraction et assignement de termes-clés,
         nous unifions deux graphes représentant le document (graphe de sujets)
-        et le domaine auquel il appartient (graphe de termes-clés de
-        référence). Ce dernier graphe est construit à partir des termes-clés de
-        référence des documents d'entrainement fournis avec chaque collection de
-        données. Ces termes-clés ayant déjà été associés à un document, nous
-        nous en servons pour simuler le vocabulaire contrôlé. Contrairement au
+        et le domaine auquel il appartient (graphe de termes-clés de référence).
+        Ce dernier graphe est construit à partir des termes-clés de référence
+        des documents d'entrainement fournis avec une collection de données.
+        S'ils sont des termes-clés de référence du même domaine, ils ont donc
+        une forte probabilité d'appartenir à la terminologie du
+        domaine~\cite{chaimongkol2013technicaltermextraction}. Nous faisons donc
+        l'hypothèse que les termes-clés de référence des documents
+        d'entraînement constituent des entrées valides du vocabulaire contrôlé
+        du domaine représenté par les documents d'entraînement et nous les
+        utilisons comme substitu au vocabulaire contrôlé. Contrairement au
         termes-clés candidats sélectionnés dans le document, les termes-clés de
-        référence ne sont pas jugés redondant. Nous ne groupons donc pas les
+        référence ne sont pas jugés redondants. Nous ne groupons donc pas les
         termes-clés de référence pour le graphe du domaine.
 
         Soit le graphe unifié $G = (N, A = A_{\textnormal{\textit{interne}}}
         \cup A_{\textnormal{\textit{externe}}})$ non orienté. $N$ dénote
         indifféremment les sujets et les termes-clés de référence. $A$ regroupe
-        les arêtes $A_{\textnormal{\textit{interne}}}$ qui connectent deux
-        sujets ou deux termes-clés de référence et les arêtes
-        $A_{\textnormal{\textit{externe}}}$ qui connectent un sujet à un
+        les arêtes $A_{\textnormal{\textit{interne}}}$, qui connectent deux
+        sujets ou deux termes-clés de référence, et les arêtes
+        $A_{\textnormal{\textit{externe}}}$, qui connectent un sujet à un
         terme-clé de référence (cf. figure~\ref{fig:topiccorank_graph}). Le
         graphe de sujets et le graphe du domaine sont unifiés grâce aux arêtes
         $A_{\textnormal{\textit{externe}}}$. Une arête
         $A_{\textnormal{\textit{externe}}}$ est ajouté pour connecter un sujet
         et un terme-clé si, et seulement si, le terme-clé fait partie des
-        termes-clés candidats qui composent le sujet \TODO{Nous acceptons les
-        formes fléchies BLABLABLA}. Le domaine est considéré comme une carte
-        conceptuelle et nous connectons le document au domaine par
-        l'intermédiaire des concepts qu'ils partagent.
+        termes-clés candidats qui composent le sujet. En d'autres termes, nous
+        considérons le domaine comme une carte conceptuelle et connectons le
+        document au domaine par l'intermédiaire des concepts qu'ils partagent.
+        Pour favoriser les connections, et à la manière du groupement en sujets,
+        nous utilisons la méthode de racinisation de
+        \newcite{porter1980suffixstripping}.
         \begin{figure}
           \newcommand{\xslant}{0.25}
           \newcommand{\yslant}{0}
@@ -1207,25 +1268,38 @@
         \end{figure}
 
         Pour permettre un ordonnancement conjoint des sujets et des termes-clés
-        de référence, nous homogénéisons le schéma de connections des sujets
-        entre eux et des termes-clés de référence entre eux (arêtes
-        $A_\textnormal{\textit{interne}}$). Nous connectons deux sujets ou deux
-        termes-clés de référence lorsqu'il apparaissent dans le même contexte et
-        pondérons leur arête par le nombre de fois que cela se produit.
-        Lorsqu'il s'agit des sujets, le contexte est une phrase du document, et
-        lorsqu'il s'agit des termes-clés de référence, le contexte est
-        l'ensemble des termes-clés de référence d'un document d'entraînement.
+        de référence, nous homogénéisons le schéma de connection entre deux
+        sujets et entre deux termes-clés de référence (arêtes
+        $A_\textnormal{\textit{interne}}$). En effet, si les conditions de
+        connexion ou si la pondération des arêtes ne sont pas sémantiquement
+        équivalentes et du même ordre de grandeur (respectivement), alors
+        l'impact du domaine sur le document, et inversement, est marginal et
+        inexploitable. Nous connectons deux sujets ou deux termes-clés de
+        référence $n_i$ et $n_j$ lorsqu'il apparaissent dans le même contexte et
+        pondérons leur arête par le nombre de fois que cela se produit,
+        normalisé par le nombre de contextes explorés ($\textnormal{poids}(n_i,
+        n_j)$). Lorsqu'il s'agit des sujets, le contexte est une phrase du
+        document~; lorsqu'il
+        s'agit des termes-clés de référence, le contexte est l'ensemble des
+        termes-clés de référence d'un document d'entraînement. Ne pouvant pas
+        créer un graphe complet du domaine à partir de ce schéma de connexion,
+        nous n'utilisons pas un graphe complet pour le graphe de sujets. Afin
+        d'éviter d'utiliser une valeur pour la fenêtre de cooccurrences, nous
+        difinissons la phrase comme fenêtre.
 
       \subsubsection{Ordonnancement conjoint des sujets et des termes-clés de référence}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-co_ranking}
         L'ordonnancement conjoint des sujets et des termes-clés de référence
         établit l'ordre d'importance des sujets du document et des termes-clés
-        de référence du domaine vis-à-vis du document. Pour effectuer cet
-        ordonnancement, nous reprenons le principe de la recommandation et
-        l'adaptons au problème d'ordonnancement conjoint.
+        de référence du domaine vis-à-vis du contenu du document. Le score
+        d'importance attribué aux sujets et aux termes-clés de référence est
+        obtenu avec le même algorithme et la même instance de l'algorithme.
+        L'ordonnancement fournit donc une seule liste ordonnée, mêlant sujets et
+        termes-clés de référence.
 
-        Dans un premier temps, nous reprenons le princicpe de recommandation tel
-        qu'il est définit dans TopicRank~:
+        Nous reprenons le principe de la recommandation et l'adaptons au
+        problème d'ordonnancement conjoint. Les premières hypothèses de
+        recommandation sont les mêmes que celle définie par TopicRank~:
         \begin{itemize}
           \item{un sujet est d'autant plus important s'il est fortement connecté
                 à un grand nombre de sujets et si les sujets avec lesquels il
@@ -1235,81 +1309,75 @@
                 et si les termes-clés de référence avec lesquels il est connecté
                 sont importants.}
         \end{itemize}
-        Cette recommandation, que nous qualifions d'interne, permet d'établir
-        l'importance des sujets les uns par rapport aux autres et l'importance
-        des termes-clés de référence les uns par rapport au autre. Cependant,
-        elle ne permet pas de tirer profit des termes-clés de référence
-        importants pour renforcer l'importance des sujets qui y sont connectés
-        et, inversement, elle ne permet pas de tirer profit des sujets
-        importants pour renforcer l'importance des termes-clés de référence
-        auxquels ils sont connectés. De plus, l'importance des termes-clés de
-        référence est indépendante du document et, pour la même collection de
-        donnée, l'importance des termes-clés de référence est toujours la même.
-        Nous ajoutons donc un second principe de recommandation, que nous
-        qualifions d'externe~:
+        Ces hypothèses de recommandation, que nous qualifions d'internes,
+        permettent d'établir l'importance des sujets les uns par rapport aux
+        autres et l'importance des termes-clés de référence les uns par rapport
+        au autre. Cependant, elles ne permettent pas de tirer profit des
+        termes-clés de référence importants pour renforcer l'importance des
+        sujets qui y sont connectés et, inversement, elles ne permettent pas de
+        tirer profit des sujets importants pour renforcer l'importance des
+        termes-clés de référence auxquels ils sont connectés. De plus,
+        l'importance des termes-clés de référence est indépendante du document
+        et, pour la même collection de données, l'importance des termes-clés de
+        référence est toujours la même. Nous ajoutons donc deux nouvelles
+        hypothèses de recommandation, que nous qualifions d'externes~:
         \begin{itemize}
           \item{un sujet est d'autant plus important s'il contient des
                 termes-clés de référence importants~;}
           \item{un terme-clé de référence est d'autant plus important
-                \textbf{vis-à-vis du contenu du document} s'il est connecté à l'un
-                de ses sujets importants.}
+                \underline{vis-à-vis du contenu du document} s'il est connecté à
+                l'un de ses sujets importants.}
         \end{itemize}
         Sujets et termes-clés de référence sont ainsi évalués d'après leur usage
-        dans le document et leur usage global dans le domaine. L'ordonnancement
-        des uns joue un rôle sur celui des autres et permet ainsi d'effectuer
-        extraction et assignement conjointement.
+        dans le document et leur usage (global) dans le domaine.
+        L'ordonnancement des uns joue un rôle sur celui des autres et permet
+        ainsi d'effectuer extraction et assignement conjointement.
 
         Mathématiquement, nous adaptons la formule d'ordonnancement de TopicRank
-        et remplaçon l'aléa, introduit par $(1 - \lambda)$, par la
-        recommandation externe~:
+        en préservant la recommandation interne
+        ($R_{\textnormal{\textit{interne}}}$) et en remplaçant l'aléa, exprimé
+        avec le terme $(1 - \lambda)$, par la recommandation externe
+        ($R_{\textnormal{\textit{externe}}}$)~:
         \begin{align}
-          S(N_i) &= (1 - \lambda)\ R_{\textnormal{\textit{externe}}}(n_i) + \lambda\ R_{\textnormal{\textit{interne}}}(N_i)\label{math:topiccorank}\\
-          R_{in}(V_i) &= \sum_{E_{\text{in}_{ij}}}{\frac{w_{ij} S(V_j)}{\mathlarger\sum_{E_{\text{in}_{jk}}}{{w_{jk}}}}}\label{math:rin}\\
-          R_{out}(V_i) &= \sum_{E_{\text{out}_{ji}}}{\frac{S(V_j)}{deg_{\text{\textit{out}}}(V_j)}}\label{math:rout}
+          S(n_i) &= (1 - \lambda)\ R_{\textnormal{\textit{externe}}}(n_i) + \lambda\ R_{\textnormal{\textit{interne}}}(n_i)\label{math:topiccorank}\\
+          R_{\textnormal{\textit{interne}}}(n_i) &= \sum_{n_j \in A_{\textnormal{\textit{interne}}}(n_i)}{\frac{\textnormal{poids}(n_j, n_i) \times S(n_j)}{\mathlarger\sum_{n_k \in A_{\textnormal{\textit{interne}}}(n_j)}{{\textnormal{poids}(n_j, n_k)}}}}\label{math:rin}\\
+          R_{\textnormal{\textit{externe}}}(n_i) &= \sum_{n_j \in A_{\textnormal{\textit{externe}}}(n_i)}{\frac{S(n_j)}{|A_{\textnormal{\textit{externe}}}(n_j)|}}\label{math:rout}
         \end{align}
-        where $deg_\textnormal{\textit{out}}(V_j)$ represents the degree of $V_j$
-        considering only edges $E_\textnormal{\textit{out}}$.
-        $\lambda$ is a factor that configures the influence of the inner recommendation
-        over the outer recommendation ($\lambda \in \{0..1\}$). A higher $\lambda$
-        gives more influence to the inner recommendation and a lower $\lambda$ gives
-        more influence to the outer recommendation. \ANNOTATE{We set $\lambda$ to $0.5$ by
-        default, which balances the influence of each recommendation}{might be misinterpreted as 50\% extraction and 50\% assignment}. However,
-        depending on the nature of the documents to process or the caracteristics of
-        the manual annotation to mimic, one may need to adapt TopicCoRank with a tuned
-        $\lambda$.
+        où $A_{\textnormal{\textit{interne}}}(n_i)$ représente l'ensemble de
+        tous les n\oe{}uds connectés au n\oe{}ud $n_i$ par une arête
+        $A_\textnormal{\textit{interne}}$, où
+        $A_{\textnormal{\textit{externe}}}(n_i)$ représente l'ensemble de tous
+        les n\oe{}uds connectés au n\oe{}ud $n_i$ par une arête
+        $A_\textnormal{\textit{externe}}$ et où le facteur $\lambda$ permet
+        désormais de définir la recommandation la plus influente entre
+        $R_{\textnormal{\textit{interne}}}$ et
+        $R_{\textnormal{\textit{externe}}}$. Par défaut, nous définissons
+        $\lambda=0,5$ afin de donner autant de poids aux deux recommandations.
 
       \subsubsection{Sélection des termes-clés}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-keyphrase_selection}
-        To both assign and extract keyphrases, we sort the controlled
-        keyphrases and the topics based on their importance score $S$. Top $N$ ones are
-        considered as the keyphrases of the document.
+        Pour terminer l'indexation par termes-clés, nous utilisons l'ordre
+        d'importance $S$ des sujets et termes-clés de référence pour déterminer
+        les termes-clés du document. Les $k$ n\oe{}uds du graphe unifié ayant
+        obtenu les meilleurs scores sont retenus, qu'ils soient des sujets ou
+        des termes-clés de référence.
 
-        We assign controlled keyphrases over one condition. A controlled keyphrase can
-        be assigned to a document if it is directly or transitively connected to a
-        topic of the document. If the ranking of a controlled keyphrase has not been
-        affected by topics of the document nor controlled keyphrases connected to topics,
-        its importance score is not related to the content of the document.
+        Avant la troncature aux $k$ meilleurs sujets et termes-clés de
+        référence, certains termes-clés de référence sont retirés si leur
+        ordonnancement n'a pas été influencé par le document. En effet, le
+        graphe du domaine peut, dans certain cas, être constitué de composantes
+        connexes, c'est-à-dire composé de sous-graphes qui ne sont connectés par
+        aucune arête (\TODO{exemple}), soit dans notre cas de groupes de
+        termes-clés de référence qui ne partagent aucun contexte. Si aucun
+        terme-clé de référence d'une composante connexe n'est connecté à un
+        sujet du document, alors l'ordonnancement au sein de cette composante
+        connexe n'est pas influencé par le document. Il n'est donc pas pertinent
+        d'en tenir compte.
 
-        We extract keyphrases from the topics using the former TopicRank strategy.
-        Only one keyphrase is extracted per topic. The extracted keyphrase is the
-        candidate of the topic that occurs first within the document.
-        \newcite{bougouin2013topicrank} tested other strategies: extracting the most
-        frequent candidate of the topic or extracting its centroid. The strategy to
-        extract the first occurring candidate is the most efficient strategy, but
-        \newcite{bougouin2013topicrank} showed that an optimal, yet unidentified, strategy could
-        perform twice as well.
-
-        % This AKA and AKE can be further improved. One can set the ratio of
-        % keyphrases to assign and keyphrases to extract, or even control the degree
-        % of generalization of the assigned keyphrases. One may be interested in
-        % assigning very specific keyphrases regarding the document(\TODO{example}),
-        % whereas one may want to assign more general keyphrases (\TODO{example}). The
-        % minimum deph between a reference keyphrase and a document topic encodes this
-        % degree of generalization. A reference keyphrase directly connected to a
-        % document topic has the lowest generalization regarding the document,
-        % followed by its connected reference keyphrases, and so on.
-        
-        \ANNOTATE{\TODO{conclude and highlight the fact that it is not just an output combination}}{could be 'linked' to Table~\ref{tab:assignment_ratio}}
+        Lorsque un n\oe{}ud retenu représente un sujet, nous utilisons la même
+        stratégie que celle de TopicRank. Pour un sujet donné, le terme-clé
+        extrait est son terme-clé candidat qui apparaît en premier dans le
+        document.
 
       \subsubsection{Exemple}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-exemple}
@@ -1318,43 +1386,110 @@
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
+        Pour valider notre approche, nous appliquons TopicCoRank à plusieurs de
+        nos collections de données et le comparons à différentes méthodes de
+        référence. \TODO{donner les baselines}
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
-        Pour évaluer ce travail, nous utilisons trois des cinq collections dont
-        nous disposons. Nous utilisons les deux collections anglaises
-        \textsc{Duc} et SemEval et les collections française de Termith. La
-        collection Wikinews n'est pas retenue, car elle ne possède pas de
-        documents d'entraînement, et la collection \textsc{Deft} n'est pas
-        retenue à cause de la nature de ses termes-clés (termes-clés d'auteurs).
+        Pour évaluer TopicCoRank, nous utilisons les collections de données
+        Termith, dont l'annotation manuelle est proche de son mode de
+        fonctionnement, ainsi que les collections SemEval et \textsc{Duc}.
+        \TODO{Expliquer pour quoi pas DEFT (tc d'auteur et ???) et Wikinews (pas
+        assez de données)}
+        
+        Pour chaque collection de Termith, nous construisons le graphe du
+        domaine à partir des documents d'entraînement~; Pour SemEval, nous
+        construisons quatre graphes de domaine à partir des documents
+        d'entraînement des quatres catégories \textsc{Acm} (C2.4, H3.3, I2.11 et
+        J4) et utilisons l'un ou l'autre de ces graphes selon la catégorie du
+        document traité par TopicCoRank~; Pour \textsc{Duc}, nous n'utilisons
+        pas sa répartition entraînement--test proposée dans la
+        section~\ref{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}
+        (page~\pageref{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}).
+        Nous construisons un graphe de domaine unique pour chaque document. Pour
+        chaque document de \textsc{Duc} nous utilisons son sujet d'actualité
+        (parmi les 30 sujets d'actualité recensés dans \textsc{Duc}) et
+        construisons le graphe de domaine à partir des autres documents traitant
+        du même sujet d'actualité (tornades, contrôle des armes à feu, etc.).
+
+        Le tableau~\ref{tab:topiccorank:corpora_recap} rappelle les
+        caractéristiques des collections de données que nous utilisons pour
+        évaluer TopicCoRank. \TODO{rappeler que les collections sont diff.}
+        \begin{table}[!h]
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{l@{~}l@{~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+              \toprule
+              \multicolumn{3}{l|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+              \cline{4-11}
+              & & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+              \hline
+              \multicolumn{3}{l|}{Termith} & & & & & & & &\\
+              $\drsh$ & \multicolumn{2}{@{}l|}{Linguistique} & & & & & & & &\\
+              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 515 & 160,5 & Professionnel & 8,6 & 60,6~\% & 1,7\\
+              & $\drsh$ & Test & \ditto & \ditto & 200 & 147,0 & \ditto & 8,9 & 62,8~\% & 1,8\\
+              $\drsh$ & \multicolumn{2}{@{}l|}{Sciences de l'info.} & & & & & & &\\
+              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 506 & & Professionnel & & &\\
+              & $\drsh$ & Test & \ditto & \ditto & 200 & & \ditto & & &\\
+              $\drsh$ & \multicolumn{2}{@{}l|}{Archéologie} & & & & & & &\\
+              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 518 & & Professionnel & & &\\
+              & $\drsh$ & Test & \ditto & \ditto & 200 & & \ditto & & &\\
+              $\drsh$ & \multicolumn{2}{@{}l|}{Chimie} & & & & & & &\\
+              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 582 & & Professionnel & & &\\
+              & $\drsh$ & Test & \ditto & \ditto & 200 & & \ditto & & &\\
+              \multicolumn{3}{l|}{Semeval} & & & & & & & &\\
+              $\drsh$ & \multicolumn{2}{@{}l|}{Appr.} & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
+              $\drsh$ & \multicolumn{2}{@{}l|}{Test} & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & 2,1\\
+              \multicolumn{3}{l|}{\textsc{Duc}} & \ditto & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+              \bottomrule
+            \end{tabular}
+          }
+
+          \caption{Rappel des corpus utilisés pour l'évaluation de TopicCoRank
+                   \label{tab:topiccorank:corpora_recap}}
+        \end{table}
 
       \subsubsection{Prétraitements}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-preprocessing}
-        Chaque document des collections de données utilisées subit les mêmes
-        prétraitements. Chaque document est tout d'abord segmenté en phrases,
-        puis en mots et enfin étiqueté grammaticalement. La segmentation en mots
-        est effectuée par le TreeBankWordTokenizer, disponible avec la librairie
-        python NLTK~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
-        l'anglais et par l'outil Bonsai, du Bonsai PCFG-LA
-        parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
-        pour le français. Quant à l'étiquetage grammatical, il est réalisé avec
-        le Stanford POS tagger~\cite{toutanova2003stanfordpostagger} pour
-        l'anglais et avec l'outil MElt~\cite{denis2009melt} pour le français.
-        Tous ces outils sont utilisés avec leur configuration par défaut.
-
-        \TODO{expliquer les préparations de \textsc{Duc} et de SemEval}
+        Pour chaque collection de données, les documents subissent les mêmes
+        prétraitements~: segmentation en phrases, segmentation des phrases en
+        mots et étiquetage grammatical des mots. Quelque soit la langue, la
+        segmentation en phrases est mise en \oe{}uvre avec la classe
+        \texttt{PunktSentenceTokenizer} de \textsc{Nltk}~\cite{bird2009nltk}. En
+        anglais, la segmentation des phrases en mots est réalisée avec la classe
+        \texttt{TreeBankWordTokenizer} de \textsc{Nltk} et l'étiquetage
+        grammaticale est effectué avec le \textit{Stanford \textsc{Pos}
+        tagger}~\cite{toutanova2003stanfordpostagger}. En français, la
+        segmentation des phrases en mots est mise en \oe{}uvre avec le
+        segmenteur Bonsai, du \textit{Bonsai \textsc{Pcfg-La}
+        parser}\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
+        dont se fonde l'outil MElt~\cite{denis2009melt} utilisé pour
+        l'étiquetage grammatical. Tous ces outils sont appliqués avec leur
+        configuration par défaut.
       
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_measures}
         Les performances des méthodes d'extraction de termes-clés sont exprimées
-        en termes de précision (P), rappel (R) et f-score (f1-mesure, F). En
+        en termes de précision (P), rappel (R) et f-mesure (f1-mesure, F). En
         accord avec l'évaluation menée dans les travaux précédents, nous
         considérons correcte l'extraction d'une variante flexionnelle d'un
         terme-clé de référence~\cite{kim2010semeval}. Les opérations de
         comparaison entre les termes-clés de référence et les termes-clés
         extraits sont donc effectuées à partir de la racine des mots qui les
-        composent en utilisant la méthode de racinisation de
-        \newcite{porter1980suffixstripping}.
+        composent, d'après la méthode de \newcite{porter1980suffixstripping}.
+
+        Nous représentons aussi les résultats sous la forme de courbes de
+        rappel--précision. Si nous reformulons l'indexation par termes-clés
+        comme la tâche d'extraction et d'assignement de termes-clés pour
+        laquelle nous devons optimiser les critères de précision et de rappel,
+        alors les courbes rappel--précision permettent d'indiquer si une méthode
+        domine toutes les autres (front de Pareto optimal), c'est-à-dire si
+        aucune autre méthode n'obtient des performances supérieures pour toutes
+        les valeurs des critères de précision et de rappel. Pour générer ces
+        courbes, nous calculons la précision et le rappel lorsque nous faisons
+        varier le nombre de termes-clés extrait, de un jusqu'au nombre total de
+        termes-clés candidats.
       
       \subsubsection{Comparaison de TopicRank++ avec l'existant}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-comparison}
@@ -1384,6 +1519,9 @@
         The graph co-ranking algorithm successfully leverages document topics and
         controlled keyphrases to output both new concepts and appropriate controlled keyphrases.
         The new concepts that are identified could be used further to update domain-specific terminology.
+      
+      \subsubsection{Analyse du comportement de TopicCoRank}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank-analysis}
 
         \ANNOTATE{Table~\ref{tab:assignment_ratio} shows the percentage of assigned keyphrases by TopicCoRank
         for each dataset. The statistics show that the co-ranking actually works and outputs both
@@ -1416,21 +1554,21 @@
         \begin{figure*}
             \centering
             \subfigure[Inist]{
-              \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
                 \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.0057\linewidth,
+                \begin{axis}[x=0.00855\linewidth,
                              xtick={0, 20, 40, ..., 100},
                              xmin=0,
                              xmax=40,
                              xlabel=recall (\%),
                              x label style={yshift=.34em, font=\small},
-                             y=0.0057\linewidth,
+                             y=0.00855\linewidth,
                              ytick={0, 10, 20, ..., 100},
                              ymin=0,
                              ymax=40,
                              ylabel=precision (\%),
                              y label style={yshift=-1.1em, font=\small},
-                             legend style={font=\tiny}]
+                             legend style={font=\footnotesize}]
                   \addplot [red, mark=+] file {input/data/inist_topicrank.csv};
                   \addplot [green, mark=-] file {input/data/inist_assignment.csv};
                   \addplot [blue, mark=x] file {input/data/inist_topiccorank.csv};
@@ -1439,27 +1577,27 @@
                   \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
                   \legend{TopicRank, \textit{Assignment}, TopicCoRank};
                 \end{axis}
-                \node at (3.7,2) [anchor=east] {\tiny{F=0.30}};
-                \node at (3.7,1) [anchor=east] {\tiny{F=0.20}};
-                \node at (3.7,0.3) [anchor=east] {\tiny{F=0.10}};
+                \node at (4.85,3.1) [anchor=east] {\footnotesize{F=0.30}};
+                \node at (4.85,1.8) [anchor=east] {\footnotesize{F=0.20}};
+                \node at (4.85,0.9) [anchor=east] {\footnotesize{F=0.10}};
               \end{tikzpicture}
             }
-            \subfigure[DUC]{
-              \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+            \subfigure[\textsc{Duc}]{
+              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
                 \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.0038\linewidth,
+                \begin{axis}[x=0.0057\linewidth,
                              xtick={0, 20, 40, ..., 100},
                              xmin=0,
                              xmax=60,
                              xlabel=recall (\%),
                              x label style={yshift=.34em, font=\small},
-                             y=0.0038\linewidth,
+                             y=0.0057\linewidth,
                              ytick={0, 15, 30, ..., 100},
                              ymin=0,
                              ymax=60,
                              ylabel=precision (\%),
                              y label style={yshift=-1.1em, font=\small},
-                             legend style={font=\tiny}]
+                             legend style={font=\footnotesize}]
                   \addplot [red, mark=+] file {input/data/duc_topicrank.csv};
                   \addplot [green, mark=-] file {input/data/duc_assignment.csv};
                   \addplot [blue, mark=x] file {input/data/duc_topiccorank.csv};
@@ -1469,28 +1607,28 @@
                   \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
                   \legend{TopicRank, \textit{Assignment}, TopicCoRank};
                 \end{axis}
-                \node at (3.7,1.7) [anchor=east] {\tiny{F=0.40}};
-                \node at (3.7,1.1) [anchor=east] {\tiny{F=0.30}};
-                \node at (3.7,0.55) [anchor=east] {\tiny{F=0.20}};
-                \node at (3.7,0.15) [anchor=east] {\tiny{F=0.10}};
+                \node at (4.85,2.6) [anchor=east] {\footnotesize{F=0.40}};
+                \node at (4.85,1.8) [anchor=east] {\footnotesize{F=0.30}};
+                \node at (4.85,1.15) [anchor=east] {\footnotesize{F=0.20}};
+                \node at (4.85,0.6) [anchor=east] {\footnotesize{F=0.10}};
               \end{tikzpicture}
             }
             \subfigure[SemEval]{
-              \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
                 \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.0057\linewidth,
+                \begin{axis}[x=0.00855\linewidth,
                              xtick={0, 20, 40, ..., 100},
                              xmin=0,
                              xmax=40,
                              xlabel=recall (\%),
                              x label style={yshift=.34em, font=\small},
-                             y=0.0057\linewidth,
+                             y=0.00855\linewidth,
                              ytick={0, 10, 20, ..., 100},
                              ymin=0,
                              ymax=40,
                              ylabel=precision (\%),
                              y label style={yshift=-1.1em, font=\small},
-                             legend style={font=\tiny}]
+                             legend style={font=\footnotesize}]
                   \addplot [red, mark=+] file {input/data/semeval_topicrank.csv};
                   \addplot [green, mark=-] file {input/data/semeval_assignment.csv};
                   \addplot [blue, mark=x] file {input/data/semeval_topiccorank.csv};
@@ -1499,9 +1637,9 @@
                   \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
                   \legend{TopicRank, \textit{Assignment}, TopicCoRank};
                 \end{axis}
-                \node at (3.7,2) [anchor=east] {\tiny{F=0.30}};
-                \node at (3.7,1) [anchor=east] {\tiny{F=0.20}};
-                \node at (3.7,0.3) [anchor=east] {\tiny{F=0.10}};
+                \node at (4.85,3.1) [anchor=east] {\footnotesize{F=0.30}};
+                \node at (4.85,1.8) [anchor=east] {\footnotesize{F=0.20}};
+                \node at (4.85,0.9) [anchor=east] {\footnotesize{F=0.10}};
               \end{tikzpicture}
             }
             \caption{Precision-recall curves of TopicRank, \textit{Assignment} and TopicCoRank
@@ -1618,15 +1756,15 @@
         \begin{figure*}
             \centering
             \subfigure[Inist]{
-              \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
                 \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.262\linewidth,
+                \begin{axis}[x=0.393\linewidth,
                              xtick={0.1, 0.3, ..., 0.9},
                              xmin=0.05,
                              xmax=0.95,
                              xlabel=$\lambda$,
                              x label style={yshift=.34em, font=\small},
-                             y=0.0125\textheight,
+                             y=0.01875\textheight,
                              ytick={0, 2, 4, ..., 34},
                              ymin=14,
                              ymax=25,
@@ -1646,16 +1784,16 @@
                 \end{axis}
               \end{tikzpicture}
             }
-            \subfigure[DUC]{
-              \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+            \subfigure[\textsc{Duc}]{
+              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
                 \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.262\linewidth,
+                \begin{axis}[x=0.393\linewidth,
                              xtick={0.1, 0.3, ..., 0.9},
                              xmin=0.05,
                              xmax=0.95,
                              xlabel=$\lambda$,
                              x label style={yshift=.34em, font=\small},
-                             y=0.0125\textheight,
+                             y=0.01875\textheight,
                              ytick={0, 2, 4, ..., 34},
                              ymin=24,
                              ymax=35,
@@ -1676,15 +1814,15 @@
               \end{tikzpicture}
             }
             \subfigure[SemEval]{
-              \begin{tikzpicture}[every axis/.append style={font=\tiny}]
+              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
                 \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.262\linewidth,
+                \begin{axis}[x=0.393\linewidth,
                              xtick={0.1, 0.3, ..., 0.9},
                              xmin=0.05,
                              xmax=0.95,
                              xlabel=$\lambda$,
                              x label style={yshift=.34em, font=\small},
-                             y=0.0125\textheight,
+                             y=0.01875\textheight,
                              ytick={0, 2, 4, ..., 34},
                              ymin=8,
                              ymax=19,
@@ -1721,6 +1859,8 @@
 
     \subsection{Analyse d'erreurs}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}
+      Dans cette section, nous analysons les erreurs d'extraction et
+      d'assignement, soit les faux positifs. \TODO{\dots}
 
     \subsection{Bilan}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-conclusion}
@@ -1749,6 +1889,29 @@
       degree of generalization. A controlled keyphrase directly connected to a
       document topic has the lowest generalization regarding the document,
       followed by its connected controlled keyphrases, etc.
+
+      \TODO{s'inspirer}
+
+      Avec TopicRank, nous proposons une méthode à base de graphe pour
+      l'extraction non supervisée de termes-clés. Elle groupe les termes-clés
+      candidats en sujets, détermine quels sont ceux les plus importants, puis
+      extrait le terme-clé candidat qui représente le mieux chacun des sujets
+      les plus importants. Cette nouvelle méthode offre plusieurs avantages
+      vis-à-vis des précédentes méthodes à base de graphe. Le groupement des
+      termes-clés potentiels en sujets distincts permet de rassembler des
+      informations relatives au même sujets et le choix d'un seul terme-clé
+      pour représenter un sujet important permet d'extraire un ensemble de
+      termes-clés non redondants (pour $k$ termes-clés extraits, exactement
+      $k$ sujets sont couverts). Enfin, le graphe est complet et ne requiert
+      plus le paramétrage d'une fenêtre de cooccurrences.
+
+      Les bons résultats de notre méthode montrent la pertinence d'un
+      groupement des candidats en sujets et d'un ordonnancement de ces sujets,
+      plutôt que des mots. Les expériences montrent aussi qu'il est encore
+      possible d'améliorer notre méthode en proposant une nouvelle stratégie
+      de sélection du terme-clé candidat le plus représentatif d'un sujet.
+      Dans un premier temps, nous souhaitons explorer plus encore l'usage du
+      graphe et de étendre à l'assignement de termes-clés.
 
   %-----------------------------------------------------------------------------
 
