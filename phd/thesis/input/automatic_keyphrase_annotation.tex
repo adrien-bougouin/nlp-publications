@@ -55,70 +55,371 @@
 
   %-----------------------------------------------------------------------------
 
-  \section{Sélection des termes-clés candidats}
+  \section{Sélection des termes-clés candidats \TODO{pour l'EXTRACTION de
+  termes-clés}}
   \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}
-    \TODO{Dans cette section on fait quoi}
+    Dans cette section, nous nous intéressons à l'étape de sélection des
+    termes-clés candidats, aux propriétés que ces derniers doivent respecter et
+    à la façon de les sélectionner dans le document.
 
-    \TODO{Rappel sur la tâche de sélection des candidats}
+    La majorité des méthodes d'indexation par termes-clés de la littérature
+    travaillent à partir d'un ensemble de termes-clés candidats sélectionnés
+    préalablement dans le document. \ANNOTATE{Bien que cette étape préliminaire commence à
+    susciter de l'intéret~\cite{wang2014keyphraseextractionpreprocessing}, très
+    peu de méthodes de sélection sont proposées et les méthodes les plus simples
+    restent celles qui sont actuellement les plus utilisées (sélection des
+    $\{1..3\}$-grammes, des NP-\textit{chunks} ou des séquences grammaticalement
+    définies). Toutefois, la sélection des termes-clés candidats ne doit pas
+    être négligée, car c'est cette étape qui détermine la performance maximale
+    que peut atteindre une méthode d'indexation par termes-clés. Prenons
+    l'exemple de l'approche naïve assurant la performance maximale optimale.
+    Pour assurer cette performance maximale optimale, il suffit de fournir
+    toutes les séquences possibles de mots présents dans le
+    document\footnote{Soit pour chaque phrase de longueur  variable $n$, la
+    liste de ses $\{1..n\}$-grammes.}. Cependant, cette approche a pour
+    conséquence de sélectionner un nombre considérable de candidats et parmi eux
+    un nombre important de candidats négatifs qui augmentent la difficulté de la
+    tâche d'indexation par termes-clés~\cite{hasan2014state_of_the_art}.}{c'est
+    parti en sucette} Il est
+    donc préférable d'utiliser des méthodes de sélection qui proposent un
+    minimum de candidats tout en assurant une performance maximale
+    quasi-optimale.
 
-    \TODO{Qu'est-ce qu'on veut faire (réduire pour améliorer)} \TODO{comment le
-    fait-on (focale sur les modifieurs des termes-clés candidats)}
-
-    \TODO{1. analyse de prop. ling. des termes-clés de ref} \TODO{2.
-    présentation de notre méthode de filtrage} \TODO{3. évaluation à la fois
-    intrinsec et extrinsec}
-
-    \subsection{Collections de données}
-    \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-datasets}
-      \TODO{Placer dans un paragraphe de la section analyse}
-      Pour ce travail, nous utilisons les collection \textsc{Duc} et SemEval
-      pour l'anglais et \textsc{Deft} pour le français. Les collections SemEval
-      et \textsc{Deft} sont divisées en deux ensembles d'entraînement et de
-      test. Nous utilisons donc les ensembles d'entraînement pour notre analyse
-      et l'ensemble de test pour nos expériences. La collection \textsc{Duc}
-      possédant une quantité suffisante de documents, nous la divisons en deux
-      ensemble~: un ensemble d'entraînement composé de 208 documents et un
-      ensemble de test constitué de 100 documents.
+    Dans la suite, nous présentons une analyse des termes-clés de référence
+    associés aux documents de nos collections de données, nous montrons que
+    certains adjectifs sont plus pertinents que d'autres en tant que
+    modificateur au sein d'un terme-clé et nous proposons une méthodes pour
+    sélectonner des candidats en portant une attention particulière aux
+    adjectifs qui si trouvent. Nous montrons le bien fondé de ce travail au
+    travers de deux évaluations~: l'une intrinsèque, l'autre extrinsèque.
+    L'évaluation intrinsèque compare la qualité de l'ensemble de termes-clés
+    candidats sélectionnés par notre méthode à ceux sélectionnés par les
+    méthodes les plus utilisées~; l'évaluation extrinsèque compare l'impact de
+    notre méthode de sélection sur deux méthodes d'extraction de termes-clés à
+    celui des méthodes de sélection les plus utilisées.
 
     \subsection{Analyse des propriétés linguistiques des termes-clés}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties}
+      Afin de sélectionner plus finement les termes-clés candidats, nous
+      extrayons et analysons diverses statistiques concernant les termes-clés~:
+      leur taille (en nombre de mots) et la catégorie grammaticale de leur mots.
+      Cela nous permet de confirmer les observations faites dans les travaux
+      précédents et d'en faire de nouvelles, concentrées sur la catégorie
+      grammaticale des mots des termes-clés. Nottons aussi que
 
-    \subsection{Filtrage des modificateurs}
+      Pour ce travail, nous analysons les termes-clés de référence des
+      collections de données \textsc{Deft}, SemEval et \textsc{Duc} afin de
+      couvrir les deux languages française et anglaise. Pour ne pas influer sur
+      l'évaluation de notre nouvelle méthode de sélection de candidat découlant
+      de cette analyse, nous utilisons uniquement les données d'entraînement.
+      Dans le cas de \textsc{Duc}, nous divisons la collection en deux
+      ensembles~: un ensemble d'entraînement composé de 208 documents et un
+      ensemble de test constitué de 100 documents. Le
+      tableau~\ref{tab:candidate_selection-corpora_recap} rappelle les
+      caractéristiques de ces trois collections de données.
+      \begin{table}[!h]
+        \centering
+        \resizebox{\linewidth}{!}{
+          \begin{tabular}{l@{~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+            \toprule
+            \multicolumn{2}{l|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+            \cline{3-10}
+            & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+            \hline
+            \multicolumn{2}{l|}{\textsc{Deft}} & & & & & & & &\\
+            $\drsh$ & Appr. & Français & Scientifique & 141 & 7~276,7 & Auteur & 5,4 & 18,2~\% & 1,7\\
+            \multicolumn{2}{l|}{Semeval} & & & & & & & &\\
+            $\drsh$ & Appr. & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
+            \multicolumn{2}{l|}{\textsc{Duc}} & & & & & & & &\\
+            $\drsh$ & Appr. & Anglais & Journalistique & 208 &  & Lecteur &  &  & \\
+            \bottomrule
+          \end{tabular}
+        }
+
+        \caption{Rappel des corpus utilisés pour analyser les termes-clés de
+                 référence \TODO{segmentation \textsc{Duc}}
+                 \label{tab:candidate_selection-corpora_recap}}
+      \end{table}
+
+      Le tableau~\ref{tab:candidate_selection-train_stats} montre la proportion
+      de termes-clés uni-grammes, bi-grammes et tri-grammes, ainsi que la
+      proportion de termes-clés multi-mots contenant au moins un mot de l'une
+      des sept catégories grammaticales que nous observons en leur sein~: nom
+      commun, nom propre, adjectif, verbe, adverbe, préposition et déterminant.
+      Pour ces dernières proportions, nous nous focalisons sur les expressions
+      (termes-clés multi-mots), car nous avons observé que \TODO{\dots}~\% des
+      termes-clés qui sont des mots simples sont des noms. Pour obtenir ces
+      informations, les termes-clés ont été automatiquement segmentés en mots,
+      étiquetés grammaticalement et manuellement corrigés. Les termes-clés sont
+      automatiquement segmentés en mots avec la classe
+      \texttt{TreeBankWordTokenizer}, du module Python
+      \textsc{Nltk}~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
+      l'anglais et avec l'outil Bonsai, du \textit{Bonsai \textsc{Pcfg-La}
+      parser}\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
+      pour le français. Les mots sont automatiquement étiquetés grammaticalement
+      à l'aide du \textit{Stanford \textsc{Pos}
+      tagger}~\cite{toutanova2003stanfordpostagger} pour l'anglais et à l'aide
+      de l'outil MElt~\cite{denis2009melt} pour le français.
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{ll|ccc}
+          \toprule
+          & & \textbf{\textsc{Duc}} & \textbf{SemEval} & \textbf{\textsc{Deft}}\\
+          \hline
+          \multicolumn{2}{l|}{\textbf{Taux (en \%) de termes-clés~:}}\\
+          & Uni-grammes & 17,1 & 20.2 & 60.,2\\
+          & Bi-grammes & 60,8 & 53.4 & 24,5\\
+          & Tri-grammes & 17,8 & 21.3 & 8,8\\
+          \hline
+          \multicolumn{2}{l|}{\textbf{Taux (en \%) de termes-clés}} & & &\\
+          \multicolumn{2}{l|}{\textbf{contenant au moins un(e)~:}} & & &\\
+          & Nom commun & 94,5 & 98,7 & 93,1\\
+          & Nom propre & 17,1 & $~~$4,3 & $~~$6,9\\
+          & Adjectif & 50,0 & 50,2 & 65,5\\
+          & Verbe & $~~$1,0 & $~~$4,0 & $~~$1,0\\
+          & Adverbe & $~~$1,6 & $~~$0,7 & $~~$1,3\\
+          & Préposition & $~~$0,3 & $~~$1,5 & 31,2\\
+          & Déterminant & $~~$0,0 & $~~$0,0 & 20,4\\
+          \bottomrule
+        \end{tabular}
+        \caption{Statistiques concernant les termes-clés de référence des
+                 collections \textsc{Deft}, SemEval et \textsc{Duc}
+                 \label{tab:candidate_selection-train_stats}}
+      \end{table}
+
+      Concernant la taille des termes-clés de référence, ceux composés de un à
+      trois mots couvrent plus de 90~\% des termes-clés de références. En
+      français, ce sont les uni-grammes qui sont les plus présents, suivient par
+      les bi-grammes, tandis qu'en anglais, ce sont les bi-grammes qui sont les
+      plus présents, avec des proportions équivalentes d'uni-grammes et de
+      tri-grammes. Ces premières observations font écho de celles que nous
+      trouvons dans la littérature, nous pouvons donc en conclure qu'il s'agit
+      de propriétés stables des termes-clés. Une approche qui se restreint aux
+      $\{1..3\}$-grammes, telle que celle de \newcite{witten1999kea}, est donc
+      pertinente.
+
+      Concernant la catégorie des mots que contiennent les termes-clés de
+      référence, nous observons sans surprise que la quasi-totalité des
+      termes-clés contiennent un nom~; ce sont principalement des groupes
+      nominaux. Nous remarquons aussi que la moitié d'entre eux est modifiée par
+      un adjectif, tandis que très peu contiennent des verbes et des adverbes.
+      L'usage de ces derniers au sein de termes-clés semble être exceptionnel.
+      Les déterminant et préposition ont un usage presque exclusivement français
+      au sein des termes-clés de référence. Ceci s'explique par le fait qu'en
+      anglais les formes nominales sont préférées aux expressions
+      prépositionnelles (par exemple~: \textit{\og{}nature conservation\fg{}} --
+      \og{}conservation de la nature\fg{} -- est préférée à
+      \textit{\og{}conservation of nature\fg{}}).
+
+      Dans le tableau~\ref{tab:candidate_selection-adjective_categories}, nous
+      nous intéressons plus particulièrement aux adjectifs et à leurs
+      catégories. Plus précisément, nous cherchons à voir parmi les adjectifs
+      relationnels, les adjectifs composés et les adjectifs qualificatifs autres
+      que composés, quels sont ceux les plus présents au sein des termes-clés de
+      référence. Un adjectif relationnel est un adjectif dérivé d'un nom (par
+      exemple~: l'adjectif relationnel \og{}culturel\fg{} est dérivé du nom
+      \og{}culture\fg{}) équivalent à un complément de nom (par exemple~:
+      \og{}héritage culturel\fg{} et \og{}héritage de la culture\fg{} sont
+      équivalents)~; il \og{}transpose des substantifs sans rien changer à leur
+      valeur de substantifs
+      --~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}\fg{}.
+      \TODO{qu'observe-t-on dans le tableau ?} Un adjectif composé est une
+      réunion de mots équivalant à un adjectif, nous parlons aussi de locution
+      adjectif (par exemple~: \og{}socio-culturel\fg{}). \TODO{et donc ?}.
+      \TODO{qu'observe-t-on dans le tableau ?}. Un adjectif qualificatif est un
+      mot qui donne une qualification au substantif~; il en désigne la qualité
+      ou manière d'être (par exemple \og{}grand\fg{}). Cette catégorie regroupe
+      un grand nombre d'adjectifs, lesquels ne sont intuitivement pas tous
+      pertinent en tant que modificateur au sein d'un terme-clés
+      (\TODO{exemple}). \TODO{moyenmoyen}. \TODO{qu'observe-t-on dans le
+      tableau~?}.
+      \begin{table}[!ht]
+        \centering
+          \begin{tabular}{l|ccc}
+            \toprule
+            & \textbf{\textsc{Duc}} & \textbf{SemEval} & \textbf{\textsc{Deft}} \\
+            \hline
+            Adjectifs relationnels \hfill(\%) & 53,1 & 43,6\\
+            Adjectifs composés \hfill(\%) & 10,6 & 16,4\\
+            Autres adjectifs qualificatifs \hfill(\%) & 36,3 & 40,0\\
+            \bottomrule
+        \end{tabular}
+        \caption{Taux d'adjectifs par catégorie (\TODO{rel., qual., attr, comp.})}
+        \label{tab:candidate_selection-adjective_categories}
+      \end{table}
+
+      En complément, le tableau~\ref{tab:candidate_selection-best_patterns}
+      montre les patron grammaticaux les plus fréquents parmi les termes-clés de
+      référence. \TODO{dire qu'il y a ce qu'on veut}
+      \begin{table}[!h]
+        \centering
+        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}ll}
+          \toprule
+          \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}l}{\textbf{Pattern}} & \textbf{Example}\\
+          \hline
+          \multirow{3}{*}{\begin{sideways}\textbf{English}\end{sideways}}
+          & \texttt{Nc} & \texttt{Nc} & & & \textit{``hurricane expert''}\\ % AP880409-0015
+          & \texttt{Nc} & & & & \textit{``storms''}\\ % AP880409-0015
+          & \texttt{rA} & \texttt{Nc} & & & \textit{``Chinese earthquake''}\\ % AP890228-0019
+          \hline
+          \multirow{3}{*}{\begin{sideways}\textbf{French}\end{sideways}}
+          & \texttt{Nc} & & & & \textit{``patrimoine'' (``cultural heritage'')}\\ % as_2002_007048ar
+          & \texttt{Nc} & \texttt{rA} & & & \textit{``tradition orale'' (``oral tradition'')}\\ % as_2002_007048ar
+          & \texttt{Np} & & & & \textit{``Indonésie'' (``Indonesia'')}\\ % as_2001_000235ar
+          \bottomrule
+        \end{tabular}
+        \caption[
+          Pattrons grammaticaux les plus fréquents parmi les termes-clés
+          français et anglais
+        ]{
+          Pattrons grammaticaux les plus fréquents parmi les termes-clés
+          français et anglais. \TODO{mapping des POS}.
+          \TODO{resortir avec les adjR et ADjComp}
+          \label{tab:candidate_selection-best_patterns}
+        }
+      \end{table}
+
+    \subsection{Sélection fine des termes-clés candidats}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering}
+      Pour sélectionner les termes-clés candidats, nous proposons une méthode
+      qui se fonde sur les observations ci-avant. Cette méthode commence par
+      présélectionner les termes-clés candidats à l'aide d'un patron
+      grammatical, elle détecte ensuite la catégorie de ces adjectifs (s'il en
+      possède), puis elle filtre ceux qui ne sont pas jugés pertinents.
+
+      \subsubsection{Présélection des termes-clés candidats}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-candidate_pre_selection}
+        L'étape de présélection des candidats utilise un patron grammatical
+        définit sous la forme d'une expression rationnelle appliquée aux
+        catégories grammaticales des séquences de mots adjacents dans le
+        document. Ce patron est gourmand, c'est-à-dire qu'il prend les plus
+        longues séquences qui correspondent, de sorte qu'il n'y ai pas une
+        surproduction de candidats qui se recouvrent (comme c'est le cas avec
+        les n-grammes) et qu'ils n'augmentent pas le risque d'extraire des
+        termes-clés redondants~\cite{hasan2014state_of_the_art}.
+
+        D'après les observations de la
+        section~\ref{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties},
+        seuls les noms, les adjectifs, les prépositions et les déterminants
+        sont utiles pour sélectionner des candidats permettant une performance
+        maximale quasi-optimale (plus de 90~\% des termes-clés présents dans le
+        document). Dans le cas de l'anglais, les prépositions et les
+        déterminants sont en proportions très faibles et peuvent aussi être
+        ignorés. Dans le cas du français, les prépositions et les déterminant
+        couvrent plus de 30~\% des termes-clés de référence, cependant leur
+        nombre est tellement important au sein d'un document qu'il est
+        préférable de les ignorés afin d'éviter d'ajouter des candidats érronés
+        pouvant dégrader la performance d'une méthode d'extraction de
+        termes-clés.
+        
+        Pour le français, nous définissons donc le patron \texttt{/N+ A?/}, qui
+        accepte une séquence de noms (ou noms propres) se terminant
+        optionnelement par un adjectifs. En français, l'adjectif peut
+        être soit antéposé, soit postposé. Le patron que nous avons défini
+        n'accepte que les adjectifs postposés pour deux raisons. La première
+        raison est que les adjectifs relationnels, que nous jugeons les plus
+        pertinents en tant que modificateurs au sein des termes-clés, se
+        trouvent toujours en postposition. La seconde raison est que
+        l'antéposition et la postposition des adjectifs marquent deux aspects
+        différents du discours~: la subjectivité et l'objectivité,
+        respectivement~\cite{eskenazi2005adjectifavantapres}. Nous supposons
+        donc, avec l'appui des patrons grammaticaux les plus fréquents présentés
+        dans le tableau~\ref{tab:candidate_selection-best_patterns}, que la
+        subjectivité n'a pas ça place au sein d'un terme-clé.
+        
+        Pour l'anglais, nous définissons le parton \texttt{/A? N+/}, qui
+        accepte une séquence de noms (ou noms propres) modifié par un adjectifs
+        antéposé. En anglais, tous les adjectifs sont antéposés. Ce patron ne
+        filtre donc aucun adjectif à cette étape de présélection.
+
+      \subsubsection{Détection des adjectifs relationnels et composés}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-relational_adjective_detection}
+
+      \subsubsection{Filtrage des adjectifs non pretinents}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
+
+      \subsubsection{Algorithme de sélection des termes-clés candidats}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-algorithm}
 
     \subsection{Evaluation}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation}
+      Afin de montrer la validité de notre méthode de sélection de candidats,
+      nous réalisons deux expériences~: l'une intrinsèque, l'autre extrinsèque.
+
+      \subsubsection{Collections de données}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-evaluation_data}
+        \TODO{\dots}
+
+        \begin{table}[!h]
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{l@{~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+              \toprule
+              \multicolumn{2}{l|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+              \cline{3-10}
+              & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+              \hline
+              \multicolumn{2}{l|}{\textsc{Deft}} & & & & & & & &\\
+              $\drsh$ & Test & \ditto & \ditto & 93 & 6~839,4 & \ditto & 5,2 & 21,1~\% & 1,6\\
+              \multicolumn{2}{l|}{Semeval} & & & & & & & &\\
+              $\drsh$ & Test & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & 2,1\\
+              \multicolumn{2}{l|}{\textsc{Duc}} & \ditto & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+              \bottomrule
+            \end{tabular}
+          }
+
+          \caption{Rappel des corpus utilisés pour évaluer la sélection des
+                   candidats \TODO{segmentation de \textsc{Duc}}
+                   \label{tab:topicrank:corpora_recap}}
+        \end{table}
+
       \subsubsection{Prétraitements}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-preprocessing}
-        Chaque document des collections de données utilisées subit les mêmes
-        prétraitements. Chaque document est tout d'abord segmenté en phrases,
-        puis en mots et enfin étiqueté grammaticalement. La segmentation en mots
-        est effectuée par le TreeBankWordTokenizer, disponible avec la librairie
-        python NLTK~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
-        l'anglais et par l'outil Bonsai, du Bonsai PCFG-LA
-        parser\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
-        pour le français. Quant à l'étiquetage grammatical, il est réalisé avec
-        le Stanford POS tagger~\cite{toutanova2003stanfordpostagger} pour
-        l'anglais et avec l'outil MElt~\cite{denis2009melt} pour le français.
-        Tous ces outils sont utilisés avec leur configuration par défaut.
+        Pour chaque collection de données, et quelque soit la méthode utilisée,
+        les documents subissent les mêmes prétraitements~: segmentation en
+        phrases, segmentation des phrases en mots et étiquetage grammatical des
+        mots. Quelque soit la langue, la segmentation en phrases est mise en
+        \oe{}uvre avec la classe \texttt{PunktSentenceTokenizer} de
+        \textsc{Nltk}~\cite{bird2009nltk}. En anglais, la segmentation des
+        phrases en mots est réalisée avec la classe
+        \texttt{TreeBankWordTokenizer} de \textsc{Nltk} et l'étiquetage
+        grammaticale est effectué avec le \textit{Stanford \textsc{Pos}
+        tagger}~\cite{toutanova2003stanfordpostagger}. En français, la
+        segmentation des phrases en mots est mise en \oe{}uvre avec le
+        segmenteur Bonsai, du \textit{Bonsai \textsc{Pcfg-La}
+        parser}\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
+        dont se fonde l'outil MElt~\cite{denis2009melt} utilisé pour
+        l'étiquetage grammatical. Tous ces outils sont appliqués avec leur
+        configuration par défaut.
       
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-evaluation_measures}
+        \TODO{préciser pour les deux éval.}
+
         Les performances des méthodes d'extraction de termes-clés sont exprimées
-        en termes de précision (P), rappel (R) et f-score (f1-mesure, F). En
+        en termes de précision (P), rappel (R) et f-mesure (f1-mesure, F). En
         accord avec l'évaluation menée dans les travaux précédents, nous
         considérons correcte l'extraction d'une variante flexionnelle d'un
         terme-clé de référence~\cite{kim2010semeval}. Les opérations de
         comparaison entre les termes-clés de référence et les termes-clés
         extraits sont donc effectuées à partir de la racine des mots qui les
-        composent en utilisant la méthode de racinisation de
-        \newcite{porter1980suffixstripping}.
+        composent, d'après la méthode de \newcite{porter1980suffixstripping}.
 
       \subsubsection{Evaluation intrinsèque}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
+      \begin{itemize}
+        \item{\TODO{objectif}}
+        \item{\TODO{tableau + desctiption du trableau}}
+        \item{\TODO{analyse des résultats}}
+      \end{itemize}
 
       \subsubsection{Evaluation extrinsèque}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
+      \begin{itemize}
+        \item{\TODO{objectif}}
+        \item{\TODO{tableau + desctiption du trableau}}
+        \item{\TODO{analyse des résultats}}
+      \end{itemize}
 
     \subsection{Bilan}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-conclusion}
@@ -870,19 +1171,19 @@
         comprendre les raisons de ses moins bons résultats.
         \begin{table}
           \centering
-          \begin{tabular}{@{~}l@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
-            \hline
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|@{~}}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|@{~}}{\textbf{SemEval}} & \multicolumn{3}{c|@{~}}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
+          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c|}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
-            TF-IDF & \textbf{23,8} & \textbf{30,7} & \textbf{26,4} & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
-            TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0 & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
-            SingleRank & 22,6 & 28,8 & 25,0 & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
-            TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
+            TF-IDF & \textbf{23,8} & \textbf{30,7} & \textbf{26,4}$^{~}$ & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
+            TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0$^{~}$ & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
+            SingleRank & 22,6 & 28,8 & 25,0$^{~}$ & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
+            TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1}$^{~}$ & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
             \hline
-            \textbf{Borne haute} & \textbf{31,6} & \textbf{35,3} & \textbf{33,0} & \textbf{33,8} & \textbf{23,3} & \textbf{27,3} & \textbf{41,7} & \textbf{44,1} & \textbf{42,2} & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}\\
-            \hline
+            \textbf{Borne haute} & \textbf{31,6} & \textbf{35,3} & \textbf{33,0}$^{~}$ & \textbf{33,8} & \textbf{23,3} & \textbf{27,3}$^{~}$ & \textbf{41,7} & \textbf{44,1} & \textbf{42,2}$^{~}$ & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}$^{~}$\\
+            \bottomrule
           \end{tabular}
           \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
                    TextRank, SingleRank et TopicRank]{
@@ -896,18 +1197,18 @@
 
         \begin{table}
           \centering
-          \begin{tabular}{@{~}l@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
-            \hline
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|@{~}}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|@{~}}{\textbf{SemEval}} & \multicolumn{3}{c|@{~}}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
+          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c|}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
-            SingleRank & 22,6 & 28,8 & 25,0 & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
-            + complet & 22,2 & 28,1 & 24,5 & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$\\
-            + candidats & 10,4 & 13,5 & 11,6 & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & 10,3 & 19,2 & 13,2$^\dagger$\\
-            + sujets & 18,9 & 24,2 & 21,0 & 14,2 & 9,9 & 11,6$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 11,1 & 20,4 & 14,2$^\dagger$\\
-            TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
-            \hline
+            SingleRank & \textbf{22,6} & \textbf{28,8} & \textbf{25,0}$^{~}$ & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
+            + complet & 22,2 & 28,1 & 24,5$^{~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$\\
+            + candidats & 10,4 & 13,5 & 11,6$^{~}$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & 10,3 & 19,2 & 13,2$^\dagger$\\
+            + sujets & 18,9 & 24,2 & 21,0$^{~}$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 11,1 & 20,4 & 14,2$^\dagger$\\
+            TopicRank & 18,2 & 23,2 & 20,1$^{~}$ & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
+            \bottomrule
           \end{tabular}
           \caption[Résultats de l'extraction de dix termes-clés avec chacune des
                    contributions de TopicRank, appliquées séparément à
@@ -1262,8 +1563,7 @@
             \draw (begin_inner) -- (end_inner);
             \draw [dashed] (begin_outer) -- (end_outer);
           \end{tikzpicture}
-          \caption{Example of a unified graph constructed by TopicCoRank and its two
-                   kinds of edges
+          \caption{Illustration du graphe unifié utilisé par TopicCoRank
                    \label{fig:topiccorank_graph}}
         \end{figure}
 
@@ -1381,6 +1681,7 @@
 
       \subsubsection{Exemple}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-exemple}
+        \TODO{\dots}
 
     \subsection{Evaluation}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
@@ -1502,6 +1803,37 @@
         Keyphrase extraction has to be preferred to keyphrase assignment for datasets such as SemEval that was heterogeneously annotated. 
         The main result is that TopicCoRank outperforms both TopicRank and \textit{Assignment} on all
         datasets. 
+    
+        \begin{table}
+          \centering
+          %\resizebox{\linewidth}{!}{
+            \begin{tabular}{l|ccc@{}|ccc@{}|ccc@{~}}
+              \toprule
+              \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{Inist}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
+              \cline{2-10}
+              & P & R & F$^{~~~~}$ & P & R & F$^{~~~~}$ & P & R & F$^{~~}$\\
+              \hline
+              TopicRank & 11.3 & 13.1 & 12.0$^{~~~~}$ & 17.8 & 22.7 & 19.7$^{~~~~}$ & 14.6 & 10.1 & 11.8$^{\ddagger}$\\
+              \textit{Assignment} & 18.0 & 21.1 & 19.1$^{\dagger~~}$ & 24.3 & 31.2 & 27.0$^{\dagger~~}$ & ~~8.5 & ~~6.3 & ~~7.2$^{~~}$\\
+              \hline
+              TopicCoRank$_\textnormal{\textit{extr}}$ & 14.6 & 16.8 & 15.4$^{\dagger~~}$ & 25.5 & 32.4 & 28.1$^{\dagger~~}$ & 15.2 & 10.6 & 12.4$^{\ddagger}$\\
+              TopicCoRank$_\textnormal{\textit{assign}}$ & \textbf{24.9} & \textbf{28.9} & \textbf{26.4$^{\dagger\ddagger}$} & 25.9 & 33.3 & 28.8$^{\dagger~~}$ & 11.6 & ~~8.3 & ~~9.5$^{~~}$\\
+              \hline
+              TopicCoRank & 19.0 & 22.0 & 20.1$^{\dagger~~}$ & \textbf{28.4} & \textbf{36.6} & \textbf{31.5$^{\dagger\ddagger}$} & \textbf{16.4} & \textbf{11.6} & \textbf{13.4$^{\ddagger}$}\\
+              \bottomrule
+            \end{tabular}
+          %}
+        \caption[
+          Résultat de l'extraction de dix termes-clés avec \TODO{\dots} et
+          TopicCoRank
+        ]{
+          Résultat de l'extraction de dix termes-clés avec \TODO{\dots} et
+          TopicCoRank. $\dagger$ et $\ddagger$ indiquent une amélioration
+          significative par rapport à \TODO{\dots} et \TODO{\dots},
+          respectivement.
+          \label{tab:comparison_results}}
+        \end{table}
+        
         
         Table~\ref{tab:comparison_results} shows the performance of two variants of TopicCoRank: TopicCoRank$_\textnormal{\textit{extr}}$ performs only  extraction
         and  TopicCoRank$_\textnormal{\textit{assign}}$ only assignment.
@@ -1528,16 +1860,17 @@
         domain keyphrases and keyphrases from the document independently.}{Strengthen}
         \begin{table}[!h]
           \centering
-          \begin{tabular}{l|c}
+          \begin{tabular}{l|cc}
               \toprule
-              & Assignment ratio\\
+              & Extraction (\%) & Assignement (\%)\\
               \hline
-              Inist & 38.7\%\\
-              DUC & 58.6\%\\
-              SemEval & 40.0\%\\
+              Inist & 61,3 & 38,7\\
+              DUC & 41,4 & 58,6\\
+              SemEval & 60,0 & 40,0\\
               \bottomrule
           \end{tabular}
-          \caption{Percentage of assignment performed by TopicCoRank for 10 keyphrases
+          \caption{Taux d'extraction et d'assignement de TopicCoRank pour dix
+                   termes-clés
                    \label{tab:assignment_ratio}}
         \end{table}
         
@@ -1642,107 +1975,9 @@
                 \node at (4.85,0.9) [anchor=east] {\footnotesize{F=0.10}};
               \end{tikzpicture}
             }
-            \caption{Precision-recall curves of TopicRank, \textit{Assignment} and TopicCoRank
-                     for dataset
+            \caption{Courbes de rappel-précision de \TODO{\dots} et TopicCoRank
                      \label{fig:pr_curves1}}
         \end{figure*}
-      %   \begin{figure*}
-      %       \centering
-      %       \subfigure[Inist]{
-      %         \begin{tikzpicture}
-      %           \pgfkeys{/pgf/number format/.cd, fixed}
-      %           \begin{axis}[x=0.0038\linewidth,
-      %                       xtick={0, 20, 40, ..., 100},
-      %                       xmin=0,
-      %                       xmax=60,
-      %                       xlabel=recall (\%),
-      %                       x label style={yshift=.34em},
-      %                       y=0.0038\linewidth,
-      %                       ytick={0, 10, 20, ..., 100},
-      %                       ymin=0,
-      %                       ymax=60,
-      %                       ylabel=precision (\%),
-      %                       y label style={yshift=-1.1em},
-      %                       legend style={font=\tiny}]
-      %             \addplot [magenta, mark=+] file {input/data/inist_topiccorank_extr.csv};
-      %             \addplot [cyan, mark=-] file {input/data/inist_topiccorank_assign.csv};
-      %             \addplot [blue, mark=x] file {input/data/inist_topiccorank.csv};
-      %             \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
-      %             \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
-      %             \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
-      %             \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
-      %             %\legend{TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$, TopicCoRank};
-      %           \end{axis}
-      %           \node at (3.7,1.7) [anchor=east] {\tiny{F=0.40}};
-      %           \node at (3.7,1.1) [anchor=east] {\tiny{F=0.30}};
-      %           \node at (3.7,0.55) [anchor=east] {\tiny{F=0.20}};
-      %           \node at (3.7,0.15) [anchor=east] {\tiny{F=0.10}};
-      %         \end{tikzpicture}
-      %       }
-      %       \subfigure[DUC]{
-      %         \begin{tikzpicture}
-      %           \pgfkeys{/pgf/number format/.cd, fixed}
-      %           \begin{axis}[x=0.0038\linewidth,
-      %                       xtick={0, 20, 40, ..., 100},
-      %                       xmin=0,
-      %                       xmax=60,
-      %                       xlabel=recall (\%),
-      %                       x label style={yshift=.34em},
-      %                       y=0.0038\linewidth,
-      %                       ytick={0, 15, 30, ..., 100},
-      %                       ymin=0,
-      %                       ymax=60,
-      %                       ylabel=precision (\%),
-      %                       y label style={yshift=-1.1em},
-      %                       legend style={font=\tiny}]
-      %             \addplot [magenta, mark=+] file {input/data/duc_topiccorank_extr.csv};
-      %             \addplot [cyan, mark=-] file {input/data/duc_topiccorank_assign.csv};
-      %             \addplot [blue, mark=x] file {input/data/duc_topiccorank.csv};
-      %             \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
-      %             \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
-      %             \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
-      %             \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
-      %             %\legend{TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$, TopicCoRank};
-      %           \end{axis}
-      %           \node at (3.7,1.7) [anchor=east] {\tiny{F=0.40}};
-      %           \node at (3.7,1.1) [anchor=east] {\tiny{F=0.30}};
-      %           \node at (3.7,0.55) [anchor=east] {\tiny{F=0.20}};
-      %           \node at (3.7,0.15) [anchor=east] {\tiny{F=0.10}};
-      %         \end{tikzpicture}
-      %       }
-      %       \subfigure[SemEval]{
-      %         \begin{tikzpicture}
-      %           \pgfkeys{/pgf/number format/.cd, fixed}
-      %           \begin{axis}[x=0.00565\linewidth,
-      %                       xtick={0, 20, 40, ..., 100},
-      %                       xmin=0,
-      %                       xmax=40,
-      %                       xlabel=recall (\%),
-      %                       x label style={yshift=.34em},
-      %                       y=0.00565\linewidth,
-      %                       ytick={0, 10, 20, ..., 100},
-      %                       ymin=0,
-      %                       ymax=40,
-      %                       ylabel=precision (\%),
-      %                       y label style={yshift=-1.1em},
-      %                       legend style={font=\tiny}]
-      %             \addplot [magenta, mark=+] file {input/data/semeval_topiccorank_extr.csv};
-      %             \addplot [cyan, mark=-] file {input/data/semeval_topiccorank_assign.csv};
-      %             \addplot [blue, mark=x] file {input/data/semeval_topiccorank.csv};
-      %             \addplot [dotted, domain=20:40] {(30 * x) / ((2 * x) - 30)};
-      %             \addplot [dotted, domain=10:40] {(20 * x) / ((2 * x) - 20)};
-      %             \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
-      %             \legend{TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$, TopicCoRank};
-      %           \end{axis}
-      %           \node at (3.7,2) [anchor=east] {\tiny{F=0.30}};
-      %           \node at (3.7,1) [anchor=east] {\tiny{F=0.20}};
-      %           \node at (3.7,0.3) [anchor=east] {\tiny{F=0.10}};
-      %         \end{tikzpicture}
-      %       }
-      %       \caption{Precision-recall curves of TopicCoRank$_\textnormal{\textit{extr}}$, TopicCoRank$_\textnormal{\textit{assign}}$ and TopicCoRank
-      %               for dataset
-      %               \label{fig:pr_curves2}}
-      %     \end{figure*}
 
         The influence of inner and outer recommendations with respect to the ranking is shown in  Figure~\ref{fig:lambda_variations}.
         The curves display the performance of TopicCoRank over the f-score with $\lambda$ ranging from $0.1$ to
@@ -1842,8 +2077,8 @@
                 \end{axis}
               \end{tikzpicture}
             }
-            \caption{Evolution of TopicCoRank's f-score (F) regarding the value of $\lambda$
-                     for each dataset
+            \caption{Comportement de TopicCoRank en fonction de la valeur de
+                     $\lambda$
                      \label{fig:lambda_variations}}
           \end{figure*}
           
