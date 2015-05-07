@@ -127,11 +127,11 @@
             & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
             \hline
             \multicolumn{2}{l|}{\textsc{Deft}} & & & & & & & &\\
-            $\drsh$ & Appr. & Français & Scientifique & 141 & 7~276,7 & Auteur & 5,4 & 18,2~\% & 1,7\\
+            $\drsh$ & Appr. & Français & Scientifique & 141 & 7~276,7 & Auteur & $~~$5,4 & 18,2~\% & 1,7\\
             \multicolumn{2}{l|}{Semeval} & & & & & & & &\\
             $\drsh$ & Appr. & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
             \multicolumn{2}{l|}{\textsc{Duc}} & & & & & & & &\\
-            $\drsh$ & Appr. & Anglais & Journalistique & 208 &  & Lecteur &  &  & \\
+            $\drsh$ & Appr. & Anglais & Journalistique & 208 & $~~~~$912,0 & Lecteur & $~~$8,1 & $~~$3,9~\% & 2,1\\
             \bottomrule
           \end{tabular}
         }
@@ -167,9 +167,9 @@
           & & \textbf{\textsc{Duc}} & \textbf{SemEval} & \textbf{\textsc{Deft}}\\
           \hline
           \multicolumn{2}{l|}{\textbf{Taux (en \%) de termes-clés~:}}\\
-          & Uni-grammes & 17,1 & 20.2 & 60.,2\\
-          & Bi-grammes & 60,8 & 53.4 & 24,5\\
-          & Tri-grammes & 17,8 & 21.3 & 8,8\\
+          & Uni-grammes & 17,1 & 20,2 & 60,2\\
+          & Bi-grammes & 60,8 & 53,4 & 24,5\\
+          & Tri-grammes & 17,8 & 21,3 & 8,8\\
           \hline
           \multicolumn{2}{l|}{\textbf{Taux (en \%) de termes-clés}} & & &\\
           \multicolumn{2}{l|}{\textbf{contenant au moins un(e)~:}} & & &\\
@@ -184,6 +184,8 @@
         \end{tabular}
         \caption{Statistiques concernant les termes-clés de référence des
                  collections \textsc{Deft}, SemEval et \textsc{Duc}
+                 \TODO{les PREP et P+D en français sont-elles des variantes
+                 d'une forme avec adjectif relationnel ?}
                  \label{tab:candidate_selection-train_stats}}
       \end{table}
 
@@ -216,56 +218,67 @@
       catégories. Plus précisément, nous cherchons à voir parmi les adjectifs
       relationnels, les adjectifs composés et les adjectifs qualificatifs autres
       que composés, quels sont ceux les plus présents au sein des termes-clés de
-      référence. Un adjectif relationnel est un adjectif dérivé d'un nom (par
-      exemple~: l'adjectif relationnel \og{}culturel\fg{} est dérivé du nom
-      \og{}culture\fg{}) équivalent à un complément de nom (par exemple~:
-      \og{}héritage culturel\fg{} et \og{}héritage de la culture\fg{} sont
-      équivalents)~; il \og{}transpose des substantifs sans rien changer à leur
-      valeur de substantifs
-      --~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}\fg{}.
-      \TODO{qu'observe-t-on dans le tableau ?} Un adjectif composé est une
-      réunion de mots équivalant à un adjectif, nous parlons aussi de locution
-      adjectif (par exemple~: \og{}socio-culturel\fg{}). \TODO{et donc ?}.
-      \TODO{qu'observe-t-on dans le tableau ?}. Un adjectif qualificatif est un
-      mot qui donne une qualification au substantif~; il en désigne la qualité
-      ou manière d'être (par exemple \og{}grand\fg{}). Cette catégorie regroupe
-      un grand nombre d'adjectifs, lesquels ne sont intuitivement pas tous
-      pertinent en tant que modificateur au sein d'un terme-clés
-      (\TODO{exemple}). \TODO{moyenmoyen}. \TODO{qu'observe-t-on dans le
-      tableau~?}.
+      référence.
       \begin{table}[!ht]
         \centering
           \begin{tabular}{l|ccc}
             \toprule
             & \textbf{\textsc{Duc}} & \textbf{SemEval} & \textbf{\textsc{Deft}} \\
             \hline
-            Adjectifs relationnels \hfill(\%) & 53,1 & 43,6\\
-            Adjectifs composés \hfill(\%) & 10,6 & 16,4\\
-            Autres adjectifs qualificatifs \hfill(\%) & 36,3 & 40,0\\
+            Adjectifs relationnels \hfill(\%) & 53,1 & 43,6 & 87,1\\
+            Adjectifs composés \hfill(\%) & 10,6 & 16,4 & $~~$3,3\\
+            Autres adjectifs qualificatifs \hfill(\%) & 36,3 & 40,0 & $~~$9,6\\
             \bottomrule
         \end{tabular}
         \caption{Taux d'adjectifs par catégorie (\TODO{rel., qual., attr, comp.})}
         \label{tab:candidate_selection-adjective_categories}
       \end{table}
+      
+      Un adjectif relationnel est un adjectif dérivé d'un nom (par exemple~:
+      l'adjectif relationnel \og{}culturel\fg{} est dérivé du nom
+      \og{}culture\fg{}) équivalent à un complément de nom (par exemple~:
+      \og{}héritage culturel\fg{} et \og{}héritage de la culture\fg{} sont
+      équivalents)~; il \og{}transpose des
+      substantifs\footnote{\TODO{Substantif~: \dots}} (soleil, crâne, cerveau,
+      etc.) sans rien changer à leur valeur de substantifs
+      --~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}\fg{}.
+      \TODO{qu'observe-t-on dans le tableau ? $\rightarrow$ s'appuyer sur le
+      travail de François Maniez}.
+      
+      Un adjectif composé est une réunion de mots équivalant à un adjectif, nous
+      parlons aussi de locution adjectif (par exemple~:
+      \og{}socio-culturel\fg{}). \TODO{et donc ?}. \TODO{qu'observe-t-on dans le
+      tableau ?}.
+      
+      Un adjectif qualificatif est un mot qui donne une qualification au
+      substantif~; il en désigne la qualité ou manière d'être (par exemple
+      \og{}grand\fg{}). Cette catégorie regroupe un grand nombre d'adjectifs,
+      lesquels ne sont intuitivement pas tous pertinent en tant que modificateur
+      au sein d'un terme-clés (\TODO{exemple}). \TODO{moyenmoyen}.
+      \TODO{qu'observe-t-on dans le tableau~?}.
 
       En complément, le tableau~\ref{tab:candidate_selection-best_patterns}
       montre les patron grammaticaux les plus fréquents parmi les termes-clés de
       référence. \TODO{dire qu'il y a ce qu'on veut}
       \begin{table}[!h]
         \centering
-        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}ll}
+        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}llc}
           \toprule
-          \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}l}{\textbf{Pattern}} & \textbf{Example}\\
+          \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}l}{\textbf{Pattern}} & \textbf{Example} & \textbf{\%}\\
           \hline
-          \multirow{3}{*}{\begin{sideways}\textbf{English}\end{sideways}}
-          & \texttt{Nc} & \texttt{Nc} & & & \textit{``hurricane expert''}\\ % AP880409-0015
-          & \texttt{Nc} & & & & \textit{``storms''}\\ % AP880409-0015
-          & \texttt{rA} & \texttt{Nc} & & & \textit{``Chinese earthquake''}\\ % AP890228-0019
+          \multirow{5}{*}{\begin{sideways}\textbf{Français}\end{sideways}}
+          & \texttt{Nc} & \texttt{rA} & & & & 46,4\\
+          & \texttt{NC} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & & 12,5\\
+          & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & & $~~$8,2\\
+          & \texttt{Nc} & \texttt{A} & & & & $~~$4,3\\
+          & \texttt{Np} & \texttt{Np} & & & & $~~$3,0\\
           \hline
-          \multirow{3}{*}{\begin{sideways}\textbf{French}\end{sideways}}
-          & \texttt{Nc} & & & & \textit{``patrimoine'' (``cultural heritage'')}\\ % as_2002_007048ar
-          & \texttt{Nc} & \texttt{rA} & & & \textit{``tradition orale'' (``oral tradition'')}\\ % as_2002_007048ar
-          & \texttt{Np} & & & & \textit{``Indonésie'' (``Indonesia'')}\\ % as_2001_000235ar
+          \multirow{5}{*}{\begin{sideways}\textbf{Anglais}\end{sideways}}
+          & \texttt{Nc} & \texttt{Nc} & & & & 32,5\\
+          & \texttt{rA} & \texttt{Nc} & & & & 15,1\\
+          & \texttt{A} & \texttt{Nc} & & & & $~~$9,5\\
+          & \texttt{Nc} & \texttt{Nc} & \texttt{Nc} & & & $~~$5,3\\
+          & \texttt{cA} & \texttt{Nc} & & & & $~~$4,9\\
           \bottomrule
         \end{tabular}
         \caption[
@@ -273,8 +286,7 @@
           français et anglais
         ]{
           Pattrons grammaticaux les plus fréquents parmi les termes-clés
-          français et anglais. \TODO{mapping des POS}.
-          \TODO{resortir avec les adjR et ADjComp}
+          français et anglais. \TODO{mapping des POS}. \TODO{exemples}.
           \label{tab:candidate_selection-best_patterns}
         }
       \end{table}
@@ -293,38 +305,38 @@
         définit sous la forme d'une expression rationnelle appliquée aux
         catégories grammaticales des séquences de mots adjacents dans le
         document. Ce patron est gourmand, c'est-à-dire qu'il prend les plus
-        longues séquences qui correspondent, de sorte qu'il n'y ai pas une
+        longues séquences qui lui correspondent. Ainsi, il n'y a pas de
         surproduction de candidats qui se recouvrent (comme c'est le cas avec
-        les n-grammes) et qu'ils n'augmentent pas le risque d'extraire des
-        termes-clés redondants~\cite{hasan2014state_of_the_art}.
+        les n-grammes) et augmentent le risque d'extraire des termes-clés
+        redondants~\cite{hasan2014state_of_the_art}.
 
         D'après les observations de la
         section~\ref{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties},
-        seuls les noms, les adjectifs, les prépositions et les déterminants
-        sont utiles pour sélectionner des candidats permettant une performance
+        seuls les noms, les adjectifs, les prépositions et les déterminants sont
+        utiles pour sélectionner des candidats permettant une performance
         maximale quasi-optimale (plus de 90~\% des termes-clés présents dans le
-        document). Dans le cas de l'anglais, les prépositions et les
-        déterminants sont en proportions très faibles et peuvent aussi être
-        ignorés. Dans le cas du français, les prépositions et les déterminant
-        couvrent plus de 30~\% des termes-clés de référence, cependant leur
-        nombre est tellement important au sein d'un document qu'il est
-        préférable de les ignorés afin d'éviter d'ajouter des candidats érronés
-        pouvant dégrader la performance d'une méthode d'extraction de
-        termes-clés.
+        document peuvent être extraits). Dans le cas de l'anglais, les
+        prépositions et les déterminants sont en proportions très faibles et
+        peuvent être ignorés. Dans le cas du français, les prépositions et les
+        déterminant couvrent plus de 30~\% des termes-clés de référence,
+        cependant leur nombre est tellement important au sein d'un document
+        qu'il est préférable de les ignorés afin d'éviter d'ajouter des
+        candidats érronés pouvant dégrader la performance d'une méthode
+        d'extraction de termes-clés.
         
-        Pour le français, nous définissons donc le patron \texttt{/N+ A?/}, qui
+        Pour le français, nous définissons le patron \texttt{/N+ A?/}, qui
         accepte une séquence de noms (ou noms propres) se terminant
-        optionnelement par un adjectifs. En français, l'adjectif peut
-        être soit antéposé, soit postposé. Le patron que nous avons défini
-        n'accepte que les adjectifs postposés pour deux raisons. La première
-        raison est que les adjectifs relationnels, que nous jugeons les plus
-        pertinents en tant que modificateurs au sein des termes-clés, se
-        trouvent toujours en postposition. La seconde raison est que
-        l'antéposition et la postposition des adjectifs marquent deux aspects
-        différents du discours~: la subjectivité et l'objectivité,
-        respectivement~\cite{eskenazi2005adjectifavantapres}. Nous supposons
-        donc, avec l'appui des patrons grammaticaux les plus fréquents présentés
-        dans le tableau~\ref{tab:candidate_selection-best_patterns}, que la
+        optionnelement par un adjectif. En français, l'adjectif peut être soit
+        antéposé, soit postposé. Le patron que nous avons défini n'accepte que
+        les adjectifs postposés pour deux raisons. La première raison est que
+        les adjectifs relationnels, que nous jugeons les plus pertinents en tant
+        que modificateurs au sein des termes-clés, se trouvent toujours en
+        postposition. La seconde raison est que l'antéposition et la
+        postposition des adjectifs marquent deux aspects différents du
+        discours~: la subjectivité et l'objectivité,
+        respectivement~\cite{eskenazi2005adjectifavantapres}. Nous supposons,
+        avec l'appui des patrons grammaticaux les plus fréquents présentés dans
+        le tableau~\ref{tab:candidate_selection-best_patterns}, que la
         subjectivité n'a pas ça place au sein d'un terme-clé.
         
         Pour l'anglais, nous définissons le parton \texttt{/A? N+/}, qui
@@ -332,8 +344,59 @@
         antéposé. En anglais, tous les adjectifs sont antéposés. Ce patron ne
         filtre donc aucun adjectif à cette étape de présélection.
 
-      \subsubsection{Détection des adjectifs relationnels et composés}
+      \subsubsection{Détection de la catégorie de l'adjectif}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-relational_adjective_detection}
+        Lorsqu'un candidat contient un adjectif, nous l'analysons afin d'en
+        connaître la catgorie~: relationnel, composé ou autre. Pour détecter les
+        adjectifs composés, nous nous limitons à la présence du trait d'union,
+        marque de composition en français et en anglais~; pour détecter les
+        adjectifs relationnels, nous utilisons une technique simple, adaptée (ou
+        adaptable) à plusieurs langues et ne requierant pas nécessairement de
+        données riches.
+
+        La détection des adjectifs relationnels se fonde sur les deux propriétés
+        linguistiques suivantes~:
+        \begin{enumerate}
+          \item{L'adjectif relationnel est dénominal, c'est-à-dire
+                \textbf{dérivé d'un
+                nom}~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}.}
+          \item{L'adjectif relationnel est dérivé du nom par
+                \textbf{suffixation}~\cite{dubois1999derivation}.}
+        \end{enumerate}
+
+        Dans un premier temps, les adjectifs relationnels sont détectés avec une
+        base de données lexicographique. Si l'adjectif d'un candidat
+        présélectionné est marqué comme dérivé d'un nom, alors nous le
+        considérons comme relationnel. Pour le français, nous utilisons la base
+        WoNeF~\cite{pradet2013wonef} dont la propriété \texttt{[DERIVED]}
+        indique que l'adjectif est dérivé d'un nom. Pour l'anglais, nous
+        utilisons la base  WordNet~\cite{miller1995wordnet} dont la propriété
+        \texttt{[PERTAINYM]}\footnote{définition de pertainym} indique que
+        l'adjectif est relationnel.
+
+        Dans un second temps, les adjectifs relationnels qui ne sont pas
+        présents dans la base de données lexicale (ou si cette base n'existe
+        pas) sont détectés à partir de leur suffix. Une liste des suffixes les
+        plus productifs pour les adjectifs relationnels est dressée et utilisée
+        pour identifier les adjectifs relationnels potentiels. En français, les
+        suffixes les plus productifs sont \textit{-ain}, \textit{-aire},
+        \textit{-al}, \textit{-el}, \textit{-esque}, \textit{-estre},
+        \textit{-eux}, \textit{-ien}, \textit{-ier}, \textit{-if}, \textit{-il},
+        \textit{-in}, \textit{-ique}, \textit{-ois}, et
+        \textit{-é}~\cite{guyon1993adjectifsrelationnels}~; en anglais, les
+        suffixes utilisés sont \textit{al}, \textit{ant},
+        \textit{ary}, \textit{ic}, \textit{ous} et
+        \textit{ive}~\cite{grabar2006terminologystructuring}.
+
+        La détection des adjectifs relatonnels telle que réalisée dans ce
+        travail, n'est pas exacte. Certains adjectifs qualificatifs se terminent
+        par des suffixes d'adjectif relationnel (\TODO{exemple}) et des
+        adjectifs relationnels peuvent être qualificatifs dans certains
+        contextes~\cite{daille2001relationaladjectives}. Les précédentes
+        approches pour identifier les adjectifs relationnels (dans le cadre de
+        l'extraction terminologique) se reposent sur une analyse en
+        corpus~\cite{daille2001relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation}
+        \TODO{mais nous on ne peut pas}.
 
       \subsubsection{Filtrage des adjectifs non pretinents}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
@@ -360,10 +423,11 @@
               & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
               \hline
               \multicolumn{2}{l|}{\textsc{Deft}} & & & & & & & &\\
-              $\drsh$ & Test & \ditto & \ditto & 93 & 6~839,4 & \ditto & 5,2 & 21,1~\% & 1,6\\
+              $\drsh$ & Test & Français & Scientifique & $~~$93 & 6~839,4 & Auteur & $~~$5,2 & 21,1~\% & 1,6\\
               \multicolumn{2}{l|}{Semeval} & & & & & & & &\\
-              $\drsh$ & Test & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & 2,1\\
-              \multicolumn{2}{l|}{\textsc{Duc}} & \ditto & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+              $\drsh$ & Test & Anglais & Scientifique & 100 & 5~177,7 & Auteur~/~Lecteur & 14,7 & 22,1~\% & 2,1\\
+              \multicolumn{2}{l|}{\textsc{Duc}} & & & & & & & &\\
+              $\drsh$ & Test & Anglais & Journalistique & 100 & $~~$877,2 & Lecteur & $~~$8,1 & $~~$2,7~\% & 2,1\\
               \bottomrule
             \end{tabular}
           }
@@ -1731,18 +1795,18 @@
               & $\drsh$ & Appr. & Français & Scientifique (résumé) & 515 & 160,5 & Professionnel & 8,6 & 60,6~\% & 1,7\\
               & $\drsh$ & Test & \ditto & \ditto & 200 & 147,0 & \ditto & 8,9 & 62,8~\% & 1,8\\
               $\drsh$ & \multicolumn{2}{@{}l|}{Sciences de l'info.} & & & & & & &\\
-              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 506 & & Professionnel & & &\\
-              & $\drsh$ & Test & \ditto & \ditto & 200 & & \ditto & & &\\
+              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 506 & 105,0 & Professionnel & $~~$7,8 & 67,9~\% & 1,8\\
+              & $\drsh$ & Test & \ditto & \ditto & 200 & 157,0 & \ditto & 10,2 & 66,9~\% & 1,7\\
               $\drsh$ & \multicolumn{2}{@{}l|}{Archéologie} & & & & & & &\\
-              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 518 & & Professionnel & & &\\
-              & $\drsh$ & Test & \ditto & \ditto & 200 & & \ditto & & &\\
+              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 518 & 221,1 & Professionnel & 16,9 & 37,0~\% & 1,3\\
+              & $\drsh$ & Test & \ditto & \ditto & 200 & 213,9 & \ditto & 15,6 & 37,4~\% & 1,3\\
               $\drsh$ & \multicolumn{2}{@{}l|}{Chimie} & & & & & & &\\
-              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 582 & & Professionnel & & &\\
-              & $\drsh$ & Test & \ditto & \ditto & 200 & & \ditto & & &\\
+              & $\drsh$ & Appr. & Français & Scientifique (résumé) & 582 & 105,7 &  Professionnel & 12,2 & 75,2~\% & 2,2\\
+              & $\drsh$ & Test & \ditto & \ditto & 200 & 103,9 & \ditto & 14,6 & 78,8~\% & 2,4\\
               \multicolumn{3}{l|}{Semeval} & & & & & & & &\\
               $\drsh$ & \multicolumn{2}{@{}l|}{Appr.} & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
               $\drsh$ & \multicolumn{2}{@{}l|}{Test} & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & 2,1\\
-              \multicolumn{3}{l|}{\textsc{Duc}} & \ditto & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+              \multicolumn{3}{l|}{\textsc{Duc}} & \ditto & Journalistique & 308 & 900,7 & Lecteur & $~~$8,1 & $~~$3,5~\% & 2,1\\
               \bottomrule
             \end{tabular}
           }
