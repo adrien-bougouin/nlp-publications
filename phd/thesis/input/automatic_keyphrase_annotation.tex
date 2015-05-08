@@ -262,7 +262,7 @@
       référence. \TODO{dire qu'il y a ce qu'on veut}
       \begin{table}[!h]
         \centering
-        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}llc}
+        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}llr}
           \toprule
           \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}l}{\textbf{Pattern}} & \textbf{Example} & \textbf{\%}\\
           \hline
@@ -351,7 +351,7 @@
         adjectifs composés, nous nous limitons à la présence du trait d'union,
         marque de composition en français et en anglais~; pour détecter les
         adjectifs relationnels, nous utilisons une technique simple, adaptée (ou
-        adaptable) à plusieurs langues et ne requierant pas nécessairement de
+        adaptable) à plusieurs langues, et ne requierant pas nécessairement de
         données riches.
 
         La détection des adjectifs relationnels se fonde sur les deux propriétés
@@ -371,12 +371,11 @@
         WoNeF~\cite{pradet2013wonef} dont la propriété \texttt{[DERIVED]}
         indique que l'adjectif est dérivé d'un nom. Pour l'anglais, nous
         utilisons la base  WordNet~\cite{miller1995wordnet} dont la propriété
-        \texttt{[PERTAINYM]}\footnote{définition de pertainym} indique que
-        l'adjectif est relationnel.
+        \texttt{[PERTAINYM]} indique que l'adjectif est relationnel.
 
         Dans un second temps, les adjectifs relationnels qui ne sont pas
-        présents dans la base de données lexicale (ou si cette base n'existe
-        pas) sont détectés à partir de leur suffix. Une liste des suffixes les
+        présents dans la base de données lexicale, ou si cette base n'existe
+        pas, sont détectés à partir de leur suffix. Une liste des suffixes les
         plus productifs pour les adjectifs relationnels est dressée et utilisée
         pour identifier les adjectifs relationnels potentiels. En français, les
         suffixes les plus productifs sont \textit{-ain}, \textit{-aire},
@@ -389,30 +388,128 @@
         \textit{ive}~\cite{grabar2006terminologystructuring}.
 
         La détection des adjectifs relatonnels telle que réalisée dans ce
-        travail, n'est pas exacte. Certains adjectifs qualificatifs se terminent
-        par des suffixes d'adjectif relationnel (\TODO{exemple}) et des
-        adjectifs relationnels peuvent être qualificatifs dans certains
-        contextes~\cite{daille2001relationaladjectives}. Les précédentes
+        travail, n'est pas exacte. En effet, les adjectifs qualificatifs se
+        terminant par un suffixe d'adjectif relationnel sont détectés comme
+        relationnels, et les adjectifs à usage qualificatif ou relationnel selon
+        le contexte~\cite{maniez2009denominaladjectives} sont toujours détectés
+        comme relationnels. Les précédentes
         approches pour identifier les adjectifs relationnels (dans le cadre de
         l'extraction terminologique) se reposent sur une analyse en
-        corpus~\cite{daille2001relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation}
-        \TODO{mais nous on ne peut pas}.
+        corpus~\cite{daille2001relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation},
+        où il s'agit notamment de trouver des paraphrases avec compléments de
+        noms. Dans le contexte de l'extraction de termes-clés, il n'est pas
+        toujours possible d'utiliser ce type d'approche contrairement à celle
+        que nous proposons.
 
-      \subsubsection{Filtrage des adjectifs non pretinents}
+      \subsubsection{Filtrage des adjectifs non pertinents}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
+        L'orsqu'un candidat contient un adjectif, notre méthode juge sa
+        pertinence en tant que modificateur d'un terme-clé, autrement dit s'il
+        apporte au sens du terme-clé. Si l'adjectif n'est pas jugé pertinent,
+        alors il est enlevé du terme-clé candidats.
 
-      \subsubsection{Algorithme de sélection des termes-clés candidats}
-      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-algorithm}
+        Toujours d'après les observations et hypothèses de la
+        section~\ref{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties},
+        les adjectifs relationnels et composés sont systématiquement jugés
+        pertinents. Dans le cas des adjectifs qualificatifs (autres que
+        composés), c'est l'usage des candidats présélectionnés dans le document
+        qui détermine leur pertinence. Tout adjectif qualificatif modififant une
+        même séquence de nom plus souvant que cette dernière apparaît de manière
+        autonome est jugé pertinent et est conservé en tant que modificateur de
+        cette séquence.
+
+        \paragraph{}
+        L'algorithme~\ref{algo:candidate_pruning} résume le
+        fonctionnement de notre méthode de sélection des termes-clés candidats.
+        Les lignes \ref{algo:line:start_preselection} à
+        \ref{algo:line:end_preselection} concernent la présélection des
+        candidats et les lignes \ref{algo:line:start_filtering} à
+        \ref{algo:line:end_filtering} identifient et filtrent les adjectifs
+        qualificatifs non pertinent.
+        \begin{algorithm}[h!]
+          \SetKwInOut{kwInput}{Entrée}
+          \SetKwInOut{kwOutput}{Sortie}
+          \SetKwFor{For}{Pour chaque}{faire}{}
+          \SetKwIF{If}{ElseIf}{Else}{Si}{alors}{Sinon si}{Sinon}{}
+          \SetKw{KwRet}{Retourner}
+          \DontPrintSemicolon{}
+
+          \kwInput{document}
+          \kwOutput{candidats}
+          \BlankLine
+
+          patron $\leftarrow$ Nil\;\label{algo:line:start_preselection}
+          \If{\textnormal{document.langue = "francais"}}{
+            patron $\leftarrow$ \texttt{/N+ A?/}\;
+          }\Else{
+            \If{\textnormal{document.langue = "anglais"}}{
+              patron $\leftarrow$ \texttt{/A? N+/}\;
+            }
+          }
+
+          candidats $\leftarrow$ \{\}\;
+          candidats\_preliminaires $\leftarrow$ preselection(document, patron)\;\label{algo:line:end_preselection}
+
+          \For{\textnormal{cdt} $\in$ \textnormal{candidats\_preliminaires}}{\label{algo:line:start_filtering}
+            \If{$\exists{}\textnormal{mot} \in$ \textnormal{cdt},
+            \textnormal{est\_adjectif(mot)} $\wedge$ $\overline{\textnormal{est\_relationnel(mot)}}$ $\wedge$ $\overline{\textnormal{est\_compose(mot)}}$}{
+              tete\_cdt $\leftarrow$ cdt $-$ mot\;
+              freq\_cdt $\leftarrow$ \textnormal{document.conter(cdt)}\;
+              freq\_tete\_cdt $\leftarrow$ \textnormal{document.conter(tete\_cdt)} $-$ freq\_cdt\;
+              \If{\textnormal{freq\_cdt} $>$ \textnormal{freq\_tete\_cdt}}{
+                candidats $\leftarrow$ candidats $\cup$ \{cdt\}\;
+              }\Else{
+                candidats $\leftarrow$ candidats $\cup$ \{tete\_cdt\}\;
+              }
+            }\Else{
+              candidats $\leftarrow$ candidats $\cup$ \{cdt\}\;
+            }
+          }\label{algo:line:end_filtering}
+
+          \Return{\textnormal{candidats}}
+
+          \caption{Sélection fine des termes-clés candidats
+                   \label{algo:candidate_pruning}}
+        \end{algorithm}
 
     \subsection{Evaluation}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation}
       Afin de montrer la validité de notre méthode de sélection de candidats,
-      nous réalisons deux expériences~: l'une intrinsèque, l'autre extrinsèque.
+      nous réalisons deux expériences~: l'une intrinsèque, où les ensembles de
+      termes-clés candidats de différentes méthodes de sélections sont comparés
+      qualitativement, l'autre extrinsèque, où les différentes méthodes de
+      sélections sont comparés d'après les performances de méthodes d'extraction
+      de termes-clés.
+
+      \subsubsection{Méthodes de référence}
+      \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-baselines}
+        Nous comparons notre méthode de sélection de termes-clés candidats a
+        trois autres méthodes utilisées dans les travaux précédents en
+        extraction automatique de termes-clés~:
+        \begin{itemize}
+          \item{sélection des n-grammes ($1 \leq n \leq 3$)~;}
+          \item{sélection des plus longues séquences de noms et d'adjectifs
+                (\texttt{(N|A)+})~;}
+          \item{sélection des \textit{NP-chunks}~:}
+          \begin{itemize}
+            \item{\texttt{/Np+|(A? Nc A+)|(A Nc)|Nc+/} en français~;}
+            \item{\texttt{/Np+|(A+ Nc)|Nc+/} en anglais.}
+          \end{itemize}
+        \end{itemize}
+
+        Pour l'évaluation extrinsèque, nous utilisons deux méthodes d'extraction
+        automatique de termes-clés très utilisées~: la méthode non supervisée
+        \textsc{Tf-Idf} et la méthode supervisée \textsc{Kea}. \TODO{pourquoi?}
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-evaluation_data}
-        \TODO{\dots}
-
+        Pour évaluer ce travail, nous utilisons les ensembles de test des
+        collections \textsc{Deft}, SemEval et \textsc{Duc}, dont les ensembles
+        d'entraînement sont utilisées pour l'analyse proposée dans la
+        section~\ref{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties}.
+        Le tableau~\ref{tab:candidate_filtering:test_corpora_recap} rappelle les
+        caractéristiques des ensembles de test, qui sont sensiblement
+        équivalentes à celles des ensembles d'entraînement.
         \begin{table}[!h]
           \centering
           \resizebox{\linewidth}{!}{
@@ -433,8 +530,8 @@
           }
 
           \caption{Rappel des corpus utilisés pour évaluer la sélection des
-                   candidats \TODO{segmentation de \textsc{Duc}}
-                   \label{tab:topicrank:corpora_recap}}
+                   candidats
+                   \label{tab:candidate_filtering:test_corpora_recap}}
         \end{table}
 
       \subsubsection{Prétraitements}
@@ -458,7 +555,15 @@
       
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-evaluation_measures}
-        \TODO{préciser pour les deux éval.}
+        Pour évaluer la qualité des ensembles de termes-clés candidats
+        sélectionnés, nous comparons leur nombre de candidats, le rappel maximum
+        pouvant être atteint et un ration exprimant le compromis en ces deux
+        critères~:
+        \begin{align}
+          ?? &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Cand./Doc.}} \times 100
+        \end{align}
+        Plus \TODO{$??$} est élevé, meilleure est la qualité de l'ensemble des
+        termes-clés candidats sélectionnés.
 
         Les performances des méthodes d'extraction de termes-clés sont exprimées
         en termes de précision (P), rappel (R) et f-mesure (f1-mesure, F). En
@@ -477,6 +582,26 @@
         \item{\TODO{analyse des résultats}}
       \end{itemize}
 
+      \begin{table}
+        \centering
+        \resizebox{\linewidth}{!}{
+          \begin{tabular}{r|ccc|ccc|ccc}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{DUC} (\textit{English})} & \multicolumn{3}{c|}{\textbf{SemEval} (\textit{English})} & \multicolumn{3}{c}{\textbf{DEFT} (\textit{French})}\\
+            \cline{2-10}
+            & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
+            \hline
+            \{1..3\}-grams & $~~~$596.2 & \textbf{90.8} & 15.2 & 2580.5 & \textbf{72.2} & $~~$2.8 & 4070.2 & \textbf{74.1} & $~~~$1.8\\
+            Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
+            NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
+            LR-NPs & \textbf{$~~~$143.8} & 85.3 & \textbf{59.3} & \textbf{$~~~$538.2} & 59.4 & \textbf{11.0} & \textbf{$~~~$738.2} & 60.1 & \textbf{$~~$8.1}\\
+            \bottomrule
+          \end{tabular}
+        }
+        \caption{Qualitative comparison of the keyphrase candidate selection methods
+                 \label{tab:candidate_extraction_statistics}}
+      \end{table}
+
       \subsubsection{Evaluation extrinsèque}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
       \begin{itemize}
@@ -485,8 +610,32 @@
         \item{\TODO{analyse des résultats}}
       \end{itemize}
 
+      \begin{table}
+        \centering
+        \resizebox{\linewidth}{!}{
+          \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC} (\textit{English})} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval} (\textit{English})} & \multicolumn{6}{c}{\textbf{DEFT} (\textit{French})}\\
+            \cline{2-19}
+            & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+            \cline{2-19}
+            & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
+            \hline
+            \{1..3\}-grams & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
+            Longest NPs & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
+            NP-chunks & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
+            LR-NPs & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
+            \bottomrule
+          \end{tabular}
+        }
+        \caption{Comparison of TF-IDF and KEA applied on top of different candidate selection methods.
+        $\ddagger$ indicates a significant improvement overall candidate sets and $\dagger$ indicates a significant improvement overall candidate sets but the longest NPs at 0.001 level using Student's t-test.
+                 \label{tab:keyphrase_extraction_results}}
+      \end{table}
+
     \subsection{Bilan}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-conclusion}
+      \TODO{}
 
   %-----------------------------------------------------------------------------
 
@@ -532,13 +681,6 @@
 
     \subsection{TopicRank}
     \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank}
-%      % Qu'est-ce que TopicRank ?
-%      TopicRank est une méthode non supervisée  à base de graphe pour
-%      l'extraction automatique de termes-clés.
-%      % Quels problèmes résout-il ?
-%      Elle se différencie principalement des autres méthodes à base de graphe,
-%      car elle cherche quels sont les sujets les plus importants d'un document,
-%      pas les mots.
       % Quel en est le fonctionnement général ?
       TopicRank repose sur les quatre étapes suivantes, qui sont détaillées dans
       la suite~: identification des sujets, construction d'un graphe de sujets,
@@ -727,7 +869,8 @@
         Dans nos expériences, nous comparons TopicRank à trois autres
         méthodes non supervisées d'extraction automatique de termes-clés. Nous
         choisissons TextRank et SingleRank, les deux méthodes qui sont la
-        fondation des méthodes à base de graphe, et la méthode TF-IDF.
+        fondation des méthodes à base de graphe, et la méthode TF-IDF \TODO{qui
+        est robiste et encore difficile à battre}.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
