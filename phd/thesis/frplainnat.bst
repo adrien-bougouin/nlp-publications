@@ -408,10 +408,11 @@ FUNCTION {format.issn}
 }
 
 FUNCTION {format.url}
-{ url empty$
-    { "" }
-    { new.block "URL \url{" url * "}" * }
-  if$
+{% url empty$
+%    { "" }
+%    { new.block "URL \url{" url * "}" * }
+%  if$
+  ""
 }
 
 FUNCTION {format.title}

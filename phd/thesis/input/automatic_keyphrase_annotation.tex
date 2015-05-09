@@ -576,66 +576,122 @@
 
       \subsubsection{Evaluation intrinsèque}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
-      \begin{itemize}
-        \item{\TODO{objectif}}
-        \item{\TODO{tableau + desctiption du trableau}}
-        \item{\TODO{analyse des résultats}}
-      \end{itemize}
+        L'évaluation intrinsèque a pour objectif d'évaluer la qualité de
+        l'ensemble des termes-clés candidats sélectionnés par notre méthode et
+        de la comparer à celle des ensembles de termes-clés sélectionnés par les
+        méthodes les plus utilisées. Nous faisons l'hypothèse que plus une
+        méthode de sélection de candidats permet un rappel maximum élevé
+        (quasi-optimal) tout en limitant la quantité de termes-clés candidats
+        sélectionnés, alors meilleure elle est.
 
-      \begin{table}
-        \centering
-        \resizebox{\linewidth}{!}{
-          \begin{tabular}{r|ccc|ccc|ccc}
-            \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{DUC} (\textit{English})} & \multicolumn{3}{c|}{\textbf{SemEval} (\textit{English})} & \multicolumn{3}{c}{\textbf{DEFT} (\textit{French})}\\
-            \cline{2-10}
-            & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
-            \hline
-            \{1..3\}-grams & $~~~$596.2 & \textbf{90.8} & 15.2 & 2580.5 & \textbf{72.2} & $~~$2.8 & 4070.2 & \textbf{74.1} & $~~~$1.8\\
-            Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
-            NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
-            LR-NPs & \textbf{$~~~$143.8} & 85.3 & \textbf{59.3} & \textbf{$~~~$538.2} & 59.4 & \textbf{11.0} & \textbf{$~~~$738.2} & 60.1 & \textbf{$~~$8.1}\\
-            \bottomrule
-          \end{tabular}
-        }
-        \caption{Qualitative comparison of the keyphrase candidate selection methods
-                 \label{tab:candidate_extraction_statistics}}
-      \end{table}
+        Le tableau~\ref{tab:candidate_extraction_statistics} présente les
+        résultats de l'évaluation intrinsèque. Le nombre de candidats
+        sélectionnés par chaqque méthode, le rappel maximum pouvant être atteint
+        avec ceux-ci et la mesure de \TODO{$??$} sont reportés pour chacune des trois
+        collections de données utilisées pour cette évaluation.
+        \begin{table}[!h]
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{r|ccc|ccc|ccc}
+              \toprule
+              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+              \cline{2-10}
+              & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
+              \hline
+              \{1..3\}-grams & $~~~$596.2 & \textbf{90.8} & 15.2 & 2580.5 & \textbf{72.2} & $~~$2.8 & 4070.2 & \textbf{74.1} & $~~~$1.8\\
+              Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
+              NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
+              LR-NPs & \textbf{$~~~$143.8} & 85.3 & \textbf{59.3} & \textbf{$~~~$538.2} & 59.4 & \textbf{11.0} & \textbf{$~~~$738.2} & 60.1 & \textbf{$~~$8.1}\\
+              \bottomrule
+            \end{tabular}
+          }
+          \caption{Résultats de l'évaluation intrinsèque des méthodes de
+                   sélection des termes-clés candidats
+                   \label{tab:candidate_extraction_statistics}}
+        \end{table}
+        
+        Globalement, nous remarquons que notre méthode sélectionne le moins de
+        candidats sans nécessairement induire le moins bon rappel maximum.
+        C'est, sans surprise, la sélections des n-grammes qui induit le meilleur
+        rappel maximum. Celui-ci est très proche du rappel maximum optimal, mais
+        au prix d'un nombre de candidats 4 à 5 fois supérieur à celui des autres
+        méthodes. Comme le montre la mesure de compromis entre nombre de
+        candidats sélectionnés et rappel maximum (\TODO{$??$}), notre méthode
+        est de meilleure qualité que les autres, suivit par la méthode de
+        sélection des \texttt{/(N|A)+/}, par la méthode de sélection des
+        \textit{NP-chunks} et, de loin, par la méthode de sélection des
+        n-grammes.
 
       \subsubsection{Evaluation extrinsèque}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
-      \begin{itemize}
-        \item{\TODO{objectif}}
-        \item{\TODO{tableau + desctiption du trableau}}
-        \item{\TODO{analyse des résultats}}
-      \end{itemize}
+        L'évaluation extrinsèque a pour objectif d'évaluer l'efficacité de notre
+        méthode de sélection de termes-clés en situation réelle d'extraction de
+        termes-clés et de la comparer à celle des méthodes les plus utilisées.
+        Il s'agit aussi de valider notre hypothèse par laquelle plus une méthode
+        de sélection de candidats permet un rappel maximum élevé tout en
+        limitant la quantité de termes-clés candidats sélectionnés, alors
+        meilleure elle est.
 
-      \begin{table}
-        \centering
-        \resizebox{\linewidth}{!}{
-          \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
-            \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC} (\textit{English})} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval} (\textit{English})} & \multicolumn{6}{c}{\textbf{DEFT} (\textit{French})}\\
-            \cline{2-19}
-            & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
-            \cline{2-19}
-            & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
-            \hline
-            \{1..3\}-grams & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
-            Longest NPs & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
-            NP-chunks & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
-            LR-NPs & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
-            \bottomrule
-          \end{tabular}
-        }
-        \caption{Comparison of TF-IDF and KEA applied on top of different candidate selection methods.
-        $\ddagger$ indicates a significant improvement overall candidate sets and $\dagger$ indicates a significant improvement overall candidate sets but the longest NPs at 0.001 level using Student's t-test.
-                 \label{tab:keyphrase_extraction_results}}
-      \end{table}
+        Le tableau~\ref{tab:keyphrase_extraction_results_with_filtering}
+        présente les résultats de l'évaluation extrinsèque. La performance, en
+        termes de précision, rappel et f-mesure, des méthodes \textsc{Tf-Idf} et
+        \textsc{Kea} est reportée pour chacune des trois collections de données
+        utilisées pour cette évaluation.
+        \begin{table}[h!]
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
+              \toprule
+              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval}} & \multicolumn{6}{c}{\textbf{DEFT}}\\
+              \cline{2-19}
+              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+              \cline{2-19}
+              & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
+              \hline
+              \{1..3\}-grams & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
+              Longest NPs & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
+              NP-chunks & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
+              LR-NPs & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
+              \bottomrule
+            \end{tabular}
+          }
+          \caption{Comparison of TF-IDF and KEA applied on top of different candidate selection methods.
+          $\ddagger$ indicates a significant improvement overall candidate sets and $\dagger$ indicates a significant improvement overall candidate sets but the longest NPs at 0.001 level using Student's t-test.
+                   \label{tab:keyphrase_extraction_results_with_filtering}}
+        \end{table}
+
+        Globalement, la performance des méthodes d'extraction de termes-clés est
+        corrélée à la qualité de l'ensemble des termes-clés candidats
+        sélectionnés. Les candidats sélectionnés avec notre méthode induisent
+        les meilleures performances dans les six cas de figure étudiés et, dans
+        la moitié des cas, l'amélioration vis-à-vis des autres méthodes de
+        sélection de candidats est significative. Au delà de montrer la
+        pertinence de filtrer certains adjectifs lors de la sélection des
+        termes-clés candidats, les résultats montre la validité de notre
+        hypothèse par laquelle plus une méthode de sélection de candidats permet
+        un rappel maximum élevé tout en limitant la quantité de termes-clés
+        candidats sélectionnés, alors meilleure elle est.
 
     \subsection{Bilan}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-conclusion}
-      \TODO{}
+      Avec ce travail, nous proposons une méthode de sélection des termes-clés
+      candidats d'un document. Développée à l'issue d'une analyse des
+      propriétés linguistiques des termes-clés de référence de trois collections
+      de données, notre méthode préselectionne des termes-clés candidats
+      composés uniquement de noms et d'au plus un adjectif, puis détermine si
+      l'adjectif d'un candidat apporte du sens d'après sa catégorie et son usage
+      dans le document. Vis-à-vis des méthodes de sélection de termes-clés
+      candidats les plus utilisées, celle-ci présente l'avantage de sélectionner
+      moins de candidats sans réduire significativement le nombre de candidats
+      positifs qui s'y trouvent. La qualité de l'ensemble de candidats proposés
+      est donc supérieure et permet de réduire aussi bien le temps de traitement
+      pour l'extraction de termes-clés que les risques d'erreurs.
+
+      Les résultats des évaluations intrinsèque et extrinsèque montrent
+      que la méthode proposée est plus efficace que les méthodes de sélection
+      les plus utilisées dans la littérature. Ils démontrent aussi le bien fondé
+      de sélectionner un nombre aussi limité que possible de candidats au
+      détriment d'une faible diminution du rappel maximum pouvant être atteint.
 
   %-----------------------------------------------------------------------------
 
@@ -1997,7 +2053,7 @@
         les valeurs des critères de précision et de rappel. Pour générer ces
         courbes, nous calculons la précision et le rappel lorsque nous faisons
         varier le nombre de termes-clés extrait, de un jusqu'au nombre total de
-        termes-clés candidats.
+        termes-clés candidats\TODO{citation biatch}.
       
       \subsubsection{Comparaison de TopicRank++ avec l'existant}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-comparison}
