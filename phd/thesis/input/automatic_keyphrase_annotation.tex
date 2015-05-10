@@ -318,27 +318,27 @@
       \subsubsection{Présélection des termes-clés candidats}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-candidate_pre_selection}
         L'étape de présélection des candidats utilise un patron grammatical
-        définit sous la forme d'une expression rationnelle appliquée aux
-        catégories grammaticales des séquences de mots adjacents dans le
-        document. Ce patron est gourmand, c'est-à-dire qu'il prend les plus
-        longues séquences qui lui correspondent. Ainsi, il n'y a pas de
-        surproduction de candidats qui se recouvrent (comme c'est le cas avec
-        les n-grammes) et augmentent le risque d'extraire des termes-clés
+        défini sous la forme d'une expression rationnelle. Celui-ci est appliqué
+        aux catégories grammaticales des séquences de mots adjacents dans le
+        document et sélectionne celles-ci qui le respectent. Ce patron est
+        gourmand, c'est-à-dire qu'il capture les plus longues séquences
+        possibles. Ainsi, il n'y a pas de surproduction de candidats qui se
+        recouvrent (comme c'est le cas avec les n-grammes) et augmentent le
+        risque d'extraire des termes-clés
         redondants~\cite{hasan2014state_of_the_art}.
 
         D'après les observations de la
         section~\ref{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties},
         seuls les noms, les adjectifs, les prépositions et les déterminants sont
         utiles pour sélectionner des candidats permettant une performance
-        maximale quasi-optimale (plus de 90~\% des termes-clés présents dans le
-        document peuvent être extraits). Dans le cas de l'anglais, les
-        prépositions et les déterminants sont en proportions très faibles et
-        peuvent être ignorés. Dans le cas du français, les prépositions et les
-        déterminant couvrent plus de 30~\% des termes-clés de référence,
-        cependant leur nombre est tellement important au sein d'un document
-        qu'il est préférable de les ignorés afin d'éviter d'ajouter des
-        candidats erronés pouvant dégrader la performance d'une méthode
-        d'extraction de termes-clés.
+        maximale quasi-optimale. Dans le cas de l'anglais, les prépositions et
+        les déterminants sont en proportions très faibles et peuvent être
+        ignorés. Dans le cas du français, les prépositions et les déterminant
+        couvrent plus de 30~\% des termes-clés de référence, cependant leur
+        nombre est tellement important au sein d'un document \TODO{donner les
+        chiffres} qu'il est préférable de les ignorés afin d'éviter d'ajouter un
+        grand nombre de candidats erronés pouvant dégrader la performance des
+        méthodes d'extraction de termes-clés.
         
         Pour le français, nous définissons le patron \texttt{/N+ A?/}, qui
         accepte une séquence de noms (ou noms propres) se terminant
@@ -362,13 +362,13 @@
 
       \subsubsection{Détection de la catégorie de l'adjectif}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-relational_adjective_detection}
-        Lorsqu'un candidat contient un adjectif, nous l'analysons afin d'en
-        connaître la catégorie~: relationnel, composé ou autre. Pour détecter les
-        adjectifs composés, nous nous limitons à la présence du trait d'union,
-        marque de composition en français et en anglais~; pour détecter les
-        adjectifs relationnels, nous utilisons une technique simple, adaptée (ou
-        adaptable) à plusieurs langues, et ne requérant pas nécessairement de
-        données riches.
+        Lorsqu'un terme-clé candidat contient un adjectif, nous l'analysons afin
+        d'en connaître la catégorie~: relationnel, composé ou autre. Pour
+        détecter les adjectifs composés, nous nous limitons à la présence du
+        trait d'union, marque de composition en français et en anglais~; pour
+        détecter les adjectifs relationnels, nous utilisons une technique
+        simple, adaptée (ou adaptable) à plusieurs langues, et ne requérant pas
+        nécessairement de données riches.
 
         La détection des adjectifs relationnels se fonde sur les deux propriétés
         linguistiques suivantes~:
@@ -381,9 +381,9 @@
         \end{enumerate}
 
         Dans un premier temps, les adjectifs relationnels sont détectés avec une
-        base de données lexicographique. Si l'adjectif d'un candidat
-        présélectionné est marqué comme dérivé d'un nom, alors nous le
-        considérons comme relationnel. Pour le français, nous utilisons la base
+        base de données lexicale. Si l'adjectif d'un candidat présélectionné est
+        marqué comme dérivé d'un nom, alors nous le considérons comme
+        relationnel. Pour le français, nous utilisons la base
         WoNeF~\cite{pradet2013wonef} dont la propriété \texttt{[DERIVED]}
         indique que l'adjectif est dérivé d'un nom. Pour l'anglais, nous
         utilisons la base  WordNet~\cite{miller1995wordnet} dont la propriété
@@ -408,14 +408,14 @@
         terminant par un suffixe d'adjectif relationnel sont détectés comme
         relationnels, et les adjectifs à usage qualificatif ou relationnel selon
         le contexte~\cite{maniez2009denominaladjectives} sont toujours détectés
-        comme relationnels. Les précédentes
-        approches pour identifier les adjectifs relationnels (dans le cadre de
-        l'extraction terminologique) se reposent sur une analyse en
+        comme relationnels. Les précédentes approches pour identifier les
+        adjectifs relationnels (dans le cadre de l'extraction terminologique) se
+        reposent sur une analyse en
         corpus~\cite{daille2001relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation},
         où il s'agit notamment de trouver des paraphrases avec compléments de
-        noms. Dans le contexte de l'extraction de termes-clés, il n'est pas
-        toujours possible d'utiliser ce type d'approche contrairement à celle
-        que nous proposons.
+        noms. Dans le contexte de l'extraction de termes-clés, où de larges
+        corpus ne sont pas toujours disponibles, il n'est pas toujours possible
+        d'utiliser ce type d'approche contrairement à celle que nous proposons.
 
       \subsubsection{Filtrage des adjectifs non pertinents}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
@@ -441,7 +441,7 @@
         \ref{algo:line:end_preselection} concernent la présélection des
         candidats et les lignes \ref{algo:line:start_filtering} à
         \ref{algo:line:end_filtering} identifient et filtrent les adjectifs
-        qualificatifs non pertinent.
+        qualificatifs non pertinent (\TODO{exemple}).
         \begin{algorithm}[h!]
           \SetKwInOut{kwInput}{Entrée}
           \SetKwInOut{kwOutput}{Sortie}
@@ -494,8 +494,8 @@
       nous réalisons deux expériences~: l'une intrinsèque, où les ensembles de
       termes-clés candidats de différentes méthodes de sélections sont comparés
       qualitativement, l'autre extrinsèque, où les différentes méthodes de
-      sélections sont comparés d'après les performances de méthodes d'extraction
-      de termes-clés.
+      sélections sont comparés d'après les performances de deux méthodes
+      d'extraction de termes-clés.
 
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-baselines}
@@ -504,8 +504,8 @@
         extraction automatique de termes-clés~:
         \begin{itemize}
           \item{sélection des n-grammes ($1 \leq n \leq 3$)~;}
-          \item{sélection des plus longues séquences de noms et d'adjectifs
-                (\texttt{(N|A)+})~;}
+          \item{sélection des plus longues séquences de noms et d'adjectifs~:
+                \texttt{/(N|A)+/}~;}
           \item{sélection des \textit{NP-chunks}~:}
           \begin{itemize}
             \item{\texttt{/Np+|(A? Nc A+)|(A Nc)|Nc+/} en français~;}
@@ -515,7 +515,10 @@
 
         Pour l'évaluation extrinsèque, nous utilisons deux méthodes d'extraction
         automatique de termes-clés très utilisées~: la méthode non supervisée
-        \textsc{Tf-Idf} et la méthode supervisée \textsc{Kea}. \TODO{pourquoi?}
+        \textsc{Tf-Idf} et la méthode supervisée \textsc{Kea}. Bien que des
+        méthodes plus récentes donnent de meilleures performances que
+        \textsc{Tf-Idf} et \textsc{Kea}~\cite{kim2010semeval}, ces dernières
+        sont reproductibles et présentent l'avantage d'être robustes.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-evaluation_data}
@@ -572,13 +575,13 @@
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-evaluation_measures}
         Pour évaluer la qualité des ensembles de termes-clés candidats
-        sélectionnés, nous comparons leur nombre de candidats, le rappel maximum
-        pouvant être atteint et un ration exprimant le compromis en ces deux
-        critères~:
+        sélectionnés, nous comparons leur nombre de candidats (Cand./Soc.), le
+        rappel maximum (R$_\textnormal{max}$) pouvant être atteint et un ratio
+        exprimant le compromis en ces deux critères (QR)~:
         \begin{align}
-          ?? &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Cand./Doc.}} \times 100
+          \textnormal{QR} &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Cand./Doc.}} \times 100
         \end{align}
-        Plus \TODO{$??$} est élevé, meilleure est la qualité de l'ensemble des
+        Plus QR est élevé, meilleure est la qualité de l'ensemble des
         termes-clés candidats sélectionnés.
 
         Les performances des méthodes d'extraction de termes-clés sont exprimées
@@ -593,17 +596,19 @@
       \subsubsection{Evaluation intrinsèque}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
         L'évaluation intrinsèque a pour objectif d'évaluer la qualité de
-        l'ensemble des termes-clés candidats sélectionnés par notre méthode et
+        l'ensemble des termes-clés candidats sélectionnés par notre méthode
+        (LR-NP, pour \textsc{Linguistically-Refined Noun Phrases}) et
         de la comparer à celle des ensembles de termes-clés sélectionnés par les
-        méthodes les plus utilisées. Nous faisons l'hypothèse que plus une
+        méthodes de référence. Nous faisons l'hypothèse que plus une
         méthode de sélection de candidats permet un rappel maximum élevé
         (quasi-optimal) tout en limitant la quantité de termes-clés candidats
-        sélectionnés, alors meilleure elle est.
+        sélectionnés, alors plus elle fournit un ensemble de candidats de bonne
+        qualité.
 
         Le tableau~\ref{tab:candidate_extraction_statistics} présente les
         résultats de l'évaluation intrinsèque. Le nombre de candidats
         sélectionnés par chaque méthode, le rappel maximum pouvant être atteint
-        avec ceux-ci et la mesure de \TODO{$??$} sont reportés pour chacune des
+        avec ceux-ci et la mesure QR sont reportés pour chacune des
         trois collections de données utilisées pour cette évaluation.
         \begin{table}[!h]
           \centering
@@ -614,10 +619,10 @@
               \cline{2-10}
               & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
               \hline
-              \{1..3\}-grams & $~~~$596.2 & \textbf{90.8} & 15.2 & 2580.5 & \textbf{72.2} & $~~$2.8 & 4070.2 & \textbf{74.1} & $~~~$1.8\\
-              Longest NPs & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
-              NP-chunks & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
-              LR-NPs & \textbf{$~~~$143.8} & 85.3 & \textbf{59.3} & \textbf{$~~~$538.2} & 59.4 & \textbf{11.0} & \textbf{$~~~$738.2} & 60.1 & \textbf{$~~$8.1}\\
+              n-grammes & $~~~$596.2 & \textbf{90.8} & 15.2 & 2580.5 & \textbf{72.2} & $~~$2.8 & 4070.2 & \textbf{74.1} & $~~~$1.8\\
+              \texttt{/(N|A)+/} & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
+              \textit{NP-chunks} & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
+              LR-NP & \textbf{$~~~$143.8} & 85.3 & \textbf{59.3} & \textbf{$~~~$538.2} & 59.4 & \textbf{11.0} & \textbf{$~~~$738.2} & 60.1 & \textbf{$~~$8.1}\\
               \bottomrule
             \end{tabular}
           }
@@ -627,12 +632,13 @@
         \end{table}
         
         Globalement, nous remarquons que notre méthode sélectionne le moins de
-        candidats sans nécessairement induire le moins bon rappel maximum.
+        candidats sans nécessairement induire le moins bon rappel maximum
+        (obtenu avec les \textit{NP-chunks}).
         C'est, sans surprise, la sélections des n-grammes qui induit le meilleur
         rappel maximum. Celui-ci est très proche du rappel maximum optimal, mais
         au prix d'un nombre de candidats 4 à 5 fois supérieur à celui des autres
         méthodes. Comme le montre la mesure de compromis entre nombre de
-        candidats sélectionnés et rappel maximum (\TODO{$??$}), notre méthode
+        candidats sélectionnés et rappel maximum (QR), notre méthode
         est de meilleure qualité que les autres, suivit par la méthode de
         sélection des \texttt{/(N|A)+/}, par la méthode de sélection des
         \textit{NP-chunks} et, de loin, par la méthode de sélection des
@@ -642,11 +648,11 @@
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
         L'évaluation extrinsèque a pour objectif d'évaluer l'efficacité de notre
         méthode de sélection de termes-clés en situation réelle d'extraction de
-        termes-clés et de la comparer à celle des méthodes les plus utilisées.
+        termes-clés et de la comparer à celle des méthodes de référence.
         Il s'agit aussi de valider notre hypothèse par laquelle plus une méthode
         de sélection de candidats permet un rappel maximum élevé tout en
-        limitant la quantité de termes-clés candidats sélectionnés, alors
-        meilleure elle est.
+        limitant la quantité de termes-clés candidats sélectionnés, alors plus
+        elle fournit un ensemble de candidats de bonne qualité.
 
         Le tableau~\ref{tab:keyphrase_extraction_results_with_filtering}
         présente les résultats de l'évaluation extrinsèque. La performance, en
@@ -664,10 +670,10 @@
               \cline{2-19}
               & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
               \hline
-              \{1..3\}-grams & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
-              Longest NPs & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
-              NP-chunks & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
-              LR-NPs & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
+              n-grammes & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
+              \texttt{/(N|A)+/} & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
+              \textit{NP-chunks} & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
+              LR-NP & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
               \bottomrule
             \end{tabular}
           }
@@ -689,34 +695,30 @@
         corrélée à la qualité de l'ensemble des termes-clés candidats
         sélectionnés. Les candidats sélectionnés avec notre méthode induisent
         les meilleures performances dans les six cas de figure étudiés et, dans
-        la moitié des cas, l'amélioration vis-à-vis des autres méthodes de
-        sélection de candidats est significative. Au delà de montrer la
-        pertinence de filtrer certains adjectifs lors de la sélection des
-        termes-clés candidats, les résultats montre la validité de notre
-        hypothèse par laquelle plus une méthode de sélection de candidats permet
-        un rappel maximum élevé tout en limitant la quantité de termes-clés
-        candidats sélectionnés, alors meilleure elle est.
+        la moitié des cas, l'amélioration vis-à-vis des méthodes de référence
+        est significative. Au delà de montrer la pertinence de filtrer certains
+        adjectifs lors de la sélection des termes-clés candidats, les résultats
+        montrent la validité de notre hypothèse par laquelle plus une méthode de
+        sélection de candidats permet un rappel maximum élevé tout en limitant
+        la quantité de termes-clés candidats sélectionnés, alors plus
+        elle fournit un ensemble de candidats de bonne qualité et plus aisée
+        sera l'extraction de termes-clés.
 
     \subsection{Bilan}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-conclusion}
       Avec ce travail, nous proposons une méthode de sélection des termes-clés
-      candidats d'un document. Développée à l'issue d'une analyse des
-      propriétés linguistiques des termes-clés de référence de trois collections
-      de données, notre méthode préselectionne des termes-clés candidats
-      composés uniquement de noms et d'au plus un adjectif, puis détermine si
-      l'adjectif d'un candidat apporte du sens d'après sa catégorie et son usage
-      dans le document. Vis-à-vis des méthodes de sélection de termes-clés
-      candidats les plus utilisées, celle-ci présente l'avantage de sélectionner
-      moins de candidats sans réduire significativement le nombre de candidats
-      positifs qui s'y trouvent. La qualité de l'ensemble de candidats proposés
-      est donc supérieure et permet de réduire aussi bien le temps de traitement
-      pour l'extraction de termes-clés que les risques d'erreurs.
-
-      Les résultats des évaluations intrinsèque et extrinsèque montrent
-      que la méthode proposée est plus efficace que les méthodes de sélection
-      les plus utilisées dans la littérature. Ils démontrent aussi le bien fondé
-      de sélectionner un nombre aussi limité que possible de candidats au
-      détriment d'une faible diminution du rappel maximum pouvant être atteint.
+      candidats d'un document. Développée à l'issue d'une analyse des propriétés
+      linguistiques des termes-clés de référence de trois collections de
+      données, notre méthode préselectionne des termes-clés candidats composés
+      uniquement de noms et d'au plus un adjectif, puis détermine si l'adjectif
+      des candidats apporte du sens selon sa catégorie (relationnel, composé ou
+      qualificatif) et son usage dans le document. Vis-à-vis des méthodes de
+      sélection de termes-clés candidats les plus utilisées, celle-ci présente
+      l'avantage de sélectionner moins de candidats sans réduire
+      significativement le nombre de candidats positifs qui s'y trouvent. La
+      qualité de l'ensemble de candidats proposés est donc supérieure et permet
+      de réduire aussi bien le temps de traitement pour l'extraction de
+      termes-clés que les risques d'erreurs.
 
   %-----------------------------------------------------------------------------
 
@@ -731,29 +733,34 @@
     (page~\pageref{chap:main-state_of_the_art}).
 
     Les méthodes à base de graphe actuelles déterminent l'importance des mots du
-    document, puis utilisent cette importance soit pour générer les termes-clés,
-    soit pour déterminer l'importance des termes-clés candidats en faisant la
-    somme du score d'importance de leurs mots. Nous jugeons qu'il est plus
-    pertinent d'utiliser l'algorithme d'ordonnancement à base de graphe pour
-    ordonner directement les termes-clés candidats et ainsi éviter les problèmes
-    de redondance que nous évoquons dans le
+    document, puis utilisent cette importance soit pour générer les
+    termes-clés~\cite{mihalcea2004textrank}, soit pour déterminer l'importance
+    des termes-clés candidats en faisant la somme du score d'importance de leurs
+    mots~\cite{wan2008expandrank}. Nous jugeons qu'il est plus pertinent
+    d'utiliser l'algorithme d'ordonnancement à base de graphe pour ordonner
+    directement les termes-clés candidats et ainsi éviter les problèmes de
+    redondance que nous évoquons dans le
     chapitre~\ref{chap:main-state_of_the_art}
     (page~\pageref{chap:main-state_of_the_art}) et que nous montrons dans
-    l'exemple \TODO{ref vers l'exemple à mettre dans l'état de la'art}
-    (\TODO{page ???}). En plus de cela, les méthodes actuelles ne tiennent pas
-    compte du phénomène de variation lexicale, qui consiste à utiliser des
-    unités textuelles différentes d'un point de vue lexicale mais équivalentes
-    d'un point de vue sémantique afin d'éviter les répétitions dans le texte. Ne
-    pas tenir compte de ce phénomène engendre une dispersion, dans le graphe,
-    d'informations relatives à un même sujet. Enfin, les expériences réalisées
-    dans le travail de \newcite{mihalcea2004textrank} et dans celui de
-    \newcite{wan2008expandrank} montrent un comportement marginal des
-    différentes approches à base de graphe vis-à-vis de la valeur de la fenêtre
-    de cooccurrence. Les performances relevées dans les expériences de
-    \newcite{mihalcea2004textrank} montrent que plus la fenêtre de cooccurrence
-    est élevée, moins l'extraction de termes-clés est performante, alors que
-    celles relevées par \newcite{wan2008expandrank} montrent le comportement
-    inverse. \TODO{mettre les courbes de Mihalcea et celles de Wan}
+    l'exemple \TODO{ref vers l'exemple à mettre dans l'état de l'art}
+    (\TODO{page ???}).
+    
+    En plus de cela, les méthodes actuelles ne tiennent pas compte du phénomène
+    de variation lexicale, qui consiste à utiliser des unités textuelles
+    différentes d'un point de vue lexicale mais équivalentes d'un point de vue
+    sémantique afin d'éviter les répétitions dans le texte. Ne pas tenir compte
+    de ce phénomène engendre une dispersion, dans le graphe, d'informations
+    relatives à un même sujet.
+    
+    Enfin, les expériences réalisées dans le travail de
+    \newcite{mihalcea2004textrank} et dans celui de \newcite{wan2008expandrank}
+    montrent un comportement marginal des différentes approches à base de graphe
+    vis-à-vis de la valeur de la fenêtre de cooccurrence. Les performances
+    relevées dans les expériences de \newcite{mihalcea2004textrank} montrent que
+    plus la fenêtre de cooccurrence est élevée, moins l'extraction de
+    termes-clés est performante, alors que celles relevées par
+    \newcite{wan2008expandrank} montrent le comportement inverse. \TODO{mettre
+    les courbes de Mihalcea et celles de Wan}
 
     Avec TopicRank, nous proposons une solution pour résoudre les trois
     problèmes énoncés ci-dessus. Dans la suite, nous présentons TopicRank, nous
@@ -762,8 +769,10 @@
 
     \subsection{TopicRank}
     \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank}
+      TopicRank est une méthode à base de graph pour extraire des termes-clés
+      représentant chacun un sujet important dans le document.
       % Quel en est le fonctionnement général ?
-      TopicRank repose sur les quatre étapes suivantes, qui sont détaillées dans
+      Elle repose sur les quatre étapes suivantes, qui sont détaillées dans
       la suite~: identification des sujets, construction d'un graphe de sujets,
       ordonnancement des sujets et sélection du terme-clé candidat le plus
       représentatif de chaque sujet.
@@ -781,13 +790,13 @@
         % Quels candidats composent les sujets ?
         Pour ce travail, nous suivons \newcite{wan2008expandrank} et
         sélectionnons les plus longues séquences de noms, de noms propres et
-        d'adjectifs. Nous définissons le patron grammatical
-        suivant~:\texttt{(<NOM> | <ADJ>)*}. Celui-ci présente l'avantage d'être simple
-        et adapté à plusieurs langues, telles que les langues latines (anglais, français, etc.), lorsque les
-        outils d'étiquetage grammatical sont disponibles pour la langue
-        concernée. De plus, ce patron est gourmand, c'est-à-dire qu'il extrait
-        les séquences les plus longues qui le respectent, et il est donc adapté
-        pour le groupement que nous effectuons ensuite.
+        d'adjectifs à partir du patron grammatical suivant~:\texttt{/(N|A)+}.
+        Celui-ci présente l'avantage d'être simple et adapté à plusieurs
+        langues, telles que les langues latines (anglais, français, etc.),
+        lorsque les outils d'étiquetage grammatical sont disponibles pour la
+        langue concernée. De plus, ce patron est gourmand, c'est-à-dire qu'il
+        capture les séquences les plus longues qui le respectent, et il est donc
+        adapté pour le groupement que nous effectuons ensuite.
 
         % Comment détectons nous deux candidats appartenant au même sujet ?
         La seconde étape de l'identification des sujets consiste à grouper les
@@ -822,8 +831,8 @@
         condition d'arrêt de l'algorithme, nous définissons un seuil de
         similarité $\zeta$ entre les groupes deux à deux. Cette similarité entre
         deux groupes est déterminée à partir de la similarité de Jaccard
-        calculée entre les candidats de chaque groupe. Il existe trois
-        stratégies pour calculer la similarité entre deux groupes~:
+        calculée entre les candidats de chaque groupe (\TODO{algorithme}). Il
+        existe trois stratégies pour calculer la similarité entre deux groupes~:
         \begin{itemize}
           \item{simple~: la plus grande valeur de similarité entre les candidats
                 des deux groupes sert de similarité entre eux~;}
@@ -940,9 +949,9 @@
     \subsection{Evaluation}
     \label{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation}
       Pour valider notre approche, nous réalisons deux série d'expériences. Une
-      première série pour déterminer les paramètres optimaux pour TopicRank et
+      première série pour déterminer les paramètres optimaux de TopicRank et
       une seconde séries pour le comparer aux travaux précédents, ainsi
-      qu'analyser l'impact de chacune de nos contributions.
+      que pour analyser l'impact de chacune de nos contributions.
       
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-baselines}
@@ -950,8 +959,7 @@
         Dans nos expériences, nous comparons TopicRank à trois autres
         méthodes non supervisées d'extraction automatique de termes-clés. Nous
         choisissons TextRank et SingleRank, les deux méthodes qui sont la
-        fondation des méthodes à base de graphe, et la méthode TF-IDF \TODO{qui
-        est robuste et encore difficile à battre}.
+        fondation des méthodes à base de graphe, et la méthode TF-IDF.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
@@ -962,10 +970,9 @@
         les deux collections d'articles journalistiques \textsc{Duc} (anglais)
         et Wikinews (français), ainsi que les deux collections d'articles
         scientifiques SemEval (anglais) et \textsc{Deft} (français).
-
         Le tableau~\ref{tab:topicrank:corpora_recap} rappelle les
         caractéristiques des collections de données que nous utilisons pour
-        évaluer TopicRank. \TODO{rappeler que les collections sont diff.}
+        évaluer TopicRank.
         \begin{table}[!h]
           \centering
           \resizebox{\linewidth}{!}{
@@ -1647,7 +1654,7 @@
         possible d'améliorer notre méthode en proposant une nouvelle stratégie
         de sélection du terme-clé candidat le plus représentatif d'un sujet.
         Dans un premier temps, nous souhaitons explorer plus encore l'usage du
-        graphe et de étendre à l'assignement de termes-clés.
+        graphe et l'étendre à l'assignement de termes-clés.
 
   %-----------------------------------------------------------------------------
 
