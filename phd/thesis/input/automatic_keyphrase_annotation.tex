@@ -22,11 +22,11 @@
     l'indexation par termes-clés, car elle définit la frontière entre les unités
     textuelles qui sont potentiellement des termes-clés et celles qui n'en sont
     pas. Elle fixe ainsi la performance maximale que peuvent atteindre les
-    méthodes d'indexation par termes-clés, c'est le rappel maximal. Dans la
+    méthodes d'indexation par termes-clés, leur le rappel maximal. Dans la
     littérature, cette étape fait l'objet de peu d'études. Nous proposons donc
     une analyse des caractéristiques linguistiques des termes-clés de référence
     de nos collections de données et proposons une méthode de sélection fine des
-    termes-clés candidats.
+    termes-clés candidats pour l'extraction automatique de termes-clés.
 
     L'extraction automatique de termes-clés est la catégorie d'indexation par
     termes-clés qui fait l'objet du plus grand nombre de travaux. Celle-ci se
@@ -44,19 +44,18 @@
     de termes-clés et lui ajoute la capacité à assigner des termes-clés,
     c'est-à-dire à fournir des termes-clés (d'un vocabulaire contrôlé) qui
     n'apparaissent pas dans le document. Peu de travaux s'intéressent à
-    l'assignement de termes-clés. Cette catégorie d'indexation automatique par
-    termes-clés requiert un vocabulaire contrôlé de la terminologie du domaine
-    du document pour assigner des termes-clés qui représentent des concepts
-    spécifiques au domaine. Cependant, le vocabulaire contrôlé n'est pas
-    toujours disponible et il est coûteux à produire (en termes de temps et de
-    ressources humaines). Nous proposons d'utiliser les termes-clés de référence
-    des documents d'entrainement de nos données pour créer un vocabulaire
-    contrôlé intégré au sein du graphe de notre méthode d'extraction.
+    l'assignement de termes-clés. Le vocabulaire contrôlé que requièrent les
+    méthodes de cette catégorie est une ressource qui n'est pas toujours
+    disponible et qui est coûteuse à produire (en termes de temps et de
+    ressources humaines). Pour réaliser l'assignement de termes-clés, nous
+    proposons d'utiliser les termes-clés de référence des documents
+    d'entraînement de nos données pour créer un vocabulaire contrôlé intégré au
+    sein du graphe de notre méthode d'extraction de termes-clés à base de
+    graphe.
 
   %-----------------------------------------------------------------------------
 
-  \section{Sélection des termes-clés candidats \TODO{pour l'EXTRACTION de
-  termes-clés}}
+  \section{Sélection des termes-clés candidats}
   \label{sec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection}
     Dans cette section, nous nous intéressons à l'étape de sélection des
     termes-clés candidats, aux propriétés que ces derniers doivent respecter et
@@ -64,57 +63,57 @@
 
     La majorité des méthodes d'indexation par termes-clés de la littérature
     travaillent à partir d'un ensemble de termes-clés candidats sélectionnés
-    préalablement dans le document. \ANNOTATE{Bien que cette étape préliminaire commence à
-    susciter de l'intéret~\cite{wang2014keyphraseextractionpreprocessing}, très
+    préalablement dans le document. Bien que cette étape préliminaire commence à
+    susciter de l'intérêt~\cite{wang2014keyphraseextractionpreprocessing}, très
     peu de méthodes de sélection sont proposées et les méthodes les plus simples
     restent celles qui sont actuellement les plus utilisées (sélection des
     $\{1..3\}$-grammes, des NP-\textit{chunks} ou des séquences grammaticalement
-    définies). Toutefois, la sélection des termes-clés candidats ne doit pas
-    être négligée, car c'est cette étape qui détermine la performance maximale
-    que peut atteindre une méthode d'indexation par termes-clés. Prenons
-    l'exemple de l'approche naïve assurant la performance maximale optimale.
-    Pour assurer cette performance maximale optimale, il suffit de fournir
-    toutes les séquences possibles de mots présents dans le
-    document\footnote{Soit pour chaque phrase de longueur  variable $n$, la
-    liste de ses $\{1..n\}$-grammes.}. Cependant, cette approche a pour
-    conséquence de sélectionner un nombre considérable de candidats et parmi eux
-    un nombre important de candidats négatifs qui augmentent la difficulté de la
-    tâche d'indexation par termes-clés~\cite{hasan2014state_of_the_art}.}{c'est
-    parti en sucette} Il est
-    donc préférable d'utiliser des méthodes de sélection qui proposent un
+    définies). Toutefois, nous estimons que la sélection des termes-clés
+    candidats ne doit pas être négligée, car elle influence aussi bien la
+    performance maximale pouvant être atteinte que la difficulté de l'indexation
+    automatique par termes-clés. Prenons l'exemple de l'approche naïve assurant
+    la performance maximale optimale. Pour assurer cette performance maximale
+    optimale, il suffit de fournir toutes les séquences possibles de mots
+    présents dans le document -- soit pour chaque phrase de longueur
+    variable $n$, la liste de ses $\{1..n\}$-grammes. Cependant, cette
+    approche a pour conséquence de sélectionner un nombre considérable de
+    candidats et parmi eux un nombre important de candidats négatifs qui
+    augmentent la difficulté de la tâche d'indexation par
+    termes-clés~\cite{hasan2014state_of_the_art}. Nous émettons l'hypothèse
+    qu'il est préférable d'utiliser des méthodes de sélection qui proposent un
     minimum de candidats tout en assurant une performance maximale
     quasi-optimale.
 
     Dans la suite, nous présentons une analyse des termes-clés de référence
-    associés aux documents de nos collections de données, nous montrons que
-    certains adjectifs sont plus pertinents que d'autres en tant que
-    modificateur au sein d'un terme-clé et nous proposons une méthodes pour
-    sélectonner des candidats en portant une attention particulière aux
-    adjectifs qui si trouvent. Nous montrons le bien fondé de ce travail au
-    travers de deux évaluations~: l'une intrinsèque, l'autre extrinsèque.
-    L'évaluation intrinsèque compare la qualité de l'ensemble de termes-clés
-    candidats sélectionnés par notre méthode à ceux sélectionnés par les
-    méthodes les plus utilisées~; l'évaluation extrinsèque compare l'impact de
-    notre méthode de sélection sur deux méthodes d'extraction de termes-clés à
-    celui des méthodes de sélection les plus utilisées.
+    associés aux documents de nos collections de données, nous discutons la
+    pertinence de certains adjectifs en tant que modificateurs au sein d'un
+    terme-clé et nous proposons une méthodes pour sélectionner plus finement les
+    candidats en portant une attention particulière à leurs adjectifs. Nous
+    montrons le bien fondé de ce travail au travers de deux évaluations~: l'une
+    intrinsèque, l'autre extrinsèque. L'évaluation intrinsèque compare la
+    qualité de l'ensemble de termes-clés candidats sélectionnés par notre
+    méthode à ceux sélectionnés par les méthodes les plus utilisées~;
+    l'évaluation extrinsèque compare l'impact de notre méthode de sélection sur
+    deux méthodes d'extraction de termes-clés à celui des méthodes de sélection
+    les plus utilisées.
 
     \subsection{Analyse des propriétés linguistiques des termes-clés}
     \label{subsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-analysis_of_keyphrase_properties}
       Afin de sélectionner plus finement les termes-clés candidats, nous
       extrayons et analysons diverses statistiques concernant les termes-clés~:
-      leur taille (en nombre de mots) et la catégorie grammaticale de leur mots.
-      Cela nous permet de confirmer les observations faites dans les travaux
-      précédents et d'en faire de nouvelles, concentrées sur la catégorie
-      grammaticale des mots des termes-clés. Nottons aussi que
+      leur taille (en nombre de mots) et la catégorie grammaticale des mots qui
+      les composent. Cela nous permet de confirmer les observations faites dans
+      les travaux précédents et d'en faire de nouvelles, concentrées sur la
+      catégorie grammaticale des mots des termes-clés.
 
       Pour ce travail, nous analysons les termes-clés de référence des
       collections de données \textsc{Deft}, SemEval et \textsc{Duc} afin de
-      couvrir les deux languages française et anglaise. Pour ne pas influer sur
-      l'évaluation de notre nouvelle méthode de sélection de candidat découlant
-      de cette analyse, nous utilisons uniquement les données d'entraînement.
-      Dans le cas de \textsc{Duc}, nous divisons la collection en deux
-      ensembles~: un ensemble d'entraînement composé de 208 documents et un
-      ensemble de test constitué de 100 documents. Le
+      couvrir les deux langues française et anglaise. Pour ne pas influencer
+      l'évaluation de la méthode de sélection de candidat que nous proposons en
+      aval de cette analyse, nous étudions uniquement les données
+      d'entraînement. Dans le cas de \textsc{Duc}, nous divisons la collection
+      en deux ensembles~: un ensemble d'entraînement composé de 208 documents et
+      un ensemble de test constitué de 100 documents. Le
       tableau~\ref{tab:candidate_selection-corpora_recap} rappelle les
       caractéristiques de ces trois collections de données.
       \begin{table}[!h]
@@ -137,18 +136,18 @@
         }
 
         \caption{Rappel des corpus utilisés pour analyser les termes-clés de
-                 référence \TODO{segmentation \textsc{Duc}}
+                 référence
                  \label{tab:candidate_selection-corpora_recap}}
       \end{table}
 
       Le tableau~\ref{tab:candidate_selection-train_stats} montre la proportion
       de termes-clés uni-grammes, bi-grammes et tri-grammes, ainsi que la
       proportion de termes-clés multi-mots contenant au moins un mot de l'une
-      des sept catégories grammaticales que nous observons en leur sein~: nom
-      commun, nom propre, adjectif, verbe, adverbe, préposition et déterminant.
-      Pour ces dernières proportions, nous nous focalisons sur les expressions
-      (termes-clés multi-mots), car nous avons observé que \TODO{\dots}~\% des
-      termes-clés qui sont des mots simples sont des noms. Pour obtenir ces
+      des sept catégories grammaticales que nous observons en leur
+      sein\footnote{ Nous nous focalisons sur les expressions (termes-clés
+      multi-mots), car nous avons observé que \TODO{\dots}~\% des termes-clés
+      qui sont des mots simples sont des noms. }~: nom commun, nom propre,
+      adjectif, verbe, adverbe, préposition et déterminant. Pour obtenir ces
       informations, les termes-clés ont été automatiquement segmentés en mots,
       étiquetés grammaticalement et manuellement corrigés. Les termes-clés sont
       automatiquement segmentés en mots avec la classe
@@ -156,8 +155,8 @@
       \textsc{Nltk}~\cite[\textit{Natural Language ToolKit}]{bird2009nltk}, pour
       l'anglais et avec l'outil Bonsai, du \textit{Bonsai \textsc{Pcfg-La}
       parser}\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
-      pour le français. Les mots sont automatiquement étiquetés grammaticalement
-      à l'aide du \textit{Stanford \textsc{Pos}
+      pour le français. Les mots sont automatiquement étiquetés en catégories
+      grammaticales à l'aide du \textit{Stanford \textsc{Pos}
       tagger}~\cite{toutanova2003stanfordpostagger} pour l'anglais et à l'aide
       de l'outil MElt~\cite{denis2009melt} pour le français.
       \begin{table}[!h]
@@ -184,14 +183,12 @@
         \end{tabular}
         \caption{Statistiques concernant les termes-clés de référence des
                  collections \textsc{Deft}, SemEval et \textsc{Duc}
-                 \TODO{les PREP et P+D en français sont-elles des variantes
-                 d'une forme avec adjectif relationnel ?}
                  \label{tab:candidate_selection-train_stats}}
       \end{table}
 
       Concernant la taille des termes-clés de référence, ceux composés de un à
       trois mots couvrent plus de 90~\% des termes-clés de références. En
-      français, ce sont les uni-grammes qui sont les plus présents, suivient par
+      français, ce sont les uni-grammes qui sont les plus présents, suivis par
       les bi-grammes, tandis qu'en anglais, ce sont les bi-grammes qui sont les
       plus présents, avec des proportions équivalentes d'uni-grammes et de
       tri-grammes. Ces premières observations font écho de celles que nous
@@ -207,11 +204,14 @@
       un adjectif, tandis que très peu contiennent des verbes et des adverbes.
       L'usage de ces derniers au sein de termes-clés semble être exceptionnel.
       Les déterminant et préposition ont un usage presque exclusivement français
-      au sein des termes-clés de référence. Ceci s'explique par le fait qu'en
-      anglais les formes nominales sont préférées aux expressions
+      au sein des termes-clés de référence. Ceci s'explique par le fait, qu'en
+      anglais, les formes nominales sont préférées aux expressions
       prépositionnelles (par exemple~: \textit{\og{}nature conservation\fg{}} --
       \og{}conservation de la nature\fg{} -- est préférée à
-      \textit{\og{}conservation of nature\fg{}}).
+      \textit{\og{}conservation of nature\fg{}}), alors que ce n'est pas
+      toujours possible en français (par exemple \og{}conservation de la
+      nature\fg{} ne peut pas être remplacé par \og{}conservation
+      naturelle\fg{}).
 
       Dans le tableau~\ref{tab:candidate_selection-adjective_categories}, nous
       nous intéressons plus particulièrement aux adjectifs et à leurs
@@ -230,36 +230,49 @@
             Autres adjectifs qualificatifs \hfill(\%) & 36,3 & 40,0 & $~~$9,6\\
             \bottomrule
         \end{tabular}
-        \caption{Taux d'adjectifs par catégorie (\TODO{rel., qual., attr, comp.})}
+        \caption{Taux d'adjectifs (de termes-clés) par catégorie (relationnel,
+                 composé ou qualificatif)}
         \label{tab:candidate_selection-adjective_categories}
       \end{table}
       
-      Un adjectif relationnel est un adjectif dérivé d'un nom (par exemple~:
-      l'adjectif relationnel \og{}culturel\fg{} est dérivé du nom
-      \og{}culture\fg{}) équivalent à un complément de nom (par exemple~:
-      \og{}héritage culturel\fg{} et \og{}héritage de la culture\fg{} sont
-      équivalents)~; il \og{}transpose des
-      substantifs\footnote{\TODO{Substantif~: \dots}} (soleil, crâne, cerveau,
-      etc.) sans rien changer à leur valeur de substantifs
-      --~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}\fg{}.
-      \TODO{qu'observe-t-on dans le tableau ? $\rightarrow$ s'appuyer sur le
-      travail de François Maniez}.
+      Nous observons que la majorité des adjectifs présents au sein des
+      termes-clés de référence sont des adjectifs relationnels. Ceux-ci sont des
+      adjectifs dérivés de nom (par exemple~: l'adjectif relationnel
+      \og{}culturel\fg{} est dérivé du nom \og{}culture\fg{}) et équivalents à
+      un complément de nom (par exemple~: \og{}héritage culturel\fg{} équivaut à
+      \og{}héritage de la
+      culture\fg{})~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}.
+      Leur lien étroit avec le nom leur confère le statut de modificateurs au
+      sein de catégories, telles que celles de Wikipedia (par exemple
+      \og{}héritage culturel\fg{}), ces mêmes catégories pouvant être utilisées
+      comme termes-clés~\cite{medelyan2008smalltrainingset,eichler2010keywe}.
+      Nous supposons donc, confortés par l'étude de
+      \newcite{maniez2009denominaladjectives} dans le domaine médical, que
+      l'adjectif relationnel est un élément-clé d'un terme-clé. Nos propos se
+      confirment dans le tableau~\ref{tab:candidate_selection-best_patterns},
+      qui montre les patrons grammaticaux les plus fréquents pour les
+      termes-clés de référence.
       
-      Un adjectif composé est une réunion de mots équivalant à un adjectif, nous
-      parlons aussi de locution adjectif (par exemple~:
-      \og{}socio-culturel\fg{}). \TODO{et donc ?}. \TODO{qu'observe-t-on dans le
-      tableau ?}.
+      Les adjectifs composés sont la réunion de mots équivalents à un adjectif,
+      nous parlons aussi de locutions adjectifs (par exemple~:
+      \og{}socio-culturel\fg{}). Bien qu'ils ne représentent qu'une faible
+      quantité des adjectifs présents au sein des termes-clés de référence, nous
+      trouvons les adjectifs composés pertinents en tant que modificateurs de
+      termes-clés. Ceux-ci apportent généralement un spécialisation hiérarchique
+      du nom qu'ils modifient (par exemple, \og{}évênement socio-culturel\fg{}
+      est un hyponyme de \og{}évênement\fg{}), rendant alors un terme-clé
+      beaucoup plus précis.
       
-      Un adjectif qualificatif est un mot qui donne une qualification au
-      substantif~; il en désigne la qualité ou manière d'être (par exemple
-      \og{}grand\fg{}). Cette catégorie regroupe un grand nombre d'adjectifs,
-      lesquels ne sont intuitivement pas tous pertinent en tant que modificateur
-      au sein d'un terme-clés (\TODO{exemple}). \TODO{moyenmoyen}.
-      \TODO{qu'observe-t-on dans le tableau~?}.
+      Les adjectifs qualificatifs sont des mots qui donnent une qualification à
+      un nom~; ils en désignent la qualité ou manière d'être (par exemple
+      \og{}grand\fg{}). Ceux-ci sont présents en nombre non négligeable au sein
+      des termes-clés de référence. Cependant, la catégorie des adjectifs
+      qualificatifs regroupe un grand nombre d'adjectifs qui ne sont
+      intuitivement pas tous pertinent en tant que modificateur au sein d'un
+      terme-clés (\TODO{exemple}). \TODO{renforcer l'argumentation en comparant
+      la proportion d'adjectifs qualificatis avec la proportion d'adjectifs
+      relationnels dans les documents.}
 
-      En complément, le tableau~\ref{tab:candidate_selection-best_patterns}
-      montre les patron grammaticaux les plus fréquents parmi les termes-clés de
-      référence. \TODO{dire qu'il y a ce qu'on veut}
       \begin{table}[!h]
         \centering
         \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}llr}
@@ -267,26 +280,29 @@
           \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}l}{\textbf{Pattern}} & \textbf{Example} & \textbf{\%}\\
           \hline
           \multirow{5}{*}{\begin{sideways}\textbf{Français}\end{sideways}}
-          & \texttt{Nc} & \texttt{rA} & & & & 46,4\\
-          & \texttt{NC} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & & 12,5\\
-          & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & & $~~$8,2\\
-          & \texttt{Nc} & \texttt{A} & & & & $~~$4,3\\
-          & \texttt{Np} & \texttt{Np} & & & & $~~$3,0\\
+          & \texttt{Nc} & \texttt{rA} & & & \TODO{exemple} & 46,4\\
+          & \texttt{NC} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & \TODO{exemple} & 12,5\\
+          & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & \TODO{exemple} & $~~$8,2\\
+          & \texttt{Nc} & \texttt{A} & & & \TODO{exemple} & $~~$4,3\\
+          & \texttt{Np} & \texttt{Np} & & & \TODO{exemple} & $~~$3,0\\
           \hline
           \multirow{5}{*}{\begin{sideways}\textbf{Anglais}\end{sideways}}
-          & \texttt{Nc} & \texttt{Nc} & & & & 32,5\\
-          & \texttt{rA} & \texttt{Nc} & & & & 15,1\\
-          & \texttt{A} & \texttt{Nc} & & & & $~~$9,5\\
-          & \texttt{Nc} & \texttt{Nc} & \texttt{Nc} & & & $~~$5,3\\
-          & \texttt{cA} & \texttt{Nc} & & & & $~~$4,9\\
+          & \texttt{Nc} & \texttt{Nc} & & & \TODO{exemple} & 32,5\\
+          & \texttt{rA} & \texttt{Nc} & & & \TODO{exemple} & 15,1\\
+          & \texttt{A} & \texttt{Nc} & & & \TODO{exemple} & $~~$9,5\\
+          & \texttt{Nc} & \texttt{Nc} & \texttt{Nc} & & \TODO{exemple} & $~~$5,3\\
+          & \texttt{cA} & \texttt{Nc} & & & \TODO{exemple} & $~~$4,9\\
           \bottomrule
         \end{tabular}
         \caption[
-          Pattrons grammaticaux les plus fréquents parmi les termes-clés
+          Patrons grammaticaux les plus fréquents parmi les termes-clés
           français et anglais
         ]{
-          Pattrons grammaticaux les plus fréquents parmi les termes-clés
-          français et anglais. \TODO{mapping des POS}. \TODO{exemples}.
+          Patrons grammaticaux les plus fréquents parmi les termes-clés
+          français et anglais. Les classes grammaticales sont exprimées au
+          format Multext~\cite{ide1994multext}, sauf \texttt{rA} et \texttt{cA}
+          qui représente, respectivement, un adjectif relationnel et un adjectif
+          composé. \TODO{exemples}.
           \label{tab:candidate_selection-best_patterns}
         }
       \end{table}
@@ -296,8 +312,8 @@
       Pour sélectionner les termes-clés candidats, nous proposons une méthode
       qui se fonde sur les observations ci-avant. Cette méthode commence par
       présélectionner les termes-clés candidats à l'aide d'un patron
-      grammatical, elle détecte ensuite la catégorie de ces adjectifs (s'il en
-      possède), puis elle filtre ceux qui ne sont pas jugés pertinents.
+      grammatical, elle détecte ensuite la catégorie de leurs adjectifs (s'ils
+      en possèdent), puis elle filtre ceux qui ne sont pas jugés pertinents.
 
       \subsubsection{Présélection des termes-clés candidats}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-candidate_pre_selection}
@@ -321,12 +337,12 @@
         déterminant couvrent plus de 30~\% des termes-clés de référence,
         cependant leur nombre est tellement important au sein d'un document
         qu'il est préférable de les ignorés afin d'éviter d'ajouter des
-        candidats érronés pouvant dégrader la performance d'une méthode
+        candidats erronés pouvant dégrader la performance d'une méthode
         d'extraction de termes-clés.
         
         Pour le français, nous définissons le patron \texttt{/N+ A?/}, qui
         accepte une séquence de noms (ou noms propres) se terminant
-        optionnelement par un adjectif. En français, l'adjectif peut être soit
+        optionnellement par un adjectif. En français, l'adjectif peut être soit
         antéposé, soit postposé. Le patron que nous avons défini n'accepte que
         les adjectifs postposés pour deux raisons. La première raison est que
         les adjectifs relationnels, que nous jugeons les plus pertinents en tant
@@ -347,11 +363,11 @@
       \subsubsection{Détection de la catégorie de l'adjectif}
       \label{subsubsec:main-automatic_keyphrase_annotation-keyphrase_candidate_selection-modifiers_filtering-relational_adjective_detection}
         Lorsqu'un candidat contient un adjectif, nous l'analysons afin d'en
-        connaître la catgorie~: relationnel, composé ou autre. Pour détecter les
+        connaître la catégorie~: relationnel, composé ou autre. Pour détecter les
         adjectifs composés, nous nous limitons à la présence du trait d'union,
         marque de composition en français et en anglais~; pour détecter les
         adjectifs relationnels, nous utilisons une technique simple, adaptée (ou
-        adaptable) à plusieurs langues, et ne requierant pas nécessairement de
+        adaptable) à plusieurs langues, et ne requérant pas nécessairement de
         données riches.
 
         La détection des adjectifs relationnels se fonde sur les deux propriétés
@@ -375,7 +391,7 @@
 
         Dans un second temps, les adjectifs relationnels qui ne sont pas
         présents dans la base de données lexicale, ou si cette base n'existe
-        pas, sont détectés à partir de leur suffix. Une liste des suffixes les
+        pas, sont détectés à partir de leur suffixe. Une liste des suffixes les
         plus productifs pour les adjectifs relationnels est dressée et utilisée
         pour identifier les adjectifs relationnels potentiels. En français, les
         suffixes les plus productifs sont \textit{-ain}, \textit{-aire},
@@ -387,7 +403,7 @@
         \textit{ary}, \textit{ic}, \textit{ous} et
         \textit{ive}~\cite{grabar2006terminologystructuring}.
 
-        La détection des adjectifs relatonnels telle que réalisée dans ce
+        La détection des adjectifs relationnels telle que réalisée dans ce
         travail, n'est pas exacte. En effet, les adjectifs qualificatifs se
         terminant par un suffixe d'adjectif relationnel sont détectés comme
         relationnels, et les adjectifs à usage qualificatif ou relationnel selon
@@ -413,8 +429,8 @@
         les adjectifs relationnels et composés sont systématiquement jugés
         pertinents. Dans le cas des adjectifs qualificatifs (autres que
         composés), c'est l'usage des candidats présélectionnés dans le document
-        qui détermine leur pertinence. Tout adjectif qualificatif modififant une
-        même séquence de nom plus souvant que cette dernière apparaît de manière
+        qui détermine leur pertinence. Tout adjectif qualificatif modifiant une
+        même séquence de nom plus souvent que cette dernière apparaît de manière
         autonome est jugé pertinent et est conservé en tant que modificateur de
         cette séquence.
 
@@ -586,9 +602,9 @@
 
         Le tableau~\ref{tab:candidate_extraction_statistics} présente les
         résultats de l'évaluation intrinsèque. Le nombre de candidats
-        sélectionnés par chaqque méthode, le rappel maximum pouvant être atteint
-        avec ceux-ci et la mesure de \TODO{$??$} sont reportés pour chacune des trois
-        collections de données utilisées pour cette évaluation.
+        sélectionnés par chaque méthode, le rappel maximum pouvant être atteint
+        avec ceux-ci et la mesure de \TODO{$??$} sont reportés pour chacune des
+        trois collections de données utilisées pour cette évaluation.
         \begin{table}[!h]
           \centering
           \resizebox{\linewidth}{!}{
@@ -655,9 +671,18 @@
               \bottomrule
             \end{tabular}
           }
-          \caption{Comparison of TF-IDF and KEA applied on top of different candidate selection methods.
-          $\ddagger$ indicates a significant improvement overall candidate sets and $\dagger$ indicates a significant improvement overall candidate sets but the longest NPs at 0.001 level using Student's t-test.
-                   \label{tab:keyphrase_extraction_results_with_filtering}}
+          \caption[
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} selon la
+            méthode de sélection des termes-clés candidats utilisée
+          ]{
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} d'après la
+            méthode de sélection des termes-clés candidats utilisée.
+            $\ddagger$ indique une amélioration significative par rapport à
+            toutes les autres méthodes de sélection de candidats et $\dagger$
+            indique une amélioration significative par rapport à toutes les
+            méthodes sauf celle qui extrait les \texttt{/(N|A)+/}, à 0.001 pour
+            le t-test de Student.
+           \label{tab:keyphrase_extraction_results_with_filtering}}
         \end{table}
 
         Globalement, la performance des méthodes d'extraction de termes-clés est
@@ -746,7 +771,7 @@
       \subsubsection{Identification des sujets}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
         Dans ce travail, un sujet représente un thème du document qui est
-        véhiculé par une ou plusieures unités textuelles partageant le même
+        véhiculé par une ou plusieurs unités textuelles partageant le même
         sens. Il s'agit d'un groupe de termes-clés candidats qui partagent le
         plus d'unités de sens, de mots.
 
@@ -926,16 +951,16 @@
         méthodes non supervisées d'extraction automatique de termes-clés. Nous
         choisissons TextRank et SingleRank, les deux méthodes qui sont la
         fondation des méthodes à base de graphe, et la méthode TF-IDF \TODO{qui
-        est robiste et encore difficile à battre}.
+        est robuste et encore difficile à battre}.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
         Pour évaluer ce travail, nous utilisons quatre des cinq collections dont
         nous disposons\footnote{La collection de données Termith est utilisée
         pour évaluer manuellement nos travaux. Les évaluations manuelles sont
-        présentées dans le chapite \TODO{6} (page \TODO{}).}. Nous utilisons les
-        deux collections d'articles journalistiques \textsc{Duc} (anglais) et
-        Wikinews (français), ainsi que les deux collections d'articles
+        présentées dans le chapitre \TODO{6} (page \TODO{}).}. Nous utilisons
+        les deux collections d'articles journalistiques \textsc{Duc} (anglais)
+        et Wikinews (français), ainsi que les deux collections d'articles
         scientifiques SemEval (anglais) et \textsc{Deft} (français).
 
         Le tableau~\ref{tab:topicrank:corpora_recap} rappelle les
@@ -1652,7 +1677,7 @@
     doit être réalisée conjointement à la tâche d'extraction, non séparément.
 
     Avec TopicCoRank, nous proposons une nouvelle méthode d'indexation par
-    termes-clés qui unifie un graphe repésentatif du document et un graphe
+    termes-clés qui unifie un graphe représentatif du document et un graphe
     représentatif du domaine, c'est-à-dire de ses termes-clés de référence et de
     leurs relations. De cette manière, nous sommes capable d'extraire et
     d'assigner des termes-clés indifféremment. Concrètement, TopicCoRank apporte
@@ -1671,7 +1696,7 @@
     d'assignement de termes-clés, et combinent sa sortie à celle de TextRank
     avec un algorithme de fusion de listes ordonnées. Notre travail exploite les
     données d'entraînement pour ajouter la capacité à assigner des termes-clés.
-    De plus, TopicCoRank ne fusione pas les sortie de deux méthodes, il met en
+    De plus, TopicCoRank ne fusionne pas les sortie de deux méthodes, il met en
     phase le document et son domaine pour extraire des termes-clés du document
     et en assigner depuis le domaine lorsque c'est nécessaire.
 
@@ -1687,14 +1712,14 @@
         nous unifions deux graphes représentant le document (graphe de sujets)
         et le domaine auquel il appartient (graphe de termes-clés de référence).
         Ce dernier graphe est construit à partir des termes-clés de référence
-        des documents d'entrainement fournis avec une collection de données.
+        des documents d'entraînement fournis avec une collection de données.
         S'ils sont des termes-clés de référence du même domaine, ils ont donc
         une forte probabilité d'appartenir à la terminologie du
         domaine~\cite{chaimongkol2013technicaltermextraction}. Nous faisons donc
         l'hypothèse que les termes-clés de référence des documents
         d'entraînement constituent des entrées valides du vocabulaire contrôlé
         du domaine représenté par les documents d'entraînement et nous les
-        utilisons comme substitu au vocabulaire contrôlé. Contrairement au
+        utilisons comme substitut au vocabulaire contrôlé. Contrairement au
         termes-clés candidats sélectionnés dans le document, les termes-clés de
         référence ne sont pas jugés redondants. Nous ne groupons donc pas les
         termes-clés de référence pour le graphe du domaine.
@@ -1831,7 +1856,7 @@
         \end{figure}
 
         Pour permettre un ordonnancement conjoint des sujets et des termes-clés
-        de référence, nous homogénéisons le schéma de connection entre deux
+        de référence, nous homogénéisons le schéma de connexion entre deux
         sujets et entre deux termes-clés de référence (arêtes
         $A_\textnormal{\textit{interne}}$). En effet, si les conditions de
         connexion ou si la pondération des arêtes ne sont pas sémantiquement
@@ -1975,7 +2000,7 @@
         Pour chaque collection de Termith, nous construisons le graphe du
         domaine à partir des documents d'entraînement~; Pour SemEval, nous
         construisons quatre graphes de domaine à partir des documents
-        d'entraînement des quatres catégories \textsc{Acm} (C2.4, H3.3, I2.11 et
+        d'entraînement des quatre catégories \textsc{Acm} (C2.4, H3.3, I2.11 et
         J4) et utilisons l'un ou l'autre de ces graphes selon la catégorie du
         document traité par TopicCoRank~; Pour \textsc{Duc}, nous n'utilisons
         pas sa répartition entraînement--test proposée dans la
@@ -2234,7 +2259,7 @@
         tableau~\ref{tab:assignment_ratio} montre la proportion de termes-clés
         extraits et assignés parmi les dix termes-clés que fournit TopicCoRank.
         Globalement, nous observons un équilibre entre extraction et
-        assignement, avec tout de même une plus forte tendence à l'extraction.
+        assignement, avec tout de même une plus forte tendance à l'extraction.
         Cet équilibre et les variations observées selon les collections de
         données montrent que l'algorithme d'ordonnancement conjoint des sujets
         du document et des termes-clés de référence du domaine est effectivement
@@ -2257,8 +2282,8 @@
 
         Enfin, la figure~\ref{fig:lambda_variations} montre le comportement de
         TopicCoRank lorsque nous faisons varier la valeur de $\lambda$, qui
-        détermine l'influence de la recommendation interne par rapport à la
-        recommendation externe, avec un pas de 0,1. Tout d'abord, nous observons
+        détermine l'influence de la recommandation interne par rapport à la
+        recommandation externe, avec un pas de 0,1. Tout d'abord, nous observons
         que la moins bonne performance pouvant être obtenue est bornée par la
         performance de TopicRank. Quelque soit son degré d'influence, le graphe
         du domaine contribue positivement à l'indexation par termes-clés.
@@ -2359,10 +2384,10 @@
         Selon les collections de données, nous observons deux comportements
         différents. Dans le cas de Termith et de \textsc{Duc} les meilleures
         performances sont obtenues avec une influence plus importante de la
-        recommendation externe, tandis que dans le cas de SemEval la
-        recommendation interne doit avoir une plus forte influence. Nous
+        recommandation externe, tandis que dans le cas de SemEval la
+        recommandation interne doit avoir une plus forte influence. Nous
         observons cependant un compromis lorsque $\lambda = 0,5$ (valeur que
-        nous avons défini par défaut), soit quand les deux recommendations ont
+        nous avons défini par défaut), soit quand les deux recommandations ont
         le même poids lors de l'ordonnancement.
           
 
