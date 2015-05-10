@@ -1948,19 +1948,29 @@
 
     \subsection{Evaluation}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
+      Pour valider notre approche, nous réalisons deux séries d'expériences. Une
+      première série pour comparer TopicCoRank à deux méthodes de référence et
+      une seconde série pour analyser sont comportement.
+
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
-        Pour valider notre approche, nous appliquons TopicCoRank à plusieurs de
-        nos collections de données et le comparons à différentes méthodes de
-        référence. \TODO{donner les baselines}
+        Dans nos expériences, nous comparons TopicCoRank à TopicRank et à
+        une méthode simple d'assignement (\textit{assignement}). Pour cette
+        dernière, nous utilisons le même vocabulaire contrôlé que TopicCoRank et
+        ordonnons les entrées de celui-ci d'après leur fréquence d'apparition
+        dans le document. \TODO{remplacer \textit{assignement} par KEA++}
+
+        Nous comparons aussi TopicCoRank à deux de ces variantes possibles. La
+        première, TopicCoRank$_\textnormal{\textit{extr.}}$, ne fait que de
+        l'extraction de termes-clés~; la seconde,
+        TopicCoRank$_\textnormal{\textit{assign.}}$, ne fait que de
+        l'assignement.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
         Pour évaluer TopicCoRank, nous utilisons les collections de données
         Termith, dont l'annotation manuelle est proche de son mode de
         fonctionnement, ainsi que les collections SemEval et \textsc{Duc}.
-        \TODO{Expliquer pour quoi pas DEFT (tc d'auteur et ???) et Wikinews (pas
-        assez de données)}
         
         Pour chaque collection de Termith, nous construisons le graphe du
         domaine à partir des documents d'entraînement~; Pour SemEval, nous
@@ -2053,21 +2063,33 @@
         les valeurs des critères de précision et de rappel. Pour générer ces
         courbes, nous calculons la précision et le rappel lorsque nous faisons
         varier le nombre de termes-clés extrait, de un jusqu'au nombre total de
-        termes-clés candidats\TODO{citation biatch}.
+        termes-clés candidats~\cite{hassan2010conundrums}.
       
       \subsubsection{Comparaison de TopicRank++ avec l'existant}
       \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-comparison}
-        Table~\ref{tab:comparison_results} summarizes the performance for three datasets of TopicCoRank,  TopicRank, and \textit{Assignment}, the keyphrase assignment baseline.
-        The results show that \textit{Assignment} performs better than TopicRank on Inist and DUC datasets, to the contrary of
-        SemEval. 
-        %Results show the necessity, in some cases, to perform keyphrase assignment over keyphrase extraction.
-        Keyphrase assignment seems to be more appropriate than keyphrase extraction for Inist and DUC text collections.
-        %Based on observations from table~\ref{tab:corpus_statistics},  heterogeneously annotated are more difficult to treat by keyphrase assignment methods.
-        Keyphrase extraction has to be preferred to keyphrase assignment for datasets such as SemEval that was heterogeneously annotated. 
-        The main result is that TopicCoRank outperforms both TopicRank and \textit{Assignment} on all
-        datasets. 
-    
-        \begin{table}
+        Le tableau~\ref{tab:topiccorank-comparison_results} montre les
+        performances de TopicCoRank comparées à celles des méthodes de
+        référence. Dans un premier temps, nous observons que l'assignement (avec
+        \textit{assignement} et TopicCoRank$_\textnormal{\textit{assign.}}$) est
+        plus aisé que l'extraction (avec TopicRank et
+        TopicCoRank$_\textnormal{\textit{extr.}}$) sur les collections Termith
+        et \textsc{Duc} et plus difficile sur la collection SemEval. \TODO{un
+        peu plus de BLABLA et il peut donc s'avérer \dots} Il peut donc s'avérer
+        intéressant de bénéficier d'une unique méthode capable d'effectuer les
+        deux. Les résultats le montrent~: quelque soit la collection TopicCoRank
+        obtient de meilleures performances que TopicRank, \textit{assignement}
+        et TopicCoRank$_\textnormal{\textit{extr.}}$. Dans le cas de la
+        collection Termith, TopicCoRank donne la seconde meilleure performance
+        après TopicCoRank$_\textnormal{\textit{assign.}}$. Dans ce cas de
+        figure, la proportion de termes-clés \og{}à assigner\fg{} est tellement
+        importante qu'effectuer uniquement de l'assignement est plus fructueux.
+        Toutefois, la pertinence de TopicCoRank n'est en aucun cas remise en
+        cause, car TopicCoRank$_\textnormal{\textit{assign.}}$ à une performance
+        significativement meilleure à celle de la méthode de référence
+        \textit{assignement}. Globalement, les résultats montrent l'apport
+        d'ordonner conjointement les sujets du document et les termes-clés de
+        référence du domaine pour extraire et assigner des termes-clés.
+        \begin{table}[h!]
           \centering
           %\resizebox{\linewidth}{!}{
             \begin{tabular}{l|ccc@{}|ccc@{}|ccc@{~}}
@@ -2087,67 +2109,28 @@
             \end{tabular}
           %}
         \caption[
-          Résultat de l'extraction de dix termes-clés avec \TODO{\dots} et
-          TopicCoRank
+          Résultat de l'extraction de dix termes-clés avec TopicRank,
+          \textit{assignement}, TopicCoRank$_\textnormal{\textit{extr.}}$,
+          TopicCoRank$_\textnormal{\textit{assign.}}$ et TopicCoRank
         ]{
-          Résultat de l'extraction de dix termes-clés avec \TODO{\dots} et
-          TopicCoRank. $\dagger$ et $\ddagger$ indiquent une amélioration
-          significative par rapport à \TODO{\dots} et \TODO{\dots},
-          respectivement.
-          \label{tab:comparison_results}}
+          Résultat de l'extraction de dix termes-clés avec TopicRank,
+          \textit{assignement}, TopicCoRank$_\textnormal{\textit{extr.}}$,
+          TopicCoRank$_\textnormal{\textit{assign.}}$ et TopicCoRank. $\dagger$
+          et $\ddagger$ indiquent une amélioration significative par rapport à
+          TopicRank et \textit{assignement}, respectivement.
+          \label{tab:topiccorank-comparison_results}}
         \end{table}
         
-        
-        Table~\ref{tab:comparison_results} shows the performance of two variants of TopicCoRank: TopicCoRank$_\textnormal{\textit{extr}}$ performs only  extraction
-        and  TopicCoRank$_\textnormal{\textit{assign}}$ only assignment.
-        The results of TopicCoRank$_\textnormal{\textit{extr}}$ and 
-        TopicCoRank$_\textnormal{\textit{assign}}$ confirm that keyphrase assignment is more appropriate for 
-        Inist and DUC, whereas keyphrase extraction is for SemEval.
-        TopicCoRank outperforms TopicCoRank$_\textnormal{\textit{extr}}$ for all datasets.
-        TopicCoRank outperforms TopicCoRank$_\textnormal{\textit{assign}}$ on DUC and SemEval, but not on Inist.
-        
-        %Inist contains so much missing keyphrases that domain keyphrases must be prioritized over document topics. 
-        The Inist keyphrases are mainly missing keyphrases, i.e., domain keyphrases that do not occur in the bibliographic records. 
-        For such dataset, domain keyphrases need to be prioritized over document topics. This could be done by giving more weight to the outer recommendation during the graph-based co-ranking.
-        
-        TopicCoRank and TopicCoRank$_\textnormal{\textit{extr}}$ outperform TopicCoRank$_\textnormal{\textit{assign}}$ for DUC and SemEval.
-        The graph co-ranking algorithm successfully leverages document topics and
-        controlled keyphrases to output both new concepts and appropriate controlled keyphrases.
-        The new concepts that are identified could be used further to update domain-specific terminology.
-      
-      \subsubsection{Analyse du comportement de TopicCoRank}
-      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank-analysis}
-
-        \ANNOTATE{Table~\ref{tab:assignment_ratio} shows the percentage of assigned keyphrases by TopicCoRank
-        for each dataset. The statistics show that the co-ranking actually works and outputs both
-        domain keyphrases and keyphrases from the document independently.}{Strengthen}
-        \begin{table}[!h]
-          \centering
-          \begin{tabular}{l|cc}
-              \toprule
-              & Extraction (\%) & Assignement (\%)\\
-              \hline
-              Inist & 61,3 & 38,7\\
-              DUC & 41,4 & 58,6\\
-              SemEval & 60,0 & 40,0\\
-              \bottomrule
-          \end{tabular}
-          \caption{Taux d'extraction et d'assignement de TopicCoRank pour dix
-                   termes-clés
-                   \label{tab:assignment_ratio}}
-        \end{table}
-        
-        To get a better understanding of the performance of each method, we plot
-        precision-recall curves. Figure~\ref{fig:pr_curves1} shows the precision-recall curves
-        of TopicRank, \textit{Assignment} and TopicCoRank for each dataset. 
-        %Again, we can see that TopicCoRank outperforms the baselines. 
-        TopicCoRank and TopicRank %have the same behavior. 
-        behave similarly.  TopicCoRank is boosted by the keyphrase assignment. It achieves a better
-        maximum precision and a better maximum recall.
-        %boosted by keyphrase assignment. %Figure~\ref{fig:pr_curves2} shows the precision-recall
-        %curves of TopicCoRank$_\textnormal{\textit{extr}}$,
-        %TopicCoRank$_\textnormal{\textit{assign}}$ and TopicCoRank for each dataset. \TODO{\dots}
-        \begin{figure*}
+        La figure~\ref{fig:topiccorank-pr_curves} compare le comportement
+        respectif de TopicRank, \textit{assignement} et TopicCoRank à l'aide de
+        courbes rappel--précision. Ces dernières confirment la domination de
+        TopicCoRank par rapport aux deux autres méthodes (front de Pareto
+        optimal). Elles aussi montrent un phénomène intéressant~: TopicCoRank à
+        un comportement similaire à celui de TopicRank, boosté par sa capacité à
+        assigner. Le processus d'ordonnancement initial de TopicRank n'est pas
+        dénaturé et l'ajout du graphe du domaine agit effectivement comme une
+        extension.
+        \begin{figure}[h!]
             \centering
             \subfigure[Inist]{
               \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
@@ -2238,122 +2221,150 @@
                 \node at (4.85,0.9) [anchor=east] {\footnotesize{F=0.10}};
               \end{tikzpicture}
             }
-            \caption{Courbes de rappel-précision de \TODO{\dots} et TopicCoRank
-                     \label{fig:pr_curves1}}
-        \end{figure*}
+            \caption{Courbes de rappel-précision de TopicRank
+                     \textit{assignement} et TopicCoRank
+                     \label{fig:topiccorank-pr_curves}}
+        \end{figure}
+      
+      \subsubsection{Analyse du comportement de TopicCoRank}
+      \label{subsubsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank-analysis}
+        Bien qu'ils montrent de meilleures performances pour TopicCoRank, les
+        résultats précédents ne permettent pas de se faire une idée précise de
+        la place que prend l'assignement sur l'extraction. Le
+        tableau~\ref{tab:assignment_ratio} montre la proportion de termes-clés
+        extraits et assignés parmi les dix termes-clés que fournit TopicCoRank.
+        Globalement, nous observons un équilibre entre extraction et
+        assignement, avec tout de même une plus forte tendence à l'extraction.
+        Cet équilibre et les variations observées selon les collections de
+        données montrent que l'algorithme d'ordonnancement conjoint des sujets
+        du document et des termes-clés de référence du domaine est effectivement
+        capable de mêler sujets et termes-clés de références.
+        \begin{table}[!h]
+          \centering
+          \begin{tabular}{l|cc}
+              \toprule
+              & Extraction (\%) & Assignement (\%)\\
+              \hline
+              Inist & 61,3 & 38,7\\
+              DUC & 41,4 & 58,6\\
+              SemEval & 60,0 & 40,0\\
+              \bottomrule
+          \end{tabular}
+          \caption{Taux d'extraction et d'assignement de TopicCoRank pour dix
+                   termes-clés
+                   \label{tab:assignment_ratio}}
+        \end{table}
 
-        The influence of inner and outer recommendations with respect to the ranking is shown in  Figure~\ref{fig:lambda_variations}.
-        The curves display the performance of TopicCoRank over the f-score with $\lambda$ ranging from $0.1$ to
-        $0.9$.   We first observe that whatever is the value
-        of $\lambda$, the worst performance of TopicCoRank is in the range of TopicRank
-        performance. The keyphrase extraction is always improved by co-ranking. Secondly, a
-        balanced influence nearly always induces the  best performances whatever is the dataset. TopicCoRank leverages
-        both inner and outer recommendations. This means that controlled keyphrases and document topics
-        can benefit from each other. We demonstrated the helpfulness of a co-ranking strategy for the automatic keyphrase
-        annotation task.
-        \begin{figure*}
-            \centering
-            \subfigure[Inist]{
-              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-                \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.393\linewidth,
-                             xtick={0.1, 0.3, ..., 0.9},
-                             xmin=0.05,
-                             xmax=0.95,
-                             xlabel=$\lambda$,
-                             x label style={yshift=.34em, font=\small},
-                             y=0.01875\textheight,
-                             ytick={0, 2, 4, ..., 34},
-                             ymin=14,
-                             ymax=25,
-                             ylabel=f-score (\%),
-                             y label style={yshift=-1.1em, font=\small}]
-                  \addplot[blue, mark=x] coordinates{
-                    (0.1, 20.04)
-                    (0.2, 20.22)
-                    (0.3, 20.37)
-                    (0.4, 20.14)
-                    (0.5, 20.09)
-                    (0.6, 18.46)
-                    (0.7, 16.69)
-                    (0.8, 15.98)
-                    (0.9, 16.43)
-                  };
-                \end{axis}
-              \end{tikzpicture}
-            }
-            \subfigure[\textsc{Duc}]{
-              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-                \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.393\linewidth,
-                             xtick={0.1, 0.3, ..., 0.9},
-                             xmin=0.05,
-                             xmax=0.95,
-                             xlabel=$\lambda$,
-                             x label style={yshift=.34em, font=\small},
-                             y=0.01875\textheight,
-                             ytick={0, 2, 4, ..., 34},
-                             ymin=24,
-                             ymax=35,
-                             ylabel=f-score (\%),
-                             y label style={yshift=-1.1em, font=\small}]
-                  \addplot[blue, mark=x] coordinates{
-                    (0.10, 31.96)
-                    (0.20, 32.24)
-                    (0.30, 32.40)
-                    (0.40, 31.92)
-                    (0.50, 31.53)
-                    (0.60, 30.50)
-                    (0.70, 28.23)
-                    (0.80, 26.61)
-                    (0.90, 24.63)
-                  };
-                \end{axis}
-              \end{tikzpicture}
-            }
-            \subfigure[SemEval]{
-              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-                \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.393\linewidth,
-                             xtick={0.1, 0.3, ..., 0.9},
-                             xmin=0.05,
-                             xmax=0.95,
-                             xlabel=$\lambda$,
-                             x label style={yshift=.34em, font=\small},
-                             y=0.01875\textheight,
-                             ytick={0, 2, 4, ..., 34},
-                             ymin=8,
-                             ymax=19,
-                             ylabel=f-score (\%),
-                             y label style={yshift=-1.1em, font=\small}]
-                  \addplot[blue, mark=x] coordinates{
-                    (0.10, 11.24)
-                    (0.20, 11.33)
-                    (0.30, 11.39)
-                    (0.40, 12.07)
-                    (0.50, 13.43)
-                    (0.60, 14.49)
-                    (0.70, 14.09)
-                    (0.80, 13.96)
-                    (0.90, 13.28)
-                  };
-                \end{axis}
-              \end{tikzpicture}
-            }
-            \caption{Comportement de TopicCoRank en fonction de la valeur de
-                     $\lambda$
-                     \label{fig:lambda_variations}}
-          \end{figure*}
+        Enfin, la figure~\ref{fig:lambda_variations} montre le comportement de
+        TopicCoRank lorsque nous faisons varier la valeur de $\lambda$, qui
+        détermine l'influence de la recommendation interne par rapport à la
+        recommendation externe, avec un pas de 0,1. Tout d'abord, nous observons
+        que la moins bonne performance pouvant être obtenue est bornée par la
+        performance de TopicRank. Quelque soit son degré d'influence, le graphe
+        du domaine contribue positivement à l'indexation par termes-clés.
+        \begin{figure}[h!]
+          \centering
+          \subfigure[Inist]{
+            \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
+              \pgfkeys{/pgf/number format/.cd, fixed}
+              \begin{axis}[x=0.393\linewidth,
+                           xtick={0.1, 0.3, ..., 0.9},
+                           xmin=0.05,
+                           xmax=0.95,
+                           xlabel=$\lambda$,
+                           x label style={yshift=.34em, font=\small},
+                           y=0.01875\textheight,
+                           ytick={0, 2, 4, ..., 34},
+                           ymin=14,
+                           ymax=25,
+                           ylabel=f-score (\%),
+                           y label style={yshift=-1.1em, font=\small}]
+                \addplot[blue, mark=x] coordinates{
+                  (0.1, 20.04)
+                  (0.2, 20.22)
+                  (0.3, 20.37)
+                  (0.4, 20.14)
+                  (0.5, 20.09)
+                  (0.6, 18.46)
+                  (0.7, 16.69)
+                  (0.8, 15.98)
+                  (0.9, 16.43)
+                };
+              \end{axis}
+            \end{tikzpicture}
+          }
+          \subfigure[\textsc{Duc}]{
+            \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
+              \pgfkeys{/pgf/number format/.cd, fixed}
+              \begin{axis}[x=0.393\linewidth,
+                           xtick={0.1, 0.3, ..., 0.9},
+                           xmin=0.05,
+                           xmax=0.95,
+                           xlabel=$\lambda$,
+                           x label style={yshift=.34em, font=\small},
+                           y=0.01875\textheight,
+                           ytick={0, 2, 4, ..., 34},
+                           ymin=24,
+                           ymax=35,
+                           ylabel=f-score (\%),
+                           y label style={yshift=-1.1em, font=\small}]
+                \addplot[blue, mark=x] coordinates{
+                  (0.10, 31.96)
+                  (0.20, 32.24)
+                  (0.30, 32.40)
+                  (0.40, 31.92)
+                  (0.50, 31.53)
+                  (0.60, 30.50)
+                  (0.70, 28.23)
+                  (0.80, 26.61)
+                  (0.90, 24.63)
+                };
+              \end{axis}
+            \end{tikzpicture}
+          }
+          \subfigure[SemEval]{
+            \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
+              \pgfkeys{/pgf/number format/.cd, fixed}
+              \begin{axis}[x=0.393\linewidth,
+                           xtick={0.1, 0.3, ..., 0.9},
+                           xmin=0.05,
+                           xmax=0.95,
+                           xlabel=$\lambda$,
+                           x label style={yshift=.34em, font=\small},
+                           y=0.01875\textheight,
+                           ytick={0, 2, 4, ..., 34},
+                           ymin=8,
+                           ymax=19,
+                           ylabel=f-score (\%),
+                           y label style={yshift=-1.1em, font=\small}]
+                \addplot[blue, mark=x] coordinates{
+                  (0.10, 11.24)
+                  (0.20, 11.33)
+                  (0.30, 11.39)
+                  (0.40, 12.07)
+                  (0.50, 13.43)
+                  (0.60, 14.49)
+                  (0.70, 14.09)
+                  (0.80, 13.96)
+                  (0.90, 13.28)
+                };
+              \end{axis}
+            \end{tikzpicture}
+          }
+          \caption{Comportement de TopicCoRank en fonction de la valeur de
+                   $\lambda$
+                   \label{fig:lambda_variations}}
+        \end{figure}
+        
+        Selon les collections de données, nous observons deux comportements
+        différents. Dans le cas de Termith et de \textsc{Duc} les meilleures
+        performances sont obtenues avec une influence plus importante de la
+        recommendation externe, tandis que dans le cas de SemEval la
+        recommendation interne doit avoir une plus forte influence. Nous
+        observons cependant un compromis lorsque $\lambda = 0,5$ (valeur que
+        nous avons défini par défaut), soit quand les deux recommendations ont
+        le même poids lors de l'ordonnancement.
           
-          As already observed with results shown in table~\ref{tab:comparison_results}, the
-          behavior of TopicCoRank differs between SemEval and the two other datasets. Values
-          of $\lambda$ below $0.5$ induce better performances than those above $0.5$ on Inist and
-          DUC, whereas the opposite observation raises from SemEval results. With a higher
-          $\lambda$, the controlled graph highly influences the document topics and these topics obtain
-          higher importance scores because the relations between topics are richer than
-          between controlled keyphrases (more relations and higher weights). On Inist and DUC,
-          artificially prioritizing keyphrase extraction with a higher $\lambda$ decreases
-          the performance, whereas it increases the performance on SemEval.
 
     \subsection{Analyse d'erreurs}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}
@@ -2362,54 +2373,19 @@
 
     \subsection{Bilan}
     \label{subsec:main-automatic_keyphrase_annotation-supervised_automatic_keyphrase_annotation-conclusion}
-      In this paper, we have proposed a co-ranking approach to performing keyphrase
-      extraction and keyphrase assignment simultaneously. Our method,
-      TopicCoRank, uses keyphrases annotated on training data as a controlled
-      vocabulary. %represented by a graph. 
-      To extract and assign keyphrases to a document, we build two graphs: one with the
-      document topics and one with controlled vocabulary. We design a strategy to unify the two graphs and 
-      choose the keyphrases with  a co-ranking vote.
-      
-      %then co-rank topics and controlled keyphrases.
-      
-      We performed experiments on three datasets of different languages and
-      domains. Results showed that our approach benefits from controlled
-      keyphrases, improving keyphrase annotation as well as both keyphrase extraction and keyphrase assignment.
+      Avec TopicCoRank, nous proposons une extension de la méthode TopicRank que
+      nous présentons dans la
+      section~\ref{sec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction}.
+      Cette extension apporte à TopicRank la capacité à assigner des
+      termes-clés, soit à réaliser la tâche d'indexation par termes-clés dans
+      sa globalité. Pour ce faire, TopicCoRank utilise les termes-clés de
+      références des documents d'entraînement comme vocabulaire contrôlé, crée
+      un graphe dont chaque n\oe{}uds est une entrée du vocabulaire connecté aux
+      autres lorsqu'ils sont termes-clés d'un même document, puis unifie se
+      graphe au graphe de sujets de TopicRank.
 
-      This work can be used to annotate keyphrases in the way of professional
-      indexers. TopicCoRank is able to detect new concepts that could be added
-      to terminological data.
-      
-      TopicCoRank can also be adapted to more specific problems. For instance,
-      in some cases it might be interesting to assign very specific keyphrases to the
-      document, whereas in other cases it may be interesting to assign more general keyphrases. The
-      minimum depth between a controlled keyphrase and a document topic within the unified graph encodes this
-      degree of generalization. A controlled keyphrase directly connected to a
-      document topic has the lowest generalization regarding the document,
-      followed by its connected controlled keyphrases, etc.
-
-      \TODO{s'inspirer}
-
-      Avec TopicRank, nous proposons une méthode à base de graphe pour
-      l'extraction non supervisée de termes-clés. Elle groupe les termes-clés
-      candidats en sujets, détermine quels sont ceux les plus importants, puis
-      extrait le terme-clé candidat qui représente le mieux chacun des sujets
-      les plus importants. Cette nouvelle méthode offre plusieurs avantages
-      vis-à-vis des précédentes méthodes à base de graphe. Le groupement des
-      termes-clés potentiels en sujets distincts permet de rassembler des
-      informations relatives au même sujets et le choix d'un seul terme-clé
-      pour représenter un sujet important permet d'extraire un ensemble de
-      termes-clés non redondants (pour $k$ termes-clés extraits, exactement
-      $k$ sujets sont couverts). Enfin, le graphe est complet et ne requiert
-      plus le paramétrage d'une fenêtre de cooccurrences.
-
-      Les bons résultats de notre méthode montrent la pertinence d'un
-      groupement des candidats en sujets et d'un ordonnancement de ces sujets,
-      plutôt que des mots. Les expériences montrent aussi qu'il est encore
-      possible d'améliorer notre méthode en proposant une nouvelle stratégie
-      de sélection du terme-clé candidat le plus représentatif d'un sujet.
-      Dans un premier temps, nous souhaitons explorer plus encore l'usage du
-      graphe et de étendre à l'assignement de termes-clés.
+      Les évaluations que nous avons réalisées montrent que TopicCoRank améliore
+      les méthodes d'extraction et d'assignement. \TODO{trop court}
 
   %-----------------------------------------------------------------------------
 
