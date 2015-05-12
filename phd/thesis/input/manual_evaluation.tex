@@ -1,5 +1,5 @@
-\chapter{Évaluation qualitative}
-\label{chap:main-automatic_evaluation_of_keyphrase_annotation}
+\chapter{Évaluation manuelle}
+\label{chap:main-manuelle_evaluation_of_keyphrase_annotation}
   \chaptercite{
     The performance of most keyphrase extraction algorithms is [automatically]
     evaluated by comparing whether the extracted keyphrases exactly match the
@@ -11,17 +11,44 @@
 
   \section{Introduction}
   \label{sec:main-automatic_evaluation_of_keyphrase_annotation-introduction}
-    \TODO{L'évaluation automatique c'est pas cool BLABLABLA}. \TODO{Le projet
-    Termith met à notre disposition BLABLABLA}.
-
-    \TODO{Nous présentons notre travail commun avec l'Inist et l'INRIA}
-    \TODO{Plan}
+    Pour évaluer les performances d'une méthode d'indexation par termes-clés et
+    la comparée aux autres méthodes, il est courant d'utiliser un système
+    d'évaluation automatique. Un tel système utilise un jugement de référence
+    (termes-clés de référence) qu'il compare aux sorties de la
+    méthode~\cite{voorhees2002philosophy}. Si un terme-clé donné par la méthode
+    fait partie des termes-clés de référence, alors celui-ci est jugé correct,
+    sinon il est jugé incorrect. Alternative viable et plus accessible que
+    l'évaluation manuelle, l'évaluation automatique possède toutefois un
+    inconvénient majeur~: la condition stricte d'appartenance au jugement de
+    référence n'est pas adaptée à une tâche subjective telle que celle de
+    l'indexation par termes-clés et rend pessimiste l'évaluation de cette
+    dernière~\cite{hasan2014state_of_the_art}. Bien que certains travaux tentent
+    de résoudre ce problème en acceptant des supposées variantes des termes-clés
+    de référence~\cite{zesch2009rprecision,kim2010rprecision}, aucun ne
+    quantifie la divergence sémantique entre le terme-clé de référence et sa
+    variante. Dans ce dernier cas, l'évaluation pert certes en pessimisme, mais
+    elle pert aussi en exactitude.
+    
+    Pour compléter les évaluations automatiques que nous utilisons pour évaluer
+    nos travaux présentés dans le
+    chapitre~\ref{chap:main-automatic_keyphrase_annotation}, le projet Termith
+    et l'Inist mettent à notre disposition des indexeurs professionnels pour
+    évaluer manuellement les termes-clés produits par nos méthodes. Ce travail,
+    réalisé conjointement avec l'Inist et l'Inria Saclay donne lieu à la
+    formalisation d'un protocole d'évaluation et à la spécification d'un format
+    d'échange permettant de distribuer les données indexées par nos méthodes
+    et leur évaluation. Additionnellement, rendre public ces données poura
+    permettre l'étude de nouvelles méthodes d'évaluation automatique, notamment
+    leur corrélation avec une évaluation réalisée par des humains.
 
   %-----------------------------------------------------------------------------
 
-  \section{Démarche}
+  \section{Méthodologie}
   \label{section:main-automatic_evaluation_of_keyphrase_annotation-methodology}
-    \TODO{\dots}
+    Dans cette section, nous décrivons le protocole mis en place pour
+    l'évaluation manuelle des méthodes d'indexation par termes-clés et
+    présentons le format utilisé pour pérenniser les différentes étapes
+    (indexation automatique et évaluation manuelle selon divers aspects).
 
     \subsection{Protocole d'évaluation}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol}
@@ -37,7 +64,7 @@
 
   %-----------------------------------------------------------------------------
 
-  \section{Results}
+  \section{Resultats}
   \label{sec:main-automatic_evaluation_of_keyphrase_annotation-results}
     \TODO{intro $\rightarrow$ évaluation en ? phrases}
     
