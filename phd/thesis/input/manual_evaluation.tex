@@ -14,20 +14,20 @@
     Pour évaluer les performances d'une méthode d'indexation par termes-clés et
     la comparée aux autres méthodes, il est courant d'utiliser un système
     d'évaluation automatique. Un tel système utilise un jugement de référence
-    (termes-clés de référence) qu'il compare aux sorties de la
-    méthode~\cite{voorhees2002philosophy}. Si un terme-clé donné par la méthode
-    fait partie des termes-clés de référence, alors celui-ci est jugé correct,
-    sinon il est jugé incorrect. Alternative viable et plus accessible que
+    qu'il compare aux sorties de la méthode~\cite{voorhees2002philosophy}. Dans
+    notre cas, si un terme-clé donné par la méthode fait partie des termes-clés
+    de référence (jugement de référence), alors celui-ci est jugé correct, sinon
+    il est jugé incorrect. Alternative viable et plus accessible que
     l'évaluation manuelle, l'évaluation automatique possède toutefois un
     inconvénient majeur~: la condition stricte d'appartenance au jugement de
     référence n'est pas adaptée à une tâche subjective telle que celle de
-    l'indexation par termes-clés et rend pessimiste l'évaluation de cette
-    dernière~\cite{hasan2014state_of_the_art}. Bien que certains travaux tentent
-    de résoudre ce problème en acceptant des supposées variantes des termes-clés
-    de référence~\cite{zesch2009rprecision,kim2010rprecision}, aucun ne
-    quantifie la divergence sémantique entre le terme-clé de référence et sa
+    l'indexation par termes-clés et elle rend donc pessimiste l'évaluation de
+    cette dernière~\cite{hasan2014state_of_the_art}. Bien que certains travaux
+    tentent de résoudre ce problème en acceptant des supposées variantes des
+    termes-clés de référence~\cite{zesch2009rprecision,kim2010rprecision}, aucun
+    ne quantifie la divergence sémantique entre un terme-clé de référence et sa
     variante. Dans ce dernier cas, l'évaluation pert certes en pessimisme, mais
-    elle pert aussi en exactitude.
+    aussi en exactitude.
     
     Pour compléter les évaluations automatiques que nous utilisons pour évaluer
     nos travaux présentés dans le
@@ -37,9 +37,10 @@
     réalisé conjointement avec l'Inist et l'Inria Saclay donne lieu à la
     formalisation d'un protocole d'évaluation et à la spécification d'un format
     d'échange permettant de distribuer les données indexées par nos méthodes
-    et leur évaluation. Additionnellement, rendre public ces données poura
-    permettre l'étude de nouvelles méthodes d'évaluation automatique, notamment
-    leur corrélation avec une évaluation réalisée par des humains.
+    ainsi que leur évaluation. Additionnellement, rendre public ces données
+    pourra permettre l'étude de nouvelles méthodes d'évaluation automatique,
+    notamment leur corrélation avec les évaluations manuelles de plusieurs
+    méthodes.
 
   %-----------------------------------------------------------------------------
 
@@ -50,17 +51,144 @@
     présentons le format utilisé pour pérenniser les différentes étapes
     (indexation automatique et évaluation manuelle selon divers aspects).
 
-    \subsection{Protocole d'évaluation}
+    \subsection{Protocole d'évaluation manuelle}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol}
-      \TODO{que veut-on évaluer ? $\rightarrow$ pertinence et silence}
-      \TODO{Comment ? $\rightarrow$ c'est ça le protocole biatch}
+      Le protocole d'évaluation manuelle que nous proposons permet d'évaluer
+      deux aspects de l'indexation automatique par termes-clés~:
+      \begin{enumerate}
+        \item{Pertinence~: chaque terme-clé fourni par la méthode d'indexation
+              automatique par termes-clés est-il important pour la compréhension
+              du contenu principal du document~?}
+        \item{Silence~: quel est le degré d'importance des informations perdues
+              entre les termes-clés de référence et les termes-clés fournis par
+              la méthode d'indexation automatique par termes-clés~?}
+      \end{enumerate}
+      L'évaluation de la pertinence traite le même aspect que l'évaluation
+      automatique~: le nombre de termes-clés correctes doit être maximisé pour
+      obtenir la meilleure performance. L'évaluation du silence traite un aspect
+      qui n'est pas traité par l'évaluation automatique. Elle a une dimension
+      plus sémantique~: les termes-clés correctes dont l'information est la plus
+      capitale à la compréhension du contenu principal du document doivent être
+      priorisés pour obtenir la meilleure performance.
+
+      \subsubsection{Évaluation de la pertinence}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol-relevancy}
+        Pour évaluer la pertinence d'un terme-clé fourni par une méthode
+        d'indexation par termes-clés, l'évaluateur doit lui attribuer un score
+        sur une échelle de 0 à 2. Ce score distingue les termes-clés incorrects
+        (0), les termes-clés corrects (2) et les variantes de ces derniers (1).
+
+        Pour permettre une étude précise de cette évaluation, les indexeurs
+        professionnels doivent indiquer la forme préférée des termes-clés
+        auquels ils donnent un score de 1 (variantes). Une variante peut faire
+        référence à deux catégories de formes préférées, qui induisent deux
+        raisonnement différents~:
+        \begin{itemize}
+          \item{forme préférée présente parmi les termes-clés fournis (score de
+                2)~$\Rightarrow$~la méthode d'indexation par termes-clés fournie
+                des termes-clés redondants~;}
+          \item{forme préférée présente uniquement dans le
+                document~$\Rightarrow$~la méthode d'indexation par termes-clés
+                identifie correctement les sujets importants du document, mais
+                peine à trouver leur forme la plus appropriée pour les
+                représenter.}
+        \end{itemize}
+
+        Lorsque la forme préférée n'est pas présente dans le document, nous
+        estimons que la méthode d'indexation a fourni un terme-clé correct,
+        auquel cas il se voit attribuer le score de 2. Les formes variantes
+        résultant d'un accord en nombre obtiennent aussi un score de 2, lorsque
+        la forme normalisée (singulier) ne se trouve pas parmi les termes-clés
+        fournis.
+
+        \TODO{commentaires des indexeurs~???}
+
+        \TODO{exemples}
+
+      \subsubsection{Évaluation du silence}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol-silence}
+        Pour évaluer le silence, l'évaluateur doit attribuer à chaque terme-clé
+        de référence un score sur une échelle de 0 à 2. Ce score permet
+        d'indiquer s'il n'y pas de perte d'information (0), si l'information
+        perdue est capitale (2) ou si elle est secondaire (1).  Lorsqu'un
+        terme-clé de référence obtient un score de 0, cela signifie soit qu'il
+        fait partie des termes-clés fournis par la méthode d'indexation par
+        termes-clés (avec un score de 2 ou de 1), soit que l'indexeur juge qu'il
+        ne devrait pas être un terme-clé de référence, que c'est une erreur.
+
+        Une perte d'information n'est pas jugée capitale (score de 1) dans deux
+        cas de figure différents~:
+        \begin{itemize}
+          \item{terme-clé de référence secondaire~: le terme-clé de référence
+                n'apporte pas l'information la plus importante~;}
+          \item{terme-clé de référence générique~: le terme-clé de référence
+                n'est pas suffisamment spécifique au contenu du document, il a
+                un usage classificatoire~;}
+        \end{itemize}
+        Afin de minimiser les pertes d'informations dues à des termes-clés de
+        référence qui ne sont pas présents dans le document, les évaluateur
+        doivent leur attribuer un score de 1.
+
+        \TODO{commentaires des indexeurs~???}
+
+        \TODO{exemples}
 
     \subsection{Format des données}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format}
-      \TODO{expliquer que nous ajoutons des annotations (et sous annotations) au
-      document}
-      \TODO{présenter les format TEI et TBX}
-      \TODO{spécification de nos shéma d'annotation}
+      Les documents distribués à l'issue de l'évaluation manuelle se présentent
+      sous la forme de données structurées comprenant leurs
+      informations factuelles (titre, auteurs, affiliation des auteurs, etc.),
+      leur contenu textuel et leurs annotation en termes-clés effectuées par
+      différentes méthodes, elles même annotées avec l'évaluation manuelle. Les
+      données sont structurées au format \textsc{Xml} (\textit{eXtensible Markup
+      Language}), d'après les standards \textsc{Tei} (\textit{Text Encoding
+      Initiative}) et \textsc{Tbx} (\textit{TermBase eXchange}).
+
+      \subsubsection{Format \textsc{Xml}}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-xml}
+        \textsc{Xml} est un language pour encoder des documents de sorte qu'ils
+        soient interprétable aussi bien par un humain que par une machine. Un
+        document \textsc{Xml} se présente sous la forme d'un arbre. Chaque
+        n\oe{}ud de l'arbre représente une partie du document (par exemple, un
+        titre), exprimé textuellement entre une balise ouvrante et une balise
+        fermante (par exemple, \texttt{<titre>} et \texttt{</titre>}).
+
+      \subsubsection{Standard \textsc{Tei}}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-tei}
+        Le standard \textsc{Tei} propose un schéma de codage normalisé et
+        structuré pour décrire toute sorte de documents numériques. Bien plus
+        qu'une simple spécification de format, il s'agit d'un cadre permettant
+        de créer des spécifications \textsc{Xml} personnalisées. Une
+        spécification \textsc{Xml} \textsc{Tei} est organisée en trois niveaux~:
+        \begin{enumerate}
+          \item{Le c\oe{}ur~: spécification des éléments structurels commun à
+                tout document \textsc{Tei} (en-tête, corps du text, paragraphe,
+                etc.)~;}
+          \item{Un jeu d'éléments structurels spécifiques~: spécification des
+                éléments spécifiques à certains genres de document (théâtre,
+                discours, dictionnaire, etc.)~;}
+          \item{Des modules additionnels.}
+        \end{enumerate}
+
+        \TODO{exemple de notice Inist en \textsc{Tei}}
+
+      \subsubsection{Standard \textsc{Tbx}}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-tbx}
+        Le standard \textsc{Tbx} décrit un format de représentation de bases
+        terminologiques. Les éléments qui composent la base de données
+        terminologique sont organisés d'après le standard \textsc{Tmf}
+        (\textit{Terminological Markup Framework}). En outre des éléments
+        factuels, une base terminologique \textsc{Tbx} est composée de concepts,
+        représentés par un ou plusieurs termes réparties selon leur langue
+        (\TODO{voir la figure du méta-modèle \textsc{TMF}}).
+
+        \TODO{\dots}
+
+        \TODO{exemple}
+
+      \subsubsection{Format d'échange utilisé}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-final_format}
+        \TODO{\dots}
 
   %-----------------------------------------------------------------------------
 
