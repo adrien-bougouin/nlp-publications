@@ -75,6 +75,11 @@
       capitale à la compréhension du contenu principal du document doivent être
       priorisés pour obtenir la meilleure performance.
 
+      Afin de minimiser les problèmes d'ambiguïté et de subjectivité de certains
+      cas de figure, la pertinence et le silence sont évalués sur une échelle à
+      trois valeurs~: une valeur représentant l'échec, une autre représentant le
+      succès et une dernière valeur représentant un cas intermédiaire.
+
       \subsubsection{Évaluation de la pertinence}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol-relevancy}
         Pour évaluer la pertinence d'un terme-clé fourni par une méthode
@@ -91,7 +96,7 @@
           \item{variante d'un terme-clé déjà fourni (score de
                 2)~$\Rightarrow$~la méthode d'indexation par termes-clés fourni
                 des termes-clés redondants~;}
-          \item{variante d'un terme-clé pas fourni mais présent dans le
+          \item{variante d'un terme-clé non fourni mais présent dans le
               texte~$\Rightarrow$~la méthode d'indexation par termes-clés
                 identifie correctement les sujets importants du document, mais
                 peine à trouver leur forme la plus appropriée pour les
@@ -113,7 +118,7 @@
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol-silence}
         Pour évaluer le silence, l'évaluateur doit attribuer à chaque terme-clé
         de référence un score indiquant le degré d'importance de l'information
-        qu'il véhicule et qui n'est pas capturé par un terme-clé fourni par une
+        qu'il véhicule et qui n'est pas capturée par un terme-clé fourni par une
         méthode d'indexation par termes-clés. Sur une échelle de 0 à 2, ce score
         permet d'indiquer s'il n'y pas de perte d'information (0), si
         l'information perdue est capitale (2) ou si elle est secondaire (1).
@@ -157,10 +162,11 @@
         soient interprétable aussi bien par un humain que par une machine. Un
         document \textsc{Xml} se présente sous la forme d'un arbre. Chaque
         n\oe{}ud de l'arbre représente une partie du document (par exemple, un
-        titre), exprimé textuellement entre une balise ouvrante et une balise
-        fermante (par exemple, \texttt{<titre>} et \texttt{</titre>}).
+        titre), délimitée par une balise ouvrante et une balise fermante (par
+        exemple, \texttt{<titre>} et \texttt{</titre>}).
 
-        \TODO{exemple}
+        \TODO{La figure BLABLABLA montre un exemple de représentation \textsc{Xml}
+        d'un notice Termith (cf figure ?? page ??)}
 
       \subsubsection{Standard \textsc{Tei}}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-tei}
@@ -179,26 +185,50 @@
           \item{Des modules additionnels.}
         \end{enumerate}
 
-        \TODO{exemple de notice Inist en \textsc{Tei}}
+        \TODO{La figure BLABLABALA montre un exemple de notice Termith (cf
+        figure ?? page ??) encodée au format \textsc{Tei}}
 
       \subsubsection{Standard \textsc{Tbx}}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-tbx}
         Le standard \textsc{Tbx} décrit un format de représentation de bases
         terminologiques. Les éléments qui composent la base de données
         terminologique sont organisés d'après le standard \textsc{Tmf}
-        (\textit{Terminological Markup Framework}). En outre des éléments
+        (\textit{Terminological Markup Framework}) présenté dans la figure
+        \TODO{hiérarchie \textsc{Tmf}}. En outre des éléments
         factuels, une base terminologique \textsc{Tbx} est composée de concepts
         (\texttt{<termEntry>}), représentés par un ou plusieurs termes
-        (\texttt{<tig>}) réparties selon leur langue (\texttt{<langSet>})
-        (\TODO{voir la figure du méta-modèle \textsc{TMF}}).
+        (\texttt{<tig>}) réparties selon leur langue (\texttt{<langSet>}).
 
-        \TODO{\dots}
-
-        \TODO{exemple}
+        \TODO{La figure BLABLABLA montre un extrait de vocabulaire contrôlé de
+        linguistique au format \textsc{Tbx}}
 
       \subsubsection{Format d'échange utilisé}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-final_format}
-        \TODO{\dots}
+        Le format de données utilisé pour distribuer les résultats de
+        l'évaluation manuelle permet de pérenniser chaque notice, ses
+        termes-clés fournis par différentes méthodes explicitement identifiées
+        et l'évaluation de la pertinence et du silence de chacune de ces
+        méthodes. Ce format garde en mémoire toutes les étapes successives afin
+        de faciliter toute exploitation future par la communauté scientifique.
+
+        Chaque notice est représentée au format \textsc{Tei}, comme dans
+        l'exemple de la figure \TODO{exemple donné pour le format \textsc{}Tei},
+        une couche d'annotations est ensuite ajoutée à chaque méthode
+        d'indexation par termes-clés et une sous-couche d'annotations
+        représentant l'évaluation manuelle leur est ajoutée. Les termes-clés
+        fournis sont représentés au format \textsc{Tbx} et leur évaluation au
+        format \textsc{Tei}.
+        
+        La figure \TODO{exemple} montre un exemple de notice annotée
+        successivement en termes-clés puis avec l'évaluation manuelle. Une
+        annotation est délimitée par la balise ouvrante \texttt{<stdf>} et la
+        balise fermante \texttt{</stdf>}. Cette balise permet d'indiquer une
+        annotation d'un élément \textsc{Xml} en dehors de celui-ci. Dans notre
+        exemple, l'annotation en termes-clés s'intéresse au résumé (entre les
+        balises \texttt{<abstract>} et \texttt{</abstract>}). Dans le respect du
+        format \textsc{Tbx}, chauqe terme-clé est représenté par un élément
+        \texttt{termEntry}. \TODO{décrire de manière moin enfantine}
+        \TODO{décrire les annotations de l'évaluation}
 
   %-----------------------------------------------------------------------------
 
