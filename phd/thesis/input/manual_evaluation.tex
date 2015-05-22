@@ -1,4 +1,4 @@
-\chapter{Évaluation manuelle}
+\chapter{Évaluations manuelles}
 \label{chap:main-manuelle_evaluation_of_keyphrase_annotation}
   \chaptercite{
     The performance of most keyphrase extraction algorithms is [automatically]
@@ -148,20 +148,20 @@
     \subsection{Format des données}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format}
       Les documents distribués à l'issue de l'évaluation manuelle se présentent
-      sous la forme de données structurées comprenant leurs
-      informations factuelles (titre, auteurs, affiliation des auteurs, etc.),
-      leur contenu textuel et leurs annotations en termes-clés effectuées par
-      différentes méthodes, elles même annotées avec l'évaluation manuelle. Les
-      données sont structurées au format \textsc{Xml} (\textit{eXtensible Markup
-      Language}), d'après les standards \textsc{Tei} (\textit{Text Encoding
-      Initiative}) et \textsc{Tbx} (\textit{TermBase eXchange}).
+      sous la forme de données structurées comprenant leurs informations
+      factuelles (titre, auteurs, affiliation des auteurs, etc.), leur contenu
+      textuel et leurs indexations par termes-clés effectuées par différentes
+      méthodes, elles même annotées par un évaluateur. Les données sont
+      structurées au format \textsc{Xml} (\textit{eXtensible Markup Language}),
+      d'après les standards \textsc{Tei} (\textit{Text Encoding Initiative}) et
+      \textsc{Tbx} (\textit{TermBase eXchange}).
 
       \subsubsection{Format \textsc{Xml}}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-xml}
         \textsc{Xml} est un language pour encoder des documents de sorte qu'ils
-        soient interprétable aussi bien par un humain que par une machine. Un
+        soient interprétables aussi bien par un humain que par une machine. Un
         document \textsc{Xml} se présente sous la forme d'un arbre. Chaque
-        n\oe{}ud de l'arbre représente une partie du document (par exemple, un
+        élément de l'arbre représente un champ du document (par exemple, un
         titre), délimitée par une balise ouvrante et une balise fermante (par
         exemple, \texttt{<titre>} et \texttt{</titre>}).
 
@@ -196,51 +196,104 @@
         (\textit{Terminological Markup Framework}) présenté dans la figure
         \TODO{hiérarchie \textsc{Tmf}}. En outre des éléments
         factuels, une base terminologique \textsc{Tbx} est composée de concepts
-        (\texttt{<termEntry>}), représentés par un ou plusieurs termes
-        (\texttt{<tig>}) réparties selon leur langue (\texttt{<langSet>}).
+        (élément \texttt{termEntry}), représentés par un ou plusieurs termes
+        (élément \texttt{tig}) groupés par langue (élément \texttt{langSet}).
 
-        \TODO{La figure BLABLABLA montre un extrait de vocabulaire contrôlé de
-        linguistique au format \textsc{Tbx}}
+        \TODO{La figure BLABLABLA montre un extrait de vocabulaire contrôlé au
+        format \textsc{Tbx}}
 
       \subsubsection{Format d'échange utilisé}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-final_format}
         Le format de données utilisé pour distribuer les résultats de
         l'évaluation manuelle permet de pérenniser chaque notice, ses
-        termes-clés fournis par différentes méthodes explicitement identifiées
-        et l'évaluation de la pertinence et du silence de chacune de ces
-        méthodes. Ce format garde en mémoire toutes les étapes successives afin
-        de faciliter toute exploitation future par la communauté scientifique.
+        termes-clés fournis par différentes méthodes et l'évaluation de la
+        pertinence et du silence de chacune de ces méthodes. Ce format garde en
+        mémoire toutes les étapes successives afin de faciliter les
+        exploitations futures par la communauté scientifique.
 
-        Chaque notice est représentée au format \textsc{Tei}, comme dans
-        l'exemple de la figure \TODO{exemple donné pour le format \textsc{}Tei},
-        une couche d'annotations est ensuite ajoutée à chaque méthode
-        d'indexation par termes-clés et une sous-couche d'annotations
-        représentant l'évaluation manuelle leur est ajoutée. Les termes-clés
-        fournis sont représentés au format \textsc{Tbx} et leur évaluation au
-        format \textsc{Tei}.
-        
-        La figure \TODO{exemple} montre un exemple de notice annotée
-        successivement en termes-clés puis avec l'évaluation manuelle. Une
-        annotation est délimitée par la balise ouvrante \texttt{<stdf>} et la
-        balise fermante \texttt{</stdf>}. Cette balise permet d'indiquer une
-        annotation d'un élément \textsc{Xml} en dehors de celui-ci. Dans notre
-        exemple, l'annotation en termes-clés s'intéresse au résumé (entre les
-        balises \texttt{<abstract>} et \texttt{</abstract>}). Dans le respect du
-        format \textsc{Tbx}, chauqe terme-clé est représenté par un élément
-        \texttt{termEntry}. \TODO{décrire de manière moin enfantine}
-        \TODO{décrire les annotations de l'évaluation}
+        Chaque notice est représentée au format \textsc{Tei} (\TODO{exemple
+        donné pour le format \textsc{}Tei}), une couche d'annotation
+        \textsc{Tei} (\textit{stand-off}) est ajoutée pour chaque méthode
+        d'indexation par termes-clés et une sous-couche d'annotation
+        \textsc{Tei} décrivant les résultats de l'évaluation manuelle est
+        ajoutée à chacune d'elles (\TODO{exemple du format}).
+
+        \TODO{format pour les termes-clés}
+
+        \TODO{format pour les évaluations manuelles}
 
   %-----------------------------------------------------------------------------
 
-  \section{Resultats}
+  \section{Analyse des évaluations manuelles}
   \label{sec:main-automatic_evaluation_of_keyphrase_annotation-results}
     \TODO{intro $\rightarrow$ évaluation en ? phrases}
     
-    \TODO{phase 1~: évaluation de la pertinence + évaluation du silence}
-    \TODO{ne pas oublier de rappeler les données et les méthodes}
+    \subsection{Évaluation manuelle de TopicRank}
+    \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank}
+      \TODO{phase 1~: évaluation de la pertinence + évaluation du silence}
+      \TODO{ne pas oublier de rappeler les données et les méthodes}
+    
+      \subsubsection{Pertinence}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence}
+      \begin{table}[h!]
+          \centering
+          \begin{tabular}{l|c|c|c|c}
+            \toprule
+            \multirow{2}{*}{\textbf{Méthode}} & \multirow{2}{*}{\textbf{0}} & \multicolumn{2}{c|}{\textbf{1}} & \multirow{2}{*}{\textbf{2}}\\
+            \cline{3-4}
+            & & \multicolumn{1}{p{.175\linewidth}|}{\centering{}redondant} & \multicolumn{1}{p{.175\linewidth}|}{\centering{}non redondant} &\\
+            \hline
+            \textsc{Tf-Idf} & \textbf{53,8~\%} & 6,8~\% & 4,2~\% & 35,3~\%\\
+            TopicRank & 56,3~\% & \textbf{0,9~\%} & \textbf{5,7~\%} & \textbf{37,1~\%}\\
+            \bottomrule
+          \end{tabular}
+          \caption{Taux de termes-clés avec un score de 0, de 1 ou de 2 pour
+                   l'évaluation de la pertinence de \textsc{Tf-Idf} et de
+                   TopicRank
+                   \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio}}
+        \end{table}
 
-    \TODO{phase 2~: évaluation de la pertinence + évaluation du silence}
-    \TODO{ne pas oublier de rappeler les données et les méthodes}
+        \begin{table}[h!]
+          \centering
+          \begin{tabular}{l|ccc}
+            \toprule
+            \textbf{Méthode} & \textbf{P} & \textbf{R} & \textbf{F}\\
+            \hline
+            \textsc{Tf-Idf} & 39,5 & 29,7 & 33,5\\
+            TopicRank & \textbf{42,8} & \textbf{32,2} & \textbf{36,2}\\
+            \bottomrule
+          \end{tabular}
+          \caption[
+            Performances de \textsc{Tf-Idf} et de TopicRank en termes de
+            précision, de rappel et de f-mesure
+          ]{
+            Performances de \textsc{Tf-Idf} et de TopicRank en termes de
+            précision (P), de rappel (R) et de f-mesure (F)
+            \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-prf}}
+        \end{table}
+    
+      \subsubsection{Silence}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-silence}
+        \begin{table}[h!]
+          \centering
+          \begin{tabular}{l|c|c|c}
+            \toprule
+            \textbf{Méthode} & \textbf{0} & \textbf{1} & \textbf{2}\\
+            \hline
+            \textsc{Tf-Idf} & 31,4~\% & 48,5~\% & 20,1~\%\\
+            TopicRank & \textbf{35,0~\%} & \textbf{48,3~\%} & \textbf{16,8~\%}\\
+            \bottomrule
+          \end{tabular}
+          \caption{Taux de termes-clés de référence avec un score de 0, de 1 ou
+                   de 2 pour l'évaluation du silence de \textsc{Tf-Idf} et de
+                   TopicRank
+                   \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-silence_score_ratio}}
+        \end{table}
+
+    \subsection{Évaluation manuelle de TopicCoRank}
+    \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-results-topiccorank}
+      \TODO{phase 2~: évaluation de la pertinence + évaluation du silence}
+      \TODO{ne pas oublier de rappeler les données et les méthodes}
 
     \TODO{\dots}
 

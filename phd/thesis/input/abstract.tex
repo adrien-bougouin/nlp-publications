@@ -1,1 +1,25 @@
-\lipsum[1-2]
+A keyphrase is a word or a multi-word expression that represent one of the most
+important aspects of a document. Similar to an abstract, a set of keyphrases
+associated to a document prodvides a synthetical representation of it. As a
+consequence, readers can easily and precisely get the big picture of a document
+without reading it entirely. They are also used to index documents so that
+anyone can easily find them. Although keyphrases are very usefull in such a
+contemporary world where knwoledges are numerically stored and accessible from
+anywhere, documents do not always have associated keyphrases. Therefore,
+automatic keyphrase annotation is a challenging task. Studied since a few
+decades, best reported performances are far below 100~\% precision. This thesis
+addresses the automatic keyphrases annotation and presents three new methods.
+
+First, we tackle the keyphrase candidate selection problem. Keyphrase candidates
+are textual units that could be keyphrases based on shallow observations. Our
+candidate selection method relies on a preliminary study of linguistic
+properties of ground truth keyphrases from various datasets. This method shows
+that filtering heuristics focused on adjective categories contribute to the
+selections of better candidates. Second, we propose an unsupervised keyphrase
+annotation method that ranks by importance the topics of the document using the
+graph-based algorithm historically used by the famous search engine Google. This
+method performs better performances than previous graph-based methods and more
+efficiently deals with redundancy. Finally, we extend the previous method. We
+leverage the domain knowledge and assign keyphrases that do not always occur
+within the document.
+

@@ -131,21 +131,23 @@
 
 \begin{document}
   % must not exceed one page (displayed on the last page)
-  \begin{resume}\justify%\footnotesize
+  \begin{resume}\justify\scriptsize
     \input{input/resume.tex}
   \end{resume}
 
-  \begin{motscles}
-     ---, ---, ---, ---.
+  \begin{motscles}\scriptsize
+     Terme-clé, mot-clé, domaine de spécialité, indexation automatique, méthode
+     à base de graphe.
   \end{motscles}
 
   % must not exceed one page (displayed on the last page)
-  \begin{abstract}\justify%\footnotesize
+  \begin{abstract}\justify\scriptsize
     \input{input/abstract.tex}
   \end{abstract}
 
-  \begin{keywords}
-     ---, ---, ---, ---.
+  \begin{keywords}\scriptsize
+     Keyphrase, keyword, specific domain, automatic keyphrase annotation,
+     graph-based method.
   \end{keywords}
 
   \maketitle
@@ -154,7 +156,7 @@
   %\frontmatter      % forbidden
 
 %  \input{input/acknowledgment.tex}
-%  \input{input/abstracts.tex}
+  \input{input/abstracts.tex}
 
   \tableofcontents
   \listoftables
