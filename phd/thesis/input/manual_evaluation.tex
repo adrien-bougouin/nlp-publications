@@ -165,8 +165,22 @@
         titre), délimitée par une balise ouvrante et une balise fermante (par
         exemple, \texttt{<titre>} et \texttt{</titre>}).
 
-        \TODO{La figure BLABLABLA montre un exemple de représentation \textsc{Xml}
-        d'un notice Termith (cf figure ?? page ??)}
+        La figure~\ref{fig:xml_example} donne un exemple de représentation
+        \textsc{Xml} d'une notice Termith. Il s'agit de la notice donnée en
+        exemple dans la figure~\ref{fig:example_inist}
+        (page~\ref{fig:example_inist}) du
+        chapitre~\ref{chap:main-data_description}. Dans le format \textsc{Xml},
+        la nature de chaque élément de la notice est clairement identifiée par
+        les balises \textsc{Xml}.
+        \begin{figure}[h!]
+          \lstset{language=XML}
+          \lstset{morekeywords={notice, titre, resume}}
+          \lstset{literate={'}{{'}}1 {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {à}{{\`a}}1 {ô}{{\^o}}1}
+          \lstset{frame=single}
+          \lstinputlisting{input/data/linguistics_xml_example.xml}
+          \caption{Exemple de notice de linguistique au format \textsc{Xml}
+                   \label{fig:xml_example}}
+        \end{figure}
 
       \subsubsection{Standard \textsc{Tei}}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-tei}
@@ -184,23 +198,61 @@
                 discours, dictionnaire, etc.)~;}
           \item{Des modules additionnels.}
         \end{enumerate}
-
-        \TODO{La figure BLABLABALA montre un exemple de notice Termith (cf
-        figure ?? page ??) encodée au format \textsc{Tei}}
+        La figure~\ref{fig:tei_example} donne un exemple de représentation
+        \textsc{Xml} \textsc{Tei} de la notice Termith représentée avec un
+        format \textsc{Xml} simple dans la figure~\ref{fig:xml_example}. 
+        \begin{figure}[h!]
+          \lstset{language=XML}
+          \lstset{morekeywords={encoding, TEI, xmlns, xmlns:tei, teiHeader, fileDesc, sourceDesc, biblStruct, type, analytic, title, author, persName, ana, forename, surname, profileDesc, abstract, p}}
+          \lstset{literate={'}{{'}}1 {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {à}{{\`a}}1 {ô}{{\^o}}1}
+          \lstset{frame=single}
+          \lstinputlisting{input/data/linguistics_tei_example.tei}
+          \caption{Exemple de notice de linguistique au format \textsc{Tei}
+                   \label{fig:tei_example}}
+        \end{figure}
 
       \subsubsection{Standard \textsc{Tbx}}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-tbx}
         Le standard \textsc{Tbx} décrit un format de représentation de bases
         terminologiques. Les éléments qui composent la base de données
         terminologique sont organisés d'après le standard \textsc{Tmf}
-        (\textit{Terminological Markup Framework}) présenté dans la figure
-        \TODO{hiérarchie \textsc{Tmf}}. En outre des éléments
+        (\textit{Terminological Markup Framework}) présenté dans la
+        figure~\ref{fig:tmf}. En outre des éléments
         factuels, une base terminologique \textsc{Tbx} est composée de concepts
         (élément \texttt{termEntry}), représentés par un ou plusieurs termes
         (élément \texttt{tig}) groupés par langue (élément \texttt{langSet}).
+        La figure~\ref{fig:tbx_example} montre un extrait de vocabulaire
+        contrôlé au format \textsc{Tbx}.
+        \begin{figure}
+          \centering
+          \begin{tikzpicture}
+            \node [draw, rectangle] (root) {Terminologie};
+            \node [draw, rectangle, below=of root] (concept) {Concept(s)};
+            \node [draw, rectangle, left=of concept] (factual) {Informations factuelles};
+            \node [draw, rectangle, right=of concept] (other) {Autres informations};
+            \node [draw, rectangle, below=of concept] (langset) {Section(s) de langue};
+            \node [draw, rectangle, below=of langset] (tig) {Section(s) de terme};
+            \node [draw, rectangle, below=of tig] (term) {Terme};
 
-        \TODO{La figure BLABLABLA montre un extrait de vocabulaire contrôlé au
-        format \textsc{Tbx}}
+            \draw [->] (root) -- (concept);
+            \draw [->] (root) -- (factual);
+            \draw [->] (root) -- (other);
+            \draw [->] (concept) -- (langset);
+            \draw [->] (langset) -- (tig);
+            \draw [->] (tig) -- (term);
+          \end{tikzpicture}
+          \caption{Arbre hiérarchique du standard \textsc{Tmf}
+                   \label{fig:tmf}}
+        \end{figure}
+        \begin{figure}[h!]
+          \lstset{language=XML}
+          \lstset{morekeywords={martif, type, martifHeader, text, body,
+          termEntry, langSet, tig, term, xml:id}}
+          \lstset{frame=single}
+          \lstinputlisting{input/data/linguistics_tbx_example.tbx}
+          \caption{Exemple de terminologie au format \textsc{Tbx}
+                   \label{fig:tbx_example}}
+        \end{figure}
 
       \subsubsection{Format d'échange utilisé}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format-final_format}
@@ -211,16 +263,49 @@
         mémoire toutes les étapes successives afin de faciliter les
         exploitations futures par la communauté scientifique.
 
-        Chaque notice est représentée au format \textsc{Tei} (\TODO{exemple
-        donné pour le format \textsc{}Tei}), une couche d'annotation
+        Chaque notice est représentée au format \textsc{Tei} (cf
+        figure~\ref{fig:tei_example}), une couche d'annotation
         \textsc{Tei} (\textit{stand-off}) est ajoutée pour chaque méthode
         d'indexation par termes-clés et une sous-couche d'annotation
         \textsc{Tei} décrivant les résultats de l'évaluation manuelle est
-        ajoutée à chacune d'elles (\TODO{exemple du format}).
+        ajoutée à chacune d'elles.
 
-        \TODO{format pour les termes-clés}
+        La figure~\ref{fig:tei_tbx_keyphrase_example} montre un extrait
+        d'indexation par termes-clés dans le format proposé. Optionnellement,
+        des informations factuelles indiquant des informations telles que le nom
+        et des détails sur le méthode d'indexation par termes-clés utilisée
+        peuvent être ajoutées. Le résultat de l'indexation par termes-clés se
+        trouve dans l'élément \texttt{annotations}. L'ensemble des termes-clés
+        extraits et/ou assignés sont représentés au format \textsc{Tbx}. Chaque
+        terme-clé est un \texttt{termEntry}.
+        \begin{figure}[h!]
+          \lstset{language=XML}
+          \lstset{morekeywords={stdf, xml:id, soHeader, annotations, termEntry, langSet, tig, term}}
+          \lstset{frame=single}
+          \lstinputlisting{input/data/keyphrase_example.xml}
+          \caption{Exemple d'indexation par termes-clés dans le format d'échange
+                   \label{fig:tei_tbx_keyphrase_example}}
+        \end{figure}
 
-        \TODO{format pour les évaluations manuelles}
+        La figure~\ref{fig:tei_tbx_evaluation_example} montre un extrait
+        d'évaluation manuelle dans le format proposé. Celle-ci se trouve dans un
+        élément \texttt{stdf} (\textit{stand-off}), imbriqué dans l'élément
+        \texttt{stdf} de l'indexation par termes-clés qu'elle évalue. Elle
+        répartie en deux groupes d'annotations (élément
+        \texttt{annotationGrp}), le premier pour évaluer la pertinence et le
+        second pour évaluer le silence. Chaque terme-clé est évalué
+        individuellement (élément \texttt{span}), son score est indiqué par
+        l'élément \texttt{num}, un commentaire peut être ajouté dans l'élément
+        \texttt{note} et des liens vers des termes-clés extraits/assignés ou de
+        référence peuvent être indiqué avec l'élément \texttt{link}.
+        \begin{figure}[h!]
+          \lstset{language=XML}
+          \lstset{morekeywords={stdf, soHeader, annotations, annotationGrp, target, type, span, from, num, link, note}}
+          \lstset{frame=single}
+          \lstinputlisting{input/data/evaluation_example.xml}
+          \caption{Exemple d'évaluation automatique dans le format d'échange
+                   \label{fig:tei_tbx_evaluation_example}}
+        \end{figure}
 
   %-----------------------------------------------------------------------------
 
