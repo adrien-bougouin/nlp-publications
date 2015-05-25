@@ -11,37 +11,38 @@
 
   \section{Introduction}
   \label{sec:main-automatic_evaluation_of_keyphrase_annotation-introduction}
-    Pour évaluer les performances d'une méthode d'indexation par termes-clés et
-    la comparée aux autres méthodes, il est courant d'utiliser un système
-    d'évaluation automatique. Un tel système utilise un jugement de référence
-    qu'il compare aux sorties de la méthode~\cite{voorhees2002philosophy}. Dans
-    le cas de l'indexation par termes-clés, si un terme-clé donné par la méthode
-    fait partie des termes-clés de référence (jugement de référence), alors
-    celui-ci est jugé correct, sinon il est jugé incorrect. Alternative viable
-    et plus accessible que l'évaluation manuelle, l'évaluation automatique
-    possède toutefois un inconvénient majeur~: la condition stricte
-    d'appartenance au jugement de référence n'est pas adaptée à une tâche
-    subjective telle que celle de l'indexation par termes-clés et elle rend donc
-    pessimiste l'évaluation de cette dernière. En effet, un même sujet peut êrte
-    représenté par plusieurs expressions variantes, le jugement de référence
-    n'en contient qu'une seule alors que les autres peuvent aussi
-    convenier~\cite{hasan2014state_of_the_art}. Bien que certains travaux
-    tentent de résoudre ce problème en acceptant des supposées variantes des
-    termes-clés de référence~\cite{zesch2009rprecision,kim2010rprecision}, aucun
-    ne quantifie la divergence sémantique entre un terme-clé de référence et sa
-    supposée variante. L'évaluation pert certes en pessimisme, mais aussi en
-    exactitude.
+    Pour évaluer les performances d'une méthode d'indexation automatique par
+    termes-clés et la comparer aux autres méthodes, il est courant d'utiliser un
+    système d'évaluation automatique. Un tel système utilise un jugement de
+    référence qu'il compare aux sorties de la méthode
+    automatique~\cite{voorhees2002philosophy}. Dans le cas de l'indexation par
+    termes-clés, si un terme-clé donné par la méthode fait partie des
+    termes-clés de référence (jugement de référence), alors celui-ci est jugé
+    correct, sinon il est jugé incorrect. Alternative viable et plus accessible
+    que l'évaluation manuelle, l'évaluation automatique possède toutefois un
+    inconvénient majeur~: la condition stricte d'appartenance au jugement de
+    référence n'est pas adaptée à une tâche subjective telle que celle de
+    l'indexation par termes-clés et elle rend donc pessimiste l'évaluation de
+    cette dernière. En effet, un même sujet peut êrte représenté par plusieurs
+    expressions synonymiques, mais le jugement de référence n'en accepte qu'une
+    seule alors que les autres peuvent aussi
+    convenir~\cite{hasan2014state_of_the_art}. Certains travaux tentent de
+    résoudre ce problème en acceptant des variantes des termes-clés de
+    référence~\cite{zesch2009rprecision,kim2010rprecision}. Cependant, aucun ne
+    quantifie la divergence sémantique entre un terme-clé de référence et sa
+    supposée variante. De cette ménière, l'évaluation pert certes en pessimisme,
+    mais aussi en exactitude.
     
     Pour compléter les évaluations automatiques que nous utilisons pour évaluer
     nos travaux présentés dans le
     chapitre~\ref{chap:main-automatic_keyphrase_annotation}, le projet Termith
     et l'Inist mettent à notre disposition des indexeurs professionnels pour
     évaluer manuellement les termes-clés produits par nos méthodes. Ce travail,
-    réalisé conjointement avec l'Inist et l'Inria Saclay donne lieu à la
+    réalisé conjointement avec l'Inist et l'Inria Saclay, donne lieu à la
     formalisation d'un protocole d'évaluation et à la spécification d'un format
     d'échange permettant de distribuer les données indexées par nos méthodes
     ainsi que leur évaluation. Additionnellement, rendre public ces données
-    pourra permettre l'étude de nouvelles méthodes d'évaluation automatique,
+    permettra l'étude de nouvelles méthodes d'évaluation automatiques,
     notamment leur corrélation avec les évaluations manuelles de plusieurs
     méthodes.
 
@@ -52,8 +53,8 @@
     Dans cette section, nous décrivons le protocole mis en place pour
     l'évaluation manuelle des méthodes d'indexation par termes-clés et
     présentons le format utilisé pour pérenniser les différentes étapes
-    (indexation automatique et évaluation manuelle selon divers aspects) et
-    ainsi les rendre disponibles pour la communauté scientifique.
+    (indexation automatique et évaluation manuelle) et ainsi les rendre
+    disponibles pour la communauté scientifique.
 
     \subsection{Protocole d'évaluation manuelle}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol}
@@ -68,10 +69,10 @@
               la méthode d'indexation automatique par termes-clés~?}
       \end{enumerate}
       L'évaluation de la pertinence traite le même aspect que l'évaluation
-      automatique~: le nombre de termes-clés correctes doit être maximisé pour
+      automatique~: le nombre de termes-clés corrects doit être maximisé pour
       obtenir la meilleure performance. L'évaluation du silence traite un aspect
       qui n'est pas traité par l'évaluation automatique. Elle a une dimension
-      plus sémantique~: les termes-clés correctes dont l'information est la plus
+      plus sémantique~: les termes-clés corrects dont l'information est la plus
       capitale à la compréhension du contenu principal du document doivent être
       priorisés pour obtenir la meilleure performance.
 
@@ -106,27 +107,23 @@
         Lorsque la forme préférée n'est pas présente dans le document, nous
         estimons que la méthode d'indexation a fourni un terme-clé correct,
         auquel cas il se voit attribuer le score de 2. Les formes variantes
-        résultant d'un accord en nombre obtiennent aussi un score de 2, lorsque
-        la forme normalisée (singulier) ne se trouve pas parmi les termes-clés
-        fournis.
-
-        \TODO{commentaires des indexeurs~???}
-
-        \TODO{exemples}
+        résultant d'un accord en nombre (pluriel) obtiennent aussi un score de
+        2, lorsque la forme normalisée (singulier) ne se trouve pas parmi les
+        termes-clés fournis.
 
       \subsubsection{Évaluation du silence}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol-silence}
         Pour évaluer le silence, l'évaluateur doit attribuer à chaque terme-clé
         de référence un score indiquant le degré d'importance de l'information
-        qu'il véhicule et qui n'est pas capturée par un terme-clé fourni par une
-        méthode d'indexation par termes-clés. Sur une échelle de 0 à 2, ce score
-        permet d'indiquer s'il n'y pas de perte d'information (0), si
+        qu'il véhicule et qui n'est pas capturée par les termes-clés fournis par
+        une méthode d'indexation par termes-clés. Sur une échelle de 0 à 2, ce
+        score permet d'indiquer s'il n'y pas de perte d'information (0), si
         l'information perdue est capitale (2) ou si elle est secondaire (1).
         Lorsqu'un terme-clé de référence obtient un score de 0, cela signifie
         soit qu'il fait partie des termes-clés fournis par la méthode
         d'indexation par termes-clés, soit que l'indexeur juge qu'il ne devrait
-        pas être un terme-clé de référence, que c'est une erreur parmi les
-        termes-clés de référence.
+        pas être un terme-clé de référence, c'est-à-dire que c'est une erreur
+        parmi les termes-clés de référence.
 
         Une perte d'information est jugée secondaire (score de 1) dans deux
         cas de figure différents~:
@@ -139,11 +136,7 @@
         \end{itemize}
         Afin de minimiser les pertes d'informations dues à des termes-clés de
         référence qui ne sont pas présents dans le document, les évaluateurs
-        attribuent un score de 1.
-
-        \TODO{commentaires des indexeurs~???}
-
-        \TODO{exemples}
+        leur attribuent un score de 1.
 
     \subsection{Format des données}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-data_format}
@@ -171,12 +164,10 @@
         (page~\ref{fig:example_inist}) du
         chapitre~\ref{chap:main-data_description}. Dans le format \textsc{Xml},
         la nature de chaque élément de la notice est clairement identifiée par
-        les balises \textsc{Xml}.
+        les balises \textsc{Xml}, ce qui facilite l'accès aux informations dans
+        le document.
         \begin{figure}[h!]
-          \lstset{language=XML}
-          \lstset{morekeywords={notice, titre, resume}}
-          \lstset{literate={'}{{'}}1 {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {à}{{\`a}}1 {ô}{{\^o}}1}
-          \lstset{frame=single}
+          \setlstxml
           \lstinputlisting{input/data/linguistics_xml_example.xml}
           \caption{Exemple de notice de linguistique au format \textsc{Xml}
                    \label{fig:xml_example}}
@@ -200,12 +191,12 @@
         \end{enumerate}
         La figure~\ref{fig:tei_example} donne un exemple de représentation
         \textsc{Xml} \textsc{Tei} de la notice Termith représentée avec un
-        format \textsc{Xml} simple dans la figure~\ref{fig:xml_example}. 
+        format \textsc{Xml} simple dans la figure~\ref{fig:xml_example}. Il
+        s'agit d'un exemple réel. Le \textsc{Tei} est un standard utilisé par
+        plusieurs éditeurs et bibliothèques numériques.
         \begin{figure}[h!]
-          \lstset{language=XML}
-          \lstset{morekeywords={encoding, TEI, xmlns, xmlns:tei, teiHeader, fileDesc, sourceDesc, biblStruct, type, analytic, title, author, persName, ana, forename, surname, profileDesc, abstract, p}}
-          \lstset{literate={'}{{'}}1 {é}{{\'e}}1 {è}{{\`e}}1 {ê}{{\^e}}1 {à}{{\`a}}1 {ô}{{\^o}}1}
-          \lstset{frame=single}
+          \footnotesize
+          \setlstxml
           \lstinputlisting{input/data/linguistics_tei_example.tei}
           \caption{Exemple de notice de linguistique au format \textsc{Tei}
                    \label{fig:tei_example}}
@@ -217,22 +208,23 @@
         terminologiques. Les éléments qui composent la base de données
         terminologique sont organisés d'après le standard \textsc{Tmf}
         (\textit{Terminological Markup Framework}) présenté dans la
-        figure~\ref{fig:tmf}. En outre des éléments
-        factuels, une base terminologique \textsc{Tbx} est composée de concepts
-        (élément \texttt{termEntry}), représentés par un ou plusieurs termes
-        (élément \texttt{tig}) groupés par langue (élément \texttt{langSet}).
-        La figure~\ref{fig:tbx_example} montre un extrait de vocabulaire
-        contrôlé au format \textsc{Tbx}.
+        figure~\ref{fig:tmf}. En outre des éléments factuels, une base
+        terminologique \textsc{Tbx} est composée de concepts, représentés par un
+        ou plusieurs termes groupés par langue. La figure~\ref{fig:tbx_example}
+        montre un extrait de vocabulaire contrôlé au format \textsc{Tbx}. Un
+        concept est représenté par un \texttt{termEntry}, un terme est
+        représenté par un \texttt{term} dans un élément \texttt{tig} et le
+        groupement en langue est effectué par un élément \texttt{langSet}.
         \begin{figure}
           \centering
           \begin{tikzpicture}
-            \node [draw, rectangle] (root) {Terminologie};
-            \node [draw, rectangle, below=of root] (concept) {Concept(s)};
-            \node [draw, rectangle, left=of concept] (factual) {Informations factuelles};
-            \node [draw, rectangle, right=of concept] (other) {Autres informations};
-            \node [draw, rectangle, below=of concept] (langset) {Section(s) de langue};
-            \node [draw, rectangle, below=of langset] (tig) {Section(s) de terme};
-            \node [draw, rectangle, below=of tig] (term) {Terme};
+            \node  (root) {Terminologie};
+            \node [below=of root] (concept) {Concept(s)};
+            \node [left=of concept] (factual) {Informations factuelles};
+            \node [right=of concept] (other) {Autres informations};
+            \node [below=of concept] (langset) {Section(s) de langue};
+            \node [below=of langset] (tig) {Section(s) de terme};
+            \node [below=of tig] (term) {Terme};
 
             \draw [->] (root) -- (concept);
             \draw [->] (root) -- (factual);
@@ -245,10 +237,7 @@
                    \label{fig:tmf}}
         \end{figure}
         \begin{figure}[h!]
-          \lstset{language=XML}
-          \lstset{morekeywords={martif, type, martifHeader, text, body,
-          termEntry, langSet, tig, term, xml:id}}
-          \lstset{frame=single}
+          \setlstxml
           \lstinputlisting{input/data/linguistics_tbx_example.tbx}
           \caption{Exemple de terminologie au format \textsc{Tbx}
                    \label{fig:tbx_example}}
@@ -272,16 +261,15 @@
 
         La figure~\ref{fig:tei_tbx_keyphrase_example} montre un extrait
         d'indexation par termes-clés dans le format proposé. Optionnellement,
-        des informations factuelles indiquant des informations telles que le nom
-        et des détails sur le méthode d'indexation par termes-clés utilisée
+        des informations factuelles donnant des renseignements tel que le nom de
+        la méthodes d'indexation et des détails concernant son fonctionnement
         peuvent être ajoutées. Le résultat de l'indexation par termes-clés se
         trouve dans l'élément \texttt{annotations}. L'ensemble des termes-clés
-        extraits et/ou assignés sont représentés au format \textsc{Tbx}. Chaque
-        terme-clé est un \texttt{termEntry}.
+        extraits et/ou assignés sont représentés au format \textsc{Tbx} (cf
+        figure~\ref{fig:tbx_example}). Chaque terme-clé se trouve dans un
+        \texttt{termEntry}.
         \begin{figure}[h!]
-          \lstset{language=XML}
-          \lstset{morekeywords={stdf, xml:id, soHeader, annotations, termEntry, langSet, tig, term}}
-          \lstset{frame=single}
+          \setlstxml
           \lstinputlisting{input/data/keyphrase_example.xml}
           \caption{Exemple d'indexation par termes-clés dans le format d'échange
                    \label{fig:tei_tbx_keyphrase_example}}
@@ -289,19 +277,17 @@
 
         La figure~\ref{fig:tei_tbx_evaluation_example} montre un extrait
         d'évaluation manuelle dans le format proposé. Celle-ci se trouve dans un
-        élément \texttt{stdf} (\textit{stand-off}), imbriqué dans l'élément
-        \texttt{stdf} de l'indexation par termes-clés qu'elle évalue. Elle
-        répartie en deux groupes d'annotations (élément
-        \texttt{annotationGrp}), le premier pour évaluer la pertinence et le
-        second pour évaluer le silence. Chaque terme-clé est évalué
-        individuellement (élément \texttt{span}), son score est indiqué par
-        l'élément \texttt{num}, un commentaire peut être ajouté dans l'élément
-        \texttt{note} et des liens vers des termes-clés extraits/assignés ou de
-        référence peuvent être indiqué avec l'élément \texttt{link}.
+        élément \texttt{stdf} (\textit{stand-off}), imbriqué dans celui de
+        l'indexation par termes-clés qu'elle évalue. Elle est répartie en deux
+        groupes d'annotations (éléments \texttt{annotationGrp}), le premier pour
+        évaluer la pertinence et le second pour évaluer le silence. Chaque
+        terme-clé est évalué individuellement (élément \texttt{span}) et son
+        score est indiqué par l'élément \texttt{num}. Un commentaire peut être
+        ajouté dans l'élément \texttt{note} et des liens vers des termes-clés
+        extraits/assignés ou de référence peuvent être indiqués avec l'élément
+        \texttt{link}.
         \begin{figure}[h!]
-          \lstset{language=XML}
-          \lstset{morekeywords={stdf, soHeader, annotations, annotationGrp, target, type, span, from, num, link, note}}
-          \lstset{frame=single}
+          \setlstxml
           \lstinputlisting{input/data/evaluation_example.xml}
           \caption{Exemple d'évaluation automatique dans le format d'échange
                    \label{fig:tei_tbx_evaluation_example}}
@@ -311,16 +297,46 @@
 
   \section{Analyse des évaluations manuelles}
   \label{sec:main-automatic_evaluation_of_keyphrase_annotation-results}
-    \TODO{intro $\rightarrow$ évaluation en ? phrases}
+    Dans cette section, nous analysons l'évaluation manuelle de nos méthodes
+    d'indexation par termes-clés et de certaines méthodes de référence.
+    L'évaluation est effectuée sur les collections de données Termith
+    (linguistique, sciences de l'information, archéologie, chimie) par les
+    indexeurs professionnels de l'Inist, ces mêmes indexeurs qui sont
+    respondables de l'indexation de référence Termith. L'évaluation est réalisée
+    en deux étapes. La première étape permet de comparer TopicRank à la méthode
+    de référence \textsc{Tf-Idf} et la seconde étape permet de comparer
+    TopicCoRank à \textsc{Kea}.
     
     \subsection{Évaluation manuelle de TopicRank}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank}
-      \TODO{phase 1~: évaluation de la pertinence + évaluation du silence}
-      \TODO{ne pas oublier de rappeler les données et les méthodes}
+      La première étape de l'évaluation manuelle a pour objectif de comparer
+      TopicRank à \textsc{Tf-Idf} lorsqu'ils extraient 10 termes-clés par
+      document. Elle est réalisée sur la collection de linguistique et concerne
+      les deux aspects de pertinence et de silence.
     
       \subsubsection{Pertinence}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence}
-      \begin{table}[h!]
+        Le
+        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio}
+        dresse le bilan des scores de pertinence attribués en moyenne par
+        méthode. Pour le score de 1, qui indique qu'un terme-clé est un forme
+        variante, nous distinguons le cas où la variante est redondante du cas
+        où la variante n'est pas redondante. Globalement, nous observons que
+        TopicRank est meilleur que \textsc{Tf-Idf}. TopicRank fournit plus de
+        termes-clés pertinents que \textsc{Tf-Idf}, mais fait aussi plus
+        d'erreurs. Les termes-clés ayant un score de 1 donnent un explication
+        intéressante à cette contradiction. En effet, \textsc{Tf-Idf} à une
+        forte tendence à extraire des termes-clés redondant, soit des
+        termes-clés variantes de termes-clés déjà extrait. En revanche,
+        TopicRank remplit presque son objectif de ne pas extraire de termes-clés
+        redondant, avec seulement 0,9~\% de termes-clés redondants. Comme nous
+        l'avons aussi observé lors de l'évaluation automatique de TopicRank (cf
+        section~\ref{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation}
+        page~\ref{subsec:main-automatic_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction-evaluation}),
+        celui-ci extrait cependant plus de termes-clés variantes non redondants,
+        c'est-à-dire que la strategie de TopicRank pour sélectionner le meilleur
+        terme-clé pour un sujet n'est pas optimale.
+        \begin{table}[h!]
           \centering
           \begin{tabular}{l|c|c|c|c}
             \toprule
@@ -338,14 +354,31 @@
                    \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio}}
         \end{table}
 
+        Le
+        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-prf}
+        présente les performances de \textsc{Tf-Idf} et de TopicRank, en termes
+        de précision, de rappel et de f-mesure, et les compare à celles
+        observées par notre système d'évaluation automatique. Pour calculer ces
+        performances, les termes-clés ayant un score de 2 sont considérés
+        corrects, de même que ceux ayant un score de 1 non redondants. La
+        difficulté d'évaluer automatiquement la tâche d'indexation par
+        termes-clés se confirme. Les conclusions ne sont pas les mêmes, puisque
+        de manière automatique TopicRank est moins performant que
+        \textsc{Tf-Idf} alors qu'il est plus permformant selon l'évaluation
+        manuelle. Nous observons aussi des différences d'environ 30 points entre
+        les mesures obtenues manuellement et automatiquement. Les résultats
+        montrent ici que la tâche d'indexation par termes-clés est effectivement
+        subjective et que l'évaluation manuelle permet de réduire ce problème.
         \begin{table}[h!]
           \centering
-          \begin{tabular}{l|ccc}
+          \begin{tabular}{l|ccc|ccc}
             \toprule
-            \textbf{Méthode} & \textbf{P} & \textbf{R} & \textbf{F}\\
+            \multirow{2}{*}{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Manuel}} & \multicolumn{3}{c}{\textbf{Automatique}}\\
+            \cline{2-7}
+            & P & R & F & P & R & F\\
             \hline
-            \textsc{Tf-Idf} & 39,5 & 29,7 & 33,5\\
-            TopicRank & \textbf{42,8} & \textbf{32,2} & \textbf{36,2}\\
+            \textsc{Tf-Idf} & 39,5 & 29,7 & 33,5 & \textbf{13,2} & \textbf{15,5} & \textbf{14,0}\\
+            TopicRank & \textbf{42,8} & \textbf{32,2} & \textbf{36,2} & 11,3 & 13,1 & 11,9\\
             \bottomrule
           \end{tabular}
           \caption[
@@ -359,6 +392,15 @@
     
       \subsubsection{Silence}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-silence}
+        Le
+        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-silence_score_ratio}
+        dresse le bilan des scores de silence attribués en moyenne par méthode.
+        D'après la description donnée pour chacun des scores, la méthode qui
+        capture le plus d'informations est celle qui maximise le nombre de
+        termes-clés de référence ayant un score de silence 0 et qui minimise
+        ceux ayant un score de 1 et de 2. De ce fait, nous observons que
+        TopicRank couvre mieux le contenu principal des documents que
+        \textsc{Tf-Idf}.
         \begin{table}[h!]
           \centering
           \begin{tabular}{l|c|c|c}
@@ -374,10 +416,17 @@
                    TopicRank
                    \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-silence_score_ratio}}
         \end{table}
+    
+      \subsubsection{Bilan}
+      \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-conclusion}
+        L'évaluation manuelle de TopicRank, et sa comparaison avec
+        \textsc{Tf-IDF}, montre l'apport de TopicRank vis-à-vis de l'état de
+        l'art. Les résultats montrent aussi que TopicRank remplit effectivement
+        l'objectif d'éviter l'extraction de termes-clés redondants.
 
     \subsection{Évaluation manuelle de TopicCoRank}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-results-topiccorank}
-      \TODO{phase 2~: évaluation de la pertinence + évaluation du silence}
+      \TODO{phase 3~: évaluation de la pertinence + évaluation du silence}
       \TODO{ne pas oublier de rappeler les données et les méthodes}
 
     \TODO{\dots}
@@ -386,4 +435,14 @@
 
   \section{Conclusion}
   \label{sec:main-automatic_evaluation_of_keyphrase_annotation-Conclusion}
+    Dans ce chapitre, nous présentons un protocole d'évaluation manuelle mis en
+    \oe{}uvre pour évaluer les méthodes TopicRank et TopicCoRank que nous avons
+    proposé. TopicRank et TopicCoRank sont évalués et comparés aux méthodes de
+    référence \textsc{Tf-Idf} et \textsc{Kea} sur les collections de Termith.
+    Les résultats montrent que TopicRank \TODO{et TopicCoRank} sont plus
+    performants que les méthodes de référence. En complément, ils montrent aussi
+    que l'évaluation automatique est effectivement très pessimiste. Les
+    résultats de nos évaluations étant en libre accès, ils devraient servir à la
+    communauté scientifique pour proposer de nouvelles méthodes d'évaluation
+    automatique et mesurer leur corrélation avec l'évaluation manuelle.
 
