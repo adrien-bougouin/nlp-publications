@@ -3,33 +3,50 @@ représente un des aspects les plus importants d'un document. À l'instar d'un
 résumé, les termes-clés attribués à un document donnent une représentation
 synthétique de ce dernier et permettent à un lecteur de se faire une idée rapide
 et précise de son contenu sans en lire l'intégralité. En plus de cela, ils
-permettent d'indexer des documents de sorte qu'une personne puisse aisément les
-trouver. Bien qu'avantageux dans un monde où la majorité des connaissances
-passées et futures s'amassent sur le Web et où l'indexation des documents
-numériques joue donc un rôle primordial pour la recherche d'information, les
-termes-clés ne sont pas toujours disponibles et il est donc nécessaire de les
-associer automatiquement aux documents. Étudiée depuis quelques décennies, la
-tâche d'indexation automatique par termes-clés est encore aujourd'hui une tâche
-pour laquelle nous peinons à atteindre le \og{}seuil psychologique\fg{} de 50~\%
-de précision. Dans cette thèse, nous nous intéressons à l'indexation automatique
-par termes-clés et proposons trois nouvelles méthodes.
+permettent d'indexer des documents pour la recherche d'information. Bien
+qu'avantageux, les termes-clés ne sont pas toujours disponibles et il faut donc
+les trouver automatiquement pour les documents. Étudiée depuis quelques
+décennies, la tâche d'indexation automatique par termes-clés est encore
+aujourd'hui une tâche pour laquelle nous peinons à atteindre le seuil
+psychologique de 50~\% de précision. Dans cette thèse, nous nous intéressons à
+l'indexation automatique par termes-clés et proposons trois nouvelles méthodes.
+Notre démarche s'organise en deux temps.
 
-Afin d'améliorer l'indexation automatique par termes-clés, nous proposons dans
-un premier temps une méthode de sélection des termes-clés candidats d'un
-document. Les termes-clés candidats sont les unités textuelles du document qui
-sont succeptiblent d'être des termes-clés. Après leur sélection, une méthode
-d'indexation par termes-clés doit encore déterminer leur importance. Notre
-méthode de sélection des candidats s'appuie sur une étude des propriétés
-linguistiques des termes-clés que nous avons réalisée sur différentes
-collections de données. Avec cette méthode, nous montrons que tirer partie de la
-catégorie des adjectifs présents dans les termes-clés permet d'améliorer la
-qualité de la sélection des termes-clés candidats. Dans un second temps, nous
-proposons une méthode non supervisée d'indexation par termes-clés. Celle-ci
-utilise un graphe pour représenter les sujets abordés dans le document, puis
-elle ordonne les sujets par importance en utilisant une adaptation de
-l'algorithme historique du célèbre moteur de recherche Google. Après avoir
-montré les bonnes performances de cette méthode, nous l'étendons afin de tirer
-profit des connaissances spécifiques à un domaine donné. Cette dernière méthode,
-plus performante que la précédente, possède la rare capacité à fournir des
-termes-clés qui ne sont pas nécessairement présents dans le contenu du document.
+Dans un premier temps, nous nous intéressons à l'extraction de termes-clés dans
+un contexte généraliste et proposons une méthode pour sélectionner des
+termes-clés candidats dans un document et une méthode pour ordonner par
+importance les termes-clés candidats. Avant de proposer notre méthode de
+sélection des candidats, nous effectuons une étude, sur deux langues (français
+et anglais), des propriétés linguistiques des termes-clés et montrons que la
+catégorie des adjectifs, en particulier s'il est dénominal, est un facteur
+descriminant pour décider si un adjectif doit faire partie d'un terme-clé
+candidat. Fondée sur cette analyse, notre méthode sélectionne les séquences de
+noms et d'adjectifs comme termes-clés candidats, puis supprime de ces derniers
+les adjectifs jugés inintéressants. La seconde méthode que nous proposons se
+situe en aval de la sélection des candidats. Il s'agit du c\oe{}ur de
+l'extraction de termes-clés, qui consiste à déterminer quels sont les
+termes-clés candidats les plus important vis-à-vis du contenu du document. Notre
+méthode, TopicRank, est dite \og{}à base de graphe\fg{}, c'est-à-dire qu'elle
+projette des entités du document dans un graphe et utilise un algorithme qui
+simule le concept du vote pour déterminer celles les plus importantes. Avec
+TopicRank, le type d'entité sur lequel nous travaillons est le sujet, que nous
+approximons en groupant les termes-clés candidats qui véhiculent la même
+information sous une forme lexicale différente. Pour chacun des sujets jugés les
+plus importants, un de ses termes-clés candidats est ensuite sélectionné comme
+terme-clé. Nos expériences réalisées sur des collections de données de langue et
+de nature différentes, montrent des performances significativement supérieures
+aux précédentes méthodes \og{}à base de graphe\fg{}.
 
+Dans un second temps, nous étendons notre travail et l'adaptons au contexte de
+l'indexation par termes-clés en domaine de spécialité. Après une étude de la
+méthodologie d'indexation par termes-clés réalisée manuellement par des
+indexeurs professionels pour une bibliothèque numérique, nous proposons une
+extension \og{}à base de graphe\fg{} de TopicRank pour simuler le comportement
+d'un indexeur professionnel. Notre troisième méthode, TopicCoRank, ajoute à
+TopicRank un graphe qui représente le domaine de spécialité du document,
+modélisé par les termes-clés de référence dans le domaine. Grâce à ce second
+graphe unifié au graphe de sujets initial, TopicCoRank possède la rare capacité
+à fournir des termes-clés pertinents, même lorsqu'ils n'aparaissent pas dans le
+document analysé. Appliqué à cinq collections de notices bibliographiques dans
+cinq disciplines différentes, TopicCoRank montre une amélioration significative
+vis-à-vis de TopicRank et de l'état de l'art.
