@@ -27,8 +27,8 @@
     fournit un ensemble restreint de mots ou expressions qui représentent ses
     sujets importants, explicites ou non.
 
-    Dans la littérature, nous distinguons deux catégories d'indexations
-    automatiques par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
+    Dans la littérature, nous distinguons deux catégories d'indexation
+    automatique par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
     libre\index{Indexation libre@Indexation libre \textit{(free indexing)}|see
     {Extraction automatique de termes-clés \textit{(automatic keyphrase
     extraction)}}} consiste à extraire d'un document les unités textuelles
@@ -45,14 +45,13 @@
     automatique de termes-clés \textit{(automatic keyphrase
     assignment)}|textbf}.
 
-    Dans la suite, nous commençons par introduire une étape préliminaire à la
-    plupart des méthodes d'extraction et d'assignement automatique de
-    termes-clés~: la sélection des termes-clés candidats, qui devient un objet
-    d'étude à part entière~\cite{wang2014keyphraseextractionpreprocessing}.
-    Ensuite, nous présentons les tâches d'extraction automatique de termes-clés
-    et d'assignement automatique de termes-clés. Nous terminons par une
-    description du processus d'évaluation des méthodes d'indexation par
-    termes-clés.
+    Nous commençons par présenter l'étape de sélection des termes-clés
+    candidats, qui est une étape commune à la plupart des méthodes d'extraction
+    et d'assignement automatique de termes-clés, et qui est un objet d'étude à
+    part entière~\cite{wang2014keyphraseextractionpreprocessing}. Ensuite, nous
+    présentons les tâches d'extraction automatique de termes-clés et
+    d'assignement automatique de termes-clés. Nous terminons par une description
+    du processus d'évaluation des méthodes d'indexation par termes-clés.
 
   %-----------------------------------------------------------------------------
 
@@ -63,10 +62,10 @@
     candidats@Sélection des termes-clés candidats \textit{Keyphrase candidate
     selection}|textbf}\index{Terme-cle candidat@Terme-clé candidat
     \textit{(keyphrase candidate)}|textbf} consiste à déterminer quelles sont
-    les unités textuelles qui sont potentiellement des termes-clés, c'est-à-dire
-    les unités textuelles qui ont des particularités similaires à celles des
-    termes-clés définis par des humains. Nous savons par exemple que les
-    termes-clés sont majoritairement constitués de noms et d'adjectifs
+    les unités textuelles qui sont potentiellement des termes-clés, soit les
+    unités textuelles qui ont des particularités similaires à celles des
+    termes-clés définis par des humains, telles que la structure
+    morphosyntaxique nom-adjectif commune à la majorité des termes-clés
     (\TODO{exemple}). La sélection des termes-clés candidats présente deux
     avantages. Le premier est la réduction du temps de calcul nécessaire à
     l'extraction ou à l'assignement des termes-clés. Le second est la
@@ -79,26 +78,23 @@
     negatif@Candidat négatif \textit{(negative candidate)}|textbf}. Parmi les
     candidats négatifs, nous distinguons deux sous-catégories~: les candidats
     porteurs d'indices\index{Candidat porteur d'indices@Candidat porteur
-    d'indices \textit{(clue candidate)}|textbf} de différentes natures pouvant
-    influencer l'extraction ou l'assignement de candidats positifs
-    (\TODO{exemple}) et les candidats non pertinents\index{Candidat non
-    pertinent@Candidat non pertinent \textit{(irrelevant candidate)}|textbf},
-    que nous considérons comme des erreurs de sélection.
+    d'indices \textit{(clue candidate)}|textbf} pouvant influencer l'extraction
+    ou l'assignement de candidats positifs (\TODO{exemple}) et les candidats
+    erronés\index{Candidat erronés@Candidat erronés \textit{(irrelevant
+    candidate)}|textbf} \TODO{exemple}.
 
-    Plusieurs méthodes de sélection de candidats sont utilisées, de la simple
+    Il existe plusieurs méthodes de sélection de candidats, de la simple
     sélection de n-grammes, de chunks nominaux ou d'unités textuelles
     grammaticalement définies, jusqu'à la sélection de candidats à l'aide
     d'algorithmes pour réduire le nombre de candidats en supprimant ceux qui
-    sont sémantiquement redondants où mal formés. Dans la suite, nous présentons
-    ces différentes méthodes.
+    sont sémantiquement redondants où mal formés.
 
     ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
     toutes les séquences ordonnées de $n$ mots adjacents. La sélection des
     n-grammes est très exhaustive, elle fournit un grand nombre de termes-clés
     candidats, ce qui maximise la quantité de candidats positifs, la quantité de
-    candidats porteurs d'indices, mais aussi la quantité de candidats non
-    pertinents. Pour réduire cette dernière, il est courant de filtrer les
-    n-grammes avec un
+    candidats porteurs d'indices, mais aussi la quantité de candidats erronés.
+    Pour réduire cette dernière, il est courant de filtrer les n-grammes avec un
     antidictionnaire\index{Antidictionnaire@Antidictionnaire
     \textit{(stopwords)}|textbf}, selon le principe suivant~: un n-gramme
     contenant un mot de l'antidictionnaire en début ou en fin n'est pas
@@ -138,8 +134,7 @@
     grammaticalement définies\index{Sequence grammaticalement definie@Séquence
     grammaticalement définie \textit{(POS sequence)}|textbf} permet de contrôler
     avec précision la nature et la grammaticalité des candidats sélectionnés.
-    Pour cela, il faut définir des patrons grammaticaux tels que \texttt{(<NOM>
-    | <ADJ>)*}, qui représente les plus longues séquences de noms et
+    Pour cela, il faut définir des patrons grammaticaux tels que \texttt{/(N|A)*/}, qui représente les plus longues séquences de noms et
     d'adjectifs, d'après la syntaxe des expressions rationnelles.
 
     À l'instar des \textit{chunks} nominaux, la sélection des séquences
@@ -155,21 +150,22 @@
     \end{example}
 
     ~\\En plus des trois précédentes méthodes de sélection de termes-clés
-    candidats, d'autres chercheurs comme
+    candidats, des chercheurs, tels que
     \newcite{huang2006semanticnetworkstructureanalysis} proposent un filtrage
-    des candidats sélectionnés. Ils filtrent tout d'abord les candidats peu
-    fréquents dans le document, puis suppriment les candidats redondants avec
-    d'autres en les mettant en compétition. Pour chaque groupe de candidats
-    redondants, un seul candidat peut être retenu comme terme-clé candidat,
-    celui le plus fréquent. Un candidat peut être en compétition dans différents
-    groupes. Dans ce cas, il doit être le \og{}vainqueur\fg{} de chaque groupe
-    pour être retenu.
+    sofistiqué des candidats sélectionnés par la méthode de sélection des
+    n-grammes \TODO{vérifier}. \newcite{huang2006semanticnetworkstructureanalysis} filtrent tout
+    d'abord les candidats peu fréquents dans le document, puis suppriment les
+    candidats redondants avec d'autres en les mettant en compétition. Pour
+    chaque groupe de candidats redondants, un seul candidat peut être retenu
+    comme terme-clé candidat, celui le plus fréquent. Un candidat peut être en
+    compétition dans différents groupes. Dans ce cas, il doit être le
+    \og{}vainqueur\fg{} de chaque groupe pour être retenu.
 
     Le travail de \newcite{huang2006semanticnetworkstructureanalysis}, sur la
-    sélection des termes-clés candidats, fait partie d'un système d'extraction
-    de termes-clés qu'ils ont développés. Ce dernier a fait l'objet d'une
-    évaluation, mais aucune étude n'a été conduite pour montrer l'efficacité de
-    leur filtrage hors des frontières de leur système.
+    sélection des termes-clés candidats, fait partie de leur système
+    d'extraction de termes-clés. Ce système a fait l'objet d'une évaluation,
+    mais aucune étude n'a été conduite pour montrer l'efficacité de leur
+    filtrage hors des frontières de leur système.
 
     ~\\Contrairement à \newcite{huang2006semanticnetworkstructureanalysis},
     \newcite{you2009refinedcandidateset} ont pour objectif précis d'améliorer
@@ -227,6 +223,8 @@
     de meilleurs résultats que la majorité des méthodes états de l'art. Ceci
     tant à montrer la capacité de leur méthode à fournir des candidats de très
     bonne qualité.
+
+    ~\\\TODO{bilan}
 
   %-----------------------------------------------------------------------------
 
