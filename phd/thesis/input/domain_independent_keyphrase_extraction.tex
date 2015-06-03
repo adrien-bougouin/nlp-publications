@@ -6,9 +6,56 @@
     \newcite{kim2010semeval}
   }
 
+  %-----------------------------------------------------------------------------
+
   \section{Introduction}
   \label{sec:main:domain_independent_keyphrase_extraction-introduction}
-    \TODO{\dots}
+    Dans ce chapitre, nous nous intéressons à la tâche d'extraction automatique
+    de termes-clés. Cette tâche consiste à identifier dans un document ses mots
+    et expressions qui permettent le mieux d'en caractériser le contenu. Cette
+    catégorie d'indexation par termes-clés est celle la plus étudiée de nos
+    jours. Elle peut être réalisée de manière non supervisée ou supervisée,
+    grâce à la mise en \oe{}uvre d'algorithmes d'ordonnancement par importance
+    des mots du document ou grâce à l'entraînement de classifieurs capables de
+    déterminer si une unité textuelle est un terme-clé ou non.
+
+    Nous proposons deux contributions à l'extraction automatique de termes-clés.
+    Tout d'abord, nous nous intéressons à l'étape préliminaire de sélection des
+    termes-clés candidats, puis nous nous intéressons à leur ordonnancement par
+    importance. Les méthodes proposées sont non supervisées, aucun biais
+    induisant une quelconque dépendance à une langue ou à un domaine n'est
+    introduit.
+
+    La sélection des termes-clés candidats établit la liste des termes-clés
+    potentiels pour un document donné. Bien qu'étudiée en surface, ou de manière
+    ad-hoc à une méthode particulière d'extraction de termes-clés, cette étape
+    est critique pour l'extraction de termes-clés. Si elle ne sélectionne pas
+    suffisamment de candidats, alors la performance optimale pouvant être
+    atteinte pour l'extraction de termes-clés est faible et, au contraire, si
+    elle sélectionne un nombre important de candidats, alors elle augmente le
+    risque de sélectionner de mauvais candidats pouvant dégrader la performance
+    d'une méthode d'extraction de termes-clés~\cite{hasan2014state_of_the_art}.
+    De nombreux travaux semblent montrer que les groupes nominaux, souvent
+    approximés par les séquences de noms et d'adjectifs, forment de bons
+    termes-clés candidats et sont très proches des termes-clés de
+    référence~\cite{barker2000nounphrasehead,hulth2003keywordextraction,wan2008expandrank}.
+    Dans notre travail, nous remettons en question la sélection systématique
+    d'un adjectif apposé à un nom. Nous proposons une méthode qui juge si un
+    adjectif apporte du sens bénéfique à la caractérisation du contenu du
+    document, auquel cas il est sélectionné avec le nom qu'il modifie, ou non,
+    auquel cas seul le nom est sélectionné comme terme-clé candidat.
+
+    L'ordonnancement des unités textuelles du document, afin de déterminer
+    lesquelles sont les plus importantes vis-à-vis de son contenu, est
+    principalement réalisé avec des approches non supervisées. Parmi elles, nous
+    nous intéressons à l'approche à base de graphe. Celle-ci consiste à
+    représenter le document sous la forme d'un graphe de cooccurrences de mots
+    et à appliquer à ce graphe un algorithme pour identifier les n\oe{}uds
+    (mots) les plus centraux dans le graphe. Dans notre travail, nous remettons
+    en question l'ordonnancement des mots alors que les termes-clés peuvent être
+    des expressions multi-mots. Nous groupons les termes-clés candidats qui
+    expriment le même sujet et proposons d'ordonner ces sujets plutôt que les
+    mots.
 
   %-----------------------------------------------------------------------------
 
