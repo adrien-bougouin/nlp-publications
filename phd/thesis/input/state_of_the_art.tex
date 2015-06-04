@@ -152,14 +152,14 @@
     ~\\En plus des trois précédentes méthodes de sélection de termes-clés
     candidats, des chercheurs, tels que
     \newcite{huang2006semanticnetworkstructureanalysis} proposent un filtrage
-    sofistiqué des candidats sélectionnés par la méthode de sélection des
-    n-grammes \TODO{vérifier}. \newcite{huang2006semanticnetworkstructureanalysis} filtrent tout
-    d'abord les candidats peu fréquents dans le document, puis suppriment les
-    candidats redondants avec d'autres en les mettant en compétition. Pour
-    chaque groupe de candidats redondants, un seul candidat peut être retenu
-    comme terme-clé candidat, celui le plus fréquent. Un candidat peut être en
-    compétition dans différents groupes. Dans ce cas, il doit être le
-    \og{}vainqueur\fg{} de chaque groupe pour être retenu.
+    sophistiqué des candidats sélectionnés par la méthode de sélection des
+    n-grammes (en anglais). \newcite{huang2006semanticnetworkstructureanalysis}
+    filtrent tout d'abord les candidats peu fréquents dans le document, puis
+    suppriment les candidats redondants avec d'autres en les mettant en
+    compétition. Pour chaque groupe de candidats redondants, un seul candidat
+    peut être retenu comme terme-clé candidat, celui le plus fréquent. Un
+    candidat peut être en compétition dans différents groupes. Dans ce cas, il
+    doit être le \og{}vainqueur\fg{} de chaque groupe pour être retenu.
 
     Le travail de \newcite{huang2006semanticnetworkstructureanalysis}, sur la
     sélection des termes-clés candidats, fait partie de leur système
@@ -167,25 +167,24 @@
     mais aucune étude n'a été conduite pour montrer l'efficacité de leur
     filtrage hors des frontières de leur système.
 
-    ~\\Contrairement à \newcite{huang2006semanticnetworkstructureanalysis},
-    \newcite{you2009refinedcandidateset} ont pour objectif précis d'améliorer
-    la qualité de l'extraction automatique de termes-clés en réduisant le nombre
-    de candidats sélectionnés sans perdre de candidats positifs ni même
-    augmenter la complexité algorithmique de la sélection. Leur méthode se
-    divise en deux étapes: sélection de candidats préliminaires grâce à une
-    liste de mots-clés, puis réduction de cet ensemble de candidats
-    préliminaires à un ensemble non redondant de candidats porteurs de sens.
+    ~\\À l'instar de \newcite{huang2006semanticnetworkstructureanalysis},
+    \newcite{you2009refinedcandidateset} proposent une méthode de filtrage des
+    n-grammes. Dans leur cas, une analyse de leur méthode de sélection des
+    candidats est fournie. Leur méthode se divise en deux étapes: sélection de
+    candidats préliminaires grâce à une liste de mots-clés, puis réduction de
+    cet ensemble de candidats préliminaires à un ensemble non redondant de
+    candidats porteurs de sens.
 
-    Dans un premier temps, \newcite{you2009refinedcandidateset} extraient les
-    $k$ mots les plus fréquents du document, excluant les mots d'un
-    antidictionnaire, et les définissent comme mots-clés du document. Ensuite,
-    chaque occurrence de chaque mot-clé sert à définir au plus sept candidats
-    préliminaires~: le mot-clé lui-même et les 2-, 3- et 4-grammes commençant ou
-    se terminant par le mot-clé\footnote{La taille maximale de 4 pour les
-    n-grammes est fixée par les auteurs après une analyse statistique de leurs
-    données. Cette taille peut diverger selon les données, auquel cas les
-    candidats préliminaires sélectionnés pour chaque occurrence d'un mots-clés
-    peut excéder sept.}.
+    Dans un premier temps, \newcite{you2009refinedcandidateset} identifient les
+    mots-clés et s'en servent pour établir une liste préliminaire de candidats.
+    Pour cela, ils extraient les $k$ mots (mots d'un antidictionnaire exclus)
+    les plus fréquents du document (mots-clés), puis ils selectionnent un à sept
+    candidat(s) préliminaire(s) par occurrence de chaque mot-clé~: le mot-clé
+    lui-même et les 2-, 3- et 4-grammes commençant ou se terminant par le
+    mot-clé\footnote{La taille maximale de 4 pour les n-grammes est fixée par
+    les auteurs après une analyse statistique de leurs données. Cette taille
+    peut diverger selon les données, auquel cas les candidats préliminaires
+    sélectionnés pour chaque occurrence d'un mots-clés peut excéder sept.}.
 
     \begin{example}
       \TODO{Un 1-gramme, deux 2-grammes, deux 3-grammes et deux 4-grammes à partir d'une phrase de l'exemple fil rouge}
@@ -204,27 +203,20 @@
 
     Comparée à la sélection des $\{1..3\}$-grammes, utilisée dans plusieurs
     travaux, la méthode de \newcite{you2009refinedcandidateset} réduit
-    significativement le nombre de candidats (environ 75~\%). Leurs expériences
-    montrent cependant que leur méthode de sélection n'améliore pas
+    significativement le nombre de candidats (d'environ 75~\%). Leurs
+    expériences montrent cependant que leur méthode de sélection n'améliore pas
     significativement les performances des méthodes d'indexation par
     termes-clés.
 
-    ~\\\newcite{newman2012bayesiantextsegmentation} s'intéressent aux travaux
-    effectués dans le domaine de la segmentation des phrases en mots et à
-    l'adaptation de l'un d'eux~\cite{goldwater2009bayesianwordsegmentation} pour
-    la détection des frontières séparant les mots et les expressions dans la
-    phrase. Leur méthode parcours le document pour apprendre un lexique en
-    suivant un processus de Dirichlet. Ce lexique est ensuite considéré comme
-    l'ensemble des termes-clés candidats pour le document.
-
-    En utilisant un simple ordonnancement par fréquence pour la tâche
-    d'extraction de termes-clés, ce qui n'est pas une heuristique suffisante
-    pour déterminer l'importance d'un terme-clé candidat, leur approche obtient
-    de meilleurs résultats que la majorité des méthodes états de l'art. Ceci
-    tant à montrer la capacité de leur méthode à fournir des candidats de très
-    bonne qualité.
-
-    ~\\\TODO{bilan}
+    ~\\La sélection des termes-clés candidats est une étape quasi-systématique
+    en indexation automatique par termes-clés~\cite{hasan2014state_of_the_art}.
+    Parce qu'il ne s'agit pas du c\oe{}ur de la tâche, cette étape est encore
+    très peu étudiée et donc très souvent réalisée par des méthodes très simples
+    (n-grammes, \textit{chunks} nominaux et séquences noms-adjectifs).
+    Toutefois, les travaux s'y intéressant s'accordent à dire que cette étape
+    est critique et que l'enjeux réside dans la capacité à extraire un minimum
+    de candidats sans dégrader la performance maximale pouvant être atteinte par
+    une méthode d'indexation par termes-clés.
 
   %-----------------------------------------------------------------------------
 
