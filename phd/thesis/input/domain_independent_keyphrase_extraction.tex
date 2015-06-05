@@ -89,8 +89,12 @@
       multi-mots), car nous avons observé que \TODO{\dots}~\% des termes-clés
       qui sont des mots simples sont des noms. }~: nom commun, nom propre,
       adjectif, verbe, adverbe, préposition et déterminant. Pour obtenir ces
-      informations, les termes-clés ont été automatiquement segmentés en mots,
-      étiquetés grammaticalement et manuellement corrigés.
+      informations, les termes-clés ont été automatiquement segmentés en mots et
+      étiquetés grammaticalement à l'aide des outils utilisés pour prétraiter
+      les collections de données (cf
+      section~\ref{sec:main-data_description-preprocessing}
+      page~\pageref{sec:main-data_description-preprocessing}), puis manuellement
+      corrigés.
       \begin{table}[!h]
         \centering
         \begin{tabular}{ll|ccc}
@@ -124,35 +128,54 @@
       les bi-grammes, tandis qu'en anglais, ce sont les bi-grammes qui sont les
       plus présents, avec des proportions équivalentes d'uni-grammes et de
       tri-grammes. Ces premières observations font écho à celles que nous
-      trouvons dans la littérature, nous pouvons donc en conclure qu'il s'agit
-      de propriétés stables des termes-clés. Une approche raisonable peut donc
-      se restreindre aux $\{1..3\}$-grammes, à l'instar de
+      trouvons dans la littérature, nous pouvons en conclure qu'il s'agit de
+      propriétés stables des termes-clés. Une approche raisonable peut donc se
+      restreindre aux $\{1..3\}$-grammes, à l'instar de celle de
       \newcite{witten1999kea}.
 
       Concernant les catégories des mots que contiennent les termes-clés de
       référence, nous observons que la quasi-totalité des termes-clés
       contiennent un nom, que ce sont majoritairement des groupes nominaux et
       que la moitié d'entre eux est modifiée par un adjectif. Les autres
-      modifieurs, comme le verbe au participe passé et l'adverbe sont très
-      utilisés. L'usage de ces derniers au sein de termes-clés semble être
-      exceptionnel. Les déterminants et prépositions ont un usage presque
-      exclusivement français. Ceci s'explique par le fait, qu'en anglais, les
-      formes composés (par exemple,  \textit{\og{}nature conservation\fg{}} --
-      \og{}conservation de la nature\fg{}) sont préférées aux formes
-      syntagmatiques (par exemple~: \textit{\og{}conservation of nature\fg{}}).
+      catégories de mots, comme le verbe et l'adverbe sont très peu utilisées.
+      L'usage de ces dernières au sein de termes-clés semble être exceptionnel.
+      Les déterminants et prépositions ont un usage presque exclusivement
+      français. En anglais, les formes composés (par exemple,
+      \textit{\og{}nature conservation\fg{}} -- \og{}conservation de la
+      nature\fg{}) sont préférées aux formes syntagmatiques (par exemple~:
+      \textit{\og{}conservation of nature\fg{}} -- \og{}conservation de la
+      nature\fg{}).
 
       ~\\L'adjectif étant utilisé à plus forte proportion que les catégories
       grammaticales autres que le nom et le nom propre, nous analysons plus
-      finement leur nature~: relationnel, composé ou autre (qualificatif).
-      \TODO{définir ces catégories d'adjectifs} Pour
-      détecter les adjectifs composés, nous nous limitons à la présence du
+      finement leur nature~: relationnel, composé ou autre (principalement
+      qualificatif).
+      
+      Un adjectif relationnel est un adjectif
+      dénominal~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}. Il
+      est dérivé d'un nom (par exemple~: l'adjectif relationnel
+      \og{}culturel\fg{} est dérivé du nom \og{}culture\fg{}) pour lequel il
+      établit une relation équivalente à celle exprimée par le complément du nom
+      (par exemple~: \og{}héritage culturel\fg{} équivaut à \og{}héritage de la
+      culture\fg{}). Caractéristique du discours du
+      spécialiste~\cite{maniez2009denominaladjectives}, l'adjectif relationnel
+      sert de modificateur pour les noms de catégories, telles que celles de
+      Wikipedia (par exemple \og{}héritage culturel\fg{}), catégories qui
+      constituent de bons termes-clés
+      candidats~\cite{medelyan2008smalltrainingset,eichler2010keywe}.
+      
+      Un adjectif composé est un adjectif constitué de plusieurs mots (par
+      exemple, \og{}socio-culturel\fg{}). Généralement marqué par la présence
+      d'un trait d'union, l'adjectif composé indique avec précision la place
+      hiérarchique qu'occupe le nom qu'il modifie (par exemple, \og{}évênement
+      socio-culturel\fg{} est un hyponyme de \og{}évênement\fg{}).
+      
+      Pour détecter les adjectifs composés, nous nous limitons à la présence du
       trait d'union, marque de composition en français et en anglais. Pour
-      détecter les adjectifs relationnels, nous utilisons une technique
-      simple, adaptée (ou adaptable) à plusieurs langues, et ne requérant pas
-      nécessairement de données riches.
-
-      La détection des adjectifs relationnels se fonde sur les deux propriétés
-      linguistiques suivantes~:
+      détecter les adjectifs relationnels, nous utilisons une technique simple,
+      adaptée (ou adaptable) à plusieurs langues, et ne requérant pas
+      nécessairement de données riches. Notre approche se fonde sur les
+      assertions suivantes~:
       \begin{enumerate}
         \item{L'adjectif relationnel est dénominal, c'est-à-dire
               \textbf{dérivé d'un
@@ -197,17 +220,13 @@
       corpus ne sont pas toujours disponibles, les paraphrases ne sont pas
       toujours présentes.
 
-      ~\\Dans le tableau~\ref{tab:candidate_selection-adjective_categories}, nous
-      nous intéressons plus particulièrement aux adjectifs et à leurs
-      catégories. Plus précisément, nous cherchons à voir parmi les adjectifs
-      relationnels, les adjectifs composés et les adjectifs qualificatifs autres
-      que composés, quels sont ceux les plus présents au sein des termes-clés de
-      référence.
+      ~\\Le tableau~\ref{tab:candidate_selection-adjective_categories}montre le
+      taux d'adjectifs des termes-clés de référence par catégorie.
       \begin{table}[!ht]
         \centering
           \begin{tabular}{l|ccc}
             \toprule
-            & \textbf{\textsc{Duc}} & \textbf{SemEval} & \textbf{\textsc{Deft}} \\
+            & \textbf{\textsc{Duc}} & \textbf{SemEval} & \textbf{\textsc{Deft}}\\
             \hline
             Adjectifs relationnels \hfill(\%) & 53,1 & 43,6 & 87,1\\
             Adjectifs composés \hfill(\%) & 10,6 & 16,4 & $~~$3,3\\
@@ -219,37 +238,23 @@
         \label{tab:candidate_selection-adjective_categories}
       \end{table}
       
+      \TODO{revoir}
       Nous observons que la majorité des adjectifs présents au sein des
-      termes-clés de référence sont des adjectifs relationnels. Ceux-ci sont des
-      adjectifs dérivés de nom (par exemple~: l'adjectif relationnel
-      \og{}culturel\fg{} est dérivé du nom \og{}culture\fg{}) et équivalents à
-      un complément de nom (par exemple~: \og{}héritage culturel\fg{} équivaut à
-      \og{}héritage de la
-      culture\fg{})~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}.
-      Leur lien étroit avec le nom leur confère le statut de modificateurs au
-      sein de catégories, telles que celles de Wikipedia (par exemple
-      \og{}héritage culturel\fg{}), ces mêmes catégories pouvant être utilisées
-      comme termes-clés~\cite{medelyan2008smalltrainingset,eichler2010keywe}.
-      Nous supposons donc, confortés par l'étude de
-      \newcite{maniez2009denominaladjectives} dans le domaine médical, que
-      l'adjectif relationnel est un élément-clé d'un terme-clé. Nos propos se
+      termes-clés de référence sont des adjectifs relationnels. Nos propos se
       confirment dans le tableau~\ref{tab:candidate_selection-best_patterns},
       qui montre les patrons grammaticaux les plus fréquents pour les
       termes-clés de référence.
       
+      \TODO{revoir}
       Les adjectifs composés sont la réunion de mots équivalents à un adjectif,
       nous parlons aussi de locutions adjectifs (par exemple~:
       \og{}socio-culturel\fg{}). Bien qu'ils ne représentent qu'une faible
       quantité des adjectifs présents au sein des termes-clés de référence, nous
       trouvons les adjectifs composés pertinents en tant que modificateurs de
-      termes-clés. Ceux-ci apportent généralement un spécialisation hiérarchique
-      du nom qu'ils modifient (par exemple, \og{}évênement socio-culturel\fg{}
-      est un hyponyme de \og{}évênement\fg{}), rendant alors un terme-clé
-      beaucoup plus précis.
+      termes-clés.
       
-      Les adjectifs qualificatifs sont des mots qui donnent une qualification à
-      un nom~; ils en désignent la qualité ou manière d'être (par exemple
-      \og{}grand\fg{}). Ceux-ci sont présents en nombre non négligeable au sein
+      \TODO{revoir}
+      Ceux-ci sont présents en nombre non négligeable au sein
       des termes-clés de référence. Cependant, la catégorie des adjectifs
       qualificatifs regroupe un grand nombre d'adjectifs qui ne sont
       intuitivement pas tous pertinent en tant que modificateur au sein d'un
