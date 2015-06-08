@@ -67,31 +67,31 @@
       extrayons et analysons des statistiques concernant les termes-clés~: leur
       taille (en nombre de mots) et la catégorie grammaticale des mots qui les
       composent. Cela nous permet de confirmer les observations faites dans les
-      travaux précédents et d'en faire de nouvelles, centrées sur la catégorie
+      travaux précédents et d'en inférer de nouvelles, axées sur la catégorie
       grammaticale des mots des termes-clés.
 
       Notre analyse couvre les deux langues de nos ressources (français et
-      anglais). Elle se porte sur les collections \textsc{De}ft, \textsc{Duc} et
-      SemEval. Dans le but de ne pas biaiser les résultats des évaluations de ce
-      travail, l'analyse est effectuée sur un sous-ensemble de ces collections.
-      Pour permettre des comparaisons avec des travaux futures, les évaluations
-      sont réalisées sur les ensembles de test de nos collections et l'analyse
-      est donc réalisée sur les ensembles normalement destinés à
-      l'apprentissage. \textsc{Duc} n'étant pas répartie en plusieurs
-      sous-ensembles, nous utilisons 208 documents pour l'analyse et 100 pour
-      les évaluations.
+      anglais). Elle se porte sur les collections \textsc{De}ft (français),
+      \textsc{Duc} (anglais) et SemEval (anglais). Dans le but de ne pas biaiser
+      les résultats des évaluations de ce travail, l'analyse est effectuée sur
+      un sous-ensemble de ces collections. Pour permettre des comparaisons avec
+      des travaux futures, les évaluations sont réalisées sur les ensembles de
+      test de nos collections et l'analyse est donc réalisée sur les ensembles
+      normalement destinés à l'apprentissage. \textsc{Duc} n'étant pas répartie
+      en plusieurs sous-ensembles, nous utilisons 208 documents pour l'analyse
+      et 100 pour les évaluations.
 
       ~\\Le tableau~\ref{tab:candidate_selection-train_stats} montre la
       proportion de termes-clés uni-grammes, bi-grammes et tri-grammes, ainsi
-      que la proportion de termes-clés multi-mots contenant au moins un mot de
-      l'une des sept catégories grammaticales que nous observons en leur
-      sein\footnote{ Nous nous focalisons sur les expressions (termes-clés
-      multi-mots), car nous avons observé que \TODO{\dots}~\% des termes-clés
-      qui sont des mots simples sont des noms. }~: nom commun, nom propre,
-      adjectif, verbe, adverbe, préposition et déterminant. Pour obtenir ces
-      informations, les termes-clés ont été automatiquement segmentés en mots et
-      étiquetés grammaticalement à l'aide des outils utilisés pour prétraiter
-      les collections de données (cf
+      que la proportion de termes-clés multi-mots contenant au moins un mot
+      appartenant à l'une des sept catégories grammaticales que nous observons
+      en leur sein\footnote{ Nous nous focalisons sur les expressions
+      (termes-clés multi-mots), car nous avons observé que \TODO{\dots}~\% des
+      termes-clés qui sont des mots simples sont des noms. }~: nom commun, nom
+      propre, adjectif, verbe, adverbe, préposition et déterminant. Pour obtenir
+      ces informations, les termes-clés ont été automatiquement segmentés en
+      mots et étiquetés grammaticalement à l'aide des outils utilisés pour
+      prétraiter les collections de données (cf
       section~\ref{sec:main-data_description-preprocessing}
       page~\pageref{sec:main-data_description-preprocessing}), puis manuellement
       corrigés.
@@ -122,23 +122,24 @@
                  \label{tab:candidate_selection-train_stats}}
       \end{table}
 
-      Concernant la taille des termes-clés de référence, ceux composés de un à
-      trois mots couvrent plus de 90~\% des termes-clés de références. En
-      français, ce sont les uni-grammes qui sont les plus présents, suivis par
+      Concernant la taille des termes-clés de référence, les uni-grammes,
+      bi-grammes et tri-grammes couvrent plus de 90~\% des termes-clés de références. En
+      français, ce sont les uni-grammes qui sont les plus utilisés, suivis par
       les bi-grammes, tandis qu'en anglais, ce sont les bi-grammes qui sont les
-      plus présents, avec des proportions équivalentes d'uni-grammes et de
+      plus employés, avec des proportions équivalentes d'uni-grammes et de
       tri-grammes. Ces premières observations font écho à celles que nous
-      trouvons dans la littérature, nous pouvons en conclure qu'il s'agit de
+      trouvons dans la littérature, nous en concluons qu'il s'agit de
       propriétés stables des termes-clés. Une approche raisonable peut donc se
       restreindre aux $\{1..3\}$-grammes, à l'instar de celle de
       \newcite{witten1999kea}.
 
       Concernant les catégories des mots que contiennent les termes-clés de
       référence, nous observons que la quasi-totalité des termes-clés
-      contiennent un nom, que ce sont majoritairement des groupes nominaux et
+      contiennent un nom (ce sont majoritairement des groupes nominaux) et
       que la moitié d'entre eux est modifiée par un adjectif. Les autres
       catégories de mots, comme le verbe et l'adverbe sont très peu utilisées.
       L'usage de ces dernières au sein de termes-clés semble être exceptionnel.
+      \TODO{la suite n'est pas fluide}
       Les déterminants et prépositions ont un usage presque exclusivement
       français. En anglais, les formes composés (par exemple,
       \textit{\og{}nature conservation\fg{}} -- \og{}conservation de la
@@ -148,8 +149,8 @@
 
       ~\\L'adjectif étant utilisé à plus forte proportion que les catégories
       grammaticales autres que le nom et le nom propre, nous analysons plus
-      finement leur nature~: relationnel, composé ou autre (principalement
-      qualificatif).
+      finement sa nature~: relationnel, composé complexe ou autre
+      (qualificatif).
       
       Un adjectif relationnel est un adjectif
       dénominal~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}. Il
@@ -159,66 +160,85 @@
       (par exemple~: \og{}héritage culturel\fg{} équivaut à \og{}héritage de la
       culture\fg{}). Caractéristique du discours du
       spécialiste~\cite{maniez2009denominaladjectives}, l'adjectif relationnel
-      sert de modificateur pour les noms de catégories, telles que celles de
-      Wikipedia (par exemple \og{}héritage culturel\fg{}), catégories qui
-      constituent de bons termes-clés
-      candidats~\cite{medelyan2008smalltrainingset,eichler2010keywe}.
+      sert de modificateur au sein des titre de catégories, telles que celles de
+      Wikipedia (par exemple \og{}héritage
+      culturel\fg{}\footnote{\url{http://en.wikipedia.org/wiki/Category:Cultural_heritage}}),
+      qui constituent de bons termes-clés
+      candidats~\cite{medelyan2008smalltrainingset,eichler2010keywe}. Par
+      transitivité, l'adjectif relationnel semble donc être un modificateur qui
+      apporte du sens bénéfique à la caractérisation  de tout ou partie du
+      contenu d'un document.
       
-      Un adjectif composé est un adjectif constitué de plusieurs mots (par
-      exemple, \og{}socio-culturel\fg{}). Généralement marqué par la présence
-      d'un trait d'union, l'adjectif composé indique avec précision la place
-      hiérarchique qu'occupe le nom qu'il modifie (par exemple, \og{}évênement
-      socio-culturel\fg{} est un hyponyme de \og{}évênement\fg{}).
+      Un adjectif composé complexe est un adjectif constitué de plusieurs mots,
+      souvent délimités graphiquement par un trait d'union (par exemple,
+      \og{}socio-éducatif\fg{}). L'adjectif composé complexe indique avec
+      précision la place hiérarchique qu'occupe le nom qu'il modifie (par
+      exemple, \og{}activité socio-éducative\fg{} est un hyponyme de
+      \og{}activité\fg{}). À l'instar de l'adjectif relationnel, il est donc un
+      bon modificateur au sein de titres de catégories et, par transitivité, il
+      apporte potentiellement du sens bénéfique à la caractérisation  de tout ou
+      partie du contenu d'un document.
+
+      Un adjectif qualificatif est un adjectif qui donne une qualification à un
+      nom. Il désigne la qualité ou manière d'être (par exemple,
+      \og{}grand\fg{}) de ce dernier. Cette catégorie d'adjectifs est la
+      plus couramment utilisée. L'ensemble des cas d'utilisation des adjectifs
+      qualificatifs est moins restreint que celui des adjectifs relationnels et
+      composés complexes. Nous faisons donc l'hypothèse qu'un adjectif
+      appartenant à cette catégorie n'est pas toujours utile à la
+      caractérisation du contenu important d'un document.
       
-      Pour détecter les adjectifs composés, nous nous limitons à la présence du
-      trait d'union, marque de composition en français et en anglais. Pour
-      détecter les adjectifs relationnels, nous utilisons une technique simple,
-      adaptée (ou adaptable) à plusieurs langues, et ne requérant pas
-      nécessairement de données riches. Notre approche se fonde sur les
-      assertions suivantes~:
-      \begin{enumerate}
-        \item{L'adjectif relationnel est dénominal, c'est-à-dire
-              \textbf{dérivé d'un
-              nom}~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}.}
-        \item{L'adjectif relationnel est dérivé du nom par
-              \textbf{suffixation}~\cite{dubois1999derivation}.}
-      \end{enumerate}
+      ~\\Pour détecter les adjectifs relationnels, nous utilisons une technique
+      simple, adaptée (ou adaptable) à plusieurs langues et ne requérant pas
+      nécessairement de données riches.
 
       Dans un premier temps, les adjectifs relationnels sont détectés avec une
-      base de données lexicale. Si l'adjectif d'un candidat présélectionné est
-      marqué comme dérivé d'un nom, alors nous le considérons comme
-      relationnel. Pour le français, nous utilisons la base
+      base de données lexicale. Pour le français, nous utilisons la base
       WoNeF~\cite{pradet2013wonef} dont la propriété \texttt{[DERIVED]}
-      indique que l'adjectif est dérivé d'un nom. Pour l'anglais, nous
+      indique que l'adjectif est relationnel. Pour l'anglais, nous
       utilisons la base  WordNet~\cite{miller1995wordnet} dont la propriété
-      \texttt{[PERTAINYM]} indique que l'adjectif est relationnel.
+      \texttt{[PERTAINYM]} indique que l'adjectif est relationnel. \TODO{WoNef
+      est la retranscription française de WordNet BLABLABLA}
 
       Dans un second temps, les adjectifs relationnels qui ne sont pas présents
-      dans la base de données lexicale sont détectés à l'aide de leur suffixe.
-      Une liste des suffixes les plus productifs pour les adjectifs relationnels
-      est utilisée pour identifier les adjectifs relationnels potentiels. En
-      français, les suffixes les plus productifs sont \textit{-ain},
-      \textit{-aire}, \textit{-al}, \textit{-el}, \textit{-esque},
-      \textit{-estre}, \textit{-eux}, \textit{-ien}, \textit{-ier},
-      \textit{-if}, \textit{-il}, \textit{-in}, \textit{-ique}, \textit{-ois},
-      et \textit{-é}~\cite{guyon1993adjectifsrelationnels}~; en anglais, les
-      suffixes utilisés sont \textit{al}, \textit{ant}, \textit{ary},
-      \textit{ic}, \textit{ous} et
-      \textit{ive}~\cite{grabar2006terminologystructuring}.
+      dans la base de données lexicale sont détectés à l'aide de leur
+      suffixe~\cite{dubois1999derivation}. Une liste des suffixes les plus
+      productifs pour les adjectifs relationnels est utilisée pour identifier
+      les adjectifs relationnels potentiels. En français, les suffixes les plus
+      productifs sont \textit{-ain}, \textit{-aire}, \textit{-al}, \textit{-el},
+      \textit{-esque}, \textit{-estre}, \textit{-eux}, \textit{-ien},
+      \textit{-ier}, \textit{-if}, \textit{-il}, \textit{-in}, \textit{-ique},
+      \textit{-ois}, et
+      \textit{-é}~\cite{harastani2013relationaladjectivetranslation}~; en
+      anglais, les suffixes utilisés sont \textit{-al}, \textit{-ant},
+      \textit{-ary}, \textit{-ic}, \textit{-ous} et
+      \textit{-ive}~\cite{grabar2006terminologystructuring}.
 
-      La détection des adjectifs relationnels telle que réalisée dans ce
-      travail, n'est pas exacte. En effet, les adjectifs qualificatifs se
-      terminant par un suffixe d'adjectif relationnel sont détectés comme
-      relationnels, et les adjectifs à usage qualificatif ou relationnel selon
-      le contexte~\cite{maniez2009denominaladjectives} sont toujours détectés
-      comme relationnels. Les précédentes approches pour identifier les
-      adjectifs relationnels (dans le cadre de l'extraction terminologique)
-      reposent sur une analyse en
-      corpus~\cite{daille2001relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation},
+      La détection des adjectifs relationnels, telle que nous la réalisons,
+      n'est pas exacte. En effet, les adjectifs qualificatifs et/ou
+      dénominaux se terminant par un suffixe d'adjectif relationnel sont
+      détectés comme relationnels, et les adjectifs à usage tentôt qualificatif,
+      tentôt relationnel selon le contexte~\cite{maniez2009denominaladjectives}
+      sont toujours détectés comme relationnels. Dans la littérature, les
+      approches pour identifier les adjectifs relationnels (dans le cadre de
+      l'extraction terminologique) reposent sur une analyse en
+      corpus~\cite{daille2000relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation},
       où il s'agit notamment de trouver des paraphrases avec un complément de
-      nom. Dans le contexte de l'extraction de termes-clés, où de larges
-      corpus ne sont pas toujours disponibles, les paraphrases ne sont pas
-      toujours présentes.
+      nom. Dans le contexte de l'extraction de termes-clés, où de larges corpus
+      ne sont pas toujours disponibles, les paraphrases ne sont pas toutes
+      présentes et de telles approches ne sont pas applicables. De plus,
+      \newcite{harastani2013relationaladjectivetranslation} montrent qu'une
+      approche comme la notre reste une alternative viable.
+
+      ~\\Pour détecter les adjectifs composés, nous regardons si l'adjectif
+      possède un trait d'union, qui marque la composition en français et en
+      anglais. Cette méthode n'est pas exhaustive. En effet, les mots qui
+      constituent un adjectif composé complexe peuvent aussi être concaténés sans marque
+      graphique ou séparé par un espace. Nous ne considérons pas ces deux
+      procédés, parce qu'ils sont moins productifs que l'usage du trait d'union,
+      parce qu'ils nécesitent d'adapter les outils de prétraitements
+      (segmentation en mots et étiquetage grammatical) et parce que leur
+      détection est soumise à ambigüités. \TODO{Ça sent la mauvaise fois}
 
       ~\\Le tableau~\ref{tab:candidate_selection-adjective_categories}montre le
       taux d'adjectifs des termes-clés de référence par catégorie.
@@ -229,7 +249,7 @@
             & \textbf{\textsc{Duc}} & \textbf{SemEval} & \textbf{\textsc{Deft}}\\
             \hline
             Adjectifs relationnels \hfill(\%) & 53,1 & 43,6 & 87,1\\
-            Adjectifs composés \hfill(\%) & 10,6 & 16,4 & $~~$3,3\\
+            Adjectifs composés complexes \hfill(\%) & 10,6 & 16,4 & $~~$3,3\\
             Autres adjectifs qualificatifs \hfill(\%) & 36,3 & 40,0 & $~~$9,6\\
             \bottomrule
         \end{tabular}
@@ -365,8 +385,7 @@
         autonome est jugé pertinent et est conservé en tant que modificateur de
         cette séquence.
 
-        \paragraph{}
-        L'algorithme~\ref{algo:candidate_pruning} résume le
+        ~\\L'algorithme~\ref{algo:candidate_pruning} résume le
         fonctionnement de notre méthode de sélection des termes-clés candidats.
         Les lignes \ref{algo:line:start_preselection} à
         \ref{algo:line:end_preselection} concernent la présélection des
@@ -491,17 +510,40 @@
         sélectionnés, alors plus elle fournit un ensemble de candidats de bonne
         qualité.
 
-        Le tableau~\ref{tab:candidate_extraction_statistics} présente les
-        résultats de l'évaluation intrinsèque. Le nombre de candidats
+        Les tableau~\ref{tab:candidate_extraction_statistics_termith}
+        et~\ref{tab:candidate_extraction_statistics_deft_semeval_duc} présentent
+        les résultats de l'évaluation intrinsèque. Le nombre de candidats
         sélectionnés par chaque méthode, le rappel maximum pouvant être atteint
         avec ceux-ci et la mesure QR sont reportés pour chacune des
         trois collections de données utilisées pour cette évaluation.
+        \TODO{wikinews}
+        \begin{table}[!h]
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{r|ccc|ccc|ccc|ccc}
+              \toprule
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'information}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
+              \cline{2-13}
+              & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
+              \hline
+              n-grammes & & \textbf{35,9} & & & \textbf{32,4} & & & \textbf{58,5} & & & \textbf{20.5} &\\
+              \texttt{/(N|A)+/} & & 25,1 & & & 24,2 & & & 43,9 & & & 16,8 &\\
+              \textit{NP-chunks} & & 24,0 & & & 24,5 & & & 44.0 & & & 16,5 &\\
+              \textsc{Lr-Np} & & 23,9 & & & 24,2 & & & 43,7 & & & 16,7 &\\
+              \bottomrule
+            \end{tabular}
+          }
+          \caption{Résultats de l'évaluation intrinsèque des méthodes de
+                   sélection des termes-clés candidats sur les collections de
+                   données Termith
+                   \label{tab:candidate_extraction_statistics_termith}}
+        \end{table}
         \begin{table}[!h]
           \centering
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r|ccc|ccc|ccc}
               \toprule
-              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{DEFT}}\\
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft}}\\
               \cline{2-10}
               & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
               \hline
@@ -513,8 +555,9 @@
             \end{tabular}
           }
           \caption{Résultats de l'évaluation intrinsèque des méthodes de
-                   sélection des termes-clés candidats
-                   \label{tab:candidate_extraction_statistics}}
+                   sélection des termes-clés candidats sur les collections
+                   \textsc{De}ft, SemEval et \textsc{Duc}
+                   \label{tab:candidate_extraction_statistics_deft_semeval_duc}}
         \end{table}
         
         Globalement, nous remarquons que notre méthode sélectionne le moins de
@@ -540,11 +583,44 @@
         limitant la quantité de termes-clés candidats sélectionnés, alors plus
         elle fournit un ensemble de candidats de bonne qualité.
 
-        Le tableau~\ref{tab:keyphrase_extraction_results_with_filtering}
+        Les
+        tableaux~\ref{tab:keyphrase_extraction_results_with_filtering_termith}
+        et~\ref{tab:keyphrase_extraction_results_with_filtering_deft_semeval_duc}
         présente les résultats de l'évaluation extrinsèque. La performance, en
         termes de précision, rappel et f-mesure, des méthodes \textsc{Tf-Idf} et
         \textsc{Kea} est reportée pour chacune des trois collections de données
         utilisées pour cette évaluation.
+        \begin{table}[h!]
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
+              \toprule
+              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Linguistique}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Sciences de l'information}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{archéologie}} & \multicolumn{6}{c}{\textbf{Chimie}}\\
+              \cline{2-25}
+              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+              \cline{2-25}
+              & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
+              \hline
+              n-grammes & 11,9 & 14,3 & 12,8 & 12,4 & 14,8 & 13,3 & 11,1 & 11,6 & 10,9 & 11,6 & 12,4 & 11,6 & 22,3 & 15,4 & 17,8 & 21,7 & 15,1 & 17,4 & 10,4 & $~~$8,3 & $~~$8,8 & $~~$9,8 & $~~$8,2 & $~~$8,5\\
+              \texttt{/(N|A)+/} & 12,9 & 15,2 & 13,8 & 13,5 & 15,9 & 14,4 & 13,3 & 13,8 & 13,1 & 12,6 & 13,0 & 12,4 & 27,6 & 18,8 & 21,8 & 29,3 & 20,2 & 23,4 & 14,2 & 11,0 & 11,9 & 14,7 & 11,9 & 12,6\\
+              \textit{NP-chunks} & 13,1 & 15,6 & 14,0 & \textbf{13,6} & \textbf{16,0} & \textbf{14,5} & \textbf{13,6} & \textbf{14,2} & \textbf{13,5} & \textbf{13,0} & \textbf{13,6} & \textbf{12,9} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & 29,3 & 20,3 & 23,4 & 14,8 & 11,6 & 12,5 & 14,6 & 11,8 & 12,5\\
+              \textsc{Lr-Np} & \textbf{13,3} & \textbf{15,8} & \textbf{14,2} & \textbf{13,6} & \textbf{16,0} & \textbf{14,5} & 13,4 & 14,1 & 13,3 & 12,6 & 13,2 & 12,5 & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{29,9} & \textbf{20,5} & \textbf{23,8} & \textbf{15,0} & \textbf{11,8} & \textbf{12,6} & \textbf{14,9} & \textbf{12,0} & \textbf{12,7}\\
+              \bottomrule
+            \end{tabular}
+          }
+          \caption[
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} selon la
+            méthode de sélection des termes-clés candidats utilisée
+          ]{
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} d'après la
+            méthode de sélection des termes-clés candidats utilisée.
+            $\ddagger$ indique une amélioration significative par rapport à
+            toutes les autres méthodes de sélection de candidats et $\dagger$
+            indique une amélioration significative par rapport à toutes les
+            méthodes sauf celle qui extrait les \texttt{/(N|A)+/}, à 0.001 pour
+            le t-test de Student.
+           \label{tab:keyphrase_extraction_results_with_filtering_termith}}
+        \end{table}
         \begin{table}[h!]
           \centering
           \resizebox{\linewidth}{!}{
@@ -574,7 +650,7 @@
             indique une amélioration significative par rapport à toutes les
             méthodes sauf celle qui extrait les \texttt{/(N|A)+/}, à 0.001 pour
             le t-test de Student.
-           \label{tab:keyphrase_extraction_results_with_filtering}}
+           \label{tab:keyphrase_extraction_results_with_filtering_deft_semeval_duc}}
         \end{table}
 
         Globalement, la performance des méthodes d'extraction de termes-clés est
@@ -605,6 +681,8 @@
       qualité de l'ensemble de candidats proposés est donc supérieure et permet
       de réduire aussi bien le temps de traitement pour l'extraction de
       termes-clés que les risques d'erreurs.
+      \TODO{mettre en perspective une étude plus approfondie des type de
+      dérivation de l'adjectif}
 
   %-----------------------------------------------------------------------------
 
@@ -859,6 +937,10 @@
         méthodes non supervisées d'extraction automatique de termes-clés. Nous
         choisissons TextRank et SingleRank, les deux méthodes qui sont la
         fondation des méthodes à base de graphe, et la méthode TF-IDF.
+
+        \TODO{Dans un but de comparaison, nous reportons tout d'abord les
+        résultats de TopicRank avec le patrons \texttt{/(N|A)+/} utilisé pour
+        SingleRank pour la sélection des candidats}
 
       \subsubsection{Collections de données}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
