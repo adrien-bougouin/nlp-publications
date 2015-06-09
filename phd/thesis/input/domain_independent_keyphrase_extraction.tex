@@ -997,6 +997,466 @@
         chacun des sujets les plus importants.
         \begin{figure}
           \centering
+          \subfigure[Linguistique]{
+            \begin{tikzpicture}
+              \pgfkeys{/pgf/number format/.cd, use comma, fixed}
+              \begin{axis}[axis lines=middle,
+                           x=0.37\linewidth,
+                           xtick={0.0, 0.2, ..., 1.2},
+                           xmin=0.0,
+                           xmax=1.05,
+                           xlabel=$\zeta$,
+                           x label style={anchor=west},
+                           y=0.012\textheight,
+                           ytick={0, 5, 10, 15},
+                           ymin=0,
+                           ymax=18,
+                           ylabel=F,
+                           y label style={anchor=south}]
+                % simple
+                \addplot[green!66, mark=x] coordinates{
+                  (0.05, 11.7)
+                  (0.10, 11.7)
+                  (0.15, 11.7)
+                  (0.20, 11.7)
+                  (0.25, 11.7)
+                  (0.30, 11.6)
+                  (0.35, 11.8)
+                  (0.40, 11.8)
+                  (0.45, 11.8)
+                  (0.50, 11.8)
+                  (0.55, 12.9)
+                  (0.60, 12.9)
+                  (0.65, 12.9)
+                  (0.70, 12.9)
+                  (0.75, 12.9)
+                  (0.80, 12.9)
+                  (0.85, 12.9)
+                  (0.90, 12.9)
+                  (0.95, 12.9)
+                  (1.00, 12.9)
+                };
+                % complet
+                \addplot[cyan!66, mark=+] coordinates{
+                  (0.05, 0.0)
+                  (0.10, 0.0)
+                  (0.15, 0.0)
+                  (0.20, 0.0)
+                  (0.25, 0.0)
+                  (0.30, 0.0)
+                  (0.35, 0.0)
+                  (0.40, 0.0)
+                  (0.45, 0.0)
+                  (0.50, 0.0)
+                  (0.55, 0.0)
+                  (0.60, 0.0)
+                  (0.65, 0.0)
+                  (0.70, 0.0)
+                  (0.75, 0.0)
+                  (0.80, 0.0)
+                  (0.85, 0.0)
+                  (0.90, 0.0)
+                  (0.95, 0.0)
+                  (1.00, 0.0)
+                };
+                % moyen
+                \addplot[red!66, mark=o] coordinates{
+                  (0.05, 11.7)
+                  (0.10, 11.7)
+                  (0.15, 11.7)
+                  (0.20, 11.7)
+                  (0.25, 11.9)
+                  (0.30, 12.1)
+                  (0.35, 12.3)
+                  (0.40, 12.4)
+                  (0.45, 12.5)
+                  (0.50, 12.5)
+                  (0.55, 12.9)
+                  (0.60, 12.9)
+                  (0.65, 12.9)
+                  (0.70, 12.9)
+                  (0.75, 12.9)
+                  (0.80, 12.9)
+                  (0.85, 12.9)
+                  (0.90, 12.9)
+                  (0.95, 12.9)
+                  (1.00, 12.9)
+                };
+                \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
+                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
+                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+              \end{axis}
+            \end{tikzpicture}
+          }
+          \subfigure[Sciences de l'info.]{
+            \begin{tikzpicture}
+              \pgfkeys{/pgf/number format/.cd, use comma, fixed}
+              \begin{axis}[axis lines=middle,
+                           x=0.37\linewidth,
+                           xtick={0.0, 0.2, ..., 1.2},
+                           xmin=0.0,
+                           xmax=1.05,
+                           xlabel=$\zeta$,
+                           x label style={anchor=west},
+                           y=0.012\textheight,
+                           ytick={0, 5, 10, 15},
+                           ymin=0,
+                           ymax=18,
+                           ylabel=F,
+                           y label style={anchor=south}]
+                % simple
+                \addplot[green!66, mark=x] coordinates{
+                  (0.05, 11.5)
+                  (0.10, 11.5)
+                  (0.15, 11.5)
+                  (0.20, 11.6)
+                  (0.25, 11.6)
+                  (0.30, 11.5)
+                  (0.35, 11.8)
+                  (0.40, 11.8)
+                  (0.45, 11.8)
+                  (0.50, 11.8)
+                  (0.55, 12.7)
+                  (0.60, 12.7)
+                  (0.65, 12.7)
+                  (0.70, 12.7)
+                  (0.75, 12.7)
+                  (0.80, 12.7)
+                  (0.85, 12.7)
+                  (0.90, 12.7)
+                  (0.95, 12.7)
+                  (1.00, 12.7)
+                };
+                % complet
+                \addplot[cyan!66, mark=+] coordinates{
+                  (0.05, 0.0)
+                  (0.10, 0.0)
+                  (0.15, 0.0)
+                  (0.20, 0.0)
+                  (0.25, 0.0)
+                  (0.30, 0.0)
+                  (0.35, 0.0)
+                  (0.40, 0.0)
+                  (0.45, 0.0)
+                  (0.50, 0.0)
+                  (0.55, 0.0)
+                  (0.60, 0.0)
+                  (0.65, 0.0)
+                  (0.70, 0.0)
+                  (0.75, 0.0)
+                  (0.80, 0.0)
+                  (0.85, 0.0)
+                  (0.90, 0.0)
+                  (0.95, 0.0)
+                  (1.00, 0.0)
+                };
+                % moyen
+                \addplot[red!66, mark=o] coordinates{
+                  (0.05, 11.6)
+                  (0.10, 11.7)
+                  (0.15, 11.7)
+                  (0.20, 11.9)
+                  (0.25, 12.1)
+                  (0.30, 12.1)
+                  (0.35, 12.1)
+                  (0.40, 12.2)
+                  (0.45, 12.4)
+                  (0.50, 12.4)
+                  (0.55, 12.7)
+                  (0.60, 12.7)
+                  (0.65, 12.7)
+                  (0.70, 12.7)
+                  (0.75, 12.7)
+                  (0.80, 12.7)
+                  (0.85, 12.7)
+                  (0.90, 12.7)
+                  (0.95, 12.7)
+                  (1.00, 12.7)
+                };
+                \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
+                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
+                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+              \end{axis}
+            \end{tikzpicture}
+          }
+          \subfigure[Archéologie]{
+            \begin{tikzpicture}
+              \pgfkeys{/pgf/number format/.cd, use comma, fixed}
+              \begin{axis}[axis lines=middle,
+                           x=0.37\linewidth,
+                           xtick={0.0, 0.2, ..., 1.2},
+                           xmin=0.0,
+                           xmax=1.05,
+                           xlabel=$\zeta$,
+                           x label style={anchor=west},
+                           y=0.012\textheight,
+                           ytick={0, 5, 10, 15, 20, 25},
+                           ymin=10,
+                           ymax=28,
+                           ylabel=F,
+                           y label style={anchor=south}]
+                % simple
+                \addplot[green!66, mark=x] coordinates{
+                  (0.05, 21.6)
+                  (0.10, 21.6)
+                  (0.15, 21.6)
+                  (0.20, 21.6)
+                  (0.25, 21.6)
+                  (0.30, 21.8)
+                  (0.35, 22.5)
+                  (0.40, 22.5)
+                  (0.45, 22.5)
+                  (0.50, 22.5)
+                  (0.55, 23.3)
+                  (0.60, 23.3)
+                  (0.65, 23.3)
+                  (0.70, 23.4)
+                  (0.75, 23.4)
+                  (0.80, 23.4)
+                  (0.85, 23.4)
+                  (0.90, 23.4)
+                  (0.95, 23.4)
+                  (1.00, 23.4)
+                };
+                % complet
+                \addplot[cyan!66, mark=+] coordinates{
+                  (0.05, 0.0)
+                  (0.10, 0.0)
+                  (0.15, 0.0)
+                  (0.20, 0.0)
+                  (0.25, 0.0)
+                  (0.30, 0.0)
+                  (0.35, 0.0)
+                  (0.40, 0.0)
+                  (0.45, 0.0)
+                  (0.50, 0.0)
+                  (0.55, 0.0)
+                  (0.60, 0.0)
+                  (0.65, 0.0)
+                  (0.70, 0.0)
+                  (0.75, 0.0)
+                  (0.80, 0.0)
+                  (0.85, 0.0)
+                  (0.90, 0.0)
+                  (0.95, 0.0)
+                  (1.00, 0.0)
+                };
+                % moyen
+                \addplot[red!66, mark=o] coordinates{
+                  (0.05, 21.6)
+                  (0.10, 21.6)
+                  (0.15, 21.5)
+                  (0.20, 21.7)
+                  (0.25, 21.8)
+                  (0.30, 22.1)
+                  (0.35, 22.6)
+                  (0.40, 22.6)
+                  (0.45, 22.7)
+                  (0.50, 22.7)
+                  (0.55, 23.3)
+                  (0.60, 23.3)
+                  (0.65, 23.3)
+                  (0.70, 23.4)
+                  (0.75, 23.4)
+                  (0.80, 23.4)
+                  (0.85, 23.4)
+                  (0.90, 23.4)
+                  (0.95, 23.4)
+                  (1.00, 23.4)
+                };
+                \draw[thick] ({axis cs:0.70,0}|-{rel axis cs:0,1}) -- ({axis cs:0.70,0}|-{rel axis cs:0,0}) [color=red!66];
+                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \node at (axis cs:0.70,27.5) [color=red!66, anchor=west] {\tiny{0,70}};
+                \node at (axis cs:0.20,27.5) [color=black!66, anchor=west] {\tiny{0,20}};
+              \end{axis}
+            \end{tikzpicture}
+          }
+          \subfigure[Chimie]{
+            \begin{tikzpicture}
+              \pgfkeys{/pgf/number format/.cd, use comma, fixed}
+              \begin{axis}[axis lines=middle,
+                           x=0.37\linewidth,
+                           xtick={0.0, 0.2, ..., 1.2},
+                           xmin=0.0,
+                           xmax=1.05,
+                           xlabel=$\zeta$,
+                           x label style={anchor=west},
+                           y=0.012\textheight,
+                           ytick={0, 5, 10, 15},
+                           ymin=0,
+                           ymax=18,
+                           ylabel=F,
+                           y label style={anchor=south}]
+                % simple
+                \addplot[green!66, mark=x] coordinates{
+                  (0.05, 11.7)
+                  (0.10, 11.7)
+                  (0.15, 11.7)
+                  (0.20, 11.7)
+                  (0.25, 11.7)
+                  (0.30, 11.8)
+                  (0.35, 11.9)
+                  (0.40, 11.9)
+                  (0.45, 11.9)
+                  (0.50, 11.9)
+                  (0.55, 12.0)
+                  (0.60, 12.0)
+                  (0.65, 12.0)
+                  (0.70, 12.0)
+                  (0.75, 12.0)
+                  (0.80, 12.0)
+                  (0.85, 12.0)
+                  (0.90, 12.0)
+                  (0.95, 12.0)
+                  (1.00, 12.0)
+                };
+                % complet
+                \addplot[cyan!66, mark=+] coordinates{
+                  (0.05, 0.0)
+                  (0.10, 0.0)
+                  (0.15, 0.0)
+                  (0.20, 0.0)
+                  (0.25, 0.0)
+                  (0.30, 0.0)
+                  (0.35, 0.0)
+                  (0.40, 0.0)
+                  (0.45, 0.0)
+                  (0.50, 0.0)
+                  (0.55, 0.0)
+                  (0.60, 0.0)
+                  (0.65, 0.0)
+                  (0.70, 0.0)
+                  (0.75, 0.0)
+                  (0.80, 0.0)
+                  (0.85, 0.0)
+                  (0.90, 0.0)
+                  (0.95, 0.0)
+                  (1.00, 0.0)
+                };
+                % moyen
+                \addplot[red!66, mark=o] coordinates{
+                  (0.05, 11.7)
+                  (0.10, 11.7)
+                  (0.15, 11.7)
+                  (0.20, 11.8)
+                  (0.25, 11.8)
+                  (0.30, 11.9)
+                  (0.35, 11.9)
+                  (0.40, 11.8)
+                  (0.45, 11.9)
+                  (0.50, 11.9)
+                  (0.55, 12.0)
+                  (0.60, 12.1)
+                  (0.65, 12.1)
+                  (0.70, 12.0)
+                  (0.75, 12.0)
+                  (0.80, 12.0)
+                  (0.85, 12.0)
+                  (0.90, 12.0)
+                  (0.95, 12.0)
+                  (1.00, 12.0)
+                };
+                \draw[thick] ({axis cs:0.60,0}|-{rel axis cs:0,1}) -- ({axis cs:0.60,0}|-{rel axis cs:0,0}) [color=red!66];
+                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \node at (axis cs:0.60,17.5) [color=red!66, anchor=west] {\tiny{0,60}};
+                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+              \end{axis}
+            \end{tikzpicture}
+          }
+          \subfigure[\textsc{De}ft]{
+            \begin{tikzpicture}
+              \pgfkeys{/pgf/number format/.cd, use comma, fixed}
+              \begin{axis}[axis lines=middle,
+                           x=0.37\linewidth,
+                           xtick={0.0, 0.2, ..., 1.2},
+                           xmin=0.0,
+                           xmax=1.05,
+                           xlabel=$\zeta$,
+                           x label style={anchor=west},
+                           y=0.012\textheight,
+                           ytick={0, 5, 10, 15},
+                           ymin=0,
+                           ymax=18,
+                           ylabel=F,
+                           y label style={anchor=south}]
+                % simple
+                \addplot[green!66, mark=x] coordinates{
+                  (0.05, 8.6)
+                  (0.10, 8.6)
+                  (0.15, 8.6)
+                  (0.20, 8.6)
+                  (0.25, 8.6)
+                  (0.30, 8.9)
+                  (0.35, 11.1)
+                  (0.40, 11.1)
+                  (0.45, 11.2)
+                  (0.50, 11.2)
+                  (0.55, 15.3)
+                  (0.60, 15.3)
+                  (0.65, 15.3)
+                  (0.70, 15.6)
+                  (0.75, 15.6)
+                  (0.80, 15.6)
+                  (0.85, 15.6)
+                  (0.90, 15.6)
+                  (0.95, 15.6)
+                  (1.00, 15.6)
+                };
+                % complet
+                \addplot[cyan!66, mark=+] coordinates{
+                  (0.05, 15.8)
+                  (0.10, 15.8)
+                  (0.15, 15.8)
+                  (0.20, 15.8)
+                  (0.25, 15.9)
+                  (0.30, 15.5)
+                  (0.35, 16.1)
+                  (0.40, 16.1)
+                  (0.45, 16.1)
+                  (0.50, 16.1)
+                  (0.55, 15.6)
+                  (0.60, 15.6)
+                  (0.65, 15.6)
+                  (0.70, 15.6)
+                  (0.75, 15.6)
+                  (0.80, 15.6)
+                  (0.85, 15.6)
+                  (0.90, 15.6)
+                  (0.95, 15.6)
+                  (1.00, 15.6)
+                };
+                % moyen
+                \addplot[red!66, mark=o] coordinates{
+                  (0.05, 13.8)
+                  (0.10, 13.9)
+                  (0.15, 14.9)
+                  (0.20, 15.4)
+                  (0.25, 15.2)
+                  (0.30, 15.3)
+                  (0.35, 15.3)
+                  (0.40, 15.5)
+                  (0.45, 15.8)
+                  (0.50, 15.9)
+                  (0.55, 15.4)
+                  (0.60, 15.5)
+                  (0.65, 15.6)
+                  (0.70, 15.6)
+                  (0.75, 15.6)
+                  (0.80, 15.6)
+                  (0.85, 15.6)
+                  (0.90, 15.6)
+                  (0.95, 15.6)
+                  (1.00, 15.6)
+                };
+                \draw[thick] ({axis cs:0.50,0}|-{rel axis cs:0,1}) -- ({axis cs:0.50,0}|-{rel axis cs:0,0}) [color=red!66];
+                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \node at (axis cs:0.50,17.5) [color=red!66, anchor=west] {\tiny{0,50}};
+                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+              \end{axis}
+            \end{tikzpicture}
+          }
           \subfigure[SemEval]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
@@ -1087,98 +1547,6 @@
                 \node at (axis cs:0.05,17.5) [color=red!66, anchor=west] {\tiny{0,05}};
                 \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
                 \legend{Simple, Complète, Moyenne}
-              \end{axis}
-            \end{tikzpicture}
-          }
-          \subfigure[\textsc{Deft}]{
-            \begin{tikzpicture}
-              \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-              \begin{axis}[axis lines=middle,
-                           x=0.37\linewidth,
-                           xtick={0.0, 0.2, ..., 1.2},
-                           xmin=0.0,
-                           xmax=1.05,
-                           xlabel=$\zeta$,
-                           x label style={anchor=west},
-                           y=0.012\textheight,
-                           ytick={0, 5, 10, 15},
-                           ymin=0,
-                           ymax=18,
-                           ylabel=F,
-                           y label style={anchor=south}]
-                % simple
-                \addplot[green!66, mark=x] coordinates{
-                  (0.05, 8.6)
-                  (0.10, 8.6)
-                  (0.15, 8.6)
-                  (0.20, 8.6)
-                  (0.25, 8.6)
-                  (0.30, 8.9)
-                  (0.35, 11.1)
-                  (0.40, 11.1)
-                  (0.45, 11.2)
-                  (0.50, 11.2)
-                  (0.55, 15.3)
-                  (0.60, 15.3)
-                  (0.65, 15.3)
-                  (0.70, 15.6)
-                  (0.75, 15.6)
-                  (0.80, 15.6)
-                  (0.85, 15.6)
-                  (0.90, 15.6)
-                  (0.95, 15.6)
-                  (1.00, 15.6)
-                };
-                % complet
-                \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 15.8)
-                  (0.10, 15.8)
-                  (0.15, 15.8)
-                  (0.20, 15.8)
-                  (0.25, 15.9)
-                  (0.30, 15.5)
-                  (0.35, 16.1)
-                  (0.40, 16.1)
-                  (0.45, 16.1)
-                  (0.50, 16.1)
-                  (0.55, 15.6)
-                  (0.60, 15.6)
-                  (0.65, 15.6)
-                  (0.70, 15.6)
-                  (0.75, 15.6)
-                  (0.80, 15.6)
-                  (0.85, 15.6)
-                  (0.90, 15.6)
-                  (0.95, 15.6)
-                  (1.00, 15.6)
-                };
-                % moyen
-                \addplot[red!66, mark=o] coordinates{
-                  (0.05, 13.8)
-                  (0.10, 13.9)
-                  (0.15, 14.9)
-                  (0.20, 15.4)
-                  (0.25, 15.2)
-                  (0.30, 15.3)
-                  (0.35, 15.3)
-                  (0.40, 15.5)
-                  (0.45, 15.8)
-                  (0.50, 15.9)
-                  (0.55, 15.4)
-                  (0.60, 15.5)
-                  (0.65, 15.6)
-                  (0.70, 15.6)
-                  (0.75, 15.6)
-                  (0.80, 15.6)
-                  (0.85, 15.6)
-                  (0.90, 15.6)
-                  (0.95, 15.6)
-                  (1.00, 15.6)
-                };
-                \draw[thick] ({axis cs:0.50,0}|-{rel axis cs:0,1}) -- ({axis cs:0.50,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
-                \node at (axis cs:0.50,17.5) [color=red!66, anchor=west] {\tiny{0,50}};
-                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
               \end{axis}
             \end{tikzpicture}
           }
