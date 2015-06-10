@@ -223,20 +223,24 @@
   \section{Extraction automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_extraction}
     L'extraction automatique de termes-clés est la tâche la plus utilisée pour
-    faire de l'indexation par termes-clés. Elle ne nécessite pas de vocabulaire
-    contrôlé et requiert donc moins d'effort humain. Les méthodes d'extraction
-    automatique de termes-clés effectuent principalement un ordonnancement ou
-    une classification des termes-clés candidats, puis choisissent les $k$
-    meilleurs. L'ordonnancement est principalement réalisé selon une approche
-    non supervisée, tandis que la classification est réalisée selon une approche
-    supervisée. Contrairement à l'approche non supervisée, l'approche supervisée
-    requiert des données d'entraînement afin d'apprendre à partir des
-    caractéristiques des termes-clés qui y sont manuellement annotés.
+    faire de l'indexation par termes-clés. Contrairement à l'assignement de
+    termes-clés, elle ne nécessite pas de vocabulaire contrôlé et requiert donc
+    moins d'effort manuel de production de ressources. Les méthodes d'extraction
+    automatique de termes-clés effectuent soit un ordonnancement par importance
+    des termes-clés candidats vis-à-vis du contenu du document, soit une
+    classification des termes-clés candidats entre les classes
+    \og{}terme-clé\fg{} et \og{}non terme-clé\fg{}, puis extraient les $k$
+    candidats jugés les meilleurs. L'ordonnancement est principalement réalisé
+    avec une approche non supervisée et la classification est réalisée avec une
+    approche supervisée qui requiert des données d'entraînement manuellement
+    annotés en termes-clés.
 
     \subsection{Approche non supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction}
-      Les méthodes non supervisées d'extraction de termes-clés ordonnent
-      principalement les termes-clés candidats par importance. Du fait qu'elles
+      La plupart des méthodes non supervisées d'extraction de termes-clés
+      ordonnent les termes-clés candidats d'après leur importance vis-à-vis du
+      contenu du document (\TODO{exemple: l'expression PLOP est importante
+      vis-à-vis d'un doc. parlant de BLABLABLA}). Du fait qu'elles
       ne requièrent pas de données d'entraînement, elles ont la particularité de
       s'abstraire du domaine et de la langue des documents qu'elles traitent.
       Les termes-clés candidats sont analysés avec des règles simples fondées
@@ -245,11 +249,8 @@
 
       De nombreuses méthodes sont proposées. Certaines se fondent uniquement
       sur des statistiques et d'autres les combinent avec des représentations
-      plus complexes du document, principalement des groupes sémantiques et des
-      graphes de cooccurrences de mots. Dans la suite, nous présentons ces
-      différentes méthodes, des plus simples aux plus sophistiquées. Notez qu'il
-      existe aussi une étude comparative des performances de certaines d'entre
-      elles~\cite{hassan2010conundrums}.
+      plus complexes du document~: des groupes sémantiques et des
+      graphes de cooccurrences de mots.
 
       \subsubsection{Méthodes statistiques}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-statistical_approaches}
@@ -261,12 +262,10 @@
         ~\\\textsc{Tf-Idf}~\cite{jones1972tfidf} et Likey~\cite{paukkeri2010likey}
         sont deux méthodes similaires qui comparent le comportement d'une unité
         textuelle dans le document avec son comportement dans un corpus de
-        référence. L'objectif est de trouver celles dont le
-        comportement dans le document varie positivement comparé à leur
-        comportement global dans le corpus. Dans \textsc{Tf-Idf} et Likey ceci
-        s'exprime par le fait qu'une unité textuelle a une forte importance
-        vis-à-vis du document si elle y est très fréquente et si elle l'est
-        peu dans le corpus de référence:
+        référence. Elles font l'hypothèse qu'une unité textuelle a une forte
+        importance vis-à-vis du document si elle y est très fréquente et si elle
+        l'est peu dans le corpus de référence, auquel cas elle est spécifique au
+        document~:
         \begin{align}
           \text{\textsc{Tf-Idf}}(\text{\textit{ut}}) &= \textsc{Tf}(\text{\textit{ut}}) \times \log\left(\frac{N}{\textsc{Df}(\text{\textit{ut}})}\right) \label{math:tfidf}\\
           \notag\\
@@ -275,7 +274,7 @@
         Dans \textsc{Tf-Idf}, $\textsc{Tf}$ (\textit{Term Frequency}) représente
         le nombre d'occurrences d'une unité textuelle \textit{ut} dans le
         document, $\textsc{Df}$ (\textit{Document Frequency}) représente le
-        nombre de documents du corpus de référence dans lesquels elle apparaît
+        nombre de documents du corpus de référence dans lesquels elle occure
         et $N$ est le nombre total de documents du corpus de référence. Plus le
         score \textsc{Tf-Idf} d'une unité textuelle est élevé, plus celle-ci est
         importante vis-à-vis du document. Dans Likey, le rang d'une unité
@@ -284,23 +283,23 @@
         Plus le rapport entre ces deux rangs est faible, plus l'unité textuelle
         évaluée est importante dans le document.
 
-        La granularité de l'unité textuelle peut être définie au mot ou au
-        terme-clé candidat. Si la granularité choisie est le mot, il est courant
+        La nature linguistique de l'unité textuelle peut être fixée au mot ou au
+        terme-clé candidat. Si la granularité fixée est le mot, il est courant
         de déterminer le score d'importance des termes-clés candidat en faisant
-        la somme du score (\textsc{Tf-Idf} ou Likey) des mots qui les composent.
-        Cependant, il est important de noter que faire cette somme favorise les
-        plus longues séquences de mots et fait monter des candidats redondants
-        dans le classement par importance (\TODO{exemple de redondance}).
+        la somme du score \textsc{Tf-Idf} ou Likey des mots qui les composent.
+        Cependant, faire cette somme favorise les plus longues séquences de mots
+        et fait monter dans le classement des candidats redondants qui possède
+        un même mot important en commun (\TODO{exemple de redondance}).
 
         ~\\Okapi (ou \textsc{Bm}25) \cite{robertson1999okapi} est une mesure
         alternative à \textsc{Tf-Idf}. En Recherche d'Information (\textsc{Ri}),
-        celle-ci est plus utilisée que le \textsc{Tf-Idf}. Bien que l'extraction
+        celle-ci est préférée à \textsc{Tf-Idf}. Bien que l'extraction
         automatique de termes-clés soit une discipline à la frontière entre le
         \textsc{Tal} et la \textsc{Ri}, la méthode de pondération Okapi n'a, à
         notre connaissance, pas été appliquée pour l'extraction de termes-clés.
-        Dans l'article de \newcite{claveau2012vectorisation}, Okapi est décrit
-        comme un \textsc{Tf-Idf} prenant mieux en compte la longueur des
-        documents. Cette dernière est utilisée pour normaliser le $\textsc{Tf}$
+        \newcite{claveau2012vectorisation} décrit Okapi comme un \textsc{Tf-Idf}
+        prenant mieux en compte la longueur des documents. Cette dernière est
+        utilisée pour normaliser le $\textsc{Tf}$
         ($\textsc{Tf}_{\textsc{Bm}25}$)~:
         \begin{align}
           \text{Okapi}(\text{\textit{ut}}) &= \textsc{Tf}_{\textsc{Bm}25}(\text{\textit{ut}}) \times \log\left(\frac{N - \textsc{Df}(\text{\textit{ut}}) + 0,5}{\textsc{Df}(\text{\textit{ut}}) + 0,5}\right) \label{math:okapi}\\
@@ -315,24 +314,25 @@
         ~\\Le travail de \newcite{barker2000nounphrasehead} est un autre exemple
         d'utilisation de la fréquence pour extraire les termes-clés. Se reposant
         sur des fondements plus linguistiques, ils utilisent des groupes
-        nominaux comme candidats et tiennent compte à la fois de leur fréquence
-        et de celle de leur tête nominale pour déterminer leur importance. Ils
-        définissent un candidat important comme étant un candidat informatif et
-        fréquent. L'informativité est ici assimilée à sa taille, en nombre de
-        mots~: plus il contient de mots, plus il est informatif. Pour éviter les
-        répétitions, jugées inesthétiques, de tels candidats informatifs sont
-        parfois abrégés et leur fréquence réelle ne reflète pas leur usage.
-        C'est pourquoi \newcite{barker2000nounphrasehead} proposent d'utiliser
-        la fréquence de la tête des candidats pour décider s'ils doivent être
-        extraits ou non. Leur méthode fonctionne en quatre étapes. Ils extraient
-        tout d'abord les $n$ noms les plus fréquents, ils gardent uniquement
-        les groupes nominaux contenant un de ces noms, puis les ordonnent selon
-        le produit de leur taille et de leur fréquence réelle. Enfin, ils
-        extraient les $k$ groupes nominaux de meilleur rang.
+        nominaux comme termes-clés candidats et tiennent compte à la fois de
+        leur fréquence et de celle de leur tête nominale pour déterminer leur
+        importance. Ils définissent un candidat important comme étant un
+        candidat informatif et fréquent. L'informativité est ici assimilée à sa
+        taille, en nombre de mots~: plus il contient de mots, plus il est
+        informatif. Pour éviter les répétitions, jugées inesthétiques, de tels
+        candidats informatifs sont parfois abrégés et leur fréquence réelle ne
+        reflète pas leur usage. C'est pourquoi
+        \newcite{barker2000nounphrasehead} proposent d'utiliser la fréquence de
+        la tête des candidats pour décider s'ils doivent être extraits ou non.
+        Leur méthode fonctionne en quatre étapes. Ils extraient tout d'abord les
+        $n$ noms les plus fréquents, ils gardent uniquement les groupes nominaux
+        contenant un de ces noms, puis les ordonnent selon le produit de leur
+        taille et de leur fréquence réelle. Enfin, ils extraient les $k$ groupes
+        nominaux de meilleur rang.
 
         ~\\\newcite{tomokiyo2003languagemodel} tentent aussi de vérifier
         statistiquement deux propriétés que doit respecter un terme-clé candidat
-        pour être extrait comme terme-clé~:
+        pour être extrait~:
         \begin{itemize}
           \item{informativité : un terme-clé doit capturer au moins une des
                 idées essentielles exprimées dans le document analysé;}
@@ -390,74 +390,83 @@
         \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-statistical_approaches:ilp}
         ~\\Tout comme \newcite{tomokiyo2003languagemodel},
         \newcite{ding2011binaryintegerprogramming} tentent de définir des
-        propriétés visant à affiner l'extraction de termes-clés. Les termes-clés
-        sont ici restreints aux mots-clés. Ils expriment leurs propriétés sous
+        propriétés visant à affiner l'extraction de termes-clés. Ils expriment leurs propriétés sous
         la forme de contraintes dans un système d'optimisation (programmation
         par les entiers) qui explore l'espace des solutions possibles (toutes
         les combinaisons de mots à extraire). Les contraintes sont les
         suivantes~:
         \begin{itemize}
-          \item{taille: les mots-clés extraits ne doivent pas être en nombre
+          \item{taille: les termes-clés extraits ne doivent pas être en nombre
                 supérieur à $k$~;}
-          \item{couverture : les mots-clés doivent couvrir le plus possible de
+          \item{couverture : les termes-clés doivent couvrir le plus possible de
                 sujets abordés dans le document~;}
-          \item{cohérence : les mots-clés doivent être cohérents entre eux.}
+          \item{cohérence : les mots des termes-clés doivent être cohérents
+                entre eux.}
         \end{itemize}
         La couverture de chaque sujet d'une solution est calculée avec le modèle
-        \textit{Latent Dirichlet Allocation} (\textsc{Lda}) \cite{blei2003lda}
-        qui donne la probabilité d'occurrence d'un mot sachant un sujet.
+        \textit{Latent Dirichlet Allocation} (\textsc{Lda})~\cite{blei2003lda}.
+        \TODO{définir LDA}
         Celle-ci ne doit pas être inférieure à un certain seuil pour qu'une
         solution soit retenue. La contrainte de cohérence est calculée entre
-        chaque paire de mots d'une solution. Si deux mots cooccurrent plus que
+        chaque paire de mots de la solution. Si deux mots cooccurrent plus que
         selon un seuil donné, alors ceux-ci peuvent être présents dans la même
         solution, sinon la solution n'est pas satisfaisante. Ces deux
         contraintes réduisent le champ des possibilités. Il faut ensuite
-        trouver quel ensemble de mots-clés parmi les solutions satisfaisantes
+        trouver quel ensemble de termes-clés parmi les solutions satisfaisantes
         est le meilleur. Pour cela, un score d'importance des mots est calculé
-        et l'ensemble de mots-clés pour lequel la somme du score d'importance
+        et l'ensemble de termes-clés pour lequel la somme du score d'importance
         des mots est la plus élevée est extrait. Ce score est une somme pondérée
         du score \textsc{Tf-Idf} du mot, d'un bonus s'il est présent dans le
         titre du document et d'un autre bonus s'il est présent dans la première
-        phrase du document.
+        phrase du document~:
+        \TODO{remettre la formule}
 
-      \subsubsection{Méthodes par regroupement}
+      \subsubsection{Méthodes par groupement}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-clustering_approaches}
-        Les méthodes par regroupement utilisent des groupes d'unités textuelles
+        Les méthodes par groupement utilisent des groupes d'unités textuelles
         partageant une ou plusieurs caractéristiques (similarité lexicale,
         similarité sémantique, etc.).
 
-        ~\\Dans leur méthode, \newcite{matsuo2004wordcooccurrence} groupent les
-        candidats les plus fréquents selon leur relation de cooccurrences (nous
-        parlons abusivement de relation sémantique), puis comparent les
-        termes-clés candidats du document avec les groupes de candidats les plus
-        fréquents. Faisant l'hypothèse qu'un terme-clé candidat qui cooccurre
-        plus que selon toute probabilité avec les candidats fréquents d'un ou
-        plusieurs groupes est plus vraisemblablement un terme-clé, ils utilisent
-        la mesure $\chi^2$ pour calculer le biais entre la fréquence de
-        cooccurrence attendue et la fréquence de cooccurrence réelle d'un
-        terme-clé candidat avec les candidats de chaque groupe~:
+        ~\\\newcite{matsuo2004wordcooccurrence} groupent les termes-clés
+        candidats les plus fréquents qui cooccurrent (dans la phrase) avec les
+        mêmes autres candidats avec une fréquence comparable (nous parlons
+        abusivement de lien sémantique) et extraient les termes-clés en
+        analysant la fréquence de cooccurrences des candidats avec ces groupes.
+        Leur hypothèse est qu'un terme-clé candidat est plus vraisemblemant un
+        terme-clé si sa fréquence de cooccurrence avec les candidats de chaque
+        groupe est plus importante que selon toute probabilité. Dans un premier
+        temps, ils estiment la fréquence de cooccurrence de chaque candidat avec
+        chaque groupe, puis, dans un second temps, ils mesurent le biais
+        statistique $\chi^2$ entre leur estimation et la fréquence réelle
+        observée (cf équation~\ref{math:chi2}). Pour estimer la fréquence de
+        cooccurrences d'un candidat avec ceux d'un groupe, ils supposent qu'un
+        terme-clé candidat apparaissant dans de longues phrases à le plus de
+        chance de cooccurrer avec un candidat d'un des groupes. Ainsi, soit
+        $n_t$ le nombre de termes-clés candidats présents dans les phrases ou le
+        candidat étudié apparait et $p_g$ le nombre de candidats présents dans
+        les phrases ou un candidat du groupe $g$ apparaît, alors la fréquence
+        attendue entre le candidat étudié et le groupe $g$ est représenté par le
+        produit $n_tp_g$.
         \begin{align}
-          \chi^2(\text{\textit{candidat}}) = \sum_{g} \frac{(\text{fréquence}(\text{\textit{candidat}}, g) - n_tp_g)^2}{n_tp_g}
+          \chi^2(\text{\textit{candidat}}) = \sum_{g} \frac{(\text{fréquence}(\text{\textit{candidat}}, g) - n_tp_g)^2}{n_tp_g} \label{math:chi2}
         \end{align}
-        où $n_tp_g$ représente la fréquence de cooccurrence attendue entre le
-        terme-clé candidat et le groupe $g$, $n_t$ étant le nombre de candidats
-        avec lesquels le terme-clé candidat analysé cooccurre et $p_g$ étant la
-        probabilité d'occurrence du groupe $g$ avec d'autres candidats.
         
         Lors de leurs expériences, les auteurs se sont aperçus que certains
         candidats peuvent être sémantiquement liées à des candidats fréquents
         dans un domaine plus général que celui du document. En supposant que ces
-        cas spéciaux soient ceux ayant le plus fort biais, ils suppriment du
-        $\chi^2$ l'argument maximum de la sommation~:
+        cas spéciaux soient ceux ayant le plus fort biais statistique, ils
+        suppriment du $\chi^2$ l'argument maximum de la sommation~:
         \begin{align}
           \chi^2{'}(\text{\textit{candidat}}) = \chi^2 - \max_{g}\left\{\frac{(\text{fréquence}(\text{\textit{candidat}}, g) - n_tp_g)^2}{n_tp_g}\right\}
         \end{align}
         Les termes-clés extraits sont les $k$ termes-clés candidats ayant le
-        plus fort biais mesuré avec la mesure $\chi^2{'}$.
+        plus fort biais statistique mesuré avec la mesure $\chi^2{'}$.
+
+        \TODO{parler des évaluations de merde qu'ils ont fait}
 
         ~\\Dans l'algorithme KeyCluster, \newcite{liu2009keycluster} utilisent
-        aussi un regroupement sémantique, mais dans leur cas ils ne considèrent
-        que les mots du document, mots d'un antidictionnaire exclus. le mot le
+        aussi un groupement sémantique, mais dans leur cas, ils ne considèrent
+        que les mots du document, mots d'un antidictionnaire exclus. Le mot le
         plus central de chaque groupe est sélectionné comme mot de référence et
         sert à l'extraction des termes-clés: chaque terme-clé candidat contenant
         au moins un mot de référence est extrait comme terme-clé. Cette méthode
@@ -465,6 +474,9 @@
         dans un document, car tous les groupes sémantiques sont représentés par
         au moins un terme-clé. Cependant, aucune pondération n'est proposée pour
         ordonner les termes-clés.
+
+        \TODO{parler des performance de KeyCluster et mettre des warning en se
+        reposant sur l'implémentation de Hasan et Ng}
 
       \subsubsection{Méthodes à base de graphe}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}

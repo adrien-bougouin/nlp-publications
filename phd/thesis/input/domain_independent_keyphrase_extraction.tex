@@ -404,7 +404,7 @@
         antéposé. En anglais, tous les adjectifs sont antéposés. Ce patron ne
         filtre donc aucun adjectif à cette étape de présélection.
 
-      \subsubsection{Filtrage des adjectifs non pertinents}
+      \subsubsection{Filtrage des adjectifs superflus}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
         L'orsqu'un candidat contient un adjectif, cette étape juge s'il doit
         faire partie du terme-clé candidat ou non, auquel cas il  en est retiré.
@@ -526,7 +526,7 @@
         ensemble de termes-clés candidats en calculant le rapport entre le
         rappel maximal et le nombre de candidats~:
         \begin{align}
-          Q &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Cand./Doc.}}
+          Q &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Candidats}}
         \end{align}
         Plus $Q$ est élevé, meilleure est la qualité de l'ensemble des
         termes-clés candidats sélectionnés.
@@ -588,7 +588,7 @@
               & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
               \hline
               n-grammes & $~~~$596.2 & \textbf{90.8} & 0.15 & 2580.5 & \textbf{72.2} & 0.03 & 4070.2 & \textbf{74.1} & 0.02\\
-              \texttt{/(N|A)+/} & $~~~$155.6 & 88.7 & 0.57 & $~~~$646.5 & 62.4 & 0.10 & $~~~$914.5 & 61.1 & 0.06\\
+              \texttt{/(N|A)+/} & $~~~$155.6 & 88.7 & 0.57 & $~~~$646.5 & 62.4 & 0.10 & $~~~$914.5 & 61.1 & 0.07\\
               \textit{NP-chunks} & $~~~$149.9 & 76.0 & 0.51 & $~~~$598.4 & 56.6 & 0.10 & $~~~$812.3 & 63.0 & \textbf{0.08}\\
               LR-NP & \textbf{$~~~$143.8} & 85.3 & \textbf{0.59} & \textbf{$~~~$538.2} & 59.4 & \textbf{0.11} & \textbf{$~~~$738.2} & 60.1 & \textbf{0.08}\\
               \bottomrule
