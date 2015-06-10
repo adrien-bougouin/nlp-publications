@@ -146,7 +146,7 @@
       \textit{\og{}nature conservation\fg{}} -- \og{}conservation de la
       nature\fg{}) sont préférées aux formes syntagmatiques (par exemple~:
       \textit{\og{}conservation of nature\fg{}} -- \og{}conservation de la
-      nature\fg{}). \TODO{explique le "danger" de prendre le P et DET}
+      nature\fg{}).
 
       \subsubsection{Analyse des adjectifs}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties-adjective_analysis}
@@ -337,83 +337,96 @@
 
       \subsubsection{Bilan}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties-conclusion}
+        Cette analyse des propriétés linguistiques des termes-clés montre que ce
+        sont majoritairement des groupes nominaux de petite taille.
+        La modification adjectivale est très utilisée (dans plus de la moitié
+        des cas) pour rendre plus spécifique les termes-clés. Les adjectifs
+        utilisés comme modificateurs au sein des termes-clés peuvent être de
+        différentes natures, les plus remarquables étant les adjectifs
+        relationnels, de par leur définition et de par leur très faible
+        ambigüité observée quant à leur appartenance à un terme-clé.
+        Inversement, les adjectifs qualificatifs sont les plus courants et ne
+        sont pas nécessairement utiles au sein de termes-clés. Ils doivent être
+        retenus comme modificateusr dans les termes-clés candidats que s'ils
+        respectent certaines conditions (définis ci-après).
 
     \subsection{Sélection fine des termes-clés candidats}
     \label{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering}
       Pour sélectionner les termes-clés candidats, nous proposons une méthode
-      qui se fonde sur les observations ci-avant. Cette méthode commence par
-      présélectionner les termes-clés candidats à l'aide d'un patron
-      grammatical, puis elle filtre les adjectifs jugés non pertinents.
+      explorant les propriétés linguistiques remarquables des termes-clés. Cette
+      méthode commence par présélectionner les termes-clés candidats à l'aide
+      d'un patron grammatical, puis elle filtre les adjectifs qualificatifs dans
+      certaines conditions.
 
       \subsubsection{Présélection des termes-clés candidats}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering-candidate_pre_selection}
         L'étape de présélection des candidats utilise un patron grammatical
         défini sous la forme d'une expression rationnelle. Celui-ci est appliqué
         aux catégories grammaticales des séquences de mots adjacents dans le
-        document et sélectionne celles-ci qui le respectent. Ce patron est
+        document et sélectionne celles qui le respectent. Ce patron est
         gourmand, c'est-à-dire qu'il capture les plus longues séquences
-        possibles. Ainsi, il n'y a pas de surproduction de candidats qui se
-        recouvrent (comme c'est le cas avec les n-grammes) et augmentent le
+        possibles sans produire de candidats qui se recouvrent dans le texte
+        (comme c'est le cas avec les n-grammes). Il permet ainsi de diminuer le
         risque d'extraire des termes-clés
         redondants~\cite{hasan2014state_of_the_art}.
 
-        D'après les observations de la
-        section~\ref{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties},
-        seuls les noms, les adjectifs, les prépositions et les déterminants sont
-        utiles pour sélectionner des candidats permettant une performance
-        maximale quasi-optimale. Dans le cas de l'anglais, les prépositions et
-        les déterminants sont en proportions très faibles et peuvent être
-        ignorés. Dans le cas du français, les prépositions et les déterminant
-        couvrent plus de 30~\% des termes-clés de référence, cependant leur
-        nombre est tellement important au sein d'un document \TODO{donner les
-        chiffres} qu'il est préférable de les ignorés afin d'éviter d'ajouter un
-        grand nombre de candidats erronés pouvant dégrader la performance des
-        méthodes d'extraction de termes-clés.
+        D'après nos observations, seuls les noms, les adjectifs, les
+        prépositions et les déterminants sont utiles pour sélectionner les
+        termes-clés candidats en permettant une performance maximale
+        quasi-optimale. Dans le cas de l'anglais, les prépositions et les
+        déterminants sont en proportions très faibles et peuvent donc ne pas
+        être considéré lors de la définition du patron grammatical. Dans le cas
+        du français, les prépositions et les déterminants apparaissent au sein
+        de plus de 30~\% des termes-clés de référence. Notre étude se portant
+        sur les adjectifs uniquement, nous faisons le choix de ne pas considérer
+        ces deux classes grammaticales lors de la définition du patron de
+        présélection des termes-clés candidats. Pour l'adjectif, nous nous
+        appuyons sur les patrons grammaticaux les plus productifs de termes-clés
+        du tableau~\ref{tab:candidate_selection-best_patterns} et décidons de
+        limiter le nombre d'adjectifs à un pour le français et
+        l'anglais\footnote{En français et en anglais, 3,3~\% et 5,3~\% des
+        termes-clés contiennent plus d'un adjectif, respectivement.}.
         
         Pour le français, nous définissons le patron \texttt{/N+ A?/}, qui
         accepte une séquence de noms (ou noms propres) se terminant
         optionnellement par un adjectif. En français, l'adjectif peut être soit
         antéposé, soit postposé. Le patron que nous avons défini n'accepte que
         les adjectifs postposés pour deux raisons. La première raison est que
-        les adjectifs relationnels, que nous jugeons les plus pertinents en tant
-        que modificateurs au sein des termes-clés, se trouvent toujours en
-        postposition. La seconde raison est que l'antéposition et la
-        postposition des adjectifs marquent deux aspects différents du
-        discours~: la subjectivité et l'objectivité,
-        respectivement~\cite{eskenazi2005adjectifavantapres}. Nous supposons,
-        avec l'appui des patrons grammaticaux les plus fréquents présentés dans
-        le tableau~\ref{tab:candidate_selection-best_patterns}, que la
-        subjectivité n'a pas ça place au sein d'un terme-clé.
+        les adjectifs relationnels, que nous jugeons être les modificateurs les
+        plus utiles au sein des termes-clés, sont toujours postposés. La seconde
+        raison est que l'adjectif antéposé ne fait pas partie des patrons les
+        plus productifs de termes-clés\footnote{En français, seulement 0,7~\%
+        des termes-clés commencent par un adjectif.} (cf
+        tableau~\ref{tab:candidate_selection-best_patterns}).
         
         Pour l'anglais, nous définissons le parton \texttt{/A? N+/}, qui
-        accepte une séquence de noms (ou noms propres) modifié par un adjectifs
+        accepte une séquence de noms (ou noms propres) modifié par un adjectif
         antéposé. En anglais, tous les adjectifs sont antéposés. Ce patron ne
         filtre donc aucun adjectif à cette étape de présélection.
 
       \subsubsection{Filtrage des adjectifs non pertinents}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
-        L'orsqu'un candidat contient un adjectif, notre méthode juge sa
-        pertinence en tant que modificateur d'un terme-clé, autrement dit s'il
-        apporte au sens du terme-clé. Si l'adjectif n'est pas jugé pertinent,
-        alors il est enlevé du terme-clé candidats.
+        L'orsqu'un candidat contient un adjectif, cette étape juge s'il doit
+        faire partie du terme-clé candidat ou non, auquel cas il  en est retiré.
+        Sur la base de notre analyse, les adjectifs relationnels et composés
+        complexes sont systématiquement jugés utiles. Seuls les adjectifs
+        qualificatifs nécessitent une prise de décision.
 
-        Toujours d'après les observations et hypothèses de la
-        section~\ref{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties},
-        les adjectifs relationnels et composés sont systématiquement jugés
-        pertinents. Dans le cas des adjectifs qualificatifs (autres que
-        composés), c'est l'usage des candidats présélectionnés dans le document
-        qui détermine leur pertinence. Tout adjectif qualificatif modifiant une
-        même séquence de nom plus souvent que cette dernière apparaît de manière
-        autonome est jugé pertinent et est conservé en tant que modificateur de
-        cette séquence.
+        Pour décider si un adjectif qualificatif apporte du sens utile au groupe
+        nominal qu'il modifie dans le terme-clé candidat, nous comparons les
+        usages respectifs du candidat avec l'adjectif et sans l'adjectif. Notre
+        intuition est qu'un adjectif est superflu (inutile) s'il modifie un
+        groupe nominal qui est utilisé de manière autonome (sans l'adjectif) un
+        nombre significatif de fois. Concrètement, si le groupe nominal occure
+        plus souvent sans l'adjectif qu'avec l'adjectif, alors ce dernier est
+        jugé inutile et est donc retiré du terme-clé candidat.
 
-        ~\\L'algorithme~\ref{algo:candidate_pruning} résume le
-        fonctionnement de notre méthode de sélection des termes-clés candidats.
-        Les lignes \ref{algo:line:start_preselection} à
-        \ref{algo:line:end_preselection} concernent la présélection des
-        candidats et les lignes \ref{algo:line:start_filtering} à
-        \ref{algo:line:end_filtering} identifient et filtrent les adjectifs
-        qualificatifs non pertinent (\TODO{exemple}).
+        L'algorithme~\ref{algo:candidate_pruning} résume le fonctionnement de
+        notre méthode de sélection des termes-clés candidats. Les lignes
+        \ref{algo:line:start_preselection} à \ref{algo:line:end_preselection}
+        concernent la présélection des candidats et les lignes
+        \ref{algo:line:start_filtering} à \ref{algo:line:end_filtering}
+        identifient et filtrent les adjectifs qualificatifs superflus.
         \begin{algorithm}[h!]
           \SetKwInOut{kwInput}{Entrée}
           \SetKwInOut{kwOutput}{Sortie}
@@ -440,7 +453,7 @@
 
           \For{\textnormal{cdt} $\in$ \textnormal{candidats\_preliminaires}}{\label{algo:line:start_filtering}
             \If{$\exists{}\textnormal{mot} \in$ \textnormal{cdt},
-            \textnormal{est\_adjectif(mot)} $\wedge$ $\overline{\textnormal{est\_relationnel(mot)}}$ $\wedge$ $\overline{\textnormal{est\_compose(mot)}}$}{
+            \textnormal{estAdjectif(mot)} $\wedge$ $\overline{\textnormal{estRelationnel(mot)}}$ $\wedge$ $\overline{\textnormal{estCompose(mot)}}$}{
               tete\_cdt $\leftarrow$ cdt $-$ mot\;
               freq\_cdt $\leftarrow$ \textnormal{document.conter(cdt)}\;
               freq\_tete\_cdt $\leftarrow$ \textnormal{document.conter(tete\_cdt)} $-$ freq\_cdt\;
@@ -490,41 +503,47 @@
         \textsc{Tf-Idf} et la méthode supervisée \textsc{Kea}. Bien que des
         méthodes plus récentes donnent de meilleures performances que
         \textsc{Tf-Idf} et \textsc{Kea}~\cite{kim2010semeval}, ces dernières
-        sont reproductibles et présentent l'avantage d'être robustes.
+        présentent l'avantage d'être reproductibles, ce qui nous permet de les
+        utiliser avec les mêmes prétraitements des collections de données et
+        avec les termes-clés candidats que nous souhaitons.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-evaluation_data}
-        Pour évaluer ce travail, nous utilisons les ensembles de test des
-        collections \textsc{Deft}, SemEval et \textsc{Duc}, dont les ensembles
-        d'entraînement sont utilisées pour l'analyse proposée dans la
-        section~\ref{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties}.
+        Pour évaluer ce travail, nous utilisons les ensembles de test de toutes
+        nos collections de données, sauf Wikinews. Cette dernière collection ne
+        possède pas d'ensemble d'entraînement et ne peut donc pas être utilisée
+        pour la méthode de référence \textsc{Kea}.
       
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-evaluation_measures}
         Pour évaluer la qualité des ensembles de termes-clés candidats
-        sélectionnés, nous comparons leur nombre de candidats (Cand./Soc.), le
-        rappel maximum (R$_\textnormal{max}$) pouvant être atteint et un ratio
-        exprimant le compromis en ces deux critères (QR)~:
+        sélectionnés par les différentes méthodes de sélection, nous comparons
+        le nombre moyen de candidats sélectionnés au rappel maximal
+        (R$_\textnormal{max}$). Nous estimons que plus un ensemble de
+        termes-clés candidats permet d'atteindre une performance maximale élevée
+        (R$_\textnormal{max}$) avec un nombre de candidats réduit, alors plus il
+        est de bonne qualité. Pour cela, nous dérterminons la qualité $Q$ d'un
+        ensemble de termes-clés candidats en calculant le rapport entre le
+        rappel maximal et le nombre de candidats~:
         \begin{align}
-          \textnormal{QR} &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Cand./Doc.}} \times 100
+          Q &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Cand./Doc.}}
         \end{align}
-        Plus QR est élevé, meilleure est la qualité de l'ensemble des
+        Plus $Q$ est élevé, meilleure est la qualité de l'ensemble des
         termes-clés candidats sélectionnés.
 
         Les performances des méthodes d'extraction de termes-clés sont exprimées
         en termes de précision (P), rappel (R) et f-mesure (f1-mesure, F). En
-        accord avec l'évaluation menée dans les travaux précédents, nous
-        considérons correcte l'extraction d'une variante flexionnelle d'un
-        terme-clé de référence~\cite{kim2010semeval}. Les opérations de
-        comparaison entre les termes-clés de référence et les termes-clés
-        extraits sont donc effectuées à partir de la racine des mots qui les
-        composent, d'après la méthode de \newcite{porter1980suffixstripping}.
+        accord avec l'évaluation menée dans les travaux
+        précédents~\cite{kim2010semeval}, les opérations de comparaison entre
+        les termes-clés de référence et les termes-clés extraits sont effectuées
+        à partir de la racine des mots qui les composent, d'après la méthode de
+        \newcite{porter1980suffixstripping}.
 
       \subsubsection{Évaluation intrinsèque}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
         L'évaluation intrinsèque a pour objectif d'évaluer la qualité de
         l'ensemble des termes-clés candidats sélectionnés par notre méthode
-        (LR-NP, pour \textsc{Linguistically-Refined Noun Phrases}) et
+        (\textsc{Lr-Np}, pour \textit{Linguistically-Refined Noun Phrases}) et
         de la comparer à celle des ensembles de termes-clés sélectionnés par les
         méthodes de référence. Nous faisons l'hypothèse que plus une
         méthode de sélection de candidats permet un rappel maximum élevé
@@ -538,15 +557,14 @@
         sélectionnés par chaque méthode, le rappel maximum pouvant être atteint
         avec ceux-ci et la mesure QR sont reportés pour chacune des
         trois collections de données utilisées pour cette évaluation.
-        \TODO{wikinews}
         \begin{table}[!h]
           \centering
           \resizebox{\linewidth}{!}{
-            \begin{tabular}{r|ccc|ccc|ccc|ccc}
+            \begin{tabular}{r|cc|c|cc|c|cc|c|cc|c}
               \toprule
               \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'information}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
               \cline{2-13}
-              & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
+              & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
               \hline
               n-grammes & & \textbf{35,9} & & & \textbf{32,4} & & & \textbf{58,5} & & & \textbf{20.5} &\\
               \texttt{/(N|A)+/} & & 25,1 & & & 24,2 & & & 43,9 & & & 16,8 &\\
@@ -563,16 +581,16 @@
         \begin{table}[!h]
           \centering
           \resizebox{\linewidth}{!}{
-            \begin{tabular}{r|ccc|ccc|ccc}
+            \begin{tabular}{r|cc|c|cc|c|cc|c}
               \toprule
               \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft}}\\
               \cline{2-10}
-              & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR & Cand./Doc. & R$_{\text{max}}$ & QR\\
+              & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
               \hline
-              n-grammes & $~~~$596.2 & \textbf{90.8} & 15.2 & 2580.5 & \textbf{72.2} & $~~$2.8 & 4070.2 & \textbf{74.1} & $~~~$1.8\\
-              \texttt{/(N|A)+/} & $~~~$155.6 & 88.7 & 57.0 & $~~~$646.5 & 62.4 & $~~$9.7 & $~~~$914.5 & 61.1 & $~~$6.7\\
-              \textit{NP-chunks} & $~~~$149.9 & 76.0 & 50.7 & $~~~$598.4 & 56.6 & $~~$9.5 & $~~~$812.3 & 63.0 & $~~$7.8\\
-              LR-NP & \textbf{$~~~$143.8} & 85.3 & \textbf{59.3} & \textbf{$~~~$538.2} & 59.4 & \textbf{11.0} & \textbf{$~~~$738.2} & 60.1 & \textbf{$~~$8.1}\\
+              n-grammes & $~~~$596.2 & \textbf{90.8} & 0.15 & 2580.5 & \textbf{72.2} & 0.03 & 4070.2 & \textbf{74.1} & 0.02\\
+              \texttt{/(N|A)+/} & $~~~$155.6 & 88.7 & 0.57 & $~~~$646.5 & 62.4 & 0.10 & $~~~$914.5 & 61.1 & 0.06\\
+              \textit{NP-chunks} & $~~~$149.9 & 76.0 & 0.51 & $~~~$598.4 & 56.6 & 0.10 & $~~~$812.3 & 63.0 & \textbf{0.08}\\
+              LR-NP & \textbf{$~~~$143.8} & 85.3 & \textbf{0.59} & \textbf{$~~~$538.2} & 59.4 & \textbf{0.11} & \textbf{$~~~$738.2} & 60.1 & \textbf{0.08}\\
               \bottomrule
             \end{tabular}
           }
@@ -690,12 +708,12 @@
 
     \subsection{Bilan}
     \label{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-conclusion}
-      Avec ce travail, nous proposons une méthode de sélection des termes-clés
-      candidats d'un document. Développée à l'issue d'une analyse des propriétés
-      linguistiques des termes-clés de référence de trois collections de
-      données, notre méthode préselectionne des termes-clés candidats composés
-      uniquement de noms et d'au plus un adjectif, puis détermine si l'adjectif
-      des candidats apporte du sens selon sa catégorie (relationnel, composé ou
+      Nous avons proposé une méthode de sélection des termes-clés candidats d'un
+      document. Développée à l'issue d'une analyse des propriétés linguistiques
+      des termes-clés de référence de trois collections de données, notre
+      méthode préselectionne des termes-clés candidats composés uniquement de
+      noms et d'au plus un adjectif, puis détermine si l'adjectif des candidats
+      apporte du sens selon sa catégorie (relationnel, composé complexe ou
       qualificatif) et son usage dans le document. Vis-à-vis des méthodes de
       sélection de termes-clés candidats les plus utilisées, celle-ci présente
       l'avantage de sélectionner moins de candidats sans réduire
@@ -703,8 +721,16 @@
       qualité de l'ensemble de candidats proposés est donc supérieure et permet
       de réduire aussi bien le temps de traitement pour l'extraction de
       termes-clés que les risques d'erreurs.
-      \TODO{mettre en perspective une étude plus approfondie des type de
-      dérivation de l'adjectif}
+
+      Ce travail s'intéresse principalement aux adjectifs relationnels, qui
+      constituent une sous-partie des adjectifs dénominaux. À l'avenir, il
+      serait intéressant d'élargir notre étude à tous les adjectifs dénominaux,
+      ainsi qu'à d'autres adjectifs dérivés~: les déverbaux. Est-ce l'aspect
+      relationnel de l'adjectif qui le rend si particulier dans le context de
+      l'extraction de termes-clés, ou est-ce parce qu'il est issu d'un nom~? La
+      dérivation comme procéssus de formation d'un adjectif est-elle un indice
+      quant à l'apport de l'adjectif au sens d'un terme-clé~? Autant de
+      questions auxquelles il faudra répondre.
 
   %-----------------------------------------------------------------------------
 
@@ -1038,26 +1064,26 @@
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 0.0)
-                  (0.10, 0.0)
-                  (0.15, 0.0)
-                  (0.20, 0.0)
-                  (0.25, 0.0)
-                  (0.30, 0.0)
-                  (0.35, 0.0)
-                  (0.40, 0.0)
-                  (0.45, 0.0)
-                  (0.50, 0.0)
-                  (0.55, 0.0)
-                  (0.60, 0.0)
-                  (0.65, 0.0)
-                  (0.70, 0.0)
-                  (0.75, 0.0)
-                  (0.80, 0.0)
-                  (0.85, 0.0)
-                  (0.90, 0.0)
-                  (0.95, 0.0)
-                  (1.00, 0.0)
+                  (0.05, 12.2)
+                  (0.10, 12.2)
+                  (0.15, 12.2)
+                  (0.20, 12.2)
+                  (0.25, 12.3)
+                  (0.30, 12.2)
+                  (0.35, 12.5)
+                  (0.40, 12.5)
+                  (0.45, 12.5)
+                  (0.50, 12.5)
+                  (0.55, 12.9)
+                  (0.60, 12.9)
+                  (0.65, 12.9)
+                  (0.70, 12.9)
+                  (0.75, 12.9)
+                  (0.80, 12.9)
+                  (0.85, 12.9)
+                  (0.90, 12.9)
+                  (0.95, 12.9)
+                  (1.00, 12.9)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
@@ -1083,9 +1109,9 @@
                   (1.00, 12.9)
                 };
                 \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
                 \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
-                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
@@ -1130,26 +1156,26 @@
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 0.0)
-                  (0.10, 0.0)
-                  (0.15, 0.0)
-                  (0.20, 0.0)
-                  (0.25, 0.0)
-                  (0.30, 0.0)
-                  (0.35, 0.0)
-                  (0.40, 0.0)
-                  (0.45, 0.0)
-                  (0.50, 0.0)
-                  (0.55, 0.0)
-                  (0.60, 0.0)
-                  (0.65, 0.0)
-                  (0.70, 0.0)
-                  (0.75, 0.0)
-                  (0.80, 0.0)
-                  (0.85, 0.0)
-                  (0.90, 0.0)
-                  (0.95, 0.0)
-                  (1.00, 0.0)
+                  (0.05, 12.1)
+                  (0.10, 12.1)
+                  (0.15, 12.1)
+                  (0.20, 12.1)
+                  (0.25, 12.0)
+                  (0.30, 12.2)
+                  (0.35, 12.4)
+                  (0.40, 12.4)
+                  (0.45, 12.4)
+                  (0.50, 12.4)
+                  (0.55, 12.7)
+                  (0.60, 12.7)
+                  (0.65, 12.7)
+                  (0.70, 12.7)
+                  (0.75, 12.7)
+                  (0.80, 12.7)
+                  (0.85, 12.7)
+                  (0.90, 12.7)
+                  (0.95, 12.7)
+                  (1.00, 12.7)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
@@ -1175,9 +1201,9 @@
                   (1.00, 12.7)
                 };
                 \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
                 \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
-                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
@@ -1222,26 +1248,26 @@
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 0.0)
-                  (0.10, 0.0)
-                  (0.15, 0.0)
-                  (0.20, 0.0)
-                  (0.25, 0.0)
-                  (0.30, 0.0)
-                  (0.35, 0.0)
-                  (0.40, 0.0)
-                  (0.45, 0.0)
-                  (0.50, 0.0)
-                  (0.55, 0.0)
-                  (0.60, 0.0)
-                  (0.65, 0.0)
-                  (0.70, 0.0)
-                  (0.75, 0.0)
-                  (0.80, 0.0)
-                  (0.85, 0.0)
-                  (0.90, 0.0)
-                  (0.95, 0.0)
-                  (1.00, 0.0)
+                  (0.05, 21.8)
+                  (0.10, 21.8)
+                  (0.15, 21.8)
+                  (0.20, 21.8)
+                  (0.25, 21.8)
+                  (0.30, 22.0)
+                  (0.35, 22.7)
+                  (0.40, 22.7)
+                  (0.45, 22.7)
+                  (0.50, 22.7)
+                  (0.55, 23.3)
+                  (0.60, 23.3)
+                  (0.65, 23.3)
+                  (0.70, 23.4)
+                  (0.75, 23.4)
+                  (0.80, 23.4)
+                  (0.85, 23.4)
+                  (0.90, 23.4)
+                  (0.95, 23.4)
+                  (1.00, 23.4)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
@@ -1267,9 +1293,9 @@
                   (1.00, 23.4)
                 };
                 \draw[thick] ({axis cs:0.70,0}|-{rel axis cs:0,1}) -- ({axis cs:0.70,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
                 \node at (axis cs:0.70,27.5) [color=red!66, anchor=west] {\tiny{0,70}};
-                \node at (axis cs:0.20,27.5) [color=black!66, anchor=west] {\tiny{0,20}};
+                \node at (axis cs:0.25,27.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
@@ -1314,26 +1340,26 @@
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 0.0)
-                  (0.10, 0.0)
-                  (0.15, 0.0)
-                  (0.20, 0.0)
-                  (0.25, 0.0)
-                  (0.30, 0.0)
-                  (0.35, 0.0)
-                  (0.40, 0.0)
-                  (0.45, 0.0)
-                  (0.50, 0.0)
-                  (0.55, 0.0)
-                  (0.60, 0.0)
-                  (0.65, 0.0)
-                  (0.70, 0.0)
-                  (0.75, 0.0)
-                  (0.80, 0.0)
-                  (0.85, 0.0)
-                  (0.90, 0.0)
-                  (0.95, 0.0)
-                  (1.00, 0.0)
+                  (0.05, 11.8)
+                  (0.10, 11.8)
+                  (0.15, 11.8)
+                  (0.20, 11.8)
+                  (0.25, 11.8)
+                  (0.30, 11.9)
+                  (0.35, 11.9)
+                  (0.40, 11.9)
+                  (0.45, 11.9)
+                  (0.50, 11.9)
+                  (0.55, 12.1)
+                  (0.60, 12.1)
+                  (0.65, 12.1)
+                  (0.70, 12.0)
+                  (0.75, 12.0)
+                  (0.80, 12.0)
+                  (0.85, 12.0)
+                  (0.90, 12.0)
+                  (0.95, 12.0)
+                  (1.00, 12.0)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
@@ -1359,9 +1385,9 @@
                   (1.00, 12.0)
                 };
                 \draw[thick] ({axis cs:0.60,0}|-{rel axis cs:0,1}) -- ({axis cs:0.60,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
                 \node at (axis cs:0.60,17.5) [color=red!66, anchor=west] {\tiny{0,60}};
-                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
@@ -1451,9 +1477,9 @@
                   (1.00, 15.6)
                 };
                 \draw[thick] ({axis cs:0.50,0}|-{rel axis cs:0,1}) -- ({axis cs:0.50,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
                 \node at (axis cs:0.50,17.5) [color=red!66, anchor=west] {\tiny{0,50}};
-                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
@@ -1543,9 +1569,9 @@
                   (1.00, 8.0)
                 };
                 \draw[thick] ({axis cs:0.05,0}|-{rel axis cs:0,1}) -- ({axis cs:0.05,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.20,0}|-{rel axis cs:0,1}) -- ({axis cs:0.20,0}|-{rel axis cs:0,0}) [color=black!66];
+                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
                 \node at (axis cs:0.05,17.5) [color=red!66, anchor=west] {\tiny{0,05}};
-                \node at (axis cs:0.20,17.5) [color=black!66, anchor=west] {\tiny{0,20}};
+                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
                 \legend{Simple, Complète, Moyenne}
               \end{axis}
             \end{tikzpicture}
@@ -1701,28 +1727,6 @@
                          ymax=18,
                          ylabel=F,
                          y label style={anchor=south}]
-              % semeval
-              \addplot[cyan!66, mark=+] coordinates{
-                (2, 5.0)
-                (3, 5.2)
-                (4, 4.8)
-                (5, 5.1)
-                (6, 5.0)
-                (7, 4.9)
-                (8, 4.9)
-                (9, 4.9)
-                (10, 5.1)
-                (11, 5.1)
-                (12, 5.2)
-                (13, 5.2)
-                (14, 5.2)
-                (15, 5.2)
-                (16, 5.2)
-                (17, 5.2)
-                (18, 5.1)
-                (19, 5.2)
-                (20, 5.2)
-              };
               % deft
               \addplot[red!66, mark=o] coordinates{
                 (2, 3.5)
@@ -1744,6 +1748,28 @@
                 (18, 7.3)
                 (19, 7.3)
                 (20, 7.1)
+              };
+              % semeval
+              \addplot[cyan!66, mark=+] coordinates{
+                (2, 5.0)
+                (3, 5.2)
+                (4, 4.8)
+                (5, 5.1)
+                (6, 5.0)
+                (7, 4.9)
+                (8, 4.9)
+                (9, 4.9)
+                (10, 5.1)
+                (11, 5.1)
+                (12, 5.2)
+                (13, 5.2)
+                (14, 5.2)
+                (15, 5.2)
+                (16, 5.2)
+                (17, 5.2)
+                (18, 5.1)
+                (19, 5.2)
+                (20, 5.2)
               };
               \draw[densely dashed] ({axis cs:12,0}|-{rel axis cs:0,1}) -- ({axis cs:12,0}|-{rel axis cs:0,0}) [color=black!66];
               \node at (axis cs:12,17.5) [color=black!66, anchor=west] {\tiny{12}};
