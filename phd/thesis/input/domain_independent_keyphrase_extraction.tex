@@ -794,7 +794,7 @@
 
     \subsection{TopicRank}
     \label{subsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank}
-      TopicRank est une méthode à base de graph pour extraire des termes-clés
+      TopicRank est une méthode à base de graphe pour extraire des termes-clés
       représentant chacun un sujet important dans le document.
       % Quel en est le fonctionnement général ?
       Elle repose sur les quatre étapes suivantes, qui sont détaillées dans
@@ -804,60 +804,61 @@
 
       \subsubsection{Identification des sujets}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
-        Dans ce travail, un sujet représente un thème du document qui est
-        véhiculé par une ou plusieurs unités textuelles partageant le même
-        sens. Il s'agit d'un groupe de termes-clés candidats qui partagent le
-        plus d'unités de sens, de mots.
-
-        % Que nous faut-il pour identifier les sujets ?
-        La première étape de l'identification des sujets consiste à sélectionner
-        les termes-clés candidats.
-        % Quels candidats composent les sujets ?
-        Pour ce travail, nous suivons \newcite{wan2008expandrank} et
-        sélectionnons les plus longues séquences de noms, de noms propres et
-        d'adjectifs à partir du patron grammatical suivant~:\texttt{/(N|A)+}.
-        Celui-ci présente l'avantage d'être simple et adapté à plusieurs
-        langues, telles que les langues latines (anglais, français, etc.),
-        lorsque les outils d'étiquetage grammatical sont disponibles pour la
-        langue concernée. De plus, ce patron est gourmand, c'est-à-dire qu'il
-        capture les séquences les plus longues qui le respectent, et il est donc
-        adapté pour le groupement que nous effectuons ensuite.
-
+        Pour TopicRank, un sujet représente un thème du document qui est
+        véhiculé par un ou plusieurs termes-clés candidats.
+%
+%        % Que nous faut-il pour identifier les sujets ?
+%        La première étape de l'identification des sujets consiste à sélectionner
+%        les termes-clés candidats.
+%        % Quels candidats composent les sujets ?
+%        Pour ce travail, nous suivons \newcite{wan2008expandrank} et
+%        sélectionnons les plus longues séquences de noms, de noms propres et
+%        d'adjectifs à partir du patron grammatical suivant~:\texttt{/(N|A)+}.
+%        Celui-ci présente l'avantage d'être simple et adapté à plusieurs
+%        langues, telles que les langues latines (anglais, français, etc.),
+%        lorsque les outils d'étiquetage grammatical sont disponibles pour la
+%        langue concernée. De plus, ce patron est gourmand, c'est-à-dire qu'il
+%        capture les séquences les plus longues qui le respectent, et il est donc
+%        adapté pour le groupement que nous effectuons ensuite.
+%
         % Comment détectons nous deux candidats appartenant au même sujet ?
-        La seconde étape de l'identification des sujets consiste à grouper les
-        termes-clés candidats lorsqu'ils appartiennent au même sujet. Afin de
-        proposer une méthode qui n'utilise pas de données
-        supplémentaires, nous optons pour un groupement naïf des
-        candidats. Deux candidats $c_1$ et $c_2$ sont groupés selon leur degré
-        de similarité de Jaccard. Ils sont considérés comme des sacs de
-        mots tronqués par la méthode de racinisation\footnote{Cette
-        racinisation a pour effet de grouper les candidats qui varient
-        uniquement en termes de flexion ou de dérivation.} de
-        \newcite{porter1980suffixstripping} et leur degré de similarité est
-        d'autant plus élevé qu'ils partagent de mots racinisés~:
+        L'identification des sujets à partir des termes-clés candidats consiste
+        à les grouper lorsqu'ils sont supposés appartenir au même sujet. Afin de
+        proposer une méthode générique n'utilisant pas de données
+        supplémentaires, nous appliquons un groupement \og{}naïf\fg{} des
+        candidats, fondé sur les mots qu'ils partagent.
+
+        Deux candidats $c_1$ et $c_2$ sont considérés comme des ensembles de
+        mots (sacs de mots) et leur degré de similarité est calculé à l'aide de
+        la mesure de Jaccard (cf équation~\ref{equa:jaccard}). Ce dernier est
+        d'autant plus élevé que les candidats partagent un grand nombre de mots.
+        À l'instar des systèmes d'évaluation automatique, nous ajoutons plus de
+        souplesse à la mesure de similarité, en tronquant les mots avec la
+        méthode de racinisation de~\newcite{porter1980suffixstripping}.
         \begin{align}
           \text{sim}(c_1, c_2) &= \frac{|\textnormal{Porter}(c_1)\ \cap\ \textnormal{Porter}(c_2)|}{|\textnormal{Porter}(c_1)\ \cup\ \textnormal{Porter}(c_2)|} \label{equa:jaccard}
         \end{align}
-        Cette mesure est naïve, car l'ordre des mots, leur ambiguïté
-        et leur synonymie ne sont pas pris en compte. À cela s'ajoute
-        aussi des erreurs introduites par l'usage de la méthode de
+        Cette mesure est \og{}naïve\fg{}, car l'ordre des mots, leur ambiguïté
+        et leur synonymie ne sont pas pris en compte (\TODO{exempleS}). À cela
+        s'ajoute aussi des erreurs introduites par l'usage de la méthode de
         \newcite{porter1980suffixstripping} (par exemple les mots
         \og{}empire\fg{} et \og{}empirique\fg{} partagent le même radical
         \og{}empir\fg{}).
 
         % Comment groupons nous les candidats d'un même sujet ?
-        La similarité est calculée entre toutes les paires de candidats. Nous
-        appliquons l'algorithme de groupement hiérarchique agglomératif
-        (\textit{Hierarchical Agglomerative Clustering -- \textsc{HAC}}) pour
-        grouper les candidats les plus similaires. Initialement, chaque candidat
-        représente un groupe et, jusqu'à l'obtention d'un nombre prédéfini de
-        groupes, ceux ayant la plus forte similarité sont unis pour n'en former
-        qu'un seul. Afin de ne pas fixer le nombre de sujets à créer comme
-        condition d'arrêt de l'algorithme, nous définissons un seuil de
-        similarité $\zeta$ entre les groupes deux à deux. Cette similarité entre
-        deux groupes est déterminée à partir de la similarité de Jaccard
-        calculée entre les candidats de chaque groupe (\TODO{algorithme}). Il
-        existe trois stratégies pour calculer la similarité entre deux groupes~:
+        Le groupement des termes-clés candidats en sujets est effectué avec
+        l'algorithme de groupement hiérarchique agglomératif
+        (\textit{Hierarchical Agglomerative Clustering -- \textsc{Hac}}).
+        L'algorithme~\ref{algo:hac} décrit le fonctionnement classique du groupement
+        \textsc{Hac}. Initialement, chaque candidat représente un groupe et,
+        jusqu'à l'obtention d'un nombre prédéfini de groupes, ceux dont les
+        candidats ont la plus forte similarité sont unis pour ne former qu'un
+        seul groupe. Afin de ne pas fixer le nombre de sujets (groupe) à
+        identifier comme condition d'arrêt de l'algorithme, nous définissons un
+        seuil de similarité $\zeta$ devant être dépassé ou égalé afin de pouvoir
+        unifier deux groupes. La similarité entre deux groupes est déterminée à
+        partir de la similarité de Jaccard calculée entre tous les candidats de
+        chaque groupe. Il existe trois stratégies pour la calculer~:
         \begin{itemize}
           \item{simple~: la plus grande valeur de similarité entre les candidats
                 des deux groupes sert de similarité entre eux~;}
@@ -873,6 +874,19 @@
         d'utiliser la stratégie complète qui est la moins agglomérative. Dans le
         cas de TopicRank, où les candidats sont de meilleure qualité que les
         n-grammes, la stratégie moyenne est une meilleure alternative.
+        \begin{algorithm}[h!]
+          \SetKwInOut{kwInput}{Entrée}
+          \SetKwInOut{kwOutput}{Sortie}
+          \SetKwFor{For}{Pour chaque}{faire}{}
+          \SetKwIF{If}{ElseIf}{Else}{Si}{alors}{Sinon si}{Sinon}{}
+          \SetKw{KwRet}{Retourner}
+          \DontPrintSemicolon{}
+
+          \TODO{\dots}
+
+          \caption{\textsc{Hac}
+                   \label{algo:hac}}
+        \end{algorithm}
 
         \TODO{Exemple étape par étape}
         \TODO{illustrer les stratégies dans l'exemple (ou un autre ?)}
@@ -1026,387 +1040,383 @@
           \subfigure[Linguistique]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-              \begin{axis}[axis lines=middle,
-                           x=0.37\linewidth,
-                           xtick={0.0, 0.2, ..., 1.2},
+              \begin{axis}[x=0.37\linewidth,
+                           xtick={0.0, 0.25, ..., 1.0},
                            xmin=0.0,
-                           xmax=1.05,
+                           xmax=1.0,
                            xlabel=$\zeta$,
-                           x label style={anchor=west},
-                           y=0.012\textheight,
-                           ytick={0, 5, 10, 15},
-                           ymin=0,
+                           x label style={yshift=.34em},
+                           y=0.04\textheight,
+                           ytick={0, 2, ..., 100},
+                           ymin=12,
                            ymax=18,
                            ylabel=F,
-                           y label style={anchor=south}]
+                           y label style={yshift=-1.1em, rotate=270}]
                 % simple
                 \addplot[green!66, mark=x] coordinates{
-                  (0.05, 11.7)
-                  (0.10, 11.7)
-                  (0.15, 11.7)
-                  (0.20, 11.7)
-                  (0.25, 11.7)
-                  (0.30, 11.6)
-                  (0.35, 11.8)
-                  (0.40, 11.8)
-                  (0.45, 11.8)
-                  (0.50, 11.8)
-                  (0.55, 12.9)
-                  (0.60, 12.9)
-                  (0.65, 12.9)
-                  (0.70, 12.9)
-                  (0.75, 12.9)
-                  (0.80, 12.9)
-                  (0.85, 12.9)
-                  (0.90, 12.9)
-                  (0.95, 12.9)
-                  (1.00, 12.9)
+                  (0.05, 13.3)
+                  (0.10, 13.3)
+                  (0.15, 13.3)
+                  (0.20, 13.3)
+                  (0.25, 13.3)
+                  (0.30, 13.3)
+                  (0.35, 13.6)
+                  (0.40, 13.6)
+                  (0.45, 13.6)
+                  (0.50, 13.6)
+                  (0.55, 14.4)
+                  (0.60, 14.4)
+                  (0.65, 14.4)
+                  (0.70, 14.4)
+                  (0.75, 14.4)
+                  (0.80, 14.4)
+                  (0.85, 14.4)
+                  (0.90, 14.4)
+                  (0.95, 14.4)
+                  (1.00, 14.4)
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 12.2)
-                  (0.10, 12.2)
-                  (0.15, 12.2)
-                  (0.20, 12.2)
-                  (0.25, 12.3)
-                  (0.30, 12.2)
-                  (0.35, 12.5)
-                  (0.40, 12.5)
-                  (0.45, 12.5)
-                  (0.50, 12.5)
-                  (0.55, 12.9)
-                  (0.60, 12.9)
-                  (0.65, 12.9)
-                  (0.70, 12.9)
-                  (0.75, 12.9)
-                  (0.80, 12.9)
-                  (0.85, 12.9)
-                  (0.90, 12.9)
-                  (0.95, 12.9)
-                  (1.00, 12.9)
+                  (0.05, 13.8)
+                  (0.10, 13.8)
+                  (0.15, 13.8)
+                  (0.20, 13.8)
+                  (0.25, 13.8)
+                  (0.30, 13.9)
+                  (0.35, 14.2)
+                  (0.40, 14.2)
+                  (0.45, 14.2)
+                  (0.50, 14.2)
+                  (0.55, 14.4)
+                  (0.60, 14.4)
+                  (0.65, 14.4)
+                  (0.70, 14.4)
+                  (0.75, 14.4)
+                  (0.80, 14.4)
+                  (0.85, 14.4)
+                  (0.90, 14.4)
+                  (0.95, 14.4)
+                  (1.00, 14.4)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
-                  (0.05, 11.7)
-                  (0.10, 11.7)
-                  (0.15, 11.7)
-                  (0.20, 11.7)
-                  (0.25, 11.9)
-                  (0.30, 12.1)
-                  (0.35, 12.3)
-                  (0.40, 12.4)
-                  (0.45, 12.5)
-                  (0.50, 12.5)
-                  (0.55, 12.9)
-                  (0.60, 12.9)
-                  (0.65, 12.9)
-                  (0.70, 12.9)
-                  (0.75, 12.9)
-                  (0.80, 12.9)
-                  (0.85, 12.9)
-                  (0.90, 12.9)
-                  (0.95, 12.9)
-                  (1.00, 12.9)
+                  (0.05, 13.3)
+                  (0.10, 13.4)
+                  (0.15, 13.5)
+                  (0.20, 13.8)
+                  (0.25, 13.8)
+                  (0.30, 13.9)
+                  (0.35, 13.9)
+                  (0.40, 14.0)
+                  (0.45, 14.2)
+                  (0.50, 14.2)
+                  (0.55, 14.4)
+                  (0.60, 14.4)
+                  (0.65, 14.4)
+                  (0.70, 14.4)
+                  (0.75, 14.4)
+                  (0.80, 14.4)
+                  (0.85, 14.4)
+                  (0.90, 14.4)
+                  (0.95, 14.4)
+                  (1.00, 14.4)
                 };
-                \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
-                \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
-                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
+%                \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
+%                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
+%                \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
+%                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
           \subfigure[Sciences de l'info.]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-              \begin{axis}[axis lines=middle,
-                           x=0.37\linewidth,
-                           xtick={0.0, 0.2, ..., 1.2},
+              \begin{axis}[x=0.37\linewidth,
+                           xtick={0.0, 0.25, ..., 1.0},
                            xmin=0.0,
-                           xmax=1.05,
+                           xmax=1.0,
                            xlabel=$\zeta$,
-                           x label style={anchor=west},
-                           y=0.012\textheight,
-                           ytick={0, 5, 10, 15},
-                           ymin=0,
+                           x label style={yshift=.34em},
+                           y=0.04\textheight,
+                           ytick={0, 2, ..., 100},
+                           ymin=12,
                            ymax=18,
                            ylabel=F,
-                           y label style={anchor=south}]
+                           y label style={yshift=-1.1em, rotate=270}]
                 % simple
                 \addplot[green!66, mark=x] coordinates{
-                  (0.05, 11.5)
-                  (0.10, 11.5)
-                  (0.15, 11.5)
-                  (0.20, 11.6)
-                  (0.25, 11.6)
-                  (0.30, 11.5)
-                  (0.35, 11.8)
-                  (0.40, 11.8)
-                  (0.45, 11.8)
-                  (0.50, 11.8)
-                  (0.55, 12.7)
-                  (0.60, 12.7)
-                  (0.65, 12.7)
-                  (0.70, 12.7)
-                  (0.75, 12.7)
-                  (0.80, 12.7)
-                  (0.85, 12.7)
-                  (0.90, 12.7)
-                  (0.95, 12.7)
-                  (1.00, 12.7)
+                  (0.05, 12.3)
+                  (0.10, 12.3)
+                  (0.15, 12.3)
+                  (0.20, 12.3)
+                  (0.25, 12.3)
+                  (0.30, 12.3)
+                  (0.35, 12.6)
+                  (0.40, 12.6)
+                  (0.45, 12.6)
+                  (0.50, 12.6)
+                  (0.55, 13.3)
+                  (0.60, 13.3)
+                  (0.65, 13.3)
+                  (0.70, 13.4)
+                  (0.75, 13.4)
+                  (0.80, 13.4)
+                  (0.85, 13.4)
+                  (0.90, 13.4)
+                  (0.95, 13.4)
+                  (1.00, 13.4)
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 12.1)
-                  (0.10, 12.1)
-                  (0.15, 12.1)
-                  (0.20, 12.1)
-                  (0.25, 12.0)
-                  (0.30, 12.2)
-                  (0.35, 12.4)
-                  (0.40, 12.4)
-                  (0.45, 12.4)
-                  (0.50, 12.4)
-                  (0.55, 12.7)
-                  (0.60, 12.7)
-                  (0.65, 12.7)
-                  (0.70, 12.7)
-                  (0.75, 12.7)
-                  (0.80, 12.7)
-                  (0.85, 12.7)
-                  (0.90, 12.7)
-                  (0.95, 12.7)
-                  (1.00, 12.7)
+                  (0.05, 12.8)
+                  (0.10, 12.8)
+                  (0.15, 12.8)
+                  (0.20, 12.8)
+                  (0.25, 12.8)
+                  (0.30, 12.8)
+                  (0.35, 12.9)
+                  (0.40, 12.9)
+                  (0.45, 12.9)
+                  (0.50, 12.9)
+                  (0.55, 13.4)
+                  (0.60, 13.4)
+                  (0.65, 13.4)
+                  (0.70, 13.4)
+                  (0.75, 13.4)
+                  (0.80, 13.4)
+                  (0.85, 13.4)
+                  (0.90, 13.4)
+                  (0.95, 13.4)
+                  (1.00, 13.4)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
-                  (0.05, 11.6)
-                  (0.10, 11.7)
-                  (0.15, 11.7)
-                  (0.20, 11.9)
-                  (0.25, 12.1)
-                  (0.30, 12.1)
-                  (0.35, 12.1)
-                  (0.40, 12.2)
-                  (0.45, 12.4)
-                  (0.50, 12.4)
-                  (0.55, 12.7)
-                  (0.60, 12.7)
-                  (0.65, 12.7)
-                  (0.70, 12.7)
-                  (0.75, 12.7)
-                  (0.80, 12.7)
-                  (0.85, 12.7)
-                  (0.90, 12.7)
-                  (0.95, 12.7)
-                  (1.00, 12.7)
+                  (0.05, 12.3)
+                  (0.10, 12.4)
+                  (0.15, 12.5)
+                  (0.20, 12.6)
+                  (0.25, 12.6)
+                  (0.30, 12.7)
+                  (0.35, 12.8)
+                  (0.40, 12.7)
+                  (0.45, 12.8)
+                  (0.50, 12.9)
+                  (0.55, 13.3)
+                  (0.60, 13.4)
+                  (0.65, 13.4)
+                  (0.70, 13.4)
+                  (0.75, 13.4)
+                  (0.80, 13.4)
+                  (0.85, 13.4)
+                  (0.90, 13.4)
+                  (0.95, 13.4)
+                  (1.00, 13.4)
                 };
-                \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
-                \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
-                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
+%                \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
+%                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
+%                \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
+%                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
+                \legend{Simple, Complète, Moyenne}
               \end{axis}
             \end{tikzpicture}
           }
           \subfigure[Archéologie]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-              \begin{axis}[axis lines=middle,
-                           x=0.37\linewidth,
-                           xtick={0.0, 0.2, ..., 1.2},
+              \begin{axis}[x=0.37\linewidth,
+                           xtick={0.0, 0.25, ..., 1.0},
                            xmin=0.0,
-                           xmax=1.05,
+                           xmax=1.0,
                            xlabel=$\zeta$,
-                           x label style={anchor=west},
-                           y=0.012\textheight,
-                           ytick={0, 5, 10, 15, 20, 25},
-                           ymin=10,
-                           ymax=28,
+                           x label style={yshift=.34em},
+                           y=0.04\textheight,
+                           ytick={0, 2, ..., 100},
+                           ymin=18,
+                           ymax=24,
                            ylabel=F,
-                           y label style={anchor=south}]
+                           y label style={yshift=-1.1em, rotate=270}]
                 % simple
                 \addplot[green!66, mark=x] coordinates{
-                  (0.05, 21.6)
-                  (0.10, 21.6)
-                  (0.15, 21.6)
-                  (0.20, 21.6)
-                  (0.25, 21.6)
-                  (0.30, 21.8)
-                  (0.35, 22.5)
-                  (0.40, 22.5)
-                  (0.45, 22.5)
+                  (0.05, 20.0)
+                  (0.10, 20.0)
+                  (0.15, 20.0)
+                  (0.20, 20.0)
+                  (0.25, 20.1)
+                  (0.30, 20.9)
+                  (0.35, 20.9)
+                  (0.40, 20.9)
+                  (0.45, 20.9)
                   (0.50, 22.5)
-                  (0.55, 23.3)
-                  (0.60, 23.3)
-                  (0.65, 23.3)
-                  (0.70, 23.4)
-                  (0.75, 23.4)
-                  (0.80, 23.4)
-                  (0.85, 23.4)
-                  (0.90, 23.4)
-                  (0.95, 23.4)
-                  (1.00, 23.4)
+                  (0.55, 22.5)
+                  (0.60, 22.5)
+                  (0.65, 22.6)
+                  (0.70, 22.6)
+                  (0.75, 22.6)
+                  (0.80, 22.6)
+                  (0.85, 22.6)
+                  (0.90, 22.6)
+                  (0.95, 22.6)
+                  (1.00, 22.6)
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 21.8)
-                  (0.10, 21.8)
-                  (0.15, 21.8)
-                  (0.20, 21.8)
-                  (0.25, 21.8)
-                  (0.30, 22.0)
-                  (0.35, 22.7)
-                  (0.40, 22.7)
-                  (0.45, 22.7)
-                  (0.50, 22.7)
-                  (0.55, 23.3)
-                  (0.60, 23.3)
-                  (0.65, 23.3)
-                  (0.70, 23.4)
-                  (0.75, 23.4)
-                  (0.80, 23.4)
-                  (0.85, 23.4)
-                  (0.90, 23.4)
-                  (0.95, 23.4)
-                  (1.00, 23.4)
+                  (0.05, 20.1)
+                  (0.10, 20.1)
+                  (0.15, 20.1)
+                  (0.20, 20.2)
+                  (0.25, 20.2)
+                  (0.30, 20.5)
+                  (0.35, 21.3)
+                  (0.40, 21.3)
+                  (0.45, 21.3)
+                  (0.50, 21.3)
+                  (0.55, 22.5)
+                  (0.60, 22.5)
+                  (0.65, 22.5)
+                  (0.70, 22.6)
+                  (0.75, 22.6)
+                  (0.80, 22.6)
+                  (0.85, 22.6)
+                  (0.90, 22.6)
+                  (0.95, 22.6)
+                  (1.00, 22.6)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
-                  (0.05, 21.6)
-                  (0.10, 21.6)
-                  (0.15, 21.5)
-                  (0.20, 21.7)
-                  (0.25, 21.8)
-                  (0.30, 22.1)
-                  (0.35, 22.6)
-                  (0.40, 22.6)
-                  (0.45, 22.7)
-                  (0.50, 22.7)
-                  (0.55, 23.3)
-                  (0.60, 23.3)
-                  (0.65, 23.3)
-                  (0.70, 23.4)
-                  (0.75, 23.4)
-                  (0.80, 23.4)
-                  (0.85, 23.4)
-                  (0.90, 23.4)
-                  (0.95, 23.4)
-                  (1.00, 23.4)
+                  (0.05, 20.0)
+                  (0.10, 20.1)
+                  (0.15, 20.1)
+                  (0.20, 20.1)
+                  (0.25, 20.1)
+                  (0.30, 20.4)
+                  (0.35, 21.0)
+                  (0.40, 21.0)
+                  (0.45, 21.3)
+                  (0.50, 21.3)
+                  (0.55, 22.5)
+                  (0.60, 22.5)
+                  (0.65, 22.5)
+                  (0.70, 22.6)
+                  (0.75, 22.6)
+                  (0.80, 22.6)
+                  (0.85, 22.6)
+                  (0.90, 22.6)
+                  (0.95, 22.6)
+                  (1.00, 22.6)
                 };
-                \draw[thick] ({axis cs:0.70,0}|-{rel axis cs:0,1}) -- ({axis cs:0.70,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
-                \node at (axis cs:0.70,27.5) [color=red!66, anchor=west] {\tiny{0,70}};
-                \node at (axis cs:0.25,27.5) [color=black!66, anchor=west] {\tiny{0,25}};
+%                \draw[thick] ({axis cs:0.65,0}|-{rel axis cs:0,1}) -- ({axis cs:0.65,0}|-{rel axis cs:0,0}) [color=red!66];
+%                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
+%                \node at (axis cs:0.65,27.5) [color=red!66, anchor=west] {\tiny{0,65}};
+%                \node at (axis cs:0.25,27.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
           \subfigure[Chimie]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-              \begin{axis}[axis lines=middle,
-                           x=0.37\linewidth,
-                           xtick={0.0, 0.2, ..., 1.2},
+              \begin{axis}[x=0.37\linewidth,
+                           xtick={0.0, 0.25, ..., 1.0},
                            xmin=0.0,
-                           xmax=1.05,
+                           xmax=1.0,
                            xlabel=$\zeta$,
-                           x label style={anchor=west},
-                           y=0.012\textheight,
-                           ytick={0, 5, 10, 15},
-                           ymin=0,
-                           ymax=18,
+                           x label style={yshift=.34em},
+                           y=0.04\textheight,
+                           ytick={0, 2, ..., 100},
+                           ymin=8,
+                           ymax=14,
                            ylabel=F,
-                           y label style={anchor=south}]
+                           y label style={yshift=-1.1em, rotate=270}]
                 % simple
                 \addplot[green!66, mark=x] coordinates{
-                  (0.05, 11.7)
-                  (0.10, 11.7)
-                  (0.15, 11.7)
-                  (0.20, 11.7)
-                  (0.25, 11.7)
-                  (0.30, 11.8)
-                  (0.35, 11.9)
-                  (0.40, 11.9)
-                  (0.45, 11.9)
-                  (0.50, 11.9)
-                  (0.55, 12.0)
-                  (0.60, 12.0)
-                  (0.65, 12.0)
-                  (0.70, 12.0)
-                  (0.75, 12.0)
-                  (0.80, 12.0)
-                  (0.85, 12.0)
-                  (0.90, 12.0)
-                  (0.95, 12.0)
-                  (1.00, 12.0)
+                  (0.05, 10.7)
+                  (0.10, 10.7)
+                  (0.15, 10.7)
+                  (0.20, 10.7)
+                  (0.25, 10.7)
+                  (0.30, 10.7)
+                  (0.35, 10.9)
+                  (0.40, 10.9)
+                  (0.45, 10.9)
+                  (0.50, 10.9)
+                  (0.55, 11.3)
+                  (0.60, 11.3)
+                  (0.65, 11.3)
+                  (0.70, 11.2)
+                  (0.75, 11.2)
+                  (0.80, 11.2)
+                  (0.85, 11.2)
+                  (0.90, 11.2)
+                  (0.95, 11.2)
+                  (1.00, 11.2)
                 };
                 % complet
                 \addplot[cyan!66, mark=+] coordinates{
-                  (0.05, 11.8)
-                  (0.10, 11.8)
-                  (0.15, 11.8)
-                  (0.20, 11.8)
-                  (0.25, 11.8)
-                  (0.30, 11.9)
-                  (0.35, 11.9)
-                  (0.40, 11.9)
-                  (0.45, 11.9)
-                  (0.50, 11.9)
-                  (0.55, 12.1)
-                  (0.60, 12.1)
-                  (0.65, 12.1)
-                  (0.70, 12.0)
-                  (0.75, 12.0)
-                  (0.80, 12.0)
-                  (0.85, 12.0)
-                  (0.90, 12.0)
-                  (0.95, 12.0)
-                  (1.00, 12.0)
+                  (0.05, 10.9)
+                  (0.10, 10.9)
+                  (0.15, 10.9)
+                  (0.20, 10.9)
+                  (0.25, 10.9)
+                  (0.30, 10.9)
+                  (0.35, 10.9)
+                  (0.40, 10.9)
+                  (0.45, 10.9)
+                  (0.50, 10.9)
+                  (0.55, 11.3)
+                  (0.60, 11.3)
+                  (0.65, 11.3)
+                  (0.70, 11.2)
+                  (0.75, 11.2)
+                  (0.80, 11.2)
+                  (0.85, 11.2)
+                  (0.90, 11.2)
+                  (0.95, 11.2)
+                  (1.00, 11.2)
                 };
                 % moyen
                 \addplot[red!66, mark=o] coordinates{
-                  (0.05, 11.7)
-                  (0.10, 11.7)
-                  (0.15, 11.7)
-                  (0.20, 11.8)
-                  (0.25, 11.8)
-                  (0.30, 11.9)
-                  (0.35, 11.9)
-                  (0.40, 11.8)
-                  (0.45, 11.9)
-                  (0.50, 11.9)
-                  (0.55, 12.0)
-                  (0.60, 12.1)
-                  (0.65, 12.1)
-                  (0.70, 12.0)
-                  (0.75, 12.0)
-                  (0.80, 12.0)
-                  (0.85, 12.0)
-                  (0.90, 12.0)
-                  (0.95, 12.0)
-                  (1.00, 12.0)
+                  (0.05, 10.7)
+                  (0.10, 10.7)
+                  (0.15, 10.8)
+                  (0.20, 10.9)
+                  (0.25, 10.9)
+                  (0.30, 10.9)
+                  (0.35, 10.9)
+                  (0.40, 11.0)
+                  (0.45, 10.9)
+                  (0.50, 10.9)
+                  (0.55, 11.3)
+                  (0.60, 11.3)
+                  (0.65, 11.3)
+                  (0.70, 11.2)
+                  (0.75, 11.2)
+                  (0.80, 11.2)
+                  (0.85, 11.2)
+                  (0.90, 11.2)
+                  (0.95, 11.2)
+                  (1.00, 11.2)
                 };
-                \draw[thick] ({axis cs:0.60,0}|-{rel axis cs:0,1}) -- ({axis cs:0.60,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
-                \node at (axis cs:0.60,17.5) [color=red!66, anchor=west] {\tiny{0,60}};
-                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
+%                \draw[thick] ({axis cs:0.55,0}|-{rel axis cs:0,1}) -- ({axis cs:0.55,0}|-{rel axis cs:0,0}) [color=red!66];
+%                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
+%                \node at (axis cs:0.55,17.5) [color=red!66, anchor=west] {\tiny{0,55}};
+%                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
           \subfigure[\textsc{De}ft]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-              \begin{axis}[axis lines=middle,
-                           x=0.37\linewidth,
-                           xtick={0.0, 0.2, ..., 1.2},
+              \begin{axis}[x=0.37\linewidth,
+                           xtick={0.0, 0.25, ..., 1.0},
                            xmin=0.0,
-                           xmax=1.05,
+                           xmax=1.0,
                            xlabel=$\zeta$,
-                           x label style={anchor=west},
-                           y=0.012\textheight,
-                           ytick={0, 5, 10, 15},
-                           ymin=0,
+                           x label style={yshift=.34em},
+                           y=0.024\textheight,
+                           ytick={0, 2, ..., 100},
+                           ymin=8,
                            ymax=18,
                            ylabel=F,
-                           y label style={anchor=south}]
+                           y label style={yshift=-1.1em, rotate=270}]
                 % simple
                 \addplot[green!66, mark=x] coordinates{
                   (0.05, 8.6)
@@ -1476,29 +1486,28 @@
                   (0.95, 15.6)
                   (1.00, 15.6)
                 };
-                \draw[thick] ({axis cs:0.50,0}|-{rel axis cs:0,1}) -- ({axis cs:0.50,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
-                \node at (axis cs:0.50,17.5) [color=red!66, anchor=west] {\tiny{0,50}};
-                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
+%                \draw[thick] ({axis cs:0.50,0}|-{rel axis cs:0,1}) -- ({axis cs:0.50,0}|-{rel axis cs:0,0}) [color=red!66];
+%                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
+%                \node at (axis cs:0.50,17.5) [color=red!66, anchor=west] {\tiny{0,50}};
+%                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
           \subfigure[SemEval]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-              \begin{axis}[axis lines=middle,
-                           x=0.37\linewidth,
-                           xtick={0.0, 0.2, ..., 1.2},
+              \begin{axis}[x=0.37\linewidth,
+                           xtick={0.0, 0.25, ..., 1.0},
                            xmin=0.0,
-                           xmax=1.05,
+                           xmax=1.0,
                            xlabel=$\zeta$,
-                           x label style={anchor=west},
-                           y=0.012\textheight,
-                           ytick={0, 5, 10, 15},
-                           ymin=0,
-                           ymax=18,
+                           x label style={yshift=.34em},
+                           y=0.024\textheight,
+                           ytick={0, 2, ..., 100},
+                           ymin=4,
+                           ymax=14,
                            ylabel=F,
-                           y label style={anchor=south}]
+                           y label style={yshift=-1.1em, rotate=270}]
                 % simple
                 \addplot[green!66, mark=x] coordinates{
                   (0.05, 4.2)
@@ -1568,11 +1577,10 @@
                   (0.95, 8.0)
                   (1.00, 8.0)
                 };
-                \draw[thick] ({axis cs:0.05,0}|-{rel axis cs:0,1}) -- ({axis cs:0.05,0}|-{rel axis cs:0,0}) [color=red!66];
-                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
-                \node at (axis cs:0.05,17.5) [color=red!66, anchor=west] {\tiny{0,05}};
-                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
-                \legend{Simple, Complète, Moyenne}
+                %\draw[thick] ({axis cs:0.05,0}|-{rel axis cs:0,1}) -- ({axis cs:0.05,0}|-{rel axis cs:0,0}) [color=red!66];
+%                \draw[densely dashed] ({axis cs:0.25,0}|-{rel axis cs:0,1}) -- ({axis cs:0.25,0}|-{rel axis cs:0,0}) [color=black!66];
+%                \node at (axis cs:0.05,17.5) [color=red!66, anchor=west] {\tiny{0,05}};
+%                \node at (axis cs:0.25,17.5) [color=black!66, anchor=west] {\tiny{0,25}};
               \end{axis}
             \end{tikzpicture}
           }
@@ -1581,8 +1589,7 @@
                    du seuil de similarité $\zeta$]{
             Résultats de l'extraction de dix termes-clés avec TopicRank, en
             fonction de la stratégie de regroupement et de la valeur du seuil
-            de similarité $\zeta$, sur les ensembles d'entraînement de
-            SemEval et de \textsc{Deft}
+            de similarité $\zeta$
             \label{fig:variation_du_seuil_de_similarite}
           }
         \end{figure}
@@ -1612,9 +1619,8 @@
         le même que celui de la stratégie simple, mais ses résultats sont très
         supérieurs jusqu'au point de convergence.
         % Quels sont les paramètres utilisés ?
-        Après observation des résultats de cette expérience, nous décidons
-        d'utiliser la stratégie de groupement moyenne avec un seuil $\zeta$ de
-        0,20 pour toutes les expériences suivantes.
+        Dans la suite de nos expériences, nous décidons d'utiliser la stratégie
+        de groupement moyenne et de fixer le seuil $\zeta$ à 0,25.
 
         La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
         résultats obtenus avec TopicRank et les différentes stratégies de
@@ -1636,12 +1642,12 @@
           \centering
           \begin{tikzpicture}
             \pgfkeys{/pgf/number format/.cd, use comma, fixed}
-            \begin{axis}[axis lines=left,
-                         symbolic x coords={SemEval, DEFT},
+            \begin{axis}[symbolic x coords={Linguistique, SciencesDeLInfo, Archeologie, Chimie, DEFT, SemEval},
                          xtick=data,
-                         xticklabels={SemEval, \textsc{Deft}},
-                         enlarge x limits=0.5,
-                         x=.3\linewidth,
+                         xticklabels={Linguistique, Sciences de l'info., Archéologie, Chimie, \textsc{De}ft, SemEval},
+                         %enlarge x limits=0.5,
+                         x=.15\linewidth,
+                         xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
                          nodes near coords,
                          nodes near coords align={vertical},
                          every node near coord/.append style={font=\tiny},
@@ -1649,39 +1655,50 @@
                          ytick={0, 10, ..., 50},
                          ymin=0,
                          ymax=52.5,
-                         ybar=8pt,
+                         ybar=3pt,
                          ylabel=F,
-                         ylabel style={at={(ticklabel* cs:1)},
-                                       anchor=south,
-                                       rotate=270}]%,
-                         %legend style={at={(0.5,-0.15)},
-                         %              anchor=north,
-                         %              legend columns=-1}]
+                         ylabel style={yshift=-1.1em, rotate=270}]
               % centroïde
               \addplot[green!66,
                        pattern=north east lines,
                        pattern color=green!40] coordinates{
-                (SemEval,   2.6)
-                (DEFT,      4.7)
+                (Linguistique, 11.9)
+                (SciencesDeLInfo, 11.5)
+                (Archeologie, 18.9)
+                (Chimie, 10.7)
+                (DEFT, 0.0)
+                (SemEval, 0.0)
               };
               % fréquence
               \addplot[cyan!66,
                        pattern=north west lines,
                        pattern color=cyan!40] coordinates{
-                (SemEval,   7.5)
-                (DEFT,      14.2)
+                (Linguistique, 14.1)
+                (SciencesDeLInfo, 13.0)
+                (Archeologie, 22.5)
+                (Chimie, 11.2)
+                (DEFT, 0.0)
+                (SemEval, 0.0)
               };
               % position
               \addplot[black!66,
                        pattern=horizontal lines,
                        pattern color=black!40] coordinates{
-                (SemEval,   11.4)
-                (DEFT,      15.4)
+                (Linguistique, 13.8)
+                (SciencesDeLInfo, 12.6)
+                (Archeologie, 20.1)
+                (Chimie, 10.9)
+                (DEFT, 15.2)
+                (SemEval, 11.1)
               };
               % borne haute
               \addplot[red!66,fill=red!40] coordinates{
-                (SemEval,   26.2)
-                (DEFT,      20.8)
+                (Linguistique, 0.0)
+                (SciencesDeLInfo, 0.0)
+                (Archeologie, 0.0)
+                (Chimie, 0.0)
+                (DEFT, 0.0)
+                (SemEval, 0.0)
               };
 
               \legend{Centroïde, Fréquence, Position, Borne haute}
@@ -1714,21 +1731,108 @@
         \begin{figure}
           \centering
           \begin{tikzpicture}
-            \begin{axis}[axis lines=middle,
-                         x=0.025\linewidth,
-                         xtick={2, 4, 6, 8, 10, 12, 14, 16, 18, 20},
-                         xmin=1,
-                         xmax=21,
+            \begin{axis}[x=0.025\linewidth,
+                         xtick={0, 2, ..., 22},
+                         xmin=0,
+                         xmax=22,
                          xlabel=Fenêtre,
-                         x label style={anchor=west},
-                         y=0.012\textheight,
-                         ytick={0, 5, 10, 15},
-                         ymin=0,
-                         ymax=18,
+                         x label style={yshift=.34em},
+                         y=0.018\textheight,
+                         ytick={0, 2, ..., 100},
+                         ymin=2,
+                         ymax=20,
                          ylabel=F,
-                         y label style={anchor=south}]
+                         y label style={yshift=-1.1em, rotate=270}]
+              % linguistique
+              \addplot[green!66, mark=x] coordinates{
+                (2, 6.6)
+                (3, 7.2)
+                (4, 8.4)
+                (5, 9.0)
+                (6, 9.6)
+                (7, 9.7)
+                (8, 10.0)
+                (9, 9.8)
+                (10, 9.6)
+                (11, 9.7)
+                (12, 9.6)
+                (13, 9.7)
+                (14, 9.9)
+                (15, 9.9)
+                (16, 9.9)
+                (17, 9.7)
+                (18, 9.7)
+                (19, 9.7)
+                (20, 9.8)
+              };
+              % sciences de l'information
+              \addplot[red!66, mark=+] coordinates{
+                (2, 9.1)
+                (3, 10.1)
+                (4, 11.1)
+                (5, 11.5)
+                (6, 11.9)
+                (7, 11.8)
+                (8, 12.0)
+                (9, 12.1)
+                (10, 12.0)
+                (11, 11.8)
+                (12, 12.0)
+                (13, 11.9)
+                (14, 11.9)
+                (15, 11.8)
+                (16, 12.0)
+                (17, 11.9)
+                (18, 11.9)
+                (19, 11.8)
+                (20, 11.8)
+              };
+              % archeologie
+              \addplot[cyan!66, mark=o] coordinates{
+                (2, 5.3)
+                (3, 7.1)
+                (4, 8.4)
+                (5, 8.9)
+                (6, 9.2)
+                (7, 9.6)
+                (8, 9.9)
+                (9, 10.0)
+                (10, 9.9)
+                (11, 10.2)
+                (12, 10.2)
+                (13, 10.2)
+                (14, 10.0)
+                (15, 10.1)
+                (16, 10.1)
+                (17, 10.1)
+                (18, 10.3)
+                (19, 10.2)
+                (20, 10.4)
+              };
+              % chimie
+              \addplot[orange!66, mark=square] coordinates{
+                (2,  8.7)
+                (3,  9.0)
+                (4,  9.6)
+                (5,  9.9)
+                (6,  9.8)
+                (7,  9.8)
+                (8,  9.9)
+                (9,  10.0)
+                (10, 10.0)
+                (11, 10.1)
+                (12, 10.1)
+                (13, 10.1)
+                (14, 10.0)
+                (15, 10.0)
+                (16, 10.0)
+                (17, 10.0)
+                (18, 9.9)
+                (19, 9.8)
+                (20, 9.8)
+              };
               % deft
-              \addplot[red!66, mark=o] coordinates{
+              \addplot[black!66, mark=triangle] coordinates{
                 (2, 3.5)
                 (3, 6.1)
                 (4, 6.3)
@@ -1750,7 +1854,7 @@
                 (20, 7.1)
               };
               % semeval
-              \addplot[cyan!66, mark=+] coordinates{
+              \addplot[gray!66, mark=diamond] coordinates{
                 (2, 5.0)
                 (3, 5.2)
                 (4, 4.8)
@@ -1771,9 +1875,9 @@
                 (19, 5.2)
                 (20, 5.2)
               };
-              \draw[densely dashed] ({axis cs:12,0}|-{rel axis cs:0,1}) -- ({axis cs:12,0}|-{rel axis cs:0,0}) [color=black!66];
-              \node at (axis cs:12,17.5) [color=black!66, anchor=west] {\tiny{12}};
-              \legend{SemEval, \textsc{Deft}}
+              %\draw[densely dashed] ({axis cs:12,0}|-{rel axis cs:0,1}) -- ({axis cs:12,0}|-{rel axis cs:0,0}) [color=black!66];
+              %\node at (axis cs:12,17.5) [color=black!66, anchor=west] {\tiny{12}};
+              \legend{Linguistique, Sciences de l'info., Archéologie, Chimie, \textsc{De}ft, SemEval}
             \end{axis}
           \end{tikzpicture}
           \caption{Résultats de l'extraction de dix termes-clés, avec
