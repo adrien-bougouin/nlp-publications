@@ -427,7 +427,7 @@
         concernent la présélection des candidats et les lignes
         \ref{algo:line:start_filtering} à \ref{algo:line:end_filtering}
         identifient et filtrent les adjectifs qualificatifs superflus.
-        \begin{algorithm}[h!]
+        \begin{algorithm}
           \SetKwInOut{kwInput}{Entrée}
           \SetKwInOut{kwOutput}{Sortie}
           \SetKwFor{For}{Pour chaque}{faire}{}
@@ -466,8 +466,6 @@
               candidats $\leftarrow$ candidats $\cup$ \{cdt\}\;
             }
           }\label{algo:line:end_filtering}
-
-          \Return{\textnormal{candidats}}
 
           \caption{Sélection fine des termes-clés candidats
                    \label{algo:candidate_pruning}}
@@ -849,11 +847,11 @@
         Le groupement des termes-clés candidats en sujets est effectué avec
         l'algorithme de groupement hiérarchique agglomératif
         (\textit{Hierarchical Agglomerative Clustering -- \textsc{Hac}}).
-        L'algorithme~\ref{algo:hac} décrit le fonctionnement classique du groupement
-        \textsc{Hac}. Initialement, chaque candidat représente un groupe et,
-        jusqu'à l'obtention d'un nombre prédéfini de groupes, ceux dont les
-        candidats ont la plus forte similarité sont unis pour ne former qu'un
-        seul groupe. Afin de ne pas fixer le nombre de sujets (groupe) à
+        L'algorithme~\ref{algo:hac} décrit le fonctionnement classique du
+        groupement \textsc{Hac}. Initialement, chaque candidat représente un
+        groupe et, jusqu'à l'obtention d'un nombre prédéfini de groupes, ceux
+        dont les candidats ont la plus forte similarité sont unis pour ne former
+        qu'un seul groupe. Afin de ne pas fixer le nombre de sujets (groupe) à
         identifier comme condition d'arrêt de l'algorithme, nous définissons un
         seuil de similarité $\zeta$ devant être dépassé ou égalé afin de pouvoir
         unifier deux groupes. La similarité entre deux groupes est déterminée à
@@ -874,15 +872,25 @@
         d'utiliser la stratégie complète qui est la moins agglomérative. Dans le
         cas de TopicRank, où les candidats sont de meilleure qualité que les
         n-grammes, la stratégie moyenne est une meilleure alternative.
-        \begin{algorithm}[h!]
+        \begin{algorithm}
           \SetKwInOut{kwInput}{Entrée}
           \SetKwInOut{kwOutput}{Sortie}
           \SetKwFor{For}{Pour chaque}{faire}{}
+          \SetKwFor{While}{Tant que}{faire}{}
           \SetKwIF{If}{ElseIf}{Else}{Si}{alors}{Sinon si}{Sinon}{}
           \SetKw{KwRet}{Retourner}
           \DontPrintSemicolon{}
 
-          \TODO{\dots}
+          \kwInput{candidats $= \{c_1, \dots, c_n\}$}
+          \kwInput{nb\_groupes}
+          \kwOutput{groupes}
+          \BlankLine
+
+          groupes $\leftarrow \left\{\{c_1\}, \dots, \{c_n\}\right\}$\;
+          \While{|\textnormal{groupes}| > \textnormal{nb\_groupes}}{
+            $\langle{}g_i, g_j\rangle{} \leftarrow \arg\max_{g_i, g_j \in \textnormal{groupes}, g_i \neq g_j}\textnormal{sim}(g_i, g_j)$\;
+            groupes $\leftarrow \textnormal{groupes}_{\setminus\{g_i, g_j\}} \cup \{g_i \cup g_j\}$
+          }
 
           \caption{\textsc{Hac}
                    \label{algo:hac}}
