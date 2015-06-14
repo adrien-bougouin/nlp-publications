@@ -557,6 +557,20 @@
         trois collections de données utilisées pour cette évaluation.
         \begin{table}[!h]
           \centering
+%          \resizebox{\linewidth}{!}{
+%            \begin{tabular}{r|cc|c|cc|c|cc|c|cc|c}
+%              \toprule
+%              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'information}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
+%              \cline{2-13}
+%              & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
+%              \hline
+%              n-grammes & & \textbf{35,9} & & & \textbf{32,4} & & & \textbf{58,5} & & & \textbf{20.5} &\\
+%              \texttt{/(N|A)+/} & & 25,1 & & & 24,2 & & & 43,9 & & & 16,8 &\\
+%              \textit{NP-chunks} & & 24,0 & & & 24,5 & & & 44.0 & & & 16,5 &\\
+%              \textsc{Lr-Np} & & 23,9 & & & 24,2 & & & 43,7 & & & 16,7 &\\
+%              \bottomrule
+%            \end{tabular}
+%          }
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r|cc|c|cc|c|cc|c|cc|c}
               \toprule
@@ -564,10 +578,10 @@
               \cline{2-13}
               & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
               \hline
-              n-grammes & & \textbf{35,9} & & & \textbf{32,4} & & & \textbf{58,5} & & & \textbf{20.5} &\\
-              \texttt{/(N|A)+/} & & 25,1 & & & 24,2 & & & 43,9 & & & 16,8 &\\
-              \textit{NP-chunks} & & 24,0 & & & 24,5 & & & 44.0 & & & 16,5 &\\
-              \textsc{Lr-Np} & & 23,9 & & & 24,2 & & & 43,7 & & & 16,7 &\\
+              n-grammes & 88,2 & \textbf{35,9} & 0,41 & 94,4 & \textbf{32,4} & 0,43 & 135,0 & \textbf{58,0} & 0,43 & 63,5 & \textbf{20.1} & 0,32\\
+              \texttt{/(N|A)+/} & 31,5 & 25,1 & 0,80 & 34,5 & 24,2 & 0,70 & $~~$48,0 & 43,5 & 0,91 & 22,4 & 16,5 & 0,74\\
+              \textit{NP-chunks} & 29,3 & 24,0 & 0,82 & 32,7 & 24,5 & 0,75 & $~~$45,6 & 43,7 & 0.96 & 21,7 & 16,3 & 0.75\\
+              \textsc{Lr-Np} & \textbf{28,5} & 23,9 & \textbf{0,84} & \textbf{31,8} & 24,2 & \textbf{0,76} &\textbf{ $~~$44,2} & 43,5 & \textbf{0,98} & 20,7 & 16,4 & \textbf{0,79}\\
               \bottomrule
             \end{tabular}
           }
@@ -578,6 +592,20 @@
         \end{table}
         \begin{table}[!h]
           \centering
+%          \resizebox{\linewidth}{!}{
+%            \begin{tabular}{r|cc|c|cc|c|cc|c}
+%              \toprule
+%              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft}}\\
+%              \cline{2-10}
+%              & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
+%              \hline
+%              n-grammes & $~~~$596.2 & \textbf{90.8} & 0.15 & 2580.5 & \textbf{72.2} & 0.03 & 4070.2 & \textbf{74.1} & 0.02\\
+%              \texttt{/(N|A)+/} & $~~~$155.6 & 88.7 & 0.57 & $~~~$646.5 & 62.4 & 0.10 & $~~~$914.5 & 61.1 & 0.07\\
+%              \textit{NP-chunks} & $~~~$149.9 & 76.0 & 0.51 & $~~~$598.4 & 56.6 & 0.10 & $~~~$812.3 & 63.0 & \textbf{0.08}\\
+%              LR-NP & \textbf{$~~~$143.8} & 85.3 & \textbf{0.59} & \textbf{$~~~$538.2} & 59.4 & \textbf{0.11} & \textbf{$~~~$738.2} & 60.1 & \textbf{0.08}\\
+%              \bottomrule
+%            \end{tabular}
+%          }
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r|cc|c|cc|c|cc|c}
               \toprule
@@ -585,10 +613,10 @@
               \cline{2-10}
               & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
               \hline
-              n-grammes & $~~~$596.2 & \textbf{90.8} & 0.15 & 2580.5 & \textbf{72.2} & 0.03 & 4070.2 & \textbf{74.1} & 0.02\\
-              \texttt{/(N|A)+/} & $~~~$155.6 & 88.7 & 0.57 & $~~~$646.5 & 62.4 & 0.10 & $~~~$914.5 & 61.1 & 0.07\\
-              \textit{NP-chunks} & $~~~$149.9 & 76.0 & 0.51 & $~~~$598.4 & 56.6 & 0.10 & $~~~$812.3 & 63.0 & \textbf{0.08}\\
-              LR-NP & \textbf{$~~~$143.8} & 85.3 & \textbf{0.59} & \textbf{$~~~$538.2} & 59.4 & \textbf{0.11} & \textbf{$~~~$738.2} & 60.1 & \textbf{0.08}\\
+              n-grammes & $~~~$478,9 & \textbf{90.4} & 0.19 & 1652,3 & \textbf{71,7} & 0.04 & 2610,4 & \textbf{74,1} & 0.03\\
+              \texttt{/(N|A)+/} & $~~~$147,4 & 88.3 & 0.60 & $~~~$518,5 & 62,0 & 0.12 & $~~~$810,3 & 61,1 & 0.08\\
+              \textit{NP-chunks} & $~~~$141,4 & 75,6 & 0.54 & $~~~$478,1 & 56,3 & 0.12 & $~~~$736,5 & 63,0 & \textbf{0.09}\\
+              LR-NP & \textbf{$~~~$135,3} & 84,8 & \textbf{0.63} & \textbf{$~~~$423,8} & 59,0 & \textbf{0.14} & \textbf{$~~~$658,2} & 60,1 & \textbf{0.09}\\
               \bottomrule
             \end{tabular}
           }
@@ -630,6 +658,22 @@
         utilisées pour cette évaluation.
         \begin{table}[h!]
           \centering
+%          \resizebox{\linewidth}{!}{
+%            \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
+%              \toprule
+%              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Linguistique}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Sciences de l'information}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{archéologie}} & \multicolumn{6}{c}{\textbf{Chimie}}\\
+%              \cline{2-25}
+%              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+%              \cline{2-25}
+%              & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
+%              \hline
+%              n-grammes & 11,9 & 14,3 & 12,8 & 12,4 & 14,8 & 13,3 & 11,1 & 11,6 & 10,9 & 11,6 & 12,4 & 11,6 & 22,3 & 15,4 & 17,8 & 21,7 & 15,1 & 17,4 & 10,4 & $~~$8,3 & $~~$8,8 & $~~$9,8 & $~~$8,2 & $~~$8,5\\
+%              \texttt{/(N|A)+/} & 12,9 & 15,2 & 13,8 & 13,5 & 15,9 & 14,4 & 13,3 & 13,8 & 13,1 & 12,6 & 13,0 & 12,4 & 27,6 & 18,8 & 21,8 & 29,3 & 20,2 & 23,4 & 14,2 & 11,0 & 11,9 & 14,7 & 11,9 & 12,6\\
+%              \textit{NP-chunks} & 13,1 & 15,6 & 14,0 & \textbf{13,6} & \textbf{16,0} & \textbf{14,5} & \textbf{13,6} & \textbf{14,2} & \textbf{13,5} & \textbf{13,0} & \textbf{13,6} & \textbf{12,9} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & 29,3 & 20,3 & 23,4 & 14,8 & 11,6 & 12,5 & 14,6 & 11,8 & 12,5\\
+%              \textsc{Lr-Np} & \textbf{13,3} & \textbf{15,8} & \textbf{14,2} & \textbf{13,6} & \textbf{16,0} & \textbf{14,5} & 13,4 & 14,1 & 13,3 & 12,6 & 13,2 & 12,5 & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{29,9} & \textbf{20,5} & \textbf{23,8} & \textbf{15,0} & \textbf{11,8} & \textbf{12,6} & \textbf{14,9} & \textbf{12,0} & \textbf{12,7}\\
+%              \bottomrule
+%            \end{tabular}
+%          }
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
               \toprule
@@ -639,10 +683,10 @@
               \cline{2-25}
               & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
               \hline
-              n-grammes & 11,9 & 14,3 & 12,8 & 12,4 & 14,8 & 13,3 & 11,1 & 11,6 & 10,9 & 11,6 & 12,4 & 11,6 & 22,3 & 15,4 & 17,8 & 21,7 & 15,1 & 17,4 & 10,4 & $~~$8,3 & $~~$8,8 & $~~$9,8 & $~~$8,2 & $~~$8,5\\
-              \texttt{/(N|A)+/} & 12,9 & 15,2 & 13,8 & 13,5 & 15,9 & 14,4 & 13,3 & 13,8 & 13,1 & 12,6 & 13,0 & 12,4 & 27,6 & 18,8 & 21,8 & 29,3 & 20,2 & 23,4 & 14,2 & 11,0 & 11,9 & 14,7 & 11,9 & 12,6\\
-              \textit{NP-chunks} & 13,1 & 15,6 & 14,0 & \textbf{13,6} & \textbf{16,0} & \textbf{14,5} & \textbf{13,6} & \textbf{14,2} & \textbf{13,5} & \textbf{13,0} & \textbf{13,6} & \textbf{12,9} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & 29,3 & 20,3 & 23,4 & 14,8 & 11,6 & 12,5 & 14,6 & 11,8 & 12,5\\
-              \textsc{Lr-Np} & \textbf{13,3} & \textbf{15,8} & \textbf{14,2} & \textbf{13,6} & \textbf{16,0} & \textbf{14,5} & 13,4 & 14,1 & 13,3 & 12,6 & 13,2 & 12,5 & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{29,9} & \textbf{20,5} & \textbf{23,8} & \textbf{15,0} & \textbf{11,8} & \textbf{12,6} & \textbf{14,9} & \textbf{12,0} & \textbf{12,7}\\
+              n-grammes & 12,2 & 14,7 & 13,1 & 13,5 & 16,1 & 14,4 & 11,6 & 12,2 & 11,5 & 12,4 & 13,1 & 12,3 & 23,3 & 16,2 & 18,6 & 23,2 & 16,1 & 18,6 & 11,0 & $~~$8,9 & $~~$9,4 & 11,4 & $~~$9,4 & $~~$9,9\\
+              \texttt{/(N|A)+/} & 13,2 & 15,5 & 14,0 & 13,8 & 16,3 & 14,7 & 13,3 & 13,8 & 13,2 & 12,7 & 13,1 & 12,5 & 27,9 & 19,0 & 22,1 & 29,9 & 20,6 & 23,9 & 15,0 & 11,7 & 12,6 & 15,0 & 12,1 & 12,8\\
+              \textit{NP-chunks} & \textbf{13,3} & \textbf{15,8} & \textbf{14,2} & 14,0 & 16,5 & 14,9 & \textbf{13,7} & \textbf{14,3} & \textbf{13,5} & \textbf{13,1} & \textbf{13,7} & \textbf{13,0} & \textbf{28,4} & \textbf{19,4} & \textbf{22,5} & 29,9 & 20,7 & 23,9 & 15,3 & 12,0 & 12,9 & 15,0 & 12,0 & 12,7\\
+              \textsc{Lr-Np} & \textbf{13,3} & \textbf{15,8} & \textbf{14,2} & \textbf{14,1} & \textbf{16,6} & \textbf{15,0} & 13,5 & 14,2 & 13,4 & 12,7 & 13,2 & 12,5 & 28,2 & 19,2 & 22,3 & \textbf{30,3} & \textbf{20,8} & \textbf{24,1} & \textbf{15,8} & \textbf{12,3} & \textbf{13,2} & \textbf{15,3} & \textbf{12,1} & \textbf{12,9}\\
               \bottomrule
             \end{tabular}
           }
@@ -651,16 +695,27 @@
             méthode de sélection des termes-clés candidats utilisée
           ]{
             Résultats de \textsc{Tf-Idf} et \textsc{Kea} d'après la
-            méthode de sélection des termes-clés candidats utilisée.
-            $\ddagger$ indique une amélioration significative par rapport à
-            toutes les autres méthodes de sélection de candidats et $\dagger$
-            indique une amélioration significative par rapport à toutes les
-            méthodes sauf celle qui extrait les \texttt{/(N|A)+/}, à 0.001 pour
-            le t-test de Student.
+            méthode de sélection des termes-clés candidats utilisée
            \label{tab:keyphrase_extraction_results_with_filtering_termith}}
         \end{table}
         \begin{table}[h!]
           \centering
+%          \resizebox{\linewidth}{!}{
+%            \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
+%              \toprule
+%              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval}} & \multicolumn{6}{c}{\textbf{DEFT}}\\
+%              \cline{2-19}
+%              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+%              \cline{2-19}
+%              & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
+%              \hline
+%              n-grammes & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
+%              \texttt{/(N|A)+/} & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
+%              \textit{NP-chunks} & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
+%              LR-NP & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
+%              \bottomrule
+%            \end{tabular}
+%          }
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
               \toprule
@@ -670,10 +725,10 @@
               \cline{2-19}
               & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
               \hline
-              n-grammes & 14.3 & 19.0 & 16.1$~~$ & 12.0 & 16.6 & 13.7$~~$ & $~~$9.0 & $~~$6.6 & $~~$7.2$~~$ & 19.4 & 13.7 & 15.9 & $~~$6.7 & 12.5 & $~~$8.6 & 13.4 & 25.3 & 17.3\\
-              \texttt{/(N|A)+/} & 24.2 & 31.7 & 27.0$~~$ & \textbf{14.5} & 19.9 & 16.5$~~$ & 11.7 & $~~$7.9 & $~~$9.3$~~$ & 19.6 & 13.7 & 16.0 & $~~$9.5 & 17.6 & 12.1 & 14.1 & 26.3  &18.1\\
-              \textit{NP-chunks} & 21.1 & 28.1 & 23.8$~~$ & 13.5 & 18.6 & 15.4$~~$ & 11.9 & $~~$8.0 & $~~$9.5$~~$ & 19.5 & 13.7 & 16.0 & $~~$9.6 & 17.9 & 12.3 & 14.3 & 26.8 & 18.4\\
-              LR-NP & \textbf{24.3} & \textbf{32.0} & \textbf{27.2$^\dagger$} & \textbf{14.5} & \textbf{20.0} & \textbf{16.6$^\ddagger$} & \textbf{12.4} & \textbf{$~~$8.4} & \textbf{$~~$9.9$^\ddagger$} & \textbf{20.4} & \textbf{14.4} & \textbf{16.7}& \textbf{10.1} & \textbf{18.5} & \textbf{12.9} & \textbf{14.4} & \textbf{27.0} & \textbf{18.6}\\
+              n-grammes & 15,7 & 20,9 & 17,7 & 12,5 & 17,3 & 14,3 & $~~$9,7 & $~~$6,5 & $~~$7,7$~~$ & 19,7 & 13,9 & 16,2 & $~~$6,9 & 12,9 & $~~$8,9 & \textbf{15,5} & \textbf{29,1} & \textbf{20,0}\\
+              \texttt{/(N|A)+/} & \textbf{24,5} & 32,1 & 27.3 & \textbf{14,7} & 20,2 & 16,8 & 13,2 & $~~$8,9 & 10,5 & 20,9 & 14,6 & 17,1 & 10,3 & 19,1 & 13,2 & 14,3 & 26,7 & 18,4\\
+              \textit{NP-chunks} & 21,4 & 28,5 & 24,1 & 13,0 & 19,0 & 15,7 & 13,3 & $~~$9.0 & 10,6 & 20,6 & 14,5 & 16,9 & 10,0 & 18,6 & 12,8 & 14,5 & 27,2 & 18,7\\
+              LR-NP & \textbf{24,5} & \textbf{32,3} & \textbf{27,4} & \textbf{14,7} & \textbf{20,4} & \textbf{16,9} & \textbf{13,6} & \textbf{$~~$9,3} & \textbf{10,9} & \textbf{21,6} & \textbf{15,2} & \textbf{17,7}& \textbf{10,4} & \textbf{19,1} & \textbf{13,3} & 14,8 & 28,0 & 19,2\\
               \bottomrule
             \end{tabular}
           }
@@ -682,12 +737,7 @@
             méthode de sélection des termes-clés candidats utilisée
           ]{
             Résultats de \textsc{Tf-Idf} et \textsc{Kea} d'après la
-            méthode de sélection des termes-clés candidats utilisée.
-            $\ddagger$ indique une amélioration significative par rapport à
-            toutes les autres méthodes de sélection de candidats et $\dagger$
-            indique une amélioration significative par rapport à toutes les
-            méthodes sauf celle qui extrait les \texttt{/(N|A)+/}, à 0.001 pour
-            le t-test de Student.
+            méthode de sélection des termes-clés candidats utilisée
            \label{tab:keyphrase_extraction_results_with_filtering_deft_semeval_duc}}
         \end{table}
 
@@ -849,29 +899,30 @@
         (\textit{Hierarchical Agglomerative Clustering -- \textsc{Hac}}).
         L'algorithme~\ref{algo:hac} décrit le fonctionnement classique du
         groupement \textsc{Hac}. Initialement, chaque candidat représente un
-        groupe et, jusqu'à l'obtention d'un nombre prédéfini de groupes, ceux
+        groupe et, jusqu'à l'obtention d'un nombre prédéfini de groupes
+        (nb\_groupes), ceux
         dont les candidats ont la plus forte similarité sont unis pour ne former
-        qu'un seul groupe. Afin de ne pas fixer le nombre de sujets (groupe) à
+        qu'un seul groupe. Afin de ne pas fixer le nombre de sujets (groupes) à
         identifier comme condition d'arrêt de l'algorithme, nous définissons un
         seuil de similarité $\zeta$ devant être dépassé ou égalé afin de pouvoir
         unifier deux groupes. La similarité entre deux groupes est déterminée à
         partir de la similarité de Jaccard calculée entre tous les candidats de
         chaque groupe. Il existe trois stratégies pour la calculer~:
-        \begin{itemize}
-          \item{simple~: la plus grande valeur de similarité entre les candidats
-                des deux groupes sert de similarité entre eux~;}
-          \item{complète~: la plus petite valeur de similarité entre les
-                candidats des deux groupes sert de similarité entre eux~;}
-          \item{moyenne~: la moyenne de toutes les similarités entre les
-                candidats des deux groupes sert de similarité entre eux
-                (compromis entre les stratégies simple et complète).}
-        \end{itemize}
-        L'une ou l'autre de ces stratégies est à privilégier en fonction du type
-        des candidats extraits. Pour des candidats qui ont de forts
-        recouvrements, tels que les n-grammes, il serait plus pertinent
-        d'utiliser la stratégie complète qui est la moins agglomérative. Dans le
-        cas de TopicRank, où les candidats sont de meilleure qualité que les
-        n-grammes, la stratégie moyenne est une meilleure alternative.
+        \begin{align}
+          \textnormal{groupe\_sim}_{\textnormal{simple}}(g_1, g_2) &= \max_{c_1 \in g_1, c_2 \in g_2} \textnormal{sim}(c_1, c_2)\\
+          \textnormal{groupe\_sim}_{\textnormal{complète}}(g_1, g_2) &= \min_{c_1 \in g_1, c_2 \in g_2} \textnormal{sim}(c_1, c_2)\\
+            \textnormal{groupe\_sim}_{\textnormal{moyenne}}(g_1, g_2) &= \frac{\sum_{c_1 \in g_1}\sum_{c_2 \in g_2} \textnormal{sim}(c_1, c_2)}{|g_1| \times |g_2|}
+        \end{align}
+        La stratégie simple favorise le rappel~: les groupes contiennent
+        théoriquement le plus grand nombre de candidats véhiculant effectivement
+        le même sujet, mais aussi un nombre potentiellement élevé d'intrus. À
+        l'inverse, la stratégie complète favorise la précision~: les groupes
+        contiennent théoriquement moins d'intrus que la stratégie simple, mais
+        ils ne sont pas exhaustifs. La stratégie moyenne est le compromis entre
+        les deux première~: les groupes contiennent potentiellement moins
+        d'intrus que ceux obtenus avec les stratégie simple et sont
+        théoriquement plus exhaustifs que ceux obtenu avec la stratégie
+        complète.
         \begin{algorithm}
           \SetKwInOut{kwInput}{Entrée}
           \SetKwInOut{kwOutput}{Sortie}
@@ -888,7 +939,7 @@
 
           groupes $\leftarrow \left\{\{c_1\}, \dots, \{c_n\}\right\}$\;
           \While{|\textnormal{groupes}| > \textnormal{nb\_groupes}}{
-            $\langle{}g_i, g_j\rangle{} \leftarrow \arg\max_{g_i, g_j \in \textnormal{groupes}, g_i \neq g_j}\textnormal{sim}(g_i, g_j)$\;
+            $\langle{}g_i, g_j\rangle{} \leftarrow \arg\max_{g_i, g_j \in \textnormal{groupes}, g_i \neq g_j}\textnormal{groupe\_sim}(g_i, g_j)$\;
             groupes $\leftarrow \textnormal{groupes}_{\setminus\{g_i, g_j\}} \cup \{g_i \cup g_j\}$
           }
 
@@ -907,17 +958,17 @@
 
         % Comment le graphe est-il construit ?
         Soit le graphe complet $G = (N, A)$ non orienté, composé d'un ensemble
-        de n\oe{}uds $N$ et d'arêtes $A$\footnote{$A = \{(n_1, n_2)\ |\
-        \forall{n_1, n_2 \in N}, n_1 \neq n_2\}$, car $G$ est un graphe
-        complet.}. Les sujets sont représentés par les n\oe{}uds du graphe et
-        les arêtes qui les connectent représentent la force de leur lien
-        sémantique. Contrairement aux travaux précédent, nous ne souhaitons pas
-        utiliser de fenêtre de cooccurrence et ne pouvons donc pas exprimer la
-        force du lien sémantique entre deux sujets par leur nombre de
-        cooccurrences. Pour préserver l'intuition derrière l'usage du nombre de
-        cooccurrences, nous connectons tous les n\oe{}uds deux à deux et
-        exprimons la force de leur lien sémantique à partir de la distance (en
-        nombre de mots) qui les sépare dans le document~:
+        de n\oe{}uds $N$ et d'arêtes\footnote{$A = \{(n_1, n_2)\ |\ \forall{n_1,
+        n_2 \in N}, n_1 \neq n_2\}$, car $G$ est un graphe complet.} $A$. Les
+        n\oe{}uds du graphe représentent les sujets du dcoument et les arêtes
+        qui les connectent représentent la force de leur lien sémantique dans le
+        document. Contrairement aux travaux précédent, nous ne souhaitons pas
+        utiliser de fenêtre de cooccurrence et n'exprimons donc pas la force du
+        lien sémantique entre deux sujets par le nombre de cooccurrences entre
+        leurs candidats respectifs. Pour préserver l'intuition derrière l'usage
+        du nombre de cooccurrences, nous connectons tous les n\oe{}uds deux à
+        deux et exprimons la force de leur lien sémantique en fonction de la
+        distance (en nombre de mots) qui les sépare dans le document~:
         \begin{align}
           \text{poids}(n_i, n_j) &= \sum_{c_i \in n_i}\ \sum_{c_j \in n_j} \text{dist}(c_i, c_j) \label{math:ponderation}\\
           \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
@@ -925,15 +976,15 @@
         où $\text{poids}(n_i, n_j)$ est le poids de l'arête entre les sujets
         $n_i$ et $n_j$, et où $\text{dist}(c_i, c_j)$ représente la force
         sémantique entre les candidats $c_i$ et $c_j$, calculée à partir de
-        leurs positions respectives, $\text{pos}(c_i)$ et $\text{pos}(c_j)$,
-        dans le document.
+        toutes leurs positions respectives, $\text{pos}(c_i)$ et
+        $\text{pos}(c_j)$, dans le document.
 
       \subsubsection{Ordonnancement des sujets}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-topic_ranking}
         % Quel est le but de l'ordonnancement ?
         % Comment est-il effectué ?
         L'ordonnancement des sujets doit établir un ordre d'importance des
-        sujets du document.
+        sujets dans le document.
         % Comment le graphe est-il utilisé pour ordonner les sujets ?
         % Quelle est l'intuition de PageRank/TextRank ?
         Pour cela, nous appliquons l'algorithme d'ordonnancement de
@@ -951,6 +1002,8 @@
         Défini entre 0 et 1, ce dernier peut être considéré comme la probabilité
         pour que le sujet $n_i$ soit utilisé par recommandation. Nous suivons
         \newcite{brin1998pagerank} et fixons $\lambda$ à 0,85.
+
+        \TODO{mettre le $(1 - \lambda)$}
 
       \subsubsection{Sélection des termes-clés}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-keyphrase_selection}
@@ -989,6 +1042,8 @@
         pas fournir les termes-clés les plus précis (informatif), car celui-ci
         représente le tronc commun à la majorité des candidats.
 
+        \TODO{mettre d'autres stratégies en perspectives}
+
       \subsubsection{Exemple}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-example}
         \TODO{exemple}
@@ -1012,23 +1067,13 @@
         résultats de TopicRank avec le patrons \texttt{/(N|A)+/} utilisé pour
         SingleRank pour la sélection des candidats}
 
-      \subsubsection{Collections de données}
-      \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_data}
-        Pour évaluer ce travail, nous utilisons quatre des cinq collections dont
-        nous disposons\footnote{La collection de données Termith est utilisée
-        pour évaluer manuellement nos travaux. Les évaluations manuelles sont
-        présentées dans le chapitre \TODO{6} (page \TODO{}).}. Nous utilisons
-        les deux collections d'articles journalistiques \textsc{Duc} (anglais)
-        et Wikinews (français), ainsi que les deux collections d'articles
-        scientifiques SemEval (anglais) et \textsc{Deft} (français).
-
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_measures}
         Les performances des méthodes d'extraction de termes-clés sont exprimées
         en termes de précision (P), rappel (R) et f-mesure (f1-mesure, F). En
         accord avec l'évaluation menée dans les travaux précédents, nous
         considérons correcte l'extraction d'une variante flexionnelle d'un
-        terme-clé de référence~\cite{kim2010semeval}. Les opérations de
+        terme-clé de référence~\cite{kim2010semeval}, les opérations de
         comparaison entre les termes-clés de référence et les termes-clés
         extraits sont donc effectuées à partir de la racine des mots qui les
         composent, selon la méthode de \newcite{porter1980suffixstripping}.
@@ -1627,8 +1672,10 @@
         le même que celui de la stratégie simple, mais ses résultats sont très
         supérieurs jusqu'au point de convergence.
         % Quels sont les paramètres utilisés ?
-        Dans la suite de nos expériences, nous décidons d'utiliser la stratégie
-        de groupement moyenne et de fixer le seuil $\zeta$ à 0,25.
+        Dans la suite de nos expériences, nous ne reportons pas les résultats
+        avec la meilleure configuration pour chaque collection. Nous utilisons
+        la stratégie de groupement moyenne et fixons le seuil $\zeta$ à 0,25,
+        configuration que nous hestimons être générique.
 
         La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
         résultats obtenus avec TopicRank et les différentes stratégies de
@@ -1638,12 +1685,15 @@
         des candidats centroïdes ou des candidats les plus fréquents. La
         stratégie centroïde donne de très faibles résultats et la
         stratégie fréquence n'est pas stable comparée à la stratégie position.
+        \TODO{il faut être moins concis}
         Enfin, bien que la stratégie position donne les résultats les plus
         satisfaisants, nous remarquons qu'il existe encore une marge de
         progression importante. Les valeurs indiquées par la borne haute
         représentent les résultats qui pourraient être obtenus avec un oracle.
         Pour chacun des sujets les plus importants, l'oracle sélectionne
-        toujours un candidat positif, s'il y en a un. La marge de progression de
+        toujours un candidat positif, s'il y en a un.
+        \TODO{revoir la dernière phrase (Béatrice~: pas clair)}
+        La marge de progression de
         14,8 points de f-mesure pour SemEval et de 5,4 points de f-mesure pour
         \textsc{Deft} est encourageante pour des travaux futurs.
         \begin{figure}
@@ -1674,8 +1724,8 @@
                 (SciencesDeLInfo, 11.5)
                 (Archeologie, 18.9)
                 (Chimie, 10.7)
-                (DEFT, 0.0)
-                (SemEval, 0.0)
+                (DEFT, 4.7)
+                (SemEval, 2.6)
               };
               % fréquence
               \addplot[cyan!66,
@@ -1685,8 +1735,8 @@
                 (SciencesDeLInfo, 13.0)
                 (Archeologie, 22.5)
                 (Chimie, 11.2)
-                (DEFT, 0.0)
-                (SemEval, 0.0)
+                (DEFT, 13.7)
+                (SemEval, 7.8)
               };
               % position
               \addplot[black!66,
@@ -1701,12 +1751,12 @@
               };
               % borne haute
               \addplot[red!66,fill=red!40] coordinates{
-                (Linguistique, 0.0)
-                (SciencesDeLInfo, 0.0)
-                (Archeologie, 0.0)
-                (Chimie, 0.0)
-                (DEFT, 0.0)
-                (SemEval, 0.0)
+                (Linguistique, 17.0)
+                (SciencesDeLInfo, 15.2)
+                (Archeologie, 24.8)
+                (Chimie, 12.9)
+                (DEFT, 20.0)
+                (SemEval, 24.6)
               };
 
               \legend{Centroïde, Fréquence, Position, Borne haute}
@@ -1736,6 +1786,7 @@
         utilisée pour la fenêtre de cooccurrences, avec des résultats optimaux
         obtenus lorsque celle-ci vaut 12. Dans les expériences suivantes, nous
         fixons donc la valeur de la fenêtre de cooccurrences à 12.
+        \TODO{Revenir à 10~???}
         \begin{figure}
           \centering
           \begin{tikzpicture}
@@ -1936,12 +1987,12 @@
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
-            TF-IDF & \textbf{23,8} & \textbf{30,7} & \textbf{26,4}$^{~}$ & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
+            TF-IDF & \textbf{24,5} & \textbf{32,1} & \textbf{27,3}$^{~}$ & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
             TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0$^{~}$ & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
-            SingleRank & 22,6 & 28,8 & 25,0$^{~}$ & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
-            TopicRank & 18,2 & 23,2 & 20,1 & \textbf{15,1}$^{~}$ & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
+            SingleRank & 22,3 & 28,4 & 24,6$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$\\
+            TopicRank & 18,3 & 23,8 & 20,4 & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$\\
             \hline
-            \textbf{Borne haute} & \textbf{31,6} & \textbf{35,3} & \textbf{33,0}$^{~}$ & \textbf{33,8} & \textbf{23,3} & \textbf{27,3}$^{~}$ & \textbf{41,7} & \textbf{44,1} & \textbf{42,2}$^{~}$ & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}$^{~}$\\
+            \textbf{Borne haute} & \textbf{30,5} & \textbf{38,7} & \textbf{33,7}$^{~}$ & \textbf{30,0} & \textbf{20,7} & \textbf{24,3}$^{~}$ & \textbf{41,8} & \textbf{44,1} & \textbf{42,2}$^{~}$ & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}$^{~}$\\
             \bottomrule
           \end{tabular}
           \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
@@ -1953,6 +2004,31 @@
             \label{tab:resultats_globaux}
           }
         \end{table}
+        \begin{table}
+          \centering
+          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
+            \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+            & P & R & F & P & R & F & P & R & F & P & R & F\\
+            \hline
+            TF-IDF & \textbf{13,0} & \textbf{15,4} & \textbf{13,9} & \textbf{13,4} & \textbf{14,0} & \textbf{13,2} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{14,1} & \textbf{11,1} & \textbf{11,9}\\
+            TextRank & $~~$7,1 & $~~$6,1 & $~~$6,4 & $~~$5,8 & $~~$4,3 & $~~$4,8 & $~~$10,2 & $~~$5,3 & $~~$6,8 & $~~$9,4 & $~~$5,3 & $~~$6,5\\
+            SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
+            TopicRank & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
+            \hline
+            \textbf{Borne haute} & \textbf{14,5} & \textbf{17,0} & \textbf{15,4} & \textbf{15,0} & \textbf{15,6} & \textbf{14,9} & \textbf{32,5} & \textbf{22,2} & \textbf{25,8} & \textbf{15,8} & \textbf{12,5} & \textbf{13,3}\\
+            \bottomrule
+          \end{tabular}
+          \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
+                   TextRank, SingleRank et TopicRank]{
+            Résultats de l'extraction de dix termes-clés avec TF-IDF, TextRank,
+            SingleRank et TopicRank. $\dagger$ indique une amélioration
+            significative de TopicRank vis-à-vis de TextRank et SingleRank, à
+            0,001 pour le t-test de Student.
+            \label{tab:resultats_inist}
+          }
+        \end{table}
 
         \begin{table}
           \centering
@@ -1962,11 +2038,11 @@
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
-            SingleRank & \textbf{22,6} & \textbf{28,8} & \textbf{25,0}$^{~}$ & $~~$4,8 & $~~$3,3 & $~~$3,9$^{~}$ & 19,2 & 20,4 & 19,5$^{~}$ & $~~$4,7 & $~~$9,4 & $~~$6,2$^{~}$\\
+            SingleRank & \textbf{22,3} & \textbf{28,4} & \textbf{24,6}$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$\\
             + complet & 22,2 & 28,1 & 24,5$^{~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$\\
             + candidats & 10,4 & 13,5 & 11,6$^{~}$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & 10,3 & 19,2 & 13,2$^\dagger$\\
             + sujets & 18,9 & 24,2 & 21,0$^{~}$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 11,1 & 20,4 & 14,2$^\dagger$\\
-            TopicRank & 18,2 & 23,2 & 20,1$^{~}$ & \textbf{15,1} & \textbf{10,6} & \textbf{12,3}$^\dagger$ & \textbf{34,8} & \textbf{37,3} & \textbf{35,4}$^\dagger$ & \textbf{11,3} & \textbf{21,0} & \textbf{14,5}$^\dagger$\\
+            TopicRank & 18,3 & 23,8 & 20,4 & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$\\
             \bottomrule
           \end{tabular}
           \caption[Résultats de l'extraction de dix termes-clés avec chacune des
@@ -1977,6 +2053,31 @@
             $\dagger$ indique une amélioration significative vis-à-vis de
             SingleRank, à 0,001 pour le t-test de Student.
             \label{tab:evaluation_individuelle_des_ameliorations}
+          }
+        \end{table}
+        \begin{table}
+          \centering
+          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
+            \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+            & P & R & F & P & R & F & P & R & F & P & R & F\\
+            \hline
+            SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
+            + complet & 10,0 & 11,9 & 10,7 & $~~$9,9 & 10,2 & $~~$9,8 & 13,5 & $~~$9,5 & 11,0 & 13,0 & 10,7 & 11,2\\
+            + candidats & 10,8 & 12,7 & 11,5 & 11,1 & 11,6 & 11,0 & 25,7 & 17,4 & 20,3 & 14,2 & 11,1 & \textbf{11,9}\\
+            + sujets & 10,6 & 12,5 & 11,3 & 10,9 & 11,5 & 10,8 & 26,5 & 18,0 & 20,9 & 13,5 & 10,7 & 11,5\\
+            TopicRank & \textbf{11,2} & \textbf{13,1} & \textbf{11,9} & \textbf{12,1} & \textbf{12,8} & \textbf{12,1} & \textbf{27,5} & \textbf{18,7} & \textbf{21,8} & \textbf{13,8} & \textbf{11,1} & 11,8\\
+            \bottomrule
+          \end{tabular}
+          \caption[Résultats de l'extraction de dix termes-clés avec chacune des
+                   contributions de TopicRank, appliquées séparément à
+                   SingleRank]{
+            Résultats de l'extraction de dix termes-clés avec chacune des
+            contributions de TopicRank, appliquées séparément à SingleRank.
+            $\dagger$ indique une amélioration significative vis-à-vis de
+            SingleRank, à 0,001 pour le t-test de Student.
+            \label{tab:evaluation_individuelle_des_ameliorations_inist}
           }
         \end{table}
 
@@ -2010,6 +2111,45 @@
         candidats, notamment ceux de plus d'un mot. Le graphe créé contient
         alors moins de relations de cooccurrences que lorsque les n\oe{}uds sont
         les mots du document et est donc moins précis pour l'ordonnancement.
+
+      \subsubsection{Sélection des candidats pour TopicRank}
+      \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-candidate_selection}
+        \begin{table}
+          \centering
+          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c|}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
+            \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+            & P & R & F & P & R & F & P & R & F & P & R & F\\
+            \hline
+            n-grammes & $~~$9,5 & 13,3 & 10,9 & 13,2 & $~~$9,2 & 10,7 & 22,7 & 24,8 & 23,3 & 8,2 & 15,0 & 10,5\\
+            \texttt{/(N|A)+/} & \textbf{18,4} & \textbf{23,8} & \textbf{20,4} & 14,9 & 10,3 & 12,1 & \textbf{35,0} & \textbf{37,5} & \textbf{35,6} & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}\\
+            \textit{NP-chunks} & 16,1 & 21,1 & 18,0 & 15,7 & 10,6 & 12,7 & 33,7 & 35,9 & 34,2 & 11,6 & 21,6 & 14,9\\
+            \textsc{Lr-Np} & 17,9 & 23,7 & 20,1 & \textbf{16,6} & \textbf{11,5} & \textbf{13,5} & 33,9 & 36,0 & 34,3 & 11,6 & 21,5 & 14,9\\
+            \bottomrule
+          \end{tabular}
+          \caption[]{
+            \label{tab:topicrank_candidate_selection}
+          }
+        \end{table}
+        \begin{table}
+          \centering
+          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+            \toprule
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
+            \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+            & P & R & F & P & R & F & P & R & F & P & R & F\\
+            \hline
+            n-grammes & $~~$7,4 & $~~$8,5 & $~~$7,8 & $~~$7,8 & $~~$8,4 & $~~$7,8 & 12,0 & $~~$8,2 & $~~$9,5 & $~~$7,1 & $~~$6,0 & $~~$6,1\\
+            \texttt{/(N|A)+/} & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
+            \textit{NP-chunks} & 11,4 & 13,3 & 12,1 & \textbf{12,5} & \textbf{13,2} & \textbf{12,5} & 28,5 & 19,3 & 22,5 & 14,1 & 11,3 &  12,0\\
+            \textsc{Lr-Np} & \textbf{11,8} & \textbf{13,8} & \textbf{12,5} & 12,2 & 12,8 & 12,2 & \textbf{29,9} & \textbf{20,3} & \textbf{23,7} & \textbf{14,6} & \textbf{11,5} & \textbf{12,3}\\
+            \bottomrule
+          \end{tabular}
+          \caption[]{
+            \label{tab:topicrank_candidate_selection_inist}
+          }
+        \end{table}
 
       \subsection{Analyse d'erreurs}
       \label{subsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-error_analysis}
