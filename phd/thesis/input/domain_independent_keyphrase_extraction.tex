@@ -1,4 +1,4 @@
-\chapter{Extraction de termes-clés indépendante du domaine}
+\chapter{Extraction de termes-clés}
 \label{chap:main-domain_independent_keyphrase_extraction}
   \smallchaptercite{
     [\dots] there is still room for improvement over the task.
@@ -12,7 +12,7 @@
   \label{sec:main:domain_independent_keyphrase_extraction-introduction}
     Dans ce chapitre, nous nous intéressons à la tâche d'extraction automatique
     de termes-clés. Cette tâche consiste à identifier dans un document ses mots
-    et expressions qui permettent le mieux d'en caractériser le contenu. Cette
+    et expressions qui permettent d'en caractériser le mieux le contenu. Cette
     tâche de l'indexation par termes-clés est celle la plus étudiée de nos
     jours. Elle peut être réalisée de manière non supervisée ou supervisée,
     grâce à la mise en \oe{}uvre d'algorithmes d'ordonnancement par importance
@@ -22,18 +22,14 @@
     Nous proposons deux contributions à l'extraction automatique de termes-clés.
     Tout d'abord, nous nous intéressons à l'étape préliminaire de sélection des
     termes-clés candidats, puis nous nous intéressons à leur ordonnancement par
-    importance. Les méthodes proposées sont non supervisées, aucun biais
-    induisant une quelconque dépendance à une langue ou à un domaine n'est
-    introduit.
-
-    \TODO{pas très complet}
+    importance. Les méthodes proposées sont non supervisées.
 
   %-----------------------------------------------------------------------------
 
   \section{Sélection des termes-clés candidats}
   \label{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}
     La sélection des termes-clés candidats établit la liste des termes-clés
-    potentiels pour un document donné. Bien qu'étudiée en surface, ou de manière
+    possibles pour un document donné. Bien qu'étudiée en surface, ou de manière
     ad-hoc à une méthode particulière d'extraction de termes-clés, cette étape
     est critique pour l'extraction de termes-clés. Si elle ne sélectionne pas
     suffisamment de candidats, alors la performance maximale pouvant être
@@ -41,25 +37,25 @@
     elle sélectionne un nombre important de candidats, alors elle augmente le
     risque de sélectionner de mauvais candidats pouvant dégrader la performance
     d'une méthode d'extraction de termes-clés~\cite{hasan2014state_of_the_art}.
-    De nombreux travaux semblent montrer que les groupes nominaux, souvent
+    De nombreux travaux ont montré que les groupes nominaux, souvent
     approximés par les séquences de noms et d'adjectifs, forment de bons
     termes-clés candidats et sont très proches des termes-clés de
     référence~\cite{barker2000nounphrasehead,hulth2003keywordextraction,wan2008expandrank}.
 
     Dans notre travail, nous remettons en question la sélection systématique
-    d'un adjectif apposé à un nom. En nous appuyant sur une analyse linguistique
-    des termes-clés de trois collections de données, nous proposons une méthode
-    qui juge si un adjectif apporte du sens bénéfique à la caractérisation du
-    contenu du document, auquel cas il est sélectionné avec le nom qu'il
-    modifie, ou non, auquel cas seul le nom est sélectionné comme terme-clé
-    candidat. Le bien fondé de cette méthode est montré au travers de deux
-    évaluations~: l'une intrinsèque, l'autre extrinsèque. L'évaluation
-    intrinsèque compare la qualité de l'ensemble de termes-clés candidats
-    sélectionnés par notre méthode à ceux sélectionnés par les méthodes les plus
-    utilisées ($\{1..3\}$-grammes, \textit{NP-chunks} et \texttt{/(N|A)+/})~;
-    l'évaluation extrinsèque compare l'impact de notre méthode de sélection sur
-    deux méthodes d'extraction de termes-clés à celui des méthodes de sélection
-    les plus utilisées.
+    d'un adjectif apposé à un groupe nominal. En nous appuyant sur une analyse
+    linguistique des termes-clés de trois collections de données, nous proposons
+    une méthode qui juge si un adjectif apporte du sens bénéfique à la
+    caractérisation du contenu du document, auquel cas il est sélectionné avec
+    le groupe nominal qu'il modifie, ou non, auquel cas le groupe nominal seul
+    est sélectionné comme terme-clé candidat. Deux évaluations montrent le bien
+    fondé de cette méthode~: l'une intrinsèque, l'autre extrinsèque.
+    L'évaluation intrinsèque compare la qualité de l'ensemble de termes-clés
+    candidats sélectionnés par notre méthode à ceux sélectionnés par les
+    méthodes les plus utilisées ($\{1..3\}$-grammes, \textit{NP-chunks} et
+    \texttt{/(N|A)+/})~; l'évaluation extrinsèque compare l'impact de notre
+    méthode de sélection sur deux méthodes d'extraction de termes-clés à celui
+    des méthodes de sélection les plus utilisées.
 
     \subsection{Analyse des propriétés linguistiques des termes-clés}
     \label{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties}
@@ -70,14 +66,14 @@
       travaux précédents et d'en inférer de nouvelles, axées sur la catégorie
       grammaticale des mots des termes-clés.
 
-      Notre analyse couvre les deux langues de nos ressources (français et
-      anglais). Elle se porte sur les collections \textsc{De}ft (français),
+      Notre analyse couvre les deux langues de nos ressources~: français et
+      anglais. Elle se porte sur les collections \textsc{De}ft (français),
       \textsc{Duc} (anglais) et SemEval (anglais). Dans le but de ne pas biaiser
       les résultats des évaluations de ce travail, l'analyse est effectuée sur
       un sous-ensemble de ces collections. Pour permettre des comparaisons avec
-      des travaux futures, les évaluations sont réalisées sur les ensembles de
+      d'autres travaux, les évaluations sont réalisées sur les ensembles de
       test de nos collections et l'analyse est donc réalisée sur les ensembles
-      normalement destinés à l'apprentissage. \textsc{Duc} n'étant pas répartie
+      normalement destinés à l'apprentissage. \textsc{Duc} n'étant pas réparti
       en plusieurs sous-ensembles, nous utilisons 208 documents pour l'analyse
       et 100 pour les évaluations.
 
@@ -142,7 +138,7 @@
       catégories de mots, comme le verbe et l'adverbe sont très peu utilisées.
       L'usage de ces dernières au sein de termes-clés semble être exceptionnel.
       Les déterminants et prépositions ont un usage presque exclusivement
-      français. En anglais, les formes composés (par exemple,
+      français. En anglais, les modifications nominales (par exemple,
       \textit{\og{}nature conservation\fg{}} -- \og{}conservation de la
       nature\fg{}) sont préférées aux formes syntagmatiques (par exemple~:
       \textit{\og{}conservation of nature\fg{}} -- \og{}conservation de la
@@ -150,10 +146,9 @@
 
       \subsubsection{Analyse des adjectifs}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties-adjective_analysis}
-      L'adjectif étant utilisé à plus forte proportion que les catégories
-      grammaticales autres que le nom et le nom propre, nous analysons plus
-      finement sa nature. Nous nous intéressons aux trois catégories d'adjectifs
-      suivantes~: relationnel, composé complexe et qualificatif.
+      Après le nom et le nom propre, c'est l'adjectif qui est le plus utilisé.
+      Nous analysons plus finement sa nature et examinons les trois catégories
+      d'adjectifs suivantes~: relationnel, composé complexe et qualificatif.
       
       Un adjectif relationnel est un adjectif
       dénominal~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}. Il
@@ -163,7 +158,7 @@
       (par exemple~: \og{}héritage culturel\fg{} équivaut à \og{}héritage de la
       culture\fg{}). Caractéristique du discours du
       spécialiste~\cite{maniez2009denominaladjectives}, l'adjectif relationnel
-      sert de modificateur dans les titre de catégories, telles que celles de
+      sert de modificateur dans les titres de catégories, telles que celles de
       Wikipedia (par exemple \og{}héritage
       culturel\fg{}\footnote{\url{http://en.wikipedia.org/wiki/Category:Cultural_heritage}}),
       qui constituent de bons termes-clés
@@ -177,34 +172,34 @@
       \og{}socio-éducatif\fg{}). L'adjectif composé complexe contribue avec
       précision et concision à la caractérisation du nom qu'il modifie (par
       exemple, \og{}activité socio-éducative\fg{} hyponyme de
-      \og{}activité\fg{}). Pour cette raison, nous pensons qu'il apporte du sens
-      bénéfique à la caractérisation de tout ou partie du contenu d'un document.
-      De plus, la composition adjectival est l'un des processus privilégiés pour
-      la formation de néologismes\footnote{Néologisme~: mot nouveau, emprunt
-      récent à une autre langue ou nouvelle emploi d'un mot déjà existant
-      (nouvelle acception).}~\cite{boughedaoui1997adjectifscomposes}. Pour cette
-      autre raison, l'adjectif composé complexe peut s'avérer très utile en tant
-      que modificateur dans un terme-clé.
+      \og{}activité\fg{}). Pour cette raison, nous pensons qu'il est utile pour
+      caractériser tout ou partie du contenu d'un document. De plus, la
+      composition adjectivale est l'un des processus privilégiés pour la
+      formation de néologismes\footnote{Néologisme~: mot nouveau, emprunt récent
+      à une autre langue ou nouvelle emploi d'un mot déjà existant (nouvelle
+      acception).}~\cite{boughedaoui1997adjectifscomposes}.
 
       Un adjectif qualificatif est un adjectif qui donne une qualification à un
-      nom. Il désigne la qualité ou manière d'être (par exemple,
-      \og{}grand\fg{}) de ce dernier. Cette catégorie d'adjectifs est la
-      plus couramment utilisée. L'ensemble des cas d'utilisation des adjectifs
-      qualificatifs est moins restreint que celui des adjectifs relationnels et
-      composés complexes. Nous faisons donc l'hypothèse qu'un adjectif
-      appartenant à cette catégorie n'est pas toujours utile à la
-      caractérisation du contenu important d'un document.
+      nom. Il désigne la qualité ou la manière d'être (par exemple,
+      \og{}grand\fg{}) de ce dernier. Cette catégorie d'adjectifs est la plus
+      courante. L'ensemble des cas d'utilisation des adjectifs qualificatifs est
+      moins restreint que celui des adjectifs relationnels et composés
+      complexes. Nous faisons donc l'hypothèse qu'un adjectif appartenant à
+      cette catégorie n'est pas toujours utile à la caractérisation du contenu
+      d'un document.
       
       ~\\Pour détecter les adjectifs relationnels, nous utilisons une technique
       simple, adaptée (ou adaptable) à plusieurs langues et ne requérant pas
-      nécessairement de données riches.
+      nécessairement de ressources linguistiques finies.
 
       Dans un premier temps, les adjectifs relationnels sont détectés avec une
       base de données lexicale. Pour le français, nous utilisons la base
-      WoNeF~\cite{pradet2013wonef} dont la propriété \texttt{[DERIVED]}
-      indique que l'adjectif est relationnel. Pour l'anglais, nous
-      utilisons la base  WordNet~\cite{miller1995wordnet} dont la propriété
-      \texttt{[PERTAINYM]} indique que l'adjectif est relationnel.
+      WoNeF~\cite{pradet2013wonef}. Pour l'anglais, nous
+      utilisons la base  WordNet~\cite{miller1995wordnet}. WoNeF est issue de
+      WordNet, ses entrées ont été obtenues par traduction de WordNet. Pour
+      savoir si un adjectif est relationnel, nous utilisons la propriété
+      \texttt{[PERTAINYM]} de WordNet et son équivalent \texttt{[DERIVED]} dans
+      WoNeF.
 
       Dans un second temps, les adjectifs relationnels qui ne sont pas présents
       dans la base de données lexicale sont détectés à l'aide de leur
@@ -223,8 +218,8 @@
       La détection des adjectifs relationnels, telle que nous la réalisons,
       n'est pas exacte. En effet, les adjectifs qualificatifs et/ou
       dénominaux se terminant par un suffixe d'adjectif relationnel sont
-      détectés comme relationnels, et les adjectifs à usage tentôt qualificatif,
-      tentôt relationnel selon le contexte~\cite{maniez2009denominaladjectives}
+      détectés comme relationnels, et les adjectifs à usage tantôt qualificatif,
+      tantôt relationnel selon le contexte~\cite{maniez2009denominaladjectives}
       sont toujours détectés comme relationnels. Dans la littérature, les
       approches pour identifier les adjectifs relationnels (dans le cadre de
       l'extraction terminologique) reposent sur une analyse en
@@ -243,12 +238,12 @@
       pas~: les mots qui constituent l'adjectif composé sont parfois séparés
       par un espace ou concaténés sans marque explicite.
 
-      ~\\Le tableau~\ref{tab:candidate_selection-adjective_categories} montre le
-      taux d'adjectifs, par catégorie, dans les termes-clés de référence.
-      Nous observons que la majorité de ces adjectifs sont relationnels, ce qui
+      ~\\Le tableau~\ref{tab:candidate_selection-adjective_categories} donne le
+      taux d'adjectifs, par catégorie, dans les termes-clés de référence. Nous
+      observons que la majorité de ces adjectifs sont relationnels, ce qui
       conforte notre hypothèse que les adjectifs relationnels sont des
-      modificateurs utiles pour les termes-clés. Ceci se confirme aussi avec
-      le tableau~\ref{tab:candidate_selection-best_patterns} qui montre que l'un
+      modificateurs utiles pour les termes-clés. Ceci est confirmé par le
+      tableau~\ref{tab:candidate_selection-best_patterns} qui montre que l'un
       des patrons grammaticaux les plus productifs de termes-clés représente un
       nom modifié par un adjectif relationnel. Le cas des adjectifs composés
       complexes est moins marqué. Ils sont peu employés par rapport aux
@@ -273,13 +268,13 @@
       \end{table}
 
       Le tableau~\ref{tab:candidate_selection-adjective_categories_in_documents}
-      montre le taux d'adjectifs, par catégorie, dans les documents. Par
-      comparaison avec les taux présentés dans le
-      tableau~\ref{tab:candidate_selection-adjective_categories}, ceux du
+      montre le taux d'adjectifs, par catégorie, dans les documents. En
+      comparant les taux présentés dans le
+      tableau~\ref{tab:candidate_selection-adjective_categories} à ceux du
       tableau~\ref{tab:candidate_selection-adjective_categories_in_documents}
-      permettent de déduire le degré d'ambigüité d'un adjectif en tant que
-      modificateur au sein d'un terme-clé. Ainsi, ce tableau montre qu'il y a
-      moins d'ambigüité quant à l'appartenance d'un adjectif relationnel ou
+      nous pouvons déduire le degré d'ambigüité d'un adjectif en tant que
+      modificateur utile dans un terme-clé. Ainsi, ce tableau montre qu'il y a
+      moins d'ambigüités quant à l'appartenance d'un adjectif relationnel ou
       composé à un terme-clé, car ces deux catégories d'adjectifs sont nettement
       moins utilisées dans les documents que dans les termes-clés de référence.
       À l'inverse, les adjectifs qualificatifs ont un très fort usage dans les
@@ -342,7 +337,7 @@
         La modification adjectivale est très utilisée (dans plus de la moitié
         des cas) pour rendre plus spécifique les termes-clés. Les adjectifs
         utilisés comme modificateurs au sein des termes-clés peuvent être de
-        différentes natures, les plus remarquables étant les adjectifs
+        différente nature, les plus remarquables étant les adjectifs
         relationnels, de par leur définition et de par leur très faible
         ambigüité observée quant à leur appartenance à un terme-clé.
         Inversement, les adjectifs qualificatifs sont les plus courants et ne
@@ -392,17 +387,17 @@
         optionnellement par un adjectif. En français, l'adjectif peut être soit
         antéposé, soit postposé. Le patron que nous avons défini n'accepte que
         les adjectifs postposés pour deux raisons. La première raison est que
-        les adjectifs relationnels, que nous jugeons être les modificateurs les
+        les adjectifs relationnels, que nous jugeons les
         plus utiles au sein des termes-clés, sont toujours postposés. La seconde
         raison est que l'adjectif antéposé ne fait pas partie des patrons les
         plus productifs de termes-clés\footnote{En français, seulement 0,7~\%
         des termes-clés commencent par un adjectif.} (cf
         tableau~\ref{tab:candidate_selection-best_patterns}).
         
-        Pour l'anglais, nous définissons le parton \texttt{/A? N+/}, qui
-        accepte une séquence de noms (ou noms propres) modifié par un adjectif
-        antéposé. En anglais, tous les adjectifs sont antéposés. Ce patron ne
-        filtre donc aucun adjectif à cette étape de présélection.
+        Pour l'anglais, nous définissons le parton \texttt{/A? N+/}, qui accepte
+        une séquence de noms (ou noms propres) modifiée optionnellement par un
+        adjectif antéposé. En anglais, tous les adjectifs sont antéposés. Ce
+        patron ne filtre donc aucun adjectif à cette étape de présélection.
 
       \subsubsection{Filtrage des adjectifs superflus}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
@@ -410,7 +405,7 @@
         faire partie du terme-clé candidat ou non, auquel cas il  en est retiré.
         Sur la base de notre analyse, les adjectifs relationnels et composés
         complexes sont systématiquement jugés utiles. Seuls les adjectifs
-        qualificatifs nécessitent une prise de décision.
+        qualificatifs font l'objet d'une prise de décision.
 
         Pour décider si un adjectif qualificatif apporte du sens utile au groupe
         nominal qu'il modifie dans le terme-clé candidat, nous comparons les
@@ -454,7 +449,7 @@
           \For{\textnormal{cdt} $\in$ \textnormal{candidats\_preliminaires}}{\label{algo:line:start_filtering}
             \If{$\exists{}\textnormal{mot} \in$ \textnormal{cdt},
             \textnormal{estAdjectif(mot)} $\wedge$ $\overline{\textnormal{estRelationnel(mot)}}$ $\wedge$ $\overline{\textnormal{estCompose(mot)}}$}{
-              tete\_cdt $\leftarrow$ cdt $-$ mot\;
+              tete\_cdt $\leftarrow$ cdt$_{\setminus\{\textnormal{mot}\}}$\;
               freq\_cdt $\leftarrow$ \textnormal{document.conter(cdt)}\;
               freq\_tete\_cdt $\leftarrow$ \textnormal{document.conter(tete\_cdt)} $-$ freq\_cdt\;
               \If{\textnormal{freq\_cdt} $>$ \textnormal{freq\_tete\_cdt}}{
@@ -502,8 +497,8 @@
         méthodes plus récentes donnent de meilleures performances que
         \textsc{Tf-Idf} et \textsc{Kea}~\cite{kim2010semeval}, ces dernières
         présentent l'avantage d'être reproductibles, ce qui nous permet de les
-        utiliser avec les mêmes prétraitements des collections de données et
-        avec les termes-clés candidats que nous souhaitons.
+        utiliser avec la même chaîne prétraitements et avec les termes-clés
+        candidats que nous souhaitons.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-evaluation_data}
@@ -516,13 +511,13 @@
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-evaluation_measures}
         Pour évaluer la qualité des ensembles de termes-clés candidats
         sélectionnés par les différentes méthodes de sélection, nous comparons
-        le nombre moyen de candidats sélectionnés au rappel maximal
-        (R$_\textnormal{max}$). Nous estimons que plus un ensemble de
-        termes-clés candidats permet d'atteindre une performance maximale élevée
-        (R$_\textnormal{max}$) avec un nombre de candidats réduit, alors plus il
-        est de bonne qualité. Pour cela, nous dérterminons la qualité $Q$ d'un
-        ensemble de termes-clés candidats en calculant le rapport entre le
-        rappel maximal et le nombre de candidats~:
+        leur nombre moyen de candidats sélectionnés au rappel maximal
+        (R$_\textnormal{max}$) qu'ils permettent d'atteindre. Nous estimons que
+        plus un ensemble de termes-clés candidats permet d'atteindre une
+        performance maximale élevée (R$_\textnormal{max}$) avec un nombre de
+        candidats réduit, alors plus il est de bonne qualité. Pour cela, nous
+        déterminons la qualité $Q$ d'un ensemble de termes-clés candidats en
+        faisant le rapport entre le rappel maximal et le nombre de candidats~:
         \begin{align}
           Q &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Candidats}}
         \end{align}
@@ -534,27 +529,22 @@
         accord avec l'évaluation menée dans les travaux
         précédents~\cite{kim2010semeval}, les opérations de comparaison entre
         les termes-clés de référence et les termes-clés extraits sont effectuées
-        à partir de la racine des mots qui les composent, d'après la méthode de
-        \newcite{porter1980suffixstripping}.
+        à partir de la racine des mots qui les composent. Pour cela, nous
+        utilisons la méthode de \newcite{porter1980suffixstripping}.
 
       \subsubsection{Évaluation intrinsèque}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
         L'évaluation intrinsèque a pour objectif d'évaluer la qualité de
-        l'ensemble des termes-clés candidats sélectionnés par notre méthode
-        (\textsc{Lr-Np}, pour \textit{Linguistically-Refined Noun Phrases}) et
-        de la comparer à celle des ensembles de termes-clés sélectionnés par les
-        méthodes de référence. Nous faisons l'hypothèse que plus une
-        méthode de sélection de candidats permet un rappel maximum élevé
-        (quasi-optimal) tout en limitant la quantité de termes-clés candidats
-        sélectionnés, alors plus elle fournit un ensemble de candidats de bonne
-        qualité.
+        l'ensemble des termes-clés candidats sélectionnés par les méthodes de
+        référence et de la comparer à celle de l'ensemble de termes-clés
+        sélectionné par notre méthode (\textsc{Lr-Np}, pour
+        \textit{Linguistically-Refined Noun Phrases}).
 
-        Les tableau~\ref{tab:candidate_extraction_statistics_termith}
+        Les tableaux~\ref{tab:candidate_extraction_statistics_termith}
         et~\ref{tab:candidate_extraction_statistics_deft_semeval_duc} présentent
-        les résultats de l'évaluation intrinsèque. Le nombre de candidats
-        sélectionnés par chaque méthode, le rappel maximum pouvant être atteint
-        avec ceux-ci et la mesure QR sont reportés pour chacune des
-        trois collections de données utilisées pour cette évaluation.
+        les résultats de l'évaluation intrinsèque. Nous y reportons le nombre de candidats
+        sélectionnés par chaque méthode, le rappel maximal pouvant être atteint
+        avec ceux-ci et leur qualité $Q$.
         \begin{table}[!h]
           \centering
 %          \resizebox{\linewidth}{!}{
@@ -574,7 +564,7 @@
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r|cc|c|cc|c|cc|c|cc|c}
               \toprule
-              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'information}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Sciences de l'information} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Archéologie} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{Chimie} \textit{(fr)}}\\
               \cline{2-13}
               & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
               \hline
@@ -586,8 +576,8 @@
             \end{tabular}
           }
           \caption{Résultats de l'évaluation intrinsèque des méthodes de
-                   sélection des termes-clés candidats sur les collections de
-                   données Termith
+                   sélection de termes-clés candidats appliquées aux données
+                   Termith
                    \label{tab:candidate_extraction_statistics_termith}}
         \end{table}
         \begin{table}[!h]
@@ -609,7 +599,7 @@
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r|cc|c|cc|c|cc|c}
               \toprule
-              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft}}\\
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}} \textit{(en)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft} \textit{(fr)}}\\
               \cline{2-10}
               & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
               \hline
@@ -621,23 +611,22 @@
             \end{tabular}
           }
           \caption{Résultats de l'évaluation intrinsèque des méthodes de
-                   sélection des termes-clés candidats sur les collections
+                   sélection de termes-clés candidats appliquées aux collections
                    \textsc{De}ft, SemEval et \textsc{Duc}
                    \label{tab:candidate_extraction_statistics_deft_semeval_duc}}
         \end{table}
         
-        Globalement, nous remarquons que notre méthode sélectionne le moins de
-        candidats sans nécessairement induire le moins bon rappel maximum
-        (obtenu avec les \textit{NP-chunks}).
-        C'est, sans surprise, la sélections des n-grammes qui induit le meilleur
-        rappel maximum. Celui-ci est très proche du rappel maximum optimal, mais
+        Globalement, notre méthode sélectionne le moins de
+        candidats sans nécessairement induire le plus faible rappel maximal.
+        C'est, sans surprise, la sélection des n-grammes qui induit le meilleur
+        rappel maximal. Celui-ci est très proche du rappel maximal
+        optimal\footnote{En extraction automatique de termes-clés, le rappel
+        maximal optimal correspond à la quantité de termes-clés qui occurrent
+        dans les documents.}, mais
         au prix d'un nombre de candidats 4 à 5 fois supérieur à celui des autres
-        méthodes. Comme le montre la mesure de compromis entre nombre de
-        candidats sélectionnés et rappel maximum (QR), notre méthode
-        est de meilleure qualité que les autres, suivit par la méthode de
-        sélection des \texttt{/(N|A)+/}, par la méthode de sélection des
-        \textit{NP-chunks} et, de loin, par la méthode de sélection des
-        n-grammes.
+        méthodes. Comme le montre la valeur de $Q$, notre méthode
+        est de meilleure qualité que les autres~: \textsc{Lr-Np} $>$
+        \texttt{/(N|A)+/} $>$ \textit{NP-chunks} $>$ n-grammes.
 
       \subsubsection{Évaluation extrinsèque}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
@@ -645,17 +634,26 @@
         méthode de sélection de termes-clés en situation réelle d'extraction de
         termes-clés et de la comparer à celle des méthodes de référence.
         Il s'agit aussi de valider notre hypothèse par laquelle plus une méthode
-        de sélection de candidats permet un rappel maximum élevé tout en
+        de sélection de candidats permet un rappel maximal élevé tout en
         limitant la quantité de termes-clés candidats sélectionnés, alors plus
         elle fournit un ensemble de candidats de bonne qualité.
 
         Les
         tableaux~\ref{tab:keyphrase_extraction_results_with_filtering_termith}
         et~\ref{tab:keyphrase_extraction_results_with_filtering_deft_semeval_duc}
-        présente les résultats de l'évaluation extrinsèque. La performance, en
-        termes de précision, rappel et f-mesure, des méthodes \textsc{Tf-Idf} et
-        \textsc{Kea} est reportée pour chacune des trois collections de données
-        utilisées pour cette évaluation.
+        présentent les résultats de l'évaluation extrinsèque. Nous y reportons
+        la performance des méthodes \textsc{Tf-Idf} et \textsc{Kea}, en termes
+        de précision, rappel et f-mesure.
+        Globalement, la performance des méthodes d'extraction de termes-clés est
+        corrélée à la qualité de l'ensemble des termes-clés candidats
+        sélectionnés. Les candidats sélectionnés avec notre méthode induisent
+        les meilleures performances dans la quasi-totalité des cas de figure
+        étudiés. Les résultats
+        montrent la validité de notre hypothèse par laquelle plus une méthode de
+        sélection de candidats permet un rappel maximal élevé tout en limitant
+        la quantité de termes-clés candidats sélectionnés, plus
+        elle fournit un ensemble de candidats de bonne qualité. Cette première
+        étape facilitera l'extraction de termes-clés.
         \begin{table}[h!]
           \centering
 %          \resizebox{\linewidth}{!}{
@@ -677,7 +675,7 @@
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}}
               \toprule
-              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Linguistique}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Sciences de l'information}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{archéologie}} & \multicolumn{6}{c}{\textbf{Chimie}}\\
+              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Sciences de l'information} \textit{(fr)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{archéologie} \textit{(fr)}} & \multicolumn{6}{c}{\textbf{Chimie} \textit{(fr)}}\\
               \cline{2-25}
               & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
               \cline{2-25}
@@ -691,11 +689,13 @@
             \end{tabular}
           }
           \caption[
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} selon la
-            méthode de sélection des termes-clés candidats utilisée
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur les données
+            Termith, selon la méthode de sélection des termes-clés candidats
+            utilisée
           ]{
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} d'après la
-            méthode de sélection des termes-clés candidats utilisée
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur les données
+            Termith, selon la méthode de sélection des termes-clés candidats
+            utilisée
            \label{tab:keyphrase_extraction_results_with_filtering_termith}}
         \end{table}
         \begin{table}[h!]
@@ -719,7 +719,7 @@
           \resizebox{\linewidth}{!}{
             \begin{tabular}{r@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
               \toprule
-              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval}} & \multicolumn{6}{c}{\textbf{DEFT}}\\
+              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC} \textit{(en)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval} \textit{(en)}} & \multicolumn{6}{c}{\textbf{DEFT} \textit{(fr)}}\\
               \cline{2-19}
               & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
               \cline{2-19}
@@ -733,26 +733,15 @@
             \end{tabular}
           }
           \caption[
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} selon la
-            méthode de sélection des termes-clés candidats utilisée
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur \textsc{De}ft,
+            SemEval et \textsc{Duc}, selon la méthode de sélection des
+            termes-clés candidats utilisée
           ]{
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} d'après la
-            méthode de sélection des termes-clés candidats utilisée
+            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur \textsc{De}ft,
+            SemEval et \textsc{Duc}, selon la méthode de sélection des
+            termes-clés candidats utilisée
            \label{tab:keyphrase_extraction_results_with_filtering_deft_semeval_duc}}
         \end{table}
-
-        Globalement, la performance des méthodes d'extraction de termes-clés est
-        corrélée à la qualité de l'ensemble des termes-clés candidats
-        sélectionnés. Les candidats sélectionnés avec notre méthode induisent
-        les meilleures performances dans les six cas de figure étudiés et, dans
-        la moitié des cas, l'amélioration vis-à-vis des méthodes de référence
-        est significative. Au delà de montrer la pertinence de filtrer certains
-        adjectifs lors de la sélection des termes-clés candidats, les résultats
-        montrent la validité de notre hypothèse par laquelle plus une méthode de
-        sélection de candidats permet un rappel maximum élevé tout en limitant
-        la quantité de termes-clés candidats sélectionnés, alors plus
-        elle fournit un ensemble de candidats de bonne qualité et plus aisée
-        sera l'extraction de termes-clés.
 
     \subsection{Bilan}
     \label{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-conclusion}
@@ -763,12 +752,11 @@
       noms et d'au plus un adjectif, puis détermine si l'adjectif des candidats
       apporte du sens selon sa catégorie (relationnel, composé complexe ou
       qualificatif) et son usage dans le document. Vis-à-vis des méthodes de
-      sélection de termes-clés candidats les plus utilisées, celle-ci présente
-      l'avantage de sélectionner moins de candidats sans réduire
-      significativement le nombre de candidats positifs qui s'y trouvent. La
-      qualité de l'ensemble de candidats proposés est donc supérieure et permet
-      de réduire aussi bien le temps de traitement pour l'extraction de
-      termes-clés que les risques d'erreurs.
+      sélection de termes-clés candidats les plus utilisées, celle que nous
+      proposons présente l'avantage de sélectionner moins de candidats sans
+      réduire significativement le nombre de candidats positifs qui s'y
+      trouvent. La qualité de l'ensemble de candidats proposés est donc
+      supérieure et permet de réduire les risques d'erreurs.
 
       Ce travail s'intéresse principalement aux adjectifs relationnels, qui
       constituent une sous-partie des adjectifs dénominaux. À l'avenir, il
@@ -784,61 +772,16 @@
 
   \section{Extraction automatique non supervisée de termes-clés}
   \label{sec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction}
-    Dans cet section, nous présentons TopicRank, une méthode non supervisée à
-    base de graphe pour l'extraction automatique de termes-clés. Ce travail se
-    fonde sur celui de \newcite{mihalcea2004textrank}, qui ont proposé TextRank.
-    Notre objectif est de résoudre les faiblesses de l'approche à base de
-    graphe, que nous identifions dans le
-    \ANNOTATE{chapitre~\ref{chap:main-state_of_the_art}
-    (page~\pageref{chap:main-state_of_the_art})}{état de l'art}.
-
-    \TODO{enlever le paragraphe precedent et intégrer celui-ci}
-    L'ordonnancement des unités textuelles du document, afin de déterminer
-    lesquelles sont les plus importantes vis-à-vis de son contenu, est
-    principalement réalisé avec des approches non supervisées. Parmi elles, nous
-    nous intéressons à l'approche à base de graphe. Celle-ci consiste à
-    représenter le document sous la forme d'un graphe de cooccurrences de mots
-    et à appliquer à ce graphe un algorithme pour identifier les n\oe{}uds
-    (mots) les plus centraux dans le graphe. Dans notre travail, nous remettons
-    en question l'ordonnancement des mots alors que les termes-clés peuvent être
-    des expressions multi-mots. Nous groupons les termes-clés candidats qui
-    expriment le même sujet et proposons d'ordonner ces sujets plutôt que les
+    Cette section introduit TopicRank, une méthode non supervisée d'extraction
+    automatique de termes-clés. Ce travail se fonde sur celui de
+    \newcite{mihalcea2004textrank}, qui ont proposé TextRank. TextRank
+    représente le document sous la forme d'un graphe de cooccurrences de mots et
+    applique à ce graphe un algorithme pour identifier les n\oe{}uds (mots) les
+    plus centraux dans le graphe. Nous ne sommes pas d'accord avec le fait
+    d'ordonner des mots, car que les termes-clés peuvent être des expressions
+    multi-mots. Comme alternative, Nous proposons de grouper les termes-clés
+    candidats qui expriment le même sujet et ordonnons ces sujets plutôt que les
     mots.
-
-    Les méthodes à base de graphe actuelles déterminent l'importance des mots du
-    document, puis utilisent cette importance soit pour générer les
-    termes-clés~\cite{mihalcea2004textrank}, soit pour déterminer l'importance
-    des termes-clés candidats en faisant la somme du score d'importance de leurs
-    mots~\cite{wan2008expandrank}. Nous jugeons qu'il est plus pertinent
-    d'utiliser l'algorithme d'ordonnancement à base de graphe pour ordonner
-    directement les termes-clés candidats et ainsi éviter les problèmes de
-    redondance que nous évoquons dans le
-    \ANNOTATE{chapitre~\ref{chap:main-state_of_the_art}
-    (page~\pageref{chap:main-state_of_the_art})}{état de l'art} et que nous montrons dans
-    l'exemple \TODO{ref vers l'exemple à mettre dans l'état de l'art}
-    (\TODO{page ???}).
-    
-    En plus de cela, les méthodes actuelles ne tiennent pas compte du phénomène
-    de variation lexicale, qui consiste à utiliser des unités textuelles
-    différentes d'un point de vue lexicale mais équivalentes d'un point de vue
-    sémantique afin d'éviter les répétitions dans le texte. Ne pas tenir compte
-    de ce phénomène engendre une dispersion, dans le graphe, d'informations
-    relatives à un même sujet.
-    
-    Enfin, les expériences réalisées dans le travail de
-    \newcite{mihalcea2004textrank} et dans celui de \newcite{wan2008expandrank}
-    montrent un comportement marginal des différentes approches à base de graphe
-    vis-à-vis de la valeur de la fenêtre de cooccurrence. Les performances
-    relevées dans les expériences de \newcite{mihalcea2004textrank} montrent que
-    plus la fenêtre de cooccurrence est élevée, moins l'extraction de
-    termes-clés est performante, alors que celles relevées par
-    \newcite{wan2008expandrank} montrent le comportement inverse. \TODO{mettre
-    les courbes de Mihalcea et celles de Wan}
-
-    Avec TopicRank, nous proposons une solution pour résoudre les trois
-    problèmes énoncés ci-dessus. Dans la suite, nous présentons TopicRank, nous
-    l'évaluons, nous le comparons à l'existant, puis nous en analysons les
-    erreurs.
 
     \subsection{TopicRank}
     \label{subsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank}
@@ -852,8 +795,9 @@
 
       \subsubsection{Identification des sujets}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
-        Pour TopicRank, un sujet représente un thème du document qui est
-        véhiculé par un ou plusieurs termes-clés candidats.
+        Un sujet représente un thème du document, véhiculé par une ou plusieures
+        unités textuelles. Dans TopicRank, les unités textuelles qui véhiculent
+        les sujets sont les termes-clés candidats sélectionnés dans le document.
 %
 %        % Que nous faut-il pour identifier les sujets ?
 %        La première étape de l'identification des sujets consiste à sélectionner
@@ -870,18 +814,18 @@
 %        adapté pour le groupement que nous effectuons ensuite.
 %
         % Comment détectons nous deux candidats appartenant au même sujet ?
-        L'identification des sujets à partir des termes-clés candidats consiste
-        à les grouper lorsqu'ils sont supposés appartenir au même sujet. Afin de
-        proposer une méthode générique n'utilisant pas de données
+        L'identification des sujets consiste donc à grouper les termes-clés
+        candidats du document lorsqu'ils sont supposés appartenir au même sujet.
+        Afin de proposer une méthode générique n'utilisant pas de données
         supplémentaires, nous appliquons un groupement \og{}naïf\fg{} des
-        candidats, fondé sur les mots qu'ils partagent.
+        candidats fondé sur les mots qu'ils partagent, leur similarité lexicale.
 
         Deux candidats $c_1$ et $c_2$ sont considérés comme des ensembles de
         mots (sacs de mots) et leur degré de similarité est calculé à l'aide de
-        la mesure de Jaccard (cf équation~\ref{equa:jaccard}). Ce dernier est
-        d'autant plus élevé que les candidats partagent un grand nombre de mots.
+        la mesure de Jaccard (cf équation~\ref{equa:jaccard}), de sorte qu'ils
+        soient très similaires s'ils partagent un grand nombre de mots.
         À l'instar des systèmes d'évaluation automatique, nous ajoutons plus de
-        souplesse à la mesure de similarité, en tronquant les mots avec la
+        souplesse à la mesure de similarité en tronquant les mots avec la
         méthode de racinisation de~\newcite{porter1980suffixstripping}.
         \begin{align}
           \text{sim}(c_1, c_2) &= \frac{|\textnormal{Porter}(c_1)\ \cap\ \textnormal{Porter}(c_2)|}{|\textnormal{Porter}(c_1)\ \cup\ \textnormal{Porter}(c_2)|} \label{equa:jaccard}
@@ -900,14 +844,14 @@
         L'algorithme~\ref{algo:hac} décrit le fonctionnement classique du
         groupement \textsc{Hac}. Initialement, chaque candidat représente un
         groupe et, jusqu'à l'obtention d'un nombre prédéfini de groupes
-        (nb\_groupes), ceux
-        dont les candidats ont la plus forte similarité sont unis pour ne former
-        qu'un seul groupe. Afin de ne pas fixer le nombre de sujets (groupes) à
-        identifier comme condition d'arrêt de l'algorithme, nous définissons un
-        seuil de similarité $\zeta$ devant être dépassé ou égalé afin de pouvoir
-        unifier deux groupes. La similarité entre deux groupes est déterminée à
-        partir de la similarité de Jaccard calculée entre tous les candidats de
-        chaque groupe. Il existe trois stratégies pour la calculer~:
+        (nb\_groupes), ceux dont les candidats ont la plus forte similarité sont
+        unis pour ne plus former qu'un seul groupe. Afin de ne pas fixer le
+        nombre de sujets (groupes) à identifier comme condition d'arrêt de
+        l'algorithme, nous définissons un seuil de similarité $\zeta$ devant
+        être dépassé ou égalé afin de pouvoir unifier deux groupes. La
+        similarité entre deux groupes est déterminée à partir de la similarité
+        de Jaccard calculée entre tous les candidats de chaque groupe. Il existe
+        trois stratégies pour la calculer~:
         \begin{align}
           \textnormal{groupe\_sim}_{\textnormal{simple}}(g_1, g_2) &= \max_{c_1 \in g_1, c_2 \in g_2} \textnormal{sim}(c_1, c_2)\\
           \textnormal{groupe\_sim}_{\textnormal{complète}}(g_1, g_2) &= \min_{c_1 \in g_1, c_2 \in g_2} \textnormal{sim}(c_1, c_2)\\
@@ -953,22 +897,21 @@
       \subsubsection{Construction du graphe}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-graph_construction}
         Afin d'identifier les sujets les plus importants du documents, nous
-        utilisons un graphe qui représente tous les sujets du document avec les
-        relations qu'ils entretiennent.
-
+        utilisons un graphe.
         % Comment le graphe est-il construit ?
-        Soit le graphe complet $G = (N, A)$ non orienté, composé d'un ensemble
-        de n\oe{}uds $N$ et d'arêtes\footnote{$A = \{(n_1, n_2)\ |\ \forall{n_1,
-        n_2 \in N}, n_1 \neq n_2\}$, car $G$ est un graphe complet.} $A$. Les
-        n\oe{}uds du graphe représentent les sujets du dcoument et les arêtes
-        qui les connectent représentent la force de leur lien sémantique dans le
-        document. Contrairement aux travaux précédent, nous ne souhaitons pas
-        utiliser de fenêtre de cooccurrence et n'exprimons donc pas la force du
-        lien sémantique entre deux sujets par le nombre de cooccurrences entre
-        leurs candidats respectifs. Pour préserver l'intuition derrière l'usage
-        du nombre de cooccurrences, nous connectons tous les n\oe{}uds deux à
-        deux et exprimons la force de leur lien sémantique en fonction de la
-        distance (en nombre de mots) qui les sépare dans le document~:
+        Soit le graphe complet et non orienté $G = (N, A)$, composé d'un
+        ensemble de n\oe{}uds $N$ et d'arêtes\footnote{$A = \{(n_1, n_2)\ |\
+        \forall{n_1, n_2 \in N}, n_1 \neq n_2\}$, car $G$ est un graphe
+        complet.} $A$. Les n\oe{}uds du graphe représentent les sujets du
+        document et les arêtes qui les connectent représentent la force de leur
+        lien sémantique dans le document. Contrairement aux travaux précédent,
+        nous ne souhaitons pas utiliser de fenêtre de cooccurrences et
+        n'exprimons donc pas la force du lien sémantique entre deux sujets par
+        le nombre de cooccurrences entre leurs candidats respectifs. Pour
+        préserver l'intuition derrière l'usage du nombre de cooccurrences, nous
+        connectons tous les n\oe{}uds deux à deux et exprimons la force de leur
+        lien sémantique en fonction de la distance (en nombre de mots) qui les
+        sépare dans le document~:
         \begin{align}
           \text{poids}(n_i, n_j) &= \sum_{c_i \in n_i}\ \sum_{c_j \in n_j} \text{dist}(c_i, c_j) \label{math:ponderation}\\
           \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
@@ -990,7 +933,7 @@
         Pour cela, nous appliquons l'algorithme d'ordonnancement de
         SingleRank~\cite{wan2008expandrank} à notre graphe
         de sujets. Cet algorithme se fonde sur le principe de recommandation,
-        ou de vote, c'est-à-dire un sujet est d'autant plus important s'il est
+        ou de vote. Un sujet est d'autant plus important s'il est
         fortement connecté avec un grand nombre de sujets et si les sujets avec
         lesquels il est fortement connecté sont importants~:
         \begin{align}
@@ -1003,8 +946,6 @@
         pour que le sujet $n_i$ soit utilisé par recommandation. Nous suivons
         \newcite{brin1998pagerank} et fixons $\lambda$ à 0,85.
 
-        \TODO{mettre le $(1 - \lambda)$}
-
       \subsubsection{Sélection des termes-clés}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-keyphrase_selection}
         % De quoi s'agit-il ?
@@ -1014,7 +955,7 @@
         redondants, un seul candidat est sélectionné par sujet.
         % Quel en est le but ?
         Ainsi, pour $k$ sujets, $k$ termes-clés non redondants couvrant
-        exactement $k$ sujets sont extraits.
+        théoriquement $k$ sujets sont extraits.
 
         % Quelles sont les différentes stratégies envisageable ?
         La difficulté de ce principe de sélection réside dans la capacité à
@@ -1039,10 +980,8 @@
         stratégie position. Sélectionner les candidats les plus fréquents risque
         de ne pas être une solution stable selon les genres de documents, en
         particulier selon leur taille~; sélectionner les centroïdes risque de ne
-        pas fournir les termes-clés les plus précis (informatif), car celui-ci
-        représente le tronc commun à la majorité des candidats.
-
-        \TODO{mettre d'autres stratégies en perspectives}
+        pas fournir les termes-clés les plus informatif, car celui-ci représente
+        le tronc commun à la majorité des candidats.
 
       \subsubsection{Exemple}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-example}
@@ -1051,21 +990,23 @@
     \subsection{Évaluation}
     \label{subsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation}
       Pour valider notre approche, nous réalisons deux série d'expériences. Une
-      première série pour déterminer les paramètres optimaux de TopicRank et
-      une seconde séries pour le comparer aux travaux précédents, ainsi
-      que pour analyser l'impact de chacune de nos contributions.
+      première série pour déterminer les paramètres de TopicRank et
+      une seconde série pour le comparer aux travaux précédents et analyser
+      l'impact de chacune de nos contributions. Dans un premire temps, nous
+      facilitons la comparaisons avec les travaux de la littérature en
+      effectuant les comparaisons avec la méthode de sélection classique
+      \texttt{/(N|A)+/}, puis nous montrons le comportement de TopicRank avec
+      chacune des méthodes étudiées dans la
+      section~\ref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}
+      (page~\pageref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}).
       
-      \subsubsection{Méthodes de référence}
+      \subsubsection{Méthodes de référence et collections de données}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-baselines}
-        % Comment les baselines sont-elles choisies ?
         Dans nos expériences, nous comparons TopicRank à trois autres
         méthodes non supervisées d'extraction automatique de termes-clés. Nous
-        choisissons TextRank et SingleRank, les deux méthodes qui sont la
-        fondation des méthodes à base de graphe, et la méthode TF-IDF.
-
-        \TODO{Dans un but de comparaison, nous reportons tout d'abord les
-        résultats de TopicRank avec le patrons \texttt{/(N|A)+/} utilisé pour
-        SingleRank pour la sélection des candidats}
+        choisissons la méthode \textsc{Tf-Idf} et les deux méthodes à base de
+        graphe TextRank et SingleRank. Nous utilisons les ensembles de test de
+        toutes nos collections de données.
 
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_measures}
@@ -1076,18 +1017,19 @@
         terme-clé de référence~\cite{kim2010semeval}, les opérations de
         comparaison entre les termes-clés de référence et les termes-clés
         extraits sont donc effectuées à partir de la racine des mots qui les
-        composent, selon la méthode de \newcite{porter1980suffixstripping}.
+        composent. Nous utilisons la méthode de
+        \newcite{porter1980suffixstripping}.
 
       \subsubsection{Analyse empirique de TopicRank}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-empirical_analysis_of_topicrank}
         Dans cette section, nous effectuons une première série d'expériences
-        afin de déterminer quelle est la configuration optimale de TopicRank. En
-        utilisant les ensembles d'entraînement de SemEval et de \textsc{Deft},
-        nous réalisons deux expériences durant lesquelles nous faisons varier,
-        dans un premier temps, le seuil de similarité ($\zeta$) et la stratégie
-        de groupement (simple, complète et moyenne), puis dans un second temps,
-        la stratégie de sélection du terme-clé candidat le plus représentatif de
-        chacun des sujets les plus importants.
+        afin de déterminer quelle est la configuration la plus générique de
+        TopicRank. En utilisant les ensembles d'entraînement des collections
+        Termith, de \textsc{De}ft, de SemEval et de \textsc{Duc}, nous réalisons
+        deux expériences durant lesquelles nous faisons varier le seuil de
+        similarité ($\zeta$) avec la stratégie de groupement (simple, complète
+        et moyenne), puis la stratégie de sélection du terme-clé candidat le
+        plus représentatif de chacun des sujets les plus importants.
         \begin{figure}
           \centering
           \subfigure[Linguistique]{
@@ -1129,7 +1071,7 @@
                   (1.00, 14.4)
                 };
                 % complet
-                \addplot[cyan!66, mark=+] coordinates{
+                \addplot[red!66, mark=+] coordinates{
                   (0.05, 13.8)
                   (0.10, 13.8)
                   (0.15, 13.8)
@@ -1152,7 +1094,7 @@
                   (1.00, 14.4)
                 };
                 % moyen
-                \addplot[red!66, mark=o] coordinates{
+                \addplot[cyan!66, mark=o] coordinates{
                   (0.05, 13.3)
                   (0.10, 13.4)
                   (0.15, 13.5)
@@ -1220,7 +1162,7 @@
                   (1.00, 13.4)
                 };
                 % complet
-                \addplot[cyan!66, mark=+] coordinates{
+                \addplot[red!66, mark=+] coordinates{
                   (0.05, 12.8)
                   (0.10, 12.8)
                   (0.15, 12.8)
@@ -1243,7 +1185,7 @@
                   (1.00, 13.4)
                 };
                 % moyen
-                \addplot[red!66, mark=o] coordinates{
+                \addplot[cyan!66, mark=o] coordinates{
                   (0.05, 12.3)
                   (0.10, 12.4)
                   (0.15, 12.5)
@@ -1312,7 +1254,7 @@
                   (1.00, 22.6)
                 };
                 % complet
-                \addplot[cyan!66, mark=+] coordinates{
+                \addplot[red!66, mark=+] coordinates{
                   (0.05, 20.1)
                   (0.10, 20.1)
                   (0.15, 20.1)
@@ -1335,7 +1277,7 @@
                   (1.00, 22.6)
                 };
                 % moyen
-                \addplot[red!66, mark=o] coordinates{
+                \addplot[cyan!66, mark=o] coordinates{
                   (0.05, 20.0)
                   (0.10, 20.1)
                   (0.15, 20.1)
@@ -1403,7 +1345,7 @@
                   (1.00, 11.2)
                 };
                 % complet
-                \addplot[cyan!66, mark=+] coordinates{
+                \addplot[red!66, mark=+] coordinates{
                   (0.05, 10.9)
                   (0.10, 10.9)
                   (0.15, 10.9)
@@ -1426,7 +1368,7 @@
                   (1.00, 11.2)
                 };
                 % moyen
-                \addplot[red!66, mark=o] coordinates{
+                \addplot[cyan!66, mark=o] coordinates{
                   (0.05, 10.7)
                   (0.10, 10.7)
                   (0.15, 10.8)
@@ -1494,7 +1436,7 @@
                   (1.00, 15.6)
                 };
                 % complet
-                \addplot[cyan!66, mark=+] coordinates{
+                \addplot[red!66, mark=+] coordinates{
                   (0.05, 15.8)
                   (0.10, 15.8)
                   (0.15, 15.8)
@@ -1517,7 +1459,7 @@
                   (1.00, 15.6)
                 };
                 % moyen
-                \addplot[red!66, mark=o] coordinates{
+                \addplot[cyan!66, mark=o] coordinates{
                   (0.05, 13.8)
                   (0.10, 13.9)
                   (0.15, 14.9)
@@ -1585,7 +1527,7 @@
                   (1.00, 8.0)
                 };
                 % complet
-                \addplot[cyan!66, mark=+] coordinates{
+                \addplot[red!66, mark=+] coordinates{
                   (0.05, 11.5)
                   (0.10, 11.5)
                   (0.15, 10.9)
@@ -1608,7 +1550,7 @@
                   (1.00, 8.0)
                 };
                 % moyen
-                \addplot[red!66, mark=o] coordinates{
+                \addplot[cyan!66, mark=o] coordinates{
                   (0.05, 12.2)
                   (0.10, 11.7)
                   (0.15, 11.2)
@@ -1650,52 +1592,59 @@
         % Variation du seuil de similarité et de la stratégie de groupement
         La figure~\ref{fig:variation_du_seuil_de_similarite} présente les
         résultats de TopicRank lorsque nous faisons varier le seuil~$\zeta$ avec
-        un pas de 0,05 pour toutes les stratégies de groupement\footnote{La
+        un pas de 0,05 pour chaque stratégie de groupement\footnote{La
         stratégie de sélection du terme-clé le plus représentatif par sujet
         utilisée dans cette expérience est la stratégie position.}.
         % Quelle analyse peut-on faire à partir des courbes ?
-        Globalement, chaque stratégie de groupement a un comportement qui lui
-        est propre jusqu'à un certain point de convergence lorsque $\zeta$ vaut
-        0,70, ce point de convergence correspondant à la valeur du seuil $\zeta$
-        pour laquelle les sujets créés sont les mêmes quelle que soit la
-        stratégie. Avec la stratégie simple, les résultats s'améliorent lorsque
-        $\zeta$ augmente. Du fait qu'elle ne prend en compte que la similarité
-        maximale entre deux candidats de deux groupes, cette stratégie à
-        tendance à trop grouper et donc à créer des groupes contenant en réalité
-        plusieurs sujets. L'augmentation du seuil $\zeta$ a pour effet de
-        restreindre cette tendance et la qualité du groupement s'améliore. En
-        opposition, la stratégie complète, qui a le fonctionnement inverse, voit
-        ses résultats se dégrader lorsque $\zeta$ augmente. Enfin, la stratégie
-        moyenne agit en compromis. Pour SemEval, son comportement est le même
-        que celui de la stratégie complète, mais ses résultats sont supérieurs
-        jusqu'au point de convergence. Pour \textsc{Deft}, son comportement est
-        le même que celui de la stratégie simple, mais ses résultats sont très
-        supérieurs jusqu'au point de convergence.
+        Avec les collections Termith, nous observons des comportements et des
+        performances similaires quelque soit la valeur du seuil $\zeta$ et la
+        stratégie de groupement utilisé. La petite taille des documents fait que
+        très peu de termes-clés candidats sont groupés et les performances
+        évoluent peu jusqu'à stabilisation lorsque $\zeta$ vaut 0,55. Avec \textsc{De}ft et
+        SemEval, nous observons que chaque stratégie de groupement a un
+        comportement qui lui est propre jusqu'à un point de convergence lorsque
+        $\zeta$ vaut 0,70. Ce point de
+        convergence correspond à la situation où les sujets créés sont les mêmes
+        quelle que soit la stratégie. Avec la stratégie simple, les résultats
+        s'améliorent lorsque $\zeta$ augmente. Du fait qu'elle prend en compte
+        la similarité maximale entre les candidats de deux groupes, cette
+        stratégie à tendance à trop grouper et donc à créer des groupes
+        contenant en réalité plusieurs sujets. L'augmentation du seuil $\zeta$ a
+        pour effet de restreindre cette tendance et la qualité du groupement
+        s'améliore. Inversement, la stratégie complète, qui a le fonctionnement
+        contraire, voit ses résultats se dégrader lorsque $\zeta$ augmente.
+        Enfin, la stratégie moyenne agit en compromis. Pour \textsc{Deft}, son
+        comportement est le même que celui de la stratégie simple, mais ses
+        résultats sont très supérieurs jusqu'au point de convergence. Pour
+        SemEval, son comportement est le même que celui de la stratégie
+        complète, mais ses résultats sont supérieurs jusqu'au point de
+        convergence.
         % Quels sont les paramètres utilisés ?
         Dans la suite de nos expériences, nous ne reportons pas les résultats
         avec la meilleure configuration pour chaque collection. Nous utilisons
         la stratégie de groupement moyenne et fixons le seuil $\zeta$ à 0,25,
-        configuration que nous hestimons être générique.
+        configuration que nous estimons être la plus générique.
 
         La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
         résultats obtenus avec TopicRank et les différentes stratégies de
-        sélection d'un terme-clé candidat par sujet. Les résultats confirment
-        notre hypothèse qui est que le choix des candidats apparaissant en
-        premier dans le document fournit de meilleurs termes-clés que le choix
-        des candidats centroïdes ou des candidats les plus fréquents. La
-        stratégie centroïde donne de très faibles résultats et la
-        stratégie fréquence n'est pas stable comparée à la stratégie position.
-        \TODO{il faut être moins concis}
-        Enfin, bien que la stratégie position donne les résultats les plus
-        satisfaisants, nous remarquons qu'il existe encore une marge de
-        progression importante. Les valeurs indiquées par la borne haute
-        représentent les résultats qui pourraient être obtenus avec un oracle.
-        Pour chacun des sujets les plus importants, l'oracle sélectionne
-        toujours un candidat positif, s'il y en a un.
-        \TODO{revoir la dernière phrase (Béatrice~: pas clair)}
-        La marge de progression de
-        14,8 points de f-mesure pour SemEval et de 5,4 points de f-mesure pour
-        \textsc{Deft} est encourageante pour des travaux futurs.
+        sélection d'un terme-clé candidat par sujet. Dans la majorité des cas,
+        la stratégie fréquence donne les meilleures performances, suivie par la
+        stratégie position, qui donne des résultats plus faibles mais
+        compétitifs. La performance de la stratégie fréquence obtenue sur
+        SemEval montrent toutefois que cette dernière souffre d'instabilité due
+        à la taille des document. À l'échelle d'un résumé bref et synthétique,
+        comme c'est le cas avec les données Termith, choisir le candidat le plus
+        fréquent de chaque groupe est intuitivement pertinent. Ça l'est moins à
+        l'échelle d'un article de plusieures pages, comme c'est le cas avec
+        SemEval, où anaphores et autres figures réthoriques sont nombreuses. Les
+        résultats confirment donc notre hypothèse que le choix du candidat
+        apparaissant en premier dans le document est préférable au choix du
+        candidat centroïde ou du candidat le plus fréquent. Enfin, la borne
+        haute obtenue par un oracle sélectionnant toujours un candidat positif,
+        lorsque c'est possible, montre que notre stratégie, sauf pour SemEval,
+        donne des performances quasi-optimales. Comme le suggèrent la
+        littérature sur l'extraction supervisée de termes-clés, la position de
+        la première occurrence d'un candidats est un trait discriminant.
         \begin{figure}
           \centering
           \begin{tikzpicture}
@@ -1710,9 +1659,9 @@
                          nodes near coords align={vertical},
                          every node near coord/.append style={font=\tiny},
                          y=0.004\textheight,
-                         ytick={0, 10, ..., 50},
+                         ytick={0, 10, ..., 60},
                          ymin=0,
-                         ymax=52.5,
+                         ymax=60,
                          ybar=3pt,
                          ylabel=F,
                          ylabel style={yshift=-1.1em, rotate=270}]
@@ -1773,20 +1722,20 @@
         Contrairement aux autres méthodes de référence, SingleRank possède un
         paramètre qui est définit arbitrairement~: la fenêtre de cooccurrences
         fixée à dix par \newcite{wan2008expandrank}. De même que pour TopicRank,
-        nous utilisons les ensembles d'entrainement de SemEval et de
-        \textsc{Deft} pour déterminer qu'elle est la valeur optimale de la
-        fenêtre de cooccurrences pour SingleRank\footnote{Nous ne répétons pas
-        cette expérience pour TextRank, car le critère d'adjacence (fenêtre de
-        valeur 2) est un critère fort dans la méthode TextRank.}. 
+        nous utilisons les ensembles d'entrainement des collections Termith, de
+        \textsc{De}ft et de SemEval pour déterminer qu'elle est la valeur
+        optimale de la fenêtre de cooccurrences pour SingleRank\footnote{Nous ne
+        répétons pas cette expérience pour TextRank, car le critère d'adjacence
+      (fenêtre de valeur 2) est un critère fort dans la méthode TextRank.}. 
 
         La figure~\ref{fig:variation_de_la_fenetre} présente les résultats de
         SingleRank lorsque nous faisons varier la fenêtre de cooccurrences de
         deux à vingt mots, avec un pas de un. Globalement, nous observons une
-        stabilité des performances de SingleRank quelle que soit la valeur
-        utilisée pour la fenêtre de cooccurrences, avec des résultats optimaux
-        obtenus lorsque celle-ci vaut 12. Dans les expériences suivantes, nous
-        fixons donc la valeur de la fenêtre de cooccurrences à 12.
-        \TODO{Revenir à 10~???}
+        stabilité des performances de SingleRank lorsque la fenêtre dépasse
+        cinq. Les résultats montrent que la valeur de la fenêtre fixée à dix par
+        \newcite{wan2008expandrank} est effectivement l'une des meilleures
+        valeurs. Dans les expériences suivantes, nous utilisons donc la valeur
+        recommandée par \newcite{wan2008expandrank}.
         \begin{figure}
           \centering
           \begin{tikzpicture}
@@ -1799,7 +1748,7 @@
                          y=0.018\textheight,
                          ytick={0, 2, ..., 100},
                          ymin=2,
-                         ymax=20,
+                         ymax=22,
                          ylabel=F,
                          y label style={yshift=-1.1em, rotate=270}]
               % linguistique
@@ -1947,43 +1896,63 @@
       \subsubsection{Comparaison de TopicRank avec l'existant}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-comparison}
         % Que représente le tableau ?
-        Le tableau~\ref{tab:resultats_globaux} montre les performances de
-        TopicRank comparées à celles des trois méthodes de référence. De manière
-        générale, les performances des méthodes d'extraction de termes-clés sont
-        basses. De plus, il est avéré que les documents de grande taille, tels
-        que ceux de SemEval et de \textsc{Deft}, sont plus difficiles à traiter que les
-        autres documents. \newcite{hasan2014state_of_the_art} explique qu'un
-        grand nombre de termes-clés candidats sont sélectionnés dans ces
-        documents (ils sont en moyenne 647 pour SemEval et 915 pour
-        \textsc{Deft}), ce qui augmente la difficulté de l'extraction de
-        termes-clés.
-
+        Les tableaux~\ref{tab:resultats_inist} et~\ref{tab:resultats_globaux}
+        montrent les performances de TopicRank comparées à celles des trois
+        méthodes de référence. De manière générale, les performances des
+        méthodes d'extraction de termes-clés sont basses. Il est avéré que les
+        documents de grande taille, tels que ceux de SemEval et de
+        \textsc{Deft}, sont plus difficiles à traiter que les autres documents.
+        \newcite{hasan2014state_of_the_art} explique qu'un grand nombre de
+        termes-clés candidats sont sélectionnés dans ces documents (ils sont en
+        moyenne 647 pour SemEval et 915 pour \textsc{De}ft), ce qui augmente la
+        difficulté de l'extraction de termes-clés. Le cas des données Termith
+        est encore plus particulier. En effet, elles sont constituées de
+        documents courts et les méthodes d'extraction de termes-clés devraient
+        donc obtenir de meilleures performances, mais 37 à 76~\% de leurs
+        termes-clés n'occurrent pas dans les documents et ne peuvent donc pas
+        être extraits.
         % Que peut-on dire globalement ?
-        Globalement, TopicRank donne de meilleurs résultats que les méthodes de
-        référence utilisées.
+        Globalement, TopicRank est plus performant que les méthodes de référence
+        à base de graphe et confirme donc que le groupement des candidats
+        permet de rassembler des informations pour améliorer la précision de
+        l'ordonnancement.
         % Que peut-on dire de plus ? (analyse plus approfondie)
-        Comparée à la méthode TF-IDF, TopicRank donne de meilleurs résultats pour
-        SemEval, Wikinews et \textsc{Deft}. Cette supériorité vis-à-vis de TF-IDF est
-        importante à noter, car cette méthode obtient de bons résultats en
-        tirant parti de statistiques extraites de documents supplémentaires,
-        alors que TopicRank n'utilise que le document à analyser. Comparé aux
-        autres méthodes à base de graphe, TopicRank donne des résultats
-        significativement meilleurs pour SemEval, Wikinews et \textsc{Deft}. Ceci
-        confirme donc que le groupement des candidats permet de rassembler des
-        informations pour améliorer la précision de l'ordonnancement. En ce qui
-        concerne \textsc{Duc}, notre méthode est aussi significativement meilleure que
-        TextRank, mais elle ne l'est pas vis-à-vis de SingleRank. D'après la
-        borne haute, l'une des raisons à la plus faible performance de TopicRank
-        pour \textsc{Duc} est que la stratégie de sélection des candidats les plus
-        représentatifs des sujets est moins adaptée. En effet, la différence
-        avec la borne haute est de 12,9 points de f-mesure. Une analyse plus
-        approfondie des différents apports de TopicRank peut aussi aider à
-        comprendre les raisons de ses moins bons résultats.
+        Comparée à la méthode TF-IDF, TopicRank donne aussi de meilleurs
+        résultats, pour les collections \textsc{Deft}, Wikinews et SemEval.
+        Cette supériorité vis-à-vis de TF-IDF est importante à noter, car cette
+        méthode obtient de bons résultats en tirant parti de statistiques
+        extraites de documents supplémentaires, alors que TopicRank utilise le
+        document seul.
+        \begin{table}
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+              \toprule
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Archéologie} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{Chimie} \textit{(fr)}}\\
+              \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+              & P & R & F & P & R & F & P & R & F & P & R & F\\
+              \hline
+              TF-IDF & \textbf{13,0} & \textbf{15,4} & \textbf{13,9} & \textbf{13,4} & \textbf{14,0} & \textbf{13,2} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{14,1} & \textbf{11,1} & \textbf{11,9}\\
+              TextRank & $~~$7,1 & $~~$6,1 & $~~$6,4 & $~~$5,8 & $~~$4,3 & $~~$4,8 & $~~$10,2 & $~~$5,3 & $~~$6,8 & $~~$9,4 & $~~$5,3 & $~~$6,5\\
+              SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
+              TopicRank & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
+              \hline
+              \textbf{Borne haute} & \textbf{14,5} & \textbf{17,0} & \textbf{15,4} & \textbf{15,0} & \textbf{15,6} & \textbf{14,9} & \textbf{32,5} & \textbf{22,2} & \textbf{25,8} & \textbf{15,8} & \textbf{12,5} & \textbf{13,3}\\
+              \bottomrule
+            \end{tabular}
+          }
+          \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
+                   TextRank, SingleRank et TopicRank sur les collections Termith]{
+            Résultats de l'extraction de dix termes-clés avec TF-IDF, TextRank,
+            SingleRank et TopicRank sur les collections Termith
+            \label{tab:resultats_inist}
+          }
+        \end{table}
         \begin{table}
           \centering
           \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
             \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c|}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}} \textit{(en)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft} \textit{(fr)}}\\
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
@@ -1996,45 +1965,84 @@
             \bottomrule
           \end{tabular}
           \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
-                   TextRank, SingleRank et TopicRank]{
+                   TextRank, SingleRank et TopicRank sur les collections
+                   \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}]{
             Résultats de l'extraction de dix termes-clés avec TF-IDF, TextRank,
-            SingleRank et TopicRank. $\dagger$ indique une amélioration
+            SingleRank et TopicRank sur les collections \textsc{De}ft, Wikinews,
+            SemEval et \textsc{Duc}. $\dagger$ indique une amélioration
             significative de TopicRank vis-à-vis de TextRank et SingleRank, à
             0,001 pour le t-test de Student.
             \label{tab:resultats_globaux}
           }
         \end{table}
+
+        De nouveau, les performances de TopicRank sur les collections Termith ne
+        sont pas en adéquation avec celles obtenues sur les autres collections
+        de données. TopicRank est bien plus performant que les autres méthodes à
+        base de graphe, mais il ne fait pas mieux que \textsc{Tf-Idf}. Notre
+        hypothèse est que la nature très spécifique des données Termith
+        (domaines de spécialité) permet à \textsc{Tf-Idf} de mieux détecter les
+        termes-clés candidats spécifiques au document grâce aux statistiques
+        reccueillies.
+
+        ~\\Dans le but de confirmer la pertinence de tous les apports de
+        TopicRank, nous réalisons une expérience supplémentaire dans laquelle
+        nous appliquons individuellement à SingleRank toutes les modifications
+        successives permettant d'obtenir la méthode TopicRank depuis la méthode
+        SingleRank~: l'usage d'un graphe complet (+ complet), la projection des
+        termes-clés candidats dans le graphe (+ candidats) et la projection des
+        sujets dans le graphe (+ sujets). Les résultats de ces trois variantes
+        de SingleRank sont présentés dans les
+        tableaux~\ref{tab:evaluation_individuelle_des_ameliorations_inist}
+        et~\ref{tab:evaluation_individuelle_des_ameliorations}. Globalement,
+        l'usage des termes-clés candidats et des sujets induit une amélioration
+        des performances de SingleRank, avec une amélioration plus importante en
+        utilisant les sujets. Cela confirme la pertinence d'ordonner directement
+        les candidats, plutôt que les mots, ainsi que la pertinence de grouper
+        les candidats représentant le même sujet pour mutualiser les relations
+        qu'ils entretiennent avec les candidats représentant d'autres sujets.
+        Dans le cas des collections Termith, nous observons que le groupement
+        des candidats est moins efficace que l'utilisation des candidats seuls.
+        Toutefois, la combinaison du groupement avec le graphe complet et la
+        nouvelle pondération des arêtes pallie ce défaut. L'usage d'un graphe
+        complet, quant à lui, n'améliore pas significativement les résultats de
+        SingleRank. Ceux-ci sont équivalents à ceux obtenus en construisant un
+        graphe de cooccurrences, mais nous pensons que l'usage du graphe complet
+        est à privilégier afin d'éviter d'avoir à fixer le paramètre de la
+        fenêtre de cooccurrences. Chaque contribution de TopicRank joue un rôle
+        permettant d'améliorer l'ordonnancement par importance et l'extraction
+        non supervisée de termes-clés.
         \begin{table}
           \centering
-          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
-            \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
-            \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
-            & P & R & F & P & R & F & P & R & F & P & R & F\\
-            \hline
-            TF-IDF & \textbf{13,0} & \textbf{15,4} & \textbf{13,9} & \textbf{13,4} & \textbf{14,0} & \textbf{13,2} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{14,1} & \textbf{11,1} & \textbf{11,9}\\
-            TextRank & $~~$7,1 & $~~$6,1 & $~~$6,4 & $~~$5,8 & $~~$4,3 & $~~$4,8 & $~~$10,2 & $~~$5,3 & $~~$6,8 & $~~$9,4 & $~~$5,3 & $~~$6,5\\
-            SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
-            TopicRank & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
-            \hline
-            \textbf{Borne haute} & \textbf{14,5} & \textbf{17,0} & \textbf{15,4} & \textbf{15,0} & \textbf{15,6} & \textbf{14,9} & \textbf{32,5} & \textbf{22,2} & \textbf{25,8} & \textbf{15,8} & \textbf{12,5} & \textbf{13,3}\\
-            \bottomrule
-          \end{tabular}
-          \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
-                   TextRank, SingleRank et TopicRank]{
-            Résultats de l'extraction de dix termes-clés avec TF-IDF, TextRank,
-            SingleRank et TopicRank. $\dagger$ indique une amélioration
-            significative de TopicRank vis-à-vis de TextRank et SingleRank, à
-            0,001 pour le t-test de Student.
-            \label{tab:resultats_inist}
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+              \toprule
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Archéologie} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{Chimie} \textit{(fr)}}\\
+              \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+              & P & R & F & P & R & F & P & R & F & P & R & F\\
+              \hline
+              SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
+              + complet & 10,0 & 11,9 & 10,7 & $~~$9,9 & 10,2 & $~~$9,8 & 13,5 & $~~$9,5 & 11,0 & 13,0 & 10,7 & 11,2\\
+              + candidats & 10,8 & 12,7 & 11,5 & 11,1 & 11,6 & 11,0 & 25,7 & 17,4 & 20,3 & 14,2 & 11,1 & \textbf{11,9}\\
+              + sujets & 10,6 & 12,5 & 11,3 & 10,9 & 11,5 & 10,8 & 26,5 & 18,0 & 20,9 & 13,5 & 10,7 & 11,5\\
+              TopicRank & \textbf{11,2} & \textbf{13,1} & \textbf{11,9} & \textbf{12,1} & \textbf{12,8} & \textbf{12,1} & \textbf{27,5} & \textbf{18,7} & \textbf{21,8} & \textbf{13,8} & \textbf{11,1} & 11,8\\
+              \bottomrule
+            \end{tabular}
+          }
+          \caption[Résultats de l'extraction de dix termes-clés avec chacune des
+                   contributions de TopicRank, appliquées séparément à
+                   SingleRank sur les collections Termith]{
+            Résultats de l'extraction de dix termes-clés avec chacune des
+            contributions de TopicRank, appliquées séparément à SingleRank sur
+            les collections Termith
+            \label{tab:evaluation_individuelle_des_ameliorations_inist}
           }
         \end{table}
-
         \begin{table}
           \centering
           \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
             \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c|}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}} \textit{(en)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft} \textit{(fr)}}\\
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
@@ -2047,78 +2055,61 @@
           \end{tabular}
           \caption[Résultats de l'extraction de dix termes-clés avec chacune des
                    contributions de TopicRank, appliquées séparément à
-                   SingleRank]{
+                   SingleRank sur les collections \textsc{De}ft, Wikinews,
+                   SemEval et \textsc{Duc}]{
             Résultats de l'extraction de dix termes-clés avec chacune des
-            contributions de TopicRank, appliquées séparément à SingleRank.
+            contributions de TopicRank, appliquées séparément à SingleRank sur
+            les collections \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}.
             $\dagger$ indique une amélioration significative vis-à-vis de
             SingleRank, à 0,001 pour le t-test de Student.
             \label{tab:evaluation_individuelle_des_ameliorations}
           }
         \end{table}
-        \begin{table}
-          \centering
-          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
-            \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
-            \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
-            & P & R & F & P & R & F & P & R & F & P & R & F\\
-            \hline
-            SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
-            + complet & 10,0 & 11,9 & 10,7 & $~~$9,9 & 10,2 & $~~$9,8 & 13,5 & $~~$9,5 & 11,0 & 13,0 & 10,7 & 11,2\\
-            + candidats & 10,8 & 12,7 & 11,5 & 11,1 & 11,6 & 11,0 & 25,7 & 17,4 & 20,3 & 14,2 & 11,1 & \textbf{11,9}\\
-            + sujets & 10,6 & 12,5 & 11,3 & 10,9 & 11,5 & 10,8 & 26,5 & 18,0 & 20,9 & 13,5 & 10,7 & 11,5\\
-            TopicRank & \textbf{11,2} & \textbf{13,1} & \textbf{11,9} & \textbf{12,1} & \textbf{12,8} & \textbf{12,1} & \textbf{27,5} & \textbf{18,7} & \textbf{21,8} & \textbf{13,8} & \textbf{11,1} & 11,8\\
-            \bottomrule
-          \end{tabular}
-          \caption[Résultats de l'extraction de dix termes-clés avec chacune des
-                   contributions de TopicRank, appliquées séparément à
-                   SingleRank]{
-            Résultats de l'extraction de dix termes-clés avec chacune des
-            contributions de TopicRank, appliquées séparément à SingleRank.
-            $\dagger$ indique une amélioration significative vis-à-vis de
-            SingleRank, à 0,001 pour le t-test de Student.
-            \label{tab:evaluation_individuelle_des_ameliorations_inist}
-          }
-        \end{table}
-
-        Dans le but de confirmer la pertinence de tous les apports de TopicRank,
-        nous réalisons une expérience supplémentaire dans laquelle nous
-        appliquons individuellement à SingleRank toutes les modifications
-        successives permettant d'obtenir la méthode TopicRank depuis la méthode
-        SingleRank~: l'usage d'un graphe complet (+ complet), la projection des
-        termes-clés candidats dans le graphe (+ candidats) et la projection des
-        sujets dans le graphe (+ sujets). Les résultats de ces trois variantes
-        de SingleRank sont présentés dans le
-        tableau~\ref{tab:evaluation_individuelle_des_ameliorations}.
-        Globalement, l'usage des termes-clés candidats, ou sujets, induit une
-        amélioration significative des performances de SingleRank, avec une
-        amélioration plus importante en utilisant les sujets. Cela confirme la
-        pertinence d'ordonner directement les candidats, plutôt que les mots,
-        ainsi que la pertinence de grouper les candidats représentant le même
-        sujet pour mutualiser les relations qu'ils entretiennent avec les
-        candidats représentant d'autres sujets. L'usage d'un graphe complet,
-        quant à lui, n'améliore pas significativement les résultats de
-        SingleRank. Ceux-ci sont compétitifs vis-à-vis de ceux obtenus en
-        construisant un graphe de cooccurrences. Toutefois, nous pensons que
-        l'usage du graphe complet est à privilégier afin d'éviter d'avoir à
-        fixer le paramètre de la fenêtre de cooccurrences.
-        
-        En ce qui concerne la collection \textsc{Duc}, le
-        tableau~\ref{tab:evaluation_individuelle_des_ameliorations} montre une
-        perte de performance induite par la construction du graphe avec les
-        termes-clés candidats. Cette perte de performance s'explique par le fait
-        qu'il y a, dans les documents de \textsc{Duc}, peu de répétition des
-        candidats, notamment ceux de plus d'un mot. Le graphe créé contient
-        alors moins de relations de cooccurrences que lorsque les n\oe{}uds sont
-        les mots du document et est donc moins précis pour l'ordonnancement.
 
       \subsubsection{Sélection des candidats pour TopicRank}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-candidate_selection}
+        Nous reprenons ici les expériences réalisées dans la
+        section~\ref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}
+        (page~\pageref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection})
+        à propos de la sélection des termes-clés candidats. Les
+        tableaux~\ref{tab:topicrank_candidate_selection_inist}
+        et~\ref{tab:topicrank_candidate_selection} montrent les performances
+        obtenues par TopicRank appliquée avec les quatres méthodes de sélection
+        des termes-clés candidats (n-grammes, \texttt{/(N|A)+/},
+        \textit{NP-chunks} et \textsc{Lr-Np}) sur chacune de nos collections de
+        données. L'efficacité de notre méthode \textsc{Lr-Np} est moins marqué
+        avec TopicRank qu'avec \textsc{Tf-Idf} et \textsc{Kea}. Pour les
+        collections Termith, c'est majoritairement notre méthode \textsc{Lr-Np}
+        induit les meilleures performances, alors que c'est la méthode extrayant
+        les plus longues séquences de noms et d'adjectifs qui induit les
+        meilleures performances pour la majorité des autres collections.
+        \begin{table}
+          \centering
+          \resizebox{\linewidth}{!}{
+            \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+              \toprule
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Archéologie} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{Chimie} \textit{(fr)}}\\
+              \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+              & P & R & F & P & R & F & P & R & F & P & R & F\\
+              \hline
+              n-grammes & $~~$7,4 & $~~$8,5 & $~~$7,8 & $~~$7,8 & $~~$8,4 & $~~$7,8 & 12,0 & $~~$8,2 & $~~$9,5 & $~~$7,1 & $~~$6,0 & $~~$6,1\\
+              \texttt{/(N|A)+/} & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
+              \textit{NP-chunks} & 11,4 & 13,3 & 12,1 & \textbf{12,5} & \textbf{13,2} & \textbf{12,5} & 28,5 & 19,3 & 22,5 & 14,1 & 11,3 &  12,0\\
+              \textsc{Lr-Np} & \textbf{11,8} & \textbf{13,8} & \textbf{12,5} & 12,2 & 12,8 & 12,2 & \textbf{29,9} & \textbf{20,3} & \textbf{23,7} & \textbf{14,6} & \textbf{11,5} & \textbf{12,3}\\
+              \bottomrule
+            \end{tabular}
+          }
+          \caption{
+            Résultat de TopicRank sur les données Termith, selon la méthode de
+            sélection des termes-clés candidats utilisée
+            \label{tab:topicrank_candidate_selection_inist}
+          }
+        \end{table}
         \begin{table}
           \centering
           \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
             \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c|}{\textbf{SemEval}} & \multicolumn{3}{c|}{\textbf{Wikinews}} & \multicolumn{3}{c}{\textbf{\textsc{Deft}}}\\
+            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}} \textit{(en)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{\textsc{De}ft} \textit{(fr)}}\\
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
@@ -2128,26 +2119,10 @@
             \textsc{Lr-Np} & 17,9 & 23,7 & 20,1 & \textbf{16,6} & \textbf{11,5} & \textbf{13,5} & 33,9 & 36,0 & 34,3 & 11,6 & 21,5 & 14,9\\
             \bottomrule
           \end{tabular}
-          \caption[]{
+          \caption{
+            Résultat de TopicRank sur \textsc{De}ft, SemEval et \textsc{Duc},
+            selon la méthode de sélection des termes-clés candidats utilisée
             \label{tab:topicrank_candidate_selection}
-          }
-        \end{table}
-        \begin{table}
-          \centering
-          \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
-            \toprule
-            \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.}} & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c}{\textbf{Chimie}}\\
-            \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
-            & P & R & F & P & R & F & P & R & F & P & R & F\\
-            \hline
-            n-grammes & $~~$7,4 & $~~$8,5 & $~~$7,8 & $~~$7,8 & $~~$8,4 & $~~$7,8 & 12,0 & $~~$8,2 & $~~$9,5 & $~~$7,1 & $~~$6,0 & $~~$6,1\\
-            \texttt{/(N|A)+/} & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
-            \textit{NP-chunks} & 11,4 & 13,3 & 12,1 & \textbf{12,5} & \textbf{13,2} & \textbf{12,5} & 28,5 & 19,3 & 22,5 & 14,1 & 11,3 &  12,0\\
-            \textsc{Lr-Np} & \textbf{11,8} & \textbf{13,8} & \textbf{12,5} & 12,2 & 12,8 & 12,2 & \textbf{29,9} & \textbf{20,3} & \textbf{23,7} & \textbf{14,6} & \textbf{11,5} & \textbf{12,3}\\
-            \bottomrule
-          \end{tabular}
-          \caption[]{
-            \label{tab:topicrank_candidate_selection_inist}
           }
         \end{table}
 
@@ -2258,12 +2233,24 @@
         possible d'améliorer notre méthode en proposant une nouvelle stratégie
         de sélection du terme-clé candidat le plus représentatif d'un sujet.
         Dans un premier temps, nous souhaitons explorer plus encore l'usage du
-        graphe et l'étendre à l'assignement de termes-clés.
+        graphe et l'étendre à l'assignement de termes-clés. Pour cela, nous
+        allons nous concentrer sur les données Termith et tirer partie du fait
+        qu'elles appartiennent à des domaines de spécialités. Ce concentrer sur
+        ces données est d'autant plus primordial que TopicRank n'atteint pas les
+        meilleures performances sur celles-ci.
 
   %-----------------------------------------------------------------------------
 
   \section{Conclusion}
   \label{sec:main-domain_independent_keyphrase_extraction-conclusion}
-    \TODO{\dots}
-
+    Nous avons présenté deux contributions à l'extraction automatique de
+    termes-clés. Dans un permier temps, nous avons analysé les propriétés
+    linguistiques des termes-clés de référence de trois de nos collections de
+    données, puis nous avons exploité cette analyse pour sélectionner les
+    termes-clés candidats plus finement, en portant une attention particulière à
+    leurs adjectifs. Dans un second temps, nous avons proposé une nouvelle
+    méthode à base de graphe pour l'ordonnancement par importance des sujets
+    d'un document et l'extraction d'un terme-clé représentatif de chaqu'un des
+    sujets les plus importants. Cette deuxième contribution a fait l'objet de
+    deux publications~\cite{bougouin2013topicrank,bougouin2014topicrank}.
 
