@@ -1,17 +1,19 @@
 \chapter{Indexation par termes-clés en domaines de spécialités}
 \label{chap:main-domain_specific_keyphrase_annotation}
   \chaptercite{
-    [\dots] the essential challenge of keyphrase extraction is the vocabulary
-    gap between documents and keyphrases.
+    La multiplication des bases de données et l'information devenue
+    \og{}marché\fg{} (donc rentable) ont entraîné d'autres corps de métiers à
+    s'intéresser à la pratique de l'indexation. Mais ce sont les bibliothécaires
+    et documentalistes qui en ont défini les méthodes, les usages et les outils.
   }{
-    \newcite{liu2011vocabularygap}
+    \newcite{guinchat1996techniquesdocumentaires}
   }
 
   %-----------------------------------------------------------------------------
 
   \section{Introduction}
   \label{sec:main:domain_specific_keyphrase_annotation-introduction}
-    Dans ce chapitre, nous nous interessons à l'application de l'indexation par
+    Dans ce chapitre, nous nous interessons à l'indexation par
     termes-clés en domaines de spécialités. Dans la littérature, l'indexation
     par termes-clés se divise en deux catégories~: l'extraction de termes-clés,
     qui fournit des termes-clés apparaissant dans le contenu du document, et
@@ -21,27 +23,26 @@
     moyen de l'extraction de termes-clés, nous montrons que l'assignement de
     termes-clés joue un rôle important en domaines de spécialités.
 
-    Dans un premier temps, nous décrivons le comportement des indexeurs
-    professionnels d'une bibliothèque numérique (Inist), puis, dans un second
-    temps, nous proposons une automatisation de ce comportement. Les indexeurs
-    professionnels assignent à chaque document des termes-clés du domaine,
-    répertoriés par un vocabulaire contrôlé, et extraient des termes-clés hors
-    du vocabulaire contrôlé lorsqu'ils sont très spécifiques au document ou
-    lorsqu'il s'agit de nouveaux concepts. Pour reproduire ce comportement, nous
-    étendons nos travaux précédents par l'intégration, dans le graphe, des
-    termes-clés du domaine, c'est-à-dire du vocabulaire contrôlé. Ce dernier
-    n'étant cependant pas disponible dans tous les cas de figure, nous en
-    construisons une approximation à partir des termes-clés de référence des
-    données d'entraînement.
+    Dans ce chapitre, nous décrivons le comportement des indexeurs
+    professionnels d'une bibliothèque numérique (Inist), puis nous proposons une
+    automatisation de ce comportement. Les indexeurs professionnels assignent à
+    chaque document des termes-clés du domaine, répertoriés dans un vocabulaire
+    contrôlé, et extraient des termes-clés hors du vocabulaire contrôlé
+    lorsqu'ils sont très spécifiques au document ou lorsqu'il s'agit de nouveaux
+    concepts. Pour reproduire ce comportement, nous étendons nos travaux
+    précédents par l'intégration, dans le graphe de sujets, des termes-clés du
+    domaine, c'est-à-dire du vocabulaire contrôlé. Ce dernier n'étant cependant
+    pas disponible dans tous les cas de figure, nous en déterminons une
+    approximation à partir des termes-clés de référence des données
+    d'entraînement.
 
-    Enfin, nous validons l'application de nos travaux en domaines de spécialités
-    grâce à une série d'évaluations manuelles réalisées par des indexeurs
-    professionnels. Pour cette série d'évaluations, nous proposons un protocole
-    et des metriques permettant d'évaluer deux aspects. Le premier aspect permet
-    d'évaluer la performance d'une méthode d'après la pertinence des termes-clés
-    qu'elle extrait et/ou assigne. Le second aspect, quant à lui, permet
-    d'évaluer la performance d'une méthode en terme de quantité d'information
-    importante capturée par ces termes-clés.\\
+    Enfin, nous présentons les premiers résultats d'une évaluation manuelle de
+    nos travaux en domaines de spécialités. Pour cette évaluation, nous
+    proposons un protocole et des metriques permettant d'évaluer deux aspects.
+    L'un permet d'évaluer la performance d'une méthode d'après la pertinence des
+    termes-clés qu'elle extrait/assigne et l'autre permet d'évaluer la
+    performance d'une méthode en terme de quantité d'information importante
+    capturée par ces termes-clés.
 
   %-----------------------------------------------------------------------------
 
@@ -53,14 +54,14 @@
     indexeurs professionnels de l'Inist, dont les données Termith sont issues.
     La bibliothèque numérique scientifique de l'Inist est indexée à l'aide de
     termes-clés majoritairement issus de ressources terminologique définies et
-    maintenues par les indexeurs de l'Inist.
+    maintenues par les indexeurs.
 
     \subsection{Principes généraux}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-principles}
       L'indexation manuelle à l'Inist est régie par cinq pilliers~:
       \begin{enumerate}
         \item{Conformité~: les termes-clés doivent être conformes au contenu du
-              document et au language documentaire utilisé dans son domaine~;}
+              document et au langage documentaire utilisé dans son domaine~;}
         \item{Exhaustivité~: les termes-clés doivent représenter tous les
               aspects importants du document, même lorsque ceux-ci sont
               implicites~;}
@@ -79,20 +80,16 @@
       premiers pilliers impliquent une indexation majoritairement contrôlée,
       comme en assignement automatique de termes-clés, et le quatrième pillier
       implique une indexation en partie libre, comme en extraction de
-      termes-clés. Le deuxième pillier est celui le plus difficile à respecter
-      de manière automatique. Une seule méthode, à notre connaissance, est
-      actuellement capable d'extraire des termes-clés représentant des aspects
-      implicites d'un documents~\cite{liu2011vocabularygap}, mais elle n'a
-      jamais été appliquée pour effectuer de l'indexation contrôlée.
+      termes-clés.
 
-      Les principes généraux de l'indexation manuelle par termes-clés remettent
-      en cause la séparation entre extraction et assignement automatique de
-      termes-clés dans le contexte de l'indexation automatique en domaines de
-      spécialités. Une indexation par termes-clés à un niveau professionnel se
-      doit de respecter le language de spécialité employé dans le domaine des
-      documents indexés, mais elle se doit aussi d'être exhaustive et donc de
-      fournir des termes-clés très spécifiques (libres), voir de nouveaux
-      concepts.
+      Ces principes généraux de l'indexation manuelle par termes-clés remettent
+      en cause la séparation entre extraction et assignement de termes-clés dans
+      le contexte de l'indexation automatique en domaines de spécialités. En
+      effet, une indexation par termes-clés à un niveau professionnel se doit de
+      respecter le langage de spécialité employé dans le domaine des documents
+      indexés (assignement), mais elle se doit aussi d'être exhaustive et donc
+      de fournir des termes-clés très spécifiques, voir de nouveaux
+      concepts (extraction).
 
     \subsection{Ressources}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources}
@@ -101,89 +98,103 @@
       représentatives d'une expertise de terrain dans chaque domaine de
       spécialité (grille d'indexation), d'une expertise terminologique
       (vocabulaire contrôlé) et d'une expertise documentaire (règles de
-      pré-indexation).
+      préindexation).
 
       \subsubsection{Grille d'indexation}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources-indexing_guidelines}
         La grille d'indexation est un guide qui indique les notions qui peuvent
         être pertinentes à indexer selon le domaine de spécialité et la
         problématique du document. Elle peut-être assimilée à un formulaire à
-        compléter pour chaque document. En linguistique, par exemple, les
-        termes-clés fournis doivent répondre aux questions suivantes~:
-        \TODO{faire un tableau avec une colonne "champs" et une colonne
-        "exemple" ou nous montrons ou se répartissent les termes-clés de la
-        notice de linguistique utilisée en exemple dans le chapitre Ressources}
-        \begin{enumerate}
-          \item{Quel est le domaine d'investigation~?}
-          \begin{itemize}
-            \item{biologie du language}
-            \item{psychologie du language}
-            \item{sociologie du language}
-            \item{etc.}
-          \end{itemize}
-          \item{Quel est l'objet d'étude~?}
-          \begin{itemize}
-            \item{langue~: laquelle~?}
-            \item{formalisme~: lequel~?}
-            \item{\oe{}uvre~: laquelle~?}
-            \item{etc.}
-          \end{itemize}
-          \item{Quel est l'environnement d'étude~?}
-          \begin{itemize}
-            \item{historique~: date~? siècle~? période~? etc.}
-            \item{géographique~: pays~? région~? ville~?}
-            \item{culturel~: quel peuple~?}
-            \item{etc.}
-          \end{itemize}
-        \end{enumerate}
-        La grille d'indexation est un canevas donné à titre indicatif aux
+        compléter pour chaque document (cf tableau~\ref{fig:indexing_grid}). La
+        grille d'indexation est un canevas donné à titre indicatif aux
         indexeurs. Ces derniers sont les seuls juges pour décider si elle est
         adaptée ou non pour indexer un document.
+        \begin{table}[h!]
+          \centering
+          \begin{tabular}{l|l}
+            \toprule
+            \textbf{Champ} & \textbf{Exemple}\\
+            \hline
+            Domaine & enseignement des langues~; linguistique appliquée\\
+            Environnement & langue scientifique~; langue de spécialité~; discours scientifique\\
+            Objet d'étude & argumentation~; réthorique~; article de recherche\\
+            \bottomrule
+          \end{tabular}
+          \caption[
+            Exemple de remplissage de la grille d'indexation de linguistique
+          ]{
+            Exemple de remplissage de la grille d'indexation de linguistique,
+            pour la notice présentée dans la figure \TODO{???} (page
+            \TODO{???}) \REMARK{Attention, l'exemple va changer}
+            \label{fig:indexing_grid}
+          }
+        \end{table}
 
       \subsubsection{Vocabulaire contrôlé}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources-controlled_vocabulary}
         Le vocabulaire contrôlé est un lexique qui recense et organise les
         termes d'un domaine de spécialité. Dans le contexte de l'indexation par
-        termes-clés, il définit le language documentaire à utiliser pour les
+        termes-clés, il définit le langage documentaire à utiliser pour les
         termes-clés. C'est la ressource indispensable pour assurer la conformité
         et l'homogénéité de l'indexation. Il doit toutefois être mis à jour
         régulièrement, soit par une veille terminologique, soit au fur et à
         mesure des indexations manuelles.
 
-      \subsubsection{Règles de pré-indexation}
+      \subsubsection{Règles de préindexation}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources-preindexing_rules}
-        Les règles de pré-indexation sont des règles qui définissent les
-        termes-clés à assigner en fonction d'unités textuelles données. Deux
-        types de règles sont distingués~: celles qui assignent un terme-clé du
-        vocabulaire contrôlé lorsqu'une unité textuelle donnée occure dans le
-        document (\TODO{exemple}) et celles qui assignent un terme-clé générique
-        du vocabulaire contrôlé lorsqu'un terme-clé donné est assigné au
-        document (\TODO{exemple}). Fortement couplées avec le vocabulaire
-        contrôlé, les règles de préindexation permettent d'assurer la conformité
-        et l'homogénéité de l'indexation. Elles contribuent aussi a
-        l'exhaustivité, en permettant l'assignement d'aspects implicites dans le
-        document, et à la spécificité, en restituant le contenu du document dans
-        son domaine grâce au termes-clés génériques.
+        Les règles de préindexation sont des règles qui définissent les
+        termes-clés du vocabulaire contrôlé à assigner en fonction soit (1)
+        d'une unité textuelle qui occure dans le document (\TODO{exemple}), soit
+        (2) d'un terme-clé assigné au document (\TODO{exemple}). Fortement
+        couplées avec le vocabulaire contrôlé, les règles de préindexation
+        permettent d'assurer la conformité et l'homogénéité de l'indexation.
+        Elles contribuent aussi a l'exhaustivité, en permettant l'assignement
+        d'aspects implicites dans le document (1), et à la spécificité, en
+        restituant le contenu du document dans son domaine grâce au termes-clés
+        génériques (2).
 
-        Les règles de pré-indexation sont compilées par sous-domaines et
-        interprétées, à la demande d'un indexeur, par un système automatique qui
-        fournit le résultat à l'indexeur pour modifications et validations.
-        Selon le niveau d'expertise de l'indexeur, ces règles ne sont pas
-        nécessairement utilisées. Nous qualifions donc l'indexation réalisée à
-        l'Inist d'indexation manuelle, mais il est plus juste de la qualifier de
-        semi-automatique dans certains cas.
+    \subsection{Méthodologie}
+    \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-methodology}
+      Nous distinguons cinq phases lors de l'indexation manuelle par
+      termes-clés~:
+      \begin{enumerate}
+        \item{Choix des ressources à utiliser (grille d'indexation, vocabulaire
+              contrôlé et règles de préindexation)~;}
+        \item{Utilisation d'un système automatisé de proposition de termes-clés
+              à partir des règles de préindexation~;}
+        \item{Assignement de termes-clés respectant le langage documentaire
+              (dans le vocabulaire contrôlé)~;}
+        \item{Assignement de termes-clés génériques afin de replacer les
+              termes-clés trop spécifiques dans leur domaine~;}
+        \item{Extraction des termes-clés ne respectant pas le langage
+              documentaire mais utiles pour décrire le contenu le plus important
+              du document.}
+      \end{enumerate}
+
+      L'indexation Inist peut être qualifiée de semi-automatique. En effet, la
+      deuxième phase est automatisée et systématiquement validée par l'indexeur,
+      de sorte à réduire le temps d'indexation et à minimiser les oublis de la
+      part de l'indexeur. Cette phase montre la prise de conscience, dans les
+      organismes gestionnaires de bibliothèques scientifiques, que l'indexation
+      est une tâche difficile et coûteuse à entreprendre manuellement.
+      Toutefois, en croisant l'étude bibliographique réalisée dans le
+      chapitre~\ref{chap:main-state_of_the_art}
+      (page~\pageref{chap:main-state_of_the_art}), nous nous apercevons
+      qu'aucune méthode ne répond actuellement à leurs besoins.
 
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-conclusion}
       L'indexation manuelle en domaines de spécialités que nous avons présenté
-      suit des principes d'indexation que nous retrouvons soit en extraction
-      automatique de termes-clés, soit en assignement automatique de
-      termes-clés. Alors qu'en indexation automatique par termes-clés, les
-      méthodes d'extractions prédominent sur les méthodes d'assignement, notre
-      étude de l'indexation réalisée par des indexeurs professionnels montre que
-      l'assignement est la pratique préférée, car elle assure conformité,
-      exhaustivité et homogénéité, et que l'extraction doit servir à la
-      compléter.
+      suit des principes d'indexation que nous retrouvons soit en extraction,
+      soit en assignement. Alors qu'en indexation automatique par termes-clés,
+      les méthodes d'extraction prédominent sur les méthodes d'assignement,
+      notre étude de l'indexation réalisée par des indexeurs professionnels
+      montre que l'assignement est la pratique préférée, car elle assure
+      conformité, exhaustivité et homogénéité, et que l'extraction doit
+      uniquement servir à la compléter. Nous observons une tentative d'ouverture
+      des organismes de gestion de bibliothèques numériques vers une indexation
+      automatique par termes-clés, mais aucune méthode ne répond actuellement à
+      leurs besoins très spécifiques.
 
   %-----------------------------------------------------------------------------
 
@@ -464,12 +475,15 @@
 
     \subsection{Évaluation}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
+      \TODO{en domaines de spé., puis sur tous les autres corpus}
+      \TODO{utiliser la sélection \textsc{Lr-Np}}
       Pour valider notre approche, nous réalisons deux séries d'expériences. Une
       première série pour comparer TopicCoRank à deux méthodes de référence et
       une seconde série pour analyser sont comportement.
 
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
+      \TODO{ajouter \textsc{Tf-Idf}}
         Dans nos expériences, nous comparons TopicCoRank à TopicRank et à
         une méthode simple d'assignement (\textit{Assignement}). Pour cette
         dernière, nous utilisons le même vocabulaire contrôlé que TopicCoRank et
@@ -524,8 +538,8 @@
         un jusqu'au nombre total de termes-clés
         candidats~\cite{hassan2010conundrums}.
       
-      \subsubsection{Comparaison de TopicRank++ avec l'existant}
-      \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-comparison}
+      \subsubsection{Évaluation de TopicCoRank en domaines de spécialités}
+      \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank_specific_domains}
         Le tableau~\ref{tab:topiccorank-comparison_results} montre les
         performances de TopicCoRank comparées à celles des méthodes de
         référence. Dans un premier temps, nous observons que l'assignement de
@@ -558,47 +572,17 @@
               \cline{2-13}
               & P & R & F & P & R & F & P & R & F & P & R & F\\
               \hline
-              TopicRank & 11.3 & 13.1 & 12.0 & 12.2 & 12.8 & 12.1 & 28.1 & 19.1 & 22.2 & 14.0 & 11.3 & 11.8\\
-              KEA++ & 11.6 & 13.0 & 12.1 & $~~$9.5 & 10.2 & $~~$9.6 & 23.5 & 16.2 & 18.8 & 11.4 & $~~$8.5 & $~~$9.2\\
+              \textsc{Tf-Idf} & 13,3 & 15,8 & 14,2 & 13,5 & 14,2 & 13,4 & 28,2 & 19,2 & 22,3 & 15,8 & 12,3 & 13,2\\
+              TopicRank & 11,8 & 13,8 & 12,5 & 12,2 & 12,8 & 12,2 & 29,9 & 20,3 & 23,7 & 14,6 & 11,5 & 12,3\\
+              KEA++ & 11,6 & 13,0 & 12,1 & $~~$9,5 & 10,2 & $~~$9,6 & 23,5 & 16,2 & 18,8 & 11,4 & $~~$8,5 & $~~$9,2\\
               \hline
-              TopicCoRank$_\textnormal{extr.}$ & 14.6 & 16.8 & 15.4 & 15.5 & 15.9 & 15.3 & 36.4 & 24.6 & 28.7 & 15.4 & 12.0 & 12.9\\
-              TopicCoRank$_\textnormal{assign.}$ & \textbf{24.9} & \textbf{28.9} & \textbf{26.4} & \textbf{19.8} & \textbf{20.0} & \textbf{19.3} & \textbf{49.1} & \textbf{33.3} & \textbf{38.8} & \textbf{19.8} & \textbf{14.8} & \textbf{16.2}\\
+              TopicCoRank$_\textnormal{extr.}$ & & & & & & & & & & & & \\
+              TopicCoRank$_\textnormal{assign.}$ & & & & & & & & & & & & \\
               \hline
-              TopicCoRank & 19.0 & 22.0 & 20.1 & 17.1 & 17.5 & 16.8 & 39.5 & 26.6 & 31.1 & 16.7 & 13.1 & 14.0\\
+              TopicCoRank & & & & & & & & & & & & \\
               \bottomrule
             \end{tabular}
           }
-        \caption[
-          Résultat de l'extraction de dix termes-clés avec TopicRank,
-          \textsc{Kea++}, TopicCoRank$_\textnormal{\textit{extr.}}$,
-          TopicCoRank$_\textnormal{\textit{assign.}}$ et TopicCoRank
-        ]{
-          Résultat de l'extraction de dix termes-clés avec TopicRank,
-          \textsc{Kea++}, TopicCoRank$_\textnormal{\textit{extr.}}$,
-          TopicCoRank$_\textnormal{\textit{assign.}}$ et TopicCoRank. $\dagger$
-          et $\ddagger$ indiquent une amélioration significative par rapport à
-          TopicRank et \textit{Assignement}, respectivement.
-          \label{tab:topiccorank-comparison_results}}
-        \end{table}
-        \begin{table}[h!]
-          \centering
-          %\resizebox{\linewidth}{!}{
-            \begin{tabular}{l|ccc|ccc|ccc}
-              \toprule
-              \multirow{2}{*}{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
-              \cline{2-10}
-              & P & R & F$^{~~}$ & P & R & F$^{~~}$ & P & R & F$^{~~}$\\
-              \hline
-              TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1$^{~~}$} & 17,8 & 22,7 & 19,7$^{~~}$ & 14,6 & 10,1 & 11,8\\
-              KEA++ & --- & --- & ---$^{~~}$ & --- & --- & ---$^{~~}$ & --- & --- & ---\\
-              \hline
-              TopicCoRank$_\textnormal{\textit{extr.}}$ & $~~$8,9 & 16,6 & 11,4$^{~~}$ & 25,5 & 32,4 & 28,1$^{\dagger}$ & 15,2 & 10,6 & 12,4\\
-              TopicCoRank$_\textnormal{\textit{assign.}}$ & 7,0 & 13,1 & $~~$9,0$^{~~}$ & 25,9 & 33,3 & 28,8$^{\dagger}$ & 11,6 & ~~8,3 & ~~9,5\\
-              \hline
-              TopicCoRank & $~~$8,9 & 16,6 & 11,5$^{~~}$ & \textbf{28,4} & \textbf{36,6} & \textbf{31,5$^{\dagger}$} & \textbf{16,4} & \textbf{11,6} & \textbf{13,4}\\
-              \bottomrule
-            \end{tabular}
-          %}
         \caption[
           Résultat de l'extraction de dix termes-clés avec TopicRank,
           \textsc{Kea++}, TopicCoRank$_\textnormal{\textit{extr.}}$,
@@ -716,9 +700,7 @@
                      \textit{Assignement} et TopicCoRank
                      \label{fig:topiccorank-pr_curves}}
         \end{figure}
-      
-      \subsubsection{Analyse du comportement de TopicCoRank}
-      \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank-analysis}
+
         Bien qu'ils montrent de meilleures performances pour TopicCoRank, les
         résultats précédents ne permettent pas de se faire une idée précise de
         la place que prend l'assignement sur l'extraction. Le
@@ -732,13 +714,14 @@
         capable de mêler sujets et termes-clés de références.
         \begin{table}[!h]
           \centering
-          \begin{tabular}{l|cc}
+          \begin{tabular}{l|c|c}
               \toprule
               & Extraction (\%) & Assignement (\%)\\
               \hline
-              Inist & 61,3 & 38,7\\
-              DUC & 41,4 & 58,6\\
-              SemEval & 60,0 & 40,0\\
+              Linguistique \textit{(fr)} & & \\
+              Sciences de l'info. \textit{(fr)} & & \\
+              Archéologie \textit{(fr)} & & \\
+              Chimie \textit{(fr)} & & \\
               \bottomrule
           \end{tabular}
           \caption{Taux d'extraction et d'assignement de TopicCoRank pour dix
@@ -855,6 +838,59 @@
                    $\lambda$
                    \label{fig:lambda_variations}}
         \end{figure} 
+      
+      \subsubsection{Évaluation de TopicCoRank hors domaines de spécialité}
+      \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank_indepent_domains}
+        \TODO{\textsc{De}ft et SemEval sont des domaines de spé., mais leurs
+        termes-clés n'en sont pas représentatifs}
+        \begin{table}[h!]
+          \centering
+          %\resizebox{\linewidth}{!}{
+            \begin{tabular}{l|ccc|ccc|ccc}
+              \toprule
+              \multirow{2}{*}{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft}} & \multicolumn{3}{c|}{\textbf{\textsc{Duc}}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
+              \cline{2-10}
+              & P & R & F & P & R & F & P & R & F\\
+              \hline
+              \textsc{Tf-Idf} & 10,4 & 19,1 & 13,3 & 24,5 & 32,3 & 27,4 & 13,6 & $~~$9,3 & 10,9\\
+              TopicRank & \textbf{11,9} & \textbf{21,5} & \textbf{14,9} & 17,9 & 23,7 & 20,1 & 16,6 & 11,5 & 13,5\\
+              KEA++ & --- & --- & ---$^{~~}$ & --- & --- & ---$^{~~}$ & --- & --- & ---\\
+              \hline
+              TopicCoRank$_\textnormal{extr.}$ & & & & & & & & & \\
+              TopicCoRank$_\textnormal{assign.}$ & & & & & & & & & \\
+              \hline
+              TopicCoRank & & & & & & & & & \\
+              \bottomrule
+            \end{tabular}
+          %}
+        \caption[
+          Résultat de l'extraction de dix termes-clés avec TopicRank,
+          \textsc{Kea++}, TopicCoRank$_\textnormal{\textit{extr.}}$,
+          TopicCoRank$_\textnormal{\textit{assign.}}$ et TopicCoRank
+        ]{
+          Résultat de l'extraction de dix termes-clés avec TopicRank,
+          \textsc{Kea++}, TopicCoRank$_\textnormal{\textit{extr.}}$,
+          TopicCoRank$_\textnormal{\textit{assign.}}$ et TopicCoRank. $\dagger$
+          et $\ddagger$ indiquent une amélioration significative par rapport à
+          TopicRank et \textit{Assignement}, respectivement.
+          \label{tab:topiccorank-comparison_results}}
+        \end{table}
+
+        \begin{table}[!h]
+          \centering
+          \begin{tabular}{l|c|c}
+              \toprule
+              & Extraction (\%) & Assignement (\%)\\
+              \hline
+              \textsc{De}ft \textit{(fr)} & & \\
+              SemEval \textit{(en)} & & \\
+              \textsc{Duc} \textit{(en)} & & \\
+              \bottomrule
+          \end{tabular}
+          \caption{Taux d'extraction et d'assignement de TopicCoRank pour dix
+                   termes-clés
+                   \label{tab:assignment_ratio}}
+        \end{table}
 
     \subsection{Analyse d'erreurs}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}

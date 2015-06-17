@@ -1032,7 +1032,7 @@
         plus représentatif de chacun des sujets les plus importants.
         \begin{figure}
           \centering
-          \subfigure[Linguistique]{
+          \subfigure[Linguistique \textit{(fr)}]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
               \begin{axis}[x=0.37\linewidth,
@@ -1123,7 +1123,7 @@
               \end{axis}
             \end{tikzpicture}
           }
-          \subfigure[Sciences de l'info.]{
+          \subfigure[Sciences de l'info. \textit{(fr)}]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
               \begin{axis}[x=0.37\linewidth,
@@ -1215,7 +1215,7 @@
               \end{axis}
             \end{tikzpicture}
           }
-          \subfigure[Archéologie]{
+          \subfigure[Archéologie \textit{(fr)}]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
               \begin{axis}[x=0.37\linewidth,
@@ -1306,7 +1306,7 @@
               \end{axis}
             \end{tikzpicture}
           }
-          \subfigure[Chimie]{
+          \subfigure[Chimie \textit{(fr)}]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
               \begin{axis}[x=0.37\linewidth,
@@ -1397,7 +1397,7 @@
               \end{axis}
             \end{tikzpicture}
           }
-          \subfigure[\textsc{De}ft]{
+          \subfigure[\textsc{De}ft \textit{(fr)}]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
               \begin{axis}[x=0.37\linewidth,
@@ -1488,7 +1488,7 @@
               \end{axis}
             \end{tikzpicture}
           }
-          \subfigure[SemEval]{
+          \subfigure[SemEval \textit{(en)}]{
             \begin{tikzpicture}
               \pgfkeys{/pgf/number format/.cd, use comma, fixed}
               \begin{axis}[x=0.37\linewidth,
@@ -1651,10 +1651,10 @@
             \pgfkeys{/pgf/number format/.cd, use comma, fixed}
             \begin{axis}[symbolic x coords={Linguistique, SciencesDeLInfo, Archeologie, Chimie, DEFT, SemEval},
                          xtick=data,
-                         xticklabels={Linguistique, Sciences de l'info., Archéologie, Chimie, \textsc{De}ft, SemEval},
+                         xticklabels={Linguistique \textit{(fr)}, Sciences de l'info. \textit{(fr)}, Archéologie \textit{(fr)}, Chimie \textit{(fr)}, \textsc{De}ft \textit{(fr)}, SemEval \textit{(en)}},
                          %enlarge x limits=0.5,
                          x=.15\linewidth,
-                         xticklabel style={anchor=east, xshift=.5em, yshift=-.25em, rotate=22.5},
+                         xticklabel style={anchor=east, xshift=2em, yshift=-.1em, rotate=15},
                          nodes near coords,
                          nodes near coords align={vertical},
                          every node near coord/.append style={font=\tiny},
@@ -1885,7 +1885,7 @@
               };
               %\draw[densely dashed] ({axis cs:12,0}|-{rel axis cs:0,1}) -- ({axis cs:12,0}|-{rel axis cs:0,0}) [color=black!66];
               %\node at (axis cs:12,17.5) [color=black!66, anchor=west] {\tiny{12}};
-              \legend{Linguistique, Sciences de l'info., Archéologie, Chimie, \textsc{De}ft, SemEval}
+              \legend{Linguistique \textit{(fr)}, Sciences de l'info. \textit{(fr)}, Archéologie \textit{(fr)}, Chimie \textit{(fr)}, \textsc{De}ft \textit{(fr)}, SemEval \textit{(en)}}
             \end{axis}
           \end{tikzpicture}
           \caption{Résultats de l'extraction de dix termes-clés, avec
@@ -2023,9 +2023,9 @@
               \hline
               SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
               + complet & 10,0 & 11,9 & 10,7 & $~~$9,9 & 10,2 & $~~$9,8 & 13,5 & $~~$9,5 & 11,0 & 13,0 & 10,7 & 11,2\\
-              + candidats & 10,8 & 12,7 & 11,5 & 11,1 & 11,6 & 11,0 & 25,7 & 17,4 & 20,3 & 14,2 & 11,1 & \textbf{11,9}\\
+              + candidats & 10,8 & 12,7 & 11,5 & 11,1 & 11,6 & 11,0 & 25,7 & 17,4 & 20,3 & \textbf{14,2} & \textbf{11,1} & \textbf{11,9}\\
               + sujets & 10,6 & 12,5 & 11,3 & 10,9 & 11,5 & 10,8 & 26,5 & 18,0 & 20,9 & 13,5 & 10,7 & 11,5\\
-              TopicRank & \textbf{11,2} & \textbf{13,1} & \textbf{11,9} & \textbf{12,1} & \textbf{12,8} & \textbf{12,1} & \textbf{27,5} & \textbf{18,7} & \textbf{21,8} & \textbf{13,8} & \textbf{11,1} & 11,8\\
+              TopicRank & \textbf{11,2} & \textbf{13,1} & \textbf{11,9} & \textbf{12,1} & \textbf{12,8} & \textbf{12,1} & \textbf{27,5} & \textbf{18,7} & \textbf{21,8} & 13,8 & 11,1 & 11,8\\
               \bottomrule
             \end{tabular}
           }
