@@ -200,49 +200,71 @@
 
   \section{Indexation automatique en domaines de spécialités}
   \label{sec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
-    \TODO{\dots}
+    Cette section introduit TopicCoRank, une extension supervisée de TopicRank
+    adaptée à l'indexation par termes-clés en domaines de spécialités. En nous
+    fondant sur l'indexation réalisée par des indexeurs professionnels présentée
+    précédemment, nous ajoutons à TopicRank la capacité à assigner des
+    termes-clés qui ne cooccurrent pas nécessairement dans le document et qui
+    respectent le langage documentaire. Pour cela, nous approximons un
+    vocabulaire contrôlé à partir des termes-clés de référence des données
+    d'entraînement. Nous assurons autant que possible l'homogénéité de
+    l'assignement en déterminant conjointement l'importance des sujets du
+    document et des termes-clés de référence du domaine~: les sujets importants
+    du documents influencent l'importance des termes-clés de référence et ces
+    derniers influencent l'importance des sujets du document.
 
     \subsection{TopicCoRank}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topiccorank}
       TopicCoRank est une méthode supervisée à base de graphe qui réalise
-      simultanément extraction et assignement de termes-clés. Il s'agit d'une
-      extension de TopicRank. Elle étend les étapes suivantes de ce dernier~:
-      construction du graphe, ordonnancement et sélection des termes-clés.
+      simultanément extraction et assignement de termes-clés. Issue de
+      TopicRank, elle en modifie les étapes suivantes~: construction du graphe,
+      ordonnancement et sélection des termes-clés. La construction du graphe
+      étend le graphe de sujet initial de TopicRank en l'unifiant à un graphe
+      représentatif des termes-clés de référence du domaine~; l'ordonnancement
+      est désormais conjoint pour les sujets du document et les termes-clés de
+      référence du domaine~; la sélection des termes-clés ajoute la possibilité
+      d'assigner en puisant dans le graphe représentatif des termes-clés du
+      domaine.
+      
+      L'identification des sujets reste inchangée. L'évaluation de TopicRank en
+      domaines de spécialités ayant montré de meilleures performances lorsque
+      les termes-clés candidats sont sélectionnés par notre méthode de sélection
+      (\textsc{Lr-Np}), TopicCoRank utilise cette dernière.
 
       \subsubsection{Construction du graphe}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-graph_construction}
         Afin de réaliser simultanément extraction et assignement de termes-clés,
         TopicCoRank unifie deux graphes représentant le document (graphe de
-        sujets) et son domaine (graphe de termes-clés de référence). Ce dernier
-        graphe est construit à partir des termes-clés de référence des documents
-        d'entraînement fournis avec une collection de données. Comme
+        sujets) et les termes-clés de son domaine (graphe du domaine). Ce
+        dernier graphe est construit à partir des termes-clés de référence des
+        documents d'entraînement fournis avec une collection de données. Comme
         \newcite{chaimongkol2013technicaltermextraction} l'ont fait avant nous
         pour l'extraction de termes techniques, nous faisons l'hypothèse que les
         termes-clés de référence des documents d'entraînement constituent la
         terminologie du domaine et nous les utilisons comme substitut au
-        vocabulaire contrôlé. Contrairement au termes-clés candidats
+        vocabulaire contrôlé. Contrairement aux termes-clés candidats
         sélectionnés dans le document, les termes-clés de référence ne sont pas
-        jugés redondants. TopicCoRank ne les groupe pas avant de construire le
-        graphe du domaine.
+        jugés redondants\footnote{Cette hypothèse est d'autant plus forte que
+        les données d'entraînement sont issues d'une indexation établie dans un
+        contexte professionnel. Elle l'est moins pour les autres données.}.
+        TopicCoRank ne les groupe pas avant de construire le graphe du domaine.
 
-        Soit le graphe unifié $G = (N, A = A_{\textnormal{\textit{interne}}}
-        \cup A_{\textnormal{\textit{externe}}})$ non orienté. $N$ dénote
-        indifféremment les sujets et les termes-clés de référence. $A$ regroupe
-        les arêtes $A_{\textnormal{\textit{interne}}}$, qui connectent deux
-        sujets ou deux termes-clés de référence, et les arêtes
+        Soit le graphe unifié non orienté $G = (N, A =
+        A_{\textnormal{\textit{interne}}} \cup
+        A_{\textnormal{\textit{externe}}})$. $N$ dénote indifféremment les
+        sujets et les termes-clés de référence. $A$ regroupe les arêtes
+        $A_{\textnormal{\textit{interne}}}$, qui connectent deux sujets ou deux
+        termes-clés de référence, et les arêtes
         $A_{\textnormal{\textit{externe}}}$, qui connectent un sujet à un
         terme-clé de référence (cf. figure~\ref{fig:topiccorank_graph}). Le
         graphe de sujets et le graphe du domaine sont unifiés grâce aux arêtes
         $A_{\textnormal{\textit{externe}}}$. Une arête
-        $A_{\textnormal{\textit{externe}}}$ est ajouté pour connecter un sujet
-        et un terme-clé si, et seulement si, le terme-clé fait partie des
-        termes-clés candidats qui composent le sujet. En d'autres termes,
-        TopicCoRank considère le domaine comme une carte conceptuelle et
-        connecte le document au domaine par l'intermédiaire des concepts qu'ils
-        partagent. Pour favoriser les connections, et à la manière du groupement
-        en sujets, la méthode de racinisation de
-        \newcite{porter1980suffixstripping} est utilisée en amont des
-        comparaisons.
+        $A_{\textnormal{\textit{externe}}}$ est ajoutée pour connecter un sujet
+        et un terme-clé de référence si, et seulement si, le terme-clé fait
+        partie des termes-clés candidats qui composent le sujet
+        (\TODO{exemple}). En d'autres termes, TopicCoRank considère le domaine
+        comme une carte conceptuelle et connecte le document au domaine par
+        l'intermédiaire des concepts qu'ils partagent.
         \begin{figure}
           \newcommand{\xslant}{0.25}
           \newcommand{\yslant}{0}
@@ -359,22 +381,22 @@
 
         Pour permettre un ordonnancement conjoint des sujets et des termes-clés
         de référence, le schéma de connexion entre deux sujets et entre deux
-        termes-clés de référence (arêtes $A_\textnormal{\textit{interne}}$) est
-        homogénéisé. En effet, si les conditions de connexion et si la
+        termes-clés de référence (arêtes $A_\textnormal{\textit{interne}}$) doit
+        être homogénéisé. En effet, si les conditions de connexion et si la
         pondération des arêtes ne sont pas, respectivement, sémantiquement
         équivalentes et du même ordre de grandeur, alors l'impact du domaine sur
-        le document, et inversement, est marginal et inexploitable. TopicCoRank
-        connecte deux sujets ou deux termes-clés de référence $n_i$ et $n_j$
-        lorsqu'il apparaissent dans le même contexte et pondère leur arête par
-        le nombre de fois que cela se produit ($\textnormal{poids}(n_i, n_j)$),
-        normalisé par le nombre de contextes explorés. Lorsqu'il s'agit des
-        sujets, le contexte est une phrase du document~; lorsqu'il s'agit des
+        le document, et inversement, sera marginal et inexploitable. Pour
+        obtenir un graphe unifié homogène, TopicCoRank connecte deux sujets ou
+        deux termes-clés de référence $n_i$ et $n_j$ lorsqu'ils apparaissent
+        dans le même contexte et pondère leur arête par le nombre de fois que
+        cela se produit ($\textnormal{poids}(n_i, n_j)$), normalisé par le
+        nombre total de contextes. Lorsqu'il s'agit des sujets, le contexte est
+        une phrase du document (\TODO{exemple})~; lorsqu'il s'agit des
         termes-clés de référence, le contexte est l'ensemble des termes-clés de
-        référence d'un document d'entraînement. Ne pouvant pas créer un graphe
-        complet du domaine à partir de ce schéma de connexion, nous n'utilisons
-        pas un graphe complet pour le graphe de sujets. Afin d'éviter d'utiliser
-        une valeur pour la fenêtre de cooccurrences, nous difinissons la phrase
-        comme fenêtre.
+        référence d'un document d'entraînement (\TODO{exemple}). Les contextes
+        étant utilisés pour la création du graphe, le graphe de sujets n'est
+        plus complet comme pour TopicRank. Il n'y a  cependant pas de fenêtre de
+        cooccurrences fixée à une valeur prédéfinie, car c'est la phrase.
 
       \subsubsection{Ordonnancement conjoint des sujets et des termes-clés de référence}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-co_ranking}
@@ -382,14 +404,13 @@
         établit l'ordre d'importance des sujets du document et des termes-clés
         de référence du domaine vis-à-vis du contenu du document. Le score
         d'importance attribué aux sujets et aux termes-clés de référence est
-        obtenu avec le même algorithme et la même instance de l'algorithme.
-        L'ordonnancement fournit donc une seule liste ordonnée, mêlant sujets et
+        obtenu avec le même algorithme et la même instance de cet algorithme.
+        L'ordonnancement fournit une seule liste ordonnée, mêlant sujets et
         termes-clés de référence.
 
-        Dans TopicCoRank, le principe de la recommandation  de TopicRank est
-        repris et adapté au problème d'ordonnancement conjoint. Les premières
-        hypothèses de recommandation sont donc les mêmes que celle de
-        TopicRank~:
+        TopicCoRank reprend le principe de la recommandation de TopicRank et
+        l'adapte au problème d'ordonnancement conjoint. Les premières hypothèses
+        de recommandation sont donc les mêmes que celle de TopicRank~:
         \begin{itemize}
           \item{un sujet est d'autant plus important s'il est fortement connecté
                 à un grand nombre de sujets et si les sujets avec lesquels il
@@ -404,30 +425,31 @@
         autres et l'importance des termes-clés de référence les uns par rapport
         aux autres. Cependant, elles ne permettent pas de tirer profit des
         termes-clés de référence importants pour renforcer l'importance des
-        sujets qui y sont connectés et, inversement, elles ne permettent pas de
-        tirer profit des sujets importants pour renforcer l'importance des
-        termes-clés de référence auxquels ils sont connectés. De plus,
+        sujets qui y sont connectés, et inversement. De plus,
         l'importance des termes-clés de référence est indépendante du document
         et, pour la même collection de données, l'importance des termes-clés de
-        référence est toujours la même. Nous ajoutons donc deux nouvelles
-        hypothèses de recommandation, que nous qualifions d'externes~:
+        référence est toujours la même quelque soit le document. Nous ajoutons
+        donc deux nouvelles hypothèses de recommandation, que nous qualifions
+        d'externes~:
         \begin{itemize}
-          \item{un sujet est d'autant plus important s'il contient des
+          \item{un sujet est d'autant plus important s'il est représenté par des
                 termes-clés de référence importants~;}
-          \item{un terme-clé de référence est d'autant plus important
-                \underline{vis-à-vis du contenu du document} s'il est connecté à
-                l'un de ses sujets importants.}
+          \item{un terme-clé de référence est d'autant plus important vis-à-vis
+                du contenu du document s'il est connecté à l'un de ses sujets
+                importants.}
         \end{itemize}
         Sujets et termes-clés de référence sont ainsi évalués d'après leur usage
-        dans le document et leur usage (global) dans le domaine.
-        L'ordonnancement des uns joue un rôle sur celui des autres et permet
-        ainsi d'effectuer extraction et assignement conjointement.
+        dans le document et leur importance dans le domaine. L'ordonnancement
+        des uns joue un rôle sur celui des autres et permet ainsi d'effectuer
+        conjointement extraction et assignement.
 
         Mathématiquement, la formule d'ordonnancement de TopicRank est adaptée
         en préservant la recommandation interne
-        ($R_{\textnormal{\textit{interne}}}$) et en remplaçant l'aléa, exprimé
-        avec le terme $(1 - \lambda)$, par la recommandation externe
+        ($R_{\textnormal{\textit{interne}}}$) et en remplaçant l'aléa
+        $(1 - \lambda)$ par la recommandation externe
         ($R_{\textnormal{\textit{externe}}}$)~:
+        \TODO{il faut s'assurer que l'aléa et ce qu'il représente est bien
+        introduit dans l'état de l'art et/ou TopicRank}
         \begin{align}
           S(n_i) &= (1 - \lambda)\ R_{\textnormal{\textit{externe}}}(n_i) + \lambda\ R_{\textnormal{\textit{interne}}}(n_i)\label{math:topiccorank}\\
           R_{\textnormal{\textit{interne}}}(n_i) &= \sum_{n_j \in A_{\textnormal{\textit{interne}}}(n_i)}{\frac{\textnormal{poids}(n_j, n_i) \times S(n_j)}{\mathlarger\sum_{n_k \in A_{\textnormal{\textit{interne}}}(n_j)}{{\textnormal{poids}(n_j, n_k)}}}}\label{math:rin}\\
@@ -452,19 +474,18 @@
         obtenu les meilleurs scores sont retenus, qu'ils soient des sujets ou
         des termes-clés de référence.
 
-        Avant la troncature aux $k$ meilleurs sujets et termes-clés de
-        référence, certains termes-clés de référence sont retirés si leur
-        ordonnancement n'a pas été influencé par le document. En effet, le
-        graphe du domaine peut, dans certain cas, être constitué de composantes
-        connexes, c'est-à-dire composé de sous-graphes qui ne sont connectés par
-        aucune arête (\TODO{exemple}), soit dans notre cas des groupes de
-        termes-clés de référence qui ne partagent aucun contexte. Si aucun
-        terme-clé de référence d'une composante connexe n'est connecté à un
-        sujet du document, alors l'ordonnancement au sein de cette composante
-        connexe n'est pas influencé par le document. Il n'est donc pas pertinent
-        d'en tenir compte.
+        Lorsqu'un termes-clés de référence doit être assigné, une étape de
+        vérification supplémentaire est effectuée pour s'assurer que son
+        importance calculée relève aussi bien du domaine que du document. En
+        effet, il est possible que le graphe du domaine soit constitué de
+        composantes connexes, soit de sous-graphes dont les n\oe{}uds ne sont
+        connectés qu'entre eux. Dans ce cas, il est possible qu'un terme-clé de
+        référence d'un sous-graphe ne soit connecté ni directement ni
+        indirectement (par l'intermédiaire d'un autre n\oe{}uds) à un sujet du
+        document. Son importance est donc déterminée uniquement à partir du
+        domaine et il n'est donc pas pertinent de l'assigner au document.
 
-        Lorsque un n\oe{}ud retenu représente un sujet, C'est la même stratégie
+        Lorsque un n\oe{}ud retenu représente un sujet, c'est la même stratégie
         que celle de TopicRank qui est appliquée. Pour un sujet donné, le
         terme-clé extrait est son terme-clé candidat qui apparaît en premier
         dans le document.
@@ -475,47 +496,47 @@
 
     \subsection{Évaluation}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
-      \TODO{en domaines de spé., puis sur tous les autres corpus}
-      \TODO{utiliser la sélection \textsc{Lr-Np}}
-      Pour valider notre approche, nous réalisons deux séries d'expériences. Une
-      première série pour comparer TopicCoRank à deux méthodes de référence et
-      une seconde série pour analyser sont comportement.
+      Pour valider notre approche, nous réalisons deux séries d'expériences.
+      Dans un premier temps, nous comparons TopicCoRank à plusieurs méthodes de
+      référence et analysons son comportement en domaine de spécialité, donc sur
+      les collections Termith. Dans un second temps, nous étudions l'application
+      de TopicCoRank dans le cas général sur les collections \textsc{De}ft,
+      SemEval et \textsc{Duc}\footnote{Constituées de documents scientifiques,
+      les ressources \textsc{De}ft et SemEval peuvent aussi être considérées
+      commes des données en domaines de spécialités. Cependant, elles regroupent
+      des documents de sous-disciplines très éloignées et leurs termes-clés
+      n'ont pas été annotés avec la rigueur documentaire.}.
 
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
-      \TODO{ajouter \textsc{Tf-Idf}}
-        Dans nos expériences, nous comparons TopicCoRank à TopicRank et à
-        une méthode simple d'assignement (\textit{Assignement}). Pour cette
-        dernière, nous utilisons le même vocabulaire contrôlé que TopicCoRank et
-        ordonnons les entrées de celui-ci d'après leur fréquence d'apparition
-        dans le document. \TODO{remplacer \textit{Assignement} par KEA++}
+        Dans nos expériences, nous comparons TopicCoRank à \textsc{Tf-Idf},
+        TopicRank et \textsc{Kea++}. Pour cette, nous utilisons les vocabulaires
+        contrôlés de l'Inist en linguistique, sciences de l'information,
+        archéologie et chimie. Pour les ressources autres que Termith, nous ne
+        disposons pas de vocabulaires contrôlés adéquats et n'appliquons donc
+        pas \textsc{Kea++}.
 
-        Nous comparons aussi TopicCoRank à deux de ces variantes possibles. La
-        première, TopicCoRank$_\textnormal{\textit{extr.}}$, ne réalise que
-        l'extraction de termes-clés~; la seconde,
+        Nous comparons aussi TopicCoRank à deux variantes. La première,
+        TopicCoRank$_\textnormal{\textit{extr.}}$, ne réalise que l'extraction
+        de termes-clés~; la seconde,
         TopicCoRank$_\textnormal{\textit{assign.}}$, n'effectue que
         l'assignement.
 
       \subsubsection{Collections de données}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
-        Pour évaluer TopicCoRank, nous utilisons la collection de documents de
-        linguistique de la ressource Termith et les collections SemEval et
-        \textsc{Duc}.
+        Nous utilisons les collections Termith pour l'évaluation en domaines de
+        spécialités et les collections \textsc{De}ft, SemEval et \textsc{Duc}
+        pour l'évaluation dans un contexte généraliste.
         
-        Pour la collection de Termith, nous construisons le graphe du domaine à
-        partir des documents d'entraînement~; pour SemEval, nous construisons
-        quatre graphes de domaine à partir des documents d'entraînement des
-        quatre catégories \textsc{Acm} (C2.4, H3.3, I2.11 et J4) et utilisons
-        l'un ou l'autre de ces graphes selon la catégorie du document traité par
-        TopicCoRank~; pour \textsc{Duc}, nous n'utilisons pas sa répartition
-        entraînement--test proposée dans la
-        section~\ref{sec:main-domain_specific_keyphrase_annotation-keyphrase_candidate_selection}
-        (page~\pageref{sec:main-domain_specific_keyphrase_annotation-keyphrase_candidate_selection}),
-        mais nous construisons un graphe de domaine unique pour chaque document.
-        Comme chaque document de \textsc{Duc} appartient à l'un des 30 sujets
-        d'actualités couverts, nous utilisons leur sujet d'actualité pour
-        construire leur graphe de domaine à partir des autres documents traitant
-        du même sujet.
+        Pour \textsc{Duc}, qui n'est pas divisé en ensembles d'entraînement et
+        de test, nous tirons partie des 30 sujets d'actualité répertoriés en
+        construisant un graphe \og{}de domaine\fg{} unique pour chaque document
+        à partir des autres documents du même sujet d'actualité.
+        
+        Pour SemEval, nous construisons quatre graphes de domaine à partir des
+        documents d'entraînement des quatre catégories \textsc{Acm} (C2.4, H3.3,
+        I2.11 et J4) et utilisons l'un ou l'autre de ces graphes selon la
+        catégorie du document de test. 
       
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_measures}
@@ -526,11 +547,12 @@
         terme-clé de référence~\cite{kim2010semeval}. Les opérations de
         comparaison entre les termes-clés de référence et les termes-clés
         extraits sont donc effectuées à partir de la racine des mots qui les
-        composent, d'après la méthode de \newcite{porter1980suffixstripping}.
+        composent. Pour cela, nous utilisons la méthode de
+        \newcite{porter1980suffixstripping}.
 
         Nous représentons aussi les résultats sous la forme de courbes de
         rappel--précision. Celles-ci permettent d'observer si une méthode domine
-        les autres pour les critère de rappel et de précision. En optimisation
+        les autres pour les critères de rappel et de précision. En optimisation
         multi-critères, nous parlons de front de Pareto optimal, c'est à dire de
         la méthode pour laquelle aucune autre méthode n'obtient de meilleures
         performances. Pour générer ces courbes, nous calculons la précision et
@@ -576,10 +598,10 @@
               TopicRank & 11,8 & 13,8 & 12,5 & 12,2 & 12,8 & 12,2 & 29,9 & 20,3 & 23,7 & 14,6 & 11,5 & 12,3\\
               KEA++ & 11,6 & 13,0 & 12,1 & $~~$9,5 & 10,2 & $~~$9,6 & 23,5 & 16,2 & 18,8 & 11,4 & $~~$8,5 & $~~$9,2\\
               \hline
-              TopicCoRank$_\textnormal{extr.}$ & & & & & & & & & & & & \\
-              TopicCoRank$_\textnormal{assign.}$ & & & & & & & & & & & & \\
+              TopicCoRank$_\textnormal{extr.}$ & 14,3 & 16,5 & 15,1 & 15,4 & 15,9 & 15,2 & 36,7 & 24,6 & 28,8 & 15,8 & 12,1 & 13,1\\
+              TopicCoRank$_\textnormal{assign.}$ & \textbf{24,5} & \textbf{28,3} & \textbf{25,8} & \textbf{19,7} & \textbf{19,8} & \textbf{19,2} & \textbf{47,8} & \textbf{32,3} & \textbf{37,7} & \textbf{20,0} & \textbf{14,8} & \textbf{16,3}\\
               \hline
-              TopicCoRank & & & & & & & & & & & & \\
+              TopicCoRank & 18,8 & 21,9 & 19,9 & 17,3 & 17,7 & 17,0 & 38,3 & 25,7 & 30,1 & 17,2 & 13,4 & 14,4\\
               \bottomrule
             \end{tabular}
           }
@@ -596,110 +618,16 @@
           \label{tab:topiccorank-comparison_results}}
         \end{table}
         
-        La figure~\ref{fig:topiccorank-pr_curves} compare les comportements
-        respectifs de TopicRank, \textit{Assignement} et TopicCoRank à l'aide de
-        courbes rappel--précision. Ces dernières confirment la domination de
-        TopicCoRank par rapport aux deux autres méthodes (front de Pareto
-        optimal). Elles montrent aussi un phénomène intéressant~: TopicCoRank à
-        un comportement similaire à celui de TopicRank, boosté par sa capacité à
-        assigner. Le processus d'ordonnancement initial de TopicRank n'est pas
-        dénaturé et l'ajout du graphe du domaine agit effectivement comme une
-        extension.
-        \begin{figure}[h!]
-            \centering
-            \subfigure[Termith]{
-              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-                \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.00855\linewidth,
-                             xtick={0, 20, 40, ..., 100},
-                             xmin=0,
-                             xmax=40,
-                             xlabel=rappel (\%),
-                             x label style={yshift=.34em, font=\small},
-                             y=0.00855\linewidth,
-                             ytick={0, 10, 20, ..., 100},
-                             ymin=0,
-                             ymax=40,
-                             ylabel=précision (\%),
-                             y label style={yshift=-1.1em, font=\small},
-                             legend style={font=\footnotesize}]
-                  \addplot [red, mark=+] file {input/data/inist_topicrank.csv};
-                  \addplot [green, mark=-] file {input/data/inist_assignment.csv};
-                  \addplot [blue, mark=x] file {input/data/inist_topiccorank.csv};
-                  \addplot [dotted, domain=20:40] {(30 * x) / ((2 * x) - 30)};
-                  \addplot [dotted, domain=10:40] {(20 * x) / ((2 * x) - 20)};
-                  \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
-                  \legend{TopicRank, \textit{Assignement}, TopicCoRank};
-                \end{axis}
-                \node at (4.85,3.1) [anchor=east] {\footnotesize{F=0.30}};
-                \node at (4.85,1.8) [anchor=east] {\footnotesize{F=0.20}};
-                \node at (4.85,0.9) [anchor=east] {\footnotesize{F=0.10}};
-              \end{tikzpicture}
-            }
-            \subfigure[\textsc{Duc}]{
-              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-                \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.0057\linewidth,
-                             xtick={0, 20, 40, ..., 100},
-                             xmin=0,
-                             xmax=60,
-                             xlabel=rappel (\%),
-                             x label style={yshift=.34em, font=\small},
-                             y=0.0057\linewidth,
-                             ytick={0, 15, 30, ..., 100},
-                             ymin=0,
-                             ymax=60,
-                             ylabel=précision (\%),
-                             y label style={yshift=-1.1em, font=\small},
-                             legend style={font=\footnotesize}]
-                  \addplot [red, mark=+] file {input/data/duc_topicrank.csv};
-                  \addplot [green, mark=-] file {input/data/duc_assignment.csv};
-                  \addplot [blue, mark=x] file {input/data/duc_topiccorank.csv};
-                  \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
-                  \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
-                  \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
-                  \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
-                  \legend{TopicRank, \textit{Assignement}, TopicCoRank};
-                \end{axis}
-                \node at (4.85,2.6) [anchor=east] {\footnotesize{F=0.40}};
-                \node at (4.85,1.8) [anchor=east] {\footnotesize{F=0.30}};
-                \node at (4.85,1.15) [anchor=east] {\footnotesize{F=0.20}};
-                \node at (4.85,0.6) [anchor=east] {\footnotesize{F=0.10}};
-              \end{tikzpicture}
-            }
-            \subfigure[SemEval]{
-              \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-                \pgfkeys{/pgf/number format/.cd, fixed}
-                \begin{axis}[x=0.00855\linewidth,
-                             xtick={0, 20, 40, ..., 100},
-                             xmin=0,
-                             xmax=40,
-                             xlabel=rappel (\%),
-                             x label style={yshift=.34em, font=\small},
-                             y=0.00855\linewidth,
-                             ytick={0, 10, 20, ..., 100},
-                             ymin=0,
-                             ymax=40,
-                             ylabel=précision (\%),
-                             y label style={yshift=-1.1em, font=\small},
-                             legend style={font=\footnotesize}]
-                  \addplot [red, mark=+] file {input/data/semeval_topicrank.csv};
-                  \addplot [green, mark=-] file {input/data/semeval_assignment.csv};
-                  \addplot [blue, mark=x] file {input/data/semeval_topiccorank.csv};
-                  \addplot [dotted, domain=20:40] {(30 * x) / ((2 * x) - 30)};
-                  \addplot [dotted, domain=10:40] {(20 * x) / ((2 * x) - 20)};
-                  \addplot [dotted, domain=5:40] {(10 * x) / ((2 * x) - 10)};
-                  \legend{TopicRank, \textit{Assignement}, TopicCoRank};
-                \end{axis}
-                \node at (4.85,3.1) [anchor=east] {\footnotesize{F=0.30}};
-                \node at (4.85,1.8) [anchor=east] {\footnotesize{F=0.20}};
-                \node at (4.85,0.9) [anchor=east] {\footnotesize{F=0.10}};
-              \end{tikzpicture}
-            }
-            \caption{Courbes de rappel-précision de TopicRank
-                     \textit{Assignement} et TopicCoRank
-                     \label{fig:topiccorank-pr_curves}}
-        \end{figure}
+        La figure~\ref{fig:topiccorank-pr_curves_termith} compare les
+        comportements respectifs de TopicRank, \textit{Assignement} et
+        TopicCoRank à l'aide de courbes rappel--précision. Ces dernières
+        confirment la domination de TopicCoRank par rapport aux deux autres
+        méthodes (front de Pareto optimal). Elles montrent aussi un phénomène
+        intéressant~: TopicCoRank à un comportement similaire à celui de
+        TopicRank, boosté par sa capacité à assigner. Le processus
+        d'ordonnancement initial de TopicRank n'est pas dénaturé et l'ajout du
+        graphe du domaine agit effectivement comme une extension.
+        \input{input/figure/termith_precision_recall_curves.tex}
 
         Bien qu'ils montrent de meilleures performances pour TopicCoRank, les
         résultats précédents ne permettent pas de se faire une idée précise de
@@ -718,10 +646,10 @@
               \toprule
               & Extraction (\%) & Assignement (\%)\\
               \hline
-              Linguistique \textit{(fr)} & & \\
-              Sciences de l'info. \textit{(fr)} & & \\
-              Archéologie \textit{(fr)} & & \\
-              Chimie \textit{(fr)} & & \\
+              Linguistique \textit{(fr)} & 61,7 & 38,3\\
+              Sciences de l'info. \textit{(fr)} & 66,4 & 33,6\\
+              Archéologie \textit{(fr)} & 69,1 & 30,9\\
+              Chimie \textit{(fr)} & 68,4 & 31,6\\
               \bottomrule
           \end{tabular}
           \caption{Taux d'extraction et d'assignement de TopicCoRank pour dix
@@ -745,99 +673,9 @@
         les deux recommandations R$_\textnormal{\textit{interne}}$ et
         R$_\textnormal{\textit{externe}}$ ont la même influence sur
         l'ordonnancement.
-        \begin{figure}[h!]
-          \centering
-          \subfigure[Inist]{
-            \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-              \pgfkeys{/pgf/number format/.cd, fixed}
-              \begin{axis}[x=0.393\linewidth,
-                           xtick={0.1, 0.3, ..., 0.9},
-                           xmin=0.05,
-                           xmax=0.95,
-                           xlabel=$\lambda$,
-                           x label style={yshift=.34em, font=\small},
-                           y=0.01875\textheight,
-                           ytick={0, 2, 4, ..., 34},
-                           ymin=14,
-                           ymax=25,
-                           ylabel=f-score (\%),
-                           y label style={yshift=-1.1em, font=\small}]
-                \addplot[blue, mark=x] coordinates{
-                  (0.1, 20.04)
-                  (0.2, 20.22)
-                  (0.3, 20.37)
-                  (0.4, 20.14)
-                  (0.5, 20.09)
-                  (0.6, 18.46)
-                  (0.7, 16.69)
-                  (0.8, 15.98)
-                  (0.9, 16.43)
-                };
-              \end{axis}
-            \end{tikzpicture}
-          }
-          \subfigure[\textsc{Duc}]{
-            \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-              \pgfkeys{/pgf/number format/.cd, fixed}
-              \begin{axis}[x=0.393\linewidth,
-                           xtick={0.1, 0.3, ..., 0.9},
-                           xmin=0.05,
-                           xmax=0.95,
-                           xlabel=$\lambda$,
-                           x label style={yshift=.34em, font=\small},
-                           y=0.01875\textheight,
-                           ytick={0, 2, 4, ..., 34},
-                           ymin=24,
-                           ymax=35,
-                           ylabel=f-score (\%),
-                           y label style={yshift=-1.1em, font=\small}]
-                \addplot[blue, mark=x] coordinates{
-                  (0.10, 31.96)
-                  (0.20, 32.24)
-                  (0.30, 32.40)
-                  (0.40, 31.92)
-                  (0.50, 31.53)
-                  (0.60, 30.50)
-                  (0.70, 28.23)
-                  (0.80, 26.61)
-                  (0.90, 24.63)
-                };
-              \end{axis}
-            \end{tikzpicture}
-          }
-          \subfigure[SemEval]{
-            \begin{tikzpicture}[every axis/.append style={font=\footnotesize}]
-              \pgfkeys{/pgf/number format/.cd, fixed}
-              \begin{axis}[x=0.393\linewidth,
-                           xtick={0.1, 0.3, ..., 0.9},
-                           xmin=0.05,
-                           xmax=0.95,
-                           xlabel=$\lambda$,
-                           x label style={yshift=.34em, font=\small},
-                           y=0.01875\textheight,
-                           ytick={0, 2, 4, ..., 34},
-                           ymin=8,
-                           ymax=19,
-                           ylabel=f-score (\%),
-                           y label style={yshift=-1.1em, font=\small}]
-                \addplot[blue, mark=x] coordinates{
-                  (0.10, 11.24)
-                  (0.20, 11.33)
-                  (0.30, 11.39)
-                  (0.40, 12.07)
-                  (0.50, 13.43)
-                  (0.60, 14.49)
-                  (0.70, 14.09)
-                  (0.80, 13.96)
-                  (0.90, 13.28)
-                };
-              \end{axis}
-            \end{tikzpicture}
-          }
-          \caption{Comportement de TopicCoRank en fonction de la valeur de
-                   $\lambda$
-                   \label{fig:lambda_variations}}
-        \end{figure} 
+        \input{input/figure/termith_assignment_curves.tex}
+
+        \input{input/figure/termith_lambda_curves.tex}
       
       \subsubsection{Évaluation de TopicCoRank hors domaines de spécialité}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank_indepent_domains}
@@ -852,14 +690,14 @@
               \cline{2-10}
               & P & R & F & P & R & F & P & R & F\\
               \hline
-              \textsc{Tf-Idf} & 10,4 & 19,1 & 13,3 & 24,5 & 32,3 & 27,4 & 13,6 & $~~$9,3 & 10,9\\
+              \textsc{Tf-Idf} & 10,4 & 19,1 & 13,3 & 24,9 & 32,1 & 27,7 & 13,6 & $~~$9,3 & 10,9\\
               TopicRank & \textbf{11,9} & \textbf{21,5} & \textbf{14,9} & 17,9 & 23,7 & 20,1 & 16,6 & 11,5 & 13,5\\
               KEA++ & --- & --- & ---$^{~~}$ & --- & --- & ---$^{~~}$ & --- & --- & ---\\
               \hline
-              TopicCoRank$_\textnormal{extr.}$ & & & & & & & & & \\
-              TopicCoRank$_\textnormal{assign.}$ & & & & & & & & & \\
+              TopicCoRank$_\textnormal{extr.}$ & 10,1 & 19,1 & 13,0 & 24,6 & 35,5 & 27,2 & 17,4 & 12,3 & 14,3\\
+              TopicCoRank$_\textnormal{assign.}$ & $~~$6,8 & 12,8 & $~~$8,7 & 25,8 & 33,1 & 28,6 & 11,8 & $~~$8,4 & $~~$9,7\\
               \hline
-              TopicCoRank & & & & & & & & & \\
+              TopicCoRank & $~~$8,7 & 16,2 & 11,2 & \textbf{28,2} & \textbf{36,3} & \textbf{31,3} & \textbf{17,6} & \textbf{12,5} & \textbf{14,5}\\
               \bottomrule
             \end{tabular}
           %}
@@ -876,21 +714,27 @@
           \label{tab:topiccorank-comparison_results}}
         \end{table}
 
+        \input{input/figure/deft_semeval_duc_precision_recall_curves.tex}
+
         \begin{table}[!h]
           \centering
           \begin{tabular}{l|c|c}
               \toprule
               & Extraction (\%) & Assignement (\%)\\
               \hline
-              \textsc{De}ft \textit{(fr)} & & \\
-              SemEval \textit{(en)} & & \\
-              \textsc{Duc} \textit{(en)} & & \\
+              \textsc{De}ft \textit{(fr)} & 48,4 & 51,6\\
+              SemEval \textit{(en)} & 61,4 & 38,6\\
+              \textsc{Duc} \textit{(en)} & 46,9 & 53,1\\
               \bottomrule
           \end{tabular}
           \caption{Taux d'extraction et d'assignement de TopicCoRank pour dix
                    termes-clés
                    \label{tab:assignment_ratio}}
         \end{table}
+
+        \input{input/figure/deft_semeval_duc_assignment_curves.tex}
+
+        \input{input/figure/deft_semeval_duc_lambda_curves.tex}
 
     \subsection{Analyse d'erreurs}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}
