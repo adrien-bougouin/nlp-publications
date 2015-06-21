@@ -1,4 +1,4 @@
-\begin{figure}[h!]
+\begin{figure}[t]
   \centering
   \begin{tikzpicture}
     \pgfkeys{/pgf/number format/.cd, fixed}
@@ -47,10 +47,11 @@
         (0.8, 26.1973)
         (0.9, 24.6206)
       };
-      \legend{\textsc{De}ft \textit{(fr)}, SemEval \textit{(en)}, \textsc{Duc} \textit{(fr)}};
+      \legend{\textsc{De}ft \textit{(fr)}, SemEval \textit{(en)}, \textsc{Duc} \textit{(en)}};
     \end{axis}
   \end{tikzpicture}
-  \caption{Comportement de TopicCoRank en fonction du taux d'assignement
-           \label{fig:assignment_variations}}
+  \caption{Performance de TopicCoRank, appliqué à \textsc{De}ft, SemEval et
+           \textsc{Duc}, lorsque le paramètre $\lambda$ varie
+           \label{fig:lambda_variations_general}}
 \end{figure}
 
