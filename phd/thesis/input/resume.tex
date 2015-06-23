@@ -1,44 +1,23 @@
-Un terme-clé, couramment appelé mot-clé, est un mot ou une expression qui
-représente un des aspects les plus importants d'un document. À l'instar d'un
-résumé, les termes-clés attribués à un document donnent une représentation
-synthétique de ce dernier et permettent à un lecteur de se faire une idée rapide
-et précise de son contenu sans en lire l'intégralité. En plus de cela, ils
-permettent d'indexer des documents pour la recherche d'information. Bien
-qu'avantageux, les termes-clés ne sont pas toujours disponibles et il faut donc
-indexer automatiquement les documents par leur termes-clés. Pour réaliser cette
-tâche, la communauté scientifique peine toujours à atteindre le seuil
-psychologique de 50~\% de précision. Dans cette thèse, nous nous intéressons à
-la tâche d'indexation automatique par termes-clés et proposons trois nouvelles
-méthodes. Notre démarche s'organise en deux temps.
+Les termes-clés, ou mots-clés, sont des mots ou des expressions qui représentent
+le contenu d'un document. Ils en donnent une représentation synthétique et
+permettent de l'indexer pour la recherche d'information. Cette thèse s'intéresse
+à l'indexation automatique par termes-clés de documents en domaines de
+spécialités. La tâche est difficile à réaliser et les méthodes actuelles peinent
+encore à atteindre des résultats satisfaisant. Notre démarche s'organise en deux
+temps. Dans un premier temps, nous nous intéressons à l'indexation par
+termes-clés en général. Nous proposons une méthode pour sélectionner des
+termes-clés candidats dans un document en nous focalisant sur la catégorie des
+adjectifs qu'ils peuvent contenir, puis proposons une méthode pour les ordonner
+par importance. Cette dernière, TopicRank, se situe en aval de la sélection des
+candidats. C'est une méthode à base de graphe qui groupe les termes-clés
+candidats véhiculant le même sujet, projettent les sujets dans un graphe et
+extrait un terme-clé par sujet. Nos expériences montrent que TopicRank est
+significativement meilleur que les précédentes méthodes à base de graphe. Dans
+un second temps, nous adaptons notre travail à l'indexation par termes-clés en
+domaines de spécialités. Nous étudions la méthodologie d'indexation manuelle de
+documentalistes et la simulons à l'aide de TopicCoRank. TopicCoRank ajoute à
+TopicRank un graphe qui représente le domaine de spécialités du document. Grâce
+à ce second graphe, TopicCoRank possède la rare capacité à fournir des
+termes-clés qui n'apparaissent pas dans les documents. Appliqué à quatre
+domaines de spécialités, TopicCoRank améliore significativement TopicRank.
 
-Dans un premier temps, nous nous intéressons à l'indexation par termes-clés dans
-un contexte généraliste et proposons une méthode pour sélectionner des
-termes-clés candidats dans un document et une méthode pour ordonner par
-importance les termes-clés candidats. Avant de proposer une méthode de sélection
-des candidats, nous étudions les propriétés linguistiques des termes-clés
-français et anglais et montrons que la catégorie des adjectifs, en particulier
-s'il est relationnel, permet de décider si un adjectif doit faire partie d'un
-terme-clé candidat. Fondée sur cette analyse, notre méthode sélectionne les
-séquences de noms et d'adjectifs comme candidats, puis supprime de ces derniers
-les adjectifs superflus. La seconde méthode que nous proposons, TopicRank, se
-situe en aval de la sélection des candidats. Il s'agit du c\oe{}ur de
-l'indexation par termes-clés, qui consiste à déterminer quels sont les candidats
-les plus important dans le document. TopicRank, est une méthode dite \og{}à base
-de graphe\fg{}, c'est-à-dire qu'elle projette des entités du document dans un
-graphe et utilise un algorithme qui simule le concept du vote pour déterminer
-celles les plus importantes. TopicRank groupe les termes-clés candidats qui
-véhiculent le même sujet, projettent les sujets dans le graphe et extrait un
-seul terme-clé par sujet important. Nos expériences réalisées sur des ressources
-de langue et de nature différentes, montrent des performances significativement
-supérieures aux précédentes méthodes \og{}à base de graphe\fg{}.
-
-Dans un second temps, nous adaptons notre travail au contexte de l'indexation
-par termes-clés en domaines de spécialités. Après une étude de la méthodologie
-d'indexation par termes-clés réalisée manuellement par des indexeurs
-professionels, nous étendons TopicRank pour simuler leur comportement. Notre
-méthode, TopicCoRank, ajoute à TopicRank un graphe qui représente le domaine de
-spécialité du document, modélisé par les termes-clés de référence dans le
-domaine. Grâce à ce second graphe unifié au graphe de sujets initial,
-TopicCoRank possède la rare capacité à fournir des termes-clés pertinents, même
-lorsqu'ils n'aparaissent pas dans le document analysé. Appliqué à cinq domaines
-de spécialités, TopicCoRank améliore significativement TopicRank.
