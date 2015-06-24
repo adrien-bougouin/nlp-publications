@@ -80,8 +80,9 @@
 
 %-------------------------------------------------------------------------------
 
-\newcommand\chaptercite[2]{\epigraph{\justifying{\Large``}\textit{#1}{\Large''}}{--- #2}}
-\newcommand\smallchaptercite[2]{\epigraph{\hfill{}{\Large``}\textit{#1}{\Large''}}{--- #2}}
+\newcommand\chaptercite[2]{\setlength{\epigraphwidth}{0.667\textwidth}\epigraph{\justifying{\Large``}\textit{#1}{\Large''}}{--- #2}}
+\newcommand\smallchaptercite[2]{\setlength{\epigraphwidth}{0.667\textwidth}\epigraph{\hfill{}{\Large``}\textit{#1}{\Large''}}{--- #2}}
+\newcommand\thesisquote[2]{\setlength{\epigraphwidth}{0.5\textwidth}\epigraph{\justifying{\Large``}\textit{#1}{\Large''}}{--- #2}}
 
 \newcommand\ditto{$_{^\textnormal{\normalsize\textquotedbl}}$}
 
@@ -181,15 +182,16 @@
 
 %  \input{input/acknowledgment.tex}
 %  %\input{input/abstracts.tex}
+  \input{input/quote.tex}
 
   \tableofcontents
 
-%  \input{input/introduction.tex}
+  \input{input/introduction.tex}
 %  \input{input/state_of_the_art.tex}
 %  \input{input/resources.tex}
 %  %\input{input/automatic_keyphrase_annotation.tex}
 %  \input{input/domain_independent_keyphrase_extraction.tex}
-  \input{input/domain_specific_keyphrase_annotation.tex}
+%  \input{input/domain_specific_keyphrase_annotation.tex}
 %  %\input{input/manual_evaluation.tex}
 %  \input{input/conclusion.tex}
 
