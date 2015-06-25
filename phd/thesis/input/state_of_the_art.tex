@@ -12,20 +12,23 @@
   \label{sec:main-state_of_the_art-introduction}
     Les termes-clés\index{Terme-cle@Terme-clé \textit{(keyphrase)}|textbf},
     souvent appelés mots-clés\index{Mot-cle@Mot-clé
-    \textit{(keyword)}|textbf}\footnote{Lorsque nous utilisons le terme
-    \og{}mot-clé\fg{}, il s'agit d'un terme-clé composé d'un et un seul mot.},
-    sont les unités textuelles (mots ou expressions) qui caractérisent le
-    contenu principal d'un document~: les sujets qu'il aborde, ses idées, etc.
-    Ceux-ci donnent une description précise de ce que contient un document et
-    peuvent servir à la Recherche d'Information (\textsc{Ri}). Nous parlons donc
-    d'indexation par termes-clés\index{Indexation par termes-cles@Indexation par
-    termes-clés \textit{(automatic keyphrase annotation)}|textbf}. Cette
-    indexation ne doit toutefois pas être confondue avec l'indexation dite
-    \og{}plein texte\fg{} au c\oe{}ur de nombreux systèmes de \textsc{Ri}.
-    L'indexation plein texte pondère tous les mots d'un document selon leur
-    importance relative à celui-ci, tandis que l'indexation par termes-clés
-    fournit un ensemble restreint de mots ou expressions qui représentent ses
-    sujets importants, explicites ou non.
+    \textit{(keyword)}|textbf}\footnote{Un terme-clé est plus communément appelé
+    mot-clé. Cependant, un mot-clé n'étant pas uniquement monolexical, nous
+    utilisons la notion de terme-clé pour lever toute ambiguïté. Lorsque dans la
+    suite nous parlons de mots-clés, cela ne concerne donc que les
+    monolexicaux.}, sont les unités textuelles (mots ou expressions) qui
+    caractérisent le contenu principal d'un document~: les sujets qu'il aborde,
+    ses idées, etc. Associés à un document ceux-ci donnent une description
+    précise de ce qu'il contient et peuvent servir à la recherche d'information
+    (\textsc{Ri}). Nous parlons donc d'indexation par
+    termes-clés\index{Indexation par termes-cles@Indexation par termes-clés
+    \textit{(automatic keyphrase annotation)}|textbf}. Cette indexation ne doit
+    toutefois pas être confondue avec l'indexation dite \og{}plein texte\fg{} au
+    c\oe{}ur de nombreux systèmes de \textsc{Ri}. L'indexation plein texte
+    pondère tous les mots d'un document selon leur importance relative à
+    celui-ci, tandis que l'indexation par termes-clés fournit un ensemble
+    restreint de mots ou expressions qui représentent ses sujets importants,
+    explicites ou non.
 
     Dans la littérature, nous distinguons deux catégories d'indexation
     automatique par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
@@ -39,19 +42,21 @@
     controlee@Indexation contrôlée \textit{(controlled indexing)}|see
     {Assignement automatique de termes-clés \textit{(automatic keyphrase
     assignment)}}} fournit les termes-clés en se fondant sur un vocabulaire
-    contrôlé et sans se restreindre aux unités textuelles présentes dans le
-    document. Nous parlons d'\emph{assignement automatique de
+    contrôlé (une terminologie) et sans se restreindre aux unités textuelles
+    présentes dans le document. Nous parlons d'\emph{assignement automatique de
     termes-clés}\index{Assignement automatique de termes-cles@Assignement
     automatique de termes-clés \textit{(automatic keyphrase
     assignment)}|textbf}.
 
-    Nous commençons par présenter l'étape de sélection des termes-clés
+    Dans ce chapitre d'introduction à l'indexation automatique par termes-clés,
+    nous commençons par présenter l'étape de sélection des termes-clés
     candidats, qui est une étape commune à la plupart des méthodes d'extraction
     et d'assignement automatique de termes-clés, et qui est un objet d'étude à
     part entière~\cite{wang2014keyphraseextractionpreprocessing}. Ensuite, nous
     présentons les tâches d'extraction automatique de termes-clés et
-    d'assignement automatique de termes-clés. Nous terminons par une description
-    du processus d'évaluation des méthodes d'indexation par termes-clés.
+    d'assignement automatique de termes-clés, puis nous terminons par une
+    description du processus d'évaluation des méthodes d'indexation par
+    termes-clés.
 
   %-----------------------------------------------------------------------------
 
@@ -85,9 +90,9 @@
 
     Il existe plusieurs méthodes de sélection de candidats, de la simple
     sélection de n-grammes, de chunks nominaux ou d'unités textuelles
-    grammaticalement définies, jusqu'à la sélection de candidats à l'aide
-    d'algorithmes pour réduire le nombre de candidats en supprimant ceux qui
-    sont sémantiquement redondants où mal formés.
+    grammaticalement définies, jusqu'à la sélection à l'aide d'algorithmes
+    réduisant le nombre de candidats en supprimant ceux qui sont sémantiquement
+    redondants où mal formés.
 
     ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
     toutes les séquences ordonnées de $n$ mots adjacents. La sélection des
@@ -966,7 +971,17 @@
 
     \subsection{Bilan}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-conclusion}
-      \TODO{\dots}
+      L'extraction automatique de termes-clés est une catégorie d'indexation par
+      termes-clés très étudiée. Les méthodes proposées sont nombreuses et
+      utilisent des techniques parfois très différentes. Parmi les méthodes non
+      supervisées, certaines utilisent des statistiques très simples, tandis que
+      d'autres se reposent sur des représentations faisant émerger les relations
+      sémantiques entre les termes-clés candidats, ou entre leurs mots. Les
+      méthodes supervisées utilisent presque toutes des classificateurs. Elles
+      rivalisent entre elles par les traits discriminants qu'elles proposent.
+      Parce qu'elles utilisent des données d'entraînement, les méthodes
+      supervisées s'adaptent aux types de documents qu'elles doivent traiter et
+      sont généralement plus performantes que les méthodes non supervisées.
 
   \section{Assignement automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_assignment}
@@ -1017,21 +1032,31 @@
     pas rigoureusement d'assignement de termes-clés. Leur approche y est
     toutefois appropriée.
 
+    ~\\L'assignement est une catégorie d'indexation par termes-clés encore peu
+    étudiée, alors qu'en principe elle attribue des termes-clés d'une qualité
+    certifiée par l'usage d'un vocabulaire contrôlé. Seulement deux travaux
+    originaux se rapprochent de l'assignement de termes-clés. L'un se fonde sur
+    un vocabulaire contrôlé (un thésaurus), mais ne va pas au-delà du contenu du
+    document~; l'autre assigne des termes-clés qui n'occurrent pas
+    nécessairement dans le document, mais ne se fonde pas sur vocabulaire
+    contrôlé ou un quelconque approximation.
+
   %-----------------------------------------------------------------------------
 
   \section{Évaluation automatique de l'indexation par termes-clés}
   \label{sec:main-state_of_the_art-automatic_evaluation_of_keyphrase_annotation}
     Pour montrer l'apport des nouvelles méthodes d'indexation par termes-clés,
-    celles-ci sont comparées aux méthodes existantes dans un processus
-    d'évaluation \og{}à la Cranfield\fg{} \citep{voorhees2002philosophy}. Chaque
-    méthode est appliquée à un ensemble de documents de test (corpus de test) et
-    les termes-clés qu'elle extrait sont comparés à un ensemble de termes-clés
-    associés manuellement aux documents (jugements de référence). Un jugement de
-    référence est supposé unique, la comparaison entre un terme-clé extrait
-    et un terme-clé de référence est donc binaire. Le résultat des comparaisons
-    pour chaque document est analysé selon différents critères (le moins
-    d'erreurs, le plus de termes-clés corrects, etc.) et la méthode respectant
-    en moyenne.
+    celles-ci sont comparées automatiquement aux méthodes existantes dans un
+    processus d'évaluation \og{}à la Cranfield\fg{}
+    \citep{voorhees2002philosophy}~: chaque méthode est appliquée à un ensemble
+    de documents de test (corpus de test) et les termes-clés qu'elle extrait
+    pour chaque document sont comparés à un ensemble de termes-clés associés
+    manuellement aux documents, nous parlons de jugements de référence. Un
+    jugement de référence est supposé unique, la comparaison entre un terme-clé
+    extrait et un terme-clé de référence est donc binaire. Le résultat des
+    comparaisons pour chaque document est analysé selon différents critères (le
+    moins d'erreurs, le plus de termes-clés corrects, etc.) et la méthode
+    respectant en moyenne le mieux ces critères est supposée la meilleure.
 
     En indexation par termes-clés, il est courant d'évaluer une méthode en
     termes de précision, de rappel et de f-mesure. La précision capture la
@@ -1117,72 +1142,50 @@
     chevauchement~\cite{zesch2009rprecision,kim2010rprecision}. Ces travaux
     ne sont toutefois pas utilisés travaux récents.
 
+  %-----------------------------------------------------------------------------
+
   \section{Conclusion}
   \label{sec:main-state_of_the_art-automatic_evaluation_of_keyphrase_annotation-conclusion}
-    Dans ce chapitre, nous présentons la tâche d'indexation par termes-clés, de
-    la sélection des termes-clés candidats aux différentes méthodes d'extraction
-    et d'assignement de termes-clés, sans oublier leur évaluation. Nos travaux
-    de recherche s'intéressent à chacun de ces axes, sur la base d'observations
-    critiques des précédents travaux.
+    Dans ce chapitre, nous avons présenté la tâche d'indexation par termes-clés,
+    de la sélection des termes-clés candidats aux différentes méthodes
+    d'extraction et d'assignement de termes-clés, en passant par le processus
+    d'évaluation automatique de ces dernière.
 
-    Les méthodes d'indexation par termes-clés sont presque toutes dépendantes
-    de l'étape de sélection des termes-clés candidats. Bien que secondaire à la
-    tâche, cette étape est importante. En effet, si elle fournit peu de
-    candidats, elle limite les performances d'une méthode d'indexation par
-    termes-clés, soit le rappel maximum théorique, et si elle fournit
-    beaucoup de candidats, elle augmente les risques de fournir des candidats
-    erronés et donc de dégrader les performances de la méthode. Les méthodes de
-    sélection de candidats présentées ont peu de fondements linguistiques.
-    Utiliser des filtres linguistiques ou sélectionner les candidats avec des
-    méthodes d'extraction
-    terminologique~\cite{jacquemin1997fastr,daille2003acabit,rocheteau2011termsuite}
-    sont deux solutions possibles pour extraire des candidats de bonne qualité
-    et en nombre suffisant pour ne pas limiter la meilleure performance
-    théorique.
+    La sélection des termes-clés candidats est une étape quasi-systématique de
+    l'indexation automatique par termes-clés. Ne s'agissant cependant pas du
+    c\oe{}ur de la tâche, la définition de nouvelle méthodes de sélection est
+    négligée au profit de méthodes de sélection simples (sélection de n-grammes,
+    \textit{chunks nominaux} ou séquences noms-adjectifs). Toutefois, l'idée que
+    l'indexation par termes-clés gagnerait en performances si les candidats
+    sélectionnés étaient moins nombreux, c'est-à-dire contiendraient moins
+    d'erreurs, semble faire consensus auprès des chercheurs qui s'y intéressent.
+    La méthode qui consiste à définir des patrons grammaticaux, tels que celui
+    pour sélectionner les séquences noms-adjectifs,  pourait être utilisée pour
+    sélectionner des candidats en s'intéressant plus en profondeur aux classes
+    grammaticales employées dans les termes-clés, ainsi qu'à d'autres propriétés
+    linguistiques de leurs composants.
 
-    Parmi les méthodes d'indexation par termes-clés, la majorité extrait les
-    termes-clés depuis le contenu du document. Cette extraction est réalisée de
-    manière supervisée ou non supervisée. Les méthodes supervisées sont
-    actuellement les plus performantes, cependant, celles-ci sont dépendantes
-    d'un effort humain d'annotation manuelle d'un corpus d'apprentissage et ne
-    peuvent être appliquées qu' des documents de même nature et de même domaine
-    que les documents de celui-ci. Les méthodes non-supervisées ont l'avantage
-    de s'abstraire de ce besoin, qu'elles pallient avec des représentations plus
-    complexes des documents. Dans nos travaux de recherche, nous nous
-    intéressons à la représentation sous forme de graphe du document.
-    L'hypothèse selon laquelle un mot est important s'il apparait dans le
-    contexte de mots importants est intéressante. Nous pensons toutefois qu'il
-    serait plus pertinent d'ordonner les termes-clés candidats plutôt que les
-    mots. Un autre point qui n'a jamais été abordé est la dispersion dans le
-    graphe des informations relatives à un même concept, où sujet, représenté
-    par plusieurs unités textuelles (plusieurs n\oe{}uds) dans le document.
+    Le c\oe{}ur de la tâche d'indexation automatique par termes-clés est
+    réalisée de deux manières différentes~: soit les termes-clés sont extraits
+    depuis le contenu du document, soit ils sont assignés en puisant dans un
+    vocabulaire contrôlé. Dans la littérature, l'extraction fait l'objet de plus
+    de travaux que l'assignement. Parmi les travaux les plus récents, ce sont
+    les méthodes d'extraction de termes-clés à base de graphe qui sont les plus
+    étudiées. Elles ont l'avantage d'utiliser une représentation simple et
+    intuitive du document. Cependant, leur focalisation sur les mots ne nous
+    semble pas pertinente, car les termes-clés sont des mots ou des expressions.
+    Par ailleurs, le problème de dispersion dans le graphe d'éléments
+    sémantiquement équivalents n'a encore jamais été évoqué/résolu.
 
-    L'assignement de termes-clés est une catégorie d'indexation par termes-clés
-    encore peut explorée. Celle-ci fournit des termes-clés d'un vocabulaire
-    contrôlé. Ces termes-clés sont de meilleure qualité (mieux formés) que ceux
-    qui sont extraits d'un document, mais le fait qu'ils n'apparaissent pas
-    nécessairement dans le document rend la tâche plus difficile. De plus, se
-    restreindre aux termes-clés d'un vocabulaire contrôlé ne permet pas de
-    fournir des termes-clés représentant des concepts nouveaux qui ne sont pas
-    encore dans le vocabulaire. Alors que l'assignement de termes-clés est
-    considéré comme une indexation par termes-clés concurrente de l'extraction
-    de termes-clés, il nous semble qu'elle devrait être utilisée en complément,
-    lorsque les ressources disponibles le permettent.
-
-    L'évaluation des méthodes d'indexation par termes-clés est une étape
-    obligatoire pour démontrer leur apport vis-à-vis des précédentes méthodes.
-    Parce qu'une évaluation manuelle est trop coûteuse, les chercheurs évaluent
-    le plus souvent leurs méthodes automatiquement avec des corpus de test dont
-    les documents sont associés à des termes-clés de référence annotés par des
-    humains. Si un terme-clé est le même qu'un terme-clé de référence, alors
-    il est jugé correct, sinon il est jugé erroné. Ce jugement binaire permet
-    de distinguer les meilleures méthodes, mais il ne permet pas de comparer
-    deux méthodes sur la base de leurs erreurs. Prenons l'exemple extrême de
-    deux méthodes n'ayant fourni aucun terme-clé correct~: l'une fournit
-    des termes-clés qui n'ont aucun point commun avec les termes-clés de
-    référence et l'autre fournit des termes-clés similaires, mais pas
-    identiques, aux termes-clés de référence. Dans ce cas les deux méthodes sont
-    considérées toutes aussi mauvaises. Une évaluation plus souple, prenant en
-    compte la synonymie ou le recouvrement partiel des unités textuelles,
-    pourrait indiquer que la seconde méthode est meilleure que la première.
+    L'évaluation des méthodes d'indexation par termes-clés est généralement
+    effectuée de manière automatique. Comparé à un jugement de référence unique,
+    le résultat d'une méthode d'indexation par termes-clés est évalué en termes
+    de précision, qui est d'autant plus élevée s'il y a le moins d'erreurs, de
+    rappel, qui est d'autant plus élevée s'il y a beaucoup de termes-clés
+    positifs, et de f-mesure, qui est le compromis entre précision et rappel. Ce
+    modèle d'évaluation présente l'avantage d'être utilisable dès lors que des
+    données de test sont disponibles. La comparaison à un jugement de référence
+    unique rend cependant l'évaluation pessimiste. Lorsque les conditions le
+    permettent, une évaluation manuelle reste indispensable pour mieux mesurer
+    les forces et les faiblesses d'une méthode d'indexation par termes-clés.
 

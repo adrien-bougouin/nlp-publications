@@ -37,20 +37,17 @@
     scientifiques~: titre, auteur(s), résumé et termes-clés. Parmi ces
     métadonnées, les termes-clés font partie des plus importantes pour la
     \textsc{Ri}. Ce sont des mots ou des expressions qui représentent le contenu
-    principal d'un document\footnote{Un terme-clé est plus communément appelé
-    mot-clé. Cependant, un mot-clé n'étant pas uniquement monolexical, nous
-    utilisons la notion de terme-clé pour lever toute ambiguïté. Lorsque dans la
-    suite nous parlons de mots-clés, cela ne concerne donc que les
-    monolexicaux.}. Ils permettent donc de le résumer, de le catégoriser et de
-    définir les éléments discriminants pour déterminer s'il correspond à la
-    requête d'une personne cherchant une information particulière. Lorsque
-    réalisée par les auteurs des documents ou par un quelconque lecteur,
-    l'attribution des termes-clés aux documents est une tâche subjective. Dans
-    un soucis d'homogénéité de l'indexation de tous les documents, de conformité
-    du vocabulaire utilisé, d'exhaustivité et d'impartialité, les organismes
-    tels que l'Inist emploient des indexeurs professionnels (ingénieurs
-    documentalistes) qui attribuent les termes-clés dans le respect des
-    pratiques documentaires et du langage du domaine de spécialité des
+    principal d'un document. Ils permettent donc de le résumer, de le
+    catégoriser et de définir les éléments discriminants pour déterminer s'il
+    correspond à la requête d'une personne cherchant une information
+    particulière. Lorsque réalisée par les auteurs des documents ou par un
+    quelconque lecteur, l'attribution des termes-clés aux documents est une
+    tâche subjective. Dans un soucis d'homogénéité de l'indexation de tous les
+    documents, de conformité du vocabulaire utilisé, d'exhaustivité et
+    d'impartialité, les organismes tels que l'Inist emploient des indexeurs
+    professionnels (ingénieurs documentalistes) qui attribuent les termes-clés
+    spécifiques au contenu de chaque document, dans le respect des pratiques
+    documentaires et du langage du domaine de spécialités des
     documents~\cite{guinchat1996techniquesdocumentaires}.
 
     L'indexation manuelle des documents par leurs termes-clés est une tâche
@@ -60,9 +57,10 @@
     en témoignent le nombre grandissant d'articles scientifiques à ce
     sujet~\cite{hasan2014state_of_the_art} ainsi que l'émergence de campagnes
     d'évaluation automatique~\cite{kim2010semeval,paroubek2012deft}. Dans cette
-    thèse, nous proposons des méthodes pour l'indexation par termes-clés.
-    Travaillant d'abord d'un point de vu généraliste, nous nous focalisons
-    ensuite sur l'indexation par termes-clés en domaines de spécialités.
+    thèse, nous proposons des méthodes pour l'indexation automatique par
+    termes-clés. Travaillant d'abord d'un point de vu généraliste, nous nous
+    focalisons ensuite sur l'indexation par termes-clés en domaines de
+    spécialités.
 
   %-----------------------------------------------------------------------------
 
@@ -78,13 +76,13 @@
     termes-clés, a l'avantage d'extraire des termes-clés qui représentent des
     concepts nouveaux, alors que l'indexation contrôlée, ou assignement de
     termes-clés, ne peut le faire que dès lors que la terminologie qu'elle
-    utilise a été mise à jour manuellement. Par ailleurs, l'indexation libre
+    utilise a été mise à jour manuellement. En revanche, l'indexation libre
     extrait les termes-clés tels qu'ils apparaissent dans les documents,
     c'est-à-dire dans leur forme qui n'est pas toujours canonique et donc
     imparfaite, alors que l'indexation contrôlée assigne toujours des
     termes-clés dans leur forme canonique (appropriée).
     
-    Que les termes-clés possibles (candidats) soient les unités textuelles du
+    Que les termes-clés possibles (termes-clés candidats) soient les unités textuelles du
     document ou les entrées d'une terminologie, la difficulté de la tâche
     d'indexation par termes-clés réside dans l'identification des relations
     entre les candidats dans le document afin de déterminer lesquels sont les
@@ -92,9 +90,10 @@
     caractéristiques discriminantes afin de déterminer lesquels sont les
     termes-clés et lesquels ne le sont pas. L'identification des relations entre
     les termes-clés candidats n'a été utilisée que pour l'extraction de
-    termes-clés (indexation libre) et l'identification des caractéristiques
-    discriminantes a été utilisée indifféremment pour l'extraction de
-    termes-clés et l'assignement de termes-clés (indexation contrôlée).
+    termes-clés~\cite{mihalcea2004textrank} et l'identification des
+    caractéristiques discriminantes a été utilisée indifféremment pour
+    l'extraction de termes-clés et l'assignement de
+    termes-clés~\cite{witten1999kea,medelyan2006kea++}.
 
     L'extraction de termes-clés, lorsqu'elle s'intéresse aux relations entre les
     termes-clés candidats peut être réalisée de manière non supervisée,
@@ -132,7 +131,7 @@
     certains adjectifs jugés superflus.
 
     L'extraction non supervisée de termes-clés a récemment été étudiée à partir
-    d'une représentation du document sous la forme d'un graphe. Les mots du
+    de représentations du document sous la forme d'un graphe. Les mots du
     document forment les n\oe{}uds du graphe et les arêtes entre les mots
     indiquent qu'ils cooccurrent dans le document. Un algorithme qui mesure la
     centralité est appliqué à ce graphe afin de déterminer les mots centraux
@@ -149,10 +148,10 @@
     étudions la méthodologie d'indexation manuelle en domaines de spécialités et
     montrons qu'extraction et assignement doivent être effectués conjointement~:
     l'extraction pour assurer l'exhaustivité des termes-clés et l'assignement
-    pour assurer homogénéité et conformité. Nous proposons d'utiliser des
-    données d'entraînement pour créer une représentation d'un domaine sous forme
-    de graphe et d'unifier ce graphe à celui qui représente le document afin de
-    réaliser conjointement extraction et assignement de termes-clés.
+    pour assurer leur homogénéité et leur conformité. Nous proposons d'utiliser
+    des données d'entraînement pour créer une représentation d'un domaine sous
+    forme de graphe et d'unifier ce graphe à celui qui représente le document
+    afin de réaliser conjointement extraction et assignement de termes-clés.
 
   %-----------------------------------------------------------------------------
 
