@@ -498,7 +498,8 @@
         arêtes qui les connectent représentent leurs relations d'adjacence dans
         le document, c'est-à-dire leurs relations de cooccurrences dans une
         fenêtre de deux mots. Un score d'importance est calculé pour chaque mot
-        à partir de l'algorithme PageRank~\cite{brin1998pagerank} qui est issu
+        à partir de l'algorithme PageRank~\cite{brin1998pagerank} qui est un
+        algorithme de marche aléatoire (\textit{random walk}) issu
         de la mesure de centralité des vecteurs propres. Le principe utilisé est
         celui de la recommandation (du vote)~: un mot est d'autant plus
         important s'il cooccurre avec un grand nombre de mots et si les mots
@@ -1146,10 +1147,10 @@
 
   \section{Conclusion}
   \label{sec:main-state_of_the_art-automatic_evaluation_of_keyphrase_annotation-conclusion}
-    Dans ce chapitre, nous avons présenté la tâche d'indexation par termes-clés,
-    de la sélection des termes-clés candidats aux différentes méthodes
-    d'extraction et d'assignement de termes-clés, en passant par le processus
-    d'évaluation automatique de ces dernière.
+    Nous avons présenté la tâche d'indexation par termes-clés, de la sélection
+    des termes-clés candidats aux différentes méthodes d'extraction et
+    d'assignement de termes-clés, en passant par le processus d'évaluation
+    automatique de ces dernière.
 
     La sélection des termes-clés candidats est une étape quasi-systématique de
     l'indexation automatique par termes-clés. Ne s'agissant cependant pas du

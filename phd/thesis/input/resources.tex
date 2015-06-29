@@ -24,10 +24,9 @@
     (météorologie, sciences humaines et sociales, informatique, etc.) et genres
     de documents (résumés, articles scientifiques, articles journalistiques,
     etc.). Cette diversité est essentielle à la compréhension des points forts
-    et des points faibles d'une méthode~\cite{hassan2010conundrums}, car des
-    facteurs différents peuvent influencer les performances des méthodes
-    d'indexation par termes-clés. \newcite{hasan2014state_of_the_art} en
-    énoncent quatre~:
+    et des points faibles d'une méthode d'indexation par termes-clés, car des
+    facteurs différents peuvent influencer ses performances.
+    \newcite{hasan2014state_of_the_art} en énoncent quatre~:
     \begin{itemize}
       \item{si un document est long, alors le nombre de termes-clés candidats
             pour celui-ci est élevé et l'indexation par termes-clés est plus
@@ -44,30 +43,30 @@
     \end{itemize}
     Des variations de performance dues à la mauvaise qualité de certains
     documents sont aussi constatées. Dans le cas d'articles scientifiques, par
-    exemple, le format original est très souvent le \textsc{Pdf}
-    (\textit{Portable Document Format}), qui est ensuite converti en texte
-    depuis ses flux de données ou avec des outils d'\textsc{Ocr}
-    (\textit{Optical Character Recognition}). Ces procédés ne sont pas parfaits,
-    ils ajoutent parfois des fautes d'orthographe (mauvais caractères et
-    problèmes d'accents) et ils ne traitent pas toujours correctement les
-    environnements tels que les notes de pieds de page, les tableaux, les
-    figures et les équations. Nous identifions deux autres facteurs que
+    exemple, les documents sont fréquemment issus d'un \textsc{Pdf}
+    (\textit{Portable Document Format}), puis convertis en texte depuis ses flux
+    de données ou avec des outils d'\textsc{Ocr} (\textit{Optical Character
+    Recognition}). Ces procédés ne sont pas parfaits, ils ajoutent parfois des
+    fautes d'orthographe (mauvais caractères et problèmes d'accents) et ils ne
+    traitent pas toujours correctement certains environnements graphiques et
+    textuelles tels que les notes de pieds de page, les tableaux, les figures et
+    les équations. Nous identifions deux autres facteurs que
     \newcite{hasan2014state_of_the_art} n'évoquent pas. Selon les collections de
     données, la proportion de termes-clés de référence n'apparaissant pas dans
-    les documents est parfois faible, mais parfois élevée. Dans certains
-    cas, les méthodes d'extraction de termes-clés sont donc désavantagées. La
-    qualification des annotateurs des termes-clés de référence est le second
-    facteur. Nous observons trois annotateurs différents~: les auteurs des
-    articles, des indexeurs professionnels et des lecteurs. Les auteurs
-    cherchent à attirer le lecteur~; les indexeurs professionnels (ou ingénieurs
-    documentalistes) aspirent à une annotation homogène entre tous les documents
-    d'un même domaine grâce à un vocabulaire contrôlé~; les lecteurs sont plus
-    libres que les auteurs et les indexeurs professionnels, ils ne sont
-    influencés ni par les termes-clés \og{}à la mode\fg{}, ni par un vocabulaire
-    contrôlé.
+    les documents varie d'un exrême à l'autre. Dans le cas où la majorité des
+    termes-clés n'apparaissent pas dans les documents, les méthodes d'extraction
+    de termes-clés sont désavantagées. La qualification des annotateurs des
+    termes-clés de référence est le second facteur. Nous observons trois
+    annotateurs différents~: les auteurs des articles, des indexeurs
+    professionnels et des lecteurs. Les auteurs cherchent à attirer le lecteur~;
+    les indexeurs professionnels (ou ingénieurs documentalistes) aspirent à une
+    annotation homogène entre tous les documents d'un même domaine grâce à un
+    vocabulaire contrôlé~; les lecteurs sont plus libres que les auteurs et les
+    indexeurs professionnels, ils ne sont influencés ni par les termes-clés
+    \og{}à la mode\fg{}, ni par un vocabulaire contrôlé.
 
     Dans nos travaux de recherche, nous utilisons cinq collections de données~:
-    Termith, \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. En accord avec le
+    Termith, \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}. En accord avec le
     point de vue de \newcite{hassan2010conundrums}, celles-ci couvrent deux
     langues (français et anglais), un large éventail de domaines (sciences
     humaines et sociales, informatique, météorologie, catastrophes naturelles,
@@ -876,20 +875,11 @@
 
   \section{Conclusion}
   \label{sec:main-data_description-conclusion}
-    Dans ce chapitre, nous présentons les ressources que nous utilisons dans nos
+    Nous avons présenté les ressources que nous utilisons dans nos
     travaux de recherche. Pour analyser nos travaux, les évaluer et les comparer
-    aux autres, nous disposons de cinq collections de données~: Termith,
-    \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. Chacune de ces collections
-    est monolingue et uniforme en genre. Elles ont toutefois des configurations
-    différentes (cf. tableau~\ref{tab:corpora_recap}). Cette diversité nous
-    intéresse particulièrement, car \og{}pour comprendre les forces et les
-    faiblesses d'une méthode d'indexation par termes-clés, il est essentiel de
-    l'évaluer avec des collections de données variées\fg{}~\cite{hassan2010conundrums}. Les
-    caractéristiques que nous faisons varier selon les collections sont le genre
-    (scientifique ou journalistique), la taille des documents (de 156,7 à
-    7~102,9 mots), la proportion de termes-clés ne pouvant pas être extraits
-    depuis le contenu des documents (de 3,5~\% à 62,1~\%) et la qualification
-    des annotateurs (auteur, lecteur ou indexeur professionnel).
+    aux autres, nous disposons de cinq collections de données différentes~:
+    Termith, \textsc{Deft}, Wikinews, SemEval et \textsc{Duc}. Chacune de ces
+    collections est monolingue et uniforme en genre.
 
     \begin{table}[!h]
       \centering
@@ -916,21 +906,4 @@
       \caption{Bilan des corpus
                \label{tab:corpora_recap}}
     \end{table}
-
-    Au-delà d'être destinées aux evaluations, les collections de données que
-    nous présentons peuvent servir à identifier les propriétés stables des
-    termes-clés. De ces collections, nous pouvons par exemple vérifier les trois
-    propriétés que l'on retrouve dans la plupart des travaux~:
-    \begin{enumerate*}
-      \item{les termes-clés sont des unités textuelles de petite taille,
-            composées de un à trois mots~;}
-      \item{les termes-clés sont majoritairement des noms ou des groupes
-            nominaux~;}
-      \item{un document ne contient généralement pas plus de dix termes-clés.}
-    \end{enumerate*}
-    Parmis ces propriétés, seule la seconde se fonde sur des connaissances
-    linguistiques. Il serait intéressant d'étendre ces trois propriétés avec
-    des propriétés linguistiques plus précises, portant par exemple sur la
-    nature des modifieurs dans les groupes nominaux, afin de mieux identifier
-    les frontières d'un termes-clés composé de plusieurs mots (expression).
 

@@ -23,39 +23,32 @@
     moyen de l'extraction de termes-clés, nous montrons que l'assignement de
     termes-clés joue un rôle important en domaines de spécialités.
 
-    Dans ce chapitre, nous décrivons le comportement des indexeurs
-    professionnels qui maintiennent la bibliothèque scientifique numérique
-    (\textsc{Bsn}) de l'Inist, puis nous proposons une automatisation de ce
-    comportement. Les indexeurs professionnels assignent à chaque document des
-    termes-clés du domaine, répertoriés dans un vocabulaire contrôlé, et
-    extraient des termes-clés hors du vocabulaire contrôlé lorsqu'ils sont très
-    spécifiques au document ou lorsqu'il s'agit de nouveaux concepts. Pour
-    reproduire ce comportement, nous étendons nos travaux précédents par
-    l'intégration, dans le graphe de sujets, des termes-clés du domaine,
-    c'est-à-dire du vocabulaire contrôlé. Ce dernier n'étant cependant pas
-    disponible dans tous les cas de figure, nous en déterminons une
-    approximation à partir des termes-clés de référence des données
-    d'entraînement.
+    Nous commençons par décrire le comportement des indexeurs
+    professionnels qui maintiennent les bases des données bibliographiques de
+    l'Inist (Institut de l'information scientifique et technique), puis nous en
+    proposons une automatisation. Les indexeurs professionnels assignent à
+    chaque document des termes-clés du domaine (d'un vocabulaire contrôlé), et
+    extraient des termes-clés spécifiques au document (hors du vocabulaire
+    contrôlé). Pour reproduire ce comportement, nous étendons nos travaux sur
+    TopicRank en intégrant dans le graphe de sujets les entrées du vocabulaire
+    contrôlé du domaine. Ce vocabulaire contrôlé n'existant cependant pas
+    toujours, nous en déterminons une sous-partie à partir des termes-clés de
+    référence des données d'entraînement.
 
-    Enfin, nous présentons les premiers résultats d'une évaluation manuelle de
-    nos travaux en domaines de spécialités. Pour cette évaluation, nous
-    proposons un protocole et des métriques permettant d'évaluer deux aspects.
-    L'un permet d'évaluer la performance d'une méthode d'après la pertinence des
-    termes-clés qu'elle extrait/assigne et l'autre permet d'évaluer la
-    performance d'une méthode en terme de quantité d'information importante
-    capturée par ces termes-clés.
+    Enfin, nous présentons les premiers résultats d'une campagne d'évaluation
+    manuelle de nos travaux en domaines de spécialités. Pour cette campagne,
+    nous proposons un protocole et des métriques permettant d'évaluer deux
+    aspects~: la pertinence des termes-clés extraits/assignés et la quantité
+    d'information importante capturée par les termes-clés.
 
   %-----------------------------------------------------------------------------
 
-  \section[Indexation manuelle dans le contexte d'une bibliothèque scientifique]{Indexation manuelle dans le contexte d'une bibliothèque\\scientifique}
+  \section{Indexation manuelle en domaines de spécialités}
   \label{sec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation}
-    Dans cette section, nous présentons la tâche d'indexation par termes-clés
-    réalisée manuellement au sein d'un organisme gestionnaire d'une
-    \textsc{Bsn}. Pour cela, nous nous fondons sur les propos recueillis des
-    indexeurs professionnels de l'Inist, dont les données Termith sont issues.
-    La \textsc{Bsn} de l'Inist est indexée à l'aide de termes-clés
-    majoritairement issus de ressources terminologiques définies et maintenues
-    par les indexeurs.
+    En nous fondant sur les  propos recueillis des indexeurs professionnels de
+    l'Inist, qui maintient une partie des bases de données bibliographiques de
+    la \textsc{Bsn} (bibliothèque scientifique numérique), nous présentons la
+    méthodologie d'indexation manuelle en domaines de spécialités.
 
     \subsection{Principes généraux}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-principles}
@@ -201,18 +194,17 @@
 
   \section{Indexation automatique en domaines de spécialités}
   \label{sec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
-    Cette section introduit TopicCoRank, une extension supervisée de TopicRank
-    adaptée à l'indexation par termes-clés en domaines de spécialités. En nous
-    fondant sur l'indexation réalisée par des indexeurs professionnels présentée
-    précédemment, nous ajoutons à TopicRank la capacité à assigner des
-    termes-clés qui ne cooccurrent pas nécessairement dans le document et qui
-    respectent le langage documentaire. Pour cela, nous approximons un
-    vocabulaire contrôlé à partir des termes-clés de référence des données
-    d'entraînement. Nous assurons autant que possible l'homogénéité de
-    l'assignement en déterminant conjointement l'importance des sujets du
-    document et des termes-clés de référence du domaine~: les sujets importants
-    du documents influencent l'importance des termes-clés de référence et ces
-    derniers influencent l'importance des sujets du document.
+    L'indexation automatique par termes-clés est définie comme la tâche qui
+    consiste à extraire des termes-clés du contenu d'un document, ou à en
+    assigner en s'aidant d'un vocabulaire contrôlé. Alors que dans la
+    littérature, l'indexation par termes-clés est presque toujours réduite à la
+    seule extraction de termes-clés, nous avons vu en domaines de spécialités
+    que les deux catégories d'indexation (extraction et assignement) jouent
+    chacune un rôle qui leur est propre.
+
+    Pour réaliser une indexation automatique par termes-clés, nous proposons la
+    méthode TopicCoRank. TopicCoRank est, à notre connaissance la seule méthode
+    capable de réaliser conjointement extraction et assignement de termes-clés.
 
     \subsection{TopicCoRank}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-topiccorank}
@@ -910,51 +902,47 @@
 
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-conclusion}
-      Avec TopicCoRank, nous proposons une extension de la méthode TopicRank,
-      que nous présentons dans la
-      section~\ref{sec:main-domain_specific_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction}
-      (page~\pageref{sec:main-domain_specific_keyphrase_annotation-unsupervised_automatic_keyphrase_extraction}).
-      Cette extension apporte à TopicRank la capacité à assigner des
-      termes-clés, c'est-à-dire à réaliser la tâche d'indexation par termes-clés
-      dans sa globalité. Pour ce faire, TopicCoRank utilise les termes-clés de
+      Nous avons présenté TopicCoRank, une extension de la méthode TopicRank.
+      Proposée dans le but de simuler le comportement d'un indexeur
+      professionnel, cette extension apporte à TopicRank la capacité à assigner
+      des termes-clés. Pour ce faire, TopicCoRank utilise les termes-clés de
       référence des documents d'entraînement comme vocabulaire contrôlé, crée un
       graphe dont chaque n\oe{}ud est une entrée du vocabulaire connecté aux
       autres lorsqu'ils sont termes-clés d'un même document, puis unifie ce
       graphe au graphe de sujets de TopicRank.
 
       Les résultats de l'évaluation de TopicCoRank en domaines de spécialités
-      montrent une amélioration significative vis-à-vis de l'état de l'art. Les
-      résultats de l'évaluation hors domaines de spécialités sont moins
-      probants. Les hypothèses que nous faisons en proposant TopicCoRank sont
-      fondées sur une étude de l'indexation manuelle en domaines de spécialités
-      qui ne sont pas directement généralisables à tout type de documents.
+      montrent une amélioration significative vis-à-vis de l'état de l'art. Ceux
+      hors domaines de spécialités sont moins probants. Les hypothèses que nous
+      faisons en proposant TopicCoRank sont fondées sur une étude de
+      l'indexation manuelle en domaines de spécialités qui ne sont pas
+      directement généralisables à tout type de documents.
 
   %-----------------------------------------------------------------------------
 
   \section{Évaluation manuelle en domaines de spécialités}
   \label{sec:main-domain_specific_keyphrase_annotation-manual_evaluation}
-    Cette section présente les premiers résultats d'une campagne d'évaluation
-    %manuelle de TopicRank, TopicCoRank et deux méthodes de référence, en domaine
-    manuelle de TopicRank et une méthode de référence, en domaine
-    de spécialité avec la collection de linguistique Termith. Cette campagne
-    d'évaluation est réalisée en partenariat avec l'Inist, qui met à notre
-    disposition un indexeur professionnel pour évaluer les termes-clés
-    extraits/assignés par nos méthodes.
-    
-    Cette campagne d'évaluation à pour objectif de compléter les évaluations
-    automatiques que nous avons réalisé. L'évaluation automatique suit le
-    paradigme d'évaluation \og{}à la
-    Cranfield\fg{}~\cite{voorhees2002philosophy}, c'est-à-dire qu'un terme-clé
-    ne peut être jugé correct que s'il fait partie de l'ensemble des termes-clés
-    de référence du document, et est de ce fait pessimiste. Lorsque les
-    ressources humaines le permettent, il donc est préférable d'effectuer une
-    évaluation manuelle.
+    L'évaluation manuelle des méthodes d'indexation par termes-clés consiste à
+    faire valider par un ou plusieurs évaluateurs humains les termes-clés
+    proposés par une méthodes automatique. Parce qu'elle est coûteuse, cette
+    évaluation est quasi-systématiquement remplacée par une évaluation
+    automatique, d'après le paradigme de l'évaluation \og{}à la Crandield\fg{},
+    comme nous l'avons fait dans nos travaux. Néanmoins, ce paradigme
+    d'évaluation n'est pas adapté à la tâche d'indexation par termes-clés, car
+    il ne considère qu'une seule et unique réponse exacte, c'est-à-dire un seul
+    et unique ensemble correct de termes-clés, alors que certaines variantes
+    d'ensembles de termes-clés sont acceptables (\TODO{exemple}). Ayant à notre
+    disposition des indexeurs professionnels de l'Inist, nous réalisons donc une
+    campagne d'évaluation manuelle.
 
-    Dans la suite, nous proposons un protocole d'évaluation, puis nous analysons
-    les résultats de l'évaluation de TopicRank d'après ce
-    protocole.\REMARK{Faut-il que je précise que cette section présentera
-    l'évaluation sur les quatre corpus Termith et aussi l'évaluation de
-    TopicCoRank dans la version finale de la thèse~?}
+    Dans la suite, nous présentons le protocole d'évaluation et les métriques
+    que nous avons proposés, puis nous analysons les premiers résultats de la
+    campagne d'évaluation manuelle de TopicRank et d'une méthode de référence en
+    domaine de spécialités avec la collection de linguistique Termith.
+    
+    \REMARK{Faut-il que je précise que cette section présentera l'évaluation sur
+    les quatre corpus Termith et aussi l'évaluation de TopicCoRank dans la
+    version finale de la thèse~?}
 
     \subsection{Protocole d'évaluation manuelle}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol}
@@ -1170,16 +1158,17 @@
 
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_evaluation-conclusion}
-      La campagne d'évaluation manuelle de nos méthodes a été définie de sorte à
-      capturer deux aspects de l'indexation par termes-clés~: la pertinence des
-      termes-clés extraits/assignés et leur silence, c'est-à-dire la quantité
-      d'information importante qu'ils ne capturent pas. Ce dernier aspect permet
-      d'évaluer les termes-clés extraits/assignés d'un point de vu sémantique
-      qui n'est jamais considéré par les systèmes d'évaluation automatique.
+      Nous avons réalisé une campagne d'évaluation manuelle de nos travaux en
+      domaine de spécialités, avec la collection de linguistique Termith. Pour
+      cette campagne, nous avons proposé un protocole d'évaluation et des
+      métriques permettant de capturer deux aspects de l'indexation par
+      termes-clés~: la pertinence des termes-clés extraits/assignés et leur
+      silence, c'est-à-dire la quantité d'information importante qu'ils ne
+      capturent pas. Contrairement au premier, qui est similaire à ce qu'évalue
+      un système automatique, le dernier aspect permet d'évaluer les termes-clés
+      d'un point de vu sémantique, jamais considéré auparavant.
 
-      Durant cette campagne d'évaluation, TopicRank et \textsc{Tf-Idf} ont été
-      évalués manuellement sur la collection de linguistique Termith. Les
-      résultats montrent que, contrairement à ce que montrait l'évaluation
+      Les résultats montrent que, contrairement à ce que montrait l'évaluation
       automatique, TopicRank effectue une indexation par termes-clés de
       meilleure qualité que celle de \textsc{Tf-Idf}. TopicRank extrait peu de
       termes-clés redondants et couvre mieux le document, grâce à son groupement
@@ -1199,14 +1188,18 @@
     sont les principes généraux de l'indexation manuelle par termes-clés en
     domaines de spécialités.
 
-    Nous avons aussi présenté les résultats d'une campagne d'évaluation manuelle
-    de TopicRank et \textsc{Tf-Idf} en domaine de spécialité (linguistique).
-    Cette campagne montre que l'évaluation automatique est une tâche pessimiste.
-    Les performances de TopicRank évaluées manuellement sont meilleures que
-    celle de \textsc{Tf-Idf}, confortant notre hypothèse qu'il faut grouper les
-    termes-clés candidats véhiculant le même sujet et ne représenter un sujet
-    que par un seul de ses candidats afin de mieux couvrir le contenu principal
-    du document. Toutes les étapes de la campagne d'évaluation manuelle vont
-    être pérennisées et rendues disponibles pour la communauté scientifique,
-    afin d'aider à la proposition de nouvelle méthodes d'évaluation automatique.
+    Nous avons aussi présenté les premiers résultats d'une campagne d'évaluation
+    manuelle de TopicRank et \textsc{Tf-Idf} en domaine de spécialités.
+    L'évaluation manuelle de \textsc{Tf-Idf} et de TopicRank montre que ce
+    dernier extrait plus de termes-clés positifs, notamment parce qu'il évite
+    d'extraire des termes-clés redondants et augmente alors sa couverture. Cette
+    supériorité de TopicRank vis-à-vis de \textsc{Tf-Idf} est contraire aux
+    observations que nous avons fait avec l'évaluation automatique. L'évaluation
+    automatique des méthodes d'indexation par termes-clés n'est actuellement pas
+    suffisante. Plus de travaux futures devraient se pencher sur ce problème.
+    Afin d'aider à la réalisation de nouvelles méthodes d'évaluation
+    automatique, et afin de permettre de mesurer leur corrélation avec une
+    évaluation humaine, toutes les étapes de la campagne d'évaluation manuelle
+    que nous avons mené vont être pérennisées et rendues disponibles pour la
+    communauté scientifique.
 
