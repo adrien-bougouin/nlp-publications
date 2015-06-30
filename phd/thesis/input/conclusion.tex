@@ -31,28 +31,29 @@
   noms modifiés par un adjectif s'il est jugé utile, non superflu. Un adjectif
   utile se distingue par sa catégorie (relationnel ou composé complexe) et son
   usage fréquent dans le document~; un adjectif superflu est un adjectif
-  qualificatif qui modifie un nom utilisé fréquemment en autonomie. Pour valider
-  ce travail, nous avons réalisé deux évaluations. La première évaluation,
-  intrinsèque, compare l'ensemble des termes-clés candidats sélectionnés par
-  notre méthode à ceux sélectionnés par les méthodes les plus utilisées. Si l'on
-  fait l'hypothèse qu'un ensemble de candidats a une qualité d'autant meilleure
-  que son nombre de candidats est réduit et que la performance maximale qu'il
-  permet d'atteindre est élevée, alors notre méthode fournit des candidats de
-  meilleure qualité que les autres méthodes. La seconde évaluation, extrinsèque,
-  compare les performances de deux méthodes d'extraction de termes-clés
-  lorsqu'elles utilisent les candidats de notre méthodes ou d'une des méthodes
-  les plus utilisées. Les meilleures performances qu'obtiennent ces méthodes
-  sont presque toujours obtenues avec les candidats que sélectionne notre
-  méthode. Nous avons présenté une méthode simple qui filtre efficacement les
-  adjectifs superflus pour améliorer la sélection des termes-clés candidats en
-  amont de l'extraction de termes-clés.
+  qualificatif qui modifie un nom utilisé plus fréquemment en autonomie. Pour
+  valider ce travail, nous avons réalisé deux évaluations. La première
+  évaluation, intrinsèque, compare l'ensemble des termes-clés candidats
+  sélectionnés par notre méthode à ceux sélectionnés par les méthodes les plus
+  utilisées. Si l'on fait l'hypothèse qu'un ensemble de candidats a une qualité
+  d'autant meilleure que son nombre de candidats est réduit et que la
+  performance maximale qu'il permet d'atteindre est élevée, alors notre méthode
+  fournit des candidats de meilleure qualité que les autres méthodes. La seconde
+  évaluation, extrinsèque, compare les performances des deux méthodes
+  d'extraction de termes-clés \textsc{Tf-Idf} et \textsc{Kea} lorsqu'elles
+  utilisent les candidats de notre méthodes ou d'une des autres méthodes. Les
+  meilleures performances qu'obtiennent ces méthodes sont presque toujours
+  obtenues avec les candidats que sélectionne notre méthode. Nous avons donc
+  présenté une méthode simple qui filtre efficacement les adjectifs superflus
+  pour améliorer la sélection des termes-clés candidats en amont de l'extraction
+  de termes-clés.
 
   Notre seconde contribution à l'extraction de termes-clés concerne
   l'ordonnancement par importance des termes-clés candidats à partir du graphe
   de cooccurrences de mots du document. Dans ce travail, nous avons remis en
-  cause l'ordonnancement des mots dans le graphe, alors que c'est l'importance
-  des termes-clés candidats qui nous intéresse. Pour y remédier, nous avons
-  proposé d'utiliser un graphe de sujets représentés par des termes-clés
+  cause l'ordonnancement des mots dans le graphe, puisque c'est l'importance des
+  termes-clés candidats qui nous intéresse. Pour y remédier, nous avons proposé
+  d'utiliser un graphe de sujets représentés par des groupes de termes-clés
   candidats, d'ordonner ces sujets par importance et d'extraire comme terme-clé
   le candidat le plus représentatif de chacun des sujets les plus importants.
   Pour valider ce travail, nous avons comparé la performance de notre méthode,
@@ -61,30 +62,49 @@
   précédentes. Ses performances restent tout de même très faibles. Pour
   améliorer TopicRank, il reste des pistes que nous n'avons pas explorées. Tout
   d'abord, l'identification des sujets que nous effectuons en groupant les
-  termes-clés candidats qui partagent le plus possible de mots tient compte ni
-  du la sémantique des mots, ni du contexte. Nous pourions utiliser des
-  algorithmes pour la détection de sujets, tels que
-  \textsc{Lda}~\cite{blei2003lda}. Ensuite, le choix du terme-clé candidat le
-  plus représentatif de chaque sujet n'est pas optimal. Utiliser de
-  l'apprentissage supervisé pour apprendre à reconnaître le représentant d'un
-  sujet est une solution~; utiliser des méthodes d'étiquetage de sujets en est
-  une autre. Cette dernière perspective est intéressante, car une méthode
-  générative permettra de proposer des termes-clés sous une forme qui n'occurre
-  pas nécessairement dans le document.
+  termes-clés candidats qui partagent le plus possible de mots ne tient pas
+  compte de la sémantique des mots. Nous pourions utiliser des algorithmes pour
+  la détection de sujets, tels que \textsc{Lda}~\cite{blei2003lda}. Ensuite, le
+  choix du terme-clé candidat le plus représentatif de chaque sujet n'est pas
+  optimal. Utiliser de l'apprentissage supervisé pour apprendre à reconnaître le
+  représentant d'un sujet est une solution~; utiliser des méthodes d'étiquetage
+  de sujets~\cite{lau2011topiclabeling} en est une autre. Cette dernière
+  perspective est intéressante, car une méthode générative permettra de proposer
+  des termes-clés sous une forme qui n'occurre pas nécessairement dans le
+  document.
 
   Notre contribution à l'indexation par termes-clés en domaines de spécialités
   étend notre seconde contribution pour y ajouter la capacité à assigner des
   termes-clés, à la manière d'un indexeur professionnel. Pour cela, notre
-  nouvelle méthode, TopicCoRank, représente le domaine de spécialité du
-  document avec le graphe des termes-clés de référence de documents du même
+  nouvelle méthode, TopicCoRank, représente le domaine de spécialité du document
+  avec un graphe de termes-clés de référence attribués à des documents du même
   domaine, le connecte au graphe de sujets et ordonne conjointement sujets et
   termes-clés de référence. Les termes-clés obtenus à partir du graphe de sujets
   sont extraits et les termes-clés obtenus à partir du graphe du domaine sont
   assignés. À notre connaissance, TopicCoRank est la première méthode qui
   réalise conjointement extraction et assignement de termes-clés. Comparé à
-  l'état de l'art, TopicCoRank donne de meilleures performances en domaines de
-  spécialités. TopicCoRank est cependant à un stade préliminaire et nous avons
-  encore plusieurs perspectives d'amélioration. Parmi elles, nous souhaiterions
-  étudier différents schémas de connexion des deux graphes et généraliser
-  TopicCoRank à des documents autres qu'en domaines de spécialités.
+  l'état de l'art, elle donne de meilleures performances en domaines de
+  spécialités. Néanmoins, TopicCoRank est encore à un stade préliminaire et nous
+  avons plusieurs perspectives d'amélioration. Parmi elles, nous souhaiterions
+  étudier différents schémas de connexion des deux graphes, étudier différentes
+  pondératons des arêtes et améliorer la généralisation de TopicCoRank à des
+  documents autres qu'en domaines de spécialités. Nous avons vu que
+  l'unification des deux graphes que nous avons proposé favorise l'assignement
+  de termes-clés présents dans le document. Afin de mieux ordonner les autres
+  termes-clés du domaine, nous envisageons d'analyser plus en profondeur le
+  contenu des documents utilisés pour construire le graphe du domaine. En lien
+  avec cette perspective, nous pourrions aussi pondérer les arêtes (internes et
+  externes) du graphe unifié avec les probabilités d'occurrences dans le
+  document et dans le domaine. Enfin, pour améliorer la généralisation de
+  TopicCoRank à tout type de documents, il nous faudra nous intéresser au manque
+  d'homogénéité de l'indexation par termes-clés de référence. Modifier notre
+  construction du graphe du domaine est une solution, mais nous pensons que ce
+  problème est plus lié à l'évaluation automatique.
+
+  Pour conclure, nous avons proposé des méthodes pour améliorer l'extraction de
+  termes-clés et l'indexation par termes-clés dans son ensemble (extraction et
+  assignement) en nous fondant sur les pratiques documentaires pour le maintient
+  de bases de données bibliographiques. Bien que nos travaux donnent des
+  résultats intéressants, ceux-ci restent encore relativement faibleset
+  \og{}la tâche est loin d'être résolue\fg{}~\cite{hasan2014state_of_the_art}.
 
