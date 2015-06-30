@@ -269,8 +269,8 @@
         textuelle dans le document avec son comportement dans un corpus de
         référence. Elles font l'hypothèse qu'une unité textuelle a une forte
         importance vis-à-vis du document si elle y est très fréquente et si elle
-        l'est peu dans le corpus de référence, auquel cas elle est spécifique au
-        document~:
+        l'est peu dans le corpus de référence (\TODO{figure}), auquel cas elle
+        est spécifique au document~:
         \begin{align}
           \text{\textsc{Tf-Idf}}(\text{\textit{ut}}) &= \textsc{Tf}(\text{\textit{ut}}) \times \log\left(\frac{N}{\textsc{Df}(\text{\textit{ut}})}\right) \label{math:tfidf}\\
           \notag\\
@@ -295,6 +295,11 @@
         Cependant, faire cette somme favorise les plus longues séquences de mots
         et fait monter dans le classement des candidats redondants qui possède
         un même mot important en commun (\TODO{exemple de redondance}).
+
+        Méthode de pondération historique de \textsc{Ri}, \textsc{Tf-Idf} reste
+        encore aujourd'hui l'une des méthodes de référence à laquelle il faut se
+        comparer pour montrer la validité d'une nouvelle méthode non supervisée
+        d'extraction de termes-clés.
 
         ~\\Okapi (ou \textsc{Bm}25) \cite{robertson1999okapi} est une mesure
         alternative à \textsc{Tf-Idf}. En Recherche d'Information (\textsc{Ri}),
@@ -410,21 +415,42 @@
         \end{itemize}
         La couverture de chaque sujet d'une solution est calculée avec le modèle
         \textit{Latent Dirichlet Allocation} (\textsc{Lda})~\cite{blei2003lda}.
-        \TODO{définir LDA}
-        Celle-ci ne doit pas être inférieure à un certain seuil pour qu'une
-        solution soit retenue. La contrainte de cohérence est calculée entre
-        chaque paire de mots de la solution. Si deux mots cooccurrent plus que
-        selon un seuil donné, alors ceux-ci peuvent être présents dans la même
-        solution, sinon la solution n'est pas satisfaisante. Ces deux
-        contraintes réduisent le champ des possibilités. Il faut ensuite
-        trouver quel ensemble de termes-clés parmi les solutions satisfaisantes
-        est le meilleur. Pour cela, un score d'importance des mots est calculé
-        et l'ensemble de termes-clés pour lequel la somme du score d'importance
-        des mots est la plus élevée est extrait. Ce score est une somme pondérée
-        du score \textsc{Tf-Idf} du mot, d'un bonus s'il est présent dans le
-        titre du document et d'un autre bonus s'il est présent dans la première
-        phrase du document~:
-        \TODO{remettre la formule}
+        \textsc{Lda} est un modèle probabiliste qui permet d'expliquer des
+        ensembles d'observations (ici, des mots) avec des ensembles non observés
+        (ici, des sujets), eux-mêmes définis par des distributions de
+        probabilités calculées à partir de données (ici, des documents). Depuis
+        le modèle \textsc{Lda}, \newcite{ding2011binaryintegerprogramming}
+        extraient la probabilité conditionnelle des mots des termes-clés d'une
+        solution sachant chaque sujet, ce qui indique quels mots de la solution
+        sont importants pour chaque sujet. L'importance des mots des termes-clés
+        doit excéder un seuil donné pour chaque sujet afin que la contrainte de
+        couverture soit respéctée pour la solution. La contrainte de cohérence
+        est calculée entre chaque paire de mots de la solution. Si deux mots
+        cooccurrent plus que selon un seuil donné, alors ceux-ci peuvent être
+        présents dans la même solution, sinon la solution n'est pas
+        satisfaisante. Ces deux contraintes réduisent le champ des possibilités.
+        Il faut ensuite trouver quel ensemble de termes-clés parmi les solutions
+        satisfaisantes est le meilleur. Pour cela, un score d'importance des
+        mots est calculé et l'ensemble de termes-clés pour lequel la somme du
+        score d'importance des mots est la plus élevée est extrait. Ce score est
+        obtenue avec une combinaison linéaire du score \textsc{Tf-Idf} du mot,
+        d'un \og{}bonus\fg{} s'il occure dans le titre du document et d'un autre
+        \og{}bonus\fg{} s'il occurre dans sa première phrase~:
+        \begin{align}
+          \textnormal{importance}(\textnormal{mot}) &= \alpha \times\frac{\mathlarger\sum_{d \in D} \textnormal{\textsc{Tf-Idf}}_d(\textnormal{mot})}{|D|} + \beta \times \mu_\textnormal{mot} + \gamma \times \nu_\textnormal{mot}\\
+          \mu_\textnormal{mot} &=\left\{\begin{array}{ll}\mu, & \textnormal{si mot} \in T\\0, & \textnormal{sinon}\end{array}\right.\notag\\
+          \nu_\textnormal{mot} &=\left\{\begin{array}{ll}\nu, & \textnormal{si mot} \in P\\0, & \textnormal{sinon}\end{array}\right.\notag
+        \end{align}
+        où $\alpha$, $\beta$ et $\gamma$ sont les coefficients associés à chaque
+        score ($\alpha + \beta + \gamma = 1$) et où $\mu$ et $\nu$ sont les
+        \og{}bonus\fg{} attribués si le mot occurre dans le titre $T$ ou dans la
+        première phrase $P$ du document, respectivement.
+
+        Paramétrée à l'aide de 50 articles journalistiques et évaluée sur 100
+        autres, la méthode de \newcite{ding2011binaryintegerprogramming} atteint
+        environ 70~\% de précision en moyenne, c'est-à-dire en moyenne quatre
+        termes-clés corrects sur les six demandés, soit une performance très
+        satisfaisante.
 
       \subsubsection{Méthodes par groupement}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-clustering_approaches}
@@ -447,7 +473,7 @@
         cooccurrences d'un candidat avec ceux d'un groupe, ils supposent qu'un
         terme-clé candidat apparaissant dans de longues phrases à le plus de
         chance de cooccurrer avec un candidat d'un des groupes. Ainsi, soit
-        $n_t$ le nombre de termes-clés candidats présents dans les phrases ou le
+        $n_t$ le nombre de termes-clés candidats présents dans les phrases où le
         candidat étudié apparait et $p_g$ le nombre de candidats présents dans
         les phrases ou un candidat du groupe $g$ apparaît, alors la fréquence
         attendue entre le candidat étudié et le groupe $g$ est représenté par le
@@ -467,8 +493,6 @@
         Les termes-clés extraits sont les $k$ termes-clés candidats ayant le
         plus fort biais statistique mesuré par $\chi^2{'}$.
 
-        \TODO{parler des évaluations de merde qu'ils ont fait}
-
         ~\\Dans l'algorithme KeyCluster, \newcite{liu2009keycluster} utilisent
         aussi un groupement sémantique, mais dans leur cas, ils ne considèrent
         que les mots du document, mots d'un antidictionnaire exclus. Le mot le
@@ -480,161 +504,192 @@
         au moins un terme-clé. Cependant, aucune pondération n'est proposée pour
         ordonner les termes-clés.
 
-        \TODO{parler des performance de KeyCluster et mettre des warning en se
-        reposant sur l'implémentation de Hasan et Ng}
+        \newcite{hassan2010conundrums} ont comparé KeyCluster à \textsc{Tf-Idf}.
+        Dans leur expériences, réalisées avec quatre collections de données
+        différentes, KeyCluster obtient des performances plus faibles que
+        \textsc{Tf-Idf}. \TODO{et donc~???}
 
       \subsubsection{Méthodes à base de graphe}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}
         Les approches à base de graphe sont actuellement les plus populaires.
         Utilisés dans de nombreuses applications du
         \textsc{Tal}~\cite{kozareva2013textgraphs}, les graphes ont l'avantage
-        de présenter de manière simple et efficace les unités textuelles d'un
-        document ainsi que les relations qu'elles entretiennent.
+        de présenter de manière simple et efficace le document, par ses unités
+        textuelles et les relations qu'elles entretiennent.
 
         ~\\\newcite{mihalcea2004textrank} proposent TextRank, une méthode
         d'ordonnancement d'unités textuelles à partir d'un graphe pour le résumé
-        automatique et l'extraction de termes-clés. Pour faire de l'extraction
-        de termes-clés, les n\oe{}uds du graphe sont les mots du document et les
+        automatique et l'extraction de termes-clés. Pour l'extraction de
+        termes-clés, les n\oe{}uds du graphe sont les mots du document et les
         arêtes qui les connectent représentent leurs relations d'adjacence dans
-        le document, c'est-à-dire leurs relations de cooccurrences dans une
-        fenêtre de deux mots. Un score d'importance est calculé pour chaque mot
-        à partir de l'algorithme PageRank~\cite{brin1998pagerank} qui est un
-        algorithme de marche aléatoire (\textit{random walk}) issu
-        de la mesure de centralité des vecteurs propres. Le principe utilisé est
-        celui de la recommandation (du vote)~: un mot est d'autant plus
-        important s'il cooccurre avec un grand nombre de mots et si les mots
-        avec lesquels il cooccurre sont eux aussi importants. Les mots les plus
-        importants sont considérés comme des mots-clés, ces mots-clés sont
-        marqués dans le document et les plus longues séquences de mots-clés
-        adjacents sont extraites en tant que termes-clés.
+        le document, dans une fenêtre de deux mots (\TODO{figure}). Un score
+        d'importance est calculé pour chaque mot à partir de l'algorithme
+        PageRank~\cite{brin1998pagerank}. PageRank est un algorithme de marche
+        aléatoire (\textit{random walk})~: un marcheur aléatoire parcours le
+        graphe de mot en mot en se déplaçant toujours sur un mot qui cooccurre
+        avec le mot courant. Le résultat du parcours du marcheur permet de
+        déduire l'importance de chaque mot d'après le principe de la
+        recommandation (du vote)~:  un mot est d'autant plus important s'il
+        cooccurre avec un grand nombre de mots (parce qu'il est beaucoup visité
+        par le marcheur) et si les mots avec lesquels il cooccurre sont eux
+        aussi importants (parce qu'il a plus de chance d'être visité par le
+        marcheur). Les mots les plus importants sont considérés comme des
+        mots-clés, ils sont marqués dans le document et les plus longues
+        séquences de mots-clés adjacents sont extraites en tant que termes-clés.
       
-        Soit $G = (N, A)$, le graphe non orienté de cooccurrences de mots où les
+        Soit le graphe de cooccurrences de mots non orienté $G = (N, A)$, où les
         n\oe{}uds $N$ représentent les mots du documents, et où les arêtes $A$
-        les connectent lorsque les mots cooccurrent dans le document.
-        L'importance de chaque mot $n_i$ est obtenue itérativement selon la
-        formule suivante~:
+        les connectent lorsqu'ils cooccurrent dans le document. L'importance de
+        chaque mot $n_i$ est obtenue itérativement selon la formule TextRank
+        suivante~:
         \begin{align}
           S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{S(n_j)}{|A(n_j)|} \label{math:textrank}
         \end{align}
         où $A(n_i)$ est l'ensemble des n\oe{}uds connectés au n\oe{}ud $n_i$ et
-        où $\lambda$ est un facteur d'atténuation. Défini entre 0 et 1, ce
-        dernier peut être considéré comme la probabilité pour que le n\oe{}ud
-        $n_i$ soit atteint par recommandation.
+        où $\lambda$ est un facteur d'atténuation. Nombre réel défini entre 0 et
+        1, ce dernier peut être considéré comme la probabilité pour que le
+        n\oe{}ud $n_i$ soit important d'après le principe de la recommandation.
+        \newcite{brin1998pagerank} suggèrent 0,85 comme valeur par défaut de
+        $\lambda$. Selon eux, cette valeur est un bon compromis entre la
+        précision des résultats et la vitesse de convergence de l'algorithme.
 
         ~\\\newcite{wan2008expandrank} modifient TextRank et proposent
         SingleRank. Dans un premier temps, leur méthode augmente la précision de
         l'ordonnancement en utilisant une fenêtre de cooccurrences élargie
-        (empiriquement) à dix et en pondérant les arêtes par le nombre de
-        cooccurrences entre les deux mots qu'elles connectent (cf.
-        équation~\ref{math:singlerank}). Dans un second
-        temps, les termes-clés ne sont plus générés à partir des séquences de
-        mots-clés dans le document, mais ordonnés à partir de
-        la somme du score d'importance des mots qui les composent. Cette
-        nouvelle méthode donne, dans la majorité des cas, des résultats
-        meilleurs que ceux de TextRank.
+        empiriquement à dix mots et en pondérant les arêtes par le nombre de
+        cooccurrences entre les deux mots qu'elles connectent. La pondération,
+        notée $\textnormal{poids}(n_j, n_i)$, sert à ajuster l'importance du mot
+        $n_i$ acquise à partir de sa recommandation par le mot $n_j$ (cf.
+        équation~\ref{math:singlerank}). Dans un second temps, les termes-clés
+        ne sont plus générés à partir des séquences de mots-clés dans le
+        document, mais ordonnés à partir de la somme du score d'importance des
+        mots qui les composent. Comparé à TextRank dans les expériences de
+        \newcite{hassan2010conundrums} réalisées avec quatre collections de
+        données différentes, SingleRank donne de meilleurs résultats
+        (\TODO{tableau}).
         \begin{align}
-          S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\text{poids}_{ji} \times S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} \text{poids}_{jk}} \label{math:singlerank}
+          S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\text{poids}(n_j, n_i) \times S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} \text{poids}(n_j, n_k)} \label{math:singlerank}
         \end{align}
 
         ~\\Toujours dans le but d'améliorer l'efficacité de l'ordonnancement
         proposé par \newcite{mihalcea2004textrank}, \newcite{wan2008expandrank}
-        étendent SingleRank en utilisant des documents similaires au document
-        analysé, selon la mesure de similarité vectorielle cosinus. Faisant
-        l'hypothèse que ces documents similaires fournissent des informations
-        supplémentaires relatives aux mots du document et aux relations qu'ils
-        entretiennent, ils utilisent les relations de cooccurrences observées
-        dans les documents similaires pour ajouter et renforcer des arêtes dans
-        le graphe. Cette approche donne des résultats au-delà de ceux de
-        SingleRank. Toutefois, ses performances sont fortement liées à la
-        disponibilité de documents similaires. Leur usage peut aussi ajouter et
-        renforcer des connexions qui ne devraient pas l'être s'ils ne sont pas
-        suffisamment similaires. Pour pallier ce problème, les auteurs pondèrent
-        l'impact des documents similaires à partir leur degré de similarité avec
-        le document.
+        proposent ExpandRank. ExpandRank étend SingleRank en utilisant des
+        documents similaires au document analysé d'après la mesure de similarité
+        vectorielle cosinus. Faisant l'hypothèse que ces documents similaires
+        fournissent des informations supplémentaires relatives aux mots du
+        document et aux relations qu'ils entretiennent, ExpandRank utilise les
+        relations de cooccurrences observées dans les documents similaires pour
+        ajouter et renforcer des arêtes dans le graphe. Dans leurs expériences
+        réalisée avec une collection de 308 articles journalistiques,
+        \newcite{wan2008expandrank} obtiennent des résultats au-delà de ceux de
+        SingleRank. Ces résultats n'ont cependant jamais pu être reproduit et
+        les expériences de \newcite{hassan2010conundrums} ne montrent
+        globalement pas d'amélioration vis-à-vis de SingleRank (\TODO{tableau
+        avec les perf de wan et de hasan}).
+        %Toutefois, ses performances sont fortement liées à la
+        %disponibilité de documents similaires. Leur usage peut aussi ajouter et
+        %renforcer des connexions qui ne devraient pas l'être s'ils ne sont pas
+        %suffisamment similaires. Pour pallier ce problème, les auteurs pondèrent
+        %l'impact des documents similaires à partir leur degré de similarité avec
+        %le document.
 
-        ~\\\newcite{tsatsaronis2010semanticrank} tentent eux aussi d'améliorer
-        TextRank. Dans leur méthode, ils créent et pondèrent une arête entre
-        deux mots si et seulement si ceux-ci sont sémantiquement liés dans
-        WordNet~\cite{miller1995wordnet} ou dans
-        Wikipedia~\cite{milne2008wikipediasemanticrelatedness} (cf.
-        équation~\ref{math:semanticrank}). WordNet est une base de données
-        lexicale représentée par un graphe de mots connectés à leurs synonymes.
-        Chaque mot connecté à un autre est considéré comme un des sens possibles
-        de ce dernier. À partir de cette représentation,
-        \newcite{tsatsaronis2010semanticrank} déterminent toutes les paires de
-        sens $P_{ij}$ possibles, ainsi que tous les chemins $C_{i, j}$ possible
-        pour atteindre un sens du mot $n_j$ à partir d'un sens du mot $n_i$. Le
-        score de similarité sémantique avec WordNet est obtenu en trouvant le
-        couple paire sémantique/chemin sémantique pour lequel le produit des
-        mesures sémantiques \textit{Semantic Compactness Measure}
-        ($\textsc{Scm}$) et \textit{Semantic Path Elaboration} ($\textsc{Spe}$),
-        introduites par \newcite{tsatsaronis2010textrelatedness}, est le plus
-        élevé (cf. équation \ref{math:wordnetsemanticrelatedness}). Dans le cas
-        où l'un des termes-clés candidats n'est pas présent dans WordNet, la
-        similarité sémantique est calculée avec les données de Wikipédia (cf.
-        équation~\ref{math:wikipediasemanticrelatedness}).
-        \begin{align}
-          \text{poids}_{j, i} &= \left\{\begin{array}{ll}
-            1 & \text{si $n_i = n_j$}\\
-            \text{Sim}_{WN}(n_i, n_j) & \text{sinon, si $n_i, n_j \in \text{WordNet}$}\\
-             \text{Sim}_{W}(n_i, n_j) &  \text{sinon, si $n_i, n_j \in \text{Wikipedia}$}\\
-            0 & \text{sinon}
-          \end{array}\right. \label{math:semanticrank}\\
-          \notag\\
-          \text{Sim}_{WN}(n_i, n_j) &= \max_{p \in P_{i, j}}\left\{\max_{c \in C_{i, j}}\left\{\textsc{Scm}(p, c) \times \textsc{Spe}(p, c)\right\}\right\} \label{math:wordnetsemanticrelatedness}\\
-          \notag\\
-          \text{Sim}_{W}(n_i, n_j) &= \frac{\log(\max(|\text{art}(i)|, |\text{art}(j)|)) - \log(|\text{art}(i) \cup \text{art}(j)|)}{\log(|\text{Wikipedia}|) - \log(\min(|\text{art}(i)|, |\text{art}(j)|))} \label{math:wikipediasemanticrelatedness}\\
-          \notag\\
-          \text{art}(i) &= \left\{\text{\textit{article}} \in \text{Wikipedia}\ |\ n_i \in \text{\textit{article}}\right\} \notag
-        \end{align}
+%        ~\\\newcite{tsatsaronis2010semanticrank} tentent eux aussi d'améliorer
+%        TextRank. Dans leur méthode, ils créent et pondèrent une arête entre
+%        deux mots si et seulement si ceux-ci sont sémantiquement liés dans
+%        WordNet~\cite{miller1995wordnet} ou dans
+%        Wikipedia~\cite{milne2008wikipediasemanticrelatedness} (cf.
+%        équation~\ref{math:semanticrank}). WordNet est une base de données
+%        lexicale représentée par un graphe de mots connectés à leurs synonymes.
+%        Chaque mot connecté à un autre est considéré comme un des sens possibles
+%        de ce dernier. À partir de cette représentation,
+%        \newcite{tsatsaronis2010semanticrank} déterminent toutes les paires de
+%        sens $P_{ij}$ possibles, ainsi que tous les chemins $C_{i, j}$ possible
+%        pour atteindre un sens du mot $n_j$ à partir d'un sens du mot $n_i$. Le
+%        score de similarité sémantique avec WordNet est obtenu en trouvant le
+%        couple paire sémantique/chemin sémantique pour lequel le produit des
+%        mesures sémantiques \textit{Semantic Compactness Measure}
+%        ($\textsc{Scm}$) et \textit{Semantic Path Elaboration} ($\textsc{Spe}$),
+%        introduites par \newcite{tsatsaronis2010textrelatedness}, est le plus
+%        élevé (cf. équation \ref{math:wordnetsemanticrelatedness}). Dans le cas
+%        où l'un des termes-clés candidats n'est pas présent dans WordNet, la
+%        similarité sémantique est calculée avec les données de Wikipédia (cf.
+%        équation~\ref{math:wikipediasemanticrelatedness}).
+%        \begin{align}
+%          \text{poids}_{j, i} &= \left\{\begin{array}{ll}
+%            1 & \text{si $n_i = n_j$}\\
+%            \text{Sim}_{WN}(n_i, n_j) & \text{sinon, si $n_i, n_j \in \text{WordNet}$}\\
+%             \text{Sim}_{W}(n_i, n_j) &  \text{sinon, si $n_i, n_j \in \text{Wikipedia}$}\\
+%            0 & \text{sinon}
+%          \end{array}\right. \label{math:semanticrank}\\
+%          \notag\\
+%          \text{Sim}_{WN}(n_i, n_j) &= \max_{p \in P_{i, j}}\left\{\max_{c \in C_{i, j}}\left\{\textsc{Scm}(p, c) \times \textsc{Spe}(p, c)\right\}\right\} \label{math:wordnetsemanticrelatedness}\\
+%          \notag\\
+%          \text{Sim}_{W}(n_i, n_j) &= \frac{\log(\max(|\text{art}(i)|, |\text{art}(j)|)) - \log(|\text{art}(i) \cup \text{art}(j)|)}{\log(|\text{Wikipedia}|) - \log(\min(|\text{art}(i)|, |\text{art}(j)|))} \label{math:wikipediasemanticrelatedness}\\
+%          \notag\\
+%          \text{art}(i) &= \left\{\text{\textit{article}} \in \text{Wikipedia}\ |\ n_i \in \text{\textit{article}}\right\} \notag
+%        \end{align}
+%
+%        Cette modification seule donne de moins bons résultats que TextRank.
+%        Toutefois, elle améliore les résultats en combinaison avec un
+%        ordonnancement biaisé par le \textsc{Tf-Idf} des mots (cf
+%        équation~\ref{math:apw}) ou avec un ordonnancement dont le facteur
+%        $\lambda$ est  propre à chaque mot (cf équation~\ref{math:ppr}). Ce
+%        dernier est calculé selon l'apparition ou non du mot dans le titre du
+%        document.
+%        \begin{align}
+%          S_{\text{\textsc{Tf-Idf}}}(n_i) &= \frac{1}{2} \times \left(\frac{S(n_i)}{\mathlarger{\max}_{n_j \in N}(S(n_j))} + \frac{\text{\textsc{Tf-Idf}}(t_i)}{\mathlarger{\max}_{n_j \in N}(\text{\textsc{Tf-Idf}}(t_j))}\right) \label{math:apw}\\
+%          \notag\\
+%          S_{\lambda}(n_i) &= (1 - \lambda_i) + \lambda_i \times \sum_{n_j \in A(n_i)} \frac{\text{poids}_{j, i} \times S_{\lambda}(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} p_{j, k}} \label{math:ppr}
+%        \end{align}
 
-        Cette modification seule donne de moins bons résultats que TextRank.
-        Toutefois, elle améliore les résultats en combinaison avec un
-        ordonnancement biaisé par le \textsc{Tf-Idf} des mots (cf
-        équation~\ref{math:apw}) ou avec un ordonnancement dont le facteur
-        $\lambda$ est  propre à chaque mot (cf équation~\ref{math:ppr}). Ce
-        dernier est calculé selon l'apparition ou non du mot dans le titre du
-        document.
-        \begin{align}
-          S_{\text{\textsc{Tf-Idf}}}(n_i) &= \frac{1}{2} \times \left(\frac{S(n_i)}{\mathlarger{\max}_{n_j \in N}(S(n_j))} + \frac{\text{\textsc{Tf-Idf}}(t_i)}{\mathlarger{\max}_{n_j \in N}(\text{\textsc{Tf-Idf}}(t_j))}\right) \label{math:apw}\\
-          \notag\\
-          S_{\lambda}(n_i) &= (1 - \lambda_i) + \lambda_i \times \sum_{n_j \in A(n_i)} \frac{\text{poids}_{j, i} \times S_{\lambda}(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} p_{j, k}} \label{math:ppr}
-        \end{align}
-
-        ~\\\newcite{liu2010topicalpagerank} reprennent SingleRank et proposent
+        ~\\\newcite{liu2010topicalpagerank} tentent aussi d'améliorer
+        SingleRank. Ils proposent
         TopicalPageRank (\textsc{Tpr}), une méthode qui cherche cette fois-ci à augmenter
         la couverture du document par les termes-clés extraits. Pour ce faire,
         ils détectent les sujets du document et ordonnent les mots en fonction
-        de chaque sujet (un ordonnancement par sujet). En utilisant le modèle
-        \textsc{Lda}~\cite{blei2003lda}, ils biaisent chaque ordonnancement avec
-        un sujet (cf. équation~\ref{math:topicalpagerank}) et donnent le plus
-        d'importance aux candidats dont les mots ont un meilleur rang pour le
-        plus de sujets (cf. équation~\ref{math:topicalpagerankfinalscore}).
+        de chaque sujet (\TODO{figure}). À l'aide du modèle
+        \textsc{Lda}~\cite{blei2003lda}, ils ajustent chaque ordonnancement avec
+        la probabilité conditionnelle d'un sujet donné sachant chaque mot
+        (cf. équation~\ref{math:topicalpagerank}), puis donnent plus
+        d'importance aux candidats dont les mots ont la plus forte importance
+        (le meilleur rang) selon les sujets les plus probables dans le document
+        (cf. équation~\ref{math:topicalpagerankfinalscore}).
         \begin{align}
-          S(n_i, \text{\textit{sujet}}) &= (1 - \lambda) \times p(\text{\textit{sujet}} | n_i) + \lambda \times \sum_{n_j \in A(n_i)} \frac{p_{j, i} \times S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} p_{j, k}} \label{math:topicalpagerank}\\
- \textsc{Tpr}(\text{\textit{candidat}}) &= \mathlarger{\sum}_{\text{\textit{sujet}}} \left[p(\text{\textit{sujet}} | \text{\textit{document}}) \times \sum_{n \in \text{\textit{candidat}}} \text{rang}_{\text{\textit{sujet}}}(n)\right] \label{math:topicalpagerankfinalscore}
+          S(n_i, \text{\textit{sujet}}) &= (1 - \lambda) \times p(\text{\textit{sujet}} | n_i) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\textnormal{poids}(n_j, n_i) \times S(n_j)}{\mathlarger{\sum}_{n_k \in A(n_j)} \textnormal{poids}(n_j, n_k)} \label{math:topicalpagerank}\\
+          \textsc{Tpr}(\text{\textit{candidat}}) &= \mathlarger{\sum}_{\text{\textit{sujet}}} \left[p(\text{\textit{sujet}} | \text{\textit{document}}) \times \sum_{n \in \text{\textit{candidat}}} \text{rang}_{\text{\textit{sujet}}}(n)\right] \label{math:topicalpagerankfinalscore}
         \end{align}
 
         ~\\Dans la continuité du travail de \newcite{liu2010topicalpagerank},
-        \newcite{zhang2013wordtopicmultirank} ajoutent les sujets déterminés par
+        \newcite{zhang2013wordtopicmultirank} ajoutent les sujets de 
         \textsc{Lda} aux n\oe{}uds du graphe de cooccurrences. De cette manière,
-        un seul ordonnancement doit être effectué, en tenant compte de tous les
-        sujets. Les auteurs utilisent un algorithme de \textit{co-ranking}, qui
-        fait la distinction entre les deux types de n\oe{}uds lors de
-        l'ordonnancement~: un sujet est d'autant plus important s'il est
-        connecté à un grand nombre de mots importants et un mot est d'autant
-        plus important s'il cooccurre avec un grand nombre de mots importants et
-        s'il est connecté à un grand nombre de sujets importants. Le
-        \textit{co-ranking} est une technique qui commence à susciter de
-        l'intéret en \textsc{TAL}, pour des tâches où l'ordonnancement à base de
-        graphe est
-        utilisé~\cite{wan2011corankingsummarization,yan2012corankingtweetrecommendation,liu2014corankingopinionmining}.
-        Seuls les mots servent ensuite à l'extraction des termes-clés, à la
-        manière de \newcite{liu2010topicalpagerank}.
+        un seul ordonnancement est effectué, qui tient compte de tous les
+        sujets. Les auteurs ordonnent conjointement sujets et mots du document
+        de sorte que~:
+        \begin{itemize}
+          \item{un sujet est d'autant plus important s'il est connecté à un
+                grand nombre de mots importants~;}
+          \item{un mot est d'autant plus important s'il cooccurre avec un grand
+                nombre de mots importants et s'il est connecté à un grand nombre
+                de sujets importants.}
+        \end{itemize}
+        Comme pour SingleRank, les termes-clés candidats sont ensuite ordonnés
+        d'après le score d'importance des mots qu'ils contiennent.
+
+        L'ordonnancement conjoint (\textit{co-ranking}) à patir de modèles à
+        base de graphe est une technique qui commence à susciter de l'intéret en
+        \textsc{Tal}~\cite{wan2011corankingsummarization,yan2012corankingtweetrecommendation,liu2014corankingopinionmining}.
+        \newcite{zhang2013wordtopicmultirank} sont les premiers à l'appliquer à
+        l'extraction de termes-clés. Cette approche est intéressante, car elle
+        tient compte à la fois du contexte local du mot, le document, et de son
+        contexte global, la collection de données utilisée pour la modélisation
+        des sujets par \textsc{Lda}.
 
       \subsubsection{Bilan des méthodes non supervisées}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-bilan}
         \TODO{\dots}
+        \TODO{parler des méthodes à base de graphe et du problème (potentiel) de
+        dispersion dans le graphe (adaptation miroir de l'algo de Brin et Page
+        pas adaptée dans notre cas)}
 
     \subsection{Approche supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction}
