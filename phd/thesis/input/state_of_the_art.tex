@@ -273,7 +273,7 @@
             \toprule
             \textbf{Méthode} & \textbf{\textsc{Duc}}~\textit{\cite{wan2008expandrank}} & \textbf{Inspec}~\textit{\cite{hulth2003keywordextraction}} & \textbf{\textsc{Nus}}~\textit{\cite{nguyen2007keadocumentstructure}} & \textbf{\textsc{Icsi}}~\textit{\cite{adam2003icsi}}\\
             \hline
-            \textsc{Tf-Idf}$^*$ & 27,0 & 36,3 & 6,6 & 12,1\\
+            \textsc{Tf-Idf}$^*$ & 27,0 & 36,3 & \textbf{6,6} & \textbf{12,1}\\
             KeyCluster$^*$ & 14,0 & 40,6 & 1,7 & $~~$3,2\\
             TextRank$^*$ & $~~$9,7 & 33,0 & 3,2 & $~~$2,7\\
             SingleRank$^*$ & 25,6 & 35,3 & 3,8 & $~~$4,4\\
@@ -288,7 +288,8 @@
           littérature, lorsque dix termes-clés sont extraits
         ]{
           Comparaison des méthodes d'extraction automatique de termes-clés de la
-          littérature, lorsque dix termes-clés sont extraits. \textsc{Duc} est
+          littérature, lorsque dix termes-clés sont extraits. Les performances
+          sont exprimées en terme de f1-mesure. \textsc{Duc} est
           une collection d'articles journalistiques, Inspec est une collection
           de résumés d'articles scientifiques, \textsc{Nus} est une collection
           d'articles scientifiques et \textsc{Icsi} est une collections de
@@ -340,7 +341,11 @@
         Méthode de pondération historique de \textsc{Ri}, \textsc{Tf-Idf} reste
         encore aujourd'hui l'une des méthodes de référence à laquelle il faut se
         comparer pour montrer la validité d'une nouvelle méthode non supervisée
-        d'extraction de termes-clés.
+        d'extraction de termes-clés. Les résultats du
+        tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison}
+        (page~\pageref{tab:state_of_the_art-unsupervised_methods_comparison})
+        montrent que \textsc{Tf-Idf} est encore compétitive vis-à-vis méthodes
+        récentes.
 
         ~\\Okapi (ou \textsc{Bm}25) \cite{robertson1999okapi} est une mesure
         alternative à \textsc{Tf-Idf}. En Recherche d'Information (\textsc{Ri}),
@@ -545,7 +550,8 @@
         au moins un terme-clé. Cependant, aucune pondération n'est proposée pour
         ordonner les termes-clés. De plus, \newcite{hassan2010conundrums} ont
         montré que KeyCluster est moins performant que \textsc{Tf-Idf}
-        (cf tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison}).
+        (cf tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison},
+        page~\pageref{tab:state_of_the_art-unsupervised_methods_comparison}).
 
       \subsubsection{Méthodes à base de graphe}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-graph_based_approaches}
@@ -594,7 +600,8 @@
         Bien qu'intéressant, de par son intuitivité,
         \newcite{hassan2010conundrums} ont montré que TextRank est moins
         performant que \textsc{Tf-Idf} (cf
-        tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison}).
+        tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison},
+        page~\pageref{tab:state_of_the_art-unsupervised_methods_comparison}).
 
         ~\\\newcite{wan2008expandrank} modifient TextRank et proposent
         SingleRank. Dans un premier temps, leur méthode augmente la précision de
@@ -630,7 +637,8 @@
         SingleRank. Ces résultats n'ont cependant jamais pu être reproduit et
         les expériences de \newcite{hassan2010conundrums} ne montrent
         globalement pas d'amélioration vis-à-vis de SingleRank (cf
-        tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison}).
+        tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison},
+        page~\pageref{tab:state_of_the_art-unsupervised_methods_comparison}).
         %Toutefois, ses performances sont fortement liées à la
         %disponibilité de documents similaires. Leur usage peut aussi ajouter et
         %renforcer des connexions qui ne devraient pas l'être s'ils ne sont pas
@@ -704,21 +712,20 @@
           \textsc{Tpr}(\text{\textit{candidat}}) &= \mathlarger{\sum}_{\text{\textit{sujet}}} \left[p(\text{\textit{sujet}} | \text{\textit{document}}) \times \sum_{n \in \text{\textit{candidat}}} \text{rang}_{\text{\textit{sujet}}}(n)\right] \label{math:topicalpagerankfinalscore}
         \end{align}
 
-        \newcite{liu2010topicalpagerank} ont comparé TopicalPageRank à
-        \textsc{Tf-Idf} sur les articles journalistiques de
-        \newcite{wan2008expandrank}. Contrairement aux précédentes méthodes à
-        base de graphe que nous avons présenté, TopicalPageRank améliore
-        \textsc{Tf-Idf}. Cette amélioration est significative avec un taux de
-        confiance de 95~\%, ce qui signifie que l'amélioration n'est pas due à
-        un échantillonage  (le choix des documents pour tester les méthodes)
-        favorable à TopicalPageRank.
+        Contrairement aux précédentes méthodes à base de graphe que nous avons
+        présenté, TopicalPageRank améliore \textsc{Tf-Idf} (cf
+        tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison},
+        page~\pageref{tab:state_of_the_art-unsupervised_methods_comparison}).
+        Cette amélioration est significative avec un taux de confiance de 95~\%,
+        ce qui signifie qu'elle n'est pas due à un choix des données
+        d'évaluation favorable à TopicalPageRank.
 
         ~\\Dans la continuité du travail de \newcite{liu2010topicalpagerank},
-        \newcite{zhang2013wordtopicmultirank} ajoutent les sujets de 
-        \textsc{Lda} aux n\oe{}uds du graphe de cooccurrences. De cette manière,
-        un seul ordonnancement est effectué, qui tient compte de tous les
-        sujets. Les auteurs ordonnent conjointement sujets et mots du document
-        de sorte que~:
+        \newcite{zhang2013wordtopicmultirank} proposent WordTopic-MultiRank.
+        WordTopic-MultiRank ajoute les sujets de \textsc{Lda} aux n\oe{}uds du
+        graphe de cooccurrences et effectue un seul ordonnancement, qui tient
+        compte de tous les sujets en même temps. Cet ordonnancement est réalisé
+        conjointement entre les mots et les sujets, de sorte que~:
         \begin{itemize}
           \item{un sujet est d'autant plus important s'il est connecté à un
                 grand nombre de mots importants~;}
@@ -735,15 +742,15 @@
         \textsc{Tal}~\cite{wan2011corankingsummarization,yan2012corankingtweetrecommendation,liu2014corankingopinionmining}.
         \newcite{zhang2013wordtopicmultirank} sont les premiers à l'appliquer à
         l'extraction de termes-clés. Cette approche est intéressante, car elle
-        tient compte à la fois du contexte local du mot, le document, et de son
-        contexte global, la collection de données utilisée pour la modélisation
-        des sujets par \textsc{Lda}.
+        tient compte à la fois du contexte local du mot (le document) et de son
+        contexte global (la collection de données utilisée par \textsc{Lda}).
 
         Comparés aux résultats de TopicalPageRank,
         \newcite{zhang2013wordtopicmultirank} montrent que l'ordonnancement
         conjoint des mots et des sujets est légèrement plus performant que la
         combinaison de multiples ordonnancements influencés par chaque sujet
-        (cf tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison}).
+        (cf tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison},
+        page~\pageref{tab:state_of_the_art-unsupervised_methods_comparison}).
 
       \subsubsection{Bilan des méthodes non supervisées}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-bilan}
