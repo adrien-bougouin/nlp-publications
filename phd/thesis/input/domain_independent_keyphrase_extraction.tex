@@ -12,12 +12,11 @@
   \label{sec:main:domain_independent_keyphrase_extraction-introduction}
     Dans ce chapitre, nous nous intéressons à la tâche d'extraction automatique
     de termes-clés. Cette tâche consiste à identifier dans un document ses mots
-    et expressions qui permettent d'en caractériser le mieux le contenu. C'est
-    la catégorie d'indexation par termes-clés la plus étudiée jusqu'à
-    maintenant. Elle peut être réalisée de manière non supervisée ou supervisée,
-    grâce à la mise en \oe{}uvre d'algorithmes d'ordonnancement par importance
-    des mots du document ou grâce à l'entraînement de classificateurs capables
-    de déterminer si une unité textuelle est un terme-clé ou non.
+    et expressions qui permettent d'en caractériser le contenu. Elle peut être
+    réalisée de manière non supervisée ou supervisée, grâce à la mise en
+    \oe{}uvre d'algorithmes d'ordonnancement par importance des mots du document
+    ou grâce à l'entraînement de classificateurs capables de déterminer si une
+    unité textuelle est un terme-clé ou non.
 
     Nous proposons deux contributions à l'extraction automatique de termes-clés.
     Tout d'abord, nous nous intéressons à l'étape préliminaire de sélection des
@@ -31,12 +30,12 @@
     La sélection des termes-clés candidats établit la liste des termes-clés
     possibles pour un document donné. Bien qu'étudiée en surface, ou de manière
     ad-hoc à une méthode particulière d'extraction de termes-clés, cette étape
-    est critique. Si elle ne sélectionne pas
-    suffisamment de candidats, alors la performance maximale pouvant être
-    atteinte pour l'extraction de termes-clés est faible et, au contraire, si
-    elle sélectionne un nombre important de candidats, alors elle augmente le
-    risque de sélectionner des candidats erronéspouvant dégrader la performance
-    d'une méthode d'extraction de termes-clés~\cite{hasan2014state_of_the_art}.
+    est critique. Si un nombre insuffisant de candidats est sélectionné, alors
+    la performance maximale pouvant être atteinte pour l'extraction de
+    termes-clés est faible. Inversement, si un nombre trop important de
+    candidats est sélectionné, alors le risque que certains de ces candidats
+    soient erronés est plus grand et la performance d'une méthode d'extraction
+    de termes-clés peut en souffrir~\cite{hasan2014state_of_the_art}.
     De nombreux travaux ont montré que les groupes nominaux, souvent
     approximés par les séquences de noms et d'adjectifs (\texttt{/(N|A)+/}),
     forment de bons termes-clés candidats et sont très proches des termes-clés
@@ -46,18 +45,17 @@
     Dans notre travail, nous remettons en question la sélection systématique
     d'un adjectif apposé à un groupe nominal. En nous appuyant sur une analyse
     linguistique des termes-clés de trois collections de données en français et
-    en anglais, nous proposons une méthode qui juge si un adjectif apporte du
-    sens bénéfique à la caractérisation du contenu du document, auquel cas il
-    est sélectionné avec le groupe nominal qu'il modifie, ou s'il est superflu,
-    auquel cas le groupe nominal seul est sélectionné comme terme-clé candidat.
+    en anglais, nous proposons une méthode qui juge si un adjectif est utile,
+    c'est-a-dire s'il apporte du sens bénéfique à la caractérisation du contenu
+    du document. S'il est utile, alors il est sélectionné avec le groupe nominal
+    qu'il modifie. Sinon, nous estimons qu'il est superflu et le groupe nominal
+    seul est sélectionné comme terme-clé candidat.
     Deux évaluations montrent le bien fondé de cette méthode~: l'une
     intrinsèque, l'autre extrinsèque. L'évaluation intrinsèque compare la
     qualité de l'ensemble de termes-clés candidats sélectionnés par notre
-    méthode à ceux sélectionnés par les méthodes les plus utilisées (sélection
-    des n-grammes, des \textit{chunks} nominaux ou des \texttt{/(N|A)+/})~;
-    l'évaluation extrinsèque compare l'impact de notre méthode de sélection sur
-    deux méthodes d'extraction de termes-clés à celui des méthodes de sélection
-    les plus utilisées.
+    méthode à ceux sélectionnés par les méthodes couramment utilisées~;
+    l'évaluation extrinsèque compare l'impact de ces méthodes de sélection sur
+    deux méthodes d'extraction de termes-clés.
 
     \subsection{Analyse des propriétés linguistiques des termes-clés}
     \label{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties}
@@ -70,14 +68,13 @@
 
       Notre analyse couvre les deux langues de nos ressources~: français et
       anglais. Elle se porte sur les collections \textsc{De}ft (français),
-      \textsc{Duc} (anglais) et SemEval (anglais). Dans le but de ne pas biaiser
-      les résultats des évaluations de ce travail, l'analyse est effectuée sur
-      un sous-ensemble de ces collections. Pour permettre des comparaisons avec
-      d'autres travaux, les évaluations sont réalisées sur les ensembles de
-      test de nos collections et l'analyse est donc réalisée sur les ensembles
-      normalement destinés à l'apprentissage. \textsc{Duc} n'étant pas réparti
-      en plusieurs sous-ensembles, nous utilisons 208 documents pour l'analyse
-      et 100 pour les évaluations.
+      \textsc{Duc} (anglais) et SemEval (anglais). Pour ne pas influencer
+      l'évaluation de notre travail, cette analyse est effectuée sur un
+      sous-ensemble des collections. L'évaluation est réalisée sur les ensembles
+      de test, donc l'analyse est réalisée sur les ensembles normalement
+      destinés à l'apprentissage. \textsc{Duc} n'étant pas réparti en plusieurs
+      sous-ensembles, nous utilisons 100 documents pour l'évaluation et les 208
+      restant pour l'analyse.
 
       \subsubsection{Analyse surfacique}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties-shalow_analysis}
@@ -218,13 +215,14 @@
       \textit{-ive}~\cite{grabar2006terminologystructuring}.
 
       La détection des adjectifs relationnels, telle que nous la réalisons,
-      n'est pas exacte. En effet, les adjectifs qualificatifs et/ou
-      dénominaux se terminant par un suffixe d'adjectif relationnel sont
-      détectés comme relationnels, et les adjectifs à usage tantôt qualificatif,
-      tantôt relationnel selon le contexte~\cite{maniez2009denominaladjectives}
-      sont toujours détectés comme relationnels. Dans la littérature, les
-      approches pour identifier les adjectifs relationnels (dans le cadre de
-      l'extraction terminologique) reposent sur une analyse en
+      n'est pas exacte. En effet, les adjectifs qualificatifs et/ou dénominaux
+      se terminant par un suffixe d'adjectif relationnel sont détectés comme
+      relationnels (\TODO{exemple}), et les adjectifs à usage tantôt
+      qualificatif, tantôt relationnel selon le
+      contexte~\cite{maniez2009denominaladjectives} sont toujours détectés comme
+      relationnels (\TODO{exemple}). Dans la littérature, les approches pour
+      identifier les adjectifs relationnels (dans le cadre de l'extraction
+      terminologique) reposent sur une analyse en
       corpus~\cite{daille2000relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation},
       où il s'agit notamment de trouver des paraphrases avec un complément de
       nom. Dans le contexte de l'extraction de termes-clés, où de larges corpus
@@ -237,8 +235,8 @@
       un trait d'union. Le trait d'union est l'unique marque explicite de
       composition en français et en anglais, et son usage est le procédé le plus
       productif. Néanmoins, il existe deux autres procédés que nous ne traitons
-      pas~: les mots qui constituent l'adjectif composé sont parfois séparés
-      par un espace ou concaténés sans marque explicite.
+      pas~: la séparation avec un espace (\TODO{exemple}) et la concaténation
+      sans marque explicite (\TODO{exemple}).
 
       ~\\Le tableau~\ref{tab:candidate_selection-adjective_categories} donne le
       taux d'adjectifs, par catégorie, dans les termes-clés de référence. Nous
@@ -344,8 +342,8 @@
         ambigüité observée quant à leur appartenance à un terme-clé.
         Inversement, les adjectifs qualificatifs sont les plus courants et ne
         sont pas nécessairement utiles au sein de termes-clés. Ils doivent être
-        retenus comme modificateusr dans les termes-clés candidats que s'ils
-        respectent certaines conditions (définis ci-après).
+        retenus comme modificateurs dans les termes-clés candidats que s'ils
+        respectent certaines conditions (définies ci-après).
 
     \subsection{Sélection fine des termes-clés candidats}
     \label{subsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering}
@@ -358,13 +356,13 @@
       \subsubsection{Présélection des termes-clés candidats}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering-candidate_pre_selection}
         L'étape de présélection des candidats utilise un patron grammatical
-        défini sous la forme d'une expression rationnelle. Celui-ci est appliqué
-        aux catégories grammaticales des séquences de mots adjacents dans le
-        document et sélectionne celles qui le respectent. Ce patron est
-        gourmand, c'est-à-dire qu'il capture les plus longues séquences
-        possibles sans produire de candidats qui se recouvrent dans le texte
-        (comme c'est le cas avec les n-grammes). Il permet ainsi de diminuer le
-        risque d'extraire des termes-clés
+        défini sous la forme d'une expression rationnelle. Ce patron est
+        appliqué aux catégories grammaticales des séquences de mots adjacents
+        dans le document et sélectionne celles qui le respectent. Il est dit
+        \og{}gourmand\fg{}, c'est-à-dire qu'il capture les plus longues
+        séquences possibles sans produire de candidats qui se recouvrent dans le
+        texte (comme c'est le cas avec les n-grammes). Il permet ainsi de
+        diminuer le risque d'extraire des termes-clés
         redondants~\cite{hasan2014state_of_the_art}.
 
         D'après nos observations, seuls les noms, les adjectifs, les
@@ -403,20 +401,20 @@
 
       \subsubsection{Filtrage des adjectifs superflus}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-modifiers_filtering-adjective_filtering}
-        L'orsqu'un candidat contient un adjectif, cette étape juge s'il doit
-        faire partie du terme-clé candidat ou non, auquel cas il  en est retiré.
-        Sur la base de notre analyse, les adjectifs relationnels et composés
-        complexes sont systématiquement jugés utiles. Seuls les adjectifs
-        qualificatifs font l'objet d'une prise de décision.
+        Cette étapte juge, pour chauqe terme-clés candidat contenant un
+        adjectif, si l'adjectif est utile au sein du termes-clés candidat et le
+        retire s'il ne l'est pas. Sur la base de notre analyse, les adjectifs
+        relationnels et composés complexes sont systématiquement jugés utiles.
+        Seuls les adjectifs qualificatifs font l'objet d'une prise de décision.
 
         Pour décider si un adjectif qualificatif apporte du sens utile au groupe
         nominal qu'il modifie dans le terme-clé candidat, nous comparons les
-        usages respectifs du candidat avec l'adjectif et sans l'adjectif. Notre
-        intuition est qu'un adjectif est superflu (inutile) s'il modifie un
-        groupe nominal qui est utilisé de manière autonome (sans l'adjectif) un
-        nombre significatif de fois. Concrètement, si le groupe nominal occure
-        plus souvent sans l'adjectif qu'avec l'adjectif, alors ce dernier est
-        jugé inutile et est donc retiré du terme-clé candidat.
+        usages respectifs du candidat avec et sans l'adjectif. Notre intuition
+        est qu'un adjectif est superflu (inutile) s'il modifie un groupe nominal
+        qui est utilisé de manière autonome (sans l'adjectif) un nombre
+        significatif de fois. Concrètement, si le groupe nominal occure plus
+        souvent sans l'adjectif qu'avec l'adjectif, alors ce dernier est jugé
+        inutile et est donc retiré du terme-clé candidat.
 
         L'algorithme~\ref{algo:candidate_pruning} résume le fonctionnement de
         notre méthode de sélection des termes-clés candidats. Les lignes
@@ -474,7 +472,7 @@
       nous réalisons deux expériences~: l'une intrinsèque, où les ensembles de
       termes-clés candidats de différentes méthodes de sélections sont comparés
       qualitativement, l'autre extrinsèque, où les différentes méthodes de
-      sélections sont comparés d'après les performances de deux méthodes
+      sélection sont comparées d'après les performances de deux méthodes
       d'extraction de termes-clés.
 
       \subsubsection{Méthodes de référence}
@@ -523,7 +521,7 @@
         \begin{align}
           Q &= \frac{\textnormal{R}_{\textnormal{max}}}{\textnormal{Candidats}}
         \end{align}
-        Plus $Q$ est élevé, meilleure est la qualité de l'ensemble des
+        Plus $Q$ est élevée, meilleure est la qualité de l'ensemble des
         termes-clés candidats sélectionnés.
 
         Les performances des méthodes d'extraction de termes-clés sont exprimées
@@ -532,7 +530,11 @@
         précédents~\cite{kim2010semeval}, les opérations de comparaison entre
         les termes-clés de référence et les termes-clés extraits sont effectuées
         à partir de la racine des mots qui les composent. Pour cela, nous
-        utilisons la méthode de \newcite{porter1980suffixstripping}.
+        utilisons la méthode de
+        \newcite{porter1980suffixstripping}\footnote{Initialement proposée pour
+        l'anglais, la méthode de \newcite{porter1980suffixstripping} a été
+        adaptée à d'autres langues, dont le français, dans le cadre du projet
+        Snowball.}.
 
       \subsubsection{Évaluation intrinsèque}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-intrinsic_evaluation}
@@ -626,9 +628,13 @@
         maximal optimal correspond à la quantité de termes-clés qui occurrent
         dans les documents.}, mais
         au prix d'un nombre de candidats 4 à 5 fois supérieur à celui des autres
-        méthodes. Comme le montre la valeur de $Q$, notre méthode
-        est de meilleure qualité que les autres~: \textsc{Lr-Np} $>$
-        \texttt{/(N|A)+/} $>$ \textit{NP-chunks} $>$ n-grammes.
+        méthodes. Par ailleurs, ces derniers se recouvrent mutuellement, donc le
+        risque d'extraire des termes-clés redondants est plus grand et la
+        difficulté de la tâche d'extraction est donc plus
+        élevée~\cite{hasan2014state_of_the_art}. Comme le montre la valeur de
+        $Q$, notre méthode est de meilleure qualité que les autres~:
+        \textsc{Lr-Np} $>$ \texttt{/(N|A)+/} $>$ \textit{NP-chunks} $>$
+        n-grammes.
 
       \subsubsection{Évaluation extrinsèque}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-evaluation-extrinsic_evaluation}
@@ -765,8 +771,8 @@
       constituent une sous-partie des adjectifs dénominaux. À l'avenir, il
       serait intéressant d'élargir notre étude à tous les adjectifs dérivés~:
       dénominaux et déverbaux. Est-ce l'aspect relationnel de l'adjectif qui le
-      rend si particulier dans le context de l'extraction de termes-clés, ou
-      est-ce parce qu'il est issu d'un nom~? La dérivation comme procéssus de
+      rend si particulier dans le contexte de l'extraction de termes-clés, ou
+      est-ce parce qu'il est issu d'un nom~? La dérivation comme processus de
       formation d'un adjectif est-elle un indice quant à l'apport de l'adjectif
       au sens d'un terme-clé~? Autant de questions auxquelles il faudra
       répondre.
@@ -797,10 +803,9 @@
       TopicRank est une méthode à base de graphe pour extraire des termes-clés
       représentant chacun un sujet important dans le document.
       % Quel en est le fonctionnement général ?
-      Elle repose sur les quatre étapes suivantes, qui sont détaillées dans
-      la suite~: identification des sujets, construction d'un graphe de sujets,
-      ordonnancement des sujets et sélection du terme-clé candidat le plus
-      représentatif de chaque sujet.
+      Elle repose sur quatre étapes~: identification des sujets, construction
+      d'un graphe de sujets, ordonnancement des sujets et sélection du terme-clé
+      candidat le plus représentatif de chaque sujet.
 
       \subsubsection{Identification des sujets}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-topic_identification}
@@ -905,8 +910,8 @@
 
       \subsubsection{Construction du graphe}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-graph_construction}
-        Afin d'identifier les sujets les plus importants du documents, nous
-        utilisons un graphe.
+        %Afin d'identifier les sujets les plus importants du documents, nous
+        %utilisons un graphe.
         % Comment le graphe est-il construit ?
         Soit le graphe complet et non orienté $G = (N, A)$, composé d'un
         ensemble de n\oe{}uds $N$ et d'arêtes\footnote{$A = \{(n_1, n_2)\ |\
@@ -918,7 +923,7 @@
         n'exprimons donc pas la force du lien sémantique entre deux sujets par
         le nombre de cooccurrences entre leurs candidats respectifs. Pour
         préserver l'intuition derrière l'usage du nombre de cooccurrences, nous
-        connectons tous les n\oe{}uds deux à deux et exprimons la force de leur
+        interconnectons tous les n\oe{}uds et exprimons la force de leur
         lien sémantique en fonction de la distance (en nombre de mots) qui les
         sépare dans le document~:
         \begin{align}
@@ -967,10 +972,10 @@
         théoriquement $k$ sujets sont extraits.
 
         % Quelles sont les différentes stratégies envisageable ?
-        La difficulté de ce principe de sélection réside dans la capacité à
-        trouver parmi plusieurs termes-clés candidats d'un même sujet celui qui
-        le représente le mieux. Nous proposons trois stratégies de sélection
-        pouvant répondre à ce problème~:
+        La difficulté de cette étape réside dans la capacité à trouver parmi
+        plusieurs termes-clés candidats d'un même sujet celui qui le représente
+        le mieux. Nous proposons trois stratégies de sélection pouvant répondre
+        à ce problème~:
         \begin{itemize}
           \item{position~: en supposant qu'un sujet est tout d'abord
                 introduit par sa forme la plus appropriée, le terme-clé
@@ -982,15 +987,38 @@
                 dans le document~;}
           \item{centroïde~: le terme-clé candidat sélectionné pour un sujet
                 est celui qui est le plus similaire aux autres candidats du
-                sujet (voir l'équation~\ref{equa:jaccard}).}
+                sujet.}
         \end{itemize}
-        % Laquelle des trois stratégies semble être la mieux ?
-        Parmi ces trois stratégies, celle qui semble la plus appropriée est la
-        stratégie position. Sélectionner les candidats les plus fréquents risque
-        de ne pas être une solution stable selon les genres de documents, en
-        particulier selon leur taille~; sélectionner les centroïdes risque de ne
-        pas fournir les termes-clés les plus informatif, car celui-ci représente
-        le tronc commun à la majorité des candidats.
+
+        La stratégie position est liée au trait \og{}première position\fg{}
+        utilisé en extraction supervisée de termes-clés. Ce trait ayant montré
+        son efficacité, la stratégie position est donc un très bon candidat à
+        la sélection du terme-clé de chaque sujet. Dans le
+        chapitre~\ref{chap:main-data_description}
+        (page~\pageref{chap:main-data_description}), nous évoquons le fait que
+        les documents dans lesquels il y a des changements thématiques
+        invalident l'usage de la première position. Cela n'est pas vrai dans
+        notre situation, car la stratégie position est appliquée à des groupes
+        représentant un seul sujet.
+
+        La stratégie fréquence est aussi un bon candidat à la sélection du
+        terme-clé de chaque sujet. Intuitivement, l'unité textuelle la plus
+        utilisée d'un sujet est plus probablement sa forme préférée. Cependant,
+        nous pensons que cette stratégie est moins généralisable à tout type de
+        document et de style discursif que la stratégie position. Certains
+        auteurs, par exemple, préfèrent utiliser des unités textuelles concises,
+        telles que \TODO{exemple}, et moins précise que la forme préférée qui
+        rend la lecture moins agréable lorsqu'elle est répétée, telle que
+        \TODO{exemple}.
+
+        La stratégie centroïde, contrairement aux deux autres, n'est pas fondée
+        sur l'usage des termes-clés candidats dans le document. Elle se
+        concentre uniquement sur les mots qu'ils partagent pour déterminer le
+        candidat qui est le c\oe{}ur de tous les autres. Les termes-clés qu'elle
+        sélectionne sont donc ni trop spécifiques, ni trop généraux. Certains
+        termes-clés pouvant être très spécifiques (\TODO{exemple}) et d'autres
+        plus généraux (\TODO{exemple}), cette stratégie semble être la moins
+        adaptée des trois.
 
       \subsubsection{Exemple}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-example}
@@ -1001,21 +1029,26 @@
       Pour valider notre approche, nous réalisons deux série d'expériences. Une
       première série pour déterminer les paramètres de TopicRank et
       une seconde série pour le comparer aux travaux précédents et analyser
-      l'impact de chacune de nos contributions. Dans un premire temps, nous
-      facilitons la comparaisons avec les travaux de la littérature en
-      effectuant les comparaisons avec la méthode de sélection classique
-      \texttt{/(N|A)+/}, puis nous montrons le comportement de TopicRank avec
-      chacune des méthodes étudiées dans la
-      section~\ref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}
-      (page~\pageref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}).
+      l'impact de chacune de nos contributions.
       
-      \subsubsection{Méthodes de référence et collections de données}
+      \subsubsection{Méthodes de référence}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-baselines}
         Dans nos expériences, nous comparons TopicRank à trois autres
         méthodes non supervisées d'extraction automatique de termes-clés. Nous
         choisissons la méthode \textsc{Tf-Idf} et les deux méthodes à base de
-        graphe TextRank et SingleRank. Nous utilisons les ensembles de test de
-        toutes nos collections de données.
+        graphe TextRank et SingleRank\footnote{Toutes les méthodes sont
+        implémentées par nos soins et intégrées à la même chaîne de
+        traitement.}.
+        
+        Dans le but de comparer TopicRank à SingleRank avec ses performances
+        observées dans la littérature~\cite{hassan2010conundrums}, nos
+        expériences sont d'abord réalisées lorsque les termes-clés candidats
+        sont sélectionnés avec le patron grammatical \texttt{/(N|A)+/}. Après
+        cette comparaisons nous étudions le comportement de TopicRank selon la
+        méthode de sélection des candidats utilisée, comme nous l'avons fait
+        dans la
+        section~\ref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}
+        (page~\pageref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}).
 
       \subsubsection{Mesures d'évaluation}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-evaluation_measures}
@@ -1035,7 +1068,7 @@
         afin de déterminer quelle est la configuration la plus générique de
         TopicRank. En utilisant les ensembles d'entraînement des collections
         Termith, de \textsc{De}ft, de SemEval et de \textsc{Duc}, nous réalisons
-        deux expériences durant lesquelles nous faisons varier le seuil de
+        deux expériences dans lesquelles nous faisons varier le seuil de
         similarité ($\zeta$) avec la stratégie de groupement (simple, complète
         et moyenne), puis la stratégie de sélection du terme-clé candidat le
         plus représentatif de chacun des sujets les plus importants.
@@ -1599,7 +1632,7 @@
         \end{figure}
 
         % Variation du seuil de similarité et de la stratégie de groupement
-        La figure~\ref{fig:variation_du_seuil_de_similarite} présente les
+        ~\\La figure~\ref{fig:variation_du_seuil_de_similarite} présente les
         résultats de TopicRank lorsque nous faisons varier le seuil~$\zeta$ avec
         un pas de 0,05 pour chaque stratégie de groupement\footnote{La
         stratégie de sélection du terme-clé le plus représentatif par sujet
@@ -1607,53 +1640,52 @@
         % Quelle analyse peut-on faire à partir des courbes ?
         Avec les collections Termith, nous observons des comportements et des
         performances similaires quelque soit la valeur du seuil $\zeta$ et la
-        stratégie de groupement utilisé. La petite taille des documents fait que
-        très peu de termes-clés candidats sont groupés et les performances
-        évoluent peu jusqu'à stabilisation lorsque $\zeta$ vaut 0,55. Avec \textsc{De}ft et
-        SemEval, nous observons que chaque stratégie de groupement a un
-        comportement qui lui est propre jusqu'à un point de convergence lorsque
-        $\zeta$ vaut 0,70. Ce point de
-        convergence correspond à la situation où les sujets créés sont les mêmes
-        quelle que soit la stratégie. Avec la stratégie simple, les résultats
-        s'améliorent lorsque $\zeta$ augmente. Du fait qu'elle prend en compte
-        la similarité maximale entre les candidats de deux groupes, cette
-        stratégie à tendance à trop grouper et donc à créer des groupes
-        contenant en réalité plusieurs sujets. L'augmentation du seuil $\zeta$ a
-        pour effet de restreindre cette tendance et la qualité du groupement
-        s'améliore. Inversement, la stratégie complète, qui a le fonctionnement
-        contraire, voit ses résultats se dégrader lorsque $\zeta$ augmente.
-        Enfin, la stratégie moyenne agit en compromis. Pour \textsc{Deft}, son
-        comportement est le même que celui de la stratégie simple, mais ses
-        résultats sont très supérieurs jusqu'au point de convergence. Pour
-        SemEval, son comportement est le même que celui de la stratégie
-        complète, mais ses résultats sont supérieurs jusqu'au point de
-        convergence.
+        stratégie de groupement utilisée. La petite taille des documents fait
+        que très peu de termes-clés candidats sont groupés et les performances
+        évoluent peu jusqu'à stabilisation lorsque $\zeta$ vaut 0,55. Avec
+        \textsc{De}ft et SemEval, nous observons que chaque stratégie de
+        groupement a un comportement qui lui est propre jusqu'à un point de
+        convergence lorsque $\zeta$ vaut 0,70. Ce point de convergence
+        correspond à la situation où les sujets créés sont les mêmes quelque
+        soit la stratégie. Avec la stratégie simple, les résultats s'améliorent
+        lorsque $\zeta$ augmente. En effet, elle prend en compte la similarité
+        maximale entre les candidats de deux groupes, donc elle à tendance à
+        trop grouper (à créer des groupes représentant plusieurs sujets) lorsque
+        $\zeta$ est faible et à mieux grouper lorsque $\zeta$ augmente. La
+        stratégie complète ayant le fonctionnement contraire, ses résultats se
+        dégradent au fur et à mesure $\zeta$ augmente. Enfin, la stratégie
+        moyenne agit en compromis. Pour \textsc{Deft}, son comportement est le
+        même que celui de la stratégie simple, mais ses résultats sont très
+        supérieurs jusqu'au point de convergence. Pour SemEval, son comportement
+        est le même que celui de la stratégie complète, mais ses résultats sont
+        supérieurs jusqu'au point de convergence.
+
         % Quels sont les paramètres utilisés ?
         Dans la suite de nos expériences, nous ne reportons pas les résultats
-        avec la meilleure configuration pour chaque collection. Nous utilisons
-        la stratégie de groupement moyenne et fixons le seuil $\zeta$ à 0,25,
-        configuration que nous estimons être la plus générique.
+        avec la meilleure configuration pour chaque collection. À la place, nous
+        proposons la configuration suivante par défaut~: le terme-clé de chaque
+        sujet est sélectionné avec la stratégie moyenne et le seuil $\zeta$ est
+        fixé à 0,25, c'est-à-dire que deux termes-clés candidats représentent le
+        même sujet s'ils ont au moins $\unitfrac{1}{4}$ des mots en commun.
 
-        La figure~\ref{fig:variation_de_la_selection_des_candidats} présente les
-        résultats obtenus avec TopicRank et les différentes stratégies de
-        sélection d'un terme-clé candidat par sujet. Dans la majorité des cas,
-        la stratégie fréquence donne les meilleures performances, suivie par la
-        stratégie position, qui donne des résultats plus faibles mais
-        compétitifs. La performance de la stratégie fréquence obtenue sur
-        SemEval montrent toutefois que cette dernière souffre d'instabilité due
-        à la taille des document. À l'échelle d'un résumé bref et synthétique,
-        comme c'est le cas avec les données Termith, choisir le candidat le plus
-        fréquent de chaque groupe est intuitivement pertinent. Ça l'est moins à
-        l'échelle d'un article de plusieures pages, comme c'est le cas avec
-        SemEval, où anaphores et autres figures réthoriques sont nombreuses. Les
-        résultats confirment donc notre hypothèse que le choix du candidat
-        apparaissant en premier dans le document est préférable au choix du
-        candidat centroïde ou du candidat le plus fréquent. Enfin, la borne
-        haute obtenue par un oracle sélectionnant toujours un candidat positif,
-        lorsque c'est possible, montre que notre stratégie, sauf pour SemEval,
-        donne des performances quasi-optimales. Comme le suggèrent la
-        littérature sur l'extraction supervisée de termes-clés, la position de
-        la première occurrence d'un candidats est un trait discriminant.
+        ~\\La figure~\ref{fig:variation_de_la_selection_des_candidats} présente
+        les résultats obtenus avec TopicRank et les différentes stratégies de
+        sélection du terme-clé de chaque sujet. Dans la majorité des cas, la
+        stratégie fréquence donne les meilleures performances, suivie par la
+        stratégie position, qui donne des résultats compétitifs. Néanmoins, la
+        performance de la stratégie fréquence obtenue sur SemEval montrent que
+        cette dernière n'est pas stable. À l'échelle d'articles de
+        plusieurs pages, où anaphores et autres figures
+        réthoriques sont nombreuses, sélectionner le candidat le plus fréquent
+        n'est pas pertinent. Les résultats montrent donc que la meilleure
+        stratégie pour sélectionner le terme-clé de chaque sujet est la
+        stratégie position. Par ailleurs, la borne haute obtenue par un oracle
+        sélectionnant toujours un candidat positif, lorsque c'est possible, 
+        montre que cette stratégie donne presque toujours des performances
+        quasi-optimales.
+
+        Dans la suite de nos expériences, le terme-clé de chaque sujet est donc
+        sélectionné avec la stratégie position.
         \begin{figure}
           \centering
           \begin{tikzpicture}
@@ -2089,9 +2121,9 @@
         données. L'efficacité de notre méthode \textsc{Lr-Np} est moins marqué
         avec TopicRank qu'avec \textsc{Tf-Idf} et \textsc{Kea}. Pour les
         collections Termith, c'est majoritairement notre méthode \textsc{Lr-Np}
-        induit les meilleures performances, alors que c'est la méthode extrayant
-        les plus longues séquences de noms et d'adjectifs qui induit les
-        meilleures performances pour la majorité des autres collections.
+        qui induit les meilleures performances, alors que c'est la méthode
+        extrayant les plus longues séquences de noms et d'adjectifs qui induit
+        les meilleures performances pour la majorité des autres collections.
         \begin{table}
           \centering
           \resizebox{\linewidth}{!}{
