@@ -1767,7 +1767,7 @@
         \textsc{De}ft et de SemEval pour déterminer qu'elle est la valeur
         optimale de la fenêtre de cooccurrences pour SingleRank\footnote{Nous ne
         répétons pas cette expérience pour TextRank, car le critère d'adjacence
-      (fenêtre de valeur 2) est un critère fort dans la méthode TextRank.}. 
+        (fenêtre de valeur 2) est un critère fort dans la méthode TextRank.}. 
 
         La figure~\ref{fig:variation_de_la_fenetre} présente les résultats de
         SingleRank lorsque nous faisons varier la fenêtre de cooccurrences de
@@ -1945,8 +1945,9 @@
         \textsc{Deft}, sont plus difficiles à traiter que les autres documents.
         \newcite{hasan2014state_of_the_art} explique qu'un grand nombre de
         termes-clés candidats sont sélectionnés dans ces documents (ils sont en
-        moyenne 647 pour SemEval et 915 pour \textsc{De}ft), ce qui augmente la
-        difficulté de l'extraction de termes-clés. Le cas des données Termith
+        moyenne 647 pour SemEval et 915 pour \textsc{De}ft), l'espace de
+        recherche est plus grand et la difficulté de l'extraction de termes-clés
+        est donc plus élevée. Le cas des données Termith
         est encore plus particulier. En effet, elles sont constituées de
         documents courts et les méthodes d'extraction de termes-clés devraient
         donc obtenir de meilleures performances, mais 37 à 76~\% de leurs
@@ -1989,7 +1990,7 @@
             \label{tab:resultats_inist}
           }
         \end{table}
-        \begin{table}
+        \begin{table}[t]
           \centering
           \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
             \toprule
@@ -2053,7 +2054,7 @@
         fenêtre de cooccurrences. Chaque contribution de TopicRank joue un rôle
         permettant d'améliorer l'ordonnancement par importance et l'extraction
         non supervisée de termes-clés.
-        \begin{table}
+        \begin{table}[t]
           \centering
           \resizebox{\linewidth}{!}{
             \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
@@ -2115,16 +2116,21 @@
         à propos de la sélection des termes-clés candidats. Les
         tableaux~\ref{tab:topicrank_candidate_selection_inist}
         et~\ref{tab:topicrank_candidate_selection} montrent les performances
-        obtenues par TopicRank appliquée avec les quatres méthodes de sélection
-        des termes-clés candidats (n-grammes, \texttt{/(N|A)+/},
-        \textit{NP-chunks} et \textsc{Lr-Np}) sur chacune de nos collections de
-        données. L'efficacité de notre méthode \textsc{Lr-Np} est moins marqué
-        avec TopicRank qu'avec \textsc{Tf-Idf} et \textsc{Kea}. Pour les
-        collections Termith, c'est majoritairement notre méthode \textsc{Lr-Np}
-        qui induit les meilleures performances, alors que c'est la méthode
-        extrayant les plus longues séquences de noms et d'adjectifs qui induit
-        les meilleures performances pour la majorité des autres collections.
-        \begin{table}
+        obtenues par TopicRank utilisé avec les quatre méthodes de sélection de
+        termes-clés candidats~: n-grammes, \texttt{/(N|A)+/}, \textit{NP-chunks}
+        et \textsc{Lr-Np}. Globalement, la méthode \textsc{Lr-Np} est, ici
+        aussi, la méthode qui induit les meilleures performances. Son apport
+        comparé à la méthode \texttt{/(N|A)+/} est tout de même plus modéré que
+        sur \textsc{Tf-Idf} et \textsc{Kea}. Cela montre que des méthodes au
+        mode de fonctionnement différent ne réagissent pas de la même façon
+        selon les candidats. TopicRank est peu sensible aux légères variations dans la
+        qualité des candidats~: les méthodes \textsc{Lr-Np} et \texttt{/(N|A)+/}
+        dont la qualité est très proche (cf
+        tableaux~\ref{tab:candidate_extraction_statistics_termith}
+        et~\ref{tab:candidate_extraction_statistics_deft_semeval_duc},
+        page~\pageref{tab:candidate_extraction_statistics_termith}) peuvent donc
+        être appliquées sans distinction à TopicRank.
+        \begin{table}[t]
           \centering
           \resizebox{\linewidth}{!}{
             \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
@@ -2169,89 +2175,116 @@
 
       \subsection{Analyse d'erreurs}
       \label{subsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-error_analysis}
-        Dans cette section, nous proposons d'analyser les erreurs de TopicRank.
-        Dans un premier temps, nous analysons les sujets que détecte TopicRank,
-        puis dans un second temps, nous analysons les termes-clés de référence
-        qui ne sont pas extraits par Topic\-Rank.
+        Dans cette section, nous analysons les erreurs de TopicRank. La première
+        source d'erreurs est le mauvais groupement de certains candidats en
+        sujets. La seconde source d'erreurs concerne la spécialisation des
+        termes-clés extraits.
 
-        \subsubsection{Analyse des sujets détectés}
-        \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-error_analysis-detected_topics}
-          Dans cette section, nous analysons les groupements en sujets effectués
-          par Topic\-Rank afin de déterminer quelles sont les principales causes
-          d'erreurs.
+        Les erreurs liées au groupement en sujets sont dues à la présence, dans
+        le même groupe, de candidats ne véhiculant pas le même sujet, auquel cas
+        la stratégie de sélection du terme-clé du sujet peu échouer. La
+        principale cause de cela est la simplicité de notre mesure de
+        similarité. En effet, elle ne tient compte ni du sens des candidats
+        selon leur contexte, ni de leur sémantique latente. Par ailleurs, elle
+        n'est pas adaptée à toutes les tailles de candidats. Par exemple, si
+        deux candidats sont constitués de deux mots dont un en commun, alors ils
+        sont groupés. Concraitement, nous observons le groupement de
+        \og{}représentation structurale\fg{} avec \og{}représentation
+        culturelle\fg{}, parce qu'ils partagent le même nom, ou encore le
+        groupement de \og{}force économique\fg{} avec \og{}délabrement
+        éconimique\fg{}, parce qu'ils partagent le même adjectif.
 
-          \TODO{peut-être revoir les exemples qui suivent}
-
-          Nous observons des erreurs liées à la sélection des termes-clés
-          candidats. Lors de cette étape, certaines unités textuelles sont
-          sélectionnées comme candidats à cause d'erreurs commises lors de
-          l'étiquetage grammatical. Ces erreurs concernent principalement la
-          détection des participes. Par exemple, dans la phrase \og{}[\dots]
-          elles ne cessent de se développer à travers le monde et
-          particulièrement dans les pays dits ``du
-          sud''~[\dots]\fg{}\footnote{Exemple issu de l'article d'anthropologie
-          \textit{Le marché parallèle du médicament en milieu rural au Sénégal}
-          (\url{http://id.erudit.org/iderudit/014935ar}) de la collection
-          \textsc{Deft}.}, \og{}dits\fg{} est un adjectif selon l'outils MElt, ce qui
-          entraîne la sélection erronée du terme-clé candidat \og{}pays
-          dits\fg{}.
-
-          Nous observons également de nombreuses erreurs lorsque les groupements
-          sont déclenchés par un adjectif. Ce sont particulièrement les
-          expansions nominales s'effectuant à gauche qui en sont la cause (par
-          exemple \og{}même langue\fg{} groupé avec \og{}même
-          représentation\fg{}). Parmi les expansions nominales s'effectuant à
-          droite, les adjectifs relationnels sont moins sujets aux erreurs que
-          les autres adjectifs. Notons tout de même que lorsque ces adjectifs
-          sont liés au contexte général du document, ils sont très fréquemment
-          utilisés et beaucoup de candidats les contenant sont groupés par
-          erreur (par exemple \og{}forces économiques\fg{} peut être groupé
-          avec \og{}délabrement économique\fg{} dans un document d'économie).
-          Outres ces groupements erronés, nous observons aussi de mauvais
-          groupements lorsque les candidats ne contiennent que très peu de mots.
-          Pour les candidats de deux mots, il ne suffit que d'un seul mot en
-          commun pour les grouper. Ces candidats étant très fréquents, ils sont
-          la cause de nombreuses erreurs.
-
-        \subsubsection{Analyse des faux négatifs}
-        \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-error_analysis-false_negatives}
-          Dans cette section, nous analysons les termes-clés de référence qui
-          n'ont pas été extraits par TopicRank. Plus particulièrement, nous nous
-          intéressons à ceux qui sont présents dans les dix sujets jugés les
-          plus importants de chaque document, mais qui n'ont pas été
-          sélectionnés pour les représenter. Nous observons deux sources
-          d'erreurs.
-
-          La première source d'erreurs est le groupement en sujets. Lorsqu'un
-          sujet détecté contient en réalité des termes-clés candidats
-          représentant des sujets différents, la stratégie de sélection du
-          meilleur terme-clé dans le sujet parvient à sélectionner le terme-clé
-          correct dans certains cas, mais elle échoue parfois.
-
-          \TODO{peut-être revoir les exemples qui suivent}
-
-          La seconde source d'erreurs est la spécialisation des termes-clés de
-          référence. Nous observons deux problèmes de sous et sur-spécialisation
-          de certains termes-clés extraits vis-à-vis des termes-clés de
-          référence. Dans le cas de la sous-spécialisation, nous pouvons citer,
-          par exemple, \og{}papillons\fg{} qui est extrait à la place de
-          \og{}papillons mutants\fg{}\footnote{Exemple issue de l'article
-          journalistique \textit{Fukushima fait muter les papillons}
-          (\url{http://fr.wikinews.org/w/index.php?oldid=432477}) de la
-          collection Wikinews.}. Bien que ce problème de sous-spécialisation
-          soit identifié, l'existance du problème inverse le rend plus difficile
-          à résoudre. Dans le cas de la sur-spécialisation, nous pouvons citer,
-          par exemple, \og{}député Antoni Pastor\fg{} qui est extrait à la place
-          de \og{}Antoni Pastor\fg{}\footnote{Exemple issu de l'article
-          journalistique \textit{Îles Baléares : le Parti populaire exclut le
-          député Antoni Pastor pour avoir défendu la langue catalane}
-          (\url{http://fr.wikinews.org/w/index.php?oldid=479948}) de la
-          collection Wikinews.}. La raison principale de ce problème est
-          l'aspect libre et ambigu de l'annotation manuelle des termes-clés.
-%          Toutefois, privilégier les modifications adjectivales (par exemple
-%          \og{}mutants\fg{}) et, au contraire, éviter les modifications
-%          nominales (par exemple \og{}député\fg{}) semblent être une hypothèse à
-%          vérifier.
+        Les erreurs liées à la spécialisation des termes-clés extraits concerne
+        à la fois les problèmes de sous- et sur-spécialisation. Le problème de
+        sous-spécialisation survient lorsque le terme-clé extrait est moins
+        précis que le terme-clé de référence. Nous pouvons citer, par exemple,
+        \og{}papillons\fg{} qui est extrait à la place de \og{}papillons
+        mutants\fg{} dans l'article Wikinews \textit{Fukushima fait muter les
+        papillons}\footnote{\url{http://fr.wikinews.org/w/index.php?oldid=432477}}.
+        Le problème de sur-spécialisation survient lorsque le terme-clé extrait
+        est plus précis que le terme-clé de référence. Nous pouvons citer, par
+        exemple, \og{}député Antoni Pastor\fg{} qui est extrait à la place de
+        \og{}Antoni Pastor\fg{} dans l'article Wikinews \textit{Îles Baléares :
+        le Parti populaire exclut le député Antoni Pastor pour avoir défendu la
+        langue
+        catalane}\footnote{\url{http://fr.wikinews.org/w/index.php?oldid=479948}}.
+        La présence simultanée de ces deux problèmes les rend difficiles à
+        résoudre. Pour beaucoup, il s'agit là d'un problème
+        d'évaluation~\cite{zesch2009rprecision}.
+%        \subsubsection{Analyse des sujets détectés}
+%        \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-error_analysis-detected_topics}
+%          Dans cette section, nous analysons les groupements en sujets effectués
+%          par Topic\-Rank afin de déterminer quelles sont les principales causes
+%          d'erreurs.
+%
+%          \TODO{peut-être revoir les exemples qui suivent}
+%
+%          Nous observons des erreurs liées à la sélection des termes-clés
+%          candidats. Lors de cette étape, certaines unités textuelles sont
+%          sélectionnées comme candidats à cause d'erreurs commises lors de
+%          l'étiquetage grammatical. Ces erreurs concernent principalement la
+%          détection des participes. Par exemple, dans la phrase \og{}[\dots]
+%          elles ne cessent de se développer à travers le monde et
+%          particulièrement dans les pays dits ``du
+%          sud''~[\dots]\fg{}\footnote{Exemple issu de l'article d'anthropologie
+%          \textit{Le marché parallèle du médicament en milieu rural au Sénégal}
+%          (\url{http://id.erudit.org/iderudit/014935ar}) de la collection
+%          \textsc{Deft}.}, \og{}dits\fg{} est un adjectif selon l'outils MElt, ce qui
+%          entraîne la sélection erronée du terme-clé candidat \og{}pays
+%          dits\fg{}.
+%
+%          Nous observons également de nombreuses erreurs lorsque les groupements
+%          sont déclenchés par un adjectif. Ce sont particulièrement les
+%          expansions nominales s'effectuant à gauche qui en sont la cause (par
+%          exemple \og{}même langue\fg{} groupé avec \og{}même
+%          représentation\fg{}). Parmi les expansions nominales s'effectuant à
+%          droite, les adjectifs relationnels sont moins sujets aux erreurs que
+%          les autres adjectifs. Notons tout de même que lorsque ces adjectifs
+%          sont liés au contexte général du document, ils sont très fréquemment
+%          utilisés et beaucoup de candidats les contenant sont groupés par
+%          erreur (par exemple \og{}forces économiques\fg{} peut être groupé
+%          avec \og{}délabrement économique\fg{} dans un document d'économie).
+%          Outres ces groupements erronés, nous observons aussi de mauvais
+%          groupements lorsque les candidats ne contiennent que très peu de mots.
+%          Pour les candidats de deux mots, il ne suffit que d'un seul mot en
+%          commun pour les grouper. Ces candidats étant très fréquents, ils sont
+%          la cause de nombreuses erreurs.
+%
+%        \subsubsection{Analyse des faux négatifs}
+%        \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-error_analysis-false_negatives}
+%          Dans cette section, nous analysons les termes-clés de référence qui
+%          n'ont pas été extraits par TopicRank. Plus particulièrement, nous nous
+%          intéressons à ceux qui sont présents dans les dix sujets jugés les
+%          plus importants de chaque document, mais qui n'ont pas été
+%          sélectionnés pour les représenter. Nous observons deux sources
+%          d'erreurs.
+%
+%          La première source d'erreurs est le groupement en sujets. Lorsqu'un
+%          sujet détecté contient en réalité des termes-clés candidats
+%          représentant des sujets différents, la stratégie de sélection du
+%          meilleur terme-clé dans le sujet parvient à sélectionner le terme-clé
+%          correct dans certains cas, mais elle échoue parfois.
+%
+%          \TODO{peut-être revoir les exemples qui suivent}
+%
+%          La seconde source d'erreurs est la spécialisation des termes-clés de
+%          référence. Nous observons deux problèmes de sous et sur-spécialisation
+%          de certains termes-clés extraits vis-à-vis des termes-clés de
+%          référence. Dans le cas de la sous-spécialisation, nous pouvons citer,
+%          par exemple, \og{}papillons\fg{} qui est extrait à la place de
+%          \og{}papillons mutants\fg{}\footnote{Exemple issue de l'article
+%          journalistique \textit{Fukushima fait muter les papillons}
+%          (\url{http://fr.wikinews.org/w/index.php?oldid=432477}) de la
+%          collection Wikinews.}. Bien que ce problème de sous-spécialisation
+%          soit identifié, l'existance du problème inverse le rend plus difficile
+%          à résoudre. Dans le cas de la sur-spécialisation, nous pouvons citer,
+%          par exemple, \og{}député Antoni Pastor\fg{} qui est extrait à la place
+%          de \og{}Antoni Pastor\fg{}\footnote{Exemple issu de l'article
+%          journalistique \textit{Îles Baléares : le Parti populaire exclut le
+%          député Antoni Pastor pour avoir défendu la langue catalane}
+%          (\url{http://fr.wikinews.org/w/index.php?oldid=479948}) de la
+%          collection Wikinews.}. La raison principale de ce problème est
+%          l'aspect libre et ambigu de l'annotation manuelle des termes-clés.
 
       \subsection{Bilan}
       \label{subsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-bilan}
@@ -2278,6 +2311,5 @@
     leurs adjectifs. Dans un second temps, nous avons proposé une nouvelle
     méthode à base de graphe pour l'ordonnancement par importance des sujets
     d'un document et l'extraction d'un terme-clé représentatif de chaqu'un des
-    sujets les plus importants. Cette deuxième contribution a fait l'objet de
-    deux publications~\cite{bougouin2013topicrank,bougouin2014topicrank}.
+    sujets les plus importants.
 
