@@ -754,55 +754,74 @@
 
       \subsubsection{Bilan des méthodes non supervisées}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction-bilan}
-        \TODO{\dots}
-        \TODO{parler des méthodes à base de graphe et du problème (potentiel) de
-        dispersion dans le graphe (adaptation miroir de l'algo de Brin et Page
-        pas adaptée dans notre cas)}
+        Les méthodes non supervisées d'extraction de termes-clés utilisent des
+        techniques très différentes, mais reposent toutes sur des statistiques
+        simples~: la fréquence d'occurrence des mots dans le document, leur
+        fréquence documentaire et la fréquence de cooccurrence entre eux. Les
+        méthodes puremenet statistiques mises à part, c'est le mode de
+        représentation du document et son analyse qui différencie les méthodes
+        non-supervisées.
+        
+        Le graphe est le mode de représentation le plus utilisé actuellement.
+        Représentant les relations de cooccurrence entre les mots du document,
+        il est analysé à l'aide d'un algorithme de marche aléatoire qui attribue
+        un score d'importance à chaque n\oe{}ud (mot). Ce graphe et la manière
+        dont il est analysé sont très intuitifs, mais nous notons quelques
+        défauts. Nous reprochons aux méthodes actuelles de
+        modéliser le document par ses mots et leurs relations, et donc de
+        déterminer l'importance des mots uniquement, au lieu de celle des
+        termes-clés candidats. Par ailleurs, la question de la dispersion
+        d'information dans le graphe n'est jamais abordée. Certains mots du
+        documents ne sont-ils pas des synonymes ou ne représentent-ils pas le
+        même sujet~? Ne faut-il pas mutualiser certains n\oe{}uds afin d'éviter
+        de disperser des informations relatives à un même sujet~?
 
     \subsection{Approche supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction}
       Les méthodes supervisées apprennent principalement à classer les
       termes-clés en tant que \og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}.
-      Leur apprentissage se fait à partir d'un corpus d'apprentissage
-      (d'entraînement) dont les documents sont annotés en termes-clés. Les
-      termes-clés candidats sont sélectionnés dans ces documents et servent
-      d'exemples et de contre-exemples.
+      Leur apprentissage se fait à partir d'une collection d'apprentissage, ou
+      d'entraînement, dont les documents sont manuellement indexés par des
+      termes-clés. Les termes-clés candidats sont sélectionnés dans ces
+      documents et servent d'exemples, lorsqu'il font partie de l'indexation
+      manuelle (de référence), sinon, de contre-exemples.
 
-      De nombreuses méthodes sont proposées, utilisant différents classifieurs
-      et présentant de nouveaux traits (caractéristiques) discriminants pour
-      l'extraction automatique de termes-clés. Dans la suite, nous présentons
-      ces méthodes, regroupées par classifieurs, et soulignons les nouveaux
-      traits proposés. Notez qu'il existe aussi une étude comparative des
-      performances des différents classifieurs pour la tache d'extraction
-      automatique de termes-clés~\cite{sarkar2012machinelearningcomparison}.
+      Les méthodes proposées emploient des classifieurs. Elles diffèrent
+      selon ces classifieurs et les caractéristiques discriminantes (traits)
+      qu'elles utilisent. Nous présentons ces différentes méthodes en les
+      groupant par classifieur et les présentons en soulignant les traits
+      choisis.
 
       \subsubsection{Classifieurs probabilistes}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-probabilistic_models}
         Les classifieurs probabilistes utilisent des distributions de
-        probabilités selon divers traits. Pour l'extraction des termes-clés d'un
+        probabilités de divers traits. Pour l'extraction des termes-clés d'un
         document, ces distributions sont combinées pour déterminer un score de
-        vraisemblance de chaque terme-clé candidat en tant que termes-clés du
-        document.
+        vraisemblance de chaque terme-clé candidat en tant que
+        \og{}terme-clé\fg{}.
 
         ~\\\textsc{Kea}~\cite{witten1999kea} est la méthode d'extraction de
         termes-clés la plus populaire. Elle effectue une classification naïve
         bayesienne pour attribuer le score de vraisemblance de chaque terme-clé
         candidat. Elle combine les distributions probabilistes de deux traits~:
-        la première position du candidat dans le document et son poids \textsc{Tf-Idf}.
-        L'intuition de \newcite{witten1999kea} est que les termes-clés ont une
-        certaine importance vis-à-vis du document (leur poids \textsc{Tf-Idf}) et qu'ils
-        font leur première apparition dans des zones similaires du document.
+        la première position du candidat dans le document et son poids
+        \textsc{Tf-Idf}. L'intuition de \newcite{witten1999kea} est que les
+        termes-clés ont une certaine importance vis-à-vis du document (leur
+        poids \textsc{Tf-Idf}) et qu'ils font leur première apparition dans des
+        zones similaires du document.
+          Appris sur une collection de
 
         ~\\\textsc{Kea} est une approche très simple qui considère tous les
         traits comme indépendants (principe de la classification naïve
         bayésienne). Sa simplicité et ses bonnes performances ont suscité un
         grand intéret, il en existe de nombreuses variantes. C'est le cas de la
         méthode de \newcite{frank1999keafrequency}, qui utilise comme trait
-        supplémentaire le nombre de fois qu'un terme-clé candidat est un exemple
-        dans le corpus d'apprentissage. Cette méthode donne un plus fort score
-        de vraisemblance aux candidats déjà utilisés comme termes-clés. Elle
-        améliore les performances de \textsc{Kea}, mais nécessite plus de
-        données d'apprentissage.
+        supplémentaire le nombre de fois qu'un terme-clé candidat est un
+        exemple, c'est-à-dire un terme-clé de l'indexation manuelle d'un
+        document, parmi les documents de la collection d'entraînement. Cette
+        méthode donne un plus fort score de vraisemblance aux candidats déjà
+        utilisés comme termes-clés. Elle améliore les performances de
+        \textsc{Kea}, mais nécessite plus de données d'apprentissage.
         
         ~\\\newcite{turney2003keacoherence} reprend lui aussi \textsc{Kea}.
         Estimant, comme \newcite{ding2011binaryintegerprogramming}, que les
@@ -860,10 +879,10 @@
         classifieur d'entropie maximale. Ce classifieur cherche parmi plusieurs
         distributions (une pour chaque trait) laquelle a la plus forte entropie.
         La distribution ayant la plus forte entropie est par définition celle
-        qui contient le moins d'information, ce qui la rend moins arbitraire et
+        qui contient le moins d'informations, ce qui la rend moins arbitraire et
         donc plus appropriée pour l'extraction automatique de termes-clés.
         Chaque trait se voit donc attribuer un poids, de sorte que les traits
-        les moins arbitraires aient le plus de poids dans la classification. En
+        les moins arbitraires ont le plus de poids dans la classification. En
         plus des traits cités pour les méthodes précédentes, et à l'instar de
         \newcite{nguyen2007keadocumentstructure}, ils tirent parti d'autres
         traits liés à la nature des documents qu'ils traitent. Ainsi, pour des
@@ -897,10 +916,10 @@
         respective (\og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}).
 
         ~\\Dans son article sur l'apprentissage pour l'extraction automatique de
-        termes-clés, \newcite{turney1999learningalgorithms} entraîne 50 arbres
-        de décision (technique de \textit{random forest}) et réduit la tâche
-        d'extraction de termes-clés à un vote. Les arbres de décision classent
-        indépendemment chaque candidat et les candidats majoritairement
+        termes-clés, \newcite{turney1999learningalgorithms} entraîne plusieurs
+        arbres de décision (technique de \textit{random forest}) et réduit la
+        tâche d'extraction de termes-clés à un vote. Les arbres de décision
+        classent indépendemment chaque candidat et les candidats majoritairement
         classés \og{}terme-clé\fg{} sont extraits comme termes-clés. Parmi les
         nombreux traits qu'utilise \newcite{turney1999learningalgorithms}, les
         plus novateurs sont des traits binaires qui visent des catégories
@@ -908,8 +927,8 @@
         \og{}contient un verbe usuel~?\fg{} et \og{}se termine par un
         adjectif~?\fg{}. Contrairement aux autres travaux, celui de
         \newcite{turney1999learningalgorithms} est aussi l'un des seuls à
-        décliner les traits à des niveaux de granularité différents~: le trait
-        pour le candidat et le même trait pour chacun de ses mots.
+        décliner les traits sur deux niveaux de granularité~: le candidat (grain
+        expression) et chacun de ses mots (grain mot).
 
         ~\\\newcite{ercan2007lexicalchains} utilisent eux aussi des arbres de
         décision pour extraire les termes-clés. Les termes-clés sont ici
@@ -1091,79 +1110,83 @@
 
       \subsubsection{Bilan des méthodes supervisées}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-conclusion}
-        \TODO{\dots}
-
-    \subsection{Bilan}
-    \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-conclusion}
-      L'extraction automatique de termes-clés est une catégorie d'indexation par
-      termes-clés très étudiée. Les méthodes proposées sont nombreuses et
-      utilisent des techniques parfois très différentes. Parmi les méthodes non
-      supervisées, certaines utilisent des statistiques très simples, tandis que
-      d'autres se reposent sur des représentations faisant émerger les relations
-      sémantiques entre les termes-clés candidats, ou entre leurs mots. Les
-      méthodes supervisées utilisent presque toutes des classificateurs. Elles
-      rivalisent entre elles par les traits discriminants qu'elles proposent.
-      Parce qu'elles utilisent des données d'entraînement, les méthodes
-      supervisées s'adaptent aux types de documents qu'elles doivent traiter et
-      sont généralement plus performantes que les méthodes non supervisées.
+        Les méthodes supervisées reformulent la tâche d'extraction de
+        termes-clés en une tâche de classification des termes-clés candidats en
+        tant que \og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}. Pour cela,
+        elles utilisent des classifieurs et proposent divers traits pour
+        discriminer les candidats. D'un point de vue recherche, c'est par les
+        traits qu'elles proposent que les méthodes supervisées rivalisent.
+        Certains traits sont génériques et communs à la majorité des méthodes.
+        C'est le cas de la position de la première occurrence du candidat et de
+        son score \textsc{Tf-Idf}. D'autres traits sont spécifiques à certains
+        types de documents. Par exemple, la section dans laquelle occurre un
+        terme-clé est un trait discriminant pour l'extraction de termes-clés à
+        partir d'articles journalistiques.
 
   \section{Assignement automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_assignment}
     L'assignement automatique de termes-clés fait l'objet de moins de travaux
-    que l'extraction automatique de termes-clés. Il s'agit aussi d'une tâche
-    plus difficile, car elle doit assigner des entrées d'un vocabulaire contrôlé
-    en tant que termes-clés d'un document indépendemment de leur apparition dans
-    celui-ci.
+    que l'extraction. Il s'agit aussi d'une tâche plus difficile, car elle doit
+    assigner des entrées d'un vocabulaire contrôlé en tant que termes-clés d'un
+    document indépendemment de leur apparition dans celui-ci.
 
-    ~\\\newcite{medelyan2008smalltrainingset} sont les premiers à proposer une
-    méthode capable de faire de l'assignement automatique de termes-clés. Leur
-    méthode, \textsc{Kea}++, améliore la méthode supervisée d'extraction de
-    termes-clés \textsc{Kea}. Elle utilise un thésaurus\footnote{Thésaurus~:
-    liste de termes regroupés selon les concepts d'un domaine de connaissance
-    qu'ils représentent.} du domaine des documents à traiter pour affiner la
-    sélection des candidats et ajouter un trait au classifieur naïf bayesien.
+    ~\\\newcite{medelyan2006kea++} sont les premiers à proposer une
+    méthode capable de faire de l'assignement de termes-clés. Celle-ci,
+    \textsc{Kea}++, améliore la méthode d'extraction \textsc{Kea}. Pour cela,
+    elle utilise un thésaurus\footnote{Thésaurus~: liste de termes regroupés
+    selon les concepts d'un domaine de connaissance qu'ils représentent.} du
+    domaine de spécialités à traiter. Il est mis à profit de deux manière~:
+    d'abord pour sélectionner les termes-clés candidats, puis pour améliorer le
+    classifieur naïf bayesien à l'aide d'un nouveau trait.
 
-    Lors de la sélection des candidats, les n-grammes qui ne font pas partie des
-    entrées du thésaurus sont jugés mal formés et sont éliminés s'ils ne peuvent
-    pas être remplacés par une autre forme. \textsc{Kea}++ accepte les entrées
-    du thésaurus qui partagent la racine de leurs mots avec un n-gramme du
-    document, ainsi que les entrées du thésaurus qui sont des synonymes d'un
-    n-gramme du document.
-
-    \newcite{medelyan2008smalltrainingset} tirent aussi profit du thésaurus lors
-    de la classification des candidats. Ils ajoutent un trait indiquant la
-    relation qu'entretient chaque candidat avec les autres dans le thésaurus (le
-    nombre de relations). De cette manière, ils imitent le travail de
+    \newcite{medelyan2006kea++} décident de réaliser l'assignement en se
+    limitant aux termes-clés qui occurrent dans le document. Ils sélectionnent
+    donc toutes les unités textuelles qui correspondent à une entrée du
+    thésaurus. À l'instar des candidats de \textsc{Kea}, ceux de \textsc{Kea++}
+    sont ensuite classés en tant que \og{}terme-clé\fg{} ou \og{}non
+    terme-clé\fg{} par un classifieur naïf bayesien. Ce classifieur est le même
+    que celui de \textsc{Kea}, à l'exception d'un trait supplémentaire~: le
+    nombre de relations sémantiques qu'entretient le candidat avec les autres
+    dans le thésaurus. De cette manière, ils imitent le travail de
     \newcite{turney2003keacoherence} qui tente d'améliorer la cohérence entre
-    les termes-clés extraits par \textsc{Kea}.
+    les termes-clés extraits.
 
-    \textsc{Kea}++ double les performances de \textsc{Kea}, sans en augmenter
-    grandement sa complexité. Le travail de
-    \newcite{medelyan2008smalltrainingset} montre donc l'importance d'utiliser
-    une méthode d'assignement de termes-clés lorsque les données disponibles le
-    permettent.
+    Évalué avec des documents du domaine agroalimentaire et le thésaurus
+    Agrovoc\footnote{\url{http://aims.fao.org/vest-registry/vocabularies/agrovoc-multilingual-agricultural-thesaurus}},
+    \textsc{Kea}++ double les performances de \textsc{Kea}. Le travail de
+    \newcite{medelyan2006kea++} montre donc l'efficacité d'une méthode
+    d'assignement de termes-clés, même limitée.
 
-    ~\\\newcite{liu2011vocabularygap} proposent une méthode pouvant effectuer de
-    l'assignement de termes-clés. Leur approche consiste à transformer le
-    problème d'indexation par termes-clés en un problème de traduction. Leur
-    idée est la suivante~: un document et ses termes-clés expriment le même
-    contenu dans deux langues différentes, l'une expressive et l'autre plus
-    concise et plus synthétique. Les termes-clés produits sont limités par ceux
-    utilisés lors de l'apprentissage  et n'apparaissent pas systématiquement
-    dans le document. Dans leur travail, ils apprennent un modèle de traduction
-    à partir des éléments du titre à la place des termes-clés annotés
-    manuellement ou d'un vocabulaire contrôlé. Dans leur cas, il ne s'agit donc
-    pas rigoureusement d'assignement de termes-clés. Leur approche y est
-    toutefois appropriée.
+    ~\\\newcite{liu2011vocabularygap} proposent une méthode que nous assimilons
+    à de l'assignement de termes-clés. Ils font l'hypothèse qu'un document et
+    ses termes-clés expriment le même contenu, mais dans deux langues
+    différentes~: l'une expressive et l'autre synthétique. Ils reformulent donc
+    la tâche d'indexation par termes-clés en une tâche de traduction du langage
+    naturel vers celui des termes-clés.
+    
+    \newcite{liu2011vocabularygap} apprennent un modèle de traduction à l'aide
+    de paires de mots~: l'un dans le langage naturel, l'autre dans le langage
+    synthétique des termes-clés. Les mots du langage naturel sont extraits du document et les
+    mots du langage synthétique sont extrait soit de son titre, soit de son
+    résumé. Le modèle de traduction peut ensuite être appliqué aux termes-clés
+    candidats, pour réaliser de l'extraction de termes-clés à la manière des
+    classifieurs probabilistes présentés dans la
+    section~\ref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-probabilistic_models}
+    (page~\pageref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-probabilistic_models}),
+    ou être utilisé pour générer une traduction, c'est-à-dire des termes-clés.
 
-    ~\\L'assignement est une catégorie d'indexation par termes-clés encore peu
-    étudiée, alors qu'en principe elle attribue des termes-clés d'une qualité
-    certifiée par l'usage d'un vocabulaire contrôlé. Seulement deux travaux
-    originaux se rapprochent de l'assignement de termes-clés. L'un se fonde sur
-    un vocabulaire contrôlé (un thésaurus), mais ne va pas au-delà du contenu du
-    document~; l'autre assigne des termes-clés qui n'occurrent pas
+    Parce qu'elle est capable de générer des termes-clés, cette méthode est très
+    intéressante. Cependant, il ne s'agit là que d'un premier pas vers
+    l'assignement de termes-clés, car aucun vocabulaire n'est utilisé pour
+    contrôler la génération.
+
+    ~\\Alors que l'assignement attribue des termes-clés d'une qualité certifiée
+    par l'usage d'un vocabulaire contrôlé, cette tâche n'est encore que très peu
+    étudiée. Seulement deux travaux originaux s'en rapprochent. L'un se fonde
+    sur un vocabulaire contrôlé (un thésaurus), mais ne va pas au-delà du
+    contenu du document~; l'autre génère des termes-clés qui n'occurrent pas
     nécessairement dans le document, mais ne se fonde pas sur vocabulaire
-    contrôlé ou un quelconque approximation.
+    contrôlé.
 
   %-----------------------------------------------------------------------------
 
@@ -1183,16 +1206,16 @@
     respectant en moyenne le mieux ces critères est supposée la meilleure.
 
     En indexation par termes-clés, il est courant d'évaluer une méthode en
-    termes de précision, de rappel et de f-mesure. La précision capture la
+    termes de précision, de rappel et de f1-mesure. La précision capture la
     capacité d'une méthode à minimiser les erreurs (faux positifs, cf.
     tableau~\ref{tab:confusion_matrix} et équation~\ref{math:precision}). En
     opposition, le rappel ne considère pas la quantité d'erreurs et mesure la
     capacité de la méthode à fournir le plus possible de termes-clés corrects
     (vrais positifs, cf tableau~\ref{tab:confusion_matrix} et
-    équation~\ref{math:recall}). Quant à la f-mesure, celle-ci mesure le
+    équation~\ref{math:recall}). Quant à la f1-mesure, elle évalue le
     compromis entre précision et rappel, soit la capacité de la méthode à
     extraire un maximum de termes-clés corrects tout en faisant un minimum
-    d'erreurs (cf. équation~\ref{math:f_measure}).
+    d'erreurs (cf. équation~\ref{math:f1_measure}).
     \begin{table}
       \begin{center}
         \begin{tabular}{cc|cc}
@@ -1211,60 +1234,63 @@
     \end{table}
     \begin{align}
       \text{précision} &= \frac{\#\textsc{Vp}}{\#\textsc{Vp} + \#\textsc{Fp}} \label{math:precision}\\
-      \notag\\
       \text{rappel} &= \frac{\#\textsc{Vp}}{\#\textsc{Vp} + \#\textsc{Fn}} \label{math:recall}\\
-      \notag\\
-      \text{f-mesure} &= (1 + \beta^2) \times \frac{\text{précision} \times \text{rappel}}{(\beta^2 \times \text{précision}) + \text{rappel}} \label{math:f_measure}
+      \text{f-mesure} &= (1 + \beta^2) \times \frac{\text{précision} \times \text{rappel}}{(\beta^2 \times \text{précision}) + \text{rappel}} \label{math:f_measure}\\
+      \text{f1-mesure} &= 2 \times \frac{\text{précision} \times \text{rappel}}{\text{précision} + \text{rappel}} \label{math:f1_measure}
     \end{align}
       
-    En \textsc{Ri}, il est courant d'évaluer les méthodes selon la qualité de
-    leur ordonnancement. Prenons l'exemple des moteurs de recherche, si deux
-    moteurs de recherche doivent fournir dix documents répondant à une requête
-    et que les deux systèmes n'ont que deux propositions pertinentes, alors ils
-    ont tous les deux la même précision (20~\%) et le même rappel (20~\%).
-    Toutefois, si le premier système classe ces documents en premier et que le
-    second système les classe aux positions neuf et dix, alors le premier
-    système est le meilleur. Lorsque les méthodes d'indexation par termes-clés
-    le permettent, il est intéressant de mesurer leur capacité à classer en
-    premier les vrais positifs. Dans la littérature, quatre mesures, dont
-    certaines empruntées à la \textsc{Ri}, sont utilisées~: la \textsc{Map}
-    (\textit{Mean Average Precision}), la Bpref (\textit{Binary Preference
-    Measure}), la R-précision et la \textsc{Mrr} (\textit{Mean Reciprocal
-    Rank}). La \textsc{Map} mesure pour chaque document la moyenne de la
-    précision à chaque rang ($\textnormal{précision}@\textnormal{rang}$) d'un
-    vrai positif (cf. équation~\ref{math:average_precision}). Avec la Bpref, la
-    \textsc{Map} est la seule mesure qui tient compte de tous les vrais
-    positifs. La Bpref est une mesure similaire à la \textsc{Map} qui,
-    contrairement à cette dernière, s'abstrait de la connaissance de tous les
-    termes-clés de référence (cf. équation~\ref{math:bpref}). Elle peut donc,
-    par exemple, s'appliquer dans le cadre d'évaluations manuelles où chaque
-    terme-clé fourni par la méthode est jugé correct ou non par un évaluateur
-    humain et où tous les termes-clés du document ne sont pas connus. La
-    R-précision est une variante de la précision. Elle mesure cette dernière
-    dans le cas optimal (tous les termes-clés sont fournis et il n'y a aucune
-    erreur), soit au rang $R$, où $R$ est égal au nombre de termes-clés de
-    référence du document (cf. équation~\ref{math:r_precision}). Quant à la
-    \textsc{Mrr}, celle-ci est la moins précise, elle ne s'intéresse qu'au
-    meilleur rang obtenu pour un vrai positif (cf.
-    équation~\ref{math:reciprocal_rank}).
-    \begin{align}
-      \textsc{Map} &= \frac{\mathlarger{\sum}_{\text{\textit{terme-clé}} = \textsc{Vp}}\text{précision}@\text{rang}(\text{\textit{terme-clé}})}{\#\textsc{Vp} + \#\textsc{Fn}} \label{math:average_precision}\\
-      \notag \\
-      \text{Bpref} &= \sum_{\text{\textit{terme-clé}} = \textsc{Vp}}{1 - \frac{|\text{\textit{terme-clé}'}\ \text{de meilleur rang que}\ \text{\textit{terme-clé}}|}{\#\textsc{Vp} + \#\textsc{Fp}}} \label{math:bpref}\\
-      \notag \\
-      \text{R-précision} &= \text{précision}@(\#\textsc{Vp} + \#\textsc{Fn}) \label{math:r_precision}\\
-      \notag \\
-      \textsc{Mrr} &= \frac{1}{\text{argmin}(\forall \text{\textit{terme-clé}} = \textsc{Vp}, \text{rang}(\text{\textit{terme-clé}}))} \label{math:reciprocal_rank}
-    \end{align}
+%    En \textsc{Ri}, il est courant d'évaluer les méthodes selon la qualité de
+%    leur ordonnancement. Prenons l'exemple des moteurs de recherche, si deux
+%    moteurs de recherche doivent fournir dix documents répondant à une requête
+%    et que les deux systèmes n'ont que deux propositions pertinentes, alors ils
+%    ont tous les deux la même précision (20~\%) et le même rappel (20~\%).
+%    Toutefois, si le premier système classe ces documents en premier et que le
+%    second système les classe aux positions neuf et dix, alors le premier
+%    système est le meilleur. Lorsque les méthodes d'indexation par termes-clés
+%    le permettent, il est intéressant de mesurer leur capacité à classer en
+%    premier les vrais positifs. Dans la littérature, quatre mesures, dont
+%    certaines empruntées à la \textsc{Ri}, sont utilisées~: la \textsc{Map}
+%    (\textit{Mean Average Precision}), la Bpref (\textit{Binary Preference
+%    Measure}), la R-précision et la \textsc{Mrr} (\textit{Mean Reciprocal
+%    Rank}). La \textsc{Map} mesure pour chaque document la moyenne de la
+%    précision à chaque rang ($\textnormal{précision}@\textnormal{rang}$) d'un
+%    vrai positif (cf. équation~\ref{math:average_precision}). Avec la Bpref, la
+%    \textsc{Map} est la seule mesure qui tient compte de tous les vrais
+%    positifs. La Bpref est une mesure similaire à la \textsc{Map} qui,
+%    contrairement à cette dernière, s'abstrait de la connaissance de tous les
+%    termes-clés de référence (cf. équation~\ref{math:bpref}). Elle peut donc,
+%    par exemple, s'appliquer dans le cadre d'évaluations manuelles où chaque
+%    terme-clé fourni par la méthode est jugé correct ou non par un évaluateur
+%    humain et où tous les termes-clés du document ne sont pas connus. La
+%    R-précision est une variante de la précision. Elle mesure cette dernière
+%    dans le cas optimal (tous les termes-clés sont fournis et il n'y a aucune
+%    erreur), soit au rang $R$, où $R$ est égal au nombre de termes-clés de
+%    référence du document (cf. équation~\ref{math:r_precision}). Quant à la
+%    \textsc{Mrr}, celle-ci est la moins précise, elle ne s'intéresse qu'au
+%    meilleur rang obtenu pour un vrai positif (cf.
+%    équation~\ref{math:reciprocal_rank}).
+%    \begin{align}
+%      \textsc{Map} &= \frac{\mathlarger{\sum}_{\text{\textit{terme-clé}} = \textsc{Vp}}\text{précision}@\text{rang}(\text{\textit{terme-clé}})}{\#\textsc{Vp} + \#\textsc{Fn}} \label{math:average_precision}\\
+%      \notag \\
+%      \text{Bpref} &= \sum_{\text{\textit{terme-clé}} = \textsc{Vp}}{1 - \frac{|\text{\textit{terme-clé}'}\ \text{de meilleur rang que}\ \text{\textit{terme-clé}}|}{\#\textsc{Vp} + \#\textsc{Fp}}} \label{math:bpref}\\
+%      \notag \\
+%      \text{R-précision} &= \text{précision}@(\#\textsc{Vp} + \#\textsc{Fn}) \label{math:r_precision}\\
+%      \notag \\
+%      \textsc{Mrr} &= \frac{1}{\text{argmin}(\forall \text{\textit{terme-clé}} = \textsc{Vp}, \text{rang}(\text{\textit{terme-clé}}))} \label{math:reciprocal_rank}
+%    \end{align}
 
-    Toutes les mesures présentées précédemment respectent le paradigme de
-    l'évaluation \og{}à la Cranfield\fg{}. Cependant, associer des termes-clés à
-    un document est une tâche subjective~\cite{hasan2014state_of_the_art}, il
-    n'existe donc pas une solution unique. Des travaux proposent d'apporter plus
-    de souplesse à la comparaison entre termes-clés résultant d'une méthode et
-    termes-clés de référence en tenant compte de leur
-    chevauchement~\cite{zesch2009rprecision,kim2010rprecision}. Ces travaux
-    ne sont toutefois pas utilisés travaux récents.
+%    Toutes les mesures présentées précédemment respectent le paradigme de
+%    l'évaluation \og{}à la Cranfield\fg{}. Cependant, associer des termes-clés à
+%    un document est une tâche subjective~\cite{hasan2014state_of_the_art}, il
+%    n'existe donc pas une solution unique. Des travaux proposent d'apporter plus
+%    de souplesse à la comparaison entre termes-clés résultant d'une méthode et
+%    termes-clés de référence en tenant compte de leur
+%    chevauchement~\cite{zesch2009rprecision,kim2010rprecision}. Ces travaux
+%    ne sont toutefois pas utilisés travaux récents.
+
+    \TODO{Comparaisons avec les stems}
+
+    \TODO{point sur le pessimisme}
 
   %-----------------------------------------------------------------------------
 
@@ -1306,10 +1332,11 @@
     le résultat d'une méthode d'indexation par termes-clés est évalué en termes
     de précision, qui est d'autant plus élevée s'il y a le moins d'erreurs, de
     rappel, qui est d'autant plus élevée s'il y a beaucoup de termes-clés
-    positifs, et de f-mesure, qui est le compromis entre précision et rappel. Ce
-    modèle d'évaluation présente l'avantage d'être utilisable dès lors que des
-    données de test sont disponibles. La comparaison à un jugement de référence
-    unique rend cependant l'évaluation pessimiste. Lorsque les conditions le
-    permettent, une évaluation manuelle reste indispensable pour mieux mesurer
-    les forces et les faiblesses d'une méthode d'indexation par termes-clés.
+    positifs, et de f1-mesure, qui est le compromis entre précision et rappel.
+    Ce modèle d'évaluation présente l'avantage d'être utilisable dès lors que
+    des données de test sont disponibles. La comparaison à un jugement de
+    référence unique rend cependant l'évaluation pessimiste. Lorsque les
+    conditions le permettent, une évaluation manuelle reste indispensable pour
+    mieux mesurer les forces et les faiblesses d'une méthode d'indexation par
+    termes-clés.
 
