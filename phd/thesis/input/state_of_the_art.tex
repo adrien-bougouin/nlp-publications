@@ -19,30 +19,31 @@
     monolexicaux.}, sont les unités textuelles (mots ou expressions) qui
     caractérisent le contenu principal d'un document~: les sujets qu'il aborde,
     ses idées, etc. Associés à un document ceux-ci donnent une description
-    précise de ce qu'il contient et peuvent servir à la recherche d'information
-    (\textsc{Ri}). Nous parlons donc d'indexation par
+    précise de ce qu'il contient et peuvent servir à l'indexer pour la recherche
+    d'information (\textsc{Ri}). Nous parlons donc d'indexation par
     termes-clés\index{Indexation par termes-cles@Indexation par termes-clés
     \textit{(automatic keyphrase annotation)}|textbf}. Cette indexation ne doit
     toutefois pas être confondue avec l'indexation dite \og{}plein texte\fg{} au
-    c\oe{}ur de nombreux systèmes de \textsc{Ri}. L'indexation plein texte
-    pondère tous les mots d'un document selon leur importance relative à
-    celui-ci, tandis que l'indexation par termes-clés fournit un ensemble
-    restreint de mots ou expressions qui représentent ses sujets importants,
-    explicites ou non.
+    c\oe{}ur de nombreux systèmes de \textsc{Ri}. Celle-ci
+    pondère tous les mots d'un document en fonction de leur importance relative
+    à son contenu, tandis que l'indexation par termes-clés fournit un ensemble
+    restreint de mots ou expressions (une dizaine en général) qui représentent
+    ses sujets importants, explicites ou non. Dans la suite, lorsque nous
+    parlons de d'indexation, nous nous réferrons à l'indexation par termes-clés.
 
     Dans la littérature, nous distinguons deux catégories d'indexation
     automatique par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
     libre\index{Indexation libre@Indexation libre \textit{(free indexing)}|see
     {Extraction automatique de termes-clés \textit{(automatic keyphrase
     extraction)}}} consiste à extraire d'un document les unités textuelles
-    jugées les plus importantes dans son contexte. Nous parlons
+    jugées les plus importantes vis-à-vis de son contenu. Nous parlons
     d'\emph{extraction automatique de termes-clés}\index{Extraction automatique
     de termes-cles@Extraction automatique de termes-clés \textit{(automatic
     keyphrase extraction)}|textbf}. L'indexation contrôlée\index{Indexation
     controlee@Indexation contrôlée \textit{(controlled indexing)}|see
     {Assignement automatique de termes-clés \textit{(automatic keyphrase
     assignment)}}} fournit les termes-clés en se fondant sur un vocabulaire
-    contrôlé (une terminologie) et sans se restreindre aux unités textuelles
+    contrôlé (une terminologie), sans se restreindre aux unités textuelles
     présentes dans le document. Nous parlons d'\emph{assignement automatique de
     termes-clés}\index{Assignement automatique de termes-cles@Assignement
     automatique de termes-clés \textit{(automatic keyphrase
@@ -50,9 +51,9 @@
 
     Dans ce chapitre d'introduction à l'indexation automatique par termes-clés,
     nous commençons par présenter l'étape de sélection des termes-clés
-    candidats, qui est une étape commune à la plupart des méthodes d'extraction
-    et d'assignement automatique de termes-clés, et qui est un objet d'étude à
-    part entière~\cite{wang2014keyphraseextractionpreprocessing}. Ensuite, nous
+    candidats, qui est une étape commune à la plupart des méthodes d'indexation
+    par termes-clés, et qui devient un objet d'étude à part
+    entière~\cite{wang2014keyphraseextractionpreprocessing}. Ensuite, nous
     présentons les tâches d'extraction automatique de termes-clés et
     d'assignement automatique de termes-clés, puis nous terminons par une
     description du processus d'évaluation des méthodes d'indexation par
@@ -67,32 +68,31 @@
     candidats@Sélection des termes-clés candidats \textit{Keyphrase candidate
     selection}|textbf}\index{Terme-cle candidat@Terme-clé candidat
     \textit{(keyphrase candidate)}|textbf} consiste à déterminer quelles sont
-    les unités textuelles qui sont potentiellement des termes-clés, soit les
-    unités textuelles qui ont des particularités similaires à celles des
+    les unités textuelles qui sont potentiellement des termes-clés, c'est-à-dire
+    les unités textuelles qui ont des particularités similaires à celles des
     termes-clés définis par des humains, telles que la structure
     morphosyntaxique nom-adjectif commune à la majorité des termes-clés
     (\TODO{exemple}). La sélection des termes-clés candidats présente deux
     avantages. Le premier est la réduction du temps de calcul nécessaire à
-    l'extraction ou à l'assignement des termes-clés. Le second est la
-    suppression d'unités textuelles non pertinentes pouvant affecter
-    négativement les performances de l'ordonnancement. Pour distinguer les
-    différents candidats sélectionnés, nous définissons deux catégories~: les
-    candidats positifs\index{Candidat positif@Candidat positif \textit{(positive
-    candidate)}|textbf}, qui correspondent aux termes-clés assignés par des
-    humains (termes-clés de référence), et les candidats négatifs\index{Candidat
-    negatif@Candidat négatif \textit{(negative candidate)}|textbf}. Parmi les
-    candidats négatifs, nous distinguons deux sous-catégories~: les candidats
-    porteurs d'indices\index{Candidat porteur d'indices@Candidat porteur
-    d'indices \textit{(clue candidate)}|textbf} pouvant influencer l'extraction
-    ou l'assignement de candidats positifs (\TODO{exemple}) et les candidats
+    l'indexation. Le second est la suppression d'unités textuelles non
+    pertinentes pouvant affecter négativement les performances de
+    l'ordonnancement. Pour distinguer les différents candidats sélectionnés,
+    nous définissons deux catégories~: les candidats positifs\index{Candidat
+    positif@Candidat positif \textit{(positive candidate)}|textbf}, qui
+    correspondent aux termes-clés assignés par des humains (termes-clés de
+    référence), et les candidats négatifs\index{Candidat negatif@Candidat
+    négatif \textit{(negative candidate)}|textbf}. Parmi les candidats négatifs,
+    nous distinguons deux sous-catégories~: les candidats porteurs
+    d'indices\index{Candidat porteur d'indices@Candidat porteur d'indices
+    \textit{(clue candidate)}|textbf} pouvant influencer l'extraction ou
+    l'assignement de candidats positifs (\TODO{exemple}) et les candidats
     erronés\index{Candidat erronés@Candidat erronés \textit{(irrelevant
     candidate)}|textbf} \TODO{exemple}.
 
     Il existe plusieurs méthodes de sélection de candidats, de la simple
     sélection de n-grammes, de chunks nominaux ou d'unités textuelles
-    grammaticalement définies, jusqu'à la sélection à l'aide d'algorithmes
-    réduisant le nombre de candidats en supprimant ceux qui sont sémantiquement
-    redondants où mal formés.
+    grammaticalement définies, jusqu'à une méthode ajoutant une étape de
+    filtrage supplémentaire.
 
     ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
     toutes les séquences ordonnées de $n$ mots adjacents. La sélection des
@@ -117,7 +117,7 @@
     \end{example}
 
     ~\\Les \textit{chunks} nominaux\index{NP-chunk@NP-\textit{chunk}|textbf}
-    sont des syntagmes\index{Syntagme@Syntagme
+    (\textit{NP-chunks}) sont des syntagmes\index{Syntagme@Syntagme
     \textit{(syntagm)}|textbf}\footnote{Syntagme~: unité syntaxique
     intermédiaire entre le mot et la phrase. Aussi appelé groupe, le syntagme
     constitue une unité de sens dont chaque constituant conserve sa
@@ -140,7 +140,7 @@
     grammaticalement définie \textit{(POS sequence)}|textbf} permet de contrôler
     avec précision la nature et la grammaticalité des candidats sélectionnés.
     Pour cela, il faut définir des patrons grammaticaux tels que \texttt{/(N|A)*/}, qui représente les plus longues séquences de noms et
-    d'adjectifs, d'après la syntaxe des expressions rationnelles.
+    d'adjectifs avec la syntaxe des expressions rationnelles.
 
     À l'instar des \textit{chunks} nominaux, la sélection des séquences
     grammaticalement définies est plus fondée linguistiquement que celle des
@@ -154,91 +154,36 @@
       \TODO{Plus longues séquences de noms et d'adjectifs à partir d'une phrase de l'exemple fil rouge}
     \end{example}
 
-    ~\\En plus des trois précédentes méthodes de sélection de termes-clés
-    candidats, des chercheurs, tels que
+    ~\\En plus des trois méthodes de sélection précédentes,
     \newcite{huang2006semanticnetworkstructureanalysis} proposent un filtrage
-    sophistiqué des candidats sélectionnés par la méthode de sélection des
-    n-grammes (en anglais). \newcite{huang2006semanticnetworkstructureanalysis}
-    filtrent tout d'abord les candidats peu fréquents dans le document, puis
-    suppriment les candidats redondants avec d'autres en les mettant en
-    compétition. Pour chaque groupe de candidats redondants, un seul candidat
-    peut être retenu comme terme-clé candidat, celui le plus fréquent. Un
-    candidat peut être en compétition dans différents groupes. Dans ce cas, il
-    doit être le \og{}vainqueur\fg{} de chaque groupe pour être retenu.
+    des candidats sélectionnés à partir des n-grammes, afin de réduire le nombre
+    de candidats redondants (\TODO{exemple}). Tout d'abord, ils suppriment les
+    candidats peu fréquents dans le document, puis filtrent la redondance en les
+    mettant en compétition. Ils construisent des groupes de candidats
+    redondants, puis un seul candidat par groupe est retenu~: celui le plus
+    fréquent. Un candidat peut être en compétition dans différents groupes. Dans
+    ce cas, il doit être le \og{}vainqueur\fg{} de chaque groupe pour être
+    retenu.
 
     Le travail de \newcite{huang2006semanticnetworkstructureanalysis}, sur la
-    sélection des termes-clés candidats, fait partie de leur système
-    d'extraction de termes-clés. Ce système a fait l'objet d'une évaluation,
-    mais aucune étude n'a été conduite pour montrer l'efficacité de leur
-    filtrage hors des frontières de leur système.
-
-    ~\\À l'instar de \newcite{huang2006semanticnetworkstructureanalysis},
-    \newcite{you2009refinedcandidateset} proposent une méthode de filtrage des
-    n-grammes. Dans leur cas, une analyse de leur méthode de sélection des
-    candidats est fournie. Leur méthode se divise en deux étapes: sélection de
-    candidats préliminaires grâce à une liste de mots-clés, puis réduction de
-    cet ensemble de candidats préliminaires à un ensemble non redondant de
-    candidats porteurs de sens.
-
-    Dans un premier temps, \newcite{you2009refinedcandidateset} identifient les
-    mots-clés et s'en servent pour établir une liste préliminaire de candidats.
-    Pour cela, ils extraient les $k$ mots (mots d'un antidictionnaire exclus)
-    les plus fréquents du document (mots-clés), puis ils selectionnent un à sept
-    candidat(s) préliminaire(s) par occurrence de chaque mot-clé~: le mot-clé
-    lui-même et les 2-, 3- et 4-grammes commençant ou se terminant par le
-    mot-clé\footnote{La taille maximale de 4 pour les n-grammes est fixée par
-    les auteurs après une analyse statistique de leurs données. Cette taille
-    peut diverger selon les données, auquel cas les candidats préliminaires
-    sélectionnés pour chaque occurrence d'un mots-clés peut excéder sept.}.
-
-    \begin{example}
-      \TODO{Un 1-gramme, deux 2-grammes, deux 3-grammes et deux 4-grammes à partir d'une phrase de l'exemple fil rouge}
-    \end{example}
-
-    Dans un second temps, \newcite{you2009refinedcandidateset} analysent chaque
-    7-uplets de $\{1..4\}$-grammes et choisissent les candidats porteurs de sens
-    en limitant les redondances. Pour chaque 7-uplet, ils construisent un arbre
-    ayant pour racine le mot-clé du 7-uplet et dont chaque n\oe{}ud fils est un
-    mot précédant ou suivant le mot du n\oe{}ud parent, puis ils le parcourent
-    en profondeur et utilisent une heuristique pour ne choisir que deux
-    candidats.
-
-    \TODO{Exemple de graphe obtenu à partir de l'exemple précédent (faire
-    référence à ce graphe dans le paragraphe précédent)}
-
-    Comparée à la sélection des $\{1..3\}$-grammes, utilisée dans plusieurs
-    travaux, la méthode de \newcite{you2009refinedcandidateset} réduit
-    significativement le nombre de candidats (d'environ 75~\%). Leurs
-    expériences montrent cependant que leur méthode de sélection n'améliore pas
-    significativement les performances des méthodes d'indexation par
-    termes-clés.
-
-    ~\\La sélection des termes-clés candidats est une étape quasi-systématique
-    en indexation automatique par termes-clés~\cite{hasan2014state_of_the_art}.
-    Parce qu'il ne s'agit pas du c\oe{}ur de la tâche, cette étape est encore
-    très peu étudiée et donc très souvent réalisée par des méthodes très simples
-    (n-grammes, \textit{chunks} nominaux et séquences noms-adjectifs).
-    Toutefois, les travaux s'y intéressant s'accordent à dire que cette étape
-    est critique et que l'enjeux réside dans la capacité à extraire un minimum
-    de candidats sans dégrader la performance maximale pouvant être atteinte par
-    une méthode d'indexation par termes-clés.
+    sélection des termes-clés candidats, fait partie d'un travail focalisé sur
+    l'extraction de termes-clés. Leur évaluation ne s'intéresse qu'a cet aspect,
+    l'apport de leur méthode de sélection des termes-clés candidats n'a donc pas
+    été montré.
 
   %-----------------------------------------------------------------------------
 
   \section{Extraction automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_extraction}
     L'extraction automatique de termes-clés est la tâche la plus utilisée pour
-    faire de l'indexation par termes-clés. Contrairement à l'assignement de
-    termes-clés, elle ne nécessite pas de vocabulaire contrôlé et requiert donc
-    moins d'effort manuel de production de ressources. Les méthodes d'extraction
-    automatique de termes-clés effectuent soit un ordonnancement par importance
-    des termes-clés candidats vis-à-vis du contenu du document, soit une
-    classification des termes-clés candidats entre les classes
-    \og{}terme-clé\fg{} et \og{}non terme-clé\fg{}, puis extraient les $k$
-    candidats jugés les meilleurs. L'ordonnancement est principalement réalisé
-    avec une approche non supervisée et la classification est réalisée avec une
-    approche supervisée qui requiert des données d'entraînement manuellement
-    annotés en termes-clés.
+    l'indexation par termes-clés. Les méthodes d'extraction automatique de
+    termes-clés effectuent soit un ordonnancement par importance des termes-clés
+    candidats vis-à-vis du contenu du document, soit une classification des
+    termes-clés candidats entre les classes \og{}terme-clé\fg{} et \og{}non
+    terme-clé\fg{}, puis extraient les $k$ candidats jugés les meilleurs.
+    L'ordonnancement est principalement réalisé avec une approche non supervisée
+    et la classification est réalisée avec une approche supervisée qui requiert
+    des données d'entraînement manuellement annotés en termes-clés.
 
     \subsection{Approche non supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction}
@@ -263,10 +208,9 @@
       tableau~\ref{tab:state_of_the_art-unsupervised_methods_comparison}. Les
       performances sont exprimées en terme de f1-mesure. Décrite dans la
       section~\ref{sec:main-state_of_the_art-automatic_evaluation_of_keyphrase_annotation}
-      (page~\pageref{sec:main-state_of_the_art-automatic_evaluation_of_keyphrase_annotation}),
-      cette mesure est exprimée entre 0 et 100 et est d'autant plus élevée si
-      la méthode évaluée extrait un grand nombre de termes-clés positifs et très
-      peu de termes-clés erronés.
+      (page~\pageref{math:f1_measure}), cette mesure est exprimée entre 0 et 100
+      et est d'autant plus élevée si la méthode évaluée extrait un grand nombre
+      de termes-clés positifs et très peu de termes-clés négatifs.
       \begin{table}
         \resizebox{\linewidth}{!}{
           \begin{tabular}{l|c|c|c|c}
@@ -570,16 +514,16 @@
         d'importance est calculé pour chaque mot à partir de l'algorithme
         PageRank~\cite{brin1998pagerank}. PageRank est un algorithme de marche
         aléatoire (\textit{random walk})~: un marcheur aléatoire parcours le
-        graphe de mot en mot en se déplaçant toujours sur un mot qui cooccurre
-        avec le mot courant. Le résultat du parcours du marcheur permet de
-        déduire l'importance de chaque mot d'après le principe de la
-        recommandation (du vote)~:  un mot est d'autant plus important s'il
-        cooccurre avec un grand nombre de mots (parce qu'il est beaucoup visité
-        par le marcheur) et si les mots avec lesquels il cooccurre sont eux
-        aussi importants (parce qu'il a plus de chance d'être visité par le
-        marcheur). Les mots les plus importants sont considérés comme des
-        mots-clés, ils sont marqués dans le document et les plus longues
-        séquences de mots-clés adjacents sont extraites en tant que termes-clés.
+        graphe de mot en mot en se déplaçant vers un mot qui cooccurre avec le
+        mot courant. Le résultat du parcours du marcheur permet de déduire
+        l'importance de chaque mot d'après le principe de la recommandation (du
+        vote)~:  un mot est d'autant plus important s'il cooccurre avec un grand
+        nombre de mots (parce qu'il est beaucoup visité par le marcheur) et si
+        les mots avec lesquels il cooccurre sont eux aussi importants (parce
+        qu'il a plus de chance d'être visité par le marcheur). Les mots les plus
+        importants sont considérés comme des mots-clés, ils sont marqués dans le
+        document et les plus longues séquences de mots-clés adjacents sont
+        extraites en tant que termes-clés.
       
         Soit le graphe de cooccurrences de mots non orienté $G = (N, A)$, où les
         n\oe{}uds $N$ représentent les mots du documents, et où les arêtes $A$
@@ -743,7 +687,8 @@
         \newcite{zhang2013wordtopicmultirank} sont les premiers à l'appliquer à
         l'extraction de termes-clés. Cette approche est intéressante, car elle
         tient compte à la fois du contexte local du mot (le document) et de son
-        contexte global (la collection de données utilisée par \textsc{Lda}).
+        contexte global (les sujets de la collection de données analysée par
+        \textsc{Lda}).
 
         Comparés aux résultats de TopicalPageRank,
         \newcite{zhang2013wordtopicmultirank} montrent que l'ordonnancement
@@ -758,23 +703,23 @@
         techniques très différentes, mais reposent toutes sur des statistiques
         simples~: la fréquence d'occurrence des mots dans le document, leur
         fréquence documentaire et la fréquence de cooccurrence entre eux. Les
-        méthodes puremenet statistiques mises à part, c'est le mode de
+        méthodes purement statistiques mises à part, c'est le mode de
         représentation du document et son analyse qui différencie les méthodes
         non-supervisées.
         
         Le graphe est le mode de représentation le plus utilisé actuellement.
-        Représentant les relations de cooccurrence entre les mots du document,
+        Représentant les relations de cooccurrences entre les mots du document,
         il est analysé à l'aide d'un algorithme de marche aléatoire qui attribue
         un score d'importance à chaque n\oe{}ud (mot). Ce graphe et la manière
         dont il est analysé sont très intuitifs, mais nous notons quelques
-        défauts. Nous reprochons aux méthodes actuelles de
-        modéliser le document par ses mots et leurs relations, et donc de
-        déterminer l'importance des mots uniquement, au lieu de celle des
-        termes-clés candidats. Par ailleurs, la question de la dispersion
-        d'information dans le graphe n'est jamais abordée. Certains mots du
-        documents ne sont-ils pas des synonymes ou ne représentent-ils pas le
-        même sujet~? Ne faut-il pas mutualiser certains n\oe{}uds afin d'éviter
-        de disperser des informations relatives à un même sujet~?
+        défauts. Nous reprochons aux méthodes actuelles de modéliser le document
+        par ses mots et leurs relations, et donc de déterminer l'importance des
+        mots au lieu de celle des termes-clés candidats. Par ailleurs, la
+        question de la dispersion d'information dans le graphe n'est jamais
+        abordée. Certains mots du documents ne sont-ils pas des synonymes ou ne
+        représentent-ils pas le même sujet~? Ne faut-il pas mutualiser certains
+        n\oe{}uds afin d'éviter de disperser des informations relatives à un
+        même sujet~?
 
     \subsection{Approche supervisée}
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction}
@@ -1114,14 +1059,14 @@
         termes-clés en une tâche de classification des termes-clés candidats en
         tant que \og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}. Pour cela,
         elles utilisent des classifieurs et proposent divers traits pour
-        discriminer les candidats. D'un point de vue recherche, c'est par les
-        traits qu'elles proposent que les méthodes supervisées rivalisent.
-        Certains traits sont génériques et communs à la majorité des méthodes.
-        C'est le cas de la position de la première occurrence du candidat et de
-        son score \textsc{Tf-Idf}. D'autres traits sont spécifiques à certains
-        types de documents. Par exemple, la section dans laquelle occurre un
-        terme-clé est un trait discriminant pour l'extraction de termes-clés à
-        partir d'articles journalistiques.
+        discriminer les candidats. C'est par les traits qu'elles proposent que
+        les méthodes supervisées rivalisent. Certains traits sont génériques et
+        communs à la majorité des méthodes. C'est le cas de la position de la
+        première occurrence du candidat et de son score \textsc{Tf-Idf}.
+        D'autres traits sont spécifiques à certains types de documents. Par
+        exemple, la section dans laquelle occurre un terme-clé est un trait
+        discriminant pour l'extraction de termes-clés à partir d'articles
+        journalistiques.
 
   \section{Assignement automatique de termes-clés}
   \label{sec:main-state_of_the_art-automatic_keyphrase_assignment}
@@ -1136,8 +1081,8 @@
     elle utilise un thésaurus\footnote{Thésaurus~: liste de termes regroupés
     selon les concepts d'un domaine de connaissance qu'ils représentent.} du
     domaine de spécialités à traiter. Il est mis à profit de deux manière~:
-    d'abord pour sélectionner les termes-clés candidats, puis pour améliorer le
-    classifieur naïf bayesien à l'aide d'un nouveau trait.
+    d'abord pour sélectionner les termes-clés candidats, ensuite pour améliorer
+    le classifieur naïf bayesien à l'aide d'un nouveau trait.
 
     \newcite{medelyan2006kea++} décident de réaliser l'assignement en se
     limitant aux termes-clés qui occurrent dans le document. Ils sélectionnent
@@ -1185,7 +1130,7 @@
     étudiée. Seulement deux travaux originaux s'en rapprochent. L'un se fonde
     sur un vocabulaire contrôlé (un thésaurus), mais ne va pas au-delà du
     contenu du document~; l'autre génère des termes-clés qui n'occurrent pas
-    nécessairement dans le document, mais ne se fonde pas sur vocabulaire
+    nécessairement dans le document, mais ne se fonde pas sur un vocabulaire
     contrôlé.
 
   %-----------------------------------------------------------------------------
@@ -1195,27 +1140,44 @@
     Pour montrer l'apport des nouvelles méthodes d'indexation par termes-clés,
     celles-ci sont comparées automatiquement aux méthodes existantes dans un
     processus d'évaluation \og{}à la Cranfield\fg{}
-    \citep{voorhees2002philosophy}~: chaque méthode est appliquée à un ensemble
-    de documents de test (corpus de test) et les termes-clés qu'elle extrait
-    pour chaque document sont comparés à un ensemble de termes-clés associés
-    manuellement aux documents, nous parlons de jugements de référence. Un
-    jugement de référence est supposé unique, la comparaison entre un terme-clé
-    extrait et un terme-clé de référence est donc binaire. Le résultat des
-    comparaisons pour chaque document est analysé selon différents critères (le
-    moins d'erreurs, le plus de termes-clés corrects, etc.) et la méthode
-    respectant en moyenne le mieux ces critères est supposée la meilleure.
-
-    En indexation par termes-clés, il est courant d'évaluer une méthode en
-    termes de précision, de rappel et de f1-mesure. La précision capture la
-    capacité d'une méthode à minimiser les erreurs (faux positifs, cf.
-    tableau~\ref{tab:confusion_matrix} et équation~\ref{math:precision}). En
-    opposition, le rappel ne considère pas la quantité d'erreurs et mesure la
-    capacité de la méthode à fournir le plus possible de termes-clés corrects
-    (vrais positifs, cf tableau~\ref{tab:confusion_matrix} et
-    équation~\ref{math:recall}). Quant à la f1-mesure, elle évalue le
-    compromis entre précision et rappel, soit la capacité de la méthode à
-    extraire un maximum de termes-clés corrects tout en faisant un minimum
-    d'erreurs (cf. équation~\ref{math:f1_measure}).
+    \citep{voorhees2002philosophy}. Chaque méthode est appliquée à un ensemble
+    de documents de test (collection de test), les termes-clés qu'elle fournit
+    pour chaque document sont mis en correspondance \og{}exacte\fg{} avec les
+    termes-clés attribués manuellement aux documents (jugements de
+    référence)\footnote{Les termes-clés de référence sont soit les termes-clés
+    des auteurs, soit les termes-clés de lecteurs (personnes lambdas ou
+    professionnelles), soit la combinaison des deux.}, puis évalués selon
+    différents critères. Pour chaque critère, c'est la méthode qui obtient les
+    meilleurs résultats en moyenne qui est jugée la plus efficace.
+  
+    La mise en correspondance des termes-clés extraits/assignés aux termes-clés
+    de référence sert à distinguer ceux qui sont corrects de ceux qui ne le sont
+    pas. Nous parlons, respectivement, de vrais positifs et de faux positifs (cf
+    tableau~\ref{tab:confusion_matrix}). De la même manière, toute autre unité
+    textuelle non proposée par la méthode automatique est appelée faux négatif
+    si elle correspond à un terme-clé de référence, et vrai négatif dans le cas
+    contraire. D'après le paradigme d'évaluation \og{}à la Cranfield\fg{}, un
+    vrai positif ne peut être considéré comme tel que s'il est strictement
+    identique à un terme-clé de référence. Cette correspondance \og{}exacte\fg{}
+    induit une évaluation pessimiste des méthodes d'indexation automatique par
+    termes-clés, car les variantes des termes-clés de référence sont jugées
+    incorrectes sans distinction avec les autres faux positifs. Pour minimiser
+    ce problème de pessimisme, toutes les évaluations réalisées dans la
+    littérature tiennent compte uniquement de la racine des mots des
+    termes-clés, c'est-à-dire leur forme privée de tout suffixe. Les différences
+    d'accords en genre et en nombre sont donc autorisées, ainsi que toute autre
+    dérivation suffixale. Cette approche n'est pas parfaite, car elle fait
+    parfois correspondre des mots porteurs de sens différents (par exemple,
+    \og{}empire\fg{} et \og{}empirique\fg{} possèdent la même racine
+    \og{}empir\fg{}). Une approche plus rigoureuse serait d'utiliser les lemmes
+    des mots, c'est-à-dire leur forme conventionnelle (celle que nous retrouvons
+    dans  un dictionnaire). Contrairement à la racinisation, qui applique
+    seulement des règles de désuffixage (par exemple, -es $\rightarrow$ - afin
+    d'enlever l'accord du féminin pluriel), la lemmatisation requiert un lexique
+    et doit être appliquée selon le context du mot à analyser (par exemple, le
+    lemme de \og{}couvant\fg{} est soit \og{}couvant\fg{}, soit \og{}couver\fg{}
+    selon son context). Pour des raisons pratiques, la lemmatisation n'est donc
+    jamais utilisée pour l'évaluation automatique de termes-clés.
     \begin{table}
       \begin{center}
         \begin{tabular}{cc|cc}
@@ -1232,6 +1194,16 @@
                 \label{tab:confusion_matrix}}
       \end{center}
     \end{table}
+
+    Les critères d'évaluation utilisés pour évaluer et comparer les méthodes
+    d'indexation par termes-clés son la précision, le rappel et le compromis
+    entre eux (f1-mesure). La précision capture la capacité d'une méthode à
+    minimiser les erreurs (cf équation~\ref{math:precision}). Inversement, le
+    rappel mesure la capacité de la méthode à fournir le plus possible de
+    termes-clés corrects (cf équation~\ref{math:recall}). Quant à la f1-mesure, elle évalue le compromis
+    entre précision et rappel, c'est-à-dire la capacité de la méthode à extraire
+    un maximum de termes-clés corrects tout en faisant un minimum d'erreurs (cf
+    équation~\ref{math:f1_measure}).
     \begin{align}
       \text{précision} &= \frac{\#\textsc{Vp}}{\#\textsc{Vp} + \#\textsc{Fp}} \label{math:precision}\\
       \text{rappel} &= \frac{\#\textsc{Vp}}{\#\textsc{Vp} + \#\textsc{Fn}} \label{math:recall}\\
@@ -1287,10 +1259,6 @@
 %    termes-clés de référence en tenant compte de leur
 %    chevauchement~\cite{zesch2009rprecision,kim2010rprecision}. Ces travaux
 %    ne sont toutefois pas utilisés travaux récents.
-
-    \TODO{Comparaisons avec les stems}
-
-    \TODO{point sur le pessimisme}
 
   %-----------------------------------------------------------------------------
 
