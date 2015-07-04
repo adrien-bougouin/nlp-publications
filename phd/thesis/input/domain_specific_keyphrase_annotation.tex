@@ -19,9 +19,10 @@
     qui fournit des termes-clés apparaissant dans le contenu du document, et
     l'assignement de termes-clés, qui fournit des termes-clés appartenant à un
     vocabulaire contrôlé et n'apparaissant pas nécessairement dans le document.
-    Alors que l'indexation par termes-clés est principalement réalisée au seul
-    moyen de l'extraction de termes-clés, nous montrons que l'assignement de
-    termes-clés joue un rôle important en domaines de spécialités.
+    Alors que dans la littérature, l'indexation par termes-clés est
+    principalement réalisée au seul moyen de l'extraction de termes-clés, nous
+    montrons que l'assignement de termes-clés joue un rôle important en domaines
+    de spécialités.
 
     Nous commençons par décrire le comportement des indexeurs
     professionnels qui maintiennent les bases des données bibliographiques de
@@ -31,9 +32,7 @@
     extraient des termes-clés spécifiques au document (hors du vocabulaire
     contrôlé). Pour reproduire ce comportement, nous étendons nos travaux sur
     TopicRank en intégrant dans le graphe de sujets les entrées du vocabulaire
-    contrôlé du domaine. Ce vocabulaire contrôlé n'existant cependant pas
-    toujours, nous en déterminons une sous-partie à partir des termes-clés de
-    référence des données d'entraînement.
+    contrôlé du domaine.
 
     Enfin, nous présentons les premiers résultats d'une campagne d'évaluation
     manuelle de nos travaux en domaines de spécialités. Pour cette campagne,
@@ -45,14 +44,15 @@
 
   \section{Indexation manuelle en domaines de spécialités}
   \label{sec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation}
-    En nous fondant sur les  propos recueillis des indexeurs professionnels de
-    l'Inist, qui maintient une partie des bases de données bibliographiques de
-    la \textsc{Bsn} (bibliothèque scientifique numérique), nous présentons la
-    méthodologie d'indexation manuelle en domaines de spécialités.
+    En nous fondant sur les  propos recueillis auprès des indexeurs
+    professionnels de l'Inist, qui maintient une partie des bases de données
+    bibliographiques de la \textsc{Bsn} (bibliothèque scientifique numérique),
+    nous présentons la méthodologie d'indexation manuelle en domaines de
+    spécialités.
 
     \subsection{Principes généraux}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-principles}
-      L'indexation manuelle à l'Inist est régie par cinq piliers~:
+      L'indexation manuelle à l'Inist est régie par cinq principes généraux~:
       \begin{enumerate}
         \item{Conformité~: les termes-clés doivent être conformes au contenu du
               document et au langage documentaire utilisé dans son domaine~;}
@@ -69,21 +69,15 @@
         \item{Impartialité~: les termes-clés ne doivent pas être représentatif
               d'un jugement apporté par l'indexeur.}
       \end{enumerate}
-      Ces cinq piliers font écho à des principes que nous retrouvons en
-      extraction et en assignement automatique de termes-clés. Les trois
-      premiers piliers impliquent une indexation majoritairement contrôlée,
-      comme en assignement automatique de termes-clés, et le quatrième pilier
-      implique une indexation en partie libre, comme en extraction de
-      termes-clés.
 
       Ces principes généraux de l'indexation manuelle par termes-clés remettent
       en cause la séparation entre extraction et assignement de termes-clés dans
       le contexte de l'indexation automatique en domaines de spécialités. En
-      effet, une indexation par termes-clés à un niveau professionnel se doit de
+      effet, une indexation par termes-clés à un niveau professionnel doit
       respecter le langage de spécialité employé dans le domaine des documents
-      indexés (assignement), mais elle se doit aussi d'être exhaustive et donc
-      de fournir des termes-clés très spécifiques, voir de nouveaux
-      concepts (extraction).
+      indexés (tâche d'assignement), mais elle doit aussi être exhaustive et
+      donc fournir des termes-clés très spécifiques, voir de nouveaux concepts
+      (tâche d'extraction).
 
     \subsection{Ressources}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources}
@@ -92,17 +86,18 @@
       représentatives d'une expertise de terrain dans chaque domaine de
       spécialité (grille d'indexation), d'une expertise terminologique
       (vocabulaire contrôlé) et d'une expertise documentaire (règles de
-      préindexation).
+      préindexation). Elles assurent des conditions de travail propices
+      au respect des cinq principes généraux énoncés précédemment.
 
       \subsubsection{Grille d'indexation}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources-indexing_guidelines}
-        La grille d'indexation est un guide qui indique les notions qui peuvent
-        être pertinentes à indexer selon le domaine de spécialité et la
-        problématique du document. Elle peut-être assimilée à un formulaire à
-        compléter pour chaque document (cf tableau~\ref{fig:indexing_grid}). La
-        grille d'indexation est un canevas donné à titre indicatif aux
-        indexeurs. Ces derniers sont les seuls juges pour décider si elle est
-        adaptée ou non pour indexer un document.
+        De nos jours, la grille d'indexation est un guide transmis de manière
+        informelle aux indexeurs. Elle indique les notions à indexer selon le
+        domaine de spécialité et peut se traduire par un formulaire à compléter
+        pour chaque document (cf tableau~\ref{fig:indexing_grid}). C'est un
+        canevas donné à titre indicatif aux indexeurs. Ces derniers sont les
+        seuls juges pour décider si elle est adaptée ou non pour indexer un
+        document.
         \begin{table}[h!]
           \centering
           \begin{tabular}{l|l}
@@ -124,28 +119,46 @@
           }
         \end{table}
 
+        En définissant les notions à indexer, la grille d'indexation contribue
+        fortement à l'homogénéité de l'indexations~: les documents d'un même
+        domaine sont en partie indexés d'après les mêmes notions. Elle contribue
+        aussi à l'exhaustivité~: même les notions implicites doivent faire
+        partie de l'indexation.
+
       \subsubsection{Vocabulaire contrôlé}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources-controlled_vocabulary}
-        Le vocabulaire contrôlé est un lexique qui recense et organise les
-        termes d'un domaine de spécialité. Dans le contexte de l'indexation par
-        termes-clés, il définit le langage documentaire à utiliser pour les
-        termes-clés. C'est la ressource indispensable pour assurer la conformité
-        et l'homogénéité de l'indexation. Il doit toutefois être mis à jour
-        régulièrement, soit par une veille terminologique, soit au fur et à
-        mesure des indexations manuelles.
+        Le vocabulaire contrôlé est une liste de termes-clés possibles dans un
+        domaine de spécialité donné. Cette liste est plus ou moins structurée en
+        fonction des domaines\footnote{Cette structuration est la même que celle
+        des thésaurus utilisés par la méthode \textsc{Kea++} (cf
+        section~\ref{sec:main-state_of_the_art-automatic_keyphrase_assignment},
+        page~\pageref{sec:main-state_of_the_art-automatic_keyphrase_assignment}).}.
+        Les termes-clés sont mis en relations s'il sont associés à un même
+        concept ou si l'un est l'hyperonyme de l'autre, c'est-à-dire plus 
+        générique (\TODO{exemple}).
+        
+        En définissant le language documentaire à utiliser pour indexer les
+        documents du même domaine, le vocabulaire contrôlé contribue à la
+        conformité et à l'homogénéité de l'indexation. Il n'assure cependant pas
+        l'exhaustivité et doit être mis à jour régulièrement, soit par une
+        veille terminologique, soit au fur et à mesure des indexations
+        manuelles, pour intégrer les nouveaux concepts.
 
       \subsubsection{Règles de préindexation}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources-preindexing_rules}
         Les règles de préindexation sont des règles qui définissent les
-        termes-clés du vocabulaire contrôlé à assigner en fonction soit (1)
-        d'une unité textuelle qui occurre dans le document (\TODO{exemple}),
-        soit (2) d'un terme-clé assigné au document (\TODO{exemple}). Fortement
-        couplées avec le vocabulaire contrôlé, les règles de préindexation
+        termes-clés (du vocabulaire contrôlé ou non) à assigner en fonction soit
+        (1) d'une unité textuelle qui occurre dans le document (\TODO{exemple}),
+        soit (2) d'un terme-clé assigné au document (\TODO{exemple}). À l'instar
+        du vocabulaire contrôlé, les règles de préindexation nécessite un gros
+        effort de maintenance manuelle.
+        
+        Couplées avec le vocabulaire contrôlé, les règles de préindexation
         permettent d'assurer la conformité et l'homogénéité de l'indexation.
-        Elles contribuent aussi a l'exhaustivité, en permettant l'assignement
+        Elles contribuent aussi à l'exhaustivité, en permettant l'assignement
         d'aspects implicites dans le document (1), et à la spécificité, en
-        restituant le contenu du document dans son domaine grâce au termes-clés
-        génériques (2).
+        restituant le contenu du document dans son domaine grâce à des
+        termes-clés génériques (2).
 
     \subsection{Méthodologie}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-methodology}
@@ -169,12 +182,8 @@
       deuxième phase est automatisée et systématiquement validée par l'indexeur,
       de sorte à réduire le temps d'indexation et à minimiser d'éventuels
       oublis. Cette phase montre la prise de conscience, dans les organismes
-      gestionnaires de \textsc{Bsn}, que l'indexation est une tâche difficile et
-      coûteuse à entreprendre manuellement. Toutefois, en nous nous appuyons sur
-      l'étude bibliographique réalisée dans le
-      chapitre~\ref{chap:main-state_of_the_art}
-      (page~\pageref{chap:main-state_of_the_art}), nous nous apercevons
-      qu'aucune méthode ne répond actuellement à leurs besoins.
+      gestionnaires de bases de données bibliographiques, que l'indexation est
+      une tâche difficile et coûteuse à entreprendre manuellement.
 
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-conclusion}
@@ -185,10 +194,8 @@
       d'assignement, notre étude de l'indexation réalisée par des indexeurs
       professionnels montre que l'assignement est la pratique préférée, car elle
       assure conformité, exhaustivité et homogénéité, et que l'extraction doit
-      uniquement servir à la compléter. Nous observons une tentative d'ouverture
-      des organismes de gestion de bibliothèques numériques vers une indexation
-      automatique par termes-clés, mais aucune méthode ne répond actuellement à
-      leurs besoins.
+      uniquement servir à la compléter. Actuellement, aucune méthode n'effectue
+      à la fois extraction et assignement de termes-clés.
 
   %-----------------------------------------------------------------------------
 
