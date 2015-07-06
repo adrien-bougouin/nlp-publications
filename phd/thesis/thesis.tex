@@ -64,6 +64,22 @@
 \renewcommand{\labelitemiv}{-}
 
 %-------------------------------------------------------------------------------
+
+\makeatletter
+\newcommand*{\overtabline}{%
+  \noalign{%
+    % normal "baselineskip" in tabular is height + depth of \@arstrutbox
+    \vskip-.5\dimexpr\ht\@arstrutbox+\dp\@arstrutbox\relax
+    % default line thickness is 0.4pt
+    \vskip-.2pt\relax
+    \hrule height .1pt
+    \vskip-.2pt\relax
+    \vskip+.5\dimexpr\ht\@arstrutbox+\dp\@arstrutbox\relax
+  }%
+}
+\makeatother
+
+%-------------------------------------------------------------------------------
 \newcommand\setlstxml{
   \footnotesize
   \lstset{language=XML}

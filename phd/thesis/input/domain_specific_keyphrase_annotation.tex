@@ -203,11 +203,12 @@
   \label{sec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
     L'indexation automatique par termes-clés est définie comme la tâche qui
     consiste à extraire des termes-clés du contenu d'un document, ou à en
-    assigner en s'aidant d'un vocabulaire contrôlé. Alors que dans la
+    assigner à partir d'un vocabulaire contrôlé. Alors que dans la
     littérature, l'indexation par termes-clés est presque toujours réduite à la
     seule extraction de termes-clés, nous avons vu en domaines de spécialités
     que les deux catégories d'indexation (extraction et assignement) jouent
-    chacune un rôle qui leur est propre.
+    chacune un rôle qui lui est propre. Pour y remédier, nous proposons
+    TopicCoRank.
 
     Pour réaliser une indexation automatique par termes-clés, nous proposons la
     méthode TopicCoRank. TopicCoRank est, à notre connaissance la seule méthode
@@ -220,16 +221,10 @@
       TopicRank, elle en modifie les étapes suivantes~: construction du graphe,
       ordonnancement et sélection des termes-clés. La construction du graphe
       étend le graphe de sujet initial de TopicRank en l'unifiant à un graphe
-      représentatif des termes-clés de référence du domaine~; l'ordonnancement
-      est désormais conjoint pour les sujets du document et les termes-clés de
-      référence du domaine~; la sélection des termes-clés ajoute la possibilité
-      d'assigner en puisant dans le graphe représentatif des termes-clés du
-      domaine.
-      
-      L'identification des sujets reste inchangée. L'évaluation de TopicRank en
-      domaines de spécialités ayant montré de meilleures performances lorsque
-      les termes-clés candidats sont sélectionnés par notre méthode de sélection
-      (\textsc{Lr-Np}), TopicCoRank utilise cette dernière.
+      des termes-clés de référence du domaine~; l'ordonnancement est désormais
+      conjoint pour les sujets du document et les termes-clés du domaine~; la
+      sélection des termes-clés ajoute la possibilité de puiser dans le graphe
+      du domaine afin de réaliser de l'assignement.
 
       \subsubsection{Construction du graphe}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-graph_construction}
@@ -244,11 +239,10 @@
         d'entraînement constituent la terminologie du domaine et nous les
         utilisons comme substitut au vocabulaire contrôlé. Contrairement aux
         termes-clés candidats sélectionnés dans le document, les termes-clés de
-        référence ne sont pas jugés redondants\footnote{Cette hypothèse est
-        d'autant plus forte que les données d'entraînement sont issues d'une
-        indexation établie dans un contexte professionnel. Elle l'est moins pour
-        les autres données.}. TopicCoRank ne les groupe pas avant de construire
-        le graphe du domaine.
+        référence ne sont pas redondants et ne sont donc pas groupés. Cette
+        hypothèse est d'autant plus forte que les données d'entraînement sont
+        issues d'une indexation établie dans un contexte professionnel. Elle
+        l'est moins pour les autres données.
 
         Soit le graphe unifié non orienté $G = (N, A =
         A_{\textnormal{\textit{interne}}} \cup
@@ -259,13 +253,22 @@
         $A_{\textnormal{\textit{externe}}}$, qui connectent un sujet à un
         terme-clé de référence (cf. figure~\ref{fig:topiccorank_graph}). Le
         graphe de sujets et le graphe du domaine sont unifiés grâce aux arêtes
-        $A_{\textnormal{\textit{externe}}}$. Une arête
-        $A_{\textnormal{\textit{externe}}}$ est ajoutée pour connecter un sujet
-        et un terme-clé de référence si, et seulement si, le terme-clé fait
-        partie des termes-clés candidats qui composent le sujet
-        (\TODO{exemple}). En d'autres termes, TopicCoRank considère le domaine
-        comme une carte conceptuelle et connecte le document au domaine par
-        l'intermédiaire des concepts qu'ils partagent.
+        $A_{\textnormal{\textit{externe}}}$.
+        %
+        En considérant le domaine comme une carte conceptuelle, l'objectif des
+        arêtes $A_{\textnormal{\textit{externe}}}$ est de connecter le document
+        à son domaine par l'intermédiaire des concepts qu'ils partagent. Une
+        arête $A_{\textnormal{\textit{externe}}}$ est donc créée entre un sujet
+        et un terme-clé du domaine si ce dernier appartient au sujet,
+        c'est-à-dire correspond à l'un de ses termes-clés candidats.
+        %
+%        Une arête
+%        $A_{\textnormal{\textit{externe}}}$ est ajoutée pour connecter un sujet
+%        et un terme-clé de référence si, et seulement si, le terme-clé fait
+%        partie des termes-clés candidats qui composent le sujet
+%        (\TODO{exemple}). En d'autres termes, TopicCoRank considère le domaine
+%        comme une carte conceptuelle et connecte le document au domaine par
+%        l'intermédiaire des concepts qu'ils partagent.
         \begin{figure}
           \newcommand{\xslant}{0.25}
           \newcommand{\yslant}{0}
@@ -383,10 +386,10 @@
         Pour permettre un ordonnancement conjoint des sujets et des termes-clés
         de référence, le schéma de connexion entre deux sujets et entre deux
         termes-clés de référence (arêtes $A_\textnormal{\textit{interne}}$) doit
-        être homogénéisé. En effet, si les conditions de connexion et si la
+        être homogène. En effet, si les conditions de connexion et si la
         pondération des arêtes ne sont pas sémantiquement équivalentes et du
-        même ordre de grandeur, respectivement,, alors l'impact du domaine sur
-        le document, et inversement, sera marginal et inexploitable. Pour
+        même ordre de grandeur, alors l'impact du domaine sur
+        le document, et du document sur le domaine, sera marginal. Pour
         obtenir un graphe unifié homogène, TopicCoRank connecte deux sujets ou
         deux termes-clés de référence $n_i$ et $n_j$ lorsqu'ils apparaissent
         dans le même contexte et pondère leur arête par le nombre de fois que
@@ -396,22 +399,20 @@
         termes-clés de référence, le contexte est l'ensemble des termes-clés de
         référence d'un document d'entraînement (\TODO{exemple}). Les contextes
         étant utilisés pour la création du graphe, le graphe de sujets n'est
-        plus complet comme pour TopicRank. Il n'y a  cependant pas de fenêtre de
-        cooccurrences fixée à une valeur prédéfinie car c'est la phrase.
+        plus complet comme celui TopicRank. Ici, nous utilisons la phrase comme
+        alternative à la fenêtre de cooccurrence.
 
       \subsubsection{Ordonnancement conjoint des sujets et des termes-clés de référence}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-co_ranking}
-        L'ordonnancement conjoint des sujets et des termes-clés de référence
-        établit l'ordre d'importance des sujets du document et des termes-clés
-        de référence du domaine vis-à-vis du contenu du document. Le score
-        d'importance attribué aux sujets et aux termes-clés de référence est
-        obtenu avec le même algorithme et la même instance de cet algorithme.
-        L'ordonnancement fournit une seule liste ordonnée, mêlant sujets et
-        termes-clés de référence.
-
-        TopicCoRank reprend le principe de la recommandation de TopicRank et
-        l'adapte au problème d'ordonnancement conjoint. Les premières hypothèses
-        de recommandation sont donc les mêmes que celle de TopicRank~:
+        L'ordonnancement conjoint des sujets et des termes-clés du domaine
+        établit leur ordre d'importance vis-à-vis du contenu du document et du
+        domaine. Pour cela, un score d'importance est attribué simultanément aux
+        sujets et aux termes-clés de référence.
+%
+        Nous reprenons le principe de la recommandation de TopicRank et
+        l'adaptons au problème d'ordonnancement conjoint. Les premières
+        hypothèses de recommandation sont donc les mêmes que celle de
+        TopicRank~:
         \begin{itemize}
           \item{un sujet est d'autant plus important s'il est fortement connecté
                 à un grand nombre de sujets et si les sujets avec lesquels il
@@ -423,14 +424,12 @@
         \end{itemize}
         Ces hypothèses de recommandation, que nous qualifions d'internes,
         permettent d'établir l'importance des sujets les uns par rapport aux
-        autres et l'importance des termes-clés de référence les uns par rapport
+        autres et l'importance des termes-clés du domaine les uns par rapport
         aux autres. Cependant, elles ne permettent pas de tirer profit des
-        termes-clés de référence importants pour renforcer l'importance des
-        sujets qui y sont connectés, et inversement. De plus,
-        l'importance des termes-clés de référence est indépendante du document
-        et, pour la même collection de données, leur importance est toujours la
-        même quelque soit le document. Nous ajoutons donc deux nouvelles
-        hypothèses de recommandation, que nous qualifions d'externes~:
+        relations entre sujets et termes-clés du domaine. Par ailleurs,
+        l'importance des termes-clés du domaine ne  dépend pas du document. Nous
+        ajoutons donc deux nouvelles hypothèses de recommandation, que nous
+        qualifions d'externes~:
         \begin{itemize}
           \item{un sujet est d'autant plus important s'il est représenté par
                 (connecté à) des termes-clés de référence importants~;}
@@ -443,13 +442,10 @@
         des uns joue un rôle sur celui des autres et permet ainsi d'effectuer
         conjointement extraction et assignement.
 
-        Mathématiquement, la formule d'ordonnancement de TopicRank est adaptée
-        en préservant la recommandation interne
-        ($R_{\textnormal{\textit{interne}}}$) et en remplaçant l'aléa
-        $(1 - \lambda)$ par la recommandation externe
-        ($R_{\textnormal{\textit{externe}}}$)~:
-        \TODO{il faut s'assurer que l'aléa et ce qu'il représente est bien
-        introduit dans l'état de l'art et/ou TopicRank}
+        L'équation~\ref{math:topiccorank} montre le calcul de l'importance d'un
+        sujet ou d'un terme-clé du domaine à partir de sa recommandation interne
+        $R_{\textnormal{\textit{interne}}}$ et de sa recommandation externe
+        $R_{\textnormal{\textit{externe}}}$~:
         \begin{align}
           S(n_i) &= (1 - \lambda)\ R_{\textnormal{\textit{externe}}}(n_i) + \lambda\ R_{\textnormal{\textit{interne}}}(n_i)\label{math:topiccorank}\\
           R_{\textnormal{\textit{interne}}}(n_i) &= \sum_{n_j \in A_{\textnormal{\textit{interne}}}(n_i)}{\frac{\textnormal{poids}(n_j, n_i) \times S(n_j)}{\mathlarger\sum_{n_k \in A_{\textnormal{\textit{interne}}}(n_j)}{{\textnormal{poids}(n_j, n_k)}}}}\label{math:rin}\\
@@ -464,7 +460,7 @@
         désormais de définir la recommandation la plus influente entre
         $R_{\textnormal{\textit{interne}}}$ et
         $R_{\textnormal{\textit{externe}}}$. Par défaut, nous définissons
-        $\lambda=0,5$ afin de donner autant de poids aux deux recommandations.
+        $\lambda=0,5$.
 
       \subsubsection{Sélection des termes-clés}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-keyphrase_selection}
@@ -474,14 +470,14 @@
         du graphe unifié ayant obtenu les meilleurs scores sont retenus, qu'ils
         soient des sujets ou des termes-clés de référence.
 
-        Lorsqu'un termes-clés de référence doit être assigné, une étape de
+        Lorsqu'un terme-clé de référence doit être assigné, une étape de
         vérification supplémentaire est effectuée pour s'assurer que son
         importance calculée relève aussi bien du domaine que du document. En
         effet, il est possible que le graphe du domaine soit constitué de
         composantes connexes, soit de sous-graphes dont les n\oe{}uds ne sont
-        connectés qu'entre eux. Dans ce cas, il se peut qu'un terme-clé de
-        référence d'un sous-graphe ne soit connecté ni directement ni
-        indirectement (par l'intermédiaire d'un autre n\oe{}ud) à un sujet du
+        connectés qu'entre eux. Dans ce cas, il se peut qu'un terme-clé du
+        domaine d'un sous-graphe du domaine ne soit connecté, ni directement, ni
+        indirectement (par l'intermédiaire d'un autre n\oe{}ud), à un sujet du
         document. Son importance est donc déterminée uniquement à partir du
         domaine et il n'est donc pas pertinent de l'assigner au document.
 
@@ -498,14 +494,10 @@
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
       Pour valider notre approche, nous réalisons deux séries d'expériences.
       Dans un premier temps, nous comparons TopicCoRank à plusieurs méthodes de
-      référence et analysons son comportement en domaines de spécialités, donc
-      sur les collections Termith. Dans un second temps, nous étudions
-      l'application de TopicCoRank dans le cas général sur les collections
-      \textsc{De}ft, SemEval\footnote{Constituées de documents scientifiques,
-      les ressources \textsc{De}ft et SemEval peuvent aussi être considérées
-      comme des données en domaines de spécialités. Cependant, elles regroupent
-      des documents de sous-disciplines très éloignées et leurs termes-clés
-      n'ont pas été annotés avec la rigueur documentaire.} et \textsc{Duc}.
+      référence et analysons son comportement en domaines de spécialités. Dans
+      un second temps, nous étudions l'application de TopicCoRank dans le cas
+      général, afin de vérifier si nos hypothèses fortement liées à l'indexation
+      manuelle en domaines de spécialités peuvent se généraliser.
 
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
@@ -516,20 +508,32 @@
         ressources autres que Termith, nous ne disposons pas de vocabulaires
         contrôlés adéquats et n'appliquons donc pas \textsc{Kea++}.
 
-        Nous comparons aussi TopicCoRank à deux variantes. La première,
+        Afin de mesurer l'efficacité de l'ordonnancement conjoint, nous
+        comparons aussi TopicCoRank à deux variantes. La première,
         TopicCoRank$_\textnormal{\textit{extr.}}$, ne réalise que l'extraction
         de termes-clés~; la seconde,
         TopicCoRank$_\textnormal{\textit{assign.}}$, n'effectue que
         l'assignement.
 
+        Pour toutes les méthodes réalisant de l'extraction, les termes-clés sont
+        issus des candidats sélectionnés avec la méthode que nous présentons
+        dans la
+        section~\ref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}
+        (page~\pageref{sec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection}).
+
       \subsubsection{Collections de données}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
         Nous utilisons les collections Termith pour l'évaluation en domaines de
         spécialités et les collections \textsc{De}ft, SemEval et \textsc{Duc}
-        pour l'évaluation dans le cas général.
+        pour l'évaluation dans le cas général\footnote{Constituées de documents
+        scientifiques, les ressources \textsc{De}ft et SemEval peuvent aussi
+        être considérées comme des données en domaines de spécialités.
+        Cependant, elles regroupent des documents de sous-disciplines très
+        éloignées et leurs termes-clés n'ont pas été annotés avec la rigueur
+        documentaire.}.
         
-        Pour \textsc{Duc}, qui n'est pas divisé en ensembles d'entraînement et
-        de test, nous tirons partie des 30 sujets d'actualité répertoriés en
+        Pour \textsc{Duc}, qui n'est pas divisé en deux ensembles d'entraînement
+        et de test, nous tirons partie des 30 sujets d'actualité répertoriés en
         construisant un graphe \og{}de domaine\fg{} unique pour chaque document
         à partir des autres documents du même sujet d'actualité.
         
@@ -555,40 +559,36 @@
         la méthode pour laquelle aucune autre méthode n'obtient de meilleures
         performances. Pour générer ces courbes, nous calculons la précision et
         le rappel lorsque  le nombre de termes-clés extraits/assignés varie de
-        un jusqu'au nombre total de termes-clés
-        candidats~\cite{hassan2010conundrums}.
+        un jusqu'au plus grand nombre commun de termes-clés pouvant être
+        extraits/assignés\footnote{Si, parmi tous les documents de test, le
+        nombre minimum de termes-clés extraits/assignés pour un document est de
+        73, alors la précision et le rappel sont calculés pour un jusqu'à 73
+        termes-clés en moyenne pour tous les documents.}.
       
       \subsubsection{Évaluation de TopicCoRank en domaines de spécialités}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank_specific_domains}
         Nous réalisons ici une série d'expériences destinées à comparer
-        TopicCoRank à l'existant et à observer son comportement lorsque nous
-        faisons varier artificiellement le taux d'assignement par document et
-        lorsque nous faisons varier la valeur de son paramètre $\lambda$, qui
-        détermine l'influence de la recommandation interne par rapport à la
-        recommandation externe.
+        TopicCoRank à l'existant, puis à observer son comportement selon
+        différentes configurations.
 
         Le tableau~\ref{tab:topiccorank-comparison_results_termith} montre les
         performances de TopicCoRank en domaines de spécialités (linguistique,
         sciences de l'information, archéologie, chimie) comparées à celles des
-        méthodes de référence. Globalement, les résultats montrent l'apport
-        d'ordonner conjointement les sujets du document et les termes-clés de
-        référence du domaine pour extraire et/ou assigner des termes-clés. En
-        domaines de spécialités, c'est la variante de TopicCoRank réalisant
-        uniquement l'assignement (TopicCoRank$_\textnormal{assign.}$) qui est la
-        plus performante, suivie par TopicCoRank,
-        TopicCoRank$_\textnormal{extr.}$, \textsc{Tf-Idf}, TopicRank et
-        \textsc{Kea++}. Les faibles performances de \textsc{Kea++} peuvent
-        paraître surprenantes, d'autant plus que la seule autre méthode
-        d'assignement, TopicCoRank$_\textnormal{assign.}$, est celle qui réalise
-        les meilleures. Contrairement à TopicCoRank$_\textnormal{assign.}$,
-        \textsc{Kea++} se limite aux entrées du thésaurus qui occurrent dans le
-        document, alors que la majorité des termes-clés des collections Termith
-        n'apparaissent pas dans les documents. De plus les thésaurus de l'Inist
-        ne sont pas aussi riche que ceux utilisés par
-        \newcite{medelyan2006kea++} dans leurs expériences~: moins de relations
-        y sont définiées entre les concepts. TopicCoRank et ses variantes sont
-        significativement meilleurs que les méthodes de référence. Comparée à
-        celles de TopicRank, les performances de
+        méthodes de référence. De manière générale, les résultats montrent le
+        bien fondé de TopicCoRank~: la variante
+        TopicCoRank$_\textnormal{assign.}$ réalise les meilleures performances,
+        suivie par TopicCoRank et TopicCoRank$_\textnormal{extr.}$. Les faibles
+        performances de \textsc{Kea++} sont surprenantes, d'autant plus que la
+        seule autre méthode d'assignement, TopicCoRank$_\textnormal{assign.}$,
+        est celle qui réalise les meilleures. Contrairement à
+        TopicCoRank$_\textnormal{assign.}$, \textsc{Kea++} se limite aux entrées
+        du thésaurus qui occurrent dans le document, alors que la majorité des
+        termes-clés des collections Termith n'apparaissent pas dans les
+        documents. De plus les thésaurus de l'Inist ne sont pas aussi riches que
+        ceux utilisés par \newcite{medelyan2006kea++} dans leurs expériences~:
+        moins de relations y sont définies entre les concepts. TopicCoRank et
+        ses variantes sont significativement meilleurs que les méthodes de
+        référence. Comparées à celles de TopicRank, les performances de
         TopicCoRank$_\textnormal{extr.}$ montrent que le domaine apporte des
         informations permettant d'ordonner plus précisément les sujets du
         document. Le fait que TopicCoRank$_\textnormal{assign.}$ obtienne les
@@ -634,38 +634,31 @@
         
         La figure~\ref{fig:topiccorank-pr_curves_termith} permet de comparer le
         comportement respectif des méthodes de référence, de TopicCoRank et de
-        ses variantes. En matière d'optimisation des critères de précision et de
-        rappel, les courbes rappel--précision confirment la domination de
-        TopicCoRank et de ses variantes (fronts de Pareto). Parmi TopicCoRank,
-        TopicCoRank$_\textnormal{extr.}$ et TopicCoRank$_\textnormal{assign.}$,
-        aucune ne domine toutes les autres, ce qui signifie que la meilleure
-        performance de l'une par rapport aux autres n'est donc pas systématique.
-        Nous remarquons toutefois une différence très marquée entre
-        TopicCoRank$_\textnormal{extr.}$ et les deux autres~:
-        TopicCoRank$_\textnormal{extr.}$ peut atteindre un rappel maximal très
-        inférieur à celui de TopicCoRank$_\textnormal{assign.}$ et TopicCoRank,
-        car il n'extrait que des termes-clés contenus dans le document. Nous
-        supposons donc que les situations pour lesquelles
-        TopicCoRank$_\textnormal{extr.}$ serait plus performant révèleraient une
-        inconsistance de l'indexation par termes-clés de référence dans les
-        données d'entraînement~: un manque d'homogénéité et de conformité.
-        \REMARK{Sommes-nous tous d'accord~?}
+        ses variantes. Elle montre que TopicCoRank et ses variantes dominent les
+        méthodes de référence (front de Pareto) selon les critères de précision
+        et de rappel. Parmi elles, nous observons aussi que la variante
+        TopicCoRank$_\textnormal{assign.}$ domine la variante
+        TopicCoRank$_\textnormal{extr.}$, mais que TopicCoRank n'est, ni
+        dominante, ni dominé par elles. Bien que l'amélioration significative de
+        TopicRank par TopicCoRank et ses variantes montrent l'apport de
+        l'ordonnancement conjoint entre sujets du document et termes-clés du
+        domaine, la réalisation simultanée de l'extraction et de l'assignement
+        reste difficile.
         \input{input/figure/termith_precision_recall_curves.tex}
 
         Afin d'observer la place que prend l'assignement dans TopicCoRank, et
         pour comprendre pourquoi sa variante TopicCoRank$_\textnormal{assign.}$
         est plus performante, nous nous intéressons maintenant aux taux de
-        termes-clés extraits et assignés par TopicCoRank. Pour ce faire, le
-        tableau~\ref{tab:assignment_ratio_termith} montre la proportion de
-        termes-clés extraits et assignés parmi les dix termes-clés que fournit
-        TopicCoRank. Nous observons que l'extraction est légèrement prédominante
-        face à l'assignement. Les deux catégories d'indexation par termes-clés
-        sont effectivement réalisées conjointement, mais l'ordonnancement donne
-        plus d'importance aux sujets du document qu'aux termes-clés de référence
-        du domaine. En domaines de spécialités où l'assignement est préféré,
-        cela peut être résolu en travaillant sur un affinage des schémas de
-        connexion des n\oe{}uds de chaque graphe et d'unification de ceux-ci.
-        \begin{table}[t]
+        termes-clés extraits et assignés par TopicCoRank, présentés dans le
+        tableau~\ref{tab:assignment_ratio_termith}. Nous observons que
+        l'extraction est légèrement prédominante face à l'assignement. Les deux
+        catégories d'indexation par termes-clés sont effectivement réalisées
+        conjointement, mais l'ordonnancement donne plus d'importance aux sujets
+        du document qu'aux termes-clés de référence du domaine. En domaines de
+        spécialités où l'assignement est préféré, cela peut être résolu en
+        travaillant sur un affinage des schémas de connexion des n\oe{}uds de
+        chaque graphe et d'unification de ceux-ci.
+        \begin{table}
           \centering
           \begin{tabular}{l|c|c}
               \toprule
@@ -691,9 +684,7 @@
         courbe de performance cumulative quand nous faisons croître le taux
         d'assignement\footnote{Dans cette situation, cela signifie que la
         performance obtenue avec TopicCoRank$_\textnormal{assign.}$ est la
-        performance maximale avec TopicCoRank} et un ordonnancement moins
-        efficace doit induire une courbe de progression quasi-concave,
-        quasi-convexe ou décroissante. La
+        performance maximale avec TopicCoRank}. La
         figure~\ref{fig:assignment_variations_termith} montre la performance de
         TopicCoRank lorsque le taux d'assignement varie de 0~\% à 100~\% avec un
         pas de 10~\%. À chaque augmentation du taux d'assignement, la
@@ -703,28 +694,23 @@
         \input{input/figure/termith_assignment_curves.tex}
 
         Enfin, nous réalisons une dernière expérience dans laquelle nous faisons
-        varier la valeur du paramètre $\lambda$. Plus élevée est sa valeur, plus
-        forte est l'influence de la recommandation interne et plus faible est
-        l'influence de la recommantation externe. La
+        varier la valeur du paramètre $\lambda$. Plus sa valeur est élevée, plus
+        l'influence de la recommandation interne est forte et plus l'influence
+        de la recommantation externe est faible. La
         figure~\ref{fig:lambda_variations_termith} montre le comportement de
-        TopicCoRank lorsque nous faisons varier la valeur de $\lambda$ de 0 à 1
-        avec un pas de 0,1. Globalement, l'indexation par termes-clés est
-        meilleure lorsque l'ordonnancement est fortement influencé par la
-        recommandation externe que lorsqu'il ne l'est pas et utiliser une valeur
-        de $\lambda$ qui assure l'équilibre entre l'influence interne et
-        l'influence externe permet une performance quasi-optimale. Ces résultats
-        montrent que notre choix de fixé $\lambda$ à 0,5 est pertinent et nous
-        conforte dans notre hypothèse que l'extraction et l'assignement doivent
-        être réalisés conjointement.
+        TopicCoRank lorsque nous faisons varier sa valeur de 0 à 1
+        avec un pas de 0,1. En accord avec notre hypothèse que sujets et
+        termes-clés du domaine doivent se recommander les uns les autres, les
+        résultats montrent que les performances de TopicCoRank se dégradent au
+        delà de $\lambda = 0,5$, valeur quasi-optimale.
         \input{input/figure/termith_lambda_curves.tex}
       
       \subsubsection{Évaluation de TopicCoRank hors domaines de spécialité}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank_indepent_domains}
         Nous réalisons ici la même série d'évaluations précédentes, mais hors
-        domaines de spécialités. L'objectif de cette seconde série d'évaluation
-        est de déterminer si TopicCoRank et ses hypothèses, fortement liées à
-        notre étude de l'indexation manuelle en domaines de spécialités, se
-        généralisent à tout type de documents.
+        domaines de spécialités. L'objectif est de déterminer si TopicCoRank et
+        ses hypothèses, fortement liées à notre étude de l'indexation manuelle
+        en domaines de spécialités, se généralisent à tout type de documents.
 
         Le tableau~\ref{tab:topiccorank-comparison_results_general} montre les
         performances de TopicCoRank hors domaines de spécialités (\textsc{De}ft,
@@ -736,19 +722,17 @@
         centrés sur le sujet d'actualité de chaque document de test.
         Contrairement à ce que nous observons en domaines de spécialités, c'est
         TopicCoRank qui est majoritairement le plus performant et c'est sa
-        variantes TopicCoRank$_\textnormal{assign.}$ qui est la moins
-        performante. Tout ceci s'explique par le fait que les termes-clés de
-        référence de \textsc{De}ft et SemEval n'ont pas été produit à la manière
-        de ceux des collections Termith. Ceux-ci sont fournis par les auteurs,
-        pour \textsc{De}ft et par les auteurs et des lecteurs, pour SemEval.
-        Aucun vocabulaire contrôlé n'est défini et les principes de conformité
-        et d'homogénéité sur lesquels nous fondons nos hypothèses ne sont pas
-        respectés. La contrainte de conformité n'étant pas respectée, la
-        nécessité de l'assignement n'est pas garantie~; la contrainte
-        d'homogénéité n'étant pas respectée non plus, le graphe de domaine que
-        nous construisons contient des termes-clés de référence redondants et il
-        faudrait peut-être, comme pour les termes-clés candidats, les grouper en
-        sujets et définir une stratégie de sélection du terme-clé à assigner.
+        variante TopicCoRank$_\textnormal{assign.}$ qui est la moins
+        performante. L'explication tient à la nature des termes-clés de
+        référence de \textsc{De}ft et SemEval. Ceux-ci n'ont pas été produit à
+        l'aide d'un vocabulaire contrôlé et les cinq principes sur lesquels nous
+        fondons nos hypothèses ne sont pas respectés. La contrainte de
+        conformité n'étant pas respectée, la nécessité de l'assignement n'est
+        pas garantie~; la contrainte d'homogénéité n'étant pas respectée non
+        plus, le graphe de domaine que nous construisons contient des
+        termes-clés de référence redondants. La redondance des termes-clés de
+        référence requiert une étape de normalisation. Celle-ci peut s'effectuer
+        à l'aide de notre méthode de groupement en sujets.
         \begin{table}
           \centering
           %\resizebox{\linewidth}{!}{
@@ -760,7 +744,8 @@
               \hline
               \textsc{Tf-Idf} & 10,4 & 19,1 & 13,3 & 24,9 & 32,1 & 27,7$^{~~}$ & 13,6 & $~~$9,3 & 10,9\\
               TopicRank & \textbf{11,9} & \textbf{21,5} & \textbf{14,9} & 17,9 & 23,7 & 20,1$^{~~}$ & 16,6 & 11,5 & 13,5\\
-              KEA++ & --- & --- & --- & --- & --- & ---$^{~~}$ & --- & --- & ---\\
+              KEA++ & & & & & & & & &\\
+              \overtabline
               \hline
               TopicCoRank$_\textnormal{extr.}$ & 10,1 & 19,1 & 13,0 & 24,6 & 35,5 & 27,2$^{~~}$ & 17,4 & 12,3 & 14,3\\
               TopicCoRank$_\textnormal{assign.}$ & $~~$6,8 & 12,8 & $~~$8,7 & 25,8 & 33,1 & 28,6$^{~~}$ & 11,8 & $~~$8,4 & $~~$9,7\\
@@ -789,13 +774,23 @@
         ses variantes. Contrairement aux domaines de spécialités, où TopicCoRank
         et ses variantes dominent les méthodes de référence, nous observons ici
         qu'aucune méthode dominante ne se dégage et, sauf sur \textsc{Duc}, il
-        est difficile de statuer sur l'apport de TopicCoRank à TopicRank. Sur
-        \textsc{De}ft, les courbes de TopicCoRank$_\textnormal{extr.}$ et
-        TopicCoRank montrent l'inconsistance des termes-clés de référence que
-        nous évoquons au-dessus. Si TopicCoRank et ses variantes se démarquent
-        largement sur les domaines de spécialités, ce n'est pas le cas sur des
-        collections de données hors domaines de spécialités, dont l'indexation
-        ne respecte pas les principes sur lesquels nos hypothèses sont fondées.
+        est difficile de statuer sur l'apport de TopicCoRank à TopicRank. Par
+        ailleurs, le rappel maximal atteint par TopicCoRank n'excède, dans la
+        plupart des cas, pas celui de \textsc{Tf-Idf}. TopicCoRank étant capable
+        d'assigner des termes-clés qui n'occurrent pas dans le document, sont
+        rappel maximal devrait être plus grand. Il existe deux raisons à ce
+        problème. La première est aussi valable pour TopicRank. Comme les
+        termes-clés candidats sont groupés en sujets et qu'un seul d'entre eux
+        est extrait par sujet, si un terme-clé erroné est extrait d'un sujet
+        contenant un terme-clé correct, alors le rappel maximal observable est
+        plus faible que celui de \textsc{Tf-Idf}, qui peut extraire tous les
+        candidats lorsque nous le lui demandons. La seconde raison nous
+        intéresse particulièrement, car elle n'est pas observable en domaines de
+        spécialités. En effet, le problème est aussi due à l'inconsistance des
+        données d'entraînement pour représenter un \og{}domaine\fg{} de manière
+        homogène et conforme à son vocabulaire. Les termes-clés employés dans
+        les documents d'entraînement ne sont pas les mêmes que ceux employés
+        pour les documents de test et l'assignement est donc inefficace.
         \input{input/figure/deft_semeval_duc_precision_recall_curves.tex}
 
         Comme pour l'évaluation en domaines de spécialités, le
@@ -826,53 +821,43 @@
         performances en domaines de spécialités, celle de TopicCoRank hors
         domaines de spécialités est croissante puis décroissante pour \text{Duc}
         et décroissante pour \textsc{De}ft et SemEval. Cela signifie que
-        l'ordonnancement des termes-clés de référence est moins efficace hors
-        domaines de spécialités qu'en domaines de spécialités. Il est toutefois
-        intéressant de noter que la courbe de performance de \textsc{Duc} montre
-        que le taux d'assignement effectué par TopicCoRank sans que nous le
-        forcions est le taux permettant la performance optimale. Sur
-        \textsc{Duc}, les performances de TopicCoRank sont les meilleures qu'il
-        puisse obtenir.
+        l'ordonnancement des termes-clés du domaine est moins efficace hors
+        domaines de spécialités. Il est toutefois intéressant de noter que, sur
+        \textsc{Duc}, le taux d'assignement effectué par TopicCoRank sans que
+        nous ne le forcions est proche de sa valeur optimal.
         \input{input/figure/deft_semeval_duc_assignment_curves.tex}
 
-        Enfin, nous réalisons une dernière expérience dans laquelle nous faisons
-        aussi varier la valeur du paramètre $\lambda$ pour déterminer si
-        équilibrer l'influence de la recommandation interne et de la
-        recommandation externe est une solution générique et pour vérifier si
-        TopicCoRank tire effectivement profit des deux graphes. La
-        figure~\ref{fig:lambda_variations_general}
-        montre le comportement de TopicCoRank lorsque nous faisons varier la
-        valeur de $\lambda$ de 0 à 1 avec un pas de 0,1. Sur \textsc{Duc}, comme
-        en domaines des spécialités, l'indexation par termes-clés est meilleure
-        lorsque l'ordonnancement est fortement influencé par la recommandation
-        externe que lorsqu'il ne l'est pas. Sur \textsc{De}ft et SemEval, c'est
-        l'inverse~: l'indexation par termes-clés est plus performante lorsque
-        l'ordonnancement au sein de chaque graphe n'est que très faiblement
-        influencé par l'ordonnancement au sein de l'autre. Toutefois, lorsque
-        $\lambda$ est au voisinage de sa valeur définie par défaut, nous
-        observons un compromis. Comme en domaines de spécialités, ces résultats
-        montrent que notre choix de fixé $\lambda$ à 0,5 est pertinent.
+        La figure~\ref{fig:lambda_variations_general} montre le comportement de
+        TopicCoRank lorsque nous faisons varier la valeur de $\lambda$ de 0 à 1
+        avec un pas de 0,1. Sur \textsc{Duc}, comme en domaines des spécialités,
+        l'indexation par termes-clés est meilleure lorsque l'ordonnancement est
+        fortement influencé par la recommandation externe que lorsqu'il ne l'est
+        pas. Sur \textsc{De}ft et SemEval, c'est l'inverse~: l'indexation par
+        termes-clés est plus performante lorsque l'ordonnancement au sein de
+        chaque graphe n'est que très faiblement influencé par l'ordonnancement
+        au sein de l'autre. Comme observé précédemment, les données
+        d'entraînement sont telles que le graphe du domaine est innefficace,
+        voir contre-productif.
         \input{input/figure/deft_semeval_duc_lambda_curves.tex}
 
     \subsection{Analyse des sorties de TopicCoRank}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis}
-      Dans cette section, nous nous intéressons aux termes-clés issus du graphe
-      représentatif du domaine. Nous analysons les termes-clés corrects (vrais
-      positifs) et incorrects (faux positifs) issus du graphe de domaine des
+      Dans cette section, nous analysons les termes-clés corrects (vrais
+      positifs) et incorrects (faux positifs) issus du graphe du domaine des
       collections Termith.
 
       \subsubsection{Analyse des vrais positifs}
       \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis-true_positives}
-        Parmi les termes-clés assignés, ceux qui sont corrects sont en grande 
+        Parmi les termes-clés assignés, ceux qui sont corrects sont en grande
         partie présents dans le contenu du document. Ils sont directement
         connectés aux sujets du document et leur importance respective évolue de
         manière similaire. Il est fréquent qu'un terme-clé candidat d'un sujet
-        soit extrait en même temps qu'un termes-clés de référence du domaine
+        soit extrait en même temps qu'un terme-clé de référence du domaine
         connecté à ce sujet. Dans cette situation, nous distinguons deux cas de
-        figure~: un seul termes-clés est produit, car le terme-clé extrait du
-        sujet et le terme-clé assigné sont les mêmes, ou deux termes-clés
-        correctes complémentaires sont produits, car le terme-clé extrait du
-        sujet et le terme-clé assigné ne sont pas les mêmes.
+        figure~: un seul terme-clé est produit, car le terme-clé extrait et
+        celui assigné sont les mêmes~; deux termes-clés corrects complémentaires
+        sont produits, car le terme-clé extrait et celui assigné ne sont pas les
+        mêmes.
         
         Il est plus difficile pour les termes-clés de référence du domaine
         connectés indirectement aux sujets du document d'émerger. Nous observons
@@ -885,27 +870,27 @@
         ce fait, certains termes-clés génériques sont très fréquemment utilisés
         (\og{}français\fg{} apparaît dans 48,9~\% des documents de linguistique
         et \og{}Europe\fg{} apparaît dans 52,5~\% des documents d'archéologie).
+        \TODO{plus d'exemples}
 
       \subsubsection{Analyse des faux positifs}
       \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis-false_positives}
         Les termes-clés génériques évoqués dans l'analyse des vrais positifs
-        sont aussi sources d'erreurs. En effet, comme ils sont les termes-clés
-        d'un nombre conséquent de documents, ils sont connectés, dans le graphe
-        du domaine, à beaucoup d'autres termes-clés de référence et gagnent
-        alors de l'importance quelque soit le document. Pour l'exemple du
-        terme-clé \og{}français\fg{} en linguistique, nous observons des
-        documents qui traitent de l'arabe mais, parce que les termes techniques
-        employés sont les mêmes (\og{}syntaxe\fg{}, \og{}sémantique\fg{}, etc.),
-        \og{}français\fg{} est assigné.
+        sont aussi sources d'erreurs. En effet, comme ils sont associés à un
+        nombre conséquent de documents d'entraînement, ils sont connectés à
+        beaucoup d'autres termes-clés du domaine et gagnent donc de l'importance
+        quelque soit le document. Pour l'exemple du terme-clé \og{}français\fg{}
+        en linguistique, nous observons des documents qui traitent de l'arabe
+        mais, parce que les termes techniques employés sont les mêmes
+        (\og{}syntaxe\fg{}, \og{}sémantique\fg{}, etc.), \og{}français\fg{} est
+        assigné.
 
         Enfin, nous observons quelques problèmes liés à la présence de
-        termes-clés de référence redondants entre eux, sémantiquement
-        équivalents. C'est le cas, par exemple, du terme-clé \og{}rite
-        funéraire\fg{}, qui fait parti du vocabulaire contrôlé d'archéologie, et
-        qui est parfois remplacé par le terme-clé \og{}pratique funéraire\fg{},
-        qui ne fait pas partie du vocabulaire contrôlé d'archéologie.
-        TopicCoRank échoue parfois parce qu'il a assigné l'un alors que c'était
-        l'autre qu'il fallait trouver, sans raison particulière.
+        termes-clés de référence redondants, c'est-à-dire des synonymes. C'est
+        le cas, par exemple, du terme-clé \og{}rite funéraire\fg{}, qui fait
+        parti du vocabulaire contrôlé d'archéologie, et qui est parfois remplacé
+        par le terme-clé \og{}pratique funéraire\fg{}, qui ne fait pas partie du
+        vocabulaire contrôlé d'archéologie. TopicCoRank échoue parfois parce
+        qu'il a assigné l'un alors que c'était l'autre qu'il fallait trouver.
 
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-conclusion}
