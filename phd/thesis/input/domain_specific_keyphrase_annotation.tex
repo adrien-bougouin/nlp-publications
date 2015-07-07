@@ -931,10 +931,6 @@
     que nous avons proposés, puis nous analysons les premiers résultats de la
     campagne d'évaluation manuelle de TopicRank et d'une méthode de référence en
     domaine de spécialités avec la collection de linguistique Termith.
-    
-    \REMARK{Faut-il que je précise que cette section présentera l'évaluation sur
-    les quatre corpus Termith et aussi l'évaluation de TopicCoRank dans la
-    version finale de la thèse~?}
 
     \subsection{Protocole d'évaluation manuelle}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol}
@@ -950,18 +946,19 @@
               entre les termes-clés de référence et les termes-clés fournis par
               la méthode d'indexation automatique par termes-clés~?}
       \end{enumerate}
-      L'évaluation de la pertinence traite le même aspect que l'évaluation
-      automatique~: le nombre de termes-clés corrects doit être maximisé pour
-      obtenir la meilleure performance. L'évaluation du silence traite un aspect
-      qui n'est pas traité par l'évaluation automatique. Elle a une dimension
-      plus sémantique~: les termes-clés corrects dont l'information est la plus
-      capitale à la compréhension du contenu principal du document doivent être
-      priorisés pour obtenir la meilleure performance.
+      L'évaluation de la pertinence s'intéresse au même aspect que l'évaluation
+      automatique~: le nombre de termes-clés corrects doit être maximisé et le
+      nombre d'erreurs minimisé pour obtenir la meilleure performance.
+      L'évaluation du silence s'intéresse à un aspect qui lui est propre. Elle a
+      une dimension plus sémantique~: les termes-clés corrects dont
+      l'information est la plus capitale pour la compréhension du contenu
+      principal du document doivent être priorisés pour obtenir la meilleure
+      performance.
 
       Afin de minimiser les problèmes d'ambiguïté et de subjectivité de certains
       cas de figure, la pertinence et le silence sont évalués sur une échelle à
-      trois valeurs~: une valeur représentant l'échec, une autre représentant le
-      succès et une le cas intermédiaire.
+      trois valeurs~: une valeur représentant le succès, une autre l'échec et
+      une dernière le cas intermédiaire.
 
       \subsubsection{Évaluation de la pertinence}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol-relevancy}
@@ -974,16 +971,16 @@
         professionnels doivent indiquer la forme préférée des termes-clés
         auxquels ils donnent un score de 1 (variantes). Une variante peut faire
         référence à deux catégories de formes préférées, qui induisent deux
-        raisonnements différents~:
+        raisonnements~:
         \begin{itemize}
           \item{variante d'un terme-clé déjà fourni (score de
                 2)~$\Rightarrow$~la méthode d'indexation par termes-clés fourni
-                des termes-clés redondants~;}
+                des termes-clés redondants~; \TODO{exemple sur capture}}
           \item{variante d'un terme-clé non fourni mais présent dans le
-              texte~$\Rightarrow$~la méthode d'indexation par termes-clés
+                texte~$\Rightarrow$~la méthode d'indexation par termes-clés
                 identifie correctement les sujets importants du document, mais
-                peine à trouver leur forme la plus appropriée pour les
-                représenter.}
+                peine à trouver la forme la plus appropriée pour les
+                représenter. \TODO{exemple sur capture}}
         \end{itemize}
 
         Lorsque la forme préférée n'est pas présente dans le document, nous
@@ -1008,13 +1005,14 @@
         termes-clés de référence.
 
         Une perte d'information est jugée secondaire (score de 1) dans deux
-        cas de figure différents~:
+        cas de figure~:
         \begin{itemize}
           \item{terme-clé de référence secondaire~: le terme-clé de référence
-                n'apporte pas l'information la plus importante~;}
+                n'apporte pas l'information la plus importante~;
+                \TODO{exemple sur capture}}
           \item{terme-clé de référence générique~: le terme-clé de référence
                 n'est pas suffisamment spécifique au contenu du document, il a
-                un usage classificatoire~;}
+                un usage classificatoire~; \TODO{exemple sur capture}}
         \end{itemize}
         Afin de minimiser les pertes d'informations dues à des termes-clés de
         référence qui ne sont pas présents dans le document, les évaluateurs
@@ -1049,9 +1047,9 @@
         \textsc{Tf-Idf}, mais fait aussi plus d'erreurs. Les termes-clés ayant
         un score de 1 donnent un explication intéressante à cette
         contradiction~: \textsc{Tf-Idf} à une forte tendance à extraire des
-        termes-clés redondant, c'est-à-dire des termes-clés variantes de
+        termes-clés redondants, c'est-à-dire des termes-clés variantes de
         termes-clés déjà extrait, alors que TopicRank remplit presque son
-        objectif de ne pas extraire de termes-clés redondant, avec seulement
+        objectif de ne pas extraire de termes-clés redondants, avec seulement
         0,9~\% de termes-clés redondants.
         \begin{table}[h!]
           \centering
@@ -1072,7 +1070,7 @@
         \end{table}
 
         Les résultats présentés dans le
-        tableau~~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio}
+        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio}
         sont contraires à ceux de l'évaluation automatique, puisque c'est ici
         TopicRank qui est meilleur que \textsc{Tf-Idf} sur les documents de
         linguistique. Afin de mieux observer la différence entre l'évaluation
@@ -1084,7 +1082,7 @@
         les termes-clés ayant un score de 2 sont considérés corrects, de même
         que ceux ayant un score de 1 non redondants. Les résultats de
         l'évaluation manuelle comparés à ceux de l'évaluation automatique sont
-        montrés dans le
+        présentés dans le
         tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-prf}
         . La difficulté d'évaluer automatiquement la tâche d'indexation par
         termes-clés se confirme. Avec l'évaluation manuelle, les conclusions ne
@@ -1122,12 +1120,12 @@
         plus d'information est celle qui maximise le nombre de termes-clés de
         référence ayant un score de silence 0 et qui minimise ceux ayant un
         score de 1 et de 2. Nous observons donc que TopicRank couvre mieux le
-        contenu principal des documents que \textsc{Tf-Idf}. TopicRank groupe
-        les termes-clés candidats en sujets et n'extrait qu'un seul terme-clé
-        par sujet. Ceci a pour effet d'éliminer la redondance, comme nous le
-        voyons dans le
-        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio},
-        et donc d'optimiser le nombre de sujets couverts.
+        contenu principal des documents que \textsc{Tf-Idf}. Parce que TopicRank
+        groupe les termes-clés candidats en sujets et n'extrait qu'un seul
+        terme-clé par sujet, il y a moins de redondance parmi les termes-clés
+        qu'il extrait (cf
+        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio})
+        et le nombre de sujets couverts est donc meilleur.
         \begin{table}[h!]
           \centering
           \begin{tabular}{l|c|c|c}
@@ -1163,35 +1161,54 @@
       Les résultats montrent que, contrairement à ce que montrait l'évaluation
       automatique, TopicRank effectue une indexation par termes-clés de
       meilleure qualité que celle de \textsc{Tf-Idf}. TopicRank extrait peu de
-      termes-clés redondants et couvre mieux le document, grâce à son groupement
-      des termes-clés candidats en sujets.
+      termes-clés redondants et couvre mieux le document, en partie grâce à son
+      groupement des termes-clés candidats en sujets.
 
   %-----------------------------------------------------------------------------
 
   \section{Conclusion}
   \label{sec:main-domain_specific_keyphrase_annotation-conclusion}
-    Nous avons présenté la méthodologie d'indexation manuelle d'indexeurs
-    professionnels travaillant dans le cadre d'une bibliothèque scientifique
-    numérique (\textsc{Bsn}) et nous avons proposé une contribution à
-    l'indexation par termes-clés en domaines de spécialités fondée sur cette
-    méthodologie. Notre méthode, TopicCoRank, est capable de réaliser
-    conjointement extraction et assignement automatique de termes-clés afin de
-    garantir la conformité, la cohérence, l'exhaustivité et la spécificité qui
-    sont les principes généraux de l'indexation manuelle par termes-clés en
-    domaines de spécialités.
+    Nous nous sommes intéressé à l'indexation automatique par termes-clés en
+    domaines de spécialités. Nous avons tout d'abord présenté l'indexation
+    manuelle réalisée par des indexeurs professionnels dans ce contexte, nous
+    avons ensuite proposé une nouvelle méthode automatique se rapprochant le
+    plus possible de cette indexation, puis nous avons présenté les premiers
+    résultats d'une campagne d'évaluation manuelle que nous avons réalisé avec
+    des indexeurs professionnels.
 
-    Nous avons aussi présenté les premiers résultats d'une campagne d'évaluation
-    manuelle de TopicRank et \textsc{Tf-Idf} en domaine de spécialités.
-    L'évaluation manuelle de \textsc{Tf-Idf} et de TopicRank montre que ce
-    dernier extrait plus de termes-clés positifs, notamment parce qu'il évite
-    d'extraire des termes-clés redondants et augmente alors sa couverture. Cette
-    supériorité de TopicRank vis-à-vis de \textsc{Tf-Idf} est contraire aux
-    observations que nous avons fait avec l'évaluation automatique. L'évaluation
-    automatique des méthodes d'indexation par termes-clés n'est actuellement pas
-    suffisante. Plus de travaux futures devraient se pencher sur ce problème.
-    Afin d'aider à la réalisation de nouvelles méthodes d'évaluation
-    automatique, et afin de permettre de mesurer leur corrélation avec une
-    évaluation humaine, toutes les étapes de la campagne d'évaluation manuelle
-    que nous avons mené vont être pérennisées et rendues disponibles pour la
-    communauté scientifique.
+    Contrairement aux méthodes d'indexation automatique, l'indexation manuelle
+    n'est pas divisée entre extraction et assignement. L'indexation manuelle en
+    domaines de spécialités préfère l'assignement, car cela permet une
+    indexation homogène des documents d'un même domaine et une conformité
+    vis-à-vis du vocabulaire spécialisé du domaine. Elle a aussi besoin de
+    l'extraction, afin de fournir des termes-clés très spécifiques au document,
+    ainsi que pour y identifier d'éventuels nouveaux concepts.
+
+    Pour remédier à la fracture entre extraction et assignement en indexation
+    automatique par termes-clés, nous proposons TopicCoRank. Conçu sur la base
+    de TopicRank, TopicCoRank utilise les données d'entraînement pour présenter
+    le domaine avec un graphe unifiié à celui des sujets. Cette unification
+    permet d'améliorer l'ordonnancement des sujets, en tenant compte de leurs
+    relations avec le domaine, et d'assigner des termes-clés, en puisant dans le
+    domaine. À notre connaissance, TopicCoRank est la seule méthode qui réalise
+    conjointement extraction et assignement.
+
+    Pour valider les deux méthodes TopicRank et TopicCoRank, nous avons réalisé
+    une campagne d'évaluation manuelle en domaines de spécialités. Le protocole
+    d'évaluation que nous avons proposé permet d'évaluer chaque méthode selon le
+    degré de pertinence des termes-clés qu'elle propose et selon le degré
+    d'information qui lui échape. Les résultats de l'évaluation manuelle de
+    TopicRank son plus encourageant que ceux de l'évaluation automatique. Ils
+    montrent que TopicRank est en réalité plus performant que \textsc{Tf-Idf},
+    en partie parce qu'il couvre mieux les sujets du document grâce à son
+    groupement en sujets des termes-clés candidats. Au delà de cela, cette
+    campagne a montré les limites de l'évaluation automatique, qui suit un
+    paradigme trop strict pour la tâche d'indexation par termes-clés. Parce que
+    l'évaluation manuelle est trop coûteuse pour être systématiquement mise en
+    \oe{}uvre, il est donc important de s'intéresser de plus près aux méthodes
+    d'évaluation automatique. Toutes les étapes de notre campagne seront donc
+    rendues disponibles gratuitement à toute la communauté scientifique. Cette
+    disponibilité permettra d'évaluer de nouvelles méthodes d'évaluation, en
+    vérifiant leur corrélation avec l'évaluation manuelle des indexeurs
+    professionnels.
 
