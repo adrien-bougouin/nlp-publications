@@ -60,10 +60,11 @@
     annotateurs différents~: les auteurs des articles, des indexeurs
     professionnels et des lecteurs. Les auteurs cherchent à attirer le lecteur~;
     les indexeurs professionnels (ou ingénieurs documentalistes) aspirent à une
-    annotation homogène entre tous les documents d'un même domaine grâce à un
-    vocabulaire contrôlé~; les lecteurs sont plus libres que les auteurs et les
-    indexeurs professionnels, ils ne sont influencés ni par les termes-clés
-    \og{}à la mode\fg{}, ni par un vocabulaire contrôlé.
+    indexation homogène, et conforme au langage du domaine, de tous les
+    documents d'un même domaine grâce à un vocabulaire contrôlé~; les lecteurs
+    sont plus libres que les auteurs et les indexeurs professionnels, ils ne
+    sont influencés ni par les termes-clés \og{}à la mode\fg{}, ni par un
+    vocabulaire contrôlé.
 
     Dans nos travaux de recherche, nous utilisons cinq collections de données~:
     Termith, \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}. En accord avec le
@@ -78,39 +79,25 @@
 
   \section{Termith}
   \label{sec:main-data_description-termith_data}
-    Le projet Termith met à notre disposition quatre collections de notices
-    bibliographiques de l'Inist (Institut de l'information scientifique et de la
-    recherche). Une notice bibliographique est une entrée d'un catalogue
-    bibliographique. Chaque entrée décrit un document avec différentes
-    méta-données. Il s'agit d'informations factuelles (titre du document,
-    auteurs, affiliation des auteurs, éditeur, résumé du document, termes-clés
-    des auteurs, etc.) et d'informations (parfois) générées par un indexeur
-    professionnel (résumé, termes-clés, etc.). Pour les termes-clés, l'indexeur
-    est aidé d'une terminologie du domaine (vocabulaire contrôlé) et d'un
-    système à base de règles (définies manuellement) qui lui propose un
-    terme-clé de la terminologie selon les occurrences de certaines unités
-    textuelles dans le résumé de la notice ou selon les termes-clés déjà
-    proposés.
-
-    Un indexeur professionnel est un professionnel de
-    l'information--documentation. Il est expert dans un domaine et utilise cette
-    expertise pour organiser et mettre en valeur les connaissances acquises dans
-    le temps. Contrairement aux autres annotateurs de termes-clés (auteur et
-    lecteur), l'indexeur professionnel accorde une grande importance à
-    l'homogénéité de l'indexation des documents d'un même domaine. Cette
-    homogénéité est obtenue grâce à un vocabulaire contrôlé spécifique au
-    domaine, elle permet une cartographie thématique précise des documents d'un
-    domaine. Parce que chaque domaine évolue, l'indexeur  doit mettre à jour son
-    vocabulaire contrôlé. Il est aussi autorisé à attribuer des termes-clés qui
-    ne se trouvent pas dans le vocabulaire. Dans ce cas, le terme-clé n'est pas
-    spécifique au domaine, mais il apporte une précision importante pour à la
-    description du contenu du document. \TODO{exemple}
+    Le projet Termith et l'Inist mettent à notre disposition quatre collections
+    de notices bibliographiques en domaines de spécialités. Une notice
+    bibliographique est une entrée d'un catalogue bibliographique. Elle décrit
+    un document avec différentes métadonnées~: des informations factuelles
+    (titre du document, auteurs, affiliation des auteurs, éditeur, résumé du
+    document, termes-clés des auteurs, etc.) et des informations (parfois)
+    produites par un indexeur professionnel (résumé, termes-clés, etc.). Pour
+    produire les termes-clés, l'indexeur professionnel à recours à des
+    ressources et des pratiques
+    documentaire~\cite{guinchat1996techniquesdocumentaires} qui assurent une
+    indexation par termes-clés de qualité~: homogène, conforme au langage du
+    domaine du document, spécifique au document et général du point de vue de
+    son domaine, exhaustive et impartiale.
     
     Les tableaux~\ref{tab:linguistics_journals}~à~\ref{tab:chemestry_journals}
     représentent la répartition, revue par revue, de chacune des collections. Le
     projet Termith s'intéresse principalement aux sciences humaines et sociales
     (\textsc{Shs}). De ce fait, trois de ses collections de notices représentent
-    une discipline de \textsc{Shs}~: linguistique, sciences de l'information
+    un domaine de \textsc{Shs}~: linguistique, sciences de l'information
     (sciences de l'info.) et archéologie. La quatrième collection représente la
     chimie. Le corpus de linguistique est constitué de 715 notices d'articles
     français parus entre 2000 et 2012 dans 11 revues~; le corpus des sciences de
@@ -129,7 +116,7 @@
           \hline
           A. sp. Anglais de spécialité & ~~99 & 2001 -- 2012\\
           Bulletin d'études orientales & ~~~~8 & 2008 -- 2010\\
-          Cahiers de grammaire & ~~~~4 & 2000~~~~~~~~~~~~~\\
+          Cahiers de grammaire & ~~~~4 & ~~~~~~~~~~~~2000\\
           Cahiers de praxématique~: (Montpellier) & ~~44 & 2006 -- 2009\\
           Langue française~: (Paris. 1969) & ~~39 & 2011 -- 2012\\
           Les Cahiers de l'ILCEA & ~~20 & 2004 -- 2007\\
@@ -153,11 +140,11 @@
           \toprule
           Revue & Quantité de documents & Période de publication\\
           \hline
-          Communication~: (Montréal) & ~~~~2 & 2005~~~~~~~~~~~~~\\
+          Communication~: (Montréal) & ~~~~2 & ~~~~~~~~~~~~2005\\
           Document numérique & 176 & 2001 -- 2012\\
           Documentaliste~: (Paris) & 385 & 2007 -- 2012\\
           Questions de communication~: (Nancy) & 135 & 2007 -- 2012\\
-          Études de communication & ~~~~8 & 2009~~~~~~~~~~~~~\\
+          Études de communication & ~~~~8 & ~~~~~~~~~~~~2009\\
           \bottomrule
         \end{tabular}
       }
@@ -178,12 +165,12 @@
           Archéosciences & ~~24 & 2007 -- 2011\\
           Arts asiatiques~: (Paris) & ~~36 & 2001 -- 2006\\
           Bulletin de correspondance hellénique & ~~~~9 & 2001 -- 2003\\
-          Bulletin de l'Ecole française d'Extrême-Orient & ~~~~4 & 2001~~~~~~~~~~~~~\\
+          Bulletin de l'Ecole française d'Extrême-Orient & ~~~~4 & ~~~~~~~~~~~~2001\\
           Bulletin de la Société préhistorique française & 163 & 2007 -- 2012\\
           Documents d'archéologie méridionale & ~~51 & 2001 -- 2006\\
           Gallia & ~~22 & 2001 -- 2007\\
           Gallia. Préhistoire & ~~26 & 2001 -- 2007\\
-          Journal de la Société des océanistes & ~~~~2 & 2001~~~~~~~~~~~~~\\
+          Journal de la Société des océanistes & ~~~~2 & ~~~~~~~~~~~~2001\\
           Paléo~: (Les Eyzies de Tayac-Sireuil) & 137 & 2001 -- 2009\\
           Paléorient & ~~43 & 2001 -- 2007\\
           Préhistoire anthropologie méditerranéennes & ~~30 & 2003 -- 2005\\
@@ -193,7 +180,7 @@
           Revue archéologique du centre de la France & ~~13 & 2001 -- 2004\\
           Revue des études grecques~: (Paris) & ~~11 & 2002 -- 2012\\
           Revue numismatique~: (Paris) & ~~17 & 2001 -- 2005\\
-          Syria & ~~~~7 & 2001~~~~~~~~~~~~~\\
+          Syria & ~~~~7 & ~~~~~~~~~~~~2001\\
           Syria~: (Paris) & ~~18 & 2004 -- 2005\\
           Techniques \& culture~: (Paris) & ~~16 & 2003 -- 2010\\
           \bottomrule
@@ -227,17 +214,17 @@
     \end{table}
 
     Le tableau~\ref{tab:termith} présente les caractéristiques du corpus
-    Termith. Chaque discipline est divisée en deux sous-ensembles\footnote{Les
+    Termith. Chaque domaine est divisé en deux sous-ensembles\footnote{Les
     revues sont réparties équitablement entre chaque ensemble.}~: un ensemble
-    d'apprentissage (appr.) composé de 506 à 582 notices selon la discipline et
-    un ensemble de test contenant 200 notices. S'agissant de résumés, les
-    documents sont courts (cf. figure~\ref{fig:example_inist}), ils ont en
-    moyenne 156,7 mots. Quant aux termes-clés, pour des raisons inhérentes au
-    projet Termith, nous utilisons les termes-clés des indexeurs professionnels.
-    Ils sont concis (un à deux mots principalement) et, du fait de la
-    méthodologie d'annotation, ils ne sont majoritairement pas présents dans les
-    résumés (ils doivent être assignés).
-    \TODO{si toutes les disciplines sont prêtes, alors expliquer les différences entre elles}
+    d'apprentissage (appr.) composé de 506 à 582 notices selon le domaine et un
+    ensemble de test contenant 200 notices. S'agissant de résumés, les documents
+    sont courts (cf. figure~\ref{fig:example_inist}), ils ont en moyenne 123,9
+    mots. Quant aux termes-clés, nous utilisons ceux produits par les indexeurs
+    professionnels. Ils sont concis (un à deux mots principalement) et, du fait
+    de la méthodologie d'annotation, ils ne sont majoritairement pas présents
+    dans les résumés (ils sont \og{}à assigner\fg{}).
+    \TODO{si tous les domaines sont prêts, alors expliquer les différences entre
+    eux}
 
     \begin{table}[!h]
       \centering
@@ -645,7 +632,7 @@
     scientifiques. Le corpus SemEval est constitué de 244 articles scientifiques
     en anglais issus de la bibliothèque numérique de l'\textsc{Acm}
     (\textit{Association for Computing Machinery}). Cette bibliothèque regroupe
-    les articles de plusieurs disciplines, qu'elle répartie dans différentes
+    les articles de plusieurs domaines, qu'elle répartie dans différentes
     catégories. Les documents du corpus SemEval concernent les catégories C2.4
     (\textit{Distributed Systems} --- Systèmes distribués), H3.3
     (\textit{Information Search and Retrieval} --- Recherche d'information),
@@ -813,28 +800,53 @@
     \end{table}
 
     \begin{figure}[!h]
-      \framebox[\linewidth]{ % AP890708-0135
+      \framebox[\linewidth]{ % FT941-1547
         \parbox{.99\linewidth}{\small
-          \textbf{Forests, brush, grass burn in the hot, dry west}\\
+          \textbf{Commodities and Agriculture: Germany sets scientist to work on
+                  BSE threat}\\
 
-          ~~~~Thousands more acres of brush and timber went up in smoke Saturday
-          in seven states in the West, threatening homes in some places, and
-          firefighters contended with wind and high temperatures.\\
+          ~~~~The German government yesterday announced the launch of a new
+          research project to examine whether the cattle disease bovine
+          spongiform encephalopathy (BSE) can be transmitted to human beings.
 
-          ~~~~``As the day heats up, you'll get these reburns going out and the
-          trees dry out and they'll torch,'' said Forest Service spokesman Ed
-          Christian in Wyoming. ``We hope Mother Nature cooperates with us,''
-          said Mary Plumb of the federal Bureau of Land Management in Utah.
-          Record highs included 97 at Cheyenne, Wyo., and 100 at Denver, while
-          Casper, Wyo., tied its record of 100. That was Denver's fifth
-          consecutive day at 100 degrees or higher
+          ~~~~The initiative comes as the country is pushing for a European
+          Union ban on British beef imports, arguing that there is still no
+          conclusive evidence that the disease cannot affect humans.
+
+          ~~~~Seven German universities and research institutes will be
+          sponsored by the country's research and technology ministry to examine
+          possible connections between the origins of BSE and two other
+          diseases, Creutzfeldt Jakob disease and Gerstmann Straussler syndrome,
+          which very rarely affect humans. Several German scientists have
+          expressed concern that BSE --- popularly known as 'mad cow disease'
+          because of the way it debilitates the brains of cattle --- may be
+          transmissible to humans who eat contaminated beef or take medicines
+          made with ingredients from contaminated animals.
+
+          ~~~~``The danger that BSE can be transmitted to humans is minimal or
+          non-existent,'' said Professor Hans Kretzschmar from Gottingen
+          University. ``However, we do not know that it is non-existent. I
+          personally think (British beef) should not be imported.''
           
-          ~~~~[\dots]\\
+          ~~~~Contaminated British beef will be discussed at a meeting of EU
+          health ministers on March 30, but a German official said that any
+          decisions about a ban would be made by the union's agriculture
+          ministers, who were likely to argue that existing safeguards were
+          sufficient.
 
-          \textbf{Termes-clés~:} \underline{forest fires},
-          \underline{firefighters}, \underline{fire crews}, \underline{fire
-          lines}, \underline{fire season}, \underline{federal firefighting
-          efforts}.
+          ~~~~In 1992, the last year for which figures are available, Germany
+          imported 2,092 tonnes of British beef --- 2 per cent of all its beef
+          imports from other EU countries --- and 13 tonnes of veal.
+
+          ~~~~The research ministry said that more than 100,000 cattle had died
+          as a result of catching BSE in Britain. A further 50 cases of the
+          disease had been recorded in Switzerland and there were two known
+          cases in Germany, one of which affected a cow imported from Britain.\\
+
+          \textbf{Termes-clés~:} \underline{cattle disease}, \underline{bovine
+          spongiform encephalopathy}, \underline{bse}, \underline{mad cow
+          disease}, \underline{British beef imports}, \underline{possible
+          connections}.
         }
       }
       \caption[Exemple de document de \textsc{Duc}]{
@@ -843,6 +855,37 @@
         \label{fig:example_duc}
       }
     \end{figure}
+%    \begin{figure}[!h]
+%      \framebox[\linewidth]{ % AP890708-0135
+%        \parbox{.99\linewidth}{\small
+%          \textbf{Forests, brush, grass burn in the hot, dry west}\\
+%
+%          ~~~~Thousands more acres of brush and timber went up in smoke Saturday
+%          in seven states in the West, threatening homes in some places, and
+%          firefighters contended with wind and high temperatures.\\
+%
+%          ~~~~``As the day heats up, you'll get these reburns going out and the
+%          trees dry out and they'll torch,'' said Forest Service spokesman Ed
+%          Christian in Wyoming. ``We hope Mother Nature cooperates with us,''
+%          said Mary Plumb of the federal Bureau of Land Management in Utah.
+%          Record highs included 97 at Cheyenne, Wyo., and 100 at Denver, while
+%          Casper, Wyo., tied its record of 100. That was Denver's fifth
+%          consecutive day at 100 degrees or higher
+%          
+%          ~~~~[\dots]\\
+%
+%          \textbf{Termes-clés~:} \underline{forest fires},
+%          \underline{firefighters}, \underline{fire crews}, \underline{fire
+%          lines}, \underline{fire season}, \underline{federal firefighting
+%          efforts}.
+%        }
+%      }
+%      \caption[Exemple de document de \textsc{Duc}]{
+%        Exemple de document de \textsc{Duc}. Les termes-clés soulignés sont ceux
+%        qui peuvent être extraits. \TODO{exemple EMNLP}
+%        \label{fig:example_duc}
+%      }
+%    \end{figure}
 
   %-----------------------------------------------------------------------------
 
@@ -891,14 +934,14 @@
           & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
           \hline
           \multicolumn{2}{l|}{Termith} & & & & & & & &\\
-          $\drsh$ & Linguistique & Français & Scientifique (résumé) & 715 & $~~~~$156.7 & Professionnel & $~~$8,7 & 61,2~\% & 1,7\\
-          $\drsh$ & Sciences de l'info. & \ditto & \ditto & 706 & $~~~~$119,7 & \ditto  & $~~$8,5 & 67,6~\% & 1,7\\
-          $\drsh$ & Archéologie & \ditto & \ditto & 718 & $~~~~$219,1 & \ditto & 16,5 & 37,1~\% & 1,3\\
-          $\drsh$ & Chimie & \ditto & \ditto & 782 & $~~~~$105,2 & \ditto & 12,8 & 76,1~\% & 2,2\\
+          $\drsh$ & Linguistique & Français & Scientifique (résumé) & 715 & $~~~$156.7 & Professionnel & $~~$8,7 & 61,2~\% & 1,7\\
+          $\drsh$ & Sciences de l'info. & \ditto & \ditto & 706 & $~~~$119,7 & \ditto  & $~~$8,5 & 67,6~\% & 1,7\\
+          $\drsh$ & Archéologie & \ditto & \ditto & 718 & $~~~$219,1 & \ditto & 16,5 & 37,1~\% & 1,3\\
+          $\drsh$ & Chimie & \ditto & \ditto & 782 & $~~~$105,2 & \ditto & 12,8 & 76,1~\% & 2,2\\
           \multicolumn{2}{l|}{\textsc{Deft}} & \ditto & Scientifique & 234 & 7~102,9 & Auteur & $~~$5,3 & 19,4~\% & 1,7\\
-          \multicolumn{2}{l|}{Wikinews} & \ditto & Journalistique & 100 & $~~~~$308,5 & Lecteur & $~~$9,6 & $~~$7,6~\% & 1,7\\
+          \multicolumn{2}{l|}{Wikinews} & \ditto & Journalistique & 100 & $~~~$308,5 & Lecteur & $~~$9,6 & $~~$7,6~\% & 1,7\\
           \multicolumn{2}{l|}{Semeval} & Anglais & Scientifique & 244 & 5~152,3 & Auteur~/~Lecteur & 15,1 & 17,0~\% & 2,1\\
-          \multicolumn{2}{l|}{DUC} & \ditto & Journalistique & 308 & $~~~~$900,7 & Lecteur & $~~$8,1 & $~~$3,5~\% & 2,1\\
+          \multicolumn{2}{l|}{DUC} & \ditto & Journalistique & 308 & $~~~$900,7 & Lecteur & $~~$8,1 & $~~$3,5~\% & 2,1\\
           \bottomrule
         \end{tabular}
       }
