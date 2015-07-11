@@ -723,22 +723,27 @@
       Leur apprentissage se fait à partir d'une collection d'apprentissage, ou
       d'entraînement, dont les documents sont manuellement indexés par des
       termes-clés. Les termes-clés candidats sont sélectionnés dans ces
-      documents et servent d'exemples, lorsqu'il font partie de l'indexation
-      manuelle (de référence), sinon, de contre-exemples.
+      documents, ils servent d'exemples lorsqu'il font partie de l'indexation
+      manuelle (de référence), de contre-exemples sinon et certaines de leurs
+      caractéristiques (traits) sont analysées pour apprendre à discriminer les
+      termes-clés d'après elles.
 
-      Les méthodes proposées emploient des classifieurs. Elles diffèrent
-      selon ces classifieurs et les caractéristiques discriminantes (traits)
-      qu'elles utilisent. Nous présentons ces différentes méthodes en les
-      groupant par classifieur et les présentons en soulignant les traits
-      choisis.
+      Les méthodes proposées emploient des classifieurs. Elles diffèrent selon
+      ces classifieurs et les traits qu'elles utilisent. Nous présentons ces
+      différentes méthodes en les groupant par classifieur et les présentons en
+      soulignant les traits choisis.
 
       \subsubsection{Classifieurs probabilistes}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-probabilistic_models}
         Les classifieurs probabilistes utilisent des distributions de
         probabilités de divers traits. Pour l'extraction des termes-clés d'un
-        document, ces distributions sont combinées pour déterminer un score de
-        vraisemblance de chaque terme-clé candidat en tant que
-        \og{}terme-clé\fg{}.
+        document, ces distributions sont combinées pour déterminer le score de
+        vraisemblance, la probabilité, de chaque terme-clé candidat en tant que
+        \og{}terme-clé\fg{}. À l'instar des méthodes non supervisées, les
+        méthodes supervisées utilisant un classifieur probabiliste peuvent
+        ordonner les termes-clés candidats classés \og{}termes-clés\fg{} selon
+        leur probabilité afin d'extraire un nombre donné de termes-clés, si
+        nécessaire.
 
         ~\\\textsc{Kea}~\cite{witten1999kea} est la méthode d'extraction de
         termes-clés la plus populaire. Elle effectue une classification naïve
@@ -749,19 +754,22 @@
         termes-clés ont une certaine importance vis-à-vis du document (leur
         poids \textsc{Tf-Idf}) et qu'ils font leur première apparition dans des
         zones similaires du document.
-          Appris sur une collection de
 
         ~\\\textsc{Kea} est une approche très simple qui considère tous les
         traits comme indépendants (principe de la classification naïve
         bayésienne). Sa simplicité et ses bonnes performances ont suscité un
-        grand intéret, il en existe de nombreuses variantes. C'est le cas de la
-        méthode de \newcite{frank1999keafrequency}, qui utilise comme trait
-        supplémentaire le nombre de fois qu'un terme-clé candidat est un
+        grand intéret et de nombreuses variantes ont été proposées. C'est le cas
+        de la méthode de \newcite{frank1999keafrequency}, qui utilise comme
+        trait supplémentaire le nombre de fois qu'un terme-clé candidat est un
         exemple, c'est-à-dire un terme-clé de l'indexation manuelle d'un
-        document, parmi les documents de la collection d'entraînement. Cette
-        méthode donne un plus fort score de vraisemblance aux candidats déjà
-        utilisés comme termes-clés. Elle améliore les performances de
-        \textsc{Kea}, mais nécessite plus de données d'apprentissage.
+        document, parmi les documents de la collection d'entraînement. Appliquée
+        en domaines de spécialités, cette variante de \textsc{Kea} favorise
+        l'extraction de termes-clés déjà utilisés pour une extraction de
+        termes-clés homogène et améliore significativement les performances de
+        \textsc{Kea}. Par ailleurs, \newcite{frank1999keafrequency} montrent que
+        les performances de \textsc{Kea} se stabilisent à partir de 50 documents
+        d'apprentissage, alors que les performances de leur méthode augmente
+        toujours lorsque le nombre de documents d'apprentissage augmente.
         
         ~\\\newcite{turney2003keacoherence} reprend lui aussi \textsc{Kea}.
         Estimant, comme \newcite{ding2011binaryintegerprogramming}, que les
@@ -1000,32 +1008,41 @@
       \subsubsection{Perceptrons multicouches}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-neural_network}
         Les perceptrons multicouches sont des classifieurs qui émulent la
-        biologie de l'apprentissage des êtres vivants. Ce sont des réseaux de
-        neurones répartis sur au moins trois couches. Les neurones de la
-        première couche représentent les traits d'un candidat (un neurone par
-        trait), ceux des couches intermédiaires (couches cachées) propagent des
-        scores obtenus selon la valeur des traits et ceux de la dernière couche
-        donnent un score final pour chaque classe \og{}terme-clé\fg{} et
-        \og{}non terme-clé\fg{} (un neurone par classe). La classe ayant le plus
-        haut score est celle du terme-clé candidat pour lequel correspond la
-        valeur des traits.
+        biologie de l'apprentissage humain. Ce sont des réseaux de neurones
+        répartis sur au moins trois couches. Les neurones de la première couche
+        représentent les traits d'un candidat (un neurone par trait), ceux des
+        couches intermédiaires (couches cachées) propagent des scores obtenus
+        selon la valeur des traits et ceux de la dernière couche donnent un
+        score final pour chaque classe \og{}terme-clé\fg{} et \og{}non
+        terme-clé\fg{} (un neurone par classe). La classe ayant le plus haut
+        score est celle du terme-clé candidat pour lequel correspond la valeur
+        des traits. Optionnellement, les scores calculés pour chaque classe
+        peuvent être utilisés pour déterminer le degré de confiance du
+        perceptron pour la classe qu'il a
+        attribué~\cite{denker1991neuralnetprobability}.
         
-        ~\\\newcite{sarkar2010neuralnetwork} utilisent un perceptron multicouche
-        pour classer les termes-clés candidats selon leur \textsc{Tf-Idf}, leur
-        position, leur taille (en nombre de mots) et celle de leurs mots (en
-        nombre de caractères). Contrairement à certain classifieurs présentés
-        ci-avant, les perceptrons multi-couches ne fournissent pas de
-        probabilité indiquant la vraisemblance d'un candidat en tant que
-        \og{}terme-clé\fg{} ou \og{}non terme-clé\fg{}. L'une des contributions
-        du travail de \newcite{sarkar2010neuralnetwork} est l'apprentissage d'un
-        estimateur capable de donner le degré de confiance d'une classification
-        selon le score attribué à chaque classe. Cet estimateur permet
-        d'ordonner les termes-clés candidats, ceux classés \og{}terme-clé\fg{}
-        en premier dans l'ordre décroissant de leur confiance et ceux classés
-        \og{}non terme-clé\fg{} en dernier dans l'ordre croissant de leur
-        confiance. Ainsi, la méthode de \newcite{sarkar2010neuralnetwork} peut
-        extraire un nombre donné de termes-clés, en ajoutant des candidats
-        classés \og{}non terme-clé\fg{} avec une faible confiance si nécessaire.
+        ~\\\newcite{sarkar2010neuralnetwork} utilisent un perceptron
+        multicouche. Les traits qu'ils emploient concernent la fréquence du
+        candidat, sa position et sa taille (en nombre de mots) ainsi que celle
+        de ses mots (en nombre de caractères). Cette dernière est rarement
+        utilisée comme trait pour l'extraction supervisée de termes-clés.
+        L'hypothèse de \newcite{sarkar2010neuralnetwork} se fonde sur la loi de
+        \newcite{zipf1935zipflaw}~: les mots courts étant plus fréquents que les
+        mots longs, alors la taille d'un mot est une indication de sa rareté,
+        donc de sa spécificité vis-à-vis du document.
+        
+        À la manière des méthodes utilisant un classifieur probabiliste,
+        \newcite{sarkar2010neuralnetwork} ordonnent les termes-clés candiats
+        afin d'extraire un nombre donné de termes-clés lorsque nécessaire. Pour
+        cela, ils utilisent le degré de confiance attribué à la
+        classification~\cite{denker1991neuralnetprobability}. En premier sont
+        placés les candidats classés \og{}terme-clé\fg{}, dans l'ordre
+        décroissant du score de confiance~; en dernier sont placés les candidats
+        classés \og{}non terme-clé\fg{}, dans l'ordre croissant du score
+        de confiance. Ainsi, s'il y a plus de \og{}terme-clé\fg{} que requis,
+        alors ceux ayant la plus haute confiance sont extrait. Inversement, s'il
+        n'y a pas suffisamment de \og{}terme-clé\fg{}, alors des candidats
+        classés \og{}non terme-clé\fg{} avec une confiance faible sont ajoutés.
 
       \subsubsection{Algorithmes génétiques}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-genex}
@@ -1075,9 +1092,9 @@
     \textsc{Kea}++, améliore la méthode d'extraction \textsc{Kea}. Pour cela,
     elle utilise un thésaurus\footnote{Thésaurus~: liste de termes regroupés
     selon les concepts d'un domaine de connaissance qu'ils représentent.} du
-    domaine de spécialités à traiter. Il est mis à profit de deux manière~:
+    domaine de spécialités à traiter. Il est mis à profit de deux manières~:
     d'abord pour sélectionner les termes-clés candidats, ensuite pour améliorer
-    le classifieur naïf bayesien à l'aide d'un nouveau trait.
+    la classification.
 
     \newcite{medelyan2006kea++} décident de réaliser l'assignement en se
     limitant aux termes-clés qui occurrent dans le document. Ils sélectionnent
@@ -1087,9 +1104,8 @@
     terme-clé\fg{} par un classifieur naïf bayesien. Ce classifieur est le même
     que celui de \textsc{Kea}, à l'exception d'un trait supplémentaire~: le
     nombre de relations sémantiques qu'entretient le candidat avec les autres
-    dans le thésaurus. De cette manière, ils imitent le travail de
-    \newcite{turney2003keacoherence} qui tente d'améliorer la cohérence entre
-    les termes-clés extraits.
+    dans le thésaurus. De cette manière, ils déterminent l'importance du
+    candidats dans le domaine.
 
     Évalué avec des documents du domaine agroalimentaire et le thésaurus
     Agrovoc\footnote{\url{http://aims.fao.org/vest-registry/vocabularies/agrovoc-multilingual-agricultural-thesaurus}},
@@ -1104,9 +1120,10 @@
     la tâche d'indexation par termes-clés en une tâche de traduction du langage
     naturel vers celui des termes-clés.
     
-    \newcite{liu2011vocabularygap} apprennent un modèle de traduction à l'aide
-    de paires de mots~: l'un dans le langage naturel, l'autre dans le langage
-    synthétique des termes-clés. Les mots du langage naturel sont extraits du document et les
+    \newcite{liu2011vocabularygap} apprennent un modèle de traduction
+    \textit{\textsc{Ibm} Model-1}~\cite{brown1993ibmmodel1} à l'aide de paires
+    de mots~: un mot du langage naturel, l'autre du langage synthétique des
+    termes-clés. Les mots du langage naturel sont extraits du document et les
     mots du langage synthétique sont extrait soit de son titre, soit de son
     résumé. Le modèle de traduction peut ensuite être appliqué aux termes-clés
     candidats, pour réaliser de l'extraction de termes-clés à la manière des
@@ -1115,7 +1132,7 @@
     (page~\pageref{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-probabilistic_models}),
     ou être utilisé pour générer une traduction, c'est-à-dire des termes-clés.
 
-    Parce qu'elle est capable de générer des termes-clés, cette méthode est très
+    Parce qu'elle est capable de générer des termes-clés, cette méthode est
     intéressante. Cependant, il ne s'agit là que d'un premier pas vers
     l'assignement de termes-clés, car aucun vocabulaire n'est utilisé pour
     contrôler la génération.
@@ -1157,22 +1174,22 @@
     induit une évaluation pessimiste des méthodes d'indexation automatique par
     termes-clés, car les variantes des termes-clés de référence sont jugées
     incorrectes sans distinction avec les autres faux positifs. Pour minimiser
-    ce problème de pessimisme, toutes les évaluations réalisées dans la
-    littérature tiennent compte uniquement de la racine des mots des
-    termes-clés, c'est-à-dire leur forme privée de tout suffixe. Les différences
-    d'accords en genre et en nombre sont donc autorisées, ainsi que toute autre
-    dérivation suffixale. Cette approche n'est pas parfaite, car elle fait
-    parfois correspondre des mots porteurs de sens différents (par exemple,
-    \og{}empire\fg{} et \og{}empirique\fg{} possèdent la même racine
-    \og{}empir\fg{}). Une approche plus rigoureuse serait d'utiliser les lemmes
-    des mots, c'est-à-dire leur forme conventionnelle (celle que nous retrouvons
-    dans  un dictionnaire). Contrairement à la racinisation, qui applique
-    seulement des règles de désuffixage (par exemple, -es $\rightarrow$ - afin
-    d'enlever l'accord du féminin pluriel), la lemmatisation requiert un lexique
-    et doit être appliquée selon le context du mot à analyser (par exemple, le
-    lemme de \og{}couvant\fg{} est soit \og{}couvant\fg{}, soit \og{}couver\fg{}
-    selon son context). Pour des raisons pratiques, la lemmatisation n'est donc
-    jamais utilisée pour l'évaluation automatique de termes-clés.
+    ce problème, toutes les évaluations réalisées dans la littérature tiennent
+    compte uniquement de la racine des mots des termes-clés, c'est-à-dire leur
+    forme privée de tout suffixe. Les différences d'accords en genre et en
+    nombre sont donc autorisées, ainsi que toute autre dérivation suffixale.
+    Cette approche n'est pas parfaite, car elle fait parfois correspondre des
+    mots porteurs de sens différents (par exemple, \og{}empire\fg{} et
+    \og{}empirique\fg{} possèdent la même racine \og{}empir\fg{}). Une approche
+    plus rigoureuse serait d'utiliser les lemmes des mots, c'est-à-dire leur
+    forme conventionnelle (celle que nous retrouvons dans  un dictionnaire).
+    Contrairement à la racinisation, qui applique seulement des règles de
+    désuffixage (par exemple, -es $\rightarrow$ - afin d'enlever l'accord du
+    féminin pluriel), la lemmatisation requiert un lexique et doit être
+    appliquée selon le context du mot à analyser (par exemple, le lemme de
+    \og{}couvant\fg{} est soit \og{}couvant\fg{}, soit \og{}couver\fg{} selon
+    son context). Pour des raisons pratiques, la lemmatisation n'est donc jamais
+    utilisée pour l'évaluation automatique de termes-clés.
     \begin{table}
       \begin{center}
         \begin{tabular}{cc|cc}
@@ -1191,11 +1208,11 @@
     \end{table}
 
     Les critères d'évaluation utilisés pour évaluer et comparer les méthodes
-    d'indexation par termes-clés son la précision, le rappel et le compromis
-    entre eux (f1-mesure). La précision capture la capacité d'une méthode à
-    minimiser les erreurs (cf équation~\ref{math:precision}). Inversement, le
-    rappel mesure la capacité de la méthode à fournir le plus possible de
-    termes-clés corrects (cf équation~\ref{math:recall}). Quant à la f1-mesure, elle évalue le compromis
+    d'indexation par termes-clés sont la précision, le rappel et la f1-mesure.
+    La précision capture la capacité d'une méthode à minimiser les erreurs (cf
+    équation~\ref{math:precision}). Inversement, le rappel mesure la capacité de
+    la méthode à fournir le plus possible de termes-clés corrects (cf
+    équation~\ref{math:recall}). Quant à la f1-mesure, elle évalue le compromis
     entre précision et rappel, c'est-à-dire la capacité de la méthode à extraire
     un maximum de termes-clés corrects tout en faisant un minimum d'erreurs (cf
     équation~\ref{math:f1_measure}).
@@ -1262,33 +1279,35 @@
     Nous avons présenté la tâche d'indexation par termes-clés, de la sélection
     des termes-clés candidats aux différentes méthodes d'extraction et
     d'assignement de termes-clés, en passant par le processus d'évaluation
-    automatique de ces dernière.
+    automatique de ces dernières.
 
     La sélection des termes-clés candidats est une étape quasi-systématique de
     l'indexation automatique par termes-clés. Ne s'agissant cependant pas du
     c\oe{}ur de la tâche, la définition de nouvelle méthodes de sélection est
     négligée au profit de méthodes de sélection simples (sélection de n-grammes,
-    \textit{chunks nominaux} ou séquences noms-adjectifs). Toutefois, l'idée que
-    l'indexation par termes-clés gagnerait en performances si les candidats
-    sélectionnés étaient moins nombreux, c'est-à-dire contiendraient moins
-    d'erreurs, semble faire consensus auprès des chercheurs qui s'y intéressent.
-    La méthode qui consiste à définir des patrons grammaticaux, tels que celui
-    pour sélectionner les séquences noms-adjectifs,  pourait être utilisée pour
-    sélectionner des candidats en s'intéressant plus en profondeur aux classes
-    grammaticales employées dans les termes-clés, ainsi qu'à d'autres propriétés
-    linguistiques de leurs composants.
+    \textit{chunks nominaux} ou séquences de noms et d'adjectifs). Toutefois,
+    l'idée que l'indexation par termes-clés gagnerait en performances si les
+    candidats sélectionnés étaient moins nombreux, c'est-à-dire contiendraient
+    moins d'erreurs, semble faire consensus auprès des chercheurs qui s'y
+    intéressent~\cite{wang2014keyphraseextractionpreprocessing}. La méthode qui
+    consiste à définir des patrons grammaticaux, tels que celui pour
+    sélectionner les plus longues séquences de noms et d'adjectifs, pourrait
+    être utilisée pour sélectionner des candidats en s'intéressant plus en
+    profondeur aux classes grammaticales employées dans les termes-clés, ainsi
+    qu'à d'autres propriétés linguistiques de leurs composants.
 
     Le c\oe{}ur de la tâche d'indexation automatique par termes-clés est
-    réalisée de deux manières différentes~: soit les termes-clés sont extraits
+    réalisé de deux manières différentes~: soit les termes-clés sont extraits
     depuis le contenu du document, soit ils sont assignés en puisant dans un
     vocabulaire contrôlé. Dans la littérature, l'extraction fait l'objet de plus
-    de travaux que l'assignement. Parmi les travaux les plus récents, ce sont
-    les méthodes d'extraction de termes-clés à base de graphe qui sont les plus
-    étudiées. Elles ont l'avantage d'utiliser une représentation simple et
-    intuitive du document. Cependant, leur focalisation sur les mots ne nous
-    semble pas pertinente, car les termes-clés sont des mots ou des expressions.
-    Par ailleurs, le problème de dispersion dans le graphe d'éléments
-    sémantiquement équivalents n'a encore jamais été évoqué/résolu.
+    de travaux que l'assignement. Elle est plus simple à mettre en \oe{}uvre,
+    car elle analyse les unités textuelles présentent dans le document, tandis
+    que l'assignement doit pouvoir déterminer si une entrée du vocabulaire
+    contrôlé n'occurrant pas nécessairement dans le document est importante
+    vis-à-vis de celui-ci. Par ailleurs, la seule méthode réalisant actuellement
+    l'assignement se limite aux entrées présentent dans le document, tant il
+    peut parfois être difficile d'établir le lien entre celles qui n'y sont pas
+    et le contenu du document.
 
     L'évaluation des méthodes d'indexation par termes-clés est généralement
     effectuée de manière automatique. Comparé à un jugement de référence unique,
