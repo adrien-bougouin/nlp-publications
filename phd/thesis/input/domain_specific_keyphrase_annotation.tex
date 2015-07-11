@@ -1142,9 +1142,65 @@
                    \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-silence_score_ratio}}
         \end{table}
 
-%      \subsubsection{Analyse de TopicCoRank}
-%      \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank}
-%        \TODO{\dots}
+      \subsubsection{Analyse de TopicCoRank}
+      \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank}
+        \TODO{\dots}
+        \begin{table}[h!]
+          \centering
+          \begin{tabular}{l|c|c|c|c}
+            \toprule
+            \multirow{2}{*}{\textbf{Méthode}} & \multirow{2}{*}{\textbf{0}} & \multicolumn{2}{c|}{\textbf{1}} & \multirow{2}{*}{\textbf{2}}\\
+            \cline{3-4}
+            & & \multicolumn{1}{p{.175\linewidth}|}{\centering{}redondant} & \multicolumn{1}{p{.175\linewidth}|}{\centering{}non redondant} &\\
+            \hline
+            \textsc{Kea} & \textbf{41,2~\%} & 7,6~\% & \textbf{13,2~\%} & 37,9~\%\\
+            TopicCoRank & 46,0~\% & \textbf{3,1~\%} & 10,9~\% & \textbf{40,0~\%}\\
+            \bottomrule
+          \end{tabular}
+          \caption{Taux de termes-clés avec un score de 0, de 1 ou de 2 pour
+                   l'évaluation de la pertinence de \textsc{Kea} et de
+                   TopicCoRank
+                   \label{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-pertinence_score_ratio}}
+        \end{table}
+
+        \TODO{\dots}
+        \begin{table}[h!]
+          \centering
+          \begin{tabular}{l|ccc|ccc}
+            \toprule
+            \multirow{2}{*}{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Évaluation manuelle}} & \multicolumn{3}{c}{\textbf{Évaluation automatique}}\\
+            \cline{2-7}
+            & P & R & F & P & R & F\\
+            \hline
+            \textsc{Kea} & \textbf{51,1} & \textbf{57,7} & \textbf{53,6} & 13,8 & 16,3 & 14,7\\
+            TopicCoRank & 50,9 & 57,4 & 53,3 & \textbf{19,0} & \textbf{22,0} & \textbf{20,1}\\
+            \bottomrule
+          \end{tabular}
+          \caption[
+            Performances de \textsc{Kea} et de TopicCoRank en termes de
+            précision, de rappel et de f-mesure
+          ]{
+            Performances de \textsc{Kea} et de TopicCoRank en termes de
+            précision (P), de rappel (R) et de f-mesure (F)
+            \label{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-prf}}
+        \end{table}
+      
+        \TODO{\dots}
+        \begin{table}[h!]
+          \centering
+          \begin{tabular}{l|c|c|c}
+            \toprule
+            \textbf{Méthode} & \textbf{0} & \textbf{1} & \textbf{2}\\
+            \hline
+            \textsc{Kea} & \textbf{36,4~\%} & 50,9~\% & \textbf{12,7~\%}\\
+            TopicCoRank & 36,1~\% & \textbf{50,1~\%} & 13,8~\%\\
+            \bottomrule
+          \end{tabular}
+          \caption{Taux de termes-clés de référence avec un score de 0, de 1 ou
+                   de 2 pour l'évaluation du silence de \textsc{Kea} et de
+                   TopicCoRank
+                   \label{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-silence_score_ratio}}
+        \end{table}
 
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_evaluation-conclusion}
