@@ -66,71 +66,65 @@
 
   \section{Problématique}
   \label{sec:main-introduction-problem_statement}
-    Étant donné un document textuel de nature quelconque, l'indexation
-    automatique par termes-clés consiste à lui attribuer les unités textuelles
-    qui décrivent son contenu. La difficulté de cette tâche réside dans
-    l'identification des éléments importants de son contenu et de leur
-    représentation avec les unités textuelles appropriées, explicites ou
-    implicites dans le document. La première difficulté est d'ordre sémantique~:
-    il faut réussir à comprendre le document pour en extraire l'essence~; la
-    seconde est d'ordre linguistique et terminologique~: il faut déterminer les
-    propriétés linguistiques des termes-clés et connaître le vocabulaire du
-    domaine auquel appartient le document.
+    Étant donné un document, l'indexation automatique par termes-clés consiste à
+    trouver les unités textuelles qui décrivent son contenu principal. La
+    difficulté de cette tâche réside dans l'identification des éléments
+    importants vis-à-vis de son contenu, ainsi que leur représentation avec les
+    unités textuelles appropriées. La première difficulté est d'ordre
+    sémantique~: il faut réussir à comprendre le document pour en extraire
+    l'essence~; la seconde est d'ordre linguistique et terminologique~: il faut
+    déterminer les propriétés linguistiques des termes-clés et connaître le
+    vocabulaire du domaine auquel appartient le document. Par ailleurs, la forme
+    la plus appropriée pour un terme-clé n'est pas nécessairement présente
+    dans le contenu du document (le terme-clé est implicite).
 
-    Dans la littérature, les méthodes d'indexation par termes-clés ne sont pas
-    capables de comprendre le document. Elles se fondent sur des statistiques et
+    Plutôt que de comprendre le document, les méthodes d'indexation par
+    termes-clés de la littérature se fondent sur des statistiques et
     des modélisations particulières du document. Pour ce qui est de l'usage
     d'unités textuelles appropriées, elles se contentent le plus souvent des
     unités textuelles qui occurrent dans le document. De manière général, des
     termes-clés candidats sont sélectionnés dans le document d'après des
-    critères préétablis (ce doit être des groupes nominaux, par exemple), ces
+    critères prédéfinis (ce doit être des groupes nominaux, par exemple), ces
     candidats sont analysés et les termes-clés sont extraits d'entre eux en
     fonction du résultat de l'analyse.
 
     L'analyse des termes-clés candidats du document peut être réalisée avec deux
     approches~: supervisée ou non supervisée. En général, l'approche supervisée
-    apprend les caractéristiques discriminantes des termes-clés à partir de
-    documents indexés manuellement. Elle cherche les candidats qui sont le plus
-    probablement des termes-clés, tandis que l'approche non supervisée cherche
-    les candidats les plus importants dans le document.
+    consiste à analyser les caractéristiques des termes-clés de données
+    manuellement indexées pour apprendre à reconnaître les termes-clés. Elle
+    consiste donc à chercher les candidats qui sont le plus vraissemblablement
+    les termes-clés, tandis que l'approche non supervisée consiste à chercher
+    les candidats les plus importants dans le contenu du document.
 
-    Cette thèse se situe dans le cadre du projet \textsc{Anr} Termith
+    Cette thèse s'inscrit dans le cadre du projet \textsc{Anr} Termith
     (\textsc{Anr-12-Cord-0029}), qui s'intéresse à l'accès à l'information
     numérique en domaines de spécialités. Notre objectif est de proposer une
-    méthode supervisée d'indexation automatique par termes-clés en domaines de
-    spécialités. À l'instar d'un indexeur professionnel, cette méthode doit être
-    exhaustive et fournir des termes-clés spécifiques au document et conforme au
-    vocabulaire de son domaine. Convaincus par le fait de chercher les
-    termes-clés les plus importants du document, notre objectif est aussi de
-    proposer une première méthode non supervisée, puis de l'étendre avec une
-    approche supervisée de sorte à trouver les unités textuelles importantes
-    vis-à-vis du document et de son domaine, représenté par des données indexées
-    manuellement.
+    méthode d'indexation automatique par termes-clés en domaines de spécialités.
+    Dans un premier temps, nous proposons une méthode non supervisée,
+    généraliste et applicable dans tous les scénarii d'utilisation. Dans un
+    second temps, nous proposons une méthode supervisée adaptée aux domaines de
+    spécialités.
 
   %-----------------------------------------------------------------------------
 
   \section{Hypothèses}
   \label{sec:main-introduction-hypothesis}
-    En nous appuyant sur les travaux précédents en indexation automatique par
-    termes-clés, nous organisons nos travaux de recherche autour de trois
-    hypothèses.
-    
     Notre première hypothèse concerne la sélection des candidats et leur impact
     sur la suite du processus d'indexation par termes-clés. Selon nous,
     l'indexation gagne en efficacité lorsque la qualité de l'ensemble de
     candidats sélectionnés augmente. Cette qualité peut être quantifiée à partir
     de deux critères~: le nombre de candidats sélectionnés et le nombre de
-    termes-clés réels qui s'y trouvent. Paradoxalement, le premier doit être
-    minimisé, car un espace de recherche trop grand augmente la difficulté de
+    termes-clés qui s'y trouvent. Paradoxalement, le premier doit être minimisé,
+    car un espace de recherche trop grand augmente la difficulté de
     l'indexation~\cite{hasan2014state_of_the_art}, et le second maximisé. Afin
     de trouver le meilleur compromis entre ces deux conditions, nous proposons
     d'analyser plus finement les propriétés linguistiques des termes-clés.
     Identifier ces propriétés doit permettre d'affiner les critères de
-    sélection, donc de réduire le nombre de candidats sélectionnés, sans manquer
-    les termes-clés du document.
+    sélection, donc de réduire le nombre de candidats sélectionnés, sans
+    éliminer les termes-clés du document.
     
     Notre seconde hypothèse concerne la représentation du document utilisée par
-    une catégorie particulière de méthodes non supervisée. Cette catégorie de
+    une catégorie particulière de méthodes non supervisées. Cette catégorie de
     méthodes modélise le document par un graphe de mots connectés entre eux
     lorsqu'ils sont sémantiquement liés, analyse ce graphe afin d'en déterminer
     les mots les plus importants (les mots-clés), puis les utilisent pour
@@ -141,16 +135,17 @@
     la précision de l'analyse.
     
     Enfin, notre troisième hypothèse concerne l'usage des données indexées
-    manuellement. Alors que, dans la littérature, ces données servent à
-    apprendre quels termes-clés candidats sont le plus probablement des
-    termes-clés, nous pensons qu'elles peuvent aussi servir à recontextualiser
-    le document à indexer. Selon nous, cette recontextualisation permet
-    d'identifier plus précisément les sujets importants du document si ce sont
-    des sujets importants dans son contexte global, et de faire émerger des
-    termes-clés implicites dans le document. En domaines de spécialités, cette
-    recontextualisation est d'autant plus importante qu'elle favorise
-    l'attribution de termes-clés spécifiques au document, conforme au domaine et
-    cohérent avec les termes-clés des autres documents (homogénéité).
+    manuellement. Alors que dans la littérature, ces données servent à apprendre
+    à identifier les termes-clés parmi les candidats selon diverses
+    caractéristiques discriminantes, nous pensons qu'elles peuvent aussi servir
+    à contextualiser le document à indexer dans son domaine. Selon nous, cette
+    contextualisation permet d'identifier plus précisément les éléments
+    importants du document s'ils sont importants dans son contexte global
+    (domaine), et même de faire émerger des termes-clés implicites. Si cette
+    hypothèse est juste, alors la contextualisation est d'autant plus importante
+    en domaines de spécialités, car elle favorise un indexation par termes-clés
+    respectueuse des pratiques
+    documentaires~\cite{guinchat1996techniquesdocumentaires}.
 
   %-----------------------------------------------------------------------------
 
