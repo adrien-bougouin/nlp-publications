@@ -98,9 +98,7 @@
 
 %-------------------------------------------------------------------------------
 
-\newcommand\chaptercite[2]{\setlength{\epigraphwidth}{0.8\textwidth}\epigraph{\justifying{\Large``}\textit{#1}{\Large''}}{--- #2}}
-\newcommand\smallchaptercite[2]{\setlength{\epigraphwidth}{0.8\textwidth}\epigraph{\hfill{}{\Large``}\textit{#1}{\Large''}}{--- #2}}
-\newcommand\thesisquote[2]{\setlength{\epigraphwidth}{0.5\textwidth}\epigraph{\justifying{\Large``}\textit{#1}{\Large''}}{--- #2}}
+\newcommand\chaptercite[3]{\setlength{\epigraphwidth}{#3}\epigraph{\hspace{-2.05em}\justifying{\Huge\og{}}\textit{#1}}{--- #2}}
 
 \newcommand\ditto{$_{^\textnormal{\normalsize\textquotedbl}}$}
 
@@ -209,14 +207,14 @@
   \listofalgorithms
 
 %  %\input{input/introductions_and_conclusions_only.tex}
-  \input{input/introduction.tex}
+%  \input{input/introduction.tex}
 %  \input{input/state_of_the_art.tex}
 %  \input{input/resources.tex}
 %  %\input{input/automatic_keyphrase_annotation.tex}
 %  \input{input/domain_independent_keyphrase_extraction.tex}
 %  \input{input/domain_specific_keyphrase_annotation.tex}
 %  %\input{input/manual_evaluation.tex}
-%  \input{input/conclusion.tex}
+  \input{input/conclusion.tex}
 
   \backmatter
 
