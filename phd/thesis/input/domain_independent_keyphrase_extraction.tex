@@ -1,10 +1,11 @@
 \chapter{Extraction de termes-clés}
 \label{chap:main-domain_independent_keyphrase_extraction}
-  \smallchaptercite{
-    [\dots] there is still room for improvement over the task.
+  \chaptercite{
+    [...] il reste encore des progrès à faire sur la tâche.
+%    [\dots] there is still room for improvement over the task.
   }{
     \newcite{kim2010semeval}
-  }
+  }{.75\linewidth}{\hfill}
 
   %-----------------------------------------------------------------------------
 
@@ -217,12 +218,13 @@
       La détection des adjectifs relationnels, telle que nous la réalisons,
       n'est pas exacte. En effet, les adjectifs qualificatifs et/ou dénominaux
       se terminant par un suffixe d'adjectif relationnel sont détectés comme
-      relationnels (\TODO{exemple}), et les adjectifs à usage tantôt
-      qualificatif, tantôt relationnel selon le
-      contexte~\cite{maniez2009denominaladjectives} sont toujours détectés comme
-      relationnels (\TODO{exemple}). Dans la littérature, les approches pour
-      identifier les adjectifs relationnels (dans le cadre de l'extraction
-      terminologique) reposent sur une analyse en
+      relationnels (par exemple, \og{}principal\fg{}, \og{}descriptif\fg{}, et
+      \og{}contemporain\fg{}), et les adjectifs à usage tantôt qualificatif,
+      tantôt relationnel selon le contexte~\cite{maniez2009denominaladjectives}
+      sont toujours détectés comme relationnels (par exemple,
+      \og{}sulfureux\fg{} \og{}civil\fg{} et \og{}populaire\fg{}). Dans la
+      littérature, les approches pour identifier les adjectifs relationnels
+      (dans le cadre de l'extraction terminologique) reposent sur une analyse en
       corpus~\cite{daille2000relationaladjectives,maniez2005automaticrelationaladjectiveidentification,harastani2013relationaladjectivetranslation},
       où il s'agit notamment de trouver des paraphrases avec un complément de
       nom. Dans le contexte de l'extraction de termes-clés, où de larges corpus
@@ -235,8 +237,9 @@
       un trait d'union. Le trait d'union est l'unique marque explicite de
       composition en français et en anglais, et son usage est le procédé le plus
       productif. Néanmoins, il existe deux autres procédés que nous ne traitons
-      pas~: la séparation avec un espace (\TODO{exemple}) et la concaténation
-      sans marque explicite (\TODO{exemple}).
+      pas~: la séparation avec un espace (par exemple, \og{}vert clair\fg{}) et
+      la concaténation sans marque explicite (par exemple,
+      \og{}ethnolinguistique\fg{}).
 
       ~\\Le tableau~\ref{tab:candidate_selection-adjective_categories} donne le
       taux d'adjectifs, par catégorie, dans les termes-clés de référence. Nous
@@ -298,23 +301,23 @@
 
       \begin{table}[!h]
         \centering
-        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}llr}
+        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}l|c|c}
           \toprule
-          \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}l}{\textbf{Pattern}} & \textbf{Example} & \textbf{\%}\\
+          \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}c|}{\textbf{Pattern}} & \textbf{Example} & \textbf{\%}\\
           \hline
           \multirow{5}{*}{\begin{sideways}\textbf{Français}\end{sideways}}
-          & \texttt{Nc} & \texttt{Ar} & & & \TODO{exemple} & 46,4\\
-          & \texttt{NC} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & \TODO{exemple} & 12,5\\
-          & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & \TODO{exemple} & $~~$8,2\\
-          & \texttt{Nc} & \texttt{A} & & & \TODO{exemple} & $~~$4,3\\
-          & \texttt{Np} & \texttt{Np} & & & \TODO{exemple} & $~~$3,0\\
+          & \texttt{Nc} & \texttt{Ar} & & & \og{}concept linguistique\fg{} & 46,4\\
+          & \texttt{Nc} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & \og{}besoin de l'utilisateur\fg{} & 12,5\\
+          & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & \og{}analyse de discours\fg{} & $~~$8,2\\
+          & \texttt{Nc} & \texttt{A} & & & \og{}modèle prédictif\fg{} & $~~$4,3\\
+          & \texttt{Np} & \texttt{Np} & & & \og{}languedoc roussillon\fg{} & $~~$3,0\\
           \hline
           \multirow{5}{*}{\begin{sideways}\textbf{Anglais}\end{sideways}}
-          & \texttt{Nc} & \texttt{Nc} & & & \TODO{exemple} & 32,5\\
-          & \texttt{Ar} & \texttt{Nc} & & & \TODO{exemple} & 15,1\\
-          & \texttt{A} & \texttt{Nc} & & & \TODO{exemple} & $~~$9,5\\
-          & \texttt{Nc} & \texttt{Nc} & \texttt{Nc} & & \TODO{exemple} & $~~$5,3\\
-          & \texttt{Ac} & \texttt{Nc} & & & \TODO{exemple} & $~~$4,9\\
+          & \texttt{Nc} & \texttt{Nc} & & & \textit{\og{}hurricane expert\fg{}}~(\og{}expert en ouragans\fg{}) & 32,5\\
+          & \texttt{Ar} & \texttt{Nc} & & & \textit{\og{}chinese earthquake\fg{}}~(\og{}tremblement de terre chinois\fg{}) & 15,1\\
+          & \texttt{A} & \texttt{Nc} & & & \textit{\og{}dominant strategy\fg{}} (\og{}stratégie dominante\fg{}) & $~~$9,5\\
+          & \texttt{Nc} & \texttt{Nc} & \texttt{Nc} & & \textit{\og{}voice activity detection\fg{}} (\og{}détection d'activité vocale\fg{}) & $~~$5,3\\
+          & \texttt{Ac} & \texttt{Nc} & & &\textit{\og{}packet-switched network\fg{}} (\og{}réseau à commutation de paquets\fg{}) & $~~$4,9\\
           \bottomrule
         \end{tabular}
         \caption[
@@ -845,8 +848,8 @@
           \text{sim}(c_1, c_2) &= \frac{|\textnormal{Porter}(c_1)\ \cap\ \textnormal{Porter}(c_2)|}{|\textnormal{Porter}(c_1)\ \cup\ \textnormal{Porter}(c_2)|} \label{equa:jaccard}
         \end{align}
         Cette mesure est \og{}naïve\fg{}, car l'ordre des mots, leur ambiguïté
-        et leur synonymie ne sont pas pris en compte (\TODO{exempleS}). À cela
-        s'ajoute aussi des erreurs introduites par l'usage de la méthode de
+        et leur synonymie ne sont pas pris en compte. À cela s'ajoute aussi des
+        erreurs introduites par l'usage de la méthode de
         \newcite{porter1980suffixstripping} (par exemple les mots
         \og{}empire\fg{} et \og{}empirique\fg{} partagent le même radical
         \og{}empir\fg{}).
@@ -1007,23 +1010,31 @@
         utilisée d'un sujet est plus probablement sa forme préférée. Cependant,
         nous pensons que cette stratégie est moins généralisable à tout type de
         document et de style discursif que la stratégie position. Certains
-        auteurs, par exemple, préfèrent utiliser des unités textuelles concises,
-        telles que \TODO{exemple}, et moins précise que la forme préférée qui
-        rend la lecture moins agréable lorsqu'elle est répétée, telle que
-        \TODO{exemple}.
+        auteurs, par exemple, préfèrent utiliser des unités textuelles concises
+        et moins précise que la forme préférée qui rend la lecture moins
+        agréable lorsqu'elle est répétée. Dans l'exemple de notice de
+        linguistique Termith présentée dans la figure~\ref{fig:example_inist}
+        (page~\pageref{fig:example_inist}), nous pouvons citer le termes-clés
+        \og{}concept linguistique\fg{}, qui est simplifié par \og{}concept\fg{}.
 
         La stratégie centroïde, contrairement aux deux autres, n'est pas fondée
         sur l'usage des termes-clés candidats dans le document. Elle se
         concentre uniquement sur les mots qu'ils partagent pour déterminer le
         candidat qui est le c\oe{}ur de tous les autres. Les termes-clés qu'elle
         sélectionne sont donc ni trop spécifiques, ni trop généraux. Certains
-        termes-clés pouvant être très spécifiques (\TODO{exemple}) et d'autres
-        plus généraux (\TODO{exemple}), cette stratégie semble être la moins
+        termes-clés pouvant être très spécifiques (par exemple, \og{}concept
+        linguistique\fg{} au lieu de \og{}concept\fg{} pour le document de
+        linguistique de la figure~\ref{fig:example_inist},
+        page~\pageref{fig:example_inist}) et d'autres plus généraux (par
+        exemple, \og{}cause\fg{} au lieu de \og{}cause linguistique\fg{} pour le
+        document de linguistique de la figure~\ref{fig:example_inist},
+        page~\pageref{fig:example_inist}), cette stratégie semble être la moins
         adaptée des trois.
 
       \subsubsection{Exemple}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-example}
         \TODO{exemple}
+        \input{input/figure/topicrank_example.tex}
 
     \subsection{Évaluation}
     \label{subsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation}

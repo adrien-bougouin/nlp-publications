@@ -7,7 +7,7 @@
     et documentalistes qui en ont défini les méthodes, les usages et les outils.
   }{
     \newcite{guinchat1996techniquesdocumentaires}
-  }
+  }{.75\linewidth}{\justify}
 
   %-----------------------------------------------------------------------------
 
@@ -104,17 +104,17 @@
             \toprule
             \textbf{Champ} & \textbf{Exemple}\\
             \hline
-            Discipline & enseignement des langues~; linguistique appliquée\\
-            Environnement & langue scientifique~; langue de spécialité~; discours scientifique\\
-            Objet d'étude & argumentation~; rhétorique~; article de recherche\\
+            Théorie linguistique & concept linguistique\\
+            Objet d'étude & français~; conjonction~; expression linguistique~; cause\\
+            Niveau de description & interprétation sémantique~; relation syntaxique\\
             \bottomrule
           \end{tabular}
           \caption[
             Exemple de remplissage de la grille d'indexation de linguistique
           ]{
             Exemple de remplissage de la grille d'indexation de linguistique,
-            pour la notice présentée dans la figure \TODO{???} (page
-            \TODO{???}) \REMARK{Attention, l'exemple va changer}
+            pour la notice de linguistique présentée dans la
+            figure~\ref{fig:example_inist} (page~\pageref{fig:example_inist})
             \label{fig:indexing_grid}
           }
         \end{table}
@@ -134,8 +134,10 @@
         section~\ref{sec:main-state_of_the_art-automatic_keyphrase_assignment},
         page~\pageref{sec:main-state_of_the_art-automatic_keyphrase_assignment}).}.
         Les termes-clés sont mis en relations s'il sont associés à un même
-        concept ou si l'un est l'hyperonyme de l'autre, c'est-à-dire plus 
-        générique (\TODO{exemple}).
+        concept (par exemple, \og{}nom composé\fg{} et \og{}substantif
+        composé\fg{} en linguistique) ou si l'un est l'hyperonyme de l'autre,
+        c'est-à-dire plus  générique (par exemple, \og{}allemand\fg{} par
+        rapport à \og{}haut-allemand\fg{} et \og{}bas-allemand\fg{}).
         
         En définissant le language documentaire à utiliser pour indexer les
         documents du même domaine, le vocabulaire contrôlé contribue à la
@@ -148,10 +150,9 @@
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-resources-preindexing_rules}
         Les règles de préindexation sont des règles qui définissent les
         termes-clés (du vocabulaire contrôlé ou non) à assigner en fonction soit
-        (1) d'une unité textuelle qui occurre dans le document (\TODO{exemple}),
-        soit (2) d'un terme-clé assigné au document (\TODO{exemple}). À l'instar
-        du vocabulaire contrôlé, les règles de préindexation nécessite un gros
-        effort de maintenance manuelle.
+        (1) d'une unité textuelle qui occurre dans le document, soit (2) d'un
+        terme-clé assigné au document. À l'instar du vocabulaire contrôlé, les
+        règles de préindexation nécessite un gros effort de maintenance manuelle.
         
         Couplées avec le vocabulaire contrôlé, les règles de préindexation
         permettent d'assurer la conformité et l'homogénéité de l'indexation.
@@ -395,9 +396,9 @@
         dans le même contexte et pondère leur arête par le nombre de fois que
         cela se produit ($\textnormal{poids}(n_i, n_j)$), normalisé par le
         nombre total de contextes. Lorsqu'il s'agit des sujets, le contexte est
-        une phrase du document (\TODO{exemple})~; lorsqu'il s'agit des
+        une phrase du document~; lorsqu'il s'agit des
         termes-clés de référence, le contexte est l'ensemble des termes-clés de
-        référence d'un document d'entraînement (\TODO{exemple}). Les contextes
+        référence d'un document d'entraînement. Les contextes
         étant utilisés pour la création du graphe, le graphe de sujets n'est
         plus complet comme celui TopicRank. Ici, nous utilisons la phrase comme
         alternative à la fenêtre de cooccurrence.
@@ -923,9 +924,10 @@
     d'évaluation n'est pas adapté à la tâche d'indexation par termes-clés, car
     il ne considère qu'une seule et unique réponse exacte, c'est-à-dire un seul
     et unique ensemble correct de termes-clés, alors que certaines variantes
-    d'ensembles de termes-clés sont acceptables (\TODO{exemple}). Ayant à notre
-    disposition des indexeurs professionnels de l'Inist, nous réalisons donc une
-    campagne d'évaluation manuelle.
+    d'ensembles de termes-clés sont acceptables (par exemple, un ensemble avec
+    \og{}rite funéraire\fg{} et une variante avec \og{}pratique funéraire\fg{}).
+    Ayant à notre disposition des indexeurs professionnels de l'Inist, nous
+    réalisons donc une campagne d'évaluation manuelle.
 
     Dans la suite, nous présentons le protocole d'évaluation et les métriques
     que nous avons proposés, puis nous analysons les premiers résultats de la

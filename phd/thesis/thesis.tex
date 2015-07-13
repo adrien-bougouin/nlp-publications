@@ -33,6 +33,7 @@
 \usepackage[ruled,linesnumbered]{algorithm2e} %
 \usepackage{listings}                         %
 \usepackage{units}                            % \unitfrac
+\usepackage{overpic}                          %
 
 \usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
 
@@ -98,7 +99,7 @@
 
 %-------------------------------------------------------------------------------
 
-\newcommand\chaptercite[3]{\setlength{\epigraphwidth}{#3}\epigraph{\hspace{-2.05em}\justifying{\Huge\og{}}\textit{#1}}{--- #2}}
+\newcommand\chaptercite[4]{\setlength{\epigraphwidth}{#3}\epigraph{#4{\Large\og{}}#1{\Large\fg{}}}{--- #2}}
 
 \newcommand\ditto{$_{^\textnormal{\normalsize\textquotedbl}}$}
 
@@ -197,8 +198,8 @@
   %\onehalfspacing   % line spacing (not applied on first and last pages)
   %\frontmatter      % forbidden
 
-%%  \input{input/acknowledgment.tex}
-%  %\input{input/abstracts.tex}
+%  \input{input/acknowledgment.tex}
+  %\input{input/abstracts.tex}
   \input{input/quote.tex}
 
   \tableofcontents
@@ -206,14 +207,14 @@
   \listoffigures
   \listofalgorithms
 
-%  %\input{input/introductions_and_conclusions_only.tex}
-%  \input{input/introduction.tex}
-%  \input{input/state_of_the_art.tex}
-%  \input{input/resources.tex}
-%  %\input{input/automatic_keyphrase_annotation.tex}
-%  \input{input/domain_independent_keyphrase_extraction.tex}
-%  \input{input/domain_specific_keyphrase_annotation.tex}
-%  %\input{input/manual_evaluation.tex}
+  %\input{input/introductions_and_conclusions_only.tex}
+  \input{input/introduction.tex}
+  \input{input/state_of_the_art.tex}
+  \input{input/resources.tex}
+  %\input{input/automatic_keyphrase_annotation.tex}
+  \input{input/domain_independent_keyphrase_extraction.tex}
+  \input{input/domain_specific_keyphrase_annotation.tex}
+  %\input{input/manual_evaluation.tex}
   \input{input/conclusion.tex}
 
   \backmatter

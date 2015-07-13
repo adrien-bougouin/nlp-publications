@@ -9,7 +9,7 @@
 %    are available on-line today have keyphrases.
   }{
     \newcite{turney1999learningalgorithms}
-  }{.6\linewidth}
+  }{.75\linewidth}{\justify}
 
   \section{Introduction}
   \label{sec:main-state_of_the_art-introduction}
@@ -21,18 +21,45 @@
     suite nous parlons de mots-clés, cela ne concerne donc que les
     monolexicaux.}, sont les unités textuelles (mots ou expressions) qui
     caractérisent le contenu principal d'un document~: les sujets qu'il aborde,
-    ses idées, etc. Associés à un document, ils donnent une description précise
-    de soncontenu et servent à l'indexer pour la recherche d'information
-    (\textsc{Ri}). Nous parlons donc d'indexation par
-    termes-clés\index{Indexation par termes-cles@Indexation par termes-clés
-    \textit{(automatic keyphrase annotation)}|textbf}. Cette indexation ne doit
-    toutefois pas être confondue avec l'indexation dite \og{}plein texte\fg{} au
-    c\oe{}ur de nombreux systèmes de \textsc{Ri}. Celle-ci pondère tous les mots
-    d'un document en fonction de leur importance relative à son contenu, tandis
-    que l'indexation par termes-clés fournit un ensemble restreint de mots ou
-    expressions qui représentent ses sujets importants, explicites ou non. Dans
-    la suite, lorsque nous parlons d'indexation, nous nous réferrons à
-    l'indexation par termes-clés.
+    ses idées, etc (cf
+    figure~\ref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}).
+    Associés à un document, ils donnent une description précise de son contenu
+    et servent à l'indexer pour la recherche d'information (\textsc{Ri}). Nous
+    parlons donc d'indexation par termes-clés\index{Indexation par
+    termes-cles@Indexation par termes-clés \textit{(automatic keyphrase
+    annotation)}|textbf}. Cette indexation ne doit toutefois pas être confondue
+    avec l'indexation dite \og{}plein texte\fg{} au c\oe{}ur de nombreux
+    systèmes de \textsc{Ri}. Celle-ci pondère tous les mots d'un document en
+    fonction de leur importance relative à son contenu, tandis que l'indexation
+    par termes-clés fournit un ensemble restreint de mots ou expressions qui
+    représentent ses sujets importants, explicites (par exemple, \og{}concept
+    linguistique\fg{}) ou non (par exemple, \og{}interprétation
+    sémantique\fg{}). Dans la suite, lorsque nous parlons d'indexation, nous
+    nous réferrons à l'indexation par termes-clés.
+    \begin{figure}
+      \framebox[\linewidth]{ % linguistique_11-0080464
+        \parbox{.99\linewidth}{\textbf{La cause linguistique}\\
+
+          L'objectif est de fournir une définition de base du concept
+          linguistique de la cause en observant son expression. Dans un premier
+          temps, l'A. se demande si un tel concept existe en langue. Puis il
+          part des formes de son expression principale et directe (les verbes et
+          les conjonctions de cause) pour caractériser linguistiquement ce qui
+          fonde une telle notion.\\
+
+          \textbf{Termes-clés~:} français~; interprétation sémantique~;
+          \underline{conjonction}~; expression linguistique~; \underline{concept
+          linguistique}~; relation syntaxique~; \underline{cause}. 
+        }
+      }
+      \caption[Exemple d'indexation par termes-clés du résumé d'un article
+        scientifique]{
+        Exemple d'indexation par termes-clés du résumé d'un article
+        scientifique. Les termes-clés soulignés sont explicites, c'est-à-dire
+        qu'ils occurrent dans le document, les autres sont implicites.
+        \label{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}
+      }
+    \end{figure}    
 
     Dans la littérature, nous distinguons deux catégories d'indexation
     automatique par termes-clés~: l'une libre, l'autre contrôlée. L'indexation
@@ -75,9 +102,10 @@
     les unités textuelles qui ont des particularités similaires à celles des
     termes-clés définis par des humains, telles que la structure
     morphosyntaxique nom-adjectif commune à la majorité des termes-clés
-    (\TODO{exemple}). Elle réduit l'espace de recherche et permet ainsi de
-    diminuer le temps de traitement nécessaire pour l'indexation par termes-clés
-    et de supprimer les
+    (\og{}interprétation sémantique\fg{}, \og{}concept linguistique\fg{},
+    \og{}relation syntaxique\fg{}). Elle réduit l'espace de recherche et permet
+    ainsi de diminuer le temps de traitement nécessaire pour l'indexation par
+    termes-clés et de supprimer les
     %
     unités textuelles non pertinentes pouvant affecter négativement ses
     performances. Pour distinguer les différents candidats sélectionnés, nous
@@ -86,12 +114,14 @@
     correspondent aux termes-clés assignés par des humains (termes-clés de
     référence), et les candidats négatifs\index{Candidat negatif@Candidat
     négatif \textit{(negative candidate)}|textbf}. Parmi les candidats négatifs,
-    nous distinguons deux sous-catégories~: les candidats porteurs
-    d'indices\index{Candidat porteur d'indices@Candidat porteur d'indices
-    \textit{(clue candidate)}|textbf} pouvant influencer l'extraction ou
-    l'assignement de candidats positifs (\TODO{exemple}) et les candidats
-    erronés\index{Candidat erronés@Candidat erronés \textit{(irrelevant
-    candidate)}|textbf} \TODO{exemple}.
+    nous distinguons deux sous-catégories~: les candidats erronés\index{Candidat
+    erronés@Candidat erronés \textit{(irrelevant candidate)}|textbf} et les
+    candidats porteurs d'indices\index{Candidat porteur d'indices@Candidat
+    porteur d'indices \textit{(clue candidate)}|textbf} pouvant influencer
+    l'extraction ou l'assignement de candidats positifs (par exemple,
+    \og{}expression\fg{} peut aider à assigner le termes-clés \og{}expression
+    linguistique\fg{} dans le document de la
+    figure~\ref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}).
 
     Il existe plusieurs méthodes de sélection de candidats, de la simple
     sélection de n-grammes, de chunks nominaux ou d'unités textuelles
@@ -117,7 +147,24 @@
     pour sa simplicité de mise en \oe{}uvre.
 
     \begin{example}\label{ex:n_grams}
-      \TODO{$\{1..3\}$-grammes à partir d'une phrase de l'exemple fil rouge}
+      $\{1..3\}$-grammes sélectionnés dans le phrase \og{}L'objectif est de
+      fournir une définition de base du concept linguistique de la cause en
+      observant son expression.\fg{}~:
+      \begin{center}
+        \begin{tabular}{l|l|l}
+          \toprule
+          \multicolumn{1}{c|}{\textbf{Uni-gramme}} & \multicolumn{1}{c|}{\textbf{Bi-gramme}} & \multicolumn{1}{c}{\textbf{Tri-gramme}}\\
+          \hline
+          \og{}objectif\fg{} & \og{}concept linguistique\fg{} & \og{}définition de base\fg{}\\
+          \og{}définition\fg{} & & \og{}base du concept\fg{}\\
+          \og{}base\fg{} & &\\
+          \og{}concept\fg{} & &\\
+          \og{}linguistique\fg{} & &\\
+          \og{}cause\fg{} & &\\
+          \og{}expression\fg{} & &\\
+          \bottomrule
+        \end{tabular}
+      \end{center}\vspace{.25em}
     \end{example}
 
     ~\\Les \textit{chunks} nominaux\index{NP-chunk@NP-\textit{chunk}|textbf}
@@ -128,7 +175,8 @@
     signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
     tête est un nom, accompagné de ses éventuels déterminants et modifieurs
     usuels (voir l'exemple~\ref{ex:np_chunks}). Ils sont linguistiquement
-    définis et leur sélection est donc plus fiable que celle des n-grammes.
+    définis et leur sélection, moins les déterminants qui les précèdent, est
+    donc plus fiable que celle des n-grammes pour l'indexation par termes-clés.
     \newcite{hulth2003keywordextraction} le montre dans ses expériences
     consacrées à l'apport de connaissances linguistiques pour l'extraction
     automatique de termes-clés. Cependant, ses propos sont nuancés par un autre
@@ -137,7 +185,23 @@
     \textit{chunks} nominaux.
 
     \begin{example}\label{ex:np_chunks}
-      \TODO{NP-\textit{chunks} à partir d'une phrase de l'exemple fil rouge}
+      \textit{chunks} nominaux sélectionnés dans le phrase \og{}L'objectif est
+      de fournir une définition de base du concept linguistique de la cause en
+      observant son expression.\fg{}~:
+      \begin{center}
+        \begin{tabular}{l|l}
+          \toprule
+          \multicolumn{1}{c|}{\textbf{\textit{Chunk} nominal}} & \multicolumn{1}{c}{\textbf{Candidat sélectionné}}\\
+          \hline
+          \og{}l'objectif\fg{} & \og{}objectif\fg{}\\
+          \og{}une définition\fg{} & \og{}définition\fg{}\\
+          \og{}base\fg{} & \og{}base\fg{}\\
+          \og{}concept linguistique\fg{} & \og{}concept linguistique\fg{}\\
+          \og{}la cause\fg{} & \og{}cause\\
+          \og{}expression\fg{} & \og{}expression\fg{}\\
+          \bottomrule
+        \end{tabular}
+      \end{center}\vspace{.25em}
     \end{example}
 
     ~\\La sélection d'unités textuelles qui forment des séquences
@@ -145,7 +209,7 @@
     grammaticalement définie \textit{(POS sequence)}|textbf} permet de contrôler
     avec précision la nature et la grammaticalité des candidats sélectionnés.
     Pour cela, il faut définir des patrons grammaticaux tels que
-    \texttt{/(N|A)*/} (voir l'exemple~\ref{ex:na+}), qui représente les plus
+    \texttt{/(N|A)+/} (voir l'exemple~\ref{ex:na+}), qui représente les plus
     longues séquences de noms et d'adjectifs avec la syntaxe des expressions
     rationnelles.
 
@@ -158,19 +222,40 @@
     séquences de noms (noms propres inclus) et d'adjectifs.
 
     \begin{example}\label{ex:na+}
-      \TODO{Plus longues séquences de noms et d'adjectifs à partir d'une phrase de l'exemple fil rouge}
+      Séquences \texttt{/(N|A)+/} sélectionnés dans le phrase \og{}L'objectif
+      est de fournir une définition de base du concept linguistique de la cause
+      en observant son expression.\fg{}~: \og{}objectif\fg{},
+      \og{}définition\fg{}, \og{}base\fg{}, \og{}concept linguistique\fg{},
+      \og{}cause\fg{}, \og{}expression\fg{}.
+      \begin{center}
+        \begin{tabular}{l}
+          \toprule
+          \multicolumn{1}{c}{\textbf{\texttt{/(N|A)+/}}}\\
+          \hline
+          \og{}objectif\fg{}\\
+          \og{}définition\fg{}\\
+          \og{}base\fg{}\\
+          \og{}concept linguistique\fg{}\\
+          \og{}cause\\
+          \og{}expression\fg{}\\
+          \bottomrule
+        \end{tabular}
+      \end{center}\vspace{.25em}
     \end{example}
 
     ~\\En plus des trois méthodes de sélection précédentes,
     \newcite{huang2006semanticnetworkstructureanalysis} proposent un filtrage
     des candidats sélectionnés à partir des n-grammes, afin de réduire le nombre
-    de candidats redondants (\TODO{exemple}). Tout d'abord, ils suppriment les
-    candidats peu fréquents dans le document, puis filtrent la redondance en les
-    mettant en compétition. Ils construisent des groupes de candidats
-    redondants, puis un seul candidat par groupe est retenu~: celui le plus
-    fréquent. Un candidat peut être en compétition dans différents groupes. Dans
-    ce cas, il doit être le \og{}vainqueur\fg{} de chaque groupe pour être
-    retenu.
+    de candidats redondants (par exemple, \og{}cause\fg{} et \og{}cause
+    linguistique\fg{} expriment la même chose dans le document de la
+    figure~\ref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation},
+    page~\pageref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}).
+    Tout d'abord, ils suppriment les candidats peu fréquents dans le document,
+    puis filtrent la redondance en les mettant en compétition. Ils construisent
+    des groupes de candidats redondants, puis un seul candidat par groupe est
+    retenu~: celui le plus fréquent. Un candidat peut être en compétition dans
+    différents groupes. Dans ce cas, il doit être le \og{}vainqueur\fg{} de
+    chaque groupe pour être retenu.
 
     Le travail de \newcite{huang2006semanticnetworkstructureanalysis}, sur la
     sélection des termes-clés candidats, fait partie d'un travail focalisé sur
@@ -195,13 +280,16 @@
     \label{subsec:main-state_of_the_art-automatic_keyphrase_extraction-unsupervised_keyphrase_extraction}
       La plupart des méthodes non supervisées d'extraction de termes-clés
       ordonnent les termes-clés candidats d'après leur importance vis-à-vis du
-      contenu du document (\TODO{exemple: l'expression PLOP est importante
-      vis-à-vis d'un doc. parlant de BLABLABLA}), puis extraient les $k$ plus
-      importants en tant que termes-clés. Du fait qu'elles ne requièrent pas de
-      données d'entraînement, elles ont la particularité de s'abstraire du
-      domaine et de la langue des documents qu'elles traitent. Les termes-clés
-      candidats sont analysés avec des règles simples fondées sur des traits
-      statistiques extraits du document ou d'un corpus de référence non annoté.
+      contenu du document (par exemple, l'expression \og{}concept
+      linguistique\fg{} est importante vis-à-vis du document de la
+      figure~\ref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation},
+      page~\pageref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}),
+      puis extraient les $k$ plus importants en tant que termes-clés. Du fait
+      qu'elles ne requièrent pas de données d'entraînement, elles ont la
+      particularité de s'abstraire du domaine et de la langue des documents
+      qu'elles traitent. Les termes-clés candidats sont analysés avec des règles
+      simples fondées sur des traits statistiques extraits du document ou d'un
+      corpus de référence non annoté.
 
       De nombreuses méthodes sont proposées. Certaines se fondent uniquement
       sur des statistiques et d'autres les combinent avec des représentations
@@ -287,7 +375,7 @@
         la somme du score \textsc{Tf-Idf} ou Likey des mots qui les composent.
         Cependant, faire cette somme favorise les plus longues séquences de mots
         et fait monter dans le classement des candidats redondants qui possède
-        un même mot important en commun (\TODO{exemple de redondance}).
+        un même mot important en commun.
 
         Méthode de pondération historique de \textsc{Ri}, \textsc{Tf-Idf} reste
         encore aujourd'hui l'une des méthodes de référence à laquelle il faut se
@@ -847,8 +935,8 @@
         l'intéressante capacité à prédire des séquences de classes, soit à
         étiqueter tout un document en donnant les classes suivantes pour chaque
         mot~: \og{}terme-clé\fg{}, \og{}début d'un terme-clé\fg{}, \og{}partie
-        d'un terme-clé\fg{} et \og{}non terme-clé\fg{} (\TODO{etiqueter
-        l'exemple fil rouge}). \newcite{zhang2008crfkeywordextraction}
+        d'un terme-clé\fg{} et \og{}non terme-clé\fg{} (cf
+        exemple~\ref{ex:crf_tagging}). \newcite{zhang2008crfkeywordextraction}
         reprend les traits présentés précédemment (\textsc{Tf-Idf}, première position,
         section d'article scientifique, etc.) et y ajoute le contexte de
         chaque mot. Nous trouvons cette notion de contexte dans les méthodes non
@@ -858,6 +946,26 @@
         mais il s'agit de la première fois que nous trouvons celle-ci dans une
         méthode supervisée. Le fonctionnement particulier du \textsc{Crf} se
         prête plus à l'utilisation du contexte que les autres classifieurs.
+
+        \begin{example}\label{ex:crf_tagging}
+          Étiquetage par \textsc{Crf} de la phrase \og{}L'objectif est de
+          fournir une définition de base du concept linguistique de la cause en
+          observant son expression.\fg{} de la
+          figure~\ref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}
+          (page\pageref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation})
+          avec les étiquettes \texttt{TC\_D} (début d'un terme-clé),
+          \texttt{TC\_F} (fin d'un terme-clé), \texttt{N} (nom), \texttt{V}
+          (verbe), \texttt{PP} (participe présent), \texttt{Pro} (pronom),
+          \texttt{Det} (déterminant), \texttt{Pre} (préposition)~:\\
+          \begin{center}\vspace{-1em}
+            \parbox{.8\linewidth}{
+              \texttt{L'/Det objectif/N est/V de/Pre fournir/V une/Det
+              définition/N de/Pre base/N du/Pre \textbf{concept/TC\_D
+              linguistique/TC\_F} de/Pre la/Det cause/N en/Pre observant/PP
+              son/Pro expression/N ./PONCT}
+            }
+          \end{center}\vspace{.25em}
+        \end{example}
 
       \subsubsection{Arbres de décision}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-decision_trees}
