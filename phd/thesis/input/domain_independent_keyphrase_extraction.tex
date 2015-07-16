@@ -301,25 +301,27 @@
 
       \begin{table}[!h]
         \centering
-        \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}l|c|c}
-          \toprule
-          \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}c|}{\textbf{Pattern}} & \textbf{Example} & \textbf{\%}\\
-          \hline
-          \multirow{5}{*}{\begin{sideways}\textbf{Français}\end{sideways}}
-          & \texttt{Nc} & \texttt{Ar} & & & \og{}concept linguistique\fg{} & 46,4\\
-          & \texttt{Nc} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & \og{}besoin de l'utilisateur\fg{} & 12,5\\
-          & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & \og{}analyse de discours\fg{} & $~~$8,2\\
-          & \texttt{Nc} & \texttt{A} & & & \og{}modèle prédictif\fg{} & $~~$4,3\\
-          & \texttt{Np} & \texttt{Np} & & & \og{}languedoc roussillon\fg{} & $~~$3,0\\
-          \hline
-          \multirow{5}{*}{\begin{sideways}\textbf{Anglais}\end{sideways}}
-          & \texttt{Nc} & \texttt{Nc} & & & \textit{\og{}hurricane expert\fg{}}~(\og{}expert en ouragans\fg{}) & 32,5\\
-          & \texttt{Ar} & \texttt{Nc} & & & \textit{\og{}chinese earthquake\fg{}}~(\og{}tremblement de terre chinois\fg{}) & 15,1\\
-          & \texttt{A} & \texttt{Nc} & & & \textit{\og{}dominant strategy\fg{}} (\og{}stratégie dominante\fg{}) & $~~$9,5\\
-          & \texttt{Nc} & \texttt{Nc} & \texttt{Nc} & & \textit{\og{}voice activity detection\fg{}} (\og{}détection d'activité vocale\fg{}) & $~~$5,3\\
-          & \texttt{Ac} & \texttt{Nc} & & &\textit{\og{}packet-switched network\fg{}} (\og{}réseau à commutation de paquets\fg{}) & $~~$4,9\\
-          \bottomrule
-        \end{tabular}
+        \resizebox{\linewidth}{!}{
+          \begin{tabular}{r@{~}|@{~}l@{~}l@{~}l@{~}l|c|c}
+            \toprule
+            \multicolumn{1}{r@{~}|@{~}}{} & \multicolumn{4}{@{}c|}{\textbf{Pattern}} & \textbf{Example} & \textbf{\%}\\
+            \hline
+            \multirow{5}{*}{\begin{sideways}\textbf{Français}\end{sideways}}
+            & \texttt{Nc} & \texttt{Ar} & & & \og{}concept linguistique\fg{} & 46,4\\
+            & \texttt{Nc} & \texttt{Sp} & \texttt{D} & \texttt{Nc} & \og{}besoin de l'utilisateur\fg{} & 12,5\\
+            & \texttt{Nc} & \texttt{Sp} & \texttt{Nc} & & \og{}analyse de discours\fg{} & $~~$8,2\\
+            & \texttt{Nc} & \texttt{A} & & & \og{}modèle prédictif\fg{} & $~~$4,3\\
+            & \texttt{Np} & \texttt{Np} & & & \og{}languedoc roussillon\fg{} & $~~$3,0\\
+            \hline
+            \multirow{5}{*}{\begin{sideways}\textbf{Anglais}\end{sideways}}
+            & \texttt{Nc} & \texttt{Nc} & & & \textit{\og{}hurricane expert\fg{}}~(\og{}expert en ouragans\fg{}) & 32,5\\
+            & \texttt{Ar} & \texttt{Nc} & & & \textit{\og{}chinese earthquake\fg{}}~(\og{}tremblement de terre chinois\fg{}) & 15,1\\
+            & \texttt{A} & \texttt{Nc} & & & \textit{\og{}dominant strategy\fg{}} (\og{}stratégie dominante\fg{}) & $~~$9,5\\
+            & \texttt{Nc} & \texttt{Nc} & \texttt{Nc} & & \textit{\og{}voice activity detection\fg{}} (\og{}détection d'activité vocale\fg{}) & $~~$5,3\\
+            & \texttt{Ac} & \texttt{Nc} & & &\textit{\og{}packet-switched network\fg{}} (\og{}réseau à commutation de paquets\fg{}) & $~~$4,9\\
+            \bottomrule
+          \end{tabular}
+        }
         \caption[
           Patrons grammaticaux les plus fréquents parmi les termes-clés
           français et anglais
@@ -425,7 +427,7 @@
         concernent la présélection des candidats et les lignes
         \ref{algo:line:start_filtering} à \ref{algo:line:end_filtering}
         identifient et filtrent les adjectifs qualificatifs superflus.
-        \begin{algorithm}
+        \begin{algorithm}[t]
           \SetKwInOut{kwInput}{Entrée}
           \SetKwInOut{kwOutput}{Sortie}
           \SetKwFor{For}{Pour chaque}{faire}{}
@@ -908,9 +910,6 @@
                    \label{algo:hac}}
         \end{algorithm}
 
-        \TODO{Exemple étape par étape}
-        \TODO{illustrer les stratégies dans l'exemple (ou un autre ?)}
-
       \subsubsection{Construction du graphe}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-graph_construction}
         %Afin d'identifier les sujets les plus importants du documents, nous
@@ -1033,7 +1032,21 @@
 
       \subsubsection{Exemple}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-topicrank-example}
-        \TODO{exemple}
+        La figure~\ref{fig:exemple_topicrank}
+        (page~\pageref{fig:exemple_topicrank}) donne un exemple d'extraction de
+        termes-clés avec TopicRank à partir de l'un des articles journalistiques
+        de la collection \textsc{Duc} (cf
+        section~\ref{sec:main-data_description-duc_data},
+        page~\pageref{sec:main-data_description-duc_data}). Dans cet exemple,
+        nous observons un groupement correct de toutes les variantes de \og
+        alertes~\fg, mais aussi un groupement erroné de \og août 2003~\fg\ avec
+        \og août 2012~\fg. Dans ce dernier cas, TopicRank est tout de même
+        capable d'extraire \og août 2012~\fg\ grâce à la sélection du candidat
+        apparaissant en premier. Globalement, l'extraction des termes-clés est
+        correcte et huit termes-clés sur les dix extraits apparaissent dans
+        l'ensemble des termes-clés de référence. Comparée à \textsc{Tf-Idf},
+        TextRank et SingleRank, TopicRank est la méthode la plus performante
+        pour ce document.
         \input{input/figure/topicrank_example.tex}
 
     \subsection{Évaluation}
@@ -1695,9 +1708,6 @@
         sélectionnant toujours un candidat positif, lorsque c'est possible, 
         montre que cette stratégie donne presque toujours des performances
         quasi-optimales.
-
-        Dans la suite de nos expériences, le terme-clé de chaque sujet est donc
-        sélectionné avec la stratégie position.
         \begin{figure}
           \centering
           \begin{tikzpicture}
@@ -1711,7 +1721,7 @@
                          nodes near coords,
                          nodes near coords align={vertical},
                          every node near coord/.append style={font=\tiny},
-                         y=0.004\textheight,
+                         y=0.0037\textheight,
                          ytick={0, 10, ..., 60},
                          ymin=0,
                          ymax=60,
@@ -1769,6 +1779,9 @@
                    terme-clé candidats par sujet
                    \label{fig:variation_de_la_selection_des_candidats}}
         \end{figure}
+
+        Dans la suite de nos expériences, le terme-clé de chaque sujet est donc
+        sélectionné avec la stratégie position.
 
       \subsubsection{Paramétrage empirique de SingleRank}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-unsupervised_automatic_keyphrase_extraction-evaluation-empirical_setting_of_singlerank}
@@ -1977,7 +1990,7 @@
         méthode obtient de bons résultats en tirant parti de statistiques
         extraites de documents supplémentaires, alors que TopicRank utilise le
         document seul.
-        \begin{table}
+        \begin{table}[t]
           \centering
           \resizebox{\linewidth}{!}{
             \begin{tabular}{l|c@{~~}c@{~~}c@{~}|ccc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
@@ -2002,7 +2015,7 @@
             \label{tab:resultats_inist}
           }
         \end{table}
-        \begin{table}[t]
+        \begin{table}
           \centering
           \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
             \toprule
