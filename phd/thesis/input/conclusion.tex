@@ -14,10 +14,10 @@
   le catégoriser et, surtout, de l'indexer pour la recherche d'information. Les
   termes-clés peuvent être attribués par les auteurs, des lecteurs ou des
   indexeurs professionnels, mais seuls ces derniers réalisent un travail
-  impartial, homogène et conforme pour une indexation de qualité en domaines de
+  impartial, homogène et conforme à une indexation de qualité en domaines de
   spécialités. Notre objectif est de proposer une alternative automatique aux
   indexeurs professionnels pour une indexation par termes-clés de documents
-  numérique en domaines de spécialités. Tout d'abord, nous avons fait le choix
+  numériques en domaines de spécialités. Tout d'abord, nous avons fait le choix
   de traiter ce problème dans sa généralité, puis nous nous sommes ensuite
   concentré sur les documents en domaines de spécialités et sur leur indexation
   particulière effectuée par des indexeurs professionnels.
@@ -28,19 +28,18 @@
   termes-clés depuis le contenu du document. Il s'agit de la catégorie
   d'indexation par termes-clés la plus étudiée. Elle est plus simple à mettre en
   \oe{}uvre, car elle traite les unités textuelles du document. Cependant, ces
-  unités textuelles ne sont pas toujours sous une forme appropriée pour une
-  indexation à la manière des indexeurs professionnels. La seconde assigne les
-  termes-clés depuis un vocabulaire contrôlé représentatif du langage
-  documentaire de rigueur pour l'indexation. Elle assure donc une indexation de
-  meilleure qualité. Cependant, elle est plus difficile à mettre en \oe{}uvre,
-  car les entrées du vocabulaire contrôlé ne sont pas nécessairement présentes
-  dans le document. Par ailleurs, elle n'est pas capable d'identifier des
-  termes-clés très spécifiques au document s'ils ne sont pas dans le vocabulaire
-  contrôlé, ni même des nouveaux concepts qui y sont introduits. Pour traiter le
-  problème d'indexation par termes-clés dans sa généralité, nous avons travaillé
-  sur l'extraction de termes-clés. Pour l'indexation en domaines de spécialités,
-  nous avons proposé une extension de ce travail afin d'y intégrer la capacité à
-  réaliser l'assignement.
+  unités textuelles ne sont pas toujours sous une forme appropriée. La seconde
+  assigne les termes-clés depuis un vocabulaire contrôlé représentatif du
+  langage documentaire. Elle assure donc une indexation de meilleure qualité.
+  Cependant, elle est plus difficile à mettre en \oe{}uvre, car les entrées du
+  vocabulaire contrôlé ne sont pas nécessairement présentes dans le document.
+  Par ailleurs, elle n'est pas capable d'identifier des termes-clés très
+  spécifiques au document s'ils ne sont pas dans le vocabulaire contrôlé, ni
+  même des nouveaux concepts. Pour traiter le problème d'indexation par
+  termes-clés dans sa généralité, nous avons travaillé sur l'extraction de
+  termes-clés. Pour l'indexation en domaines de spécialités, nous avons proposé
+  une extension de ce travail afin d'y intégrer la capacité à réaliser
+  l'assignement.
 
   \section{Contributions}
   \label{sec:main-conclusion-contributions}
@@ -55,12 +54,9 @@
     identifier les unités textuelles du document susceptibles d'être des
     termes-clés. Dans la littérature, cette étape est très souvent réalisée à
     l'aide de règles simples qui ont tendance à sélectionner beaucoup de
-    candidats. Or, nous émettons l'hypothèse que l'indexation par termes-clés
-    est influencée par la qualité de l'ensemble des candidats sélectionnés et
-    que cette qualité est en partie due au nombre de candidats. Selon nous, plus
-    l'ensemble de candidats est de petite taille et plus il contient de
-    termes-clés corrects, alors meilleure est sa qualité et meilleure sera
-    l'indexation.
+    candidats. Or, nous émettons l'hypothèse que l'indexation gagne en
+    efficacité lorsque la sélection des candidats fournie un ensemble de petite
+    taille contenant le plus possible de termes-clés corrects.
     %
     En nous fondant sur une analyse des propriétés linguistiques des termes-clés
     de référence, nous avons d'abord proposé une méthode qui limite le nombre de
@@ -72,14 +68,13 @@
     %
     Nous avons ensuite vérifié notre hypothèse en évaluant la qualité de
     l'ensemble de candidats sélectionnés par notre méthode, ainsi que son impact
-    sur deux méthodes d'extraction de
-    termes-clés~:\textsc{Tf-Idf}~\cite{jones1972tfidf} et
-    \textsc{Kea}~\cite{witten1999kea}. Les résultats ont montré que notre
-    méthode est effectivement capable de réduire le nombre de candidats
-    sélectionnés sans éliminer un nombre significatif de termes-clés corrects.
-    Ils montrent aussi qu'elle a un meilleur impact sur les méthodes
-    d'extractions employées. Elle sélectionne donc des candidats de meilleure
-    qualité, ce qui valide notre hypothèse.
+    sur deux méthodes d'extraction de termes-clés~:
+    \textsc{Tf-Idf}~\cite{jones1972tfidf} et \textsc{Kea}~\cite{witten1999kea}.
+    Les résultats ont montré que notre méthode est capable de réduire le nombre
+    de candidats sélectionnés sans éliminer un nombre significatif de
+    termes-clés corrects. Ils montrent aussi qu'elle a une meilleure influence
+    sur la performance des méthodes d'extractions employées. Elle sélectionne
+    donc des candidats de meilleure qualité, ce qui valide notre hypothèse.
 
     Notre seconde contribution à l'extraction de termes-clés s'intéresse aux
     méthodes qui ordonnent les termes-clés candidats par importance, puis
@@ -89,14 +84,17 @@
     textuelles représentent le même sujet, alors elles doivent être considérées
     comme une entité unique. Nous avons donc proposé, TopicRank, une méthode à
     base de graphe qui commence par grouper les termes-clés candidats en sujets,
-    ordonne ces sujets à l'aide d'un graphe, puis extrait un, et un seul,
-    terme-clé candidat pour chacun des $k$ meilleurs sujets. Nos expériences
-    ont montrées que TopicRank améliore les méthodes à base de graphe
-    TextRank~\cite{mihalcea2004textrank} et SingleRank~\cite{wan2008expandrank},
-    vérifiant ainsi notre hypothèse. Au travers d'évaluations manuelles, nous
-    avons aussi pu montrer que TopicRank extrait des termes-clés non redondants,
-    lui permettant de mieux couvrir les sujets du document que les méthodes
-    ordonnant les termes-clés candidats.
+    représente le document avec un graphe des sujets, ordonne ces sujets à
+    l'aide d'un algorithme de marche aléatoire dans le graphe, puis extrait un,
+    et un seul, terme-clé candidat pour chacun des $k$ meilleurs sujets. Nos
+    expériences ont montrées une amélioration de l'extraction de termes-clés
+    avec TopicRank, comparée à celle réalisée avec les autres méthodes à base de
+    graphe TextRank~\cite{mihalcea2004textrank} et
+    SingleRank~\cite{wan2008expandrank}, ce qui vérifie notre hypothèse. Au
+    travers d'évaluations manuelles, nous avons aussi pu montrer que TopicRank
+    extrait des termes-clés non redondants, lui permettant de mieux couvrir les
+    sujets du document en comparaison avec les méthodes qui ordonnent les
+    termes-clés candidats.
 
     Notre troisième contribution s'intéresse à l'indexation par termes-clés en
     domaines de spécialités telle qu'elle est effectuée par un indexeur
@@ -132,16 +130,16 @@
     d'évaluer deux aspects de l'indexation~: la pertinence (validité) et le
     silence (perte d'information). Le premier aspect est celui qui est aussi
     évalué par l'évaluation automatique. Les résultats obtenus lors de la
-    campagnes ont tout de même montré la plus grande justesse d'une évaluation
-    humaine. Le second aspect est nouveau pour l'évaluation de méthodes
-    d'indexation par termes-clés. Il est purement sémantique et permet de
-    déterminer si, au delà de fournir un grand nombre de termes-clés corrects,
-    la méthode capture les informations les plus importantes du document. Toutes
-    les ressources de cette campagne d'évaluation seront rendues disponible. Ces
-    ressources sont annotées avec chaque étape (indexation automatique par
-    termes-clés et évaluation manuelle) afin de permettre l'étude de nouvelle
-    méthodes d'évaluation automatique, notamment vérifier leur corrélation
-    avec le jugement humain.
+    campagne ont tout de même montré l'importance de réaliser un évaluation
+    manuelle.\TODO{un point sur les résultats} Le second aspect est nouveau pour
+    l'évaluation de méthodes d'indexation par termes-clés. Il est purement
+    sémantique et permet de déterminer si, au delà de fournir un grand nombre de
+    termes-clés corrects, la méthode capture les informations les plus
+    importantes du document. Toutes les ressources de cette campagne
+    d'évaluation seront rendues disponibles. Ces ressources sont annotées avec
+    chaque étape (indexation automatique par termes-clés et évaluation manuelle)
+    afin de permettre l'étude de nouvelle méthodes d'évaluation automatique,
+    notamment vérifier leur corrélation avec le jugement humain.
 
   \section{Perspectives}
   \label{sec:main-conclusion-contributions}
@@ -154,7 +152,7 @@
     des termes-clés candidats pour l'extraction de termes-clés. Premièrement,
     notre étude linguistique des termes-clés s'est limitée aux adjectifs
     composés complexes et aux adjectifs relationnels, alors qu'il existe
-    d'autres catégories d'adjectifs. Les adjectifs relationnel, qui sont des
+    d'autres catégories d'adjectifs. Les adjectifs relationnels, qui sont des
     dénominaux, ont montré leur utilité au sein des termes-clés. Nous
     envisageons d'étudier n'importe quel adjectif dénominal, en nous
     affranchissant de ses autres propriétés, ainsi que les adjectifs déverbaux.
@@ -178,52 +176,50 @@
 %    deux candidats (\TODO{exemple}) et dans quels cas ils doivent être
 %    sélectionnés au sein d'eux (\TODO{exemple}).
     %
-    Enfin, lors de notre analyse de
-    TopicRank selon les différentes méthodes de sélection des termes-clés
-    candidats, nous avons évoqué la possibilité que certaines méthodes (comme
-    TopicRank) soient moins sensibles à la variation de qualité des candidats
-    que d'autres. Il serait intéressant d'étudier les méthodes de sélection de
-    candidats sur un plus large panel de méthodes, de vérifier cette hypothèse
-    et d'identifier quels sont les facteurs en cause d'une sensibilité plus ou
-    moins forte.
+%    Enfin, lors de notre analyse de
+%    TopicRank selon les différentes méthodes de sélection des termes-clés
+%    candidats, nous avons évoqué la possibilité que certaines méthodes (comme
+%    TopicRank) soient moins sensibles à la variation de qualité des candidats
+%    que d'autres. Il serait intéressant d'étudier les méthodes de sélection de
+%    candidats sur un plus large panel de méthodes, de vérifier cette hypothèse
+%    et d'identifier quels sont les facteurs en cause d'une sensibilité plus ou
+%    moins forte.
 
     Notre travail sur TopicRank possède aussi quelques limitations. Tout
     d'abord, le groupement en sujets que nous avons proposé est naïf. Il ne
     tient pas compte du lien de synonymie des mots, ni même de leur sens dans
     leurs contextes (problème d'ambiguïté). Nous avons proposé ce groupement car
-    il permet à TopicRank d'être applicable dans toutes les situation, sans
+    il permet à TopicRank d'être applicable dans toutes les situations, sans
     nécessiter de ressources particulières. Lorsque les données mises à
     dispositions le permettent, il serait intéressant d'envisager d'autres
     méthodes de groupement. Nous pourrions analyser la sémantique latente au
     sein d'une collection donné, comme l'ont fait
     \newcite{liu2010topicalpagerank}, \newcite{ding2011binaryintegerprogramming}
     et \newcite{zhang2013wordtopicmultirank} avec
-    \textsc{Lda}~\cite{blei2003lda}. À la manière de
-    \newcite{daille2014synonymdetection}, nous pourrions aussi nous appuyer sur
-    une analyse compositionnelle et distributionnelle des termes-clés candidats
-    et de leurs mots pour déterminer lesquels sont synonymes, et ainsi compléter
-    le groupement en sujet. Une autre limite de notre travail est le choix non
-    optimal du terme-clé candidat à extraire pour un sujet. Bien que la
-    stratégie que nous employons donne des résultats satisfaisants, nous avons
-    établi que la stratégie optimale permettrait d'atteindre des performances
-    deux fois supérieures dans certains cas. Une première solution serait
-    d'utiliser une collection d'entraînement pour apprendre à reconnaître le
-    terme-clé au sein d'un sujet. Certains traits utilisés par les méthodes
-    supervisés pourraient servir (position de la première occurrence, nombre de
-    mots, etc.), ainsi que de nouveaux traits liés à la relation qu'entretient
-    le candidat avec les autre candidats du sujet (degré de similarité avec tous
-    les autres, catégorie grammaticale des mots en communs avec les autres,
-    etc.). Une autre solution serait d'appliquer des méthodes de titrage
-    automatique, telles que celle de \newcite{lau2011topiclabeling}. L'avantage
-    d'une méthode telle que celle de \newcite{lau2011topiclabeling} est qu'elle
-    permet de générer des unités textuelles à partir d'un sujet. Dans notre cas,
-    elles permettent donc de proposer des termes-clés qui n'occurrent pas
+    \textsc{Lda}~\cite{blei2003lda}. Nous pourrions aussi nous appuyer sur des
+    ressources lexicales, ou des méthodes automatiques, pour détecter les
+    candidats qui sont synonymes et les grouper. Une autre limite de notre
+    travail est le choix non optimal du terme-clé candidat à extraire pour un
+    sujet. Bien que la stratégie que nous employons donne des résultats
+    satisfaisants, nous avons établi que la stratégie optimale permettrait
+    d'atteindre des performances deux fois supérieures dans certains cas. Une
+    première solution serait d'utiliser une collection d'entraînement pour
+    apprendre à reconnaître le terme-clé au sein d'un sujet. Certains traits
+    utilisés par les méthodes supervisés pourraient servir (position de la
+    première occurrence, nombre de mots, etc.), ainsi que de nouveaux traits
+    liés à la relation qu'entretient le candidat avec les autres candidats du
+    sujet (degré de similarité avec tous les autres, catégorie grammaticale des
+    mots en communs avec les autres, etc.). Une autre solution serait
+    d'appliquer des méthodes de titrage automatique, telles que celle de
+    \newcite{lau2011topiclabeling}. L'avantage de cette méthode méthode est de
+    permettre de générer des unités textuelles à partir d'un sujet. Dans notre
+    cas, elles permettent donc de proposer des termes-clés qui n'occurrent pas
     nécessairement dans le document. Correctement paramétrée avec un vocabulaire
     contrôlé, une méthode de titrage automatique générative peut donc être une
     alternative à TopicCoRank pour réaliser extraction et assignement.
 
     TopicCoRank, qui permet de réaliser simultanément extraction et assignement
-    de termes-clés possède malgré tout quelques défauts. Premièrement, bien que
+    de termes-clés possède aussi quelques limites. Premièrement, bien que
     l'ordonnancement conjoint des sujets du document et des termes-clés du
     domaine améliore l'ordonnancement, nous avons observé que TopicCoRank est
     plus performant en domaines de spécialités lorsqu'il ne réalise que
@@ -247,22 +243,36 @@
     nous avons aussi observé que TopicCoRank fonctionne moins bien hors domaines
     de spécialités, il est difficilement généralisable. Utiliser un paramètre
     $\lambda$ différent pour calculer l'importance des sujets et l'importance
-    des termes-clés peut aussi résoudre ce problème. Ce paramètre $\lambda$ peut
-    être paramétré empiriquement avec les données d'entraînement, mais nous
-    aimerions aussi chercher à le prédire. En effet, nous avons expliqué que le
-    problème de généralisation de TopicCoRank est dû au fait que les données
-    d'entraînement des collections que nous avons utilisé hors domaines de
-    spécialités ne sont pas adaptées. Il serait donc intéressant de voir si nous
-    pouvons évaluer avec quel degré les données sont adaptées et de voir s'il
-    existe une corrélation entre celui-ci et le paramétrage de $\lambda$.
+    des termes-clés peut aussi résoudre ce problème. Nous pourrions le
+    paramétrer empiriquement avec les données d'entraînement, mais nous
+    aimerions aussi chercher à prédire sa valeur. En effet, nous avons expliqué
+    que le problème de généralisation de TopicCoRank est dû au fait que les
+    données d'entraînement des collections que nous avons utilisé hors domaines
+    de spécialités ne sont pas adaptées. Il serait donc intéressant de voir si
+    nous pouvons évaluer avec quel degré les données sont adaptées et de voir
+    s'il existe une corrélation entre celui-ci et le paramétrage de $\lambda$.
 
-    ~\\L'ensemble des travaux de cette thèse permet d'améliorer l'indexation par
-    termes-clés d'un point de vue linguistique et  d'un point de vue de
-    modélisation et d'analyse du document à l'aide, ou non, de son domaine.
-    L'indexation par termes-clés que nous proposons peut-être utilisée pour la
-    recherche d'information, comme dans le cadre du travail de maintient de
-    bases de données bibliographiques de l'Inist, mais aussi pour d'autres
-    applications que nous n'avons pas évoqué, telles que la veille
-    terminologique, ou encore l'amélioration de l'effort de lecture par la mise
-    en évidence des termes-clés.
+    ~\\L'ensemble des travaux de cette thèse permet d'améliorer l'indexation
+    automatique par termes-clés. Nos travaux en extraction de termes-clés sont
+    applicables dans presque tous les scénarii d'utilisation. Aucune ressource
+    externe n'est nécessaire à l'exception de celles requises par les outils de
+    prétraitement (segmentation et étiquetage grammatical). Ceux en
+    extraction et assignement simultanés de termes-clés sont applicables en
+    domaines de spécialités, dès lors que des données d'entraînement sont
+    disponibles. Dans le cadre du projet Termith, les résultats de nos travaux
+    seront exploités pour faciliter la recherche d'information avec les outils
+    que propose l'Inist. Il est aussi envisagé de s'en servir pour réaliser de
+    la veille terminologique, c'est-à-dire mettre à jour des bases
+    terminologiques de domaines de spécialités avec les termes-clés validés par
+    un indexeur professionnel.
+
+%    ~\\L'ensemble des travaux de cette thèse permet d'améliorer l'indexation par
+%    termes-clés d'un point de vue linguistique et  d'un point de vue de
+%    modélisation et d'analyse du document à l'aide, ou non, de son domaine.
+%    L'indexation par termes-clés que nous proposons peut-être utilisée pour la
+%    recherche d'information, comme dans le cadre du travail de maintient de
+%    bases de données bibliographiques de l'Inist, mais aussi pour d'autres
+%    applications que nous n'avons pas évoqué, telles que la veille
+%    terminologique, ou encore l'amélioration de l'effort de lecture par la mise
+%    en évidence des termes-clés.
 
