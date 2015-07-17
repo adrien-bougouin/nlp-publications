@@ -286,7 +286,7 @@
             \node [above=of domain_graph,
                    xshift=.36\linewidth,
                    yshift=8em,
-                   anchor=south east] (domain_graph_label) {termes-clés de référence};
+                   anchor=south east] (domain_graph_label) {termes-clés du domaine};
 
             \node [draw,
                    circle,
@@ -489,7 +489,17 @@
 
       \subsubsection{Exemple}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-exemple}
-        \TODO{\dots}
+        La figure~\ref{fig:exemple_topiccorank}
+        (page~\pageref{fig:exemple_topiccorank}) donne un exemple d'extraction
+        et de l'assignement de
+        termes-clés avec TopicCoRank à partir d'une notice d'archéologie
+        (\TODO{faire la même chose pour TopicRank}). Dans cet exemple,
+        nous observons une meilleure indexation par termes-clés qu'avec
+        TopicRank. Tout d'abord, nous voyons que le graphe du domaine permet
+        l'assignement du termes-clés générique \og{}France\fg{}. Ensuite, nous
+        voyons que les relations de \og{}diffusion\fg{}, \og{}analyse\fg{} et
+        \og{}répartition\fg{} dans le graphe du domaine permettent de mieux les
+        ordonner.
         \input{input/figure/topiccorank_example.tex}
 
     \subsection{Évaluation}
