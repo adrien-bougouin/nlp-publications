@@ -489,9 +489,8 @@
 
       \subsubsection{Exemple}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-exemple}
-        La figure~\ref{fig:exemple_topiccorank}
-        (page~\pageref{fig:exemple_topiccorank}) donne un exemple d'extraction
-        et de l'assignement de
+        La figure~\ref{fig:exemple_topiccorank} donne un exemple d'extraction
+        et d'assignement de
         termes-clés avec TopicCoRank à partir d'une notice d'archéologie
         (\TODO{faire la même chose pour TopicRank}). Dans cet exemple,
         nous observons une meilleure indexation par termes-clés qu'avec
@@ -873,8 +872,10 @@
         
         Il est plus difficile pour les termes-clés de référence du domaine
         connectés indirectement aux sujets du document d'émerger. Nous observons
-        toutefois l'émergence de noms de disciplines (par exemple \og{}analyse
-        du discours\fg{} en linguistique) et de termes-clés génériques (par
+        toutefois l'émergence de quelques termes-clés absents du documents
+        (par exemple, \og{}analyse du discours\fg{} en linguistique et
+        les noms de composés \og{}composé aliphatique\fg{}, \og{}composé
+        benzénique\fg{}, etc. en chime), et de termes-clés génériques (par
         exemple \og{}français\fg{} en linguistique, ou encore \og{}Europe\fg{}
         en archéologie). Nous observons dans les données Termith des cadres
         d'études très récurrents (par exemple, la langue française, en
@@ -882,7 +883,6 @@
         ce fait, certains termes-clés génériques sont très fréquemment utilisés
         (\og{}français\fg{} apparaît dans 48,9~\% des documents de linguistique
         et \og{}Europe\fg{} apparaît dans 52,5~\% des documents d'archéologie).
-        \TODO{plus d'exemples}
 
       \subsubsection{Analyse des faux positifs}
       \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-error_analysis-false_positives}
@@ -988,20 +988,25 @@
         \begin{itemize}
           \item{variante d'un terme-clé déjà fourni (score de
                 2)~$\Rightarrow$~la méthode d'indexation par termes-clés fourni
-                des termes-clés redondants~; \TODO{exemple sur capture}}
+                des termes-clés redondants (cf figure~\ref{fig:idefix})~;}
           \item{variante d'un terme-clé non fourni mais présent dans le
                 texte~$\Rightarrow$~la méthode d'indexation par termes-clés
                 identifie correctement les sujets importants du document, mais
                 peine à trouver la forme la plus appropriée pour les
-                représenter. \TODO{exemple sur capture}}
+                représenter.}
         \end{itemize}
 
         Lorsque la forme préférée n'est pas présente dans le document, nous
         estimons que la méthode d'indexation a fourni un terme-clé correct,
-        auquel cas il se voit attribuer le score de 2. Les formes variantes
-        résultant d'un accord en nombre (pluriel) obtiennent aussi un score de
-        2, lorsque la forme normalisée (singulier) ne se trouve pas parmi les
-        termes-clés fournis.
+        auquel cas il se voit attribuer le score de 2 (cf
+        figure~\ref{fig:idefix}). Les formes variantes résultant d'un accord en
+        nombre (pluriel) obtiennent aussi un score de 2, lorsque la forme
+        normalisée (singulier) ne se trouve pas parmi les termes-clés fournis.
+        \begin{figure}
+          \includegraphics[width=\linewidth]{include/idefix.eps}
+          \caption{Interface d'évaluation manuelle de l'Inist
+                   \label{fig:idefix}}
+        \end{figure}
 
       \subsubsection{Évaluation du silence}
       \label{subsubsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol-silence}
@@ -1021,11 +1026,10 @@
         cas de figure~:
         \begin{itemize}
           \item{terme-clé de référence secondaire~: le terme-clé de référence
-                n'apporte pas l'information la plus importante~;
-                \TODO{exemple sur capture}}
+                n'apporte pas l'information la plus importante~;}
           \item{terme-clé de référence générique~: le terme-clé de référence
                 n'est pas suffisamment spécifique au contenu du document, il a
-                un usage classificatoire~; \TODO{exemple sur capture}}
+                un usage classificatoire.}
         \end{itemize}
         Afin de minimiser les pertes d'informations dues à des termes-clés de
         référence qui ne sont pas présents dans le document, les évaluateurs
