@@ -921,6 +921,7 @@
       faisons en proposant TopicCoRank sont fondées sur une étude de
       l'indexation manuelle en domaines de spécialités qui ne sont pas
       directement généralisables à tout type de documents.
+      \TODO{perspectives}
 
   %-----------------------------------------------------------------------------
 
@@ -1161,6 +1162,11 @@
 
       \subsubsection{Analyse de TopicCoRank}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank}
+        Les résultats que nous montrons dans cette section sont obtenus avec
+        seulement 25~\% de l'ensemble de test de la collection linguistique
+        Termith. Les différentes revues qui composent la collection sont
+        réparties de manière homogène dans ces 25~\%.
+
         \TODO{\dots}
         \begin{table}[h!]
           \centering
@@ -1170,8 +1176,8 @@
             \cline{3-4}
             & & \multicolumn{1}{p{.175\linewidth}|}{\centering{}redondant} & \multicolumn{1}{p{.175\linewidth}|}{\centering{}non redondant} &\\
             \hline
-            \textsc{Kea} & \textbf{41,2~\%} & 7,6~\% & \textbf{13,2~\%} & 37,9~\%\\
-            TopicCoRank & 46,0~\% & \textbf{3,1~\%} & 10,9~\% & \textbf{40,0~\%}\\
+            \textsc{Kea} & \textbf{45,2~\%} & 10,2~\% & \textbf{8,0~\%} & 36,6~\%\\
+            TopicCoRank & 49,8~\% & \textbf{4,4~\%} & 6,2~\% & \textbf{39,6~\%}\\
             \bottomrule
           \end{tabular}
           \caption{Taux de termes-clés avec un score de 0, de 1 ou de 2 pour
@@ -1189,8 +1195,8 @@
             \cline{2-7}
             & P & R & F & P & R & F\\
             \hline
-            \textsc{Kea} & \textbf{51,1} & \textbf{57,7} & \textbf{53,6} & 13,8 & 16,3 & 14,7\\
-            TopicCoRank & 50,9 & 57,4 & 53,3 & \textbf{19,0} & \textbf{22,0} & \textbf{20,1}\\
+            \textsc{Kea} & 44,6 & 50,2 & 46,8 & 13,8 & 16,3 & 14,7\\
+            TopicCoRank & \textbf{45,8} & \textbf{52,2} & \textbf{48,3} & \textbf{19,0} & \textbf{22,0} & \textbf{20,1}\\
             \bottomrule
           \end{tabular}
           \caption[
@@ -1209,8 +1215,8 @@
             \toprule
             \textbf{Méthode} & \textbf{0} & \textbf{1} & \textbf{2}\\
             \hline
-            \textsc{Kea} & \textbf{36,4~\%} & 50,9~\% & \textbf{12,7~\%}\\
-            TopicCoRank & 36,1~\% & \textbf{50,1~\%} & 13,8~\%\\
+            \textsc{Kea} & \textbf{37,3~\%} & 46,0~\% & 16,7~\%\\
+            TopicCoRank & 35,9~\% & \textbf{45,3~\%} & \textbf{18,8~\%}\\
             \bottomrule
           \end{tabular}
           \caption{Taux de termes-clés de référence avec un score de 0, de 1 ou
