@@ -115,7 +115,7 @@
           & Déterminant & $~~$0,0 & $~~$0,0 & 20,4\\
           \bottomrule
         \end{tabular}
-        \caption{Statistiques concernant les termes-clés de référence des
+        \caption{Statistiques des termes-clés de référence des
                  collections \textsc{Deft}, SemEval et \textsc{Duc}
                  \label{tab:candidate_selection-train_stats}}
       \end{table}
@@ -674,7 +674,7 @@
 %              \toprule
 %              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Linguistique}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Sciences de l'information}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{archéologie}} & \multicolumn{6}{c}{\textbf{Chimie}}\\
 %              \cline{2-25}
-%              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+%              & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c}{KEA}\\
 %              \cline{2-25}
 %              & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
 %              \hline
@@ -690,7 +690,7 @@
               \toprule
               \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{Sciences de l'information} \textit{(fr)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{archéologie} \textit{(fr)}} & \multicolumn{6}{c}{\textbf{Chimie} \textit{(fr)}}\\
               \cline{2-25}
-              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+              & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c}{KEA}\\
               \cline{2-25}
               & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
               \hline
@@ -702,11 +702,11 @@
             \end{tabular}
           }
           \caption[
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur les données
+            Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf} et \textsc{Kea} sur les données
             Termith, selon la méthode de sélection des termes-clés candidats
             utilisée
           ]{
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur les données
+            Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf} et \textsc{Kea} sur les données
             Termith, selon la méthode de sélection des termes-clés candidats
             utilisée
            \label{tab:keyphrase_extraction_results_with_filtering_termith}}
@@ -718,7 +718,7 @@
 %              \toprule
 %              \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval}} & \multicolumn{6}{c}{\textbf{DEFT}}\\
 %              \cline{2-19}
-%              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+%              & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c}{KEA}\\
 %              \cline{2-19}
 %              & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
 %              \hline
@@ -734,7 +734,7 @@
               \toprule
               \multirow{2}{*}[-2pt]{\textbf{Method}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DUC} \textit{(en)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval} \textit{(en)}} & \multicolumn{6}{c}{\textbf{DEFT} \textit{(fr)}}\\
               \cline{2-19}
-              & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{TF-IDF} & \multicolumn{3}{c}{KEA}\\
+              & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c}{KEA}\\
               \cline{2-19}
               & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F & P & R & F\\
               \hline
@@ -746,11 +746,11 @@
             \end{tabular}
           }
           \caption[
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur \textsc{De}ft,
+            Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf} et \textsc{Kea} sur \textsc{De}ft,
             SemEval et \textsc{Duc}, selon la méthode de sélection des
             termes-clés candidats utilisée
           ]{
-            Résultats de \textsc{Tf-Idf} et \textsc{Kea} sur \textsc{De}ft,
+            Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf} et \textsc{Kea} sur \textsc{De}ft,
             SemEval et \textsc{Duc}, selon la méthode de sélection des
             termes-clés candidats utilisée
            \label{tab:keyphrase_extraction_results_with_filtering_deft_semeval_duc}}
@@ -1984,9 +1984,9 @@
         permet de rassembler des informations pour améliorer la précision de
         l'ordonnancement.
         % Que peut-on dire de plus ? (analyse plus approfondie)
-        Comparée à la méthode TF-IDF, TopicRank donne aussi de meilleurs
+        Comparée à la méthode \textsc{Tf-Idf}, TopicRank donne aussi de meilleurs
         résultats, pour les collections \textsc{Deft}, Wikinews et SemEval.
-        Cette supériorité vis-à-vis de TF-IDF est importante à noter, car cette
+        Cette supériorité vis-à-vis de \textsc{Tf-Idf} est importante à noter, car cette
         méthode obtient de bons résultats en tirant parti de statistiques
         extraites de documents supplémentaires, alors que TopicRank utilise le
         document seul.
@@ -1999,7 +1999,7 @@
               \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
               & P & R & F & P & R & F & P & R & F & P & R & F\\
               \hline
-              TF-IDF & \textbf{13,0} & \textbf{15,4} & \textbf{13,9} & \textbf{13,4} & \textbf{14,0} & \textbf{13,2} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{14,1} & \textbf{11,1} & \textbf{11,9}\\
+              \textsc{Tf-Idf} & \textbf{13,0} & \textbf{15,4} & \textbf{13,9} & \textbf{13,4} & \textbf{14,0} & \textbf{13,2} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{14,1} & \textbf{11,1} & \textbf{11,9}\\
               TextRank & $~~$7,1 & $~~$6,1 & $~~$6,4 & $~~$5,8 & $~~$4,3 & $~~$4,8 & $~~$10,2 & $~~$5,3 & $~~$6,8 & $~~$9,4 & $~~$5,3 & $~~$6,5\\
               SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
               TopicRank & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
@@ -2008,10 +2008,10 @@
               \bottomrule
             \end{tabular}
           }
-          \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
-                   TextRank, SingleRank et TopicRank sur les collections Termith]{
-            Résultats de l'extraction de dix termes-clés avec TF-IDF, TextRank,
-            SingleRank et TopicRank sur les collections Termith
+          \caption[Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf},
+                   TextRank, SingleRank et TopicRank sur les données Termith]{
+            Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf}, TextRank,
+            SingleRank et TopicRank sur les données Termith
             \label{tab:resultats_inist}
           }
         \end{table}
@@ -2023,7 +2023,7 @@
             \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
             & P & R & F & P & R & F & P & R & F & P & R & F\\
             \hline
-            TF-IDF & \textbf{23,8} & \textbf{30,7} & \textbf{26,4}$^{~}$ & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
+            \textsc{Tf-Idf} & \textbf{23,8} & \textbf{30,7} & \textbf{26,4}$^{~}$ & 13,2 & $~~$8,9 & 10,5$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 10,3 & 19,1 & 13,2$^{~}$\\
             TextRank & $~~$4,9 & $~~$5,4 & $~~$5,0$^{~}$ & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$\\
             SingleRank & 22,3 & 28,4 & 24,6$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$\\
             TopicRank & 18,3 & 23,8 & 20,4 & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$\\
@@ -2031,10 +2031,10 @@
             \textbf{Borne haute} & \textbf{30,5} & \textbf{38,7} & \textbf{33,7}$^{~}$ & \textbf{30,0} & \textbf{20,7} & \textbf{24,3}$^{~}$ & \textbf{41,8} & \textbf{44,1} & \textbf{42,2}$^{~}$ & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}$^{~}$\\
             \bottomrule
           \end{tabular}
-          \caption[Résultats de l'extraction de dix termes-clés avec TF-IDF,
+          \caption[Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf},
                    TextRank, SingleRank et TopicRank sur les collections
                    \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}]{
-            Résultats de l'extraction de dix termes-clés avec TF-IDF, TextRank,
+            Résultats de l'extraction de dix termes-clés avec \textsc{Tf-Idf}, TextRank,
             SingleRank et TopicRank sur les collections \textsc{De}ft, Wikinews,
             SemEval et \textsc{Duc}. $\dagger$ indique une amélioration
             significative de TopicRank vis-à-vis de TextRank et SingleRank, à
@@ -2098,10 +2098,10 @@
           }
           \caption[Résultats de l'extraction de dix termes-clés avec chacune des
                    contributions de TopicRank, appliquées séparément à
-                   SingleRank sur les collections Termith]{
+                   SingleRank sur les données Termith]{
             Résultats de l'extraction de dix termes-clés avec chacune des
             contributions de TopicRank, appliquées séparément à SingleRank sur
-            les collections Termith
+            les données Termith
             \label{tab:evaluation_individuelle_des_ameliorations_inist}
           }
         \end{table}
