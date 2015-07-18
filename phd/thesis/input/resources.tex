@@ -2,8 +2,8 @@
 \label{chap:main-data_description}
   \chaptercite{
     [...] pour comprendre précisément les forces et les faiblesses d'un
-    extracteur de termes-clés, il est essentiel de l'évaluer avec différentes
-    collections de données.
+    système d'extraction de termes-clés, il est essentiel de l'évaluer avec
+    différentes collections de données.
 %    [...] to fully understand the strengths and weaknesses of a keyphrase
 %    extractor, it is essential to evaluate it on multiple datasets.
   }{
@@ -12,7 +12,7 @@
 
   \section{Introduction}
   \label{sec:main-data_description-introduction}
-    Pour les travaux de recherche en indexation automatique par termes-clés, des
+    En indexation automatique par termes-clés, des
     collections de données sont nécessaires à l'évaluation et à la comparaison
     des nouveaux travaux aux précédents. Elles sont généralement réparties en
     deux ensembles~: un ensemble de documents d'entraînement (ou
@@ -52,11 +52,11 @@
     Recognition}). Ces procédés ne sont pas parfaits, ils ajoutent parfois des
     fautes d'orthographe (mauvais caractères et problèmes d'accents) et ils ne
     traitent pas toujours correctement certains environnements graphiques et
-    textuelles tels que les notes de pieds de page, les tableaux, les figures et
+    textuels tels que les notes de pieds de page, les tableaux, les figures et
     les équations. Nous identifions deux autres facteurs que
     \newcite{hasan2014state_of_the_art} n'évoquent pas. Selon les collections de
     données, la proportion de termes-clés de référence n'apparaissant pas dans
-    les documents varie d'un exrême à l'autre. Dans le cas où la majorité des
+    les documents varie d'un extrême à l'autre. Dans le cas où la majorité des
     termes-clés n'apparaissent pas dans les documents, les méthodes d'extraction
     de termes-clés sont désavantagées. La qualification des annotateurs des
     termes-clés de référence est le second facteur. Nous observons trois
@@ -204,10 +204,10 @@
     un domaine de \textsc{Shs}~: linguistique, sciences de l'information
     (sciences de l'info.) et archéologie. La quatrième collection représente la
     chimie. Le corpus de linguistique est constitué de 715 notices d'articles
-    français parus entre 2000 et 2012 dans 11 revues~; le corpus des sciences de
+    français paru entre 2000 et 2012 dans 11 revues~; le corpus des sciences de
     l'information contient 706 notices d'articles français publiés entre 2001 et
     2012 dans cinq revues~; le corpus d'archéologie est composé de 716 notices
-    représentant des articles français parus entre 2001 et 2012 dans 22 revues~;
+    représentant des articles français paru entre 2001 et 2012 dans 22 revues~;
     le corpus de chimie est composé de 784 notices d'articles français publiés
     entre 1983 et 2012 dans cinq revues.
 
@@ -287,8 +287,8 @@
           d'"hybridation", conditions du développement et de la fidélisation de
           ces publics.\\
 
-          \textbf{Termes-clés~:} rôle professionnel~; evolution~;
-          \underline{bibliothèque}~; politique bibliothèque~; etude
+          \textbf{Termes-clés~:} rôle professionnel~; évolution~;
+          \underline{bibliothèque}~; politique bibliothèque~; étude
           utilisateur~; besoin de l'utilisateur~; \underline{partenariat}~; web
           2.0~; centre culturel. 
         }
@@ -324,7 +324,7 @@
           site fortifié~; \underline{fouille ancienne}~; identification~;
           \underline{décor}~; \underline{analyse}~; \underline{répartition}~;
           \underline{diffusion}~; \underline{chronologie}~;
-          \underline{typologie}~; \underline{céramique}~; etude du matériel~;
+          \underline{typologie}~; \underline{céramique}~; étude du matériel~;
           \underline{hérault}~; \underline{aude}~; france~; europe~; la tène~;
           age du fer.
         }
@@ -362,7 +362,7 @@
           \textbf{duction-acylation de la fluorénone et de la fluorénone-anil
           dans l'acétonitrile}\\
 
-          Etude du comportement des différents acylates de fluorénols-9
+          Étude du comportement des différents acylates de fluorénols-9
           vis-à-vis des anions CH$_2$CN (électrogénérés par réduction de
           l'azobenzène en son dianion dans l'acétonitrile). Réduction de la
           fluorénone dans l'acétonitrile en présence de chlorures d'acides ou
@@ -537,23 +537,23 @@
     \end{figure}
 
     \newcite{paroubek2012deft} établissent des performances de référence en
-    demendant à des étudiants de master en ingénierie multilingue d'annoter en
+    demandant à des étudiants de master en ingénierie multilingue d'annoter en
     termes-clés les documents de \textsc{De}ft. Le
     tableau~\ref{tab:deft_human_tests} montre les résultats de l'indexation par
     termes-clés obtenus pour chacun de ces étudiants. Ceux-ci ont jugé la tâche
     difficile, comme en témoigne les faibles résultats obtenus (f-mesure moyenne
-    de 21,6~\%). L'indexation par terme-clé est subjective et ils éprouvent des
+    de 21,6~\%). L'indexation par termes-clés est subjective et ils éprouvent des
     difficultés dans le cas ou une expression dans le texte est reformulée. Ils
     donnent l'exemple de \og{}traduction française et allemande\fg{} qui est
     représentée par le terme-clé \og{}traduction allemande et traduction
     française\fg{}. Ils notent aussi la présence de termes-clés d'un même champ
     sémantique, tels que \og{}interprète\fg{} et \og{}interprétation\fg{}, et
-    soulignent la contre-intuitivité de ce type redondance. Les conclusions ne
+    soulignent la contre-intuitivité de ce type de redondance. Les conclusions ne
     sont pas encourageantes pour l'indexation automatique par termes-clés. Il
     est possible que les problèmes rencontrés lors des tests humains soient dus
     à la nature des annotations. La redondance qui semble contre-intuitive en
     est un exemple. Nous pouvons en effet supposer qu'un auteur à recours à ce
-    genre de procédé pour être certains d'attirer tout lecteur potentiel, par
+    genre de procédé pour être certain d'attirer tout lecteur potentiel, par
     exemple l'un effectuant une recherche par mot-clé avec \og{}interprète\fg{}
     et l'autre avec \og{}interprétation\fg{}.
     \begin{table}[!h]
@@ -973,10 +973,11 @@
     Nous avons présenté les ressources que nous utilisons dans nos
     travaux de recherche. Pour analyser nos travaux, les évaluer et les comparer
     aux autres, nous disposons de cinq collections de données différentes~:
-    Termith, \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}. Chacune de ces
-    collections est monolingue et uniforme en genre.
+    Termith, \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}. Elles sont
+    monolingues et uniformes en genre. Nous rappelons leurs propriétés dans
+    le tableau~\ref{tab:corpora_recap}.
 
-    \begin{table}[!h]
+    \begin{table}[!t]
       \centering
       \resizebox{\linewidth}{!}{
         \begin{tabular}{r@{~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
