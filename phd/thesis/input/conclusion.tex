@@ -50,7 +50,7 @@
     travaux.
 
     Notre première contribution à l'extraction de termes-clés concerne l'étape
-    préliminaire de sélection des termes-clés candidats, qui consiste à
+    préliminaire de sélection des termes-clés candidats. Elle consiste à
     identifier les unités textuelles du document susceptibles d'être des
     termes-clés. Dans la littérature, cette étape est très souvent réalisée à
     l'aide de règles simples qui ont tendance à sélectionner beaucoup de
@@ -64,17 +64,16 @@
     par un adjectif utile (non superflu). Un adjectif utile se distingue par sa
     catégorie, relationnel ou composé complexe, et son usage fréquent dans le
     document~; un adjectif superflu est un adjectif qualificatif qui modifie
-    n'importe quel nom, qu'il soit central ou non.
+    n'importe quel nom.
     %
     Nous avons ensuite vérifié notre hypothèse en évaluant la qualité de
     l'ensemble de candidats sélectionnés par notre méthode, ainsi que son impact
     sur deux méthodes d'extraction de termes-clés~:
-    \textsc{Tf-Idf}~\cite{jones1972tfidf} et \textsc{Kea}~\cite{witten1999kea}.
+    \textsc{Tf-Idf}~\cite{salton1975tfidf} et \textsc{Kea}~\cite{witten1999kea}.
     Les résultats ont montré que notre méthode est capable de réduire le nombre
     de candidats sélectionnés sans éliminer un nombre significatif de
     termes-clés corrects. Ils montrent aussi qu'elle a une meilleure influence
-    sur la performance des méthodes d'extractions employées. Elle sélectionne
-    donc des candidats de meilleure qualité, ce qui valide notre hypothèse.
+    sur la performance des méthodes d'extractions employées.
 
     Notre seconde contribution à l'extraction de termes-clés s'intéresse aux
     méthodes qui ordonnent les termes-clés candidats par importance, puis
@@ -87,14 +86,13 @@
     représente le document avec un graphe des sujets, ordonne ces sujets à
     l'aide d'un algorithme de marche aléatoire dans le graphe, puis extrait un,
     et un seul, terme-clé candidat pour chacun des $k$ meilleurs sujets. Nos
-    expériences ont montrées une amélioration de l'extraction de termes-clés
+    expériences ont montré une amélioration de l'extraction de termes-clés
     avec TopicRank, comparée à celle réalisée avec les autres méthodes à base de
-    graphe TextRank~\cite{mihalcea2004textrank} et
-    SingleRank~\cite{wan2008expandrank}, ce qui vérifie notre hypothèse. Au
+    graphe, TextRank~\cite{mihalcea2004textrank} et
+    SingleRank~\cite{wan2008expandrank}. Au
     travers d'évaluations manuelles, nous avons aussi pu montrer que TopicRank
     extrait des termes-clés non redondants, lui permettant de mieux couvrir les
-    sujets du document en comparaison avec les méthodes qui ordonnent les
-    termes-clés candidats.
+    sujets du document que les autres méthodes.
 
     Notre troisième contribution s'intéresse à l'indexation par termes-clés en
     domaines de spécialités telle qu'elle est effectuée par un indexeur
@@ -117,11 +115,11 @@
     termes-clés). Notre nouvelle méthode, TopicCoRank, représente le domaine du
     document avec un graphe des termes-clés de référence attribués à des
     documents du même domaine, le connecte au graphe de sujets et ordonne
-    conjointement sujets et termes-clés de référence. Les termes-clés obtenus à
+    conjointement sujets et termes-clés du domaine. Les termes-clés obtenus à
     partir du graphe de sujets sont extraits et les termes-clés obtenus à partir
     du graphe du domaine sont assignés. En domaine de spécialité, TopicCoRank
     obtient des résultats supérieurs à l'état de l'art. À notre connaissance, il
-    s'agit aussi de la première méthode capable de réaliser simultanément
+    s'agit de la première méthode capable de réaliser simultanément
     extraction et assignement.
 
     Enfin, nous avons participé à la mise en place d'une campagne d'évaluation
@@ -130,13 +128,15 @@
     d'évaluer deux aspects de l'indexation~: la pertinence (validité) et le
     silence (perte d'information). Le premier aspect est celui qui est aussi
     évalué par l'évaluation automatique. Les résultats obtenus lors de la
-    campagne ont tout de même montré l'importance de réaliser un évaluation
-    manuelle.\TODO{un point sur les résultats} Le second aspect est nouveau pour
+    campagne ont tout de même montré l'importance de réaliser une évaluation
+    manuelle. Celle-ci est moins pessimiste (plus juste) et nous observons un
+    gain de plus de 20 points de f1-mesure par rapport à l'évaluation
+    automatique. Le second aspect est nouveau pour
     l'évaluation de méthodes d'indexation par termes-clés. Il est purement
     sémantique et permet de déterminer si, au delà de fournir un grand nombre de
     termes-clés corrects, la méthode capture les informations les plus
     importantes du document. Toutes les ressources de cette campagne
-    d'évaluation seront rendues disponibles. Ces ressources sont annotées avec
+    d'évaluation seront rendues disponibles. Elles sont annotées avec
     chaque étape (indexation automatique par termes-clés et évaluation manuelle)
     afin de permettre l'étude de nouvelle méthodes d'évaluation automatique,
     notamment vérifier leur corrélation avec le jugement humain.
@@ -154,7 +154,7 @@
     composés complexes et aux adjectifs relationnels, alors qu'il existe
     d'autres catégories d'adjectifs. Les adjectifs relationnels, qui sont des
     dénominaux, ont montré leur utilité au sein des termes-clés. Nous
-    envisageons d'étudier n'importe quel adjectif dénominal, en nous
+    envisageons donc d'étudier n'importe quel adjectif dénominal, en nous
     affranchissant de ses autres propriétés, ainsi que les adjectifs déverbaux.
     Ensuite, nous avons mis de côté les prépositions (et les déterminants) en
     français, alors qu'ils sont constitutifs d'environ $\unitfrac{1}{3}$ des
@@ -193,7 +193,7 @@
     nécessiter de ressources particulières. Lorsque les données mises à
     dispositions le permettent, il serait intéressant d'envisager d'autres
     méthodes de groupement. Nous pourrions analyser la sémantique latente au
-    sein d'une collection donné, comme l'ont fait
+    sein d'une collection donnée, comme l'ont fait
     \newcite{liu2010topicalpagerank}, \newcite{ding2011binaryintegerprogramming}
     et \newcite{zhang2013wordtopicmultirank} avec
     \textsc{Lda}~\cite{blei2003lda}. Nous pourrions aussi nous appuyer sur des
@@ -211,9 +211,9 @@
     sujet (degré de similarité avec tous les autres, catégorie grammaticale des
     mots en communs avec les autres, etc.). Une autre solution serait
     d'appliquer des méthodes de titrage automatique, telles que celle de
-    \newcite{lau2011topiclabeling}. L'avantage de cette méthode méthode est de
+    \newcite{lau2011topiclabeling}. L'avantage de cette méthode est de
     permettre de générer des unités textuelles à partir d'un sujet. Dans notre
-    cas, elles permettent donc de proposer des termes-clés qui n'occurrent pas
+    cas, elle permet donc de proposer des termes-clés qui n'occurrent pas
     nécessairement dans le document. Correctement paramétrée avec un vocabulaire
     contrôlé, une méthode de titrage automatique générative peut donc être une
     alternative à TopicCoRank pour réaliser extraction et assignement.
@@ -230,15 +230,15 @@
     peut être un schéma de pondération des arêtes et d'unification des deux
     graphes plus performant que celui que nous proposons. Pour unifier les deux
     graphes, nous pourrions par exemple nous intéresser au contenu des documents
-    de référence. Ainsi, un terme-clé du domaine pourrait est connecté à un
+    de référence. Ainsi, un terme-clé du domaine pourrait être connecté à un
     sujet lorsqu'il est le terme-clé d'un document dans lequel le sujet
     apparaît. Une autre manière de résoudre ce problème serait aussi de faire
     varier l'influence de la recommandation interne (paramètre $\lambda$)
     différemment pour les sujets et les termes-clés de référence. En augmentant
     plus fortement l'impact de la recommandation issue des sujets
-    (recommandation externe) en utilisant une faible valeur pour $\lambda$,
+    (recommandation externe) avec une faible valeur pour $\lambda$,
     l'importance des termes-clés du domaine devrait augmenter, leur permettant
-    de rivaliser avec les sujets au classement par importance. Le paramétrage de
+    de rivaliser avec les sujets dans le classement par importance. Le paramétrage de
     $\lambda$ peut aussi résoudre un autre problème de TopicCoRank. En effet,
     nous avons aussi observé que TopicCoRank fonctionne moins bien hors domaines
     de spécialités, il est difficilement généralisable. Utiliser un paramètre
@@ -251,6 +251,9 @@
     de spécialités ne sont pas adaptées. Il serait donc intéressant de voir si
     nous pouvons évaluer avec quel degré les données sont adaptées et de voir
     s'il existe une corrélation entre celui-ci et le paramétrage de $\lambda$.
+    Enfin, les données en domaines de spécialités que nous utilisons ne
+    contiennent que des notices. Il serait intéressant de voir les différences
+    de performance en utilisant les articles complets que représentent ces notices.
 
     ~\\L'ensemble des travaux de cette thèse permet d'améliorer l'indexation
     automatique par termes-clés. Nos travaux en extraction de termes-clés sont
