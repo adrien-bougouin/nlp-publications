@@ -1,4 +1,4 @@
-\chapter{Indexation par termes-clés en domaines de spécialités}
+\chapter{Indexation par termes-clés en domaines de spécialité}
 \label{chap:main-domain_specific_keyphrase_annotation}
   \chaptercite{
     La multiplication des bases de données et l'information devenue
@@ -14,7 +14,7 @@
   \section{Introduction}
   \label{sec:main:domain_specific_keyphrase_annotation-introduction}
     Dans ce chapitre, nous nous intéressons à l'indexation par
-    termes-clés en domaines de spécialités. Dans la littérature, l'indexation
+    termes-clés en domaines de spécialité. Dans la littérature, l'indexation
     par termes-clés se divise en deux catégories~: l'extraction de termes-clés,
     qui fournit des termes-clés apparaissant dans le contenu du document, et
     l'assignement de termes-clés, qui fournit des termes-clés appartenant à un
@@ -22,7 +22,7 @@
     Alors que dans la littérature, l'indexation par termes-clés est
     principalement réalisée au seul moyen de l'extraction de termes-clés, nous
     montrons que l'assignement de termes-clés joue un rôle important en domaines
-    de spécialités.
+    de spécialité.
 
     Nous commençons par décrire le comportement des indexeurs
     professionnels qui maintiennent les bases des données bibliographiques de
@@ -35,20 +35,20 @@
     du domaine.
 
     Enfin, nous présentons les premiers résultats d'une campagne d'évaluation
-    manuelle de nos travaux en domaines de spécialités. Pour cette campagne,
+    manuelle de nos travaux en domaines de spécialité. Pour cette campagne,
     nous proposons un protocole et des métriques permettant d'évaluer deux
     aspects~: la pertinence des termes-clés extraits/assignés et la quantité
     d'information importante capturée par les termes-clés.
 
   %-----------------------------------------------------------------------------
 
-  \section{Indexation manuelle en domaines de spécialités}
+  \section{Indexation manuelle en domaines de spécialité}
   \label{sec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation}
     En nous fondant sur les  propos recueillis auprès des indexeurs
     professionnels de l'Inist, qui maintient une partie des bases de données
     bibliographiques de la \textsc{Bsn} (Bibliothèque scientifique numérique),
     nous présentons la méthodologie d'indexation manuelle en domaines de
-    spécialités.
+    spécialité.
 
     \subsection{Principes généraux}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-principles}
@@ -72,7 +72,7 @@
 
       Ces principes généraux de l'indexation manuelle par termes-clés remettent
       en cause la séparation entre extraction et assignement de termes-clés dans
-      le contexte de l'indexation automatique en domaines de spécialités. En
+      le contexte de l'indexation automatique en domaines de spécialité. En
       effet, une indexation par termes-clés à un niveau professionnel doit
       respecter le langage de spécialité employé dans le domaine des documents
       indexés (tâche d'assignement), mais elle doit aussi être exhaustive et
@@ -188,7 +188,7 @@
 
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_keyphrase_annotation-conclusion}
-      L'indexation manuelle en domaines de spécialités que nous avons présenté
+      L'indexation manuelle en domaines de spécialité que nous avons présenté
       suit des principes d'indexation que nous retrouvons soit en extraction,
       soit en assignement. Alors qu'en indexation automatique par termes-clés,
       les méthodes d'extraction sont plus étudiées que les méthodes
@@ -199,13 +199,13 @@
 
   %-----------------------------------------------------------------------------
 
-  \section{Indexation automatique en domaines de spécialités}
+  \section{Indexation automatique en domaines de spécialité}
   \label{sec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction}
     L'indexation automatique par termes-clés est définie comme la tâche qui
     consiste à extraire des termes-clés du contenu d'un document, ou à en
     assigner à partir d'un vocabulaire contrôlé. Alors que dans la
     littérature, l'indexation automatique par termes-clés est presque toujours réduite à la
-    seule extraction de termes-clés, nous avons vu en domaines de spécialités
+    seule extraction de termes-clés, nous avons vu en domaines de spécialité
     que les deux catégories d'indexation (extraction et assignement) jouent
     chacune un rôle qui lui est propre.
 
@@ -245,9 +245,9 @@
         Soit le graphe unifié non orienté $G = (N, A =
         A_{\textnormal{\textit{interne}}} \cup
         A_{\textnormal{\textit{externe}}})$. $N$ dénote indifféremment les
-        sujets et les termes-clés de référence. $A$ regroupe les arêtes
+        sujets et les termes-clés du domaine. $A$ regroupe les arêtes
         $A_{\textnormal{\textit{interne}}}$, qui connectent deux sujets ou deux
-        termes-clés de référence, et les arêtes
+        termes-clés du domaine, et les arêtes
         $A_{\textnormal{\textit{externe}}}$, qui connectent un sujet à un
         terme-clé de référence (cf. figure~\ref{fig:topiccorank_graph}). Le
         graphe de sujets et le graphe du domaine sont unifiés grâce aux arêtes
@@ -382,24 +382,24 @@
         \end{figure}
 
         Pour permettre un ordonnancement conjoint des sujets et des termes-clés
-        de référence, le schéma de connexion entre deux sujets et entre deux
-        termes-clés de référence (arêtes $A_\textnormal{\textit{interne}}$) doit
+        du domaine, le schéma de connexion entre deux sujets et entre deux
+        termes-clés du domaine (arêtes $A_\textnormal{\textit{interne}}$) doit
         être homogène. En effet, si les conditions de connexion et si la
         pondération des arêtes ne sont pas équivalentes et du
         même ordre de grandeur, alors l'impact du domaine sur
         le document, et du document sur le domaine, sera marginal. Pour
         obtenir un graphe unifié homogène, TopicCoRank connecte deux sujets ou
-        deux termes-clés de référence $n_i$ et $n_j$ lorsqu'ils apparaissent
+        deux termes-clés du domaine $n_i$ et $n_j$ lorsqu'ils apparaissent
         dans le même contexte et pondère leur arête par le nombre de fois que
         cela se produit ($\textnormal{poids}(n_i, n_j)$). Lorsqu'il s'agit des sujets, le contexte est
         une phrase du document~; lorsqu'il s'agit des
-        termes-clés de référence, le contexte est l'ensemble des termes-clés de
+        termes-clés du domaine, le contexte est l'ensemble des termes-clés de
         référence d'un document d'entraînement. Les contextes
         étant utilisés pour la création du graphe, le graphe de sujets n'est
         plus complet comme celui de TopicRank. Ici, nous utilisons la phrase comme
         alternative à la fenêtre de cooccurrence.
 
-      \subsubsection{Ordonnancement conjoint des sujets et des termes-clés de référence}
+      \subsubsection{Ordonnancement conjoint des sujets et des termes-clés du domaine}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-co_ranking}
         L'ordonnancement conjoint des sujets et des termes-clés du domaine
         établit leur ordre d'importance vis-à-vis du contenu du document et du
@@ -434,7 +434,7 @@
                 du contenu du document s'il véhicule (est connecté à) l'un de
                 ses sujets importants.}
         \end{itemize}
-        Sujets et termes-clés de référence sont ainsi évalués d'après leur usage
+        Sujets et termes-clés du domaine sont ainsi évalués d'après leur usage
         dans le document et leur importance dans le domaine. L'ordonnancement
         des uns joue un rôle sur celui des autres et permet ainsi d'effectuer
         conjointement extraction et assignement.
@@ -501,10 +501,10 @@
     \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation}
       Pour valider notre approche, nous réalisons deux séries d'expériences.
       Dans un premier temps, nous comparons TopicCoRank à plusieurs méthodes de
-      référence et analysons son comportement en domaines de spécialités. Dans
+      référence et analysons son comportement en domaines de spécialité. Dans
       un second temps, nous étudions l'application de TopicCoRank dans le cas
       général, afin de vérifier si nos hypothèses fortement liées à l'indexation
-      manuelle en domaines de spécialités peuvent se généraliser.
+      manuelle en domaines de spécialité peuvent se généraliser.
 
       \subsubsection{Méthodes de référence}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
@@ -531,12 +531,12 @@
       \subsubsection{Collections de données}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
         Nous utilisons les collections Termith pour l'évaluation en domaines de
-        spécialités et les collections \textsc{De}ft, SemEval et \textsc{Duc}
+        spécialité et les collections \textsc{De}ft, SemEval et \textsc{Duc}
         pour l'évaluation dans le cas général\footnote{Constituées de documents
         scientifiques, les ressources \textsc{De}ft et SemEval peuvent aussi
-        être considérées comme des données en domaines de spécialités.
+        être considérées comme des données en domaines de spécialité.
         Cependant, elles regroupent des documents de sous-disciplines très
-        éloignées et leurs termes-clés n'ont pas été annotés avec la rigueur
+        éloignées et leurs termes-clés n'ont pas été attribués avec la rigueur
         documentaire.}.
         
         Pour \textsc{Duc}, qui n'est pas divisé en deux ensembles d'entraînement
@@ -572,14 +572,14 @@
         73, alors la précision et le rappel sont calculés pour un jusqu'à 73
         termes-clés en moyenne pour tous les documents.}.
       
-      \subsubsection{Évaluation de TopicCoRank en domaines de spécialités}
+      \subsubsection{Évaluation de TopicCoRank en domaines de spécialité}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank_specific_domains}
         Nous réalisons ici une série d'expériences destinées à comparer
         TopicCoRank à l'existant, puis à observer son comportement selon
         différentes configurations.
 
         Le tableau~\ref{tab:topiccorank-comparison_results_termith} montre les
-        performances de TopicCoRank en domaines de spécialités (linguistique,
+        performances de TopicCoRank en domaines de spécialité (linguistique,
         sciences de l'information, archéologie, chimie) comparées à celles des
         méthodes de référence. De manière générale, les résultats montrent le
         bien fondé de TopicCoRank~: la variante
@@ -662,7 +662,7 @@
         catégories d'indexation par termes-clés sont effectivement réalisées
         conjointement, mais l'ordonnancement donne plus d'importance aux sujets
         du document qu'aux termes-clés de référence du domaine. En domaines de
-        spécialités où l'assignement est préféré, cela peut être résolu en
+        spécialité où l'assignement est préféré, cela peut être résolu en
         travaillant sur un affinage des schémas de connexion des n\oe{}uds de
         chaque graphe et d'unification de ceux-ci.
         \begin{table}
@@ -686,7 +686,7 @@
         meilleures performances que TopicCoRank et
         TopicCoRank$_\textnormal{extr.}$, nous faisons une expérience dans
         laquelle nous forçons le taux d'assignement afin de déterminer si
-        l'ordonnancement des termes-clés de référence du domaine est efficace.
+        l'ordonnancement des termes-clés du domaine est efficace.
         Un ordonnancement efficace des termes-clés du domaine doit induire une
         courbe de performance cumulative quand nous faisons croître le taux
         d'assignement\footnote{Dans cette situation, cela signifie que la
@@ -695,8 +695,8 @@
         figure~\ref{fig:assignment_variations_termith} montre la performance de
         TopicCoRank lorsque le taux d'assignement varie de 0~\% à 100~\% avec un
         pas de 10~\%. À chaque augmentation du taux d'assignement, la
-        performance de TopicCoRank augmente. L'ordonnancement des termes-clés de
-        référence du domaine fait donc émerger efficacement ceux les plus
+        performance de TopicCoRank augmente. L'ordonnancement des termes-clés du
+        domaine fait donc émerger efficacement ceux les plus
         importants vis-à-vis du document.
         \input{input/figure/termith_assignment_curves.tex}
 
@@ -714,19 +714,19 @@
       \subsubsection{Évaluation de TopicCoRank hors domaines de spécialité}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-topiccorank_indepent_domains}
         Nous réalisons ici la même série d'évaluations précédentes, mais hors
-        domaines de spécialités. L'objectif est de déterminer si TopicCoRank et
+        domaines de spécialité. L'objectif est de déterminer si TopicCoRank et
         ses hypothèses, fortement liées à notre étude de l'indexation manuelle
-        en domaines de spécialités, se généralisent à tout type de documents.
+        en domaines de spécialité, se généralisent à tout type de documents.
 
         Le tableau~\ref{tab:topiccorank-comparison_results_general} montre les
-        performances de TopicCoRank hors domaines de spécialités (\textsc{De}ft,
+        performances de TopicCoRank hors domaines de spécialité (\textsc{De}ft,
         SemEval et \textsc{Duc}) comparées à celles des méthodes de référence.
         Les résultats montrent de plus faibles performances qu'en domaines de
-        spécialités. TopicCoRank échoue à améliorer TopicRank sur \textsc{De}ft,
+        spécialité. TopicCoRank échoue à améliorer TopicRank sur \textsc{De}ft,
         l'améliore légèrement sur SemEval et l'améliore significativement sur
         \textsc{Duc}, pour lequel nous utilisons des graphes de domaine très
         centrés sur le sujet d'actualité de chaque document de test.
-        Contrairement à ce que nous observons en domaines de spécialités, c'est
+        Contrairement à ce que nous observons en domaines de spécialité, c'est
         TopicCoRank qui est majoritairement le plus performant et c'est sa
         variante TopicCoRank$_\textnormal{assign.}$ qui est la moins
         performante. L'explication tient à la nature des termes-clés de
@@ -777,7 +777,7 @@
 
         La figure~\ref{fig:topiccorank-pr_curves_general} permet de comparer le
         comportement respectif des méthodes de référence, de TopicCoRank et de
-        ses variantes. Contrairement aux domaines de spécialités, où TopicCoRank
+        ses variantes. Contrairement aux domaines de spécialité, où TopicCoRank
         et ses variantes dominent les méthodes de référence, nous observons ici
         qu'aucune méthode dominante ne se dégage et, sauf sur \textsc{Duc}, il
         est difficile de statuer sur l'apport de TopicCoRank à TopicRank. Par
@@ -792,14 +792,14 @@
         plus faible que celui de \textsc{Tf-Idf}, qui peut extraire tous les
         candidats lorsque nous le lui demandons. La seconde raison nous
         intéresse particulièrement, car elle n'est pas observable en domaines de
-        spécialités. En effet, le problème est aussi due à l'inconsistance des
+        spécialité. En effet, le problème est aussi due à l'inconsistance des
         données d'entraînement pour représenter un \og{}domaine\fg{} de manière
         homogène et conforme à son vocabulaire. Les termes-clés employés dans
         les documents d'entraînement ne sont pas les mêmes que ceux employés
         pour les documents de test et l'assignement ne fonctionne donc pas.
         \input{input/figure/deft_semeval_duc_precision_recall_curves.tex}
 
-        Comme pour l'évaluation en domaines de spécialités, le
+        Comme pour l'évaluation en domaines de spécialité, le
         tableau~\ref{tab:assignment_ratio_general} reporte les taux d'extraction
         et d'assignement réalisés par TopicCoRank sur \textsc{De}ft, SemEval et
         \textsc{Duc}. Ceux-ci montrent aussi que les deux catégories
@@ -824,18 +824,18 @@
         La figure~\ref{fig:assignment_variations_general} montrent les
         performances de TopicCoRank lorsque nous forçons le taux d'assignement,
         de 0~\% à 100~\% avec un pas de 10~\%. Contrairement à la courbe de
-        performances en domaines de spécialités, celle de TopicCoRank hors
-        domaines de spécialités est croissante puis décroissante pour \text{Duc}
+        performances en domaines de spécialité, celle de TopicCoRank hors
+        domaines de spécialité est croissante puis décroissante pour \text{Duc}
         et est principalement décroissante pour \textsc{De}ft et SemEval. Cela signifie que
         l'ordonnancement des termes-clés du domaine est moins efficace hors
-        domaines de spécialités. Il est toutefois intéressant de noter que, sur
+        domaines de spécialité. Il est toutefois intéressant de noter que, sur
         \textsc{Duc}, le taux d'assignement effectué par TopicCoRank sans que
         nous ne le forcions est proche de sa valeur optimal.
         \input{input/figure/deft_semeval_duc_assignment_curves.tex}
 
         La figure~\ref{fig:lambda_variations_general} montre le comportement de
         TopicCoRank lorsque nous faisons varier la valeur de $\lambda$ de 0 à 1
-        avec un pas de 0,1. Sur \textsc{Duc}, comme en domaines des spécialités,
+        avec un pas de 0,1. Sur \textsc{Duc}, comme en domaines des spécialité,
         l'indexation par termes-clés est meilleure lorsque l'ordonnancement est
         fortement influencé par la recommandation externe que lorsqu'il ne l'est
         pas. Sur \textsc{De}ft et SemEval, c'est l'inverse. Comme observé précédemment, les données
@@ -909,16 +909,16 @@
       termes-clés à partir des sujets et en assigner à partir des termes-clés du
       domaine.
 
-      Les résultats de l'évaluation de TopicCoRank en domaines de spécialités
+      Les résultats de l'évaluation de TopicCoRank en domaines de spécialité
       montrent une amélioration significative vis-à-vis de l'état de l'art. Ceux
-      hors domaines de spécialités sont moins probants. Les hypothèses que nous
+      hors domaines de spécialité sont moins probants. Les hypothèses que nous
       faisons en proposant TopicCoRank sont fondées sur une étude de
-      l'indexation manuelle en domaines de spécialités qui ne sont pas
+      l'indexation manuelle en domaines de spécialité qui ne sont pas
       directement généralisables à tout type de documents.
 
   %-----------------------------------------------------------------------------
 
-  \section{Évaluation manuelle en domaines de spécialités}
+  \section{Évaluation manuelle en domaines de spécialité}
   \label{sec:main-domain_specific_keyphrase_annotation-manual_evaluation}
     L'évaluation manuelle des méthodes d'indexation par termes-clés consiste à
     faire valider par un ou plusieurs évaluateurs humains les termes-clés
@@ -937,7 +937,7 @@
     Dans la suite, nous présentons le protocole d'évaluation et les métriques
     que nous avons proposé, puis nous analysons les premiers résultats de la
     campagne d'évaluation manuelle de TopicRank, TopicCoRank et de deux méthodes de référence en
-    domaine de spécialités avec la collection de linguistique Termith.
+    domaine de spécialité avec la collection de linguistique Termith.
 
     \subsection{Protocole d'évaluation manuelle}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol}
@@ -1123,10 +1123,10 @@
           \end{tabular}
           \caption[
             Performances de \textsc{Tf-Idf} et de TopicRank en termes de
-            précision, de rappel et de f-mesure
+            précision, de rappel et de f1-mesure
           ]{
             Performances de \textsc{Tf-Idf} et de TopicRank en termes de
-            précision (P), de rappel (R) et de f-mesure (F)
+            précision (P), de rappel (R) et de f1-mesure (F)
             \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-prf}}
         \end{table}
       
@@ -1257,7 +1257,7 @@
     \subsection{Bilan}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_evaluation-conclusion}
       Nous avons réalisé une campagne d'évaluation manuelle de nos travaux en
-      domaine de spécialités, avec la collection de linguistique Termith. Pour
+      domaine de spécialité, avec la collection de linguistique Termith. Pour
       cette campagne, nous avons proposé un protocole d'évaluation et des
       métriques permettant de capturer deux aspects de l'indexation par
       termes-clés~: la pertinence des termes-clés extraits/assignés et leur
@@ -1286,7 +1286,7 @@
   \section{Conclusion}
   \label{sec:main-domain_specific_keyphrase_annotation-conclusion}
     Nous nous sommes intéressé à l'indexation automatique par termes-clés en
-    domaines de spécialités. Nous avons tout d'abord présenté l'indexation
+    domaines de spécialité. Nous avons tout d'abord présenté l'indexation
     manuelle réalisée par des indexeurs professionnels dans ce contexte, nous
     avons ensuite proposé une nouvelle méthode automatique se rapprochant le
     plus possible de cette indexation, puis nous avons présenté les premiers
@@ -1295,7 +1295,7 @@
 
     Contrairement aux méthodes d'indexation automatique, l'indexation manuelle
     n'est pas divisée entre extraction et assignement. L'indexation manuelle en
-    domaines de spécialités préfère l'assignement, car cela permet une
+    domaines de spécialité préfère l'assignement, car cela permet une
     indexation homogène des documents d'un même domaine et une conformité
     vis-à-vis du vocabulaire spécialisé du domaine. Elle a aussi besoin de
     l'extraction, afin de fournir des termes-clés très spécifiques au document,
@@ -1311,7 +1311,7 @@
     méthode qui réalise conjointement extraction et assignement.
 
     Pour valider les deux méthodes TopicRank et TopicCoRank, nous avons réalisé
-    une campagne d'évaluation manuelle en domaine de spécialités. Le protocole
+    une campagne d'évaluation manuelle en domaine de spécialité. Le protocole
     d'évaluation que nous avons proposé permet d'évaluer chaque méthode selon le
     degré de pertinence des termes-clés qu'elle propose et selon le degré
     d'information qui lui échappe. Les résultats de l'évaluation manuelle de

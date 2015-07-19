@@ -95,7 +95,7 @@
         \centering
         \begin{tabular}{ll|ccc}
           \toprule
-          & & \textbf{\textsc{Deft}} \textit{(fr)} & \textbf{SemEval} \textit{(en)} & \textbf{\textsc{Duc}} \textit{(en)}\\
+          & & \textbf{\textsc{De}ft} \textit{(fr)} & \textbf{SemEval} \textit{(en)} & \textbf{\textsc{Duc}} \textit{(en)}\\
           \hline
           \multicolumn{2}{l|}{\textbf{Taux (en \%) de termes-clés~:}}\\
           & Uni-grammes & 60,2 & 20,2 & 17,1\\
@@ -114,7 +114,7 @@
           \bottomrule
         \end{tabular}
         \caption{Statistiques des termes-clés de référence des
-                 collections \textsc{Deft}, SemEval et \textsc{Duc}
+                 collections \textsc{De}ft, SemEval et \textsc{Duc}
                  \label{tab:candidate_selection-train_stats}}
       \end{table}
 
@@ -138,7 +138,7 @@
       Les déterminants et prépositions ont un usage presque exclusivement
       français. En anglais, les modifications nominales (par exemple,
       \textit{\og{}nature conservation\fg{}} -- \og{}conservation de la
-      nature\fg{}) sont préférées aux formes syntagmatiques (par exemple~:
+      nature\fg{}) sont préférées aux formes syntagmatiques (par exemple,
       \textit{\og{}conservation of nature\fg{}} -- \og{}conservation de la
       nature\fg{}).
 
@@ -150,10 +150,10 @@
       
       Un adjectif relationnel est un adjectif
       dénominal~\cite{bally1944linguistiquegeneraleetlinguistiquefrancaise}. Il
-      est dérivé d'un nom (par exemple~: l'adjectif relationnel
+      est dérivé d'un nom (par exemple, l'adjectif relationnel
       \og{}culturel\fg{} est dérivé du nom \og{}culture\fg{}) pour lequel il
       établit une relation équivalente à celle exprimée par le complément du nom
-      (par exemple~: \og{}héritage culturel\fg{} équivaut à \og{}héritage de la
+      (par exemple, \og{}héritage culturel\fg{} équivaut à \og{}héritage de la
       culture\fg{}). Caractéristique du discours du
       spécialiste~\cite{maniez2009denominaladjectives}, l'adjectif relationnel
       sert de modificateur dans les titres de catégories, telles que celles de
@@ -708,7 +708,7 @@
           \resizebox{\linewidth}{!}{
             \begin{tabular}{l@{~}|c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c@{~}|@{~}c@{~~}c@{~~}c}
               \toprule
-              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{DEFT} \textit{(fr)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval} \textit{(en)}} & \multicolumn{6}{c}{\textbf{DUC} \textit{(en)}}\\
+              \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{6}{c@{~}|@{~}}{\textbf{SemEval} \textit{(en)}} & \multicolumn{6}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
               \cline{2-19}
               & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c@{~}|@{~}}{KEA} & \multicolumn{3}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{3}{c}{KEA}\\
               \cline{2-19}
@@ -1651,7 +1651,7 @@
         $\zeta$ est faible et à mieux grouper lorsque $\zeta$ augmente. La
         stratégie complète ayant le fonctionnement contraire, ses résultats se
         dégradent au fur et à mesure que $\zeta$ augmente. Enfin, la stratégie
-        moyenne agit en compromis. Pour \textsc{Deft}, son comportement est le
+        moyenne agit en compromis. Pour \textsc{De}ft, son comportement est le
         même que celui de la stratégie simple, mais ses résultats sont très
         supérieurs jusqu'au point de convergence. Pour SemEval, son comportement
         est le même que celui de la stratégie complète, mais ses résultats sont
@@ -1938,7 +1938,7 @@
         méthodes de référence. De manière générale, les performances des
         méthodes d'extraction de termes-clés sont basses. Il est avéré que les
         documents de grande taille, tels que ceux de SemEval et de
-        \textsc{Deft}, sont plus difficiles à traiter que les autres documents.
+        \textsc{De}ft, sont plus difficiles à traiter que les autres documents.
         \newcite{hasan2014state_of_the_art} explique qu'un grand nombre de
         termes-clés candidats sont sélectionnés dans ces documents (ils sont en
         moyenne 647 pour SemEval et 915 pour \textsc{De}ft), l'espace de
@@ -1956,7 +1956,7 @@
         l'ordonnancement.
         % Que peut-on dire de plus ? (analyse plus approfondie)
         Comparée à la méthode \textsc{Tf-Idf}, TopicRank donne aussi de meilleurs
-        résultats, pour les collections \textsc{Deft}, Wikinews et SemEval.
+        résultats, pour les collections \textsc{De}ft, Wikinews et SemEval.
         Cette supériorité vis-à-vis de \textsc{Tf-Idf} est importante à noter, car cette
         méthode obtient de bons résultats en tirant parti de statistiques
         extraites de documents supplémentaires, alors que TopicRank utilise le
@@ -2223,7 +2223,7 @@
 %          sud''~[\dots]\fg{}\footnote{Exemple issu de l'article d'anthropologie
 %          \textit{Le marché parallèle du médicament en milieu rural au Sénégal}
 %          (\url{http://id.erudit.org/iderudit/014935ar}) de la collection
-%          \textsc{Deft}.}, \og{}dits\fg{} est un adjectif selon l'outils MElt, ce qui
+%          \textsc{De}ft.}, \og{}dits\fg{} est un adjectif selon l'outils MElt, ce qui
 %          entraîne la sélection erronée du terme-clé candidat \og{}pays
 %          dits\fg{}.
 %

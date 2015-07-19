@@ -8,18 +8,18 @@
   }{.75\linewidth}{\hfill}
 
   Dans cette thèse, nous nous sommes intéressé à la tâche d'indexation par
-  termes-clés en domaines de spécialités. Étant donné un document textuel, cette
+  termes-clés en domaines de spécialité. Étant donné un document textuel, cette
   tâche consiste à lui attribuer les unités textuelles qui décrivent son
   contenu. Ces unités textuelles, les termes-clés, permettent de le résumer, de
   le catégoriser et, surtout, de l'indexer pour la recherche d'information. Les
   termes-clés peuvent être attribués par les auteurs, des lecteurs ou des
   indexeurs professionnels, mais seuls ces derniers réalisent un travail
   impartial, homogène et conforme à une indexation de qualité en domaines de
-  spécialités. Notre objectif est de proposer une alternative automatique aux
+  spécialité. Notre objectif est de proposer une alternative automatique aux
   indexeurs professionnels pour une indexation par termes-clés de documents
-  numériques en domaines de spécialités. Tout d'abord, nous avons fait le choix
+  numériques en domaines de spécialité. Tout d'abord, nous avons fait le choix
   de traiter ce problème dans sa généralité, puis nous nous sommes ensuite
-  concentré sur les documents en domaines de spécialités et sur leur indexation
+  concentré sur les documents en domaines de spécialité et sur leur indexation
   particulière effectuée par des indexeurs professionnels.
 
   Dans la littérature, de nombreuses méthodes sont proposées pour l'indexation
@@ -37,7 +37,7 @@
   spécifiques au document s'ils ne sont pas dans le vocabulaire contrôlé, ni
   même des nouveaux concepts. Pour traiter le problème d'indexation par
   termes-clés dans sa généralité, nous avons travaillé sur l'extraction de
-  termes-clés. Pour l'indexation en domaines de spécialités, nous avons proposé
+  termes-clés. Pour l'indexation en domaines de spécialité, nous avons proposé
   une extension de ce travail afin d'y intégrer la capacité à réaliser
   l'assignement.
 
@@ -45,7 +45,7 @@
   \label{sec:main-conclusion-contributions}
     Nos travaux ont fait l'objet de trois contributions~: deux contributions
     pour l'extraction de termes-clés et une contribution pour l'indexation par
-    termes-clés en domaines de spécialités. Nous avons aussi proposé un
+    termes-clés en domaines de spécialité. Nous avons aussi proposé un
     protocole d'évaluation pour une campagne d'évaluation manuelle de nos
     travaux.
 
@@ -95,7 +95,7 @@
     sujets du document que les autres méthodes.
 
     Notre troisième contribution s'intéresse à l'indexation par termes-clés en
-    domaines de spécialités telle qu'elle est effectuée par un indexeur
+    domaines de spécialité telle qu'elle est effectuée par un indexeur
     professionnel. Ces indexeurs mêlent extraction et assignement, avec une
     préférence pour l'assignement. L'assignement permet d'obtenir une indexation
     homogène de tous les documents d'un même domaine, une indexation conforme au
@@ -123,7 +123,7 @@
     extraction et assignement.
 
     Enfin, nous avons participé à la mise en place d'une campagne d'évaluation
-    manuelle en domaines de spécialités. Nous avons proposé, en collaboration
+    manuelle en domaines de spécialité. Nous avons proposé, en collaboration
     avec les indexeurs professionnels de l'Inist, un protocole permettant
     d'évaluer deux aspects de l'indexation~: la pertinence (validité) et le
     silence (perte d'information). Le premier aspect est celui qui est aussi
@@ -145,7 +145,7 @@
   \label{sec:main-conclusion-contributions}
     Nos contributions ont montré des améliorations en matière de sélection de
     termes-clés, d'extraction de termes-clés et d'indexation par termes-clés en
-    domaines de spécialités. Elles ont toutefois des limites et il reste encore
+    domaines de spécialité. Elles ont toutefois des limites et il reste encore
     plusieurs perspectives de travail.
 
     Nous identifions trois limites de notre travail s'intéressant à la sélection
@@ -222,7 +222,7 @@
     de termes-clés possède aussi quelques limites. Premièrement, bien que
     l'ordonnancement conjoint des sujets du document et des termes-clés du
     domaine améliore l'ordonnancement, nous avons observé que TopicCoRank est
-    plus performant en domaines de spécialités lorsqu'il ne réalise que
+    plus performant en domaines de spécialité lorsqu'il ne réalise que
     l'assignement. Cela signifie que les termes-clés du domaine sont
     correctement identifiés parmi tous les termes-clés de celui-ci, mais que
     leur importance est trop faible comparée à celle qui est attribuée aux
@@ -241,17 +241,17 @@
     de rivaliser avec les sujets dans le classement par importance. Le paramétrage de
     $\lambda$ peut aussi résoudre un autre problème de TopicCoRank. En effet,
     nous avons aussi observé que TopicCoRank fonctionne moins bien hors domaines
-    de spécialités, il est difficilement généralisable. Utiliser un paramètre
+    de spécialité, il est difficilement généralisable. Utiliser un paramètre
     $\lambda$ différent pour calculer l'importance des sujets et l'importance
     des termes-clés peut aussi résoudre ce problème. Nous pourrions le
     paramétrer empiriquement avec les données d'entraînement, mais nous
     aimerions aussi chercher à prédire sa valeur. En effet, nous avons expliqué
     que le problème de généralisation de TopicCoRank est dû au fait que les
     données d'entraînement des collections que nous avons utilisé hors domaines
-    de spécialités ne sont pas adaptées. Il serait donc intéressant de voir si
+    de spécialité ne sont pas adaptées. Il serait donc intéressant de voir si
     nous pouvons évaluer avec quel degré les données sont adaptées et de voir
     s'il existe une corrélation entre celui-ci et le paramétrage de $\lambda$.
-    Enfin, les données en domaines de spécialités que nous utilisons ne
+    Enfin, les données en domaines de spécialité que nous utilisons ne
     contiennent que des notices. Il serait intéressant de voir les différences
     de performance en utilisant les articles complets que représentent ces notices.
 
@@ -261,12 +261,12 @@
     externe n'est nécessaire à l'exception de celles requises par les outils de
     prétraitement (segmentation et étiquetage grammatical). Ceux en
     extraction et assignement simultanés de termes-clés sont applicables en
-    domaines de spécialités, dès lors que des données d'entraînement sont
+    domaines de spécialité, dès lors que des données d'entraînement sont
     disponibles. Dans le cadre du projet Termith, les résultats de nos travaux
     seront exploités pour faciliter la recherche d'information avec les outils
     que propose l'Inist. Il est aussi envisagé de s'en servir pour réaliser de
     la veille terminologique, c'est-à-dire mettre à jour des bases
-    terminologiques de domaines de spécialités avec les termes-clés validés par
+    terminologiques de domaines de spécialité avec les termes-clés validés par
     un indexeur professionnel.
 
 %    ~\\L'ensemble des travaux de cette thèse permet d'améliorer l'indexation par

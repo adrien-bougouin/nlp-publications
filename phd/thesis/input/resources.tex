@@ -83,7 +83,7 @@
   \section{Termith}
   \label{sec:main-data_description-termith_data}
     Le projet Termith et l'Inist mettent à notre disposition quatre collections
-    de notices bibliographiques en domaines de spécialités. Une notice
+    de notices bibliographiques en domaines de spécialité. Une notice
     bibliographique est une entrée d'un catalogue bibliographique. Elle décrit
     un document avec différentes métadonnées~: des informations factuelles
     (titre, auteurs, affiliation des auteurs, éditeur, résumé, termes-clés des
@@ -219,7 +219,7 @@
     sont courts (cf. figure~\ref{fig:example_inist}), ils ont en moyenne 123,9
     mots. Quant aux termes-clés, nous utilisons ceux produits par les indexeurs
     professionnels. Ils sont concis (un à deux mots principalement) et, du fait
-    de la méthodologie d'annotation, ils ne sont majoritairement pas présents
+    de la méthodologie d'indexation, ils ne sont majoritairement pas présents
     dans les résumés (ils sont \og{}à assigner\fg{}).
     \begin{table}[!h]
       \centering
@@ -537,11 +537,11 @@
     \end{figure}
 
     \newcite{paroubek2012deft} établissent des performances de référence en
-    demandant à des étudiants de master en ingénierie multilingue d'annoter en
+    demandant à des étudiants de master en ingénierie multilingue d'indexer par
     termes-clés les documents de \textsc{De}ft. Le
     tableau~\ref{tab:deft_human_tests} montre les résultats de l'indexation par
     termes-clés obtenus pour chacun de ces étudiants. Ceux-ci ont jugé la tâche
-    difficile, comme en témoigne les faibles résultats obtenus (f-mesure moyenne
+    difficile, comme en témoigne les faibles résultats obtenus (f1-mesure moyenne
     de 21,6~\%). L'indexation par termes-clés est subjective et ils éprouvent des
     difficultés dans le cas ou une expression dans le texte est reformulée. Ils
     donnent l'exemple de \og{}traduction française et allemande\fg{} qui est
@@ -551,7 +551,7 @@
     soulignent la contre-intuitivité de ce type de redondance. Les conclusions ne
     sont pas encourageantes pour l'indexation automatique par termes-clés. Il
     est possible que les problèmes rencontrés lors des tests humains soient dus
-    à la nature des annotations. La redondance qui semble contre-intuitive en
+    à la nature des indexations manuelles. La redondance qui semble contre-intuitive en
     est un exemple. Nous pouvons en effet supposer qu'un auteur à recours à ce
     genre de procédé pour être certain d'attirer tout lecteur potentiel, par
     exemple l'un effectuant une recherche par mot-clé avec \og{}interprète\fg{}
@@ -564,7 +564,7 @@
         \hline
         Précision~\hfill(\%) & 25,0 & 20,0 & 16,7 & 11,8 & 29,2 & 29,2 & 20,8\\
         Rappel~\hfill(\%) & 25,0 & 20,8 & 16,7 & ~~8,3 & 29,2 & 29,2 & 20,8\\
-        F-mesure~\hfill(\%) & 25,0 & 20,4 & 16,7 & ~~9,8 & 29,2 & 29,2 & 20,8\\
+        F1-mesure~\hfill(\%) & 25,0 & 20,4 & 16,7 & ~~9,8 & 29,2 & 29,2 & 20,8\\
         \bottomrule
       \end{tabular}
       \caption[Résultats de tests humains sur le corpus \textsc{De}ft]{
@@ -581,7 +581,7 @@
     Wikinews est une collection de 100 articles journalistiques en français
     que nous avons collecté sur le site web d'information collabotatif
     WikiNews\footnote{\url{http://fr.wikinews.org/}} entre les mois de mai et
-    décembre 2012\footnote{Les documents et les annotations du corpus Wikinews
+    décembre 2012\footnote{Les documents, et leur indexation par termes-clés, du corpus Wikinews
     sont disponibles sur le dépôt GitHub suivant~:
     \url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}.
     
@@ -650,7 +650,7 @@
     \end{figure}
 
     Le tableau~\ref{tab:wikinews_kappa} montre l'accord inter-annotateur
-    $\kappa$~\cite{fleiss1971kappa} pour l'annotation manuelle des termes-clés
+    $\kappa$~\cite{fleiss1971kappa} pour l'indexation manuelle des termes-clés
     de Wikinews. Les termes-clés sont attribués librement, c'est-à-dire sans
     règles ou méthodologie définie, par au moins trois étudiants de master en
     \textsc{Tal}. L'accord entre les annotateurs est très faible. Il confirme la
@@ -700,7 +700,7 @@
     100 documents de test. À l'instar des documents de \textsc{De}ft, ceux de
     SemEval sont des articles scientifiques (cf.
     figure~\ref{fig:example_semeval}) de taille importante (en moyenne 5~152,3
-    mots). Trois jeux d'annotations sont fournis avec SemEval~: les termes-clés
+    mots). Trois jeux d'indexation par termes-clés sont fournis avec SemEval~: les termes-clés
     des auteurs, les termes-clés de lecteurs et l'union des deux jeux
     précédents. Dans nos travaux, nous utilisons la combinaison des termes-clés
     des auteurs et des lecteurs. Du fait de cette combinaison, le nombre de
@@ -786,7 +786,7 @@
     montrent la différence de stratégie entre les auteurs et des lecteurs.
     \newcite{kim2010semeval} expliquent que les auteurs donnent peu de
     termes-clés comparés aux lecteurs et ils ajoutent que l'intersection des
-    deux annotations de l'ensemble de test ne couvre qu'un tiers des termes-clés
+    deux indexations de l'ensemble de test ne couvre qu'un tiers des termes-clés
     des auteurs, soulignant ainsi la différence entre les deux.
 
     \begin{table}[!h]
@@ -816,7 +816,7 @@
     corpus construit dans le cadre de l'édition 2001 de la
     campagne~\cite{over2001duc}. Dans leurs travaux en extraction automatique de
     termes-clés, \newcite{wan2008expandrank} utilisent les 308 documents de test
-    du corpus de la campagne et demandent à deux étudiants d'en annoter les
+    du corpus de la campagne et demandent à deux étudiants de les indexer par
     termes-clés. Il s'agit de 308 articles journalistiques  anglais publiés par
     six média d'information différents~: \textit{Associated Press Newswire},
     \textit{Foreign Broadcast Information Service}, \textit{Financial Times},

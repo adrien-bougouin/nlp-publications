@@ -355,7 +355,7 @@
       particularité de s'abstraire du domaine des documents
       qu'elles traitent. Les termes-clés candidats sont analysés avec des règles
       simples fondées sur des traits statistiques extraits du document ou d'un
-      corpus de référence non annoté.
+      corpus de référence non indexé.
 
       De nombreuses méthodes sont proposées. Certaines se fondent uniquement
       sur des statistiques et d'autres les combinent avec des représentations
@@ -1044,7 +1044,7 @@
         trait supplémentaire le nombre de fois qu'un terme-clé candidat est un
         exemple, c'est-à-dire un terme-clé de l'indexation manuelle d'un
         document de la collection d'entraînement. Appliquée
-        en domaines de spécialités, cette variante de \textsc{Kea} favorise
+        en domaines de spécialité, cette variante de \textsc{Kea} favorise
         l'extraction de termes-clés déjà utilisés pour une extraction de
         termes-clés homogène et améliore significativement les performances de
         \textsc{Kea}. Par ailleurs, \newcite{frank1999keafrequency} montrent que
@@ -1303,7 +1303,7 @@
         une valeur intermédiaire à ses contre-exemples qui sont des exemples
         d'autres documents d'apprentissage. Cette approche peut être assimilé à
         celle de \newcite{frank1999keafrequency}, qui estime qu'un terme-clé
-        candidat fréquemment annoté comme terme-clé dans le corpus
+        candidat fréquemment utilisé comme terme-clé dans le corpus
         d'apprentissage est plus vraisemblablement un terme-clé. Quant aux
         traits utilisés pour entraîner le \textsc{Svm}$^\text{rank}$, le plus
         notable se réfère à Wikipedia. L'intuition des auteurs est que si un
@@ -1397,7 +1397,7 @@
     \textsc{Kea}++, améliore la méthode d'extraction \textsc{Kea}. Pour cela,
     elle utilise un thésaurus\footnote{Thésaurus~: liste de termes regroupés
     selon les concepts d'un domaine de connaissance qu'ils représentent.} du
-    domaine de spécialités à traiter. Il est mis à profit de deux manières~:
+    domaine de spécialité à traiter. Il est mis à profit de deux manières~:
     d'abord pour sélectionner les termes-clés candidats, ensuite pour améliorer
     la classification.
 
