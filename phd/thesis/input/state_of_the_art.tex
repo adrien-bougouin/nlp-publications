@@ -409,13 +409,13 @@
         fréquence) ou de leur nombre de mots, soit dans le
         document, soit dans un corpus de référence, ou bien les deux.
 
-        ~\\\textsc{Tf-Idf}~\cite{jones1972tfidf} et Likey~\cite{paukkeri2010likey}
+        ~\\\textsc{Tf-Idf}~\cite{salton1975tfidf} et Likey~\cite{paukkeri2010likey}
         sont deux méthodes similaires qui comparent le comportement d'une unité
         textuelle dans le document avec son comportement dans un corpus de
         référence. Elles font l'hypothèse qu'une unité textuelle a une forte
         importance vis-à-vis du document si elle y est très fréquente et si elle
         l'est peu dans le corpus de référence, auquel cas elle est spécifique au
-        document~:
+        document~\cite{jones1972tfidf}~:
         \begin{align}
           \text{\textsc{Tf-Idf}}(\text{\textit{ut}}) &= \textsc{Tf}(\text{\textit{ut}}) \times \log\left(\frac{N}{\textsc{Df}(\text{\textit{ut}})}\right) \label{math:tfidf}\\
           \notag\\
@@ -433,13 +433,13 @@
         Plus le rapport entre ces deux rangs est faible, plus l'unité textuelle
         évaluée est importante dans le document.
 
-        La nature linguistique de l'unité textuelle \textit{ut} peut être fixée au mot ou au
-        terme-clé candidat. Si la granularité fixée est le mot, il est courant
-        de déterminer le score d'importance des termes-clés candidat en faisant
-        la somme du score \textsc{Tf-Idf} ou Likey des mots qui les composent.
-        Cependant, faire cette somme favorise les plus longues séquences de mots
-        et fait monter dans le classement des candidats redondants qui possèdent
-        un mot important en commun.
+        La nature linguistique de l'unité textuelle \textit{ut} peut être fixée
+        au mot ou au terme-clé candidat. Si la granularité fixée est le mot, il
+        est courant de déterminer le score d'importance des termes-clés candidat
+        en faisant la somme du score \textsc{Tf-Idf} ou Likey des mots qui les
+        composent. Cependant, faire cette somme favorise les plus longues
+        séquences de mots et fait monter dans le classement des candidats
+        redondants qui possèdent un mot important en commun.
 
         Méthode de pondération historique de \textsc{Ri}, \textsc{Tf-Idf} reste
         encore aujourd'hui l'une des méthodes de référence à laquelle il faut se
