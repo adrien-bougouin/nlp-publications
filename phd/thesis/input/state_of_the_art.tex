@@ -86,7 +86,9 @@
     présentons les tâches d'extraction automatique de termes-clés et
     d'assignement automatique de termes-clés, puis nous terminons par une
     description du processus d'évaluation des méthodes d'indexation par
-    termes-clés.
+    termes-clés. Les travaux que nous présentons ont été effectués sur
+    l'anglais, à l'exception de quelques travaux sur le
+    chinois~\cite{ding2011binaryintegerprogramming,zhang2008crfkeywordextraction}.
 
   %-----------------------------------------------------------------------------
 
@@ -871,7 +873,7 @@
             \node [draw, circle, minimum width=1cm, below=of nn2.north east, xshift=2cm] (nn4) {};
             \node [draw, circle, minimum width=1cm, above=of nn2.south east, xshift=2cm] (nn5) {};
             \node [draw, circle, minimum width=1cm, above=of nn5, xshift=-2cm] (nn6) {};
-            \node [below=of nn1, xshift=.5cm, yshift=.5cm] (t1) {\Huge sujet 1};
+            \node [below=of nn1, xshift=.5cm, yshift=.5cm] (t1) {\Huge sujet $1$};
             %
             \path (nn1) edge (nn2);
             \path (nn1) edge (nn3);
@@ -890,7 +892,7 @@
             \node [draw, circle, minimum width=1cm, below=of nnn2.north east, xshift=2cm] (nnn4) {};
             \node [draw, circle, minimum width=1cm, above=of nnn2.south east, xshift=2cm] (nnn5) {};
             \node [draw, circle, minimum width=1cm, above=of nnn5, xshift=-2cm] (nnn6) {};
-            \node [below=of nnn1, xshift=.5cm, yshift=.5cm] (t2) {\Huge sujet n};
+            \node [below=of nnn1, xshift=.5cm, yshift=.5cm] (t2) {\Huge sujet $n$};
             %
             \path (nnn1) edge (nnn2);
             \path (nnn1) edge (nnn3);
@@ -903,8 +905,8 @@
             %
             \draw ($(nnn1.west)+(-.5cm, 4.2cm)$) rectangle ($(nnn4.east)+(.5cm,-1cm)$);
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            \node [io, right=of nn5, xshift=2.5cm, yshift=-.5cm] (ordonnancement1) {Ordonnancement 1};
-            \node [io, right=of nnn5, xshift=2.5cm, yshift=-.5cm] (ordonnancement2) {Ordonnancement n};
+            \node [io, right=of nn5, xshift=2.5cm, yshift=-.5cm] (ordonnancement1) {Ordonnancement $1$};
+            \node [io, right=of nnn5, xshift=2.5cm, yshift=-.5cm] (ordonnancement2) {Ordonnancement $n$};
             \node [draw, circle, right=of ordonnancement1, xshift=2cm] (add) {\Huge\textbf{+}};
             \node [io, right=of add, xshift=2cm] (keyphrases) {Termes-clés};
             \node [component, right=of n5, xshift=2cm, yshift=10cm] (lda) {\textsc{Lda}};
