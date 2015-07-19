@@ -139,7 +139,7 @@
         c'est-à-dire plus  générique (par exemple, \og{}allemand\fg{} par
         rapport à \og{}haut-allemand\fg{} et \og{}bas-allemand\fg{}).
         
-        En définissant le language documentaire à utiliser pour indexer les
+        En définissant le langage documentaire à utiliser pour indexer les
         documents du même domaine, le vocabulaire contrôlé contribue à la
         conformité et à l'homogénéité de l'indexation. Il n'assure cependant pas
         l'exhaustivité et doit être mis à jour régulièrement, soit par une
@@ -867,7 +867,7 @@
         toutefois l'émergence de quelques termes-clés absents du documents
         (par exemple, \og{}analyse du discours\fg{} en linguistique et
         les noms de composés \og{}composé aliphatique\fg{}, \og{}composé
-        benzénique\fg{}, etc. en chime), et de termes-clés génériques (par
+        benzénique\fg{}, etc. en chimie), et de termes-clés génériques (par
         exemple \og{}français\fg{} en linguistique, ou encore \og{}Europe\fg{}
         en archéologie). Nous observons dans les données Termith des cadres
         d'études très récurrents (par exemple, la langue française, en
@@ -935,13 +935,13 @@
     réalisons donc une campagne d'évaluation manuelle.
 
     Dans la suite, nous présentons le protocole d'évaluation et les métriques
-    que nous avons proposés, puis nous analysons les premiers résultats de la
-    campagne d'évaluation manuelle de TopicRank et d'une méthode de référence en
+    que nous avons proposé, puis nous analysons les premiers résultats de la
+    campagne d'évaluation manuelle de TopicRank, TopicCoRank et de deux méthodes de référence en
     domaine de spécialités avec la collection de linguistique Termith.
 
     \subsection{Protocole d'évaluation manuelle}
     \label{subsec:main-automatic_evaluation_of_keyphrase_annotation-methodology-evaluation_protocol}
-      L'évaluation manuelle concerne dix termes-clés extraits et/ou assignés par
+      L'évaluation manuelle concerne dix termes-clés extraits/assignés par
       chaque méthode d'indexation par termes-clés. Le protocole que nous
       proposons permet d'évaluer deux aspects de l'indexation automatique par
       termes-clés~:
@@ -1032,8 +1032,12 @@
     \subsection{Évaluation manuelle des méthodes proposées}
     \label{subsec:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis}
       Dans cette section, nous analysons l'évaluation manuelle de TopicRank,
-      %TopicCoRank, d'une méthode de référence non supervisée, \textsc{Tf-Idf},
-      %et d'une méthode de référence supervisée, \textsc{Kea}. L'évaluation est
+      TopicCoRank, d'une méthode de référence non supervisée, \textsc{Tf-Idf},
+      et d'une méthode de référence supervisée, \textsc{Kea}\footnote{La raison
+      pour laquelle les évaluations
+      manuelles sont réalisées sur \textsc{Kea} et non pas \textsc{Kea++} est
+      temporelle. L'évaluation manuelle étant coûteuse, nous n'avons pas pu
+      la réitérer avec \textsc{Kea++}.}. L'évaluation est
       et d'une méthode de référence, \textsc{Tf-Idf}. L'évaluation est
       effectuée par un indexeur professionnel, sur la collection de linguistique
       Termith.
@@ -1041,27 +1045,28 @@
       Dans un premier temps, nous analysons l'évaluation manuelle de TopicRank
       et la comparons à celle de \textsc{Tf-Idf}, puis, dans un second temps,
       nous analysons l'évaluation manuelle de TopicCoRank et la comparons à
-      celle de \textsc{Kea}\footnote{La raison pour laquelle les évaluations
-      manuelles sont réalisées sur \textsc{Kea} et non pas \textsc{Kea++} est
-      temporelle. L'évaluation manuelle étant coûteuse, nous n'avons pas pu
-      la réitérer avec \textsc{Kea++}.}.
+      celle de \textsc{Kea}. Tous les termes-clés sont obtenus à partir des
+      documents prétraités, comme nous l'avons présenté dans la
+      section~\ref{sec:main-data_description-preprocessing}
+      (page~\pageref{sec:main-data_description-preprocessing}). Les candidats
+      sont sélectionnés à l'aide du patron grammatical \texttt{/(N|A)+/}.
 
-      \subsubsection{Analyse de TopicRank}
+      \subsubsection{Évaluation de TopicRank}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topicrank}
         Le
         tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio}
-        montre les scores de pertinence moyens de chaque méthode. Pour le score
+        montre les scores de pertinence moyens de TopicRank et \textsc{Tf-Idf}. Pour le score
         de 1, qui indique qu'un terme-clé est un forme variante, nous
         distinguons le cas où la variante est redondante du cas où elle ne l'est
-        pas. Globalement, nous observons que TopicRank est meilleur que
+        pas. Nous observons que TopicRank est meilleur que
         \textsc{Tf-Idf}. TopicRank fournit plus de termes-clés pertinents que
         \textsc{Tf-Idf}, mais fait aussi plus d'erreurs. Les termes-clés ayant
         un score de 1 donnent un explication intéressante à cette
         contradiction~: \textsc{Tf-Idf} à une forte tendance à extraire des
         termes-clés redondants, c'est-à-dire des termes-clés variantes de
-        termes-clés déjà extrait, alors que TopicRank remplit presque son
+        termes-clés déjà extraits, alors que TopicRank remplit son
         objectif de ne pas extraire de termes-clés redondants, avec seulement
-        0,9~\% de termes-clés redondants.
+        0,9~\% de redondance.
         \begin{table}[h!]
           \centering
           \begin{tabular}{l|c|c|c|c}
@@ -1086,7 +1091,7 @@
         TopicRank qui est meilleur que \textsc{Tf-Idf} sur les documents de
         linguistique. Afin de mieux observer la différence entre l'évaluation
         manuelle et l'évaluation automatique, nous calculons la précision (P),
-        le rappel (R) et la f-mesure (f1-mesure, F) résultantes de l'évaluation
+        le rappel (R) et la f1-mesure (F) résultantes de l'évaluation
         manuelle et les comparons aux résultats automatiques que nous avons
         montré dans le tableau~\ref{tab:resultats_inist}
         (page~\pageref{tab:resultats_inist}). Pour calculer ces performances,
@@ -1094,18 +1099,19 @@
         que ceux ayant un score de 1 non redondants. Les résultats de
         l'évaluation manuelle comparés à ceux de l'évaluation automatique sont
         présentés dans le
-        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-prf}
-        . La difficulté d'évaluer automatiquement la tâche d'indexation par
+        tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-prf}.
+        
+        La difficulté d'évaluer automatiquement la tâche d'indexation par
         termes-clés se confirme. Avec l'évaluation manuelle, les conclusions ne
         sont pas les mêmes, puisque de manière automatique TopicRank est moins
         performant que \textsc{Tf-Idf} alors qu'il est plus performant selon
         l'évaluation manuelle. Nous observons aussi un écart conséquent entre
         les performances évaluées manuellement et celles évaluées
-        automatiquement. Le gain d'environ 20 points attestent le pessimisme de
+        automatiquement. Le gain d'environ 20 points atteste le pessimisme de
         l'évaluation automatique.
         \begin{table}[h!]
           \centering
-          \begin{tabular}{l|ccc|ccc}
+          \begin{tabular}{l|c@{~~~~~~}cc|c@{~~~~~~~~}cc}
             \toprule
             \multirow{2}{*}{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Évaluation manuelle}} & \multicolumn{3}{c}{\textbf{Évaluation automatique}}\\
             \cline{2-7}
@@ -1153,14 +1159,26 @@
                    \label{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-silence_score_ratio}}
         \end{table}
 
-      \subsubsection{Analyse de TopicCoRank}
+      \subsubsection{Évaluation de TopicCoRank}
       \label{subsubsec:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank}
         Les résultats que nous montrons dans cette section sont obtenus avec
         seulement 25~\% de l'ensemble de test de la collection linguistique
-        Termith. Les différentes revues qui composent la collection sont
+        Termith\footnote{En raison de cette incomplétude de l'évaluation
+        manuelle, nous ne comparons pas l'évaluation manuelle à l'évaluation
+        automatique comme nous l'avons fait pour TopicRank et \textsc{Tf-Idf}.}.
+        Les différentes revues qui composent la collection sont
         réparties de manière homogène dans ces 25~\%.
 
-        \TODO{\dots}
+        Le
+        tableau~\ref{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-pertinence_score_ratio}
+        montre les scores de pertinence moyens de TopicCoRank et \textsc{Kea}.
+        Nous observons que TopicCoRank est meilleur que
+        \textsc{Kea}. TopicCoRank fournit plus de termes-clés pertinents que
+        \textsc{Kea}, mais fait aussi plus d'erreurs. À l'instar de TopicRank,
+        TopicCoRank est moins redondant que la méthode de référence. Il est tout
+        de même plus redondant que TopicRank. Cela est du au fait qu'il peut assigner un terme-clé et
+        extraire une variante pouvant être jugée importante, car plus
+        spécifique, ou redondante.
         \begin{table}[h!]
           \centering
           \begin{tabular}{l|c|c|c|c}
@@ -1179,37 +1197,55 @@
                    \label{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-pertinence_score_ratio}}
         \end{table}
 
-        \TODO{\dots}
-        \begin{table}[h!]
-          \centering
-          \begin{tabular}{l|ccc|ccc}
-            \toprule
-            \multirow{2}{*}{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Évaluation manuelle}} & \multicolumn{3}{c}{\textbf{Évaluation automatique}}\\
-            \cline{2-7}
-            & P & R & F & P & R & F\\
-            \hline
-            \textsc{Kea} & 44,6 & 50,2 & 46,8 & 13,8 & 16,3 & 14,7\\
-            TopicCoRank & \textbf{45,8} & \textbf{52,2} & \textbf{48,3} & \textbf{19,0} & \textbf{22,0} & \textbf{20,1}\\
-            \bottomrule
-          \end{tabular}
-          \caption[
-            Performances de \textsc{Kea} et de TopicCoRank en termes de
-            précision, de rappel et de f-mesure
-          ]{
-            Performances de \textsc{Kea} et de TopicCoRank en termes de
-            précision (P), de rappel (R) et de f-mesure (F)
-            \label{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-prf}}
-        \end{table}
+        Comparé à TopicRank, TopicCoRank est effectivement plus performant. Il
+        trouve plus de termes-clés corrects et fait moins d'erreurs. Cependant,
+        comme nous
+        l'avons dit ci-dessus, il est plus redondant. Comparée à
+        \textsc{Tf-Idf} et \textsc{Kea}, cette redondance est tout de même plus
+        faible.
+
+%        \TODO{\dots}
+%        \begin{table}[h!]
+%          \centering
+%          \begin{tabular}{l|c@{~~~~~~}cc|c@{~~~~~~~~}cc}
+%            \toprule
+%            \multirow{2}{*}{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Évaluation manuelle}} & \multicolumn{3}{c}{\textbf{Évaluation automatique}}\\
+%            \cline{2-7}
+%            & P & R & F & P & R & F\\
+%            \hline
+%            \textsc{Kea} & 44,6 & 32,5 & 37,1 & 13,8 & 16,3 & 14,7\\
+%            TopicCoRank & \textbf{45,8} & \textbf{34.1} & \textbf{39.6} & \textbf{19,0} & \textbf{22,0} & \textbf{20,1}\\
+%            \bottomrule
+%          \end{tabular}
+%          \caption[
+%            Performances de \textsc{Kea} et de TopicCoRank en termes de
+%            précision, de rappel et de f-mesure
+%          ]{
+%            Performances de \textsc{Kea} et de TopicCoRank en termes de
+%            précision (P), de rappel (R) et de f-mesure (F)
+%            \label{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-prf}}
+%        \end{table}
       
-        \TODO{\dots}
+        ~\\Enfin, le
+        tableau~\ref{tab:main-domain_specific_keyphrase_annotation-manual_evaluation-analysis-topiccorank-silence_score_ratio}
+        montre les scores de silence attribués en moyenne par méthode. Les
+        conclusions qu'ils induisent ne sont pas en faveur de
+        TopicCoRank. En effet, même s'il ne capture pas autant de termes-clés
+        que TopicCoRank, \textsc{Kea} capture ceux qui sont sémantiquement les
+        plus indispensables. Bien que les deux méthodes sont supervisées,
+        \textsc{Kea} est la seule des deux à apprendre à détecter les
+        termes-clés à partir des traits des termes-clés du domaine. Si
+        l'ordonnancement conjoint à base de graphe est plus efficace pour
+        identifier les termes-clés, l'apprentissage permet une meilleure
+        précision quant à l'identification de ceux les plus indispensables.
         \begin{table}[h!]
           \centering
           \begin{tabular}{l|c|c|c}
             \toprule
             \textbf{Méthode} & \textbf{0} & \textbf{1} & \textbf{2}\\
             \hline
-            \textsc{Kea} & \textbf{37,3~\%} & 46,0~\% & 16,7~\%\\
-            TopicCoRank & 35,9~\% & \textbf{45,3~\%} & \textbf{18,8~\%}\\
+            \textsc{Kea} & \textbf{37,3~\%} & 46,0~\% & \textbf{16,7}~\%\\
+            TopicCoRank & 35,9~\% & \textbf{45,3~\%} & 18,8~\%\\
             \bottomrule
           \end{tabular}
           \caption{Taux de termes-clés de référence avec un score de 0, de 1 ou
@@ -1226,15 +1262,24 @@
       métriques permettant de capturer deux aspects de l'indexation par
       termes-clés~: la pertinence des termes-clés extraits/assignés et leur
       silence, c'est-à-dire la quantité d'information importante qu'ils ne
-      capturent pas. Contrairement au premier, qui est similaire à ce qu'évalue
-      un système automatique, le dernier aspect permet d'évaluer les termes-clés
-      d'un point de vu sémantique, jamais considéré auparavant.
+      capturent pas. Contrairement au premier aspect, qui est similaire à ce
+      qu'évalue un système automatique, le dernier aspect permet d'évaluer les
+      termes-clés d'un point de vu sémantique, jamais considéré auparavant.
 
       Les résultats montrent que, contrairement à ce que montrait l'évaluation
       automatique, TopicRank effectue une indexation par termes-clés de
       meilleure qualité que celle de \textsc{Tf-Idf}. TopicRank extrait peu de
       termes-clés redondants et couvre mieux le document, en partie grâce à son
-      groupement des termes-clés candidats en sujets.
+      groupement des termes-clés candidats en sujets. Entre TopicCoRank,
+      TopicRank, \textsc{Tf-Idf} et \textsc{Kea}, c'est TopicCoRank qui trouve
+      le plus de termes-clés corrects. L'évaluation du silence montre tout de
+      même que c'est \textsc{Kea} qui identifie ceux jugés les plus
+      indispensables par les indexeurs professionnels. Les deux aspects
+      (pertinence et silence) de l'évaluation manuelle et leurs conclusions
+      paradoxales soulèvent une nouvelle perspective pour l'évaluation
+      automatique. En effet, il serait intéressant d'ordonner par importance les
+      termes-clés de référence et d'en tenir compte pour identifier les méthodes
+      qui capturent les termes-clés les plus indispensables.
 
   %-----------------------------------------------------------------------------
 
@@ -1258,27 +1303,32 @@
 
     Pour remédier à la fracture entre extraction et assignement en indexation
     automatique par termes-clés, nous proposons TopicCoRank. Conçu sur la base
-    de TopicRank, TopicCoRank utilise les données d'entraînement pour présenter
-    le domaine avec un graphe unifiié à celui des sujets. Cette unification
-    permet d'améliorer l'ordonnancement des sujets, en tenant compte de leurs
-    relations avec le domaine, et d'assigner des termes-clés, en puisant dans le
-    domaine. À notre connaissance, TopicCoRank est la seule méthode qui réalise
-    conjointement extraction et assignement.
+    de TopicRank, TopicCoRank utilise les données d'entraînement pour
+    représenter le domaine avec un graphe unifié à celui des sujets. Cette
+    unification permet d'améliorer l'ordonnancement des sujets, en tenant compte
+    de leurs relations avec le domaine, et d'assigner des termes-clés, en
+    puisant dans le domaine. À notre connaissance, TopicCoRank est la seule
+    méthode qui réalise conjointement extraction et assignement.
 
     Pour valider les deux méthodes TopicRank et TopicCoRank, nous avons réalisé
-    une campagne d'évaluation manuelle en domaines de spécialités. Le protocole
+    une campagne d'évaluation manuelle en domaine de spécialités. Le protocole
     d'évaluation que nous avons proposé permet d'évaluer chaque méthode selon le
     degré de pertinence des termes-clés qu'elle propose et selon le degré
-    d'information qui lui échape. Les résultats de l'évaluation manuelle de
+    d'information qui lui échappe. Les résultats de l'évaluation manuelle de
     TopicRank son plus encourageant que ceux de l'évaluation automatique. Ils
     montrent que TopicRank est en réalité plus performant que \textsc{Tf-Idf},
     en partie parce qu'il couvre mieux les sujets du document grâce à son
-    groupement en sujets des termes-clés candidats. Au delà de cela, cette
+    groupement en sujets des termes-clés candidats.
+    Ils montrent aussi que TopicCoRank est la méthode la plus performante
+    comparée à TopicRank, \textsc{Tf-Idf} et \textsc{Kea}. Cependant, c'est
+    \textsc{Kea} qui trouve les termes-clés les plus indispensables.
+    Au delà de cela, cette
     campagne a montré les limites de l'évaluation automatique, qui suit un
     paradigme trop strict pour la tâche d'indexation par termes-clés. Parce que
     l'évaluation manuelle est trop coûteuse pour être systématiquement mise en
     \oe{}uvre, il est donc important de s'intéresser de plus près aux méthodes
-    d'évaluation automatique. Toutes les étapes de notre campagne seront donc
+    d'évaluation automatique. Les ressources de notre campagne, annotées étape
+    par étape, seront donc
     rendues disponibles gratuitement à toute la communauté scientifique. Cette
     disponibilité permettra d'évaluer de nouvelles méthodes d'évaluation, en
     vérifiant leur corrélation avec l'évaluation manuelle des indexeurs
