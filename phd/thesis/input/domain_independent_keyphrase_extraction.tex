@@ -78,7 +78,7 @@
       \subsubsection{Analyse surfacique}
       \label{subsubsec:main:domain_independent_keyphrase_extraction-keyphrase_candidate_selection-analysis_of_keyphrase_properties-shalow_analysis}
       Le tableau~\ref{tab:candidate_selection-train_stats} montre la
-      proportion de termes-clés uni-grammes, bi-grammes et tri-grammes, ainsi
+      proportion de termes-clés uni-grammes, bi-grammes et tri-gram\-mes, ainsi
       que la proportion de termes-clés multi-mots contenant au moins un mot
       appartenant à l'une des sept catégories grammaticales que nous observons
       en leur sein\footnote{ Nous nous focalisons sur les expressions
@@ -87,8 +87,8 @@
       propre, adjectif, verbe, adverbe, préposition et déterminant. Pour obtenir
       ces informations, les termes-clés ont été automatiquement segmentés en
       mots et étiquetés grammaticalement à l'aide des outils utilisés pour
-      prétraiter les collections de données (cf
-      section~\ref{sec:main-data_description-preprocessing}
+      prétraiter les collections de données (voir la
+      section~\ref{sec:main-data_description-preprocessing},
       page~\pageref{sec:main-data_description-preprocessing}), puis manuellement
       corrigés.
       \begin{table}[!h]
@@ -250,7 +250,7 @@
       à eux, ont un emploi non négligeable, en particulier en anglais~: le
       troisième patron grammatical de termes-clés implique l'emploi d'un
       adjectif qualificatif
-      (cf tableau~\ref{tab:candidate_selection-best_patterns}).
+      (voir le tableau~\ref{tab:candidate_selection-best_patterns}).
       \begin{table}[!ht]
         \centering
           \begin{tabular}{l|ccc}
@@ -378,7 +378,7 @@
         plus utiles au sein des termes-clés, sont toujours postposés. La seconde
         raison est que l'adjectif antéposé ne fait pas partie des patrons les
         plus productifs de termes-clés\footnote{En français, seulement 0,7~\%
-        des termes-clés commencent par un adjectif.} (cf
+        des termes-clés commencent par un adjectif.} (voir le
         tableau~\ref{tab:candidate_selection-best_patterns}).
         
         Pour l'anglais, nous définissons le parton \texttt{/A? N+/}, qui accepte
@@ -815,7 +815,7 @@
 
         Deux candidats $c_1$ et $c_2$ sont considérés comme des ensembles de
         mots (sacs de mots) et leur degré de similarité est calculé à l'aide de
-        la mesure de Jaccard (cf équation~\ref{equa:jaccard}), de sorte qu'ils
+        la mesure de Jaccard (voir l'équation~\ref{equa:jaccard}), de sorte qu'ils
         soient très similaires s'ils partagent un grand nombre de mots.
         À l'instar des systèmes d'évaluation automatique, nous ajoutons plus de
         souplesse à la mesure de similarité en tronquant les mots avec la
@@ -1011,10 +1011,10 @@
         termes-clés avec TopicRank à partir de l'articles journalistiques
         de la collection \textsc{Duc} présenté dans la figure~\ref{fig:example_duc}
         (page~\pageref{fig:example_duc}). Dans cet exemple,
-        nous observons un groupement correct de toutes les variantes de \og
-        alertes~\fg, mais aussi un groupement erroné de \og août 2003~\fg\ avec
-        \og août 2012~\fg. Dans ce dernier cas, TopicRank est tout de même
-        capable d'extraire \og août 2012~\fg\ grâce à la sélection du candidat
+        nous observons un groupement correct de toutes les variantes de
+        \og{}aler\-tes\fg{}, mais aussi un groupement erroné de \og{}août 2003\fg{} avec
+        \og{}août 2012\fg{}. Dans ce dernier cas, TopicRank est tout de même
+        capable d'extraire \og{}août 2012\fg{} grâce à la sélection du candidat
         apparaissant en premier. Globalement, l'extraction des termes-clés est
         correcte et huit des dix termes-clés extraits sont corrects. Comparée à
         \textsc{Tf-Idf}, TextRank et SingleRank, TopicRank est la méthode la
@@ -2119,7 +2119,7 @@
         mode de fonctionnement différent ne réagissent pas de la même façon
         selon les candidats. TopicRank est peu sensible aux légères variations dans la
         qualité des candidats~: les méthodes \textsc{Lr-Np} et \texttt{/(N|A)+/}
-        dont la qualité est très proche (cf
+        dont la qualité est très proche (voir les
         tableaux~\ref{tab:candidate_extraction_statistics_termith}
         et~\ref{tab:candidate_extraction_statistics_deft_semeval_duc},
         page~\pageref{tab:candidate_extraction_statistics_termith}) peuvent donc

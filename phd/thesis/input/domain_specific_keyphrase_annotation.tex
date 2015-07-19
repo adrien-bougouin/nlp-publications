@@ -94,7 +94,7 @@
         De nos jours, la grille d'indexation est un guide transmis de manière
         informelle aux indexeurs. Elle indique les notions à indexer selon le
         domaine de spécialité et peut se traduire par un formulaire à compléter
-        pour chaque document (cf tableau~\ref{fig:indexing_grid}). C'est un
+        pour chaque document (voir le tableau~\ref{fig:indexing_grid}). C'est un
         canevas donné à titre indicatif aux indexeurs. Ces derniers sont les
         seuls juges pour décider si elle est adaptée ou non pour indexer un
         document.
@@ -130,7 +130,8 @@
         Le vocabulaire contrôlé est une liste de termes-clés possibles dans un
         domaine de spécialité donné. Cette liste est plus ou moins structurée en
         fonction des domaines\footnote{Lorsqu'elles sont structurées, les listes
-        respectent la spécification des thésaurus utilisés par la méthode \textsc{Kea++} (cf
+        respectent la spécification des thésaurus utilisés par la méthode
+        \textsc{Kea++} (voir la
         section~\ref{sec:main-state_of_the_art-automatic_keyphrase_assignment},
         page~\pageref{sec:main-state_of_the_art-automatic_keyphrase_assignment}).}.
         Les termes-clés sont mis en relations s'il sont associés à un même
@@ -240,7 +241,7 @@
         référence ne sont pas redondants et ne sont donc pas groupés. Cette
         hypothèse est forte lorsque les données d'entraînement sont
         issues d'une indexation établie dans un contexte professionnel. Elle
-        l'est moins pour les autres données (cf exemple figure~\ref{fig:exemple_topiccorank}).
+        l'est moins pour les autres données (voir l'exemple figure~\ref{fig:exemple_topiccorank}).
 
         Soit le graphe unifié non orienté $G = (N, A =
         A_{\textnormal{\textit{interne}}} \cup
@@ -249,7 +250,7 @@
         $A_{\textnormal{\textit{interne}}}$, qui connectent deux sujets ou deux
         termes-clés du domaine, et les arêtes
         $A_{\textnormal{\textit{externe}}}$, qui connectent un sujet à un
-        terme-clé de référence (cf. figure~\ref{fig:topiccorank_graph}). Le
+        terme-clé de référence (voir la figure~\ref{fig:topiccorank_graph}). Le
         graphe de sujets et le graphe du domaine sont unifiés grâce aux arêtes
         $A_{\textnormal{\textit{externe}}}$.
         %
@@ -982,7 +983,7 @@
         \begin{itemize}
           \item{variante d'un terme-clé déjà fourni (score de
                 2)~$\Rightarrow$~la méthode d'indexation par termes-clés fourni
-                des termes-clés redondants (cf figure~\ref{fig:idefix})~;}
+                des termes-clés redondants (voir la figure~\ref{fig:idefix})~;}
           \item{variante d'un terme-clé non fourni mais présent dans le
                 texte~$\Rightarrow$~la méthode d'indexation par termes-clés
                 identifie correctement les sujets importants du document, mais
@@ -992,7 +993,7 @@
 
         Lorsque la forme préférée n'est pas présente dans le document, nous
         estimons que la méthode d'indexation a fourni un terme-clé correct,
-        auquel cas il se voit attribuer le score de 2 (cf
+        auquel cas il se voit attribuer le score de 2 (voir la
         figure~\ref{fig:idefix}). Les formes variantes résultant d'un accord en
         nombre (pluriel) obtiennent aussi un score de 2, lorsque la forme
         normalisée (singulier) ne se trouve pas parmi les termes-clés fournis.
@@ -1102,7 +1103,7 @@
         tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-prf}.
         
         La difficulté d'évaluer automatiquement la tâche d'indexation par
-        termes-clés se confirme. Avec l'évaluation manuelle, les conclusions ne
+        termes-clés se confir\-me. Avec l'évaluation manuelle, les conclusions ne
         sont pas les mêmes, puisque de manière automatique TopicRank est moins
         performant que \textsc{Tf-Idf} alors qu'il est plus performant selon
         l'évaluation manuelle. Nous observons aussi un écart conséquent entre
@@ -1140,7 +1141,7 @@
         contenu principal des documents que \textsc{Tf-Idf}. Parce que TopicRank
         groupe les termes-clés candidats en sujets et n'extrait qu'un seul
         terme-clé par sujet, il y a moins de redondance parmi les termes-clés
-        qu'il extrait (cf
+        qu'il extrait (voir le
         tableau~\ref{tab:main-automatic_evaluation_of_keyphrase_annotation-results-topicrank-pertinence_score_ratio})
         et le nombre de sujets couverts est donc meilleur.
         \begin{table}[h!]
