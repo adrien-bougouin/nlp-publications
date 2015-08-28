@@ -125,7 +125,7 @@
     figure~\ref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}).
 
     Il existe plusieurs méthodes de sélection de candidats, de la simple
-    sélection de n-grammes, de chunks nominaux ou d'unités textuelles
+    sélection de n-grammes, de \textit{chunks} nominaux ou d'unités textuelles
     grammaticalement définies, jusqu'à une méthode plus complexe visant à
     réduire radicalement le nombre de candidats.
 
@@ -470,8 +470,8 @@
         \end{align}\\
         où $k_1$ est une constante fixée à 2, où $b$ est une constante fixée à
         $0,75$, où $\textsc{Dl}$ (\textit{Document Length}) représente la
-        longueur du document et où $\textsc{Dl}_{moyenne}$ représente la
-        longueur moyenne des documents du corpus de référence.
+        longueur du document (en nombre de mots) et où $\textsc{Dl}_{moyenne}$
+        représente la longueur moyenne des documents du corpus de référence.
 
         ~\\Le travail de \newcite{barker2000nounphrasehead} est un autre exemple
         d'utilisation de la fréquence pour extraire les termes-clés. Se reposant
@@ -504,7 +504,8 @@
                 syntaxiquement.}
         \end{itemize}
         Pour vérifier ces deux propriétés, trois modèles de langue
-        ($\textsc{Ml}$, voir l'équation~\ref{math:ml}) sont utilisés (voir la figure~\ref{fig:klml}). Les deux
+        ($\textsc{Ml}$, voir l'équation~\ref{math:ml}) sont utilisés (voir la
+        figure~\ref{fig:klml}). Les deux
         premiers modèles, l'un uni-gramme, $\textsc{Ml}_{\text{document}}^1$,
         l'un n-gramme, $\textsc{Ml}_{\text{document}}^N$, sont construits à
         partir du document. Le dernier, un modèle n-gramme,
@@ -525,7 +526,9 @@
         des scores d'informativité et de grammaticalité, puis les $k$
         termes-clés candidats de meilleur rang sont extraits comme termes-clés.
         \begin{align}
-          \textsc{Ml}(\text{\textit{candidat}} = m_1\ m_2\ \dots\ m_k) &= \prod_{i = 1}^k P(m_i | m_{i - (N - 1)} m_{i - ((N - 1) - 1)} \dots m_{i - 1}) \label{math:ml}\\
+          \textsc{Ml}(\text{\textit{candidat}} = m_1\ m_2\ ...\ m_k) &=
+          \prod_{i = 1}^k \text{Prob}(m_i | m_{i - (N - 1)} m_{i - ((N - 1) -
+          1)} ... m_{i - 1}) \label{math:ml}\\
           \notag\\
           \text{informativité}(\text{\textit{candidat}}) &= \textsc{Kl}_{\text{\textit{candidat}}}(\textsc{Ml}_{\text{document}}^{N} \| \textsc{Ml}_{\text{référence}}^{N}) \label{math:informativeness}\\
           \notag\\
@@ -1263,8 +1266,9 @@
       \subsubsection{Séparateurs à vastes marges}
       \label{subsubsec:main-state_of_the_art-automatic_keyphrase_extraction-supervised_keyphrase_extraction-svms}
         Les séparateurs à vastes marges (\textsc{Svm}) projettent les exemples
-        et les contre-exemples du corpus d'entraînement sur un plan selon la
-        valeur de leurs traits, puis construisent l'hyperplan qui les sépare.
+        et les contre-exemples du corpus d'entraînement sur un plan (ou
+        hyperplan) selon la
+        valeur de leurs traits, puis construisent la droite (l'hyperplan) qui les sépare.
         Pour classer les termes-clés candidats d'un document, il suffit ensuite
         de les projeter sur ce même plan et d'utiliser l'hyperplan appris.
 
@@ -1591,7 +1595,7 @@
     l'extraction automatique de termes-clés. Ne s'agissant cependant pas du
     c\oe{}ur de la tâche, la définition de nouvelle méthodes de sélection est
     négligée au profit de méthodes de sélection simples (sélection de n-grammes,
-    \textit{chunks nominaux} ou séquences de noms et d'adjectifs). Toutefois,
+    \textit{chunks} nominaux ou séquences de noms et d'adjectifs). Toutefois,
     l'idée que l'indexation par termes-clés gagnerait en performances si les
     candidats sélectionnés étaient moins nombreux, c'est-à-dire contiendraient
     moins d'erreurs, semble faire consensus auprès des chercheurs qui s'y
