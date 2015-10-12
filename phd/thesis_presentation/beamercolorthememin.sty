@@ -3,6 +3,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % color definition
 \definecolor{termithgreen}{HTML}{8CC152}
+\definecolor{termithorange}{HTML}{E9573F}
+\definecolor{termithblack}{HTML}{000000}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % option declaration
@@ -24,9 +26,12 @@
 
   \setbeamercolor{section in toc}{fg=termithgreen, bg=white}
 
-  % TODO block
   \setbeamercolor{block title}{fg=white,bg=termithgreen}
-  \setbeamercolor{block body}{fg=termithgreen,bg=termithgreen!20}
+  \setbeamercolor{block body}{fg=termithgreen,bg=termithgreen!15}
+  \setbeamercolor{block title alerted}{fg=white,bg=termithorange}
+  \setbeamercolor{block body alerted}{fg=termithorange,bg=termithorange!15}
+  \setbeamercolor{block title example}{fg=white,bg=termithblack}
+  \setbeamercolor{block body example}{fg=termithblack,bg=termithblack!15}
 
   \setbeamercolor{itemize item}{fg=termithgreen, bg=white}
   \setbeamercolor{itemize subitem}{fg=termithgreen, bg=white}
