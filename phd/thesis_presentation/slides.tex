@@ -5,7 +5,6 @@
 \usepackage[french]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{mathptmx} % Times Roman clone
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
@@ -21,10 +20,8 @@
 \usepackage[overlay]{textpos}
 \usepackage{multirow}
 \usepackage{ifthen}
-\usepackage{relsize}
 \usepackage{ragged2e}
 \usepackage{rotating}
-\usepackage{subfigure}
 \usepackage{pgfplots}
 \usepackage{fancybox}
 
@@ -33,20 +30,16 @@
 \pgfplotsset{compat=1.8}
 \usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
 
-\renewcommand\cite[2][]{\citep[#1]{#2}}
-\let\oldtextsc\textsc\renewcommand\textsc[1]{\rmfamily\oldtextsc{#1}}
-\renewcommand\thesubfigure{}
-
 \title{Indexation automatique par termes-clés\\en domaines de spécialité}
 \author{Adrien Bougouin}
 \institute{\normalsize{Université de Nantes, LINA}}
 \date{Thèse de doctorat soutenue le\\27 Octobre 2015}
-\jurypresident{Marc Gelgon}{Professeur de universités}{Université de Nantes}
-\juryreviewerone{Brigitte Grau}{Professeur de universités}{ENSIIE}
-\juryreviewertwo{Jacques Savoy}{Professeur de universités}{Université de Neuchâtel}
-\juryexaminatorone{Fabienne Moreau}{Maître de conférences}{Université de Rennes}
-\director{Béatrice Daille}{Professeur de universités}{Université de Nantes}
-\supervisor{Florian Boudin}{Maître de conférences}{Université de Nantes}
+\jurypresident{Marc \textsc{Gelgon}}{Professeur de universités}{Université de Nantes}
+\juryreviewerone{Brigitte \textsc{Grau}}{Professeur de universités}{ENSIIE}
+\juryreviewertwo{Jacques \textsc{Savoy}}{Professeur de universités}{Université de Neuchâtel}
+\juryexaminatorone{Fabienne \textsc{Moreau}}{Maître de conférences}{Université de Rennes}
+\director{Béatrice \textsc{Daille}}{Professeur de universités}{Université de Nantes}
+\supervisor{Florian \textsc{Boudin}}{Maître de conférences}{Université de Nantes}
 \logos{
   \hfill{}\includegraphics[height=2em]{logo/univ_nantes.eps}
   \hfill{}\includegraphics[height=2em]{logo/lina.eps}
@@ -77,8 +70,10 @@
   }
   \begin{frame}
     \vfill
-    \begin{beamercolorbox}[center,shadow=true,rounded=true]{frametitle} 
+    \begin{beamercolorbox}[center,shadow=false,rounded=false]{frametitle} 
+      \vspace{.15em}\par
       \Huge{\textbf{\textsc{Merci}}}
+      \vspace{.5em}
     \end{beamercolorbox}
     \vfill
   \end{frame}

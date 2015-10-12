@@ -2,42 +2,83 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % color definition
+
 \definecolor{termithgreen}{HTML}{8CC152}
 \definecolor{termithorange}{HTML}{E9573F}
 \definecolor{termithblack}{HTML}{000000}
 
+\definecolor{linared}{HTML}{DA2209}
+\definecolor{linaorange}{HTML}{F6BB42}
+\definecolor{linagreen}{HTML}{37BC9B}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % option declaration
+
 \DeclareOptionBeamer{style}{\def\beamer@min@defcolor{#1}}
-\ExecuteOptionsBeamer{style=termith}
+\ExecuteOptionsBeamer{style=default}
 
 \ProcessOptionsBeamer
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % themes
+
+\def\beamer@min@defaulttext{default}
+\ifx\beamer@min@defcolor\beamer@min@defaulttext
+  \setbeamercolor*{palette primary}{fg=white, bg=black}
+  \setbeamercolor*{palette reverseprimary}{fg=black, bg=white}
+  \setbeamercolor*{palette lightprimary}{fg=black, bg=black!15}
+  \setbeamercolor*{palette secondary}{fg=white, bg=red}
+  \setbeamercolor*{palette reversesecondary}{fg=red, bg=white}
+  \setbeamercolor*{palette lightsecondary}{fg=red, bg=red!15}
+  \setbeamercolor*{palette tertiary}{fg=white, bg=green}
+  \setbeamercolor*{palette reversetertiary}{fg=green, bg=white}
+  \setbeamercolor*{palette lighttertiary}{fg=green, bg=green!15}
+\fi
+
+\def\beamer@min@linatext{lina}
+\ifx\beamer@min@defcolor\beamer@min@linatext
+  \setbeamercolor*{palette primary}{fg=white, bg=linared}
+  \setbeamercolor*{palette reverseprimary}{fg=linared, bg=white}
+  \setbeamercolor*{palette lightprimary}{fg=linared, bg=linared!15}
+  \setbeamercolor*{palette secondary}{fg=white, bg=linaorange}
+  \setbeamercolor*{palette reversesecondary}{fg=linaorange, bg=white}
+  \setbeamercolor*{palette lightsecondary}{fg=linaorange, bg=linaorange!15}
+  \setbeamercolor*{palette tertiary}{fg=white, bg=linagreen}
+  \setbeamercolor*{palette reversetertiary}{fg=linagreen, bg=white}
+  \setbeamercolor*{palette lighttertiary}{fg=linagreen, bg=linagreen!15}
+\fi
+
 \def\beamer@min@termithtext{termith}
 \ifx\beamer@min@defcolor\beamer@min@termithtext
   \setbeamercolor*{palette primary}{fg=white, bg=termithgreen}
-  \setbeamercolor*{palette secondary}{fg=termithgreen,bg=termithgreen!50}
-
-  \setbeamercolor*{title page header}{fg=termithgreen, bg=white}
-  \setbeamercolor*{frametitle}{fg=white, bg=termithgreen}
-  \setbeamercolor*{framenumber}{fg=termithgreen, bg=white}
-
-  \setbeamercolor{section in toc}{fg=termithgreen, bg=white}
-
-  \setbeamercolor{block title}{fg=white,bg=termithgreen}
-  \setbeamercolor{block body}{fg=termithgreen,bg=termithgreen!15}
-  \setbeamercolor{block title alerted}{fg=white,bg=termithorange}
-  \setbeamercolor{block body alerted}{fg=termithorange,bg=termithorange!15}
-  \setbeamercolor{block title example}{fg=white,bg=termithblack}
-  \setbeamercolor{block body example}{fg=termithblack,bg=termithblack!15}
-
-  \setbeamercolor{itemize item}{fg=termithgreen, bg=white}
-  \setbeamercolor{itemize subitem}{fg=termithgreen, bg=white}
-  \setbeamercolor{itemize subsubitem}{fg=termithgreen, bg=white}
-  \setbeamercolor{item projected}{fg=white, bg=termithgreen}
+  \setbeamercolor*{palette reverseprimary}{fg=termithgreen, bg=white}
+  \setbeamercolor*{palette lightprimary}{fg=termithgreen, bg=termithgreen!15}
+  \setbeamercolor*{palette secondary}{fg=white, bg=termithorange}
+  \setbeamercolor*{palette reversesecondary}{fg=termithorange, bg=white}
+  \setbeamercolor*{palette lightsecondary}{fg=termithorange, bg=termithorange!15}
+  \setbeamercolor*{palette tertiary}{fg=white, bg=termithblack}
+  \setbeamercolor*{palette reversetertiary}{fg=termithblack, bg=white}
+  \setbeamercolor*{palette lighttertiary}{fg=termithblack, bg=termithblack!15}
 \fi
+
+\setbeamercolor*{title page header}{parent=palette reverseprimary}
+
+\setbeamercolor*{frametitle}{parent=palette primary}
+\setbeamercolor*{framenumber}{parent=palette reverseprimary}
+
+\setbeamercolor{section in toc}{parent=palette reverseprimary}
+
+\setbeamercolor{block title}{parent=palette primary}
+\setbeamercolor{block body}{parent=palette lightprimary}
+\setbeamercolor{block title alerted}{parent=palette secondary}
+\setbeamercolor{block body alerted}{parent=palette lightsecondary}
+\setbeamercolor{block title example}{parent=palette tertiary}
+\setbeamercolor{block body example}{parent=palette lighttertiary}
+
+\setbeamercolor{itemize item}{parent=palette reverseprimary}
+\setbeamercolor{itemize subitem}{parent=palette reverseprimary}
+\setbeamercolor{itemize subsubitem}{parent=palette reverseprimary}
+\setbeamercolor{item projected}{parent=palette primary}
 
 \mode<all>
 

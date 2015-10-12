@@ -7,23 +7,18 @@
 
 \defbeamertemplate*{frametitle}{min}[1][]{
   \nointerlineskip
-  \begin{beamercolorbox}[wd=\paperwidth,ht=.82cm]{frametitle}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.84cm]{frametitle}
     \begin{tikzpicture}
-      \useasboundingbox (0, 0) rectangle (\the\paperwidth, .82cm);
+      \useasboundingbox (0, 0) rectangle (\the\paperwidth, .84cm);
       \ifx\insertframesubtitle\@empty{
-        \node[anchor=west] at (0, .44){
-          \begin{beamercolorbox}{frametitle}
-            \usebeamerfont{frametitle}\insertframetitle
-          \end{beamercolorbox}
+        \node[anchor=south west] at (0, 0){
+          \usebeamerfont{frametitle}\insertframetitle
         };
       }\else{
-        \node[anchor=west] at (0, .44){
-          \begin{beamercolorbox}{frametitle}
-            \usebeamerfont{frametitle}\insertframetitle\hspace{.25em}\usebeamerfont{frametitlesep}$\rangle$\hspace{.25em}\usebeamerfont{framesubtitle}\insertframesubtitle
-          \end{beamercolorbox}
+        \node[anchor=south west] at (0, -.22){
+          \usebeamerfont{frametitle}\insertframetitle\hspace{.25em}\usebeamerfont{frametitlesep}$\rangle$\hspace{.25em}\usebeamerfont{framesubtitle}\insertframesubtitle
         };
       }\fi
-      \fill[white] (-1, -0.1) rectangle (\the\paperwidth, 0.025);
     \end{tikzpicture}
   \end{beamercolorbox}
 }
