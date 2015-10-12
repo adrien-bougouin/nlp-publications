@@ -1,0 +1,109 @@
+\documentclass[10pt, xcolor={usenames, dvipsnames}]{beamer}
+%\documentclass[handout, 14pt, xcolor={usenames, dvipsnames}]{beamer}
+
+\usepackage{etex}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx} % Times Roman clone
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage[round]{natbib}
+\usepackage{tikz}
+\usepackage[labelformat=empty]{caption}
+\usepackage{colortbl}
+\usepackage{ulem}
+\usepackage{multicol}
+\usepackage[overlay]{textpos}
+\usepackage{multirow}
+\usepackage{ifthen}
+\usepackage{relsize}
+\usepackage{ragged2e}
+\usepackage{rotating}
+\usepackage{subfigure}
+\usepackage{pgfplots}
+\usepackage{fancybox}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usetheme[style=termith]{min}
+%\usetheme{Boadilla}
+%\setbeamercovered{transparent}
+%\setbeamertemplate{frametitle continuation}{\ifthenelse{\equal{\insertcontinuationcount}{1}}{}{(suite)}}
+%\setbeamertemplate{sections/subsections in toc}[square]
+%\setbeamertemplate{blocks}[rounded][shadow=false]
+%\setbeamertemplate{footline}{\vskip2pt}
+%\setbeamertemplate{itemize/enumerate body begin}{\small}
+%\setbeamertemplate{itemize/enumerate subbody begin}{\footnotesize}
+%\setbeamertemplate{itemize/enumerate subsubbody begin}{\scriptsize}
+%\setbeamertemplate{enumerate items}[square]
+%\setbeamertemplate{itemize item}{\footnotesize$\blacksquare$}
+%\setbeamertemplate{itemize subitem}{\scriptsize$\blacktriangleright$}
+%\setbeamertemplate{itemize subsubitem}{\tiny$\square$}
+%\beamertemplatenavigationsymbolsempty
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pgfplotsset{compat=1.8}
+\usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
+
+\renewcommand\cite[2][]{\citep[#1]{#2}}
+\let\oldtextsc\textsc\renewcommand\textsc[1]{\rmfamily\oldtextsc{#1}}
+\renewcommand\thesubfigure{}
+
+\title{Indexation automatique par termes-clés\\en domaines de spécialité}
+\author{Adrien Bougouin}
+\institute{\normalsize{Université de Nantes, LINA}}
+\date{Thèse de doctorat soutenue le\\27 Octobre 2015}
+\jurypresident{Marc Gelgon}{Professeur de universités}{Université de Nantes}
+\juryreviewerone{Brigitte Grau}{Professeur de universités}{ENSIIE}
+\juryreviewertwo{Jacques Savoy}{Professeur de universités}{Université de Neuchâtel}
+\juryexaminatorone{Fabienne Moreau}{Maître de conférences}{Université de Rennes}
+\director{Béatrice Daille}{Professeur de universités}{Université de Nantes}
+\supervisor{Florian Boudin}{Maître de conférences}{Université de Nantes}
+\logos{
+  \hfill{}\includegraphics[height=2em]{logo/univ_nantes.eps}
+  \hfill{}\includegraphics[height=2em]{logo/lina.eps}
+  \hfill{}\includegraphics[height=2em]{logo/termith.eps}
+  \hfill{}
+}
+
+\begin{document}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  \renewcommand*{\theenumii}{\alph{enumii}}
+%  \renewcommand*{\theenumiii}{\roman{enumiii}}
+%  \addtobeamertemplate{block begin}{\setlength\abovedisplayskip{0pt}}
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+  \begin{frame}[plain, noframenumbering]
+    \titlepage
+  \end{frame}
+
+  \input{input/introduction.tex}
+  \begin{frame}{Plan}
+    \tableofcontents
+    \cite{bougouin2013topicrank}
+  \end{frame}
+  \AtBeginSection[]{
+    \begin{frame}{Plan}
+      \tableofcontents[currentsection]
+    \end{frame}
+  }
+  \begin{frame}
+    \vfill
+    \begin{beamercolorbox}[center,shadow=true,rounded=true]{frametitle} 
+      \Huge{\textbf{\textsc{Merci}}}
+    \end{beamercolorbox}
+    \vfill
+  \end{frame}
+  \section*{Références}
+    \begin{frame}[allowframebreaks]{Références}
+      \def\newblock{\hskip .11em plus .33em minus .07em}
+      \bibliographystyle{frplainnat}
+      \bibliography{../../biblio}
+    \end{frame}
+  %\input{input/supplements.tex}
+\end{document}
+

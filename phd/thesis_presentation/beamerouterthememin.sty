@@ -1,0 +1,63 @@
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% frame title
+
+\setbeamertemplate{frametitle continuation}{}
+
+\defbeamertemplate*{frametitle}{min}[1][]{
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.82cm]{frametitle}
+    \begin{tikzpicture}
+      \useasboundingbox (0, 0) rectangle (\the\paperwidth, .82cm);
+      \ifx\insertframesubtitle\@empty{
+        \node[anchor=west] at (0, .44){
+          \begin{beamercolorbox}{frametitle}
+            \usebeamerfont{frametitle}\insertframetitle
+          \end{beamercolorbox}
+        };
+      }\else{
+        \node[anchor=west] at (0, .44){
+          \begin{beamercolorbox}{frametitle}
+            \usebeamerfont{frametitle}\insertframetitle\hspace{.25em}\usebeamerfont{frametitlesep}$\rangle$\hspace{.25em}\usebeamerfont{framesubtitle}\insertframesubtitle
+          \end{beamercolorbox}
+        };
+      }\fi
+      \fill[white] (-1, -0.1) rectangle (\the\paperwidth, 0.025);
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% block
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% itemize
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% enumerate
+\setbeamertemplate{enumerate items}[square]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% footline
+\setbeamertemplate{footline}{
+  \raisebox{5pt}{
+    \makebox[\paperwidth]{
+      \hfill\makebox[10pt]{
+        \begin{beamercolorbox}{framenumber}
+          \hspace{6.25cm}\usebeamerfont{framenumber}\insertframenumber
+        \end{beamercolorbox}
+      }
+    }
+  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% miscelaneous settings
+\setbeamertemplate{navigation symbols}{}
+
+\mode<all>
+

@@ -1,0 +1,38 @@
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% color definition
+\definecolor{termithgreen}{HTML}{8CC152}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% option declaration
+\DeclareOptionBeamer{style}{\def\beamer@min@defcolor{#1}}
+\ExecuteOptionsBeamer{style=termith}
+
+\ProcessOptionsBeamer
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% themes
+\def\beamer@min@termithtext{termith}
+\ifx\beamer@min@defcolor\beamer@min@termithtext
+  \setbeamercolor*{palette primary}{fg=white, bg=termithgreen}
+  \setbeamercolor*{palette secondary}{fg=termithgreen,bg=termithgreen!50}
+
+  \setbeamercolor*{title page header}{fg=termithgreen, bg=white}
+  \setbeamercolor*{frametitle}{fg=white, bg=termithgreen}
+  \setbeamercolor*{framenumber}{fg=termithgreen, bg=white}
+
+  \setbeamercolor{section in toc}{fg=termithgreen, bg=white}
+
+  % TODO block
+  \setbeamercolor{block title}{fg=white,bg=termithgreen}
+  \setbeamercolor{block body}{fg=termithgreen,bg=termithgreen!20}
+
+  \setbeamercolor{itemize item}{fg=termithgreen, bg=white}
+  \setbeamercolor{itemize subitem}{fg=termithgreen, bg=white}
+  \setbeamercolor{itemize subsubitem}{fg=termithgreen, bg=white}
+  \setbeamercolor{item projected}{fg=white, bg=termithgreen}
+\fi
+
+\mode<all>
+
