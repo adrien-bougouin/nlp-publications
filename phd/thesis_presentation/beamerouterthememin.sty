@@ -7,16 +7,16 @@
 
 \defbeamertemplate*{frametitle}{min}[1][]{
   \nointerlineskip
-  \begin{beamercolorbox}[wd=\paperwidth,ht=.84cm]{frametitle}
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.7cm]{frametitle}
     \begin{tikzpicture}
-      \useasboundingbox (0, 0) rectangle (\the\paperwidth, .84cm);
+      \useasboundingbox (0, 0) rectangle (\the\paperwidth, .7cm);
       \ifx\insertframesubtitle\@empty{
-        \node[anchor=south west] at (0, 0){
+        \node[anchor=west] at (0, .35){
           \usebeamerfont{frametitle}\insertframetitle
         };
       }\else{
-        \node[anchor=south west] at (0, -.22){
-          \usebeamerfont{frametitle}\insertframetitle\hspace{.25em}\usebeamerfont{frametitlesep}$\rangle$\hspace{.25em}\usebeamerfont{framesubtitle}\insertframesubtitle
+        \node[anchor=west] at (0, .35){
+          \usebeamerfont{frametitle}\insertframetitle\hspace{.25em}\usebeamerfont{frametitlesep}$\rangle$\hspace{.15em}\usebeamerfont{framesubtitle}\insertframesubtitle
         };
       }\fi
     \end{tikzpicture}
