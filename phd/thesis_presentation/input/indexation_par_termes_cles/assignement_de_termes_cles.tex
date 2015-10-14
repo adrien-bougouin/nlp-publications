@@ -1,4 +1,33 @@
 \begin{frame}{Indexation par termes-clés}\framesubtitle{Assignement de termes-clés}
+  \begin{figure}
+    \begin{tikzpicture}[scale=.3, node distance=2cm]
+      \node [io] (document) {document};
+      \node [component] (preprocessing) [below=of document] {Prétraitement linguistique};
+      \node [component] (candidate_extraction) [below=of preprocessing] {Sélection des termes-clés candidats};
+      \node [component, minimum width=24cm, xshift=6.5cm] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés à extraire};
+      \node [io] (keyphrases) [below=of keyphrase_selection] {termes-clés};
+      %
+      \node [component] (preprocessing2) [right=of preprocessing] {Prétraitement linguistique};
+      \node [component] (candidate_extraction2) [right=of candidate_extraction] {Sélection des termes-clés candidats};
+      \node [component, minimum width=24cm, xshift=-13cm] (classification) [right=of candidate_classification_and_ranking] {Classification des candidats};
+      \node [component] (learning) [below=of candidate_extraction2] {Apprentissage du modèle de classification};
+      \node [io] (documents) [above=of preprocessing2] {documents d'apprentissage};
+
+      \path [->] (document) edge (preprocessing);
+      \path [->] (preprocessing) edge (candidate_extraction);
+      \path [->] (keyphrase_selection) edge (keyphrases);
+      \path [->] (candidate_extraction) edge (classification);
+      %
+      \path [->] (documents) edge (preprocessing2);
+      \path [->] (preprocessing2) edge (candidate_extraction2);
+      \path [->] (candidate_extraction2) edge (learning);
+      \path [->] (learning) edge (classification);
+      \path [->] (classification) edge (keyphrase_selection);
+
+      \draw [dashed] ($(preprocessing2.north west)+(-.5cm,4.5cm)$) rectangle ($(learning.south east)+(.5cm,-.5cm)$);
+      \node [above=of documents, yshift=-1.85cm, scale=.5] (apprentissage) {Apprentissage};
+    \end{tikzpicture}
+  \end{figure}  
 \end{frame}
 
 % TODO
