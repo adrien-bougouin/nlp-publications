@@ -74,16 +74,26 @@
 
 \setbeamercolor{section in toc}{parent=palette reverseprimary}
 
+\setbeamercolor{itemize item}{parent=palette reverseprimary}
+\setbeamercolor{itemize subitem}{parent=palette reverseprimary}
+\setbeamercolor{itemize subsubitem}{parent=palette reverseprimary}
+
 \setbeamercolor{block title}{parent=palette primary}
 \setbeamercolor{block body}{parent=palette lightprimary}
 \setbeamercolor{block title alerted}{parent=palette secondary}
 \setbeamercolor{block body alerted}{parent=palette lightsecondary}
 \setbeamercolor{block title example}{parent=palette tertiary}
 \setbeamercolor{block body example}{parent=palette lighttertiary}
-
-\setbeamercolor{itemize item}{parent=palette reverseprimary}
-\setbeamercolor{itemize subitem}{parent=palette reverseprimary}
-\setbeamercolor{itemize subsubitem}{parent=palette reverseprimary}
+\AtBeginEnvironment{alertblock}{
+  \setbeamercolor{itemize item}{parent=palette reversesecondary}
+  \setbeamercolor{itemize subitem}{parent=palette reversesecondary}
+  \setbeamercolor{itemize subsubitem}{parent=palette reversesecondary}
+}
+\AtBeginEnvironment{exampleblock}{
+  \setbeamercolor{itemize item}{parent=palette reversetertiary}
+  \setbeamercolor{itemize subitem}{parent=palette reversetertiary}
+  \setbeamercolor{itemize subsubitem}{parent=palette reversetertiary}
+}
 
 \mode<all>
 

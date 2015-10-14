@@ -1,9 +1,58 @@
 \section{Indexation par termes-clés}
-\begin{frame}{Indexation par termes-clés}
+  \begin{frame}{Indexation par termes-clés}
+    \begin{figure}
+      \begin{tikzpicture}[scale=.35, node distance=3cm]
+        \uncover<2->{
+          \node [component] (extraction) {Extraction de termes-clés};
+        }
+        \uncover<5->{
+          \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
+        }
+
+        \uncover<1->{
+          \node [io, above=of extraction] (document) {document};
+        }
+        \uncover<4->{
+          \node [io, above=of assignement] (vocabulaire_controle) {vocabulaire contrôlé};
+        }
+
+        \uncover<3->{
+          \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
+        }
+        \uncover<6->{
+          \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
+        }
+
+        \uncover<7->{
+          \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+
+          \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
+        }
+        \uncover<8->{
+          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+
+          \draw [dashed] ($(assignement.north west)+(-.5cm, 5.5cm)$) rectangle ($(assignement.south east)+(.5cm, -5.5cm)$);
+        }
+
+        \uncover<2->{
+          \path [->] (document) edge (extraction);
+        }
+        \uncover<5->{
+          \path [->] (document) edge (assignement);
+          \path [->] (vocabulaire_controle) edge (assignement);
+        }
+        \uncover<3->{
+          \path [->] (extraction) edge (termes_cles_extraits);
+        }
+        \uncover<6->{
+          \path [->] (assignement) edge (termes_cles_assignes);
+        }
+      \end{tikzpicture}
+    \end{figure}
   \end{frame}
 
   \subsection{Extraction de termes-clés}
-    %\input{input/indexation_par_termes_cles/extraction_de_termes_cles.tex}
+    \input{input/indexation_par_termes_cles/extraction_de_termes_cles.tex}
 
   \subsection{Assignement de termes-clés}
-    %\input{input/indexation_par_termes_cles/assignement_de_termes_cles.tex}
+    \input{input/indexation_par_termes_cles/assignement_de_termes_cles.tex}

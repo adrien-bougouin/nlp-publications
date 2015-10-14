@@ -1,5 +1,5 @@
 \documentclass[10pt, xcolor={usenames, dvipsnames}]{beamer}
-%\documentclass[handout, 14pt, xcolor={usenames, dvipsnames}]{beamer}
+%\documentclass[handout, 10pt, xcolor={usenames, dvipsnames}]{beamer}
 
 \usepackage{etex}
 \usepackage[french]{babel}
@@ -24,11 +24,37 @@
 \usepackage{rotating}
 \usepackage{pgfplots}
 \usepackage{fancybox}
+\usepackage{ulem}
 
 \usetheme[style=termith]{min}
 
 \pgfplotsset{compat=1.8}
-\usetikzlibrary{positioning, topaths, shapes, arrows, patterns}
+\usetikzlibrary{positioning, topaths, shapes, arrows, patterns, calc}
+\tikzstyle{io}=[
+  ellipse,
+  minimum width=5cm,
+  minimum height=2cm,
+  fill=termithgreen!30,
+  draw=termithgreen!40,
+  transform shape,
+  font={\Large}
+]
+\tikzstyle{component}=[
+  text centered,
+  thick,
+  rectangle,
+  minimum width=11cm,
+  minimum height=2cm,
+  fill=cyan!20,
+  draw=cyan!30,
+  transform shape,
+  font={\Large\bfseries}
+]
+\tikzstyle{selectedcomponent}=[
+  component,
+  fill=termithorange!30,
+  draw=termithorange!40,
+]
 
 \title{Indexation automatique par termes-clés\\en domaines de spécialité}
 \author{Adrien Bougouin}
@@ -70,6 +96,8 @@
   }
   %
   \input{input/indexation_par_termes_cles.tex}
+  % TODO
+  \input{input/conclusion.tex}
   %
   \begin{frame}
     \vfill
