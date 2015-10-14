@@ -227,47 +227,142 @@
   \end{frame}
 
 \subsubsection{Extraction non supervisée}
-  \begin{frame}{Extraction de termes-clés}\framesubtitle{Extraction non supervisée}
-    \begin{block}<+->{Objectif}
+  \begin{frame}[t]{Extraction de termes-clés}\framesubtitle{Extraction non supervisée}
+    \begin{block}<1->{Objectif}
       Déterminer les termes-clés candidats les plus importants.
     \end{block}
 
-    \uncover<+->{
-      Ordonnancement des candidats selon diverses mesures d'importance~:
+    \vspace{1em}
+
+    \uncover<2->{
+      Ordonnancement des candidats selon diverses approches~:
       \begin{itemize}
-        \item{}
-        \item{}
-        \item{}
-        \item{}
-        \item{}
+        \item<2->{Statistiques}
+        \item<6->{Par groupement sémantique}
+        \item<9->{À base de graphe}
       \end{itemize}
     }
+
+    \begin{center}
+      \vfill{}
+
+      TODO
+
+      \vfill{}
+
+      \alt<12>{
+        \cite{liu2010topicalpagerank}
+      }{
+        \alt<11>{
+          \cite{wan2008expandrank}
+        }{
+          \alt<10>{
+            \cite{mihalcea2004textrank}
+          }{
+            \alt<8>{
+              \cite{liu2009keycluster}
+            }{
+              \alt<7>{
+                \cite{matsuo2004wordcooccurrence}
+              }{
+                \alt<5>{
+                  \cite{tomokiyo2003languagemodel}
+                }{
+                  \alt<4>{
+                    \cite{barker2000nounphrasehead}
+                  }{
+                    \visible<3>{
+                      \cite{salton1975tfidf}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    \end{center}
   \end{frame}
 
 \subsubsection{Extraction supervisée}
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Extraction supervisée}
     \begin{block}<+->{Objectif}
-      Reconnaître les termes-clés parmi les termes-clés candidats.
+      Apprendre à reconnaître les termes-clés parmi les termes-clés candidats.
     \end{block}
+
+    \vspace{1em}
 
     \uncover<+->{
       Classification des candidats selon divers critères (traits)~:
       \begin{itemize}
-        \item{}
-        \item{}
-        \item{}
-        \item{}
-        \item{}
+        \item<+->{Fréquence}
+        \item<+->{Spécificité}
+        \item<+->{TF-IDF}
+        \item<+->{Première position}
+        \item<+->{Classe grammaticale}
+        \item<+->{Catégorie syntagmatique}
+        \item<+->{Apparition dans une section particulière}
       \end{itemize}
     }
   \end{frame}
 
+  \begin{frame}[t]{Extraction de termes-clés}\framesubtitle{Extraction supervisée}
+    Et divers méthodes d'apprentissage~:
+    \begin{itemize}
+      \item{Classification naîve bayesienne}
+      \item<3->{Apprentissage d'un hyperplan}
+      \item<5->{Création d'une forêt d'arbres de décision}
+      \item<7->{Entraînement d'un réseau de neurones}
+    \end{itemize}
+
+    \begin{center}
+      \vfill{}
+
+      TODO
+
+      \vfill{}
+
+      \alt<8>{
+        \cite{sarkar2010neuralnetwork}
+      }{
+        \alt<6>{
+          \cite{ercan2007lexicalchains}
+        }{
+          \alt<4>{
+            \cite{zhang2006svm}
+          }{
+            \visible<2>{
+              \cite{witten1999kea}
+            }
+          }
+        }
+      }
+    \end{center}
+  \end{frame}
+
 \subsubsection{Bilan}
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Bilan}
-    \begin{block}{Avantages}
+    \begin{itemize}
+      \item<+->{Large panel de méthodes}
+      \item<+->{Sans ressources suplémentaires}
+      \item<+->{Avec ressources supplémentaires}
+    \end{itemize}
+
+    \vspace{1em}
+
+    \begin{block}<+->{Avantages}
+      \begin{itemize}
+        \item{Multitude de scénarii d'utilisation}
+        \item{Adaptation possible par apprentissage supervisé}
+      \end{itemize}
     \end{block}
 
-    \begin{alertblock}{Inconvénients}
+    \begin{alertblock}<+->{Inconvénients}
+      \begin{itemize}
+        \item{Impossibilité de trouver tous les termes-clés}
+        \item{Extraction de termes-clés parfois mal formulés}
+        \item{Dépendence vis-à-vis des termes-clés candidats peu étudiée}
+      \end{itemize}
     \end{alertblock}
     
   \end{frame}
