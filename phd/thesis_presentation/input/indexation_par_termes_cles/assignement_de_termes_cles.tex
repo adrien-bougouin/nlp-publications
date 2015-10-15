@@ -1,99 +1,53 @@
 \begin{frame}{Indexation par termes-clés}\framesubtitle{Assignement de termes-clés}
-  \begin{figure}
-    \begin{tikzpicture}[scale=.3, node distance=2cm]
-      \node [io] (document) {document};
-      \node [component] (preprocessing) [below=of document] {Prétraitement linguistique};
-      \node [component] (candidate_extraction) [below=of preprocessing] {Sélection des termes-clés candidats};
-      \node [component, minimum width=31cm, xshift=10cm] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés à extraire};
-      \node [io] (keyphrases) [below=of keyphrase_selection] {termes-clés};
-      %
-      \node [component] (preprocessing2) [right=of preprocessing, xshift=7cm] {Prétraitement linguistique};
-      \node [component] (candidate_extraction2) [right=of candidate_extraction, xshift=7cm] {Sélection des termes-clés candidats};
-      \node [component, minimum width=31cm, xshift=-20cm] (classification) [right=of candidate_classification_and_ranking, xshift=7cm] {Classification des candidats};
-      \node [component] (learning) [below=of candidate_extraction2] {Apprentissage du modèle de classification};
-      \node [io] (documents) [above=of preprocessing2] {documents d'apprentissage};
-      %
-      \uncover<2>{
-        \node [io, right=of preprocessing, yshift=4cm] (vocabulaire_controle) {thésaurus};
-      }
-
-      % CHEAT
-      \node [minimum height=2cm, transform shape, below=of candidate_extraction, yshift=-4cm] (cheat1) {};
-      \node [minimum height=2cm, transform shape, below=of learning] (cheat2) {};
-
-      \path [->] (document) edge (preprocessing);
-      \path [->] (preprocessing) edge (candidate_extraction);
-      \path [->] (keyphrase_selection) edge (keyphrases);
-      \path [->] (candidate_extraction) edge (cheat1);
-      %
-      \path [->] (documents) edge (preprocessing2);
-      \path [->] (preprocessing2) edge (candidate_extraction2);
-      \path [->] (candidate_extraction2) edge (learning);
-      \path [->] (learning) edge (cheat2);%(classification);
-      \path [->] (classification) edge (keyphrase_selection);
-      %
-      \uncover<2>{
-        \path [->] (vocabulaire_controle) edge (candidate_extraction.north east);
-        \path [->] (vocabulaire_controle) edge (candidate_extraction2.north west);
-      }
-
-      \draw [dashed] ($(preprocessing2.north west)+(-.5cm,4.5cm)$) rectangle ($(learning.south east)+(.5cm,-.5cm)$);
-      \node [above=of documents, yshift=-1.85cm, scale=.5] (apprentissage) {Apprentissage};
-    \end{tikzpicture}
-  \end{figure}  
 \end{frame}
 
-\begin{frame}{Assignement de termes-clés}\framesubtitle{\textsc{Kea}++~\cite{medelyan2006kea++}}
-  \begin{block}<+->{Thésaurus}
-    \begin{itemize}
-      \item{Liste de termes (= vocabulaire contrôlé)}
-      \item{Décrit les relations entre les termes}
-      \begin{itemize}
-        \item{Hiérarchie (générique, spécifique)}
-        \item{Champ sémantique}
-      \end{itemize}
-    \end{itemize}
-  \end{block}
+%\begin{frame}{Assignement de termes-clés}\framesubtitle{\textsc{Kea}++~\cite{medelyan2006kea++}}
+%  \begin{block}{Thésaurus}
+%    \begin{itemize}
+%      \item{Liste de termes (= vocabulaire contrôlé)}
+%      \item{Décrit les relations entre les termes}
+%      \begin{itemize}
+%        \item{Hiérarchie (générique, spécifique)}
+%        \item{Champ sémantique}
+%      \end{itemize}
+%    \end{itemize}
+%  \end{block}
+%
+%  \uncover{
+%    \begin{enumerate}
+%      \item{Projection du thésaurus dans le document}
+%      \item{Ajout des relations du thésaurus comme critère de classification}
+%      \begin{itemize}
+%        \item{\textsc{Tf-Idf}}
+%        \item{Première position}
+%        \item{Nombre de relations avec d'autres candidats}
+%      \end{itemize}
+%    \end{enumerate}
+%  }
+%\end{frame}
 
-  \uncover<+->{
-    \begin{enumerate}
-      \item{Projection du thésaurus dans le document}
-      \item<+->{Ajout des relations du thésaurus comme critère de classification}
-      \begin{itemize}
-        \item{\textsc{Tf-Idf}}
-        \item{Première position}
-        \item{Nombre de relations avec d'autres candidats}
-      \end{itemize}
-    \end{enumerate}
-  }
-\end{frame}
-
-\subsubsection{Bilan}
-  \begin{frame}{Assignement de termes-clés}\framesubtitle{Bilan}
-    \begin{itemize}
-      \item<+->{Une seule méthodes}
-      \item<+->{Avec ressources supplémentaires}
-    \end{itemize}
-
-    \vspace{1em}
-
-    \uncover<+->{
-      \begin{block}{Avantages}
-        \begin{itemize}
-          \item{Adapté au domaine de spécialité traité}
-          \item{Assigne des termes-clés terminologiquement validés}
-          \item{Indexation par termes-clés cohérente}
-        \end{itemize}
-      \end{block}
-    }
-
-    \uncover<+->{
-      \begin{alertblock}{Inconvénients}
-        \begin{itemize}
-          \item{Scénarii d'utilisation limités}
-          \item{Impossibilité de trouver tous les termes-clés}
-        \end{itemize}
-      \end{alertblock}
-    }
-  \end{frame}
+%\subsubsection{Bilan}
+%  \begin{frame}{Assignement de termes-clés}\framesubtitle{Bilan}
+%    \begin{itemize}
+%      \item{Une seule méthodes}
+%      \item{Avec ressources supplémentaires}
+%    \end{itemize}
+%
+%    \vspace{1em}
+%
+%    \begin{block}{Avantages}
+%      \begin{itemize}
+%        \item{Adapté au domaine de spécialité traité}
+%        \item{Assigne des termes-clés terminologiquement validés}
+%        \item{Indexation par termes-clés cohérente}
+%      \end{itemize}
+%    \end{block}
+%
+%    \begin{alertblock}{Inconvénients}
+%      \begin{itemize}
+%        \item{Scénarii d'utilisation limités}
+%        \item{Impossibilité de trouver tous les termes-clés}
+%      \end{itemize}
+%    \end{alertblock}
+%  \end{frame}
 

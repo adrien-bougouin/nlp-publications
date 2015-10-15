@@ -95,26 +95,54 @@
         \end{tikzpicture}
       \end{figure}
     \end{frame}
-    %\input{input/indexation_par_termes_cles/assignement_de_termes_cles.tex}
+    \input{input/indexation_par_termes_cles/assignement_de_termes_cles.tex}
 
   \subsection{Bilan}
-  \begin{frame}{Indexation par termes-clés}\framesubtitle{Bilan}
-    \begin{itemize}
-      \item{Division en deux catégories de méthodes}
-      \begin{itemize}
-        \item{Extraction de termes-clés}
-        \item{Assignement de termes-clés}
-      \end{itemize}
-      \item{Application possible à tout type de besoins}
-      \begin{itemize}
-        \item{Avec ressources~/~Sans ressources}
-        \item{En domaine de spécialité~/~Hors domaine de spécialité}
-      \end{itemize}
-    \end{itemize}
+    \begin{frame}{Indexation par termes-clés}
+      \begin{figure}
+        \begin{tikzpicture}[scale=.4, node distance=3cm]
+          \node [component] (extraction) {Extraction de termes-clés};
+          \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
 
-    \vspace{1em}
+          \node [io, above=of extraction] (document) {document};
+          \node [io, above=of assignement] (vocabulaire_controle) {vocabulaire contrôlé};
 
-    \begin{alertblock}{Reproche}
-      Extraction et assignement sont disjoints.
-    \end{alertblock}
-  \end{frame}
+          \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
+          \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
+
+          \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+
+          \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
+          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+
+          \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
+
+          \path [->] (document) edge (extraction);
+          \path [->] (extraction) edge (termes_cles_extraits);
+          \path [->] (document) edge (assignement);
+          \path [->] (vocabulaire_controle) edge (assignement);
+          \path [->] (assignement) edge (termes_cles_assignes);
+        \end{tikzpicture}
+      \end{figure}
+    \end{frame}
+
+    \begin{frame}{Indexation par termes-clés}\framesubtitle{Bilan}
+      \begin{itemize}
+        \item{Division en deux catégories de méthodes}
+        \begin{itemize}
+          \item{Extraction de termes-clés}
+          \item{Assignement de termes-clés}
+        \end{itemize}
+        \item{Application possible à tout type de besoins}
+        \begin{itemize}
+          \item{Avec ressources~/~Sans ressources}
+          \item{En domaine de spécialité~/~Hors domaine de spécialité}
+        \end{itemize}
+      \end{itemize}
+
+      \vspace{1em}
+
+      \begin{alertblock}{Reproche}
+        Extraction et assignement sont disjoints.
+      \end{alertblock}
+    \end{frame}

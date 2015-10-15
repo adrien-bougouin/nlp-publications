@@ -59,7 +59,7 @@
     \end{figure}
   \end{frame}
 
-  \begin{frame}{Extraction de termes-clés}\framesubtitle{Sélection des termes-clés candidats}
+  \begin{frame}{Extraction de termes-clés}\framesubtitle{Prétraitements\dots}
   \end{frame}
 
 \subsubsection{Extraction non supervisée}
@@ -93,61 +93,19 @@
     \end{figure}
   \end{frame}
 
-  \begin{frame}[t]{Extraction de termes-clés}\framesubtitle{Extraction non supervisée}
-    \begin{block}<1->{Objectif}
+  \begin{frame}{Extraction de termes-clés}\framesubtitle{Ordonnancement des candidats}
+    \begin{block}{Objectif}
       Déterminer les termes-clés candidats les plus importants.
     \end{block}
 
     \vspace{1em}
 
-    \uncover<2->{
-      Ordonnancement des candidats selon diverses approches~:
-      \begin{itemize}
-        \item<2->{Statistiques}
-        \item<6->{Par groupement sémantique}
-        \item<9->{À base de graphe}
-      \end{itemize}
-    }
-
-    \begin{center}
-      \vfill{}
-
-      TODO
-
-      \vfill{}
-
-      \alt<12>{
-        \cite{liu2010topicalpagerank}
-      }{
-        \alt<11>{
-          \cite{wan2008expandrank}
-        }{
-          \alt<10>{
-            \cite{mihalcea2004textrank}
-          }{
-            \alt<8>{
-              \cite{liu2009keycluster}
-            }{
-              \alt<7>{
-                \cite{matsuo2004wordcooccurrence}
-              }{
-                \alt<5>{
-                  \cite{tomokiyo2003languagemodel}
-                }{
-                  \alt<4>{
-                    \cite{barker2000nounphrasehead}
-                  }{
-                    \visible<3>{
-                      \cite{salton1975tfidf}
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    \end{center}
+    Ordonnancement des candidats selon diverses approches~:
+    \begin{itemize}
+      \item{Statistiques~\cite[TF-IDF]{salton1975tfidf}}
+      \item{Par groupement sémantique~\cite[KeyCluster]{liu2009keycluster}}
+      \item{À base de graphe~\cite[TextRank]{mihalcea2004textrank}}
+    \end{itemize}
   \end{frame}
 
 \subsubsection{Extraction supervisée}
@@ -164,7 +122,7 @@
         %
         \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
         \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
-        \node [selectedcomponent, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
+        \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
         \node [selectedcomponent, below=of apprentissage] (classification) {Classification des candidats};
         \path [->] (documents) edge (pretraitement_et_selection_des_candidats2);
         \path [->] (pretraitement_et_selection_des_candidats2) edge (apprentissage);
@@ -181,85 +139,70 @@
     \end{figure}
   \end{frame}
 
-  \begin{frame}{Extraction de termes-clés}\framesubtitle{Extraction supervisée}
-    \begin{block}<+->{Objectif}
+  \begin{frame}{Extraction de termes-clés}\framesubtitle{Classification des candidats}
+    \begin{block}{Objectif}
       Apprendre à reconnaître les termes-clés parmi les termes-clés candidats.
     \end{block}
 
     \vspace{1em}
 
-    \uncover<+->{
-      Classification des candidats selon divers critères (traits)~:
+    Classification des candidats selon divers critères (traits)~:
+    \begin{itemize}
+      \item{Fréquenciels~:}
       \begin{itemize}
-        \item<+->{Fréquence}
-        \item<+->{Spécificité}
-        \item<+->{\textsc{Tf-Idf}}
-        \item<+->{Première position}
-        \item<+->{Classe grammaticale}
-        \item<+->{Catégorie syntagmatique}
-        \item<+->{Apparition dans une section particulière}
+        \item{Fréquence}
+        \item{Spécificité}
+        \item{TF-IDF~\cite[KEA]{witten1999kea}}
       \end{itemize}
-    }
+      \item{Positionnels~:}
+      \begin{itemize}
+        \item{Première position~\cite[KEA]{witten1999kea}}
+        \item{Apparition dans une section
+              particulière~\cite{nguyen2007keadocumentstructure}}
+      \end{itemize}
+      \item{Linguistiques~:}
+      \begin{itemize}
+        \item{Classe grammaticale}
+        \item{Catégorie syntagmatique}
+      \end{itemize}
+    \end{itemize}
   \end{frame}
 
-  \begin{frame}[t]{Extraction de termes-clés}\framesubtitle{Extraction supervisée}
+  \begin{frame}{Extraction de termes-clés}\framesubtitle{Classification des candidats}
     Et divers méthodes d'apprentissage~:
     \begin{itemize}
-      \item{Classification naîve bayesienne}
-      \item<3->{Apprentissage d'un hyperplan}
-      \item<5->{Création d'une forêt d'arbres de décision}
-      \item<7->{Entraînement d'un réseau de neurones}
+      \item{Classification naîve bayesienne~\cite[KEA]{witten1999kea}}
+      \item{Création d'une forêt d'arbres de
+            décision~\cite{turney1999learningalgorithms}}
+      \item{Apprentissage d'un hyperplan~\cite{zhang2006svm}}
+      \item{Entraînement d'un réseau de
+            neurones~\cite{sarkar2010neuralnetwork}}
     \end{itemize}
-
-    \begin{center}
-      \vfill{}
-
-      TODO
-
-      \vfill{}
-
-      \alt<8>{
-        \cite{sarkar2010neuralnetwork}
-      }{
-        \alt<6>{
-          \cite{ercan2007lexicalchains}
-        }{
-          \alt<4>{
-            \cite{zhang2006svm}
-          }{
-            \visible<2>{
-              \cite{witten1999kea}
-            }
-          }
-        }
-      }
-    \end{center}
   \end{frame}
 
-\subsubsection{Bilan}
-  \begin{frame}{Extraction de termes-clés}\framesubtitle{Bilan}
-    \begin{itemize}
-      \item<+->{Large panel de méthodes}
-      \item<+->{Sans ressources suplémentaires}
-      \item<+->{Avec ressources supplémentaires}
-    \end{itemize}
-
-    \vspace{1em}
-
-    \begin{block}<+->{Avantages}
-      \begin{itemize}
-        \item{Multitude de scénarii d'utilisation}
-        \item{Adaptation possible par apprentissage supervisé}
-      \end{itemize}
-    \end{block}
-
-    \begin{alertblock}<+->{Inconvénients}
-      \begin{itemize}
-        \item{Impossibilité de trouver tous les termes-clés}
-        \item{Extraction de termes-clés parfois mal formulés}
-        \item{Dépendence vis-à-vis des termes-clés candidats peu étudiée}
-      \end{itemize}
-    \end{alertblock}
-    
-  \end{frame}
+%\subsubsection{Bilan}
+%  \begin{frame}{Extraction de termes-clés}\framesubtitle{Bilan}
+%    \begin{itemize}
+%      \item{Large panel de méthodes}
+%      \item{Sans ressources suplémentaires}
+%      \item{Avec ressources supplémentaires}
+%    \end{itemize}
+%
+%    \vspace{1em}
+%
+%    \begin{block}{Avantages}
+%      \begin{itemize}
+%        \item{Multitude de scénarii d'utilisation}
+%        \item{Adaptation possible par apprentissage supervisé}
+%      \end{itemize}
+%    \end{block}
+%
+%    \begin{alertblock}{Inconvénients}
+%      \begin{itemize}
+%        \item{Impossibilité de trouver tous les termes-clés}
+%        \item{Extraction de termes-clés parfois mal formulés}
+%        \item{Dépendence vis-à-vis des termes-clés candidats peu étudiée}
+%      \end{itemize}
+%    \end{alertblock}
+%  \end{frame}
 
