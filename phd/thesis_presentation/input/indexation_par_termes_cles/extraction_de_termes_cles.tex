@@ -1,232 +1,98 @@
 \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
   \begin{figure}
-    \begin{tikzpicture}[scale=.3, node distance=2cm]
-      \uncover<1->{
-        \node [io] (document) {document};
-      }
-      \uncover<2->{
-        \node [component] (preprocessing) [below=of document] {Prétraitement linguistique};
-      }
-      \uncover<3->{
-        %\alt<9>{
-        %  \node [selectedcomponent] (candidate_extraction) [below=of preprocessing] {Sélection des termes-clés candidats};
-        %}{
-          \node [component] (candidate_extraction) [below=of preprocessing] {Sélection des termes-clés candidats};
-        %}
-      }
-      \uncover<4->{
-        %\alt<9>{
-        %  \node [selectedcomponent, yshift=-4cm] (candidate_classification_and_ranking) [below=of candidate_extraction] {Ordonnancement des candidats};
-        %}{
-          \node [component, yshift=-4cm] (candidate_classification_and_ranking) [below=of candidate_extraction] {Ordonnancement des candidats};
-        %}
-      }
-      \uncover<7->{
-        \node [component, minimum width=24cm, xshift=6.5cm] (keyphrase_selection) [below=of candidate_classification_and_ranking] {Sélection des termes-clés à extraire};
-      }
-      \uncover<8->{
-        \node [io] (keyphrases) [below=of keyphrase_selection] {termes-clés};
-      }
+    \begin{tikzpicture}[scale=.4, node distance=2cm]
+      \node [io] (document) {document};
+      \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+      \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
+      \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+      \path [->] (document) edge (pretraitement_et_selection_des_candidats);
+      \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
+      \path [->] (ordonnancement) edge (termes_cles);
       %
-      \uncover<6->{
-        \node [component] (preprocessing2) [right=of preprocessing] {Prétraitement linguistique};
-        \node [component] (candidate_extraction2) [right=of candidate_extraction] {Sélection des termes-clés candidats};
-      }
-      \uncover<5->{
-        \node [component] (classification) [right=of candidate_classification_and_ranking] {Classification des candidats};
-      }
-      \uncover<6->{
-        \node [component] (learning) [below=of candidate_extraction2]
-        {Apprentissage du modèle de classification};
-        \node [io] (documents) [above=of preprocessing2] {documents d'apprentissage};
-      }
-
-      \uncover<2->{
-        \path [->] (document) edge (preprocessing);
-      }
-      \uncover<3->{
-        \path [->] (preprocessing) edge (candidate_extraction);
-      }
-      \uncover<7->{
-        \path [->] (candidate_classification_and_ranking) edge (keyphrase_selection);
-      }
-      \uncover<8->{
-        \path [->] (keyphrase_selection) edge (keyphrases);
-      }
+      \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+      \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
+      \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
+      \node [component, below=of apprentissage] (classification) {Classification des candidats};
+      \path [->] (documents) edge (pretraitement_et_selection_des_candidats2);
+      \path [->] (pretraitement_et_selection_des_candidats2) edge (apprentissage);
+      \path [->] (apprentissage) edge (classification);
+      \path [->] (classification) edge (termes_cles);
       %
-      \uncover<6->{
-        \path [->] (documents) edge (preprocessing2);
-        \path [->] (preprocessing2) edge (candidate_extraction2);
-        \path [->] (candidate_extraction2) edge (learning);
-        \path [->] (learning) edge (classification);
-      }
-      \uncover<7->{
-        \path [->] (classification) edge (keyphrase_selection);
-      }
+      \draw [->] (pretraitement_et_selection_des_candidats) -- (ordonnancement) node [midway] (midway1) {};
+      \draw [->] (pretraitement_et_selection_des_candidats) -- (classification.north west) node [midway] (midway2) {};
+      \draw [dashed] (midway1) -- (midway2) node [midway, below, scale=.5] (xor) {\Large \{ou\}};
       %
-      \uncover<4->{
-        \draw [->] (candidate_extraction) -- (candidate_classification_and_ranking) node [midway] (midway1) {};
-      }
-      \uncover<5->{
-        \draw [->] (candidate_extraction) -- (classification.north west) node [midway] (midway2) {};
-        \draw [dashed] (midway1) -- (midway2) node [midway, below, scale=.5] (xor) {\{ou\}};
-      }
-
-      \uncover<6->{
-        \draw [dashed] ($(preprocessing2.north west)+(-.5cm,4.5cm)$) rectangle ($(learning.south east)+(.5cm,-.5cm)$);
-        \node [above=of documents, yshift=-1.85cm, scale=.5] (apprentissage) {Apprentissage};
-      }
+      \draw [dashed] ($(pretraitement_et_selection_des_candidats2.north west)+(-.5cm,4.5cm)$) rectangle ($(apprentissage.south east)+(.5cm,-.5cm)$);
+      \node [above=of documents, yshift=-1.8cm, scale=.5] (titre_apprentissage) {\Large Apprentissage supervisé};
     \end{tikzpicture}
   \end{figure}
 \end{frame}
 
 \subsubsection{Sélection des termes-clés candidats}
+  \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
+    \begin{figure}
+      \begin{tikzpicture}[scale=.4, node distance=2cm]
+        \node [io] (document) {document};
+        \node [selectedcomponent, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+        \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
+        \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+        \path [->] (document) edge (pretraitement_et_selection_des_candidats);
+        \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
+        \path [->] (ordonnancement) edge (termes_cles);
+        %
+        \node [selectedcomponent, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+        \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
+        \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
+        \node [component, below=of apprentissage] (classification) {Classification des candidats};
+        \path [->] (documents) edge (pretraitement_et_selection_des_candidats2);
+        \path [->] (pretraitement_et_selection_des_candidats2) edge (apprentissage);
+        \path [->] (apprentissage) edge (classification);
+        \path [->] (classification) edge (termes_cles);
+        %
+        \draw [->] (pretraitement_et_selection_des_candidats) -- (ordonnancement) node [midway] (midway1) {};
+        \draw [->] (pretraitement_et_selection_des_candidats) -- (classification.north west) node [midway] (midway2) {};
+        \draw [dashed] (midway1) -- (midway2) node [midway, below, scale=.5] (xor) {\Large \{ou\}};
+        %
+        \draw [dashed] ($(pretraitement_et_selection_des_candidats2.north west)+(-.5cm,4.5cm)$) rectangle ($(apprentissage.south east)+(.5cm,-.5cm)$);
+        \node [above=of documents, yshift=-1.8cm, scale=.5] (titre_apprentissage) {\Large Apprentissage supervisé};
+      \end{tikzpicture}
+    \end{figure}
+  \end{frame}
+
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Sélection des termes-clés candidats}
-    \begin{block}<1->{Terme-clé candidat}
-      Unité textuelle qui possède des caractéristiques (linguistiques) d'un
-      terme-clé.
-    \end{block}
-
-    \vspace{1em}
-
-    \uncover<2->{
-      Trois méthodes de sélection classiques~:
-      \begin{itemize}
-        \item<2->{$N$-grammes ($N = 1..3$)}
-        \item<7->{Syntagmes nominaux}
-        \item<12->{Séquences grammaticalement définies}
-        \begin{itemize}
-          \item{Séquences \texttt{NOM}~/~\texttt{ADJ} (générique)}
-          \item{Séquences observées (spécifique)}
-        \end{itemize}
-      \end{itemize}
-    }
-
-    \vspace{1em}
-
-    \uncover<15->{
-      $\rightarrow$ Certaines méthodes sont $\pm$ exhaustives
-    }
-
-    \uncover<16->{
-      $\Rightarrow$ Les résultats de l'extraction de termes-clés varient
-    }
-
-    \visible<3,4>{
-      \begin{textblock*}{\textwidth}(0\textwidth, -.5\textheight)
-        \setbeamertemplate{blocks}[rounded][shadow=true]
-
-        \begin{exampleblock}{$3$-grammes}\small
-          \og{}
-            À l'exception de la province de Luxembourg, en alerte jaune,
-            l'ensemble de la Belgique est en vigilance orange à la canicule.
-          \fg{}
-
-          \begin{multicols}{2}
-            \begin{itemize}
-              \item{\alt<4>{\sout{À l'exception}}{À l'exception}}
-              \item{\alt<4>{\sout{l'exception de}}{l'exception de}}
-              \item{\alt<4>{\sout{exception de la}}{exception de la}}
-              \item{\alt<4>{\sout{de la province}}{de la province}}
-              \item{\alt<4>{\sout{la province de}}{la province de}}
-              \item{province de Luxembourg}
-              \item{\alt<4>{\sout{en alerte jaune}}{en alerte jaune}}
-              \item{\alt<4>{\sout{l'ensemble de}}{l'ensemble de}}
-              \item{\alt<4>{\sout{ensemble de la}}{ensemble de la}}
-              \item{\alt<4>{\sout{de la Belgique}}{de la Belgique}}
-              \item{\alt<4>{\sout{la Belgique est}}{la Belgique est}}
-              \item{\alt<4>{\sout{Belgique est en}}{Belgique est en}}
-            \end{itemize}
-          \end{multicols}
-        \end{exampleblock}
-      \end{textblock*}
-    }
-
-    \visible<5>{
-      \begin{textblock*}{\textwidth}(0\textwidth, -.5\textheight)
-        \setbeamertemplate{blocks}[rounded][shadow=true]
-
-        \begin{exampleblock}{$\{1..3\}$-grammes}\small
-          \og{}
-            À l'exception de la province de Luxembourg, en alerte jaune,
-            l'ensemble de la Belgique est en vigilance orange à la canicule.
-          \fg{}
-
-          \begin{multicols}{2}
-            \begin{itemize}
-              \item{exception}
-              \item{province}
-              \item{Luxembourg}
-              \item{alerte}
-              \item{jaune}
-              \item{ensemble}
-              \item{Belgique}
-              \item{vigilance}
-              \item{orange}
-              \item{canicule}
-              \item{alerte jaune}
-              \item{vigilance orange}
-              \item{province de Luxembourg}
-            \end{itemize}
-          \end{multicols}
-        \end{exampleblock}
-      \end{textblock*}
-    }
-
-    \visible<8,9,10>{
-      \begin{textblock*}{\textwidth}(0\textwidth, -.5\textheight)
-        \setbeamertemplate{blocks}[rounded][shadow=true]
-
-        \begin{exampleblock}{Syntagmes nominaux}\small
-          \og{}
-            À l'exception de la province de Luxembourg, en alerte jaune,
-            l'ensemble de la Belgique est en vigilance orange à la canicule.
-          \fg{}
-
-          \begin{multicols}{2}
-            \begin{itemize}
-              \item{\alt<9->{\sout{l'}}{l'}\alt<10>{[exception]}{exception} de
-                    la \alt<10>{[province]}{province} de
-                    \alt<10>{[Luxembourg]}{Luxembourg}}
-              \item{alerte jaune}
-              \item{\alt<9->{\sout{l'}}{l'}\alt<10>{[ensemble]}{ensemble} de la
-                \alt<10>{[Belgique]}{Belgique}}
-              \item{vigilance orange}
-              \item{\alt<9->{\sout{la}}{la} canicule}
-            \end{itemize}
-          \end{multicols}
-        \end{exampleblock}
-      \end{textblock*}
-    }
-
-    \visible<13>{
-      \begin{textblock*}{\textwidth}(0\textwidth, -.5\textheight)
-        \setbeamertemplate{blocks}[rounded][shadow=true]
-
-      \begin{exampleblock}{Syntagmes nominaux}\small
-          \og{}
-            À l'exception de la province de Luxembourg, en alerte jaune,
-            l'ensemble de la Belgique est en vigilance orange à la canicule.
-          \fg{}
-
-          \begin{multicols}{2}
-            \begin{itemize}
-              \item{exception}
-              \item{province}
-              \item{Luxembourg}
-              \item{alerte jaune}
-              \item{ensemble}
-              \item{Belgique}
-              \item{vigilance orange}
-              \item{canicule}
-            \end{itemize}
-          \end{multicols}
-        \end{exampleblock}
-      \end{textblock*}
-    }
   \end{frame}
 
 \subsubsection{Extraction non supervisée}
+  \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
+    \begin{figure}
+      \begin{tikzpicture}[scale=.4, node distance=2cm]
+        \node [io] (document) {document};
+        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+        \node [selectedcomponent, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
+        \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+        \path [->] (document) edge (pretraitement_et_selection_des_candidats);
+        \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
+        \path [->] (ordonnancement) edge (termes_cles);
+        %
+        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+        \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
+        \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
+        \node [component, below=of apprentissage] (classification) {Classification des candidats};
+        \path [->] (documents) edge (pretraitement_et_selection_des_candidats2);
+        \path [->] (pretraitement_et_selection_des_candidats2) edge (apprentissage);
+        \path [->] (apprentissage) edge (classification);
+        \path [->] (classification) edge (termes_cles);
+        %
+        \draw [->] (pretraitement_et_selection_des_candidats) -- (ordonnancement) node [midway] (midway1) {};
+        \draw [->] (pretraitement_et_selection_des_candidats) -- (classification.north west) node [midway] (midway2) {};
+        \draw [dashed] (midway1) -- (midway2) node [midway, below, scale=.5] (xor) {\Large \{ou\}};
+        %
+        \draw [dashed] ($(pretraitement_et_selection_des_candidats2.north west)+(-.5cm,4.5cm)$) rectangle ($(apprentissage.south east)+(.5cm,-.5cm)$);
+        \node [above=of documents, yshift=-1.8cm, scale=.5] (titre_apprentissage) {\Large Apprentissage supervisé};
+      \end{tikzpicture}
+    \end{figure}
+  \end{frame}
+
   \begin{frame}[t]{Extraction de termes-clés}\framesubtitle{Extraction non supervisée}
     \begin{block}<1->{Objectif}
       Déterminer les termes-clés candidats les plus importants.
@@ -285,6 +151,36 @@
   \end{frame}
 
 \subsubsection{Extraction supervisée}
+  \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
+    \begin{figure}
+      \begin{tikzpicture}[scale=.4, node distance=2cm]
+        \node [io] (document) {document};
+        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+        \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
+        \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+        \path [->] (document) edge (pretraitement_et_selection_des_candidats);
+        \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
+        \path [->] (ordonnancement) edge (termes_cles);
+        %
+        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+        \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
+        \node [selectedcomponent, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
+        \node [selectedcomponent, below=of apprentissage] (classification) {Classification des candidats};
+        \path [->] (documents) edge (pretraitement_et_selection_des_candidats2);
+        \path [->] (pretraitement_et_selection_des_candidats2) edge (apprentissage);
+        \path [->] (apprentissage) edge (classification);
+        \path [->] (classification) edge (termes_cles);
+        %
+        \draw [->] (pretraitement_et_selection_des_candidats) -- (ordonnancement) node [midway] (midway1) {};
+        \draw [->] (pretraitement_et_selection_des_candidats) -- (classification.north west) node [midway] (midway2) {};
+        \draw [dashed] (midway1) -- (midway2) node [midway, below, scale=.5] (xor) {\Large \{ou\}};
+        %
+        \draw [dashed] ($(pretraitement_et_selection_des_candidats2.north west)+(-.5cm,4.5cm)$) rectangle ($(apprentissage.south east)+(.5cm,-.5cm)$);
+        \node [above=of documents, yshift=-1.8cm, scale=.5] (titre_apprentissage) {\Large Apprentissage supervisé};
+      \end{tikzpicture}
+    \end{figure}
+  \end{frame}
+
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Extraction supervisée}
     \begin{block}<+->{Objectif}
       Apprendre à reconnaître les termes-clés parmi les termes-clés candidats.

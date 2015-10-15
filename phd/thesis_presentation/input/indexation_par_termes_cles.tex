@@ -1,50 +1,36 @@
 \section{Indexation par termes-clés}
   \begin{frame}{Indexation par termes-clés}
     \begin{figure}
-      \begin{tikzpicture}[scale=.35, node distance=3cm]
+      \begin{tikzpicture}[scale=.4, node distance=3cm]
+        \node [component] (extraction) {Extraction de termes-clés};
         \uncover<2->{
-          \node [component] (extraction) {Extraction de termes-clés};
-        }
-        \uncover<5->{
           \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
         }
 
-        \uncover<1->{
-          \node [io, above=of extraction] (document) {document};
-        }
-        \uncover<4->{
+        \node [io, above=of extraction] (document) {document};
+        \uncover<2->{
           \node [io, above=of assignement] (vocabulaire_controle) {vocabulaire contrôlé};
         }
 
-        \uncover<3->{
-          \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
-        }
-        \uncover<6->{
+        \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
+        \uncover<2->{
           \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
         }
 
-        \uncover<7->{
+        \uncover<3->{
           \node [above=of document, yshift=-2.85cm] (general) {\small Général};
 
           \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
-        }
-        \uncover<8->{
           \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
 
-          \draw [dashed] ($(assignement.north west)+(-.5cm, 5.5cm)$) rectangle ($(assignement.south east)+(.5cm, -5.5cm)$);
+          \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
         }
 
+        \path [->] (document) edge (extraction);
+        \path [->] (extraction) edge (termes_cles_extraits);
         \uncover<2->{
-          \path [->] (document) edge (extraction);
-        }
-        \uncover<5->{
           \path [->] (document) edge (assignement);
           \path [->] (vocabulaire_controle) edge (assignement);
-        }
-        \uncover<3->{
-          \path [->] (extraction) edge (termes_cles_extraits);
-        }
-        \uncover<6->{
           \path [->] (assignement) edge (termes_cles_assignes);
         }
       \end{tikzpicture}
@@ -52,20 +38,74 @@
   \end{frame}
 
   \subsection{Extraction de termes-clés}
+    \begin{frame}{Indexation par termes-clés}
+      \begin{figure}
+        \begin{tikzpicture}[scale=.4, node distance=3cm]
+          \node [selectedcomponent] (extraction) {Extraction de termes-clés};
+          \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
+
+          \node [io, above=of extraction] (document) {document};
+          \node [io, above=of assignement] (vocabulaire_controle) {vocabulaire contrôlé};
+
+          \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
+          \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
+
+          \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+
+          \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
+          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+
+          \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
+
+          \path [->] (document) edge (extraction);
+          \path [->] (extraction) edge (termes_cles_extraits);
+          \path [->] (document) edge (assignement);
+          \path [->] (vocabulaire_controle) edge (assignement);
+          \path [->] (assignement) edge (termes_cles_assignes);
+        \end{tikzpicture}
+      \end{figure}
+    \end{frame}
     \input{input/indexation_par_termes_cles/extraction_de_termes_cles.tex}
 
   \subsection{Assignement de termes-clés}
-    \input{input/indexation_par_termes_cles/assignement_de_termes_cles.tex}
+    \begin{frame}{Indexation par termes-clés}
+      \begin{figure}
+        \begin{tikzpicture}[scale=.4, node distance=3cm]
+          \node [component] (extraction) {Extraction de termes-clés};
+          \node [selectedcomponent, right=of extraction] (assignement) {Assignement de termes-clés};
+
+          \node [io, above=of extraction] (document) {document};
+          \node [io, above=of assignement] (vocabulaire_controle) {vocabulaire contrôlé};
+
+          \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
+          \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
+
+          \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+
+          \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
+          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+
+          \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
+
+          \path [->] (document) edge (extraction);
+          \path [->] (extraction) edge (termes_cles_extraits);
+          \path [->] (document) edge (assignement);
+          \path [->] (vocabulaire_controle) edge (assignement);
+          \path [->] (assignement) edge (termes_cles_assignes);
+        \end{tikzpicture}
+      \end{figure}
+    \end{frame}
+    %\input{input/indexation_par_termes_cles/assignement_de_termes_cles.tex}
 
   \subsection{Bilan}
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Bilan}
     \begin{itemize}
-      \item<+->{Division en deux catégories de méthodes}
+      \item{Division en deux catégories de méthodes}
       \begin{itemize}
         \item{Extraction de termes-clés}
         \item{Assignement de termes-clés}
       \end{itemize}
-      \item<+->{Application possible à tout type de besoins}
+      \item{Application possible à tout type de besoins}
       \begin{itemize}
         \item{Avec ressources~/~Sans ressources}
         \item{En domaine de spécialité~/~Hors domaine de spécialité}
@@ -74,7 +114,7 @@
 
     \vspace{1em}
 
-    \begin{alertblock}<+->{Reproche}
+    \begin{alertblock}{Reproche}
       Extraction et assignement sont disjoints.
     \end{alertblock}
   \end{frame}

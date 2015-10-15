@@ -25,6 +25,8 @@
 \usepackage{fancybox}
 \usepackage{ulem}
 
+\setcounter{tocdepth}{2}
+
 \usetheme[style=termith]{min}
 
 \pgfplotsset{compat=1.8}
@@ -36,18 +38,24 @@
   fill=termithgreen!30,
   draw=termithgreen!40,
   transform shape,
-  font={\Large}
+  font={\huge}
+]
+\tikzstyle{selectedio}=[
+  io,
+  fill=termithorange!30,
+  draw=termithorange!40,
 ]
 \tikzstyle{component}=[
-  text centered,
   thick,
   rectangle,
   minimum width=11cm,
   minimum height=2cm,
+  text centered,
+  text width=10cm,
   fill=cyan!20,
   draw=cyan!30,
   transform shape,
-  font={\Large\bfseries}
+  font={\huge\bfseries}
 ]
 \tikzstyle{selectedcomponent}=[
   component,
@@ -73,12 +81,6 @@
 }
 
 \begin{document}
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%  \renewcommand*{\theenumii}{\alph{enumii}}
-%  \renewcommand*{\theenumiii}{\roman{enumiii}}
-%  \addtobeamertemplate{block begin}{\setlength\abovedisplayskip{0pt}}
-  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
   \begin{frame}[plain, noframenumbering]
     \titlepage
   \end{frame}
@@ -87,15 +89,14 @@
   \begin{frame}{Plan}
     \tableofcontents
   \end{frame}
+  \input{input/indexation_par_termes_cles.tex}
   \AtBeginSection[]{
     \begin{frame}{Plan}
       \tableofcontents[currentsection]
     \end{frame}
   }
-  %
-  \input{input/indexation_par_termes_cles.tex}
-  \input{input/contributions.tex}
-  \input{input/conclusion.tex}
+  %\input{input/contributions.tex}
+  %\input{input/conclusion.tex}
   %
   \begin{frame}
     \vfill
