@@ -1,30 +1,44 @@
 \begin{frame}{Indexation par termes-clés}\framesubtitle{Assignement de termes-clés}
+  \begin{block}{Objectif}
+    Positionner le document dans son domaine.
+  \end{block}
 \end{frame}
 
-%\begin{frame}{Assignement de termes-clés}\framesubtitle{\textsc{Kea}++~\cite{medelyan2006kea++}}
-%  \begin{block}{Thésaurus}
-%    \begin{itemize}
-%      \item{Liste de termes (= vocabulaire contrôlé)}
-%      \item{Décrit les relations entre les termes}
-%      \begin{itemize}
-%        \item{Hiérarchie (générique, spécifique)}
-%        \item{Champ sémantique}
-%      \end{itemize}
-%    \end{itemize}
-%  \end{block}
-%
-%  \uncover{
-%    \begin{enumerate}
-%      \item{Projection du thésaurus dans le document}
-%      \item{Ajout des relations du thésaurus comme critère de classification}
-%      \begin{itemize}
-%        \item{\textsc{Tf-Idf}}
-%        \item{Première position}
-%        \item{Nombre de relations avec d'autres candidats}
-%      \end{itemize}
-%    \end{enumerate}
-%  }
-%\end{frame}
+\begin{frame}{Assignement de termes-clés}\framesubtitle{\textsc{Kea}++~\cite{medelyan2006kea++}}
+  \begin{block}{Thésaurus}
+    \begin{itemize}
+      \item{Liste de termes (= vocabulaire contrôlé)}
+      \item{Décrit les relations entre les termes}
+      \begin{itemize}
+        \item{Hiérarchie (générique, spécifique)}
+        \item{Champ sémantique}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{enumerate}
+    \item{Projection du thésaurus dans le document}
+    \item{Ajout des relations du thésaurus comme critère de classification}
+    \begin{itemize}
+      \item{TF-IDF}
+      \item{Première position}
+      \item{Nombre de relations avec d'autres candidats}
+    \end{itemize}
+  \end{enumerate}
+
+  \begin{alertblock}{TODO}
+    À refaire
+  \end{alertblock}
+\end{frame}
+
+\begin{frame}{Assignement de termes-clés}\framesubtitle{Alternatives}
+  \begin{alertblock}{TODO}
+    \begin{itemize}
+      \item{SMT Keyphrase extraction}
+      \item{Brigitte Grau}
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
 
 %\subsubsection{Bilan}
 %  \begin{frame}{Assignement de termes-clés}\framesubtitle{Bilan}

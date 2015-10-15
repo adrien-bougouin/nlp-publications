@@ -28,7 +28,7 @@
   \end{figure}
 \end{frame}
 
-\subsubsection{Sélection des termes-clés candidats}
+\subsubsection{Prétraitements\dots}
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
     \begin{figure}
       \begin{tikzpicture}[scale=.4, node distance=2cm]
@@ -60,9 +60,22 @@
   \end{frame}
 
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Prétraitements\dots}
+    \begin{enumerate}
+      \item{Préparation du document}
+      \begin{enumerate}
+        \item{Segmentation en phrases}
+        \item{Segmentation en mots}
+        \item{Étiquetage grammatical}
+      \end{enumerate}
+      \item{Sélection des termes-clés candidats}
+      \begin{itemize}
+        \item{$N$-grammes}
+        \item{Reconnaissance de forme}
+      \end{itemize}
+    \end{enumerate}
   \end{frame}
 
-\subsubsection{Extraction non supervisée}
+\subsubsection{Ordonancement des candidats}
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
     \begin{figure}
       \begin{tikzpicture}[scale=.4, node distance=2cm]
@@ -104,11 +117,14 @@
     \begin{itemize}
       \item{Statistiques~\cite[TF-IDF]{salton1975tfidf}}
       \item{Par groupement sémantique~\cite[KeyCluster]{liu2009keycluster}}
-      \item{À base de graphe~\cite[TextRank]{mihalcea2004textrank}}
+      \item{\textbf{À base de graphe}~\cite[TextRank]{mihalcea2004textrank}}
     \end{itemize}
   \end{frame}
 
-\subsubsection{Extraction supervisée}
+  \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank~/~SingleRank}
+  \end{frame}
+
+\subsubsection{Classification des candidats}
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
     \begin{figure}
       \begin{tikzpicture}[scale=.4, node distance=2cm]
