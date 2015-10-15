@@ -11,8 +11,8 @@
     \begin{tikzpicture}
       \useasboundingbox (0, 0) rectangle (\the\paperwidth, .7cm);
       \ifx\insertframesubtitle\@empty{
-        \node[anchor=west] at (0, .3){
-          \usebeamerfont{frametitle}\insertframetitle
+        \node[anchor=west] at (0, .35){
+          \usebeamerfont{frametitle}\insertframetitle\hspace{\paperwidth}\usebeamerfont{frametitlesep}$\rangle$
         };
       }\else{
         \node[anchor=west] at (0, .35){
@@ -55,6 +55,7 @@
 % miscelaneous settings
 \setbeamertemplate{navigation symbols}{}
 \setbeamercovered{transparent}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
 
 \mode<all>
 
