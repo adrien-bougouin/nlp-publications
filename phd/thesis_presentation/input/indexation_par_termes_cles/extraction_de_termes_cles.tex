@@ -1,15 +1,16 @@
 \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
   \begin{figure}
-    \begin{tikzpicture}[scale=.4, node distance=2cm]
+    \centering
+    \begin{tikzpicture}[scale=.35, node distance=2cm]
       \node [io] (document) {document};
-      \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+      \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
       \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
       \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
       \path [->] (document) edge (pretraitement_et_selection_des_candidats);
       \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
       \path [->] (ordonnancement) edge (termes_cles);
       %
-      \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+      \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
       \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
       \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
       \node [component, below=of apprentissage] (classification) {Classification des candidats};
@@ -31,16 +32,17 @@
 \subsubsection{Prétraitements\dots}
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
     \begin{figure}
-      \begin{tikzpicture}[scale=.4, node distance=2cm]
+      \centering
+      \begin{tikzpicture}[scale=.35, node distance=2cm]
         \node [io] (document) {document};
-        \node [selectedcomponent, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+        \node [selectedcomponent, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
         \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
         \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
         \path [->] (document) edge (pretraitement_et_selection_des_candidats);
         \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
         \path [->] (ordonnancement) edge (termes_cles);
         %
-        \node [selectedcomponent, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+        \node [selectedcomponent, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
         \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
         \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
         \node [component, below=of apprentissage] (classification) {Classification des candidats};
@@ -59,35 +61,37 @@
     \end{figure}
   \end{frame}
 
-  \begin{frame}{Extraction de termes-clés}\framesubtitle{Prétraitements\dots}
+  \begin{frame}{Extraction de termes-clés}\framesubtitle{Sélection des termes-clés candidats}
+    Préparation préalable du document~:
     \begin{enumerate}
-      \item{Préparation du document}
-      \begin{enumerate}
-        \item{Segmentation en phrases}
-        \item{Segmentation en mots}
-        \item{Étiquetage grammatical}
-      \end{enumerate}
-      \item{Sélection des termes-clés candidats}
-      \begin{itemize}
-        \item{$N$-grammes}
-        \item{Reconnaissance de forme}
-      \end{itemize}
+      \item{Segmentation en phrases}
+      \item{Segmentation en mots}
+      \item{Étiquetage grammatical}
     \end{enumerate}
+
+    \vspace{1em}
+
+    Sélection des termes-clés candidats~:
+    \begin{itemize}
+      \item{$N$-grammes}
+      \item{Reconnaissance de forme}
+    \end{itemize}
   \end{frame}
 
 \subsubsection{Ordonancement des candidats}
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
     \begin{figure}
-      \begin{tikzpicture}[scale=.4, node distance=2cm]
+      \centering
+      \begin{tikzpicture}[scale=.35, node distance=2cm]
         \node [io] (document) {document};
-        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
         \node [selectedcomponent, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
         \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
         \path [->] (document) edge (pretraitement_et_selection_des_candidats);
         \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
         \path [->] (ordonnancement) edge (termes_cles);
         %
-        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
         \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
         \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
         \node [component, below=of apprentissage] (classification) {Classification des candidats};
@@ -121,22 +125,103 @@
     \end{itemize}
   \end{frame}
 
-  \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank~/~SingleRank}
+  \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
+    \begin{exampleblock}{\small
+      Météo du 19 août 2012~: alerte à la canicule sur la Belgique et le
+      Luxembourg
+    }\justifying\small
+      ~~~À l'exception de la province de Luxembourg, en alerte jaune, l'ensemble
+      de la Belgique est en vigilance orange à la canicule. Le Luxembourg n'est
+      pas épargné par la vague du chaleur : le nord du pays est en alerte
+      orange, tandis que le sud a était placé en alerte rouge.
+
+      ~~~En Belgique, la température n'est pas descendue en dessous des
+      23\degre{}C cette nuit, ce qui constitue la deuxième nuit la plus chaude
+      jamais enregistrée dans le royaume. Il se pourrait que ce dimanche soit la
+      journée la plus chaude de l'année. Les températures seront comprises entre
+      33 et 38\degre{}C. Une légère brise de côte pourra faiblement rafraichir
+      l'atmosphère. Des orages de chaleur sont a prévoir dans la soirée et en
+      début de nuit.
+
+      ~~~Au Luxembourg, le mercure devrait atteindre 32\degre{}C ce dimanche sur
+      l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à 32\degre{}C
+      lundi. Une baisse devrait intervenir pour le reste de la semaine.
+      Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait pas être
+      atteint.
+
+      \begin{exampleblock}{\small Termes-clés}\justifying\small
+        Août 2012~; alerte~; canicule~; Belgique~; Luxembourg~; orange~;
+        chaleur~; température~; chaude~; la plus chaude.
+      \end{exampleblock}
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
+    \begin{columns}[t]
+      \begin{column}{.5\linewidth}\centering
+        TextRank~\cite{mihalcea2004textrank}
+
+        \vspace{2em}
+
+        \begin{overpic}[width=.95\linewidth]{include/44960_textrank_graph.eps}
+        \end{overpic}
+
+        \vspace{2em}
+
+        TODO formule
+      \end{column}
+
+      \begin{column}{.5\linewidth}\centering
+        SingleRank~\cite{wan2008expandrank}
+
+        \vspace{2em}
+
+        \begin{overpic}[width=\linewidth]{include/44960_singlerank_graph.eps}
+        \end{overpic}
+
+        \vspace{2em}
+
+        TODO formule
+      \end{column}
+    \end{columns}
+  \end{frame}
+
+  \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
+    \begin{table}
+      \centering
+      \begin{tabular}{r|l|l}
+        \toprule
+        \textbf{Rang} & \multicolumn{1}{c|}{\textbf{TextRank}} & \multicolumn{1}{c}{\textbf{SingleRank}} \\
+        \hline
+        01 & \cellcolor{termithorange!30}{août 2012} & alerte orange \\
+        02 & août 2003 & alerte jaune \\
+        03 & alerte orange & alerte rouge \\
+        04 & vigilance orange & \cellcolor{termithorange!30}{alerte} \\
+        05 & deuxième nuit & deuxième nuit \\
+        06 & légère brise & \cellcolor{termithorange!30}{août 2012} \\
+        07 & & août 2003 \\
+        08 & & vigilance orange \\
+        09 & & légère brise \\
+        10 & & \cellcolor{termithorange!30}{Luxembourg} \\
+        \bottomrule
+      \end{tabular}
+    \end{table}
   \end{frame}
 
 \subsubsection{Classification des candidats}
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Extraction de termes-clés}
     \begin{figure}
-      \begin{tikzpicture}[scale=.4, node distance=2cm]
+      \centering
+      \begin{tikzpicture}[scale=.35, node distance=2cm]
         \node [io] (document) {document};
-        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Prétraitement et sélection de termes-clés candidats};
+        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
         \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
         \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
         \path [->] (document) edge (pretraitement_et_selection_des_candidats);
         \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
         \path [->] (ordonnancement) edge (termes_cles);
         %
-        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Prétraitement et sélection de termes-clés candidats};
+        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
         \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'apprentissage};
         \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
         \node [selectedcomponent, below=of apprentissage] (classification) {Classification des candidats};
@@ -166,8 +251,6 @@
     \begin{itemize}
       \item{Fréquenciels~:}
       \begin{itemize}
-        \item{Fréquence}
-        \item{Spécificité}
         \item{TF-IDF~\cite[KEA]{witten1999kea}}
       \end{itemize}
       \item{Positionnels~:}
@@ -178,21 +261,16 @@
       \end{itemize}
       \item{Linguistiques~:}
       \begin{itemize}
-        \item{Classe grammaticale}
-        \item{Catégorie syntagmatique}
+        \item{Catégorie grammaticale}
       \end{itemize}
     \end{itemize}
-  \end{frame}
 
-  \begin{frame}{Extraction de termes-clés}\framesubtitle{Classification des candidats}
+    \vspace{1em}
+
     Et divers méthodes d'apprentissage~:
     \begin{itemize}
       \item{Classification naîve bayesienne~\cite[KEA]{witten1999kea}}
-      \item{Création d'une forêt d'arbres de
-            décision~\cite{turney1999learningalgorithms}}
-      \item{Apprentissage d'un hyperplan~\cite{zhang2006svm}}
-      \item{Entraînement d'un réseau de
-            neurones~\cite{sarkar2010neuralnetwork}}
+      \item{Entraînement d'un réseau de neurones~\cite{sarkar2010neuralnetwork}}
     \end{itemize}
   \end{frame}
 

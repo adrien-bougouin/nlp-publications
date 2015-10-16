@@ -1,7 +1,8 @@
 \section{Indexation par termes-clés}
   \begin{frame}{Indexation par termes-clés}
     \begin{figure}
-      \begin{tikzpicture}[scale=.4, node distance=3cm]
+      \centering
+      \begin{tikzpicture}[scale=.35, node distance=3cm]
         \node [component] (extraction) {Extraction de termes-clés};
         \uncover<2->{
           \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
@@ -40,7 +41,8 @@
   \subsection{Extraction de termes-clés}
     \begin{frame}{Indexation par termes-clés}
       \begin{figure}
-        \begin{tikzpicture}[scale=.4, node distance=3cm]
+        \centering
+        \begin{tikzpicture}[scale=.35, node distance=3cm]
           \node [selectedcomponent] (extraction) {Extraction de termes-clés};
           \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
 
@@ -70,7 +72,8 @@
   \subsection{Assignement de termes-clés}
     \begin{frame}{Indexation par termes-clés}
       \begin{figure}
-        \begin{tikzpicture}[scale=.4, node distance=3cm]
+        \centering
+        \begin{tikzpicture}[scale=.35, node distance=3cm]
           \node [component] (extraction) {Extraction de termes-clés};
           \node [selectedcomponent, right=of extraction] (assignement) {Assignement de termes-clés};
 
@@ -99,7 +102,8 @@
 
   \begin{frame}{Indexation par termes-clés}
     \begin{figure}
-      \begin{tikzpicture}[scale=.4, node distance=3cm]
+      \centering
+      \begin{tikzpicture}[scale=.35, node distance=3cm]
         \node [component] (extraction) {Extraction de termes-clés};
         \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
 
@@ -126,19 +130,15 @@
   \end{frame}
 
   \begin{frame}{Indexation par termes-clés}
-    Division en deux catégories de méthodes.
+    Extraction Vs Assignement~:
     \begin{itemize}
-      \item{Extraction Vs Assignement}
+      \item{Contexte général Vs domaines de spécialité}
       \item{Limation au document Vs Limitation au vocabulaire contrôlé}
     \end{itemize}
 
     \vspace{1em}
 
-    \begin{alertblock}{Reproche}
+    \begin{alertblock}{Problème}
       Extraction et assignement sont disjoints.
-    \end{alertblock}
-
-    \begin{alertblock}{TODO}
-      Peut mieux faire
     \end{alertblock}
   \end{frame}
