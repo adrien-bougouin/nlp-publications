@@ -150,33 +150,97 @@
       atteint.
 
       \begin{exampleblock}{\small Termes-clés}\justifying\small
-        Août 2012~; alerte~; canicule~; Belgique~; Luxembourg~; orange~;
-        chaleur~; température~; chaude~; la plus chaude.
+        \underline{Août 2012}~; \underline{canicule}~;
+        \underline{Belgique}~; \underline{Luxembourg}~; \underline{alerte}~;
+        \underline{orange}~; \underline{chaleur}~; \underline{chaude}~;
+        \underline{température}~; \underline{la plus chaude}.
       \end{exampleblock}
     \end{exampleblock}
   \end{frame}
 
   \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
     \begin{columns}[t]
-      \begin{column}{.5\linewidth}\centering
-        TextRank~\cite{mihalcea2004textrank}
+      \begin{column}{.4\linewidth}\centering
+        TextRank\\\cite{mihalcea2004textrank}
 
-        \vspace{2em}
+        \vspace{3em}
 
         \begin{overpic}[width=.95\linewidth]{include/44960_textrank_graph.eps}
+          \put (19, 99) {\scriptsize deuxième}
+          \put (57, 101.5) {\scriptsize nuit}
+          \put (-4, 61) {\scriptsize août}
+          \put (20, 78) {\scriptsize 2003}
+          \put (8, 14) {\scriptsize 2012}
+          \put (48, 73) {\scriptsize alerte}
+          \put (31, 33) {\scriptsize jaune}
+          \put (60, 44) {\scriptsize rouge}
+          \put (88, 46) {\scriptsize orange}
+          \put (80, 79) {\scriptsize vigilance}
+          \put (41, 3) {\scriptsize brise}
+          \put (71, 15) {\scriptsize légère}
         \end{overpic}
 
-        \vspace{2em}
+        \vspace{4em}
 
         TODO formule
       \end{column}
-
+      \hspace{-1em}
+      \vrule{}
+      \hspace{1em}
       \begin{column}{.5\linewidth}\centering
-        SingleRank~\cite{wan2008expandrank}
+        SingleRank\\\cite{wan2008expandrank}
 
         \vspace{2em}
 
         \begin{overpic}[width=\linewidth]{include/44960_singlerank_graph.eps}
+          \put (46, 15.5) {\scriptsize nord}
+          \put (55, 17) {\scriptsize deuxième}
+          \put (43, 31) {\scriptsize nuit}
+          \put (56.5, 32) {\scriptsize août}
+          \put (29, 18.5) {\scriptsize chaleur}
+          \put (18, 25) {\scriptsize vague}
+          \put (0, 27.5) {\scriptsize soirée}
+          \put (9, 15) {\scriptsize orages}
+          \put (22, 6) {\scriptsize début}
+          \put (37, 2.5) {\scriptsize rouge}
+          \put (51.5, 1.5) {\scriptsize record}
+          \put (67, 6) {\scriptsize 37,0\degre{}C}
+          \put (79.5, 15) {\scriptsize 2003}
+          \put (88.5, 27) {\scriptsize 23\degre{}C}
+          \put (71, 27.5) {\scriptsize pays}
+          \put (-6, 42) {\scriptsize année}
+          \put (9.5, 37.75) {\scriptsize chaud}
+          \put (4.5, 51.5) {\scriptsize journée}
+          \put (27, 36) {\scriptsize météo}
+          \put (22, 50) {\scriptsize 2002}
+          \put (35, 48) {\scriptsize alerte}
+          \put (49, 46.5) {\scriptsize orange}
+          \put (62, 44) {\scriptsize royaume}
+          \put (82, 38) {\scriptsize sud}
+          \put (83, 43) {\scriptsize température}
+          \put (94, 59) {\scriptsize lundi}
+          \put (88.5, 73) {\scriptsize baisse}
+          \put (81, 86.25) {\scriptsize reste}
+          \put (56, 86.5) {\scriptsize semaine}
+          \put (30, 100) {\scriptsize atmosphère}
+          \put (54, 102) {\scriptsize côte}
+          \put (45, 88) {\scriptsize brise}
+          \put (68.5, 96) {\scriptsize légère}
+          \put (-4.5, 60) {\scriptsize 38\degre{}C}
+          \put (-6, 73.4) {\scriptsize températures}
+          \put (6, 86) {\scriptsize province}
+          \put (17, 96) {\scriptsize exception}
+          \put (9.5, 65) {\scriptsize vigilance}
+          \put (17.5, 76) {\scriptsize ensemble}
+          \put (30, 86) {\scriptsize jaune}
+          \put (23, 62) {\scriptsize Luxembourg}
+          \put (36, 73) {\scriptsize dimanche}
+          \put (43, 59) {\scriptsize canicule}
+          \put (50, 70) {\scriptsize Belgique}
+          \put (67, 76.5) {\scriptsize mercure}
+          \put (65.5, 59) {\scriptsize 19}
+          \put (75, 65) {\scriptsize \OE{}sling}
+          \put (80, 51) {\scriptsize 38\degre{}C}
         \end{overpic}
 
         \vspace{2em}
@@ -206,6 +270,15 @@
         \bottomrule
       \end{tabular}
     \end{table}
+
+    \vspace{1em}
+
+    \begin{block}{Observations}
+      \begin{itemize}
+        \item{Faibles performances}
+        \item{Termes-clés redondants}
+      \end{itemize}
+    \end{block}
   \end{frame}
 
 \subsubsection{Classification des candidats}
