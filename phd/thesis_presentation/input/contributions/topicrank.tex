@@ -22,6 +22,17 @@
   \end{block}
 \end{frame}
 
+\begin{frame}{TopicRank}\framesubtitle{Aperçu}
+  Méthode en 5 étapes~:
+  \begin{enumerate}
+    \item{Sélection des termes-clés candidats}
+    \item{Groupement des candidats en sujets}
+    \item{Création d'un graphe de sujets}
+    \item{Ordonnancement des sujets}
+    \item{Sélection du termes-clés représentation des sujets importants}
+  \end{enumerate}
+\end{frame}
+
 \begin{frame}{TopicRank}\framesubtitle{Exemple}
   \alt<2->{
     \begin{exampleblock}{\small
@@ -380,29 +391,29 @@
 
 \begin{frame}{TopicRank}\framesubtitle{Bilan}
   Méthode à base de graphe qui s'intéresse à ce que représentent les
-  termes-clés candidats plutôt qu'à eux-mêmes ou à leurs mots.
+  termes-clés candidats plutôt qu'à eux-mêmes ou à leurs mots
 
   \vspace{1em}
 
   \begin{block}{Avantages}
     \begin{itemize}
+      \item{Générique}
       \item{Non redondant}
-      \item{Bon ordonnancement des sujets (cf. borne haute)}
     \end{itemize}
   \end{block}
 
   \vspace{1em}
 
-  \begin{alertblock}{Inconvénients}
+  \begin{alertblock}{Limites}
     \begin{itemize}
       \item{Groupement naïf des candidats en sujets}
+      \item{Stratégie non optimale pour sélectionner le terme-clé d'un sujet}
       \item{Quelques instabilités}
-      \item{Plus faible en domaines de spécialité}
     \end{itemize}
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Résultats en domaines de spécialité}
+\begin{frame}{TopicRank}\framesubtitle{Oui mais\dots}
   \begin{table}
     \resizebox{\linewidth}{!}{
       \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~~~~~~}c@{~~~~~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
@@ -427,8 +438,8 @@
   \begin{block}{Observations}
     \begin{itemize}
       \item{Meilleure performance face à TextRank et SingleRank}
-      \item{Plus faible perspective d'amélioration}
       \item{Meilleure performance globale pour TF-IDF}
+      \item{Plus faible perspective d'amélioration}
     \end{itemize}
   \end{block}
 \end{frame}
