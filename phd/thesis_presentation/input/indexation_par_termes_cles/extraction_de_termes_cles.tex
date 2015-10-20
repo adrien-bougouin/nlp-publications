@@ -120,7 +120,7 @@
     Ordonnancement des candidats selon diverses approches~:
     \begin{itemize}
       \item{Statistiques~\cite[TF-IDF]{salton1975tfidf}}
-      \item{Par groupement sémantique~\cite[KeyCluster]{liu2009keycluster}}
+      \item{Par groupement sémantique~\cite{matsuo2004wordcooccurrence}}
       \item{\textbf{À base de graphe}~\cite[TextRank]{mihalcea2004textrank}}
     \end{itemize}
   \end{frame}
@@ -179,10 +179,6 @@
           \put (41, 3) {\scriptsize brise}
           \put (71, 15) {\scriptsize légère}
         \end{overpic}
-
-        \vspace{4em}
-
-        TODO formule
       \end{column}
       \hspace{-1em}
       \vrule{}
@@ -243,11 +239,15 @@
           \put (80, 51) {\scriptsize 38\degre{}C}
         \end{overpic}
 
-        \vspace{2em}
-
-        TODO formule
+        \vspace{.5em}
       \end{column}
     \end{columns}
+
+    \vspace{.5em}
+
+    \begin{align}
+      S(n_i) &= (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\text{poids}(n_j, n_i) \times S(n_j)}{\sum_{n_k \in A(n_j)} \text{poids}(n_j, n_k)} \notag
+    \end{align}
   \end{frame}
 
   \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
@@ -269,9 +269,9 @@
         10 & & \cellcolor{termithorange!30}{Luxembourg} \\
         \bottomrule
       \end{tabular}
-    \end{table}
 
-    \vspace{1em}
+      \caption{Termes-clés}
+    \end{table}
 
     \begin{block}{Observations}
       \begin{itemize}
@@ -334,16 +334,16 @@
       \end{itemize}
       \item{Linguistiques~:}
       \begin{itemize}
-        \item{Catégorie grammaticale}
+        \item{Catégorie grammaticale~\cite{nguyen2007keadocumentstructure}}
       \end{itemize}
     \end{itemize}
 
     \vspace{1em}
 
-    Et divers méthodes d'apprentissage~:
+    Classification à l'aide de techniques d'apprentissage automatique~:
     \begin{itemize}
       \item{Classification naîve bayesienne~\cite[KEA]{witten1999kea}}
-      \item{Entraînement d'un réseau de neurones~\cite{sarkar2010neuralnetwork}}
+      \item{Réseau de neurones~\cite{sarkar2010neuralnetwork}}
     \end{itemize}
   \end{frame}
 

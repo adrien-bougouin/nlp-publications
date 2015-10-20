@@ -4,36 +4,26 @@
       \centering
       \begin{tikzpicture}[scale=.35, node distance=3cm]
         \node [component] (extraction) {Extraction de termes-clés};
-        \uncover<2->{
-          \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
-        }
+        \node [component, right=of extraction] (assignement) {Assignement de termes-clés};
 
         \node [io, above=of extraction] (document) {document};
-        \uncover<2->{
-          \node [io, above=of assignement] (vocabulaire_controle) {vocabulaire contrôlé};
-        }
+        \node [io, above=of assignement] (vocabulaire_controle) {vocabulaire contrôlé};
 
         \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
-        \uncover<2->{
-          \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
-        }
+        \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
 
-        \uncover<3->{
-          \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+        \node [above=of document, yshift=-2.85cm] (general) {\small Général};
 
-          \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
-          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+        \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
+        \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaines de spécialité};
 
-          \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
-        }
+        \draw [dashed] ($(assignement.north west)+(-1cm, 5.5cm)$) rectangle ($(assignement.south east)+(1cm, -5.5cm)$);
 
         \path [->] (document) edge (extraction);
         \path [->] (extraction) edge (termes_cles_extraits);
-        \uncover<2->{
-          \path [->] (document) edge (assignement);
-          \path [->] (vocabulaire_controle) edge (assignement);
-          \path [->] (assignement) edge (termes_cles_assignes);
-        }
+        \path [->] (document) edge (assignement);
+        \path [->] (vocabulaire_controle) edge (assignement);
+        \path [->] (assignement) edge (termes_cles_assignes);
       \end{tikzpicture}
     \end{figure}
   \end{frame}
@@ -55,9 +45,9 @@
           \node [above=of document, yshift=-2.85cm] (general) {\small Général};
 
           \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
-          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaines de spécialité};
 
-          \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
+          \draw [dashed] ($(assignement.north west)+(-1cm, 5.5cm)$) rectangle ($(assignement.south east)+(1cm, -5.5cm)$);
 
           \path [->] (document) edge (extraction);
           \path [->] (extraction) edge (termes_cles_extraits);
@@ -86,9 +76,9 @@
           \node [above=of document, yshift=-2.85cm] (general) {\small Général};
 
           \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
-          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+          \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaines de spécialité};
 
-          \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
+          \draw [dashed] ($(assignement.north west)+(-1cm, 5.5cm)$) rectangle ($(assignement.south east)+(1cm, -5.5cm)$);
 
           \path [->] (document) edge (extraction);
           \path [->] (extraction) edge (termes_cles_extraits);
@@ -116,9 +106,9 @@
         \node [above=of document, yshift=-2.85cm] (general) {\small Général};
 
         \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
-        \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaine de spécialité};
+        \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaines de spécialité};
 
-        \draw [dashed] ($(assignement.north west)+(-2cm, 5.5cm)$) rectangle ($(assignement.south east)+(2cm, -5.5cm)$);
+        \draw [dashed] ($(assignement.north west)+(-1cm, 5.5cm)$) rectangle ($(assignement.south east)+(1cm, -5.5cm)$);
 
         \path [->] (document) edge (extraction);
         \path [->] (extraction) edge (termes_cles_extraits);
@@ -140,5 +130,8 @@
 
     \begin{alertblock}{Problème}
       Extraction et assignement sont disjoints.
+      \begin{itemize}
+        \item{Manque d'exhaustivité}
+      \end{itemize}
     \end{alertblock}
   \end{frame}

@@ -1,7 +1,9 @@
 \begin{frame}{Indexation par termes-clés}\framesubtitle{Assignement de termes-clés}
   \begin{block}{Objectif}
-    Positionner le document dans son domaine.
+    Positionner le document vis-à-vis de son domaine.
   \end{block}
+
+  \vspace{1em}
 
   \begin{block}{Vocabulaire contrôlé}
     Terminologie spécifique à un domaine~:
@@ -12,26 +14,38 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{Assignement de termes-clés}\framesubtitle{\textsc{Kea}++~\cite{medelyan2006kea++}}
+\begin{frame}{Assignement de termes-clés}\framesubtitle{Méthodes}
+  Classification des entrées d'un thésaurus~\cite[KEA++]{medelyan2006kea++}~:
   \begin{enumerate}
-    \item{Projection du thésaurus dans le document}
-    \item{Trois critères de classification}
+    \item{Termes-clés candidats $\subseteq$ thésaurus}
+    \item{Trois critères de classification~:}
     \begin{itemize}
-      \item{TF-IDF}
-      \item{Première position}
-      \item{\textbf{Nombre de relations avec d'autres candidats}}
+      \item{TF-IDF \tikz[overlay, remember picture] \node [xshift=4.15em, yshift=1.25em] (top) {};}
+      \item{Première position \tikz[overlay, remember picture] \node [yshift=-.6em] (bottom) {};}
+      \item{Nombre de relations avec d'autres candidats}
     \end{itemize}
   \end{enumerate}
+
+  \begin{tikzpicture}[overlay, remember picture]
+    \draw [decoration={brace, amplitude=0.5em}, decorate, thick]
+    (top) -- (bottom) node [xshift=2em, yshift=1.5em] (kea) {KEA};
+  \end{tikzpicture}
+
+  Classification multi-étiquettes et multi-classes~\cite{partalas2013bioasq}~:
+  \begin{itemize}
+    \item{$n$ étiquettes $=$ $n$ termes-clés à assigner}
+    \item{$m$ classes $=$ entrées du vocabulaire contrôlé}
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{Assignement de termes-clés}\framesubtitle{Alternatives}
-  \begin{alertblock}{TODO}
-    \begin{itemize}
-      \item{SMT Keyphrase extraction}
-      \item{Brigitte Grau}
-    \end{itemize}
-  \end{alertblock}
-\end{frame}
+%\begin{frame}{Assignement de termes-clés}\framesubtitle{Alternatives}
+%  Indexation par termes-clés $\Leftrightarrow$ Traduction
+%  automatique~\cite{liu2011vocabularygap}~:
+%  \begin{itemize}
+%    \item{Document $\Leftrightarrow$ Langage naturel}
+%    \item{Termes-clés $\Leftrightarrow$ Langage synthétique}
+%  \end{itemize}
+%\end{frame}
 
 %\subsubsection{Bilan}
 %  \begin{frame}{Assignement de termes-clés}\framesubtitle{Bilan}

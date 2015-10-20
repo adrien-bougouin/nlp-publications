@@ -1,13 +1,17 @@
 \begin{frame}{Contributions}\framesubtitle{TopicRank}
   Méthode à base de graphe d'extraction non supervisée de termes-clés.
 
+  \vspace{1em}
+
   \begin{alertblock}{Limites des méthodes à base de graphe}
     \begin{itemize}
-      \item{Ordonnancement de mots}
+      \item{Ordonnancement des mots}
       \item{Redondance des termes-clés extraits}
-      \item{(fenêtre de cooccurrence)}
+      \item{Fenêtre de cooccurrence}
     \end{itemize}
   \end{alertblock}
+
+  \vspace{1em}
 
   \begin{block}{Proposition}
     \begin{itemize}
@@ -19,20 +23,247 @@
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Exemple}
+  \begin{exampleblock}{\small
+    Météo du 19 août 2012~: alerte à la canicule sur la Belgique et le
+    Luxembourg
+  }\justifying\small
+    ~~~À l'exception de la province de Luxembourg, en alerte jaune, l'ensemble
+    de la Belgique est en vigilance orange à la canicule. Le Luxembourg n'est
+    pas épargné par la vague du chaleur : le nord du pays est en alerte
+    orange, tandis que le sud a était placé en alerte rouge.
+
+    ~~~En Belgique, la température n'est pas descendue en dessous des
+    23\degre{}C cette nuit, ce qui constitue la deuxième nuit la plus chaude
+    jamais enregistrée dans le royaume. Il se pourrait que ce dimanche soit la
+    journée la plus chaude de l'année. Les températures seront comprises entre
+    33 et 38\degre{}C. Une légère brise de côte pourra faiblement rafraichir
+    l'atmosphère. Des orages de chaleur sont a prévoir dans la soirée et en
+    début de nuit.
+
+    ~~~Au Luxembourg, le mercure devrait atteindre 32\degre{}C ce dimanche sur
+    l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à 32\degre{}C
+    lundi. Une baisse devrait intervenir pour le reste de la semaine.
+    Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait pas être
+    atteint.
+
+    \begin{exampleblock}{\small Termes-clés}\justifying\small
+      \underline{Août 2012}~; \underline{canicule}~;
+      \underline{Belgique}~; \underline{Luxembourg}~; \underline{alerte}~;
+      \underline{orange}~; \underline{chaleur}~; \underline{chaude}~;
+      \underline{température}~; \underline{la plus chaude}.
+    \end{exampleblock}
+  \end{exampleblock}
+\end{frame}
+
+\begin{frame}{TopicRank}\framesubtitle{Exemple}
+  \begin{columns}
+    \begin{column}{.45\linewidth}
+      \begin{enumerate}
+        \item{Sélection des candidats}
+        \item{
+          Groupement des candidats\\
+          $\Rightarrow$ sujets
+        }
+        \item{Construction du graphe}
+        \item{Ordonnancement des sujets}
+        \item{Sélection des termes-clés}
+      \end{enumerate}
+    \end{column}
+
+    \begin{column}{.55\linewidth}
+      \centering
+      \begin{overpic}[width=.95\linewidth]{include/44960_topicrank_graph.eps}
+        \put (36, 101) {\scriptsize [soirée]}
+        \put (53, 100) {\scriptsize [nord]}
+        \put (20, 96) {\scriptsize [\OE{}sling]}
+        \put (65, 95) {\scriptsize [Belgique]}
+        \put (-8, 86) {\scriptsize [août 2003~; août 2012]}
+        \put (38.5, 84) {\scriptsize [ensemble]}
+        \put (58, 83) {\scriptsize [record]}
+        \put (80, 83) {\scriptsize [36\degre{}C]}
+        \put (22, 80) {\scriptsize [légère brise]}
+        \put (-1, 74) {\scriptsize [37\degre{}C]}
+        \put (13, 69) {\scriptsize [météo]}
+        \put (29, 64) {\scriptsize [chaleur]}
+        \put (48, 69) {\scriptsize [reste]}
+        \put (68, 72) {\scriptsize [orages]}
+        \put (85, 71) {\scriptsize [royaume]}
+        \put (-7, 57) {\scriptsize [année]}
+        \put (10, 54) {\scriptsize [chaude]}
+        \put (24, 47) {\scriptsize [province]}
+        \put (40.5, 52) {\scriptsize [semaine]}
+        \put (60, 56.5) {\scriptsize [vague]}
+        \put (77, 58) {\scriptsize [baisse]}
+        \put (90, 54) {\scriptsize [dimanche]}
+        \put (-16, 42) {\scriptsize [vigilance orange]}
+        \put (-9, 37) {\scriptsize [température~; températures]}
+        \put (40, 34) {\scriptsize [pays]}
+        \put (54, 39) {\scriptsize [mercure]}
+        \put (68, 43) {\scriptsize [atmosphère]}
+        \put (83, 38) {\scriptsize [Luxembourg]}
+        \put (0, 25) {\scriptsize [début]}
+        \put (24, 26) {\scriptsize [23\degre{}C]}
+        \put (39, 18) {\scriptsize [lundi]}
+        \put (53, 21) {\scriptsize [38\degre{}C]}
+        \put (70, 27) {\scriptsize [sud]}
+        \put (70, 23) {\scriptsize [nuit~; deuxième nuit]}
+        \put (9, 14) {\scriptsize [exception]}
+        \put (24, 5) {\scriptsize [journée]}
+        \put (59, 4.5) {\scriptsize [côte]}
+        \put (70, 11) {\scriptsize [canicule]}
+        \put (2.5, .5) {\scriptsize [alerte rouge~; alerte jaune~; alerte orange~; alerte]}
+      \end{overpic}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{TopicRank}\framesubtitle{Exemple}
+  \begin{table}
+    \centering
+    \begin{tabular}{r|l|l|l}
+      \toprule
+      \textbf{Rang} & \multicolumn{1}{c|}{\textbf{TextRank}} &
+      \multicolumn{1}{c|}{\textbf{SingleRank}} & \multicolumn{1}{c}{\textbf{TopicRank}} \\
+      \hline
+      01 & \cellcolor{termithorange!30}{août 2012} & alerte orange & \cellcolor{termithorange!30}{Luxembourg}\\
+      02 & août 2003 & alerte jaune & \cellcolor{termithorange!30}{alerte} \\
+      03 & alerte orange & alerte rouge & nuit \\
+      04 & vigilance orange & \cellcolor{termithorange!30}{alerte} & \cellcolor{termithorange!30}{Belgique} \\
+      05 & deuxième nuit & deuxième nuit & \cellcolor{termithorange!30}{août 2012}\\
+      06 & légère brise & \cellcolor{termithorange!30}{août 2012} & \cellcolor{termithorange!30}{chaleur} \\
+      07 & & août 2003 & \cellcolor{termithorange!30}{température} \\
+      08 & & vigilance orange & \cellcolor{termithorange!30}{chaude} \\
+      09 & & légère brise & \cellcolor{termithorange!30}{canicule} \\
+      10 & & \cellcolor{termithorange!30}{Luxembourg} & dimanche \\
+      \bottomrule
+    \end{tabular}
+
+    \caption{Termes-clés}
+  \end{table}
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Évaluation}
+  Trois méthodes de référence~:
+  \begin{itemize}
+    \item{TF-IDF~\cite{salton1975tfidf}}
+    \item{TextRank~\cite{mihalcea2004textrank}}
+    \item{SingleRank~\cite{wan2008expandrank}}
+  \end{itemize}
+
+  \vspace{1em}
+
+  Évaluation à 10 termes-clés, en termes de~:
+  \begin{itemize}
+    \item{Précision~: $\frac{|\text{correctes}|}{|\text{extraits}|}$}
+    \item{Rappel~: $\frac{|\text{correctes}|}{|\text{references}|}$}
+    \item{F1-mesure~: $2 \times \frac{\text{précision} \times \text{rappel}}{\text{précision} + \text{rappel}}$}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Résultats dans le contexte général}
+  \begin{table}
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{DEft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{DUC} \textit{(en)}}\\
+        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
+        \hline
+        \textsc{Tf-Idf} & 10,3 & 19,1 & 13,2$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 13,2 & $~~$8,9 & 10,5$^{~}$ & \textbf{23,8} & \textbf{30,7} & \textbf{26,4}\\
+        TextRank & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$4,9 & $~~$5,4 & $~~$5,0\\
+        SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 22,3 & 28,4 & 24,6\\
+        TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
+        \hline
+        \textbf{Borne haute} & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}$^{~}$ & \textbf{41,8} & \textbf{44,1} & \textbf{42,2}$^{~}$ & \textbf{30,0} & \textbf{20,7} & \textbf{24,3}$^{~}$ & \textbf{30,5} & \textbf{38,7} & \textbf{33,7}\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{table}
+
+  \vspace{1em}
+
+  \begin{block}{Observations}
+    \begin{itemize}
+      \item{Meilleure performance globale}
+      \item{Significativement meilleur que TextRank et SingleRank ($^\dagger$)}
+      \item{Bonne perspective d'améliorarion (vers la borne haute)}
+      \item{Plus faible performance sur DUC\hfill$\rightarrow$}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{TopicRank}\framesubtitle{Résultats dans le contexte général}
+  \begin{table}
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
+        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
+        \hline
+        SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & \textbf{22,3} & \textbf{28,4} & \textbf{24,6}\\
+        + complet & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 22,2 & 28,1 & 24,5\\
+        + candidats & 10,3 & 19,2 & 13,2$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 10,4 & 13,5 & 11,6\\
+        + sujets & 11,1 & 20,4 & 14,2$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 18,9 & 24,2 & 21,0\\
+        TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{table}
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Résultats en domaines de spécialité}
+  \begin{table}
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~~~~~~}c@{~~~~~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Archéologie} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{Chimie} \textit{(fr)}}\\
+        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
+        \hline
+        \textsc{Tf-Idf} & \textbf{13,0} & \textbf{15,4} & \textbf{13,9} & \textbf{13,4} & \textbf{14,0} & \textbf{13,2} & \textbf{28,1} & \textbf{19,1} & \textbf{22,2} & \textbf{14,1} & \textbf{11,1} & \textbf{11,9}\\
+        TextRank & $~~$7,1 & $~~$6,1 & $~~$6,4 & $~~$5,8 & $~~$4,3 & $~~$4,8 & $~~$10,2 & $~~$5,3 & $~~$6,8 & $~~$9,4 & $~~$5,3 & $~~$6,5\\
+        SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
+        TopicRank & 11,2 & 13,1 & 11,9 & 12,1 & 12,8 & 12,1 & 27,5 & 18,7 & 21,8 & 13,8 & 11,1 & 11,8\\
+        \hline
+        \textbf{Borne haute} & \textbf{14,5} & \textbf{17,0} & \textbf{15,4} & \textbf{15,0} & \textbf{15,6} & \textbf{14,9} & \textbf{32,5} & \textbf{22,2} & \textbf{25,8} & \textbf{15,8} & \textbf{12,5} & \textbf{13,3}\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{table}
+
+  \vspace{1em}
+
+  \begin{block}{Observations}
+    \begin{itemize}
+      \item{Meilleure performance face à TextRank et SingleRank}
+      \item{Plus faible perspective d'amélioration}
+      \item{Meilleure performance globale pour TF-IDF}
+    \end{itemize}
+  \end{block}
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Bilan}
-  \begin{alertblock}{TODO}
-    Insister sur les problème de TopicRank que TopicCoRank résoud
+  Méthode à base de graphe qui s'intéresse à ce que représentent les
+  termes-clés candidats plutôt qu'à eux-mêmes ou à leurs mots.
+
+  \vspace{1em}
+
+  \begin{block}{Avantages}
+    \begin{itemize}
+      \item{Non redondant}
+      \item{Bon ordonnancement des sujets (cf. borne haute)}
+    \end{itemize}
+  \end{block}
+
+  \vspace{1em}
+
+  \begin{alertblock}{Inconvénients}
+    \begin{itemize}
+      \item{Groupement naïf des candidats en sujets}
+      \item{Quelques instabilités}
+      \item{Plus faible en domaines de spécialité}
+    \end{itemize}
   \end{alertblock}
 \end{frame}
 
