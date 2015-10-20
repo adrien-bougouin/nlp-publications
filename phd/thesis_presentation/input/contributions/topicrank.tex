@@ -13,7 +13,7 @@
 
   \vspace{1em}
 
-  \begin{block}{Proposition}
+  \begin{block}{Propositions}
     \begin{itemize}
       \item{Ordonnancement des termes-clés candidats}
       \item{Groupement en sujet des termes-clés candidats}
@@ -23,96 +23,254 @@
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Exemple}
-  \begin{exampleblock}{\small
-    Météo du 19 août 2012~: alerte à la canicule sur la Belgique et le
-    Luxembourg
-  }\justifying\small
-    ~~~À l'exception de la province de Luxembourg, en alerte jaune, l'ensemble
-    de la Belgique est en vigilance orange à la canicule. Le Luxembourg n'est
-    pas épargné par la vague du chaleur : le nord du pays est en alerte
-    orange, tandis que le sud a était placé en alerte rouge.
+  \alt<2->{
+    \begin{exampleblock}{\small
+      \textbf{Météo} du 19 \textbf{\underline{août\textvisiblespace 2012}}~:
+      \textbf{\underline{alerte}} à la \textbf{\underline{canicule}} sur la
+      \textbf{\underline{Belgique}} et le \textbf{\underline{Luxembourg}}
+    }\justifying\small
+      ~~~À l'\textbf{exception} de la \textbf{province} de
+      \textbf{\underline{Luxembourg}}, en
+      \textbf{\underline{alerte}\textvisiblespace jaune}, l'\textbf{ensemble} de
+      la \textbf{\underline{Belgique}} est en
+      \textbf{vigilance\textvisiblespace\underline{orange}} à la
+      \textbf{\underline{canicule}}. Le \textbf{\underline{Luxembourg}} n'est
+      pas épargné par la \textbf{vague} du \textbf{\underline{chaleur}}~: le
+      \textbf{nord} du \textbf{pays} est en
+      \textbf{\underline{alerte}\textvisiblespace\underline{orange}}, tandis que
+      le \textbf{sud} a était placé en
+      \textbf{\underline{alerte}\textvisiblespace rouge}.
 
-    ~~~En Belgique, la température n'est pas descendue en dessous des
-    23\degre{}C cette nuit, ce qui constitue la deuxième nuit la plus chaude
-    jamais enregistrée dans le royaume. Il se pourrait que ce dimanche soit la
-    journée la plus chaude de l'année. Les températures seront comprises entre
-    33 et 38\degre{}C. Une légère brise de côte pourra faiblement rafraichir
-    l'atmosphère. Des orages de chaleur sont a prévoir dans la soirée et en
-    début de nuit.
+      ~~~En \textbf{\underline{Belgique}}, la \textbf{\underline{température}}
+      n'est pas descendue en dessous des \textbf{23\degre{}C} cette
+      \textbf{nuit}, ce qui constitue la \textbf{deuxième\textvisiblespace nuit}
+      \underline{la plus \textbf{chaude}} jamais enregistrée dans le
+      \textbf{royaume}. Il se pourrait que ce \textbf{dimanche} soit la
+      \textbf{journée} \underline{la plus \textbf{chaude}} de l'\textbf{année}.
+      Les \textbf{\underline{températures}} seront comprises entre 33 et
+      \textbf{38\degre{}C}. Une \textbf{légère\textvisiblespace brise} de
+      \textbf{côte} pourra faiblement rafraichir l'\textbf{atmosphère}. Des
+      \textbf{orages} de \textbf{\underline{chaleur}} sont a prévoir dans la
+      \textbf{soirée} et en \textbf{début} de \textbf{nuit}.
 
-    ~~~Au Luxembourg, le mercure devrait atteindre 32\degre{}C ce dimanche sur
-    l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à 32\degre{}C
-    lundi. Une baisse devrait intervenir pour le reste de la semaine.
-    Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait pas être
-    atteint.
+      ~~~Au \textbf{\underline{Luxembourg}}, le \textbf{mercure} devrait
+      atteindre \textbf{32\degre{}C} ce \textbf{dimanche} sur l'\textbf{Oesling}
+      et jusqu'à \textbf{36\degre{}C} sur le \textbf{sud} du \textbf{pays}, et
+      31 à 32\degre{}C \textbf{lundi}. Une \textbf{baisse} devrait intervenir
+      pour le \textbf{reste} de la \textbf{semaine}. Néanmoins, le
+      \textbf{record} d'\textbf{août 2003} (\textbf{37,9\degre{}C}) ne devrait
+      pas être atteint.
 
-    \begin{exampleblock}{\small Termes-clés}\justifying\small
-      \underline{Août 2012}~; \underline{canicule}~;
-      \underline{Belgique}~; \underline{Luxembourg}~; \underline{alerte}~;
-      \underline{orange}~; \underline{chaleur}~; \underline{chaude}~;
-      \underline{température}~; \underline{la plus chaude}.
+      \begin{exampleblock}{\small Termes-clés}\justifying\small
+        \underline{Août 2012}~; \underline{canicule}~;
+        \underline{Belgique}~; \underline{Luxembourg}~; \underline{alerte}~;
+        \underline{orange}~; \underline{chaleur}~; \underline{chaude}~;
+        \underline{température}~; \underline{la plus chaude}
+      \end{exampleblock}
     \end{exampleblock}
-  \end{exampleblock}
+  }{
+    \begin{exampleblock}{\small
+      Météo du 19 \underline{août 2012}~: \underline{alerte} à la
+      \underline{canicule} sur la \underline{Belgique} et le
+      \underline{Luxembourg}
+    }\justifying\small
+      ~~~À l'exception de la province de \underline{Luxembourg}, en
+      \underline{alerte} jaune, l'ensemble de la \underline{Belgique} est en
+      vigilance \underline{orange} à la \underline{canicule}. Le
+      \underline{Luxembourg} n'est pas épargné par la vague du \underline{chaleur}
+      : le nord du pays est en \underline{alerte} \underline{orange}, tandis que
+      le sud a était placé en \underline{alerte} rouge.
+
+      ~~~En \underline{Belgique}, la \underline{température} n'est pas descendue
+      en dessous des 23\degre{}C cette nuit, ce qui constitue la deuxième nuit
+      \underline{la plus chaude} jamais enregistrée dans le royaume. Il se
+      pourrait que ce dimanche soit la journée \underline{la plus chaude} de
+      l'année. Les \underline{températures} seront comprises entre 33 et
+      38\degre{}C. Une légère brise de côte pourra faiblement rafraichir
+      l'atmosphère. Des orages de \underline{chaleur} sont a prévoir dans la
+      soirée et en début de nuit.
+
+      ~~~Au \underline{Luxembourg}, le mercure devrait atteindre 32\degre{}C ce
+      dimanche sur l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à
+      32\degre{}C lundi. Une baisse devrait intervenir pour le reste de la
+      semaine. Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait pas
+      être atteint.
+
+      \begin{exampleblock}{\small Termes-clés}\justifying\small
+        \underline{Août 2012}~; \underline{canicule}~;
+        \underline{Belgique}~; \underline{Luxembourg}~; \underline{alerte}~;
+        \underline{orange}~; \underline{chaleur}~; \underline{chaude}~;
+        \underline{température}~; \underline{la plus chaude}
+      \end{exampleblock}
+    \end{exampleblock}
+  }
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Exemple}
   \begin{columns}
     \begin{column}{.45\linewidth}
-      \begin{enumerate}
-        \item{Sélection des candidats}
-        \item{
-          Groupement des candidats\\
-          $\Rightarrow$ sujets
-        }
-        \item{Construction du graphe}
-        \item{Ordonnancement des sujets}
-        \item{Sélection des termes-clés}
+      \begin{enumerate}\setlength{\itemindent}{-.75cm}
+        \item<1->{Sélection des candidats}
+          \begin{itemize}\setlength{\itemindent}{-1.1cm}
+          \item{\texttt{/(NOM | ADJ)+/}}
+        \end{itemize}
+        \item<2->{Groupement des candidats}
+        \begin{itemize}\setlength{\itemindent}{-1.1cm}
+          \item{\textcolor{white}{$\frac{\text{radicaux}(c_1) \cap \text{radicaux}(c_2)}{\text{radicaux}(c_1) \cup \text{radicaux}(c_2)}$}}
+          \begin{textblock*}{\textwidth}(.055\textwidth, -.055\textheight)
+            $\text{sim}(c_1, c_2) = \frac{\text{radicaux}(c_1) \cap \text{radicaux}(c_2)}{\text{radicaux}(c_1) \cup \text{radicaux}(c_2)}$
+          \end{textblock*}
+        \end{itemize}
+        \item<3->{Construction du graphe}
+        \begin{itemize}\setlength{\itemindent}{-1.1cm}
+          \item{
+            Pondération selon la distance\\
+            \hspace{-1.1cm}entre les sujets dans le document\\
+            \hspace{-1.1cm}(en nombre de mots)}
+        \end{itemize}
+        \item<4->{Ordonnancement des sujets}
+        \begin{itemize}\setlength{\itemindent}{-1.1cm}
+          \item{TextRank}
+        \end{itemize}
+        \item<5->{Sélection des termes-clés}
+        \begin{itemize}\setlength{\itemindent}{-1.1cm}
+          \item{Un par sujet}
+          \item{Le plus tôt dans le document}
+        \end{itemize}
       \end{enumerate}
     \end{column}
 
     \begin{column}{.55\linewidth}
       \centering
-      \begin{overpic}[width=.95\linewidth]{include/44960_topicrank_graph.eps}
-        \put (36, 101) {\scriptsize [soirée]}
-        \put (53, 100) {\scriptsize [nord]}
-        \put (20, 96) {\scriptsize [\OE{}sling]}
-        \put (65, 95) {\scriptsize [Belgique]}
-        \put (-8, 86) {\scriptsize [août 2003~; août 2012]}
-        \put (38.5, 84) {\scriptsize [ensemble]}
-        \put (58, 83) {\scriptsize [record]}
-        \put (80, 83) {\scriptsize [36\degre{}C]}
-        \put (22, 80) {\scriptsize [légère brise]}
-        \put (-1, 74) {\scriptsize [37\degre{}C]}
-        \put (13, 69) {\scriptsize [météo]}
-        \put (29, 64) {\scriptsize [chaleur]}
-        \put (48, 69) {\scriptsize [reste]}
-        \put (68, 72) {\scriptsize [orages]}
-        \put (85, 71) {\scriptsize [royaume]}
-        \put (-7, 57) {\scriptsize [année]}
-        \put (10, 54) {\scriptsize [chaude]}
-        \put (24, 47) {\scriptsize [province]}
-        \put (40.5, 52) {\scriptsize [semaine]}
-        \put (60, 56.5) {\scriptsize [vague]}
-        \put (77, 58) {\scriptsize [baisse]}
-        \put (90, 54) {\scriptsize [dimanche]}
-        \put (-16, 42) {\scriptsize [vigilance orange]}
-        \put (-9, 37) {\scriptsize [température~; températures]}
-        \put (40, 34) {\scriptsize [pays]}
-        \put (54, 39) {\scriptsize [mercure]}
-        \put (68, 43) {\scriptsize [atmosphère]}
-        \put (83, 38) {\scriptsize [Luxembourg]}
-        \put (0, 25) {\scriptsize [début]}
-        \put (24, 26) {\scriptsize [23\degre{}C]}
-        \put (39, 18) {\scriptsize [lundi]}
-        \put (53, 21) {\scriptsize [38\degre{}C]}
-        \put (70, 27) {\scriptsize [sud]}
-        \put (70, 23) {\scriptsize [nuit~; deuxième nuit]}
-        \put (9, 14) {\scriptsize [exception]}
-        \put (24, 5) {\scriptsize [journée]}
-        \put (59, 4.5) {\scriptsize [côte]}
-        \put (70, 11) {\scriptsize [canicule]}
-        \put (2.5, .5) {\scriptsize [alerte rouge~; alerte jaune~; alerte orange~; alerte]}
-      \end{overpic}
+      \alt<3->{
+        \begin{overpic}[width=.95\linewidth]{include/44960_topicrank_graph.eps}
+          \put (36, 101) {\scriptsize [soirée]}
+          \put (53, 100) {\scriptsize [nord]}
+          \put (20, 96) {\scriptsize [\OE{}sling]}
+          \put (65, 95) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[Belgique]}}}{[Belgique]}}
+          \put (38.5, 84) {\scriptsize [ensemble]}
+          \put (-8, 86) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[août 2003~; août 2012]}}}{[août 2003~; août 2012]}}
+          \put (58, 83) {\scriptsize [record]}
+          \put (80, 83) {\scriptsize [36\degre{}C]}
+          \put (22, 80) {\scriptsize [légère brise]}
+          \put (-1, 74) {\scriptsize [37\degre{}C]}
+          \put (13, 69) {\scriptsize [météo]}
+          \put (29, 64) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[chaleur]}}}{[chaleur]}}
+          \put (48, 69) {\scriptsize [reste]}
+          \put (68, 72) {\scriptsize [orages]}
+          \put (85, 71) {\scriptsize [royaume]}
+          \put (-7, 57) {\scriptsize [année]}
+          \put (10, 54) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[chaude]}}}{[chaude]}}
+          \put (24, 47) {\scriptsize [province]}
+          \put (40.5, 52) {\scriptsize [semaine]}
+          \put (60, 56.5) {\scriptsize [vague]}
+          \put (77, 58) {\scriptsize [baisse]}
+          \put (90, 54) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[dimanche]}}}{[dimanche]}}
+          \put (-15, 42) {\scriptsize [vigilance orange]}
+          \put (-9, 37) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[température~; températures]}}}{[température~; températures]}}
+          \put (40, 34) {\scriptsize [pays]}
+          \put (54, 39) {\scriptsize [mercure]}
+          \put (68, 43) {\scriptsize [atmosphère]}
+          \put (83, 38) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[Luxembourg]}}}{[Luxembourg]}}
+          \put (0, 25) {\scriptsize [début]}
+          \put (24, 26) {\scriptsize [23\degre{}C]}
+          \put (39, 18) {\scriptsize [lundi]}
+          \put (53, 21) {\scriptsize [38\degre{}C]}
+          \put (70, 27) {\scriptsize [sud]}
+          \put (70, 23) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[nuit~; deuxième nuit]}}}{[nuit~; deuxième nuit]}}
+          \put (9, 14) {\scriptsize [exception]}
+          \put (24, 5) {\scriptsize [journée]}
+          \put (59, 4.5) {\scriptsize [côte]}
+          \put (70, 11) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[canicule]}}}{[canicule]}}
+          \put (2.5, .5) {\scriptsize \alt<4->{\textcolor{termithorange}{\textbf{[alerte rouge~; alerte jaune~; alerte orange~; alerte]}}}{[alerte rouge~; alerte jaune~; alerte orange~; alerte]}}
+        \end{overpic}
+      }{
+        \alt<2->{
+          \begin{overpic}[width=.95\linewidth]{include/44960_topicrank_graph_blank.eps}
+            \put (34, 98) {\scriptsize [soirée]}
+            \put (51, 97) {\scriptsize [nord]}
+            \put (18, 93) {\scriptsize [\OE{}sling]}
+            \put (63, 92) {\scriptsize [Belgique]}
+            \put (-10, 83) {\scriptsize [août 2003~; août 2012]}
+            \put (36.5, 81) {\scriptsize [ensemble]}
+            \put (56, 80) {\scriptsize [record]}
+            \put (78, 80) {\scriptsize [36\degre{}C]}
+            \put (20, 77) {\scriptsize [légère brise]}
+            \put (-3, 71) {\scriptsize [37\degre{}C]}
+            \put (11, 66) {\scriptsize [météo]}
+            \put (27, 61) {\scriptsize [chaleur]}
+            \put (46, 66) {\scriptsize [reste]}
+            \put (66, 69) {\scriptsize [orages]}
+            \put (83, 68) {\scriptsize [royaume]}
+            \put (-9, 54) {\scriptsize [année]}
+            \put (8, 51) {\scriptsize [chaude]}
+            \put (22, 44) {\scriptsize [province]}
+            \put (38.5, 49) {\scriptsize [semaine]}
+            \put (58, 53.5) {\scriptsize [vague]}
+            \put (75, 55) {\scriptsize [baisse]}
+            \put (88, 51) {\scriptsize [dimanche]}
+            \put (-17, 39) {\scriptsize [vigilance orange]}
+            \put (-11, 34) {\scriptsize [température~; températures]}
+            \put (38, 31) {\scriptsize [pays]}
+            \put (52, 36) {\scriptsize [mercure]}
+            \put (66, 40) {\scriptsize [atmosphère]}
+            \put (81, 35) {\scriptsize [Luxembourg]}
+            \put (-2, 22) {\scriptsize [début]}
+            \put (22, 23) {\scriptsize [23\degre{}C]}
+            \put (37, 15) {\scriptsize [lundi]}
+            \put (51, 18) {\scriptsize [38\degre{}C]}
+            \put (68, 24) {\scriptsize [sud]}
+            \put (68, 20) {\scriptsize [nuit~; deuxième nuit]}
+            \put (7, 11) {\scriptsize [exception]}
+            \put (22, 2) {\scriptsize [journée]}
+            \put (57, 1.5) {\scriptsize [côte]}
+            \put (68, 8) {\scriptsize [canicule]}
+            \put (0.5, -2.5) {\scriptsize [alerte rouge~; alerte jaune~; alerte orange~; alerte]}
+          \end{overpic}
+        }{
+          \begin{overpic}[width=.95\linewidth]{include/44960_topicrank_graph_blank.eps}
+            \put (34, 98) {\scriptsize \textcolor{white}{[}soirée\textcolor{white}{]}}
+            \put (51, 97) {\scriptsize \textcolor{white}{[}nord\textcolor{white}{]}}
+            \put (18, 93) {\scriptsize \textcolor{white}{[}\OE{}sling\textcolor{white}{]}}
+            \put (63, 92) {\scriptsize \textcolor{white}{[}Belgique\textcolor{white}{]}}
+            \put (-10, 83) {\scriptsize \textcolor{white}{[}août 2003~\textcolor{white}{;} août 2012\textcolor{white}{]}}
+            \put (36.5, 81) {\scriptsize \textcolor{white}{[}ensemble\textcolor{white}{]}}
+            \put (56, 80) {\scriptsize \textcolor{white}{[}record\textcolor{white}{]}}
+            \put (78, 80) {\scriptsize \textcolor{white}{[}36\degre{}C\textcolor{white}{]}}
+            \put (20, 77) {\scriptsize \textcolor{white}{[}légère brise\textcolor{white}{]}}
+            \put (-3, 71) {\scriptsize \textcolor{white}{[}37\degre{}C\textcolor{white}{]}}
+            \put (11, 66) {\scriptsize \textcolor{white}{[}météo\textcolor{white}{]}}
+            \put (27, 61) {\scriptsize \textcolor{white}{[}chaleur\textcolor{white}{]}}
+            \put (46, 66) {\scriptsize \textcolor{white}{[}reste\textcolor{white}{]}}
+            \put (66, 69) {\scriptsize \textcolor{white}{[}orages\textcolor{white}{]}}
+            \put (83, 68) {\scriptsize \textcolor{white}{[}royaume\textcolor{white}{]}}
+            \put (-9, 54) {\scriptsize \textcolor{white}{[}année\textcolor{white}{]}}
+            \put (8, 51) {\scriptsize \textcolor{white}{[}chaude\textcolor{white}{]}}
+            \put (22, 44) {\scriptsize \textcolor{white}{[}province\textcolor{white}{]}}
+            \put (38.5, 49) {\scriptsize \textcolor{white}{[}semaine\textcolor{white}{]}}
+            \put (58, 53.5) {\scriptsize \textcolor{white}{[}vague\textcolor{white}{]}}
+            \put (75, 55) {\scriptsize \textcolor{white}{[}baisse\textcolor{white}{]}}
+            \put (88, 51) {\scriptsize \textcolor{white}{[}dimanche\textcolor{white}{]}}
+            \put (-17, 39) {\scriptsize \textcolor{white}{[}vigilance orange\textcolor{white}{]}}
+            \put (-11, 34) {\scriptsize \textcolor{white}{[}température~\textcolor{white}{;} températures\textcolor{white}{]}}
+            \put (38, 31) {\scriptsize \textcolor{white}{[}pays\textcolor{white}{]}}
+            \put (52, 36) {\scriptsize \textcolor{white}{[}mercure\textcolor{white}{]}}
+            \put (66, 40) {\scriptsize \textcolor{white}{[}atmosphère\textcolor{white}{]}}
+            \put (81, 35) {\scriptsize \textcolor{white}{[}Luxembourg\textcolor{white}{]}}
+            \put (-2, 22) {\scriptsize \textcolor{white}{[}début\textcolor{white}{]}}
+            \put (22, 23) {\scriptsize \textcolor{white}{[}23\degre{}C\textcolor{white}{]}}
+            \put (37, 15) {\scriptsize \textcolor{white}{[}lundi\textcolor{white}{]}}
+            \put (51, 18) {\scriptsize \textcolor{white}{[}38\degre{}C\textcolor{white}{]}}
+            \put (68, 24) {\scriptsize \textcolor{white}{[}sud\textcolor{white}{]}}
+            \put (68, 20) {\scriptsize \textcolor{white}{[}nuit~\textcolor{white}{;} deuxième nuit\textcolor{white}{]}}
+            \put (7, 11) {\scriptsize \textcolor{white}{[}exception\textcolor{white}{]}}
+            \put (22, 2) {\scriptsize \textcolor{white}{[}journée\textcolor{white}{]}}
+            \put (57, 1.5) {\scriptsize \textcolor{white}{[}côte\textcolor{white}{]}}
+            \put (68, 8) {\scriptsize \textcolor{white}{[}canicule\textcolor{white}{]}}
+            \put (0.5, -2.5) {\scriptsize \textcolor{white}{[}alerte rouge~\textcolor{white}{;} alerte jaune~\textcolor{white}{;} alerte orange~\textcolor{white}{;} alerte\textcolor{white}{]}}
+          \end{overpic}
+        }
+      }
     \end{column}
   \end{columns}
 \end{frame}
@@ -172,44 +330,76 @@
         \textsc{Tf-Idf} & 10,3 & 19,1 & 13,2$^{~}$ & 33,9 & 35,9 & 34,3$^{~}$ & 13,2 & $~~$8,9 & 10,5$^{~}$ & \textbf{23,8} & \textbf{30,7} & \textbf{26,4}\\
         TextRank & $~~$4,9 & $~~$7,1 & $~~$5,7$^{~}$ & $~~$9,3 & $~~$8,3 & $~~$8,6$^{~}$ & $~~$7,9 & $~~$4,5 & $~~$5,6$^{~}$ & $~~$4,9 & $~~$5,4 & $~~$5,0\\
         SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & 22,3 & 28,4 & 24,6\\
+        \hline
         TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
         \hline
-        \textbf{Borne haute} & \textbf{14,5} & \textbf{27,0} & \textbf{18,7}$^{~}$ & \textbf{41,8} & \textbf{44,1} & \textbf{42,2}$^{~}$ & \textbf{30,0} & \textbf{20,7} & \textbf{24,3}$^{~}$ & \textbf{30,5} & \textbf{38,7} & \textbf{33,7}\\
+        \uncover<2->{\textbf{Borne haute}} & \uncover<2->{\textbf{14,5}} & \uncover<2->{\textbf{27,0}} & \uncover<2->{\textbf{18,7}$^{~}$} & \uncover<2->{\textbf{41,8}} & \uncover<2->{\textbf{44,1}} & \uncover<2->{\textbf{42,2}$^{~}$} & \uncover<2->{\textbf{30,0}} & \uncover<2->{\textbf{20,7}} & \uncover<2->{\textbf{24,3}$^{~}$} & \uncover<2->{\textbf{30,5}} & \uncover<2->{\textbf{38,7}} & \uncover<2->{\textbf{33,7}}\\
+        
         \bottomrule
       \end{tabular}
     }
   \end{table}
-
-  \vspace{1em}
-
   \begin{block}{Observations}
     \begin{itemize}
       \item{Meilleure performance globale}
       \item{Significativement meilleur que TextRank et SingleRank ($^\dagger$)}
-      \item{Bonne perspective d'améliorarion (vers la borne haute)}
-      \item{Plus faible performance sur DUC\hfill$\rightarrow$}
+      \item{Plus faible performance sur DUC}
+      \item<2->{Bonne perspective d'améliorarion (vers la borne haute)}
     \end{itemize}
   \end{block}
+
+  \uncover<2->{
+    \begin{exampleblock}{Exemple d'amélioration avec la borne haute}
+      \begin{itemize}
+        \item{Obama $\Rightarrow$ Barack Obama $\in$ [Obama~; Barack Obama]}
+        \item{Romney $\Rightarrow$ Mitt Romney $\in$ [Romney~; Mitt Romney]}
+      \end{itemize}
+    \end{exampleblock}
+  }
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Résultats dans le contexte général}
-  \begin{table}
-    \resizebox{\linewidth}{!}{
-      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
-        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
-        & P & R & F & P & R & F & P & R & F & P & R & F\\
-        \hline
-        SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & \textbf{22,3} & \textbf{28,4} & \textbf{24,6}\\
-        + complet & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 22,2 & 28,1 & 24,5\\
-        + candidats & 10,3 & 19,2 & 13,2$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 10,4 & 13,5 & 11,6\\
-        + sujets & 11,1 & 20,4 & 14,2$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 18,9 & 24,2 & 21,0\\
-        TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
-        \bottomrule
-      \end{tabular}
-    }
-  \end{table}
+%\begin{frame}{TopicRank}\framesubtitle{Résultats dans le contexte général}
+%  \begin{table}
+%    \resizebox{\linewidth}{!}{
+%      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+%        \toprule
+%        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
+%        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+%        & P & R & F & P & R & F & P & R & F & P & R & F\\
+%        \hline
+%        SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & \textbf{22,3} & \textbf{28,4} & \textbf{24,6}\\
+%        + complet & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 22,2 & 28,1 & 24,5\\
+%        + candidats & 10,3 & 19,2 & 13,2$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 10,4 & 13,5 & 11,6\\
+%        + sujets & 11,1 & 20,4 & 14,2$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 18,9 & 24,2 & 21,0\\
+%        TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
+%        \bottomrule
+%      \end{tabular}
+%    }
+%  \end{table}
+%\end{frame}
+
+\begin{frame}{TopicRank}\framesubtitle{Bilan}
+  Méthode à base de graphe qui s'intéresse à ce que représentent les
+  termes-clés candidats plutôt qu'à eux-mêmes ou à leurs mots.
+
+  \vspace{1em}
+
+  \begin{block}{Avantages}
+    \begin{itemize}
+      \item{Non redondant}
+      \item{Bon ordonnancement des sujets (cf. borne haute)}
+    \end{itemize}
+  \end{block}
+
+  \vspace{1em}
+
+  \begin{alertblock}{Inconvénients}
+    \begin{itemize}
+      \item{Groupement naïf des candidats en sujets}
+      \item{Quelques instabilités}
+      \item{Plus faible en domaines de spécialité}
+    \end{itemize}
+  \end{alertblock}
 \end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Résultats en domaines de spécialité}
@@ -241,29 +431,5 @@
       \item{Meilleure performance globale pour TF-IDF}
     \end{itemize}
   \end{block}
-\end{frame}
-
-\begin{frame}{TopicRank}\framesubtitle{Bilan}
-  Méthode à base de graphe qui s'intéresse à ce que représentent les
-  termes-clés candidats plutôt qu'à eux-mêmes ou à leurs mots.
-
-  \vspace{1em}
-
-  \begin{block}{Avantages}
-    \begin{itemize}
-      \item{Non redondant}
-      \item{Bon ordonnancement des sujets (cf. borne haute)}
-    \end{itemize}
-  \end{block}
-
-  \vspace{1em}
-
-  \begin{alertblock}{Inconvénients}
-    \begin{itemize}
-      \item{Groupement naïf des candidats en sujets}
-      \item{Quelques instabilités}
-      \item{Plus faible en domaines de spécialité}
-    \end{itemize}
-  \end{alertblock}
 \end{frame}
 

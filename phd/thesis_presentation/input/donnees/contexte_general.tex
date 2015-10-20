@@ -4,20 +4,22 @@
   \begin{table}
     \centering
     \resizebox{\linewidth}{!}{
-      \begin{tabular}{@{~}l|c@{~}c@{~~}c|c@{~~}c@{~~}c@{~}}
+      \begin{tabular}{@{~}l|c@{~~}c|c@{~~}c@{~~}c@{~}}
         \toprule
-        \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{3}{c|}{\textbf{Documents}} & \multicolumn{3}{c}{\textbf{Termes-clés}}\\
-        \cline{2-7}
-        & Genre & Quantité & Mots moy. & Catégorie & Quantité moy. & \og{}À assigner\fg{}\\
+        \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{2}{c|}{\textbf{Documents}} & \multicolumn{3}{c}{\textbf{Termes-clés}}\\
+        \cline{2-6}
+        & Quantité & Mots moy. & Catégorie & Quantité moy. & \og{}À assigner\fg{}\\
         \hline
-        DEft~\cite{paroubek2012deft} & & & & & & \\
-        $\rightarrow$ Appr. & Scientifique & 141 & 7~276,7 & Auteur & $~~$5,4 & 18,2~\% \\
-        $\rightarrow$ Test & Scientifique & $~~93$ & 6~839,4 & Auteur & $~~$5,2 & 21,1~\% \\
-        Wikinews~\cite{bougouin2013topicrank} & Journalistique & 100 & $~~~$308,5 & Lecteur & $~~$9,6 & $~~$7,6~\% \\
+        DEft \textit{(fr)}~\cite{paroubek2012deft} & & & & & \\
+        $\rightarrow$ Appr. & 141 & 7~276,7 & Auteur & $~~$5,4 & 18,2~\% \\
+        $\rightarrow$ Test & $~~93$ & 6~839,4 & Auteur & $~~$5,2 & 21,1~\% \\
+        Semeval \textit{(en)}~\cite{kim2010semeval} & & & & & \\
+        $\rightarrow$ Appr. & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% \\
+        $\rightarrow$ Test & 100 & 5~177,7 & Auteur~/~Lecteur & 14,7 & 22,1~\% \\
         \bottomrule
       \end{tabular}
     }
-    \caption{Français}
+    \caption{Articles scientifiques}
   \end{table}
 
   \vfill{}
@@ -29,16 +31,14 @@
         \toprule
         \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{3}{c|}{\textbf{Documents}} & \multicolumn{3}{c}{\textbf{Termes-clés}}\\
         \cline{2-7}
-        & Genre & Quantité & Mots moy. & Catégorie & Quantité moy. & \og{}À assigner\fg{} \\
+        & Langue & Quantité & Mots moy. & Catégorie & Quantité moy. & \og{}À assigner\fg{} \\
         \hline
-        Semeval~\cite{kim2010semeval} & & & & & & \\
-        $\rightarrow$ Appr. & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% \\
-        $\rightarrow$ Test & Scientifique & 100 & 5~177,7 & Auteur~/~Lecteur & 14,7 & 22,1~\% \\
-        DUC~\cite{wan2008expandrank} & Journalistique & 308 & $~~~$900,7 & Lecteur & $~~$8,1 & $~~$3,5~\% \\
+        Wikinews \textit{(fr)}~\cite{bougouin2013topicrank} & Français & 100 & $~~~$308,5 & Lecteur & $~~$9,6 & $~~$7,6~\% \\
+        DUC \textit{(en)}~\cite{wan2008expandrank} & Anglais & 308 & $~~~$900,7 & Lecteur & $~~$8,1 & $~~$3,5~\% \\
         \bottomrule
       \end{tabular}
     }
-    \caption{Anglais}
+    \caption{Dépêches journalistiques}
   \end{table}
 
   \vfill{}
