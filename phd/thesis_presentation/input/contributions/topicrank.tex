@@ -1,5 +1,5 @@
 \begin{frame}{Contributions}\framesubtitle{TopicRank}
-  Méthode à base de graphe d'extraction non supervisée de termes-clés.
+  Méthode à base de graphe d'extraction non supervisée de termes-clés
 
   \vspace{1em}
 
@@ -7,7 +7,7 @@
     \begin{itemize}
       \item{Ordonnancement des mots}
       \item{Redondance des termes-clés extraits}
-      \item{Fenêtre de cooccurrence}
+      \item{Contexte (fenêtre de mots) variable selon les méthodes}
     \end{itemize}
   \end{alertblock}
 
@@ -16,8 +16,8 @@
   \begin{block}{Propositions}
     \begin{itemize}
       \item{Ordonnancement des termes-clés candidats}
-      \item{Groupement en sujet des termes-clés candidats}
-      \item{Graphe complet $+$ pondération sémantique des arêtes}
+      \item{Groupement en sujets des termes-clés candidats}
+      \item{Graphe complet $+$ pondération fine des arêtes}
     \end{itemize}
   \end{block}
 \end{frame}
@@ -29,7 +29,7 @@
     \item{Groupement des candidats en sujets}
     \item{Création d'un graphe de sujets}
     \item{Ordonnancement des sujets}
-    \item{Sélection du termes-clés représentation des sujets importants}
+    \item{Sélection du termes-clés représentatifs des sujets importants}
   \end{enumerate}
 \end{frame}
 
@@ -127,9 +127,9 @@
         \end{itemize}
         \item<2->{Groupement des candidats}
         \begin{itemize}\setlength{\itemindent}{-1.1cm}
-          \item{\textcolor{white}{$\frac{\text{radicaux}(c_1) \cap \text{radicaux}(c_2)}{\text{radicaux}(c_1) \cup \text{radicaux}(c_2)}$}}
+          \item{\textcolor{white}{$\frac{\text{racines}(c_1) \cap \text{racines}(c_2)}{\text{racines}(c_1) \cup \text{racines}(c_2)}$}}
           \begin{textblock*}{\textwidth}(.055\textwidth, -.055\textheight)
-            $\text{sim}(c_1, c_2) = \frac{\text{radicaux}(c_1) \cap \text{radicaux}(c_2)}{\text{radicaux}(c_1) \cup \text{radicaux}(c_2)}$
+            $\text{sim}(c_1, c_2) = \frac{\text{racines}(c_1) \cap \text{racines}(c_2)}{\text{racines}(c_1) \cup \text{racines}(c_2)}$
           \end{textblock*}
         \end{itemize}
         \item<3->{Construction du graphe}
@@ -323,9 +323,9 @@
 
   Évaluation à 10 termes-clés, en termes de~:
   \begin{itemize}
-    \item{Précision~: $\frac{|\text{correctes}|}{|\text{extraits}|}$}
-    \item{Rappel~: $\frac{|\text{correctes}|}{|\text{references}|}$}
-    \item{F1-mesure~: $2 \times \frac{\text{précision} \times \text{rappel}}{\text{précision} + \text{rappel}}$}
+    \item{Précision (P)~: $\frac{|\text{corrects}|}{|\text{extraits}|}$}
+    \item{Rappel (R)~: $\frac{|\text{corrects}|}{|\text{references}|}$}
+    \item{F1-mesure (F)~: $2 \times \frac{\text{précision} \times \text{rappel}}{\text{précision} + \text{rappel}}$}
   \end{itemize}
 \end{frame}
 
@@ -413,7 +413,7 @@
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Oui mais\dots}
+\begin{frame}{TopicRank}\framesubtitle{Oui, mais\dots}
   \begin{table}
     \resizebox{\linewidth}{!}{
       \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~~~~~~}c@{~~~~~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}

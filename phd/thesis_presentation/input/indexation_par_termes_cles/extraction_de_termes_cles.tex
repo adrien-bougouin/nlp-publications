@@ -3,14 +3,14 @@
     \centering
     \begin{tikzpicture}[scale=.35, node distance=2cm]
       \node [io] (document) {document};
-      \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
+      \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection des termes-clés candidats};
       \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
-      \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+      \node [io, below=of ordonnancement, xshift=7.5cm] (termes_cles) {termes-clés};
       \path [->] (document) edge (pretraitement_et_selection_des_candidats);
       \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
       \path [->] (ordonnancement) edge (termes_cles);
       %
-      \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
+      \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection des termes-clés candidats};
       \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'entraînement};
       \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
       \node [component, below=of apprentissage] (classification) {Classification des candidats};
@@ -35,14 +35,14 @@
       \centering
       \begin{tikzpicture}[scale=.35, node distance=2cm]
         \node [io] (document) {document};
-        \node [selectedcomponent, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
+        \node [selectedcomponent, below=of document] (pretraitement_et_selection_des_candidats) {Sélection des termes-clés candidats};
         \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
-        \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+        \node [io, below=of ordonnancement, xshift=7.5cm] (termes_cles) {termes-clés};
         \path [->] (document) edge (pretraitement_et_selection_des_candidats);
         \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
         \path [->] (ordonnancement) edge (termes_cles);
         %
-        \node [selectedcomponent, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
+        \node [selectedcomponent, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection des termes-clés candidats};
         \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'entraînement};
         \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
         \node [component, below=of apprentissage] (classification) {Classification des candidats};
@@ -62,17 +62,11 @@
   \end{frame}
 
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Sélection des termes-clés candidats}
-    Deux principales approches
+    Deux principales méthodes
 
     \begin{exampleblock}{Exemple}
-      \og{}À\textvisiblespace l'\textvisiblespace exception\textvisiblespace
-      de\textvisiblespace la\textvisiblespace province\textvisiblespace
-      de\textvisiblespace Luxembourg\textvisiblespace ,\textvisiblespace
-      en\textvisiblespace alerte\textvisiblespace jaune\textvisiblespace ,
-      l'\textvisiblespace ensemble\textvisiblespace de\textvisiblespace
-      la\textvisiblespace Belgique\textvisiblespace est\textvisiblespace
-      en\textvisiblespace vigilance\textvisiblespace orange\textvisiblespace
-      à\textvisiblespace la\textvisiblespace canicule\textvisiblespace .\fg{}
+      \og{}À l'exception de la province de Luxembourg, en alerte jaune,
+      l'ensemble de la Belgique est en vigilance orange à la canicule.\fg{}
 
       \vspace{1em}
 
@@ -81,15 +75,15 @@
         \item{$N$-grammes ($N = 1..3$)~:}
           \begin{itemize}
             \item{$\{1..3\}$-grammes~:}
-            \begin{itemize}
-              \item[$N = 1$~]{
-                exception~; province~; Luxembourg~; alerte~; jaune~; ensemble~;
-                Belgique~; vigilance~; orange~; canicule~;
+            \begin{itemize}\setlength{\itemindent}{.5cm}
+              \item[$(N = 1)$]{
+                exception~; province~; Luxembourg~; alerte~; jaune~; ensemble~;\\
+                \hspace{.5cm}Belgique~; vigilance~; orange~; canicule~;
               }
-              \item[$N = 2$~]{
+              \item[$(N = 2)$]{
                 alerte jaune~; vigilance orange~;
               }
-              \item[$N = 3$~]{
+              \item[$(N = 3)$]{
                 province de Luxembourg
               }
             \end{itemize}
@@ -97,9 +91,10 @@
         \item{Séquences grammaticalement définies~:}
           \begin{itemize}
             \item{\texttt{/(NOM | ADJ)+/}~:}
-            \begin{itemize}
-              \item{ exception~; province~; Luxembourg~; alerte jaune~;
-                  ensemble~;\\Belgique~; vigilance orange~; canicule}
+            \begin{itemize}\setlength{\itemindent}{.5cm}
+              \item{exception~; province~; Luxembourg~; alerte jaune~;
+                    ensemble~;\\
+                    \hspace{.5cm}Belgique~; vigilance orange~; canicule}
             \end{itemize}
           \end{itemize}
       \end{itemize}
@@ -112,14 +107,14 @@
       \centering
       \begin{tikzpicture}[scale=.35, node distance=2cm]
         \node [io] (document) {document};
-        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
+        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection des termes-clés candidats};
         \node [selectedcomponent, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
-        \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+        \node [io, below=of ordonnancement, xshift=7.5cm] (termes_cles) {termes-clés};
         \path [->] (document) edge (pretraitement_et_selection_des_candidats);
         \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
         \path [->] (ordonnancement) edge (termes_cles);
         %
-        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
+        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection des termes-clés candidats};
         \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'entraînement};
         \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
         \node [component, below=of apprentissage] (classification) {Classification des candidats};
@@ -148,7 +143,7 @@
     Ordonnancement des candidats selon diverses approches~:
     \begin{itemize}
       \item{Statistiques~\cite[TF-IDF]{salton1975tfidf}}
-      \item{Par groupement sémantique~\cite{matsuo2004wordcooccurrence}}
+      \item{Par groupement distributionnel~\cite{matsuo2004wordcooccurrence}}
       \item{\textbf{À base de graphe}~\cite[TextRank]{mihalcea2004textrank}}
     \end{itemize}
   \end{frame}
@@ -319,14 +314,14 @@
       \centering
       \begin{tikzpicture}[scale=.35, node distance=2cm]
         \node [io] (document) {document};
-        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection de termes-clés candidats};
+        \node [component, below=of document] (pretraitement_et_selection_des_candidats) {Sélection des termes-clés candidats};
         \node [component, yshift=-4cm, below=of pretraitement_et_selection_des_candidats] (ordonnancement) {Ordonnancement des candidats};
-        \node [io, below=of ordonnancement, xshift=6cm] (termes_cles) {termes-clés};
+        \node [io, below=of ordonnancement, xshift=7.5cm] (termes_cles) {termes-clés};
         \path [->] (document) edge (pretraitement_et_selection_des_candidats);
         \path [->] (pretraitement_et_selection_des_candidats) edge (ordonnancement);
         \path [->] (ordonnancement) edge (termes_cles);
         %
-        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection de termes-clés candidats};
+        \node [component, right=of pretraitement_et_selection_des_candidats] (pretraitement_et_selection_des_candidats2) {Sélection des termes-clés candidats};
         \node [io, above=of pretraitement_et_selection_des_candidats2] (documents) {documents d'entraînement};
         \node [component, below=of pretraitement_et_selection_des_candidats2] (apprentissage) {Apprentissage d'un modèle de classification};
         \node [selectedcomponent, below=of apprentissage] (classification) {Classification des candidats};
@@ -347,7 +342,7 @@
 
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Classification des candidats}
     \begin{block}{Objectif}
-      Apprendre à reconnaître les termes-clés parmi les termes-clés candidats
+      Apprendre à reconnaître les termes-clés parmi les candidats
     \end{block}
 
     \vspace{1em}

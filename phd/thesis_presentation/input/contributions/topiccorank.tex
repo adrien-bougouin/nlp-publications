@@ -1,5 +1,5 @@
 \begin{frame}{Contributions}\framesubtitle{TopicCoRank}
-  Adaptation supervisée de TopicRank aux domaines de spécialités
+  Adaptation supervisée de TopicRank aux domaines de spécialité
 
   \vspace{1em}
 
@@ -22,7 +22,7 @@
   Méthode en 8 étapes~:
   \begin{enumerate}
     \item{Déduction du vocabulaire contrôlé du domaine}
-    \item{Création du graphe du domaine}
+    \item{Création du graphe des termes-clés du domaine}
     \vspace{.75em}\hrule\vspace{.5em}
     \item{Sélection des termes-clés candidats du document}
     \item{Groupement des candidats en sujets}
@@ -74,13 +74,25 @@
   \newcommand{\yslant}{0}
   \centering
   \begin{tikzpicture}[transform shape, scale=.75]
-    % domain %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % frames %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    \uncover<3->{
+      \node [draw,
+             rectangle,
+             minimum width=1.15\linewidth,
+             minimum height=.5\textheight,
+             xslant=\xslant,
+             yslant=\yslant] (domain_graph) {};
+    }
     \node [draw,
-           rectangle,
-           minimum width=1.15\linewidth,
-           minimum height=.5\textheight,
-           xslant=\xslant,
-           yslant=\yslant] (domain_graph) {};
+          rectangle,
+          minimum width=1.15\linewidth,
+          minimum height=.5\textheight,
+          xslant=\xslant,
+          yslant=\yslant,
+          above=of domain_graph,
+          xshift=-3.5em] (document_graph) {};
+
+    % domain %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     \node [above=of domain_graph,
            xshift=.575\linewidth,
            yshift=.5\textheight,
@@ -89,7 +101,7 @@
     % nodes
     \node [above=of domain_graph,%draw,
            xshift=-1.9em,
-           yshift=.425\textheight] (france) {France};
+           yshift=.425\textheight] (france) {\alt<6->{\textcolor{termithorange}{\textbf{France}}}{France}};
     \node [above=of domain_graph,%draw,
            xshift=-7.5em,
            yshift=.29\textheight] (typologie) {typologie};
@@ -97,14 +109,14 @@
            xshift=4.3em,
            yshift=.29\textheight] (chronologie) {chronologie};
     \node [above=of domain_graph,%draw,
-           xshift=-16.75em,
+           xshift=-16.5em,
            yshift=.22\textheight] (ceramique) {céramique};
     \node [above=of domain_graph,%draw,
            xshift=13em,
            yshift=.22\textheight] (production) {production};
     \node [above=of domain_graph,%draw,
            xshift=2.2em,
-           yshift=.1\textheight] (analyse) {analyse};
+           yshift=.1\textheight] (analyse) {\alt<6->{\textcolor{termithorange}{\textbf{analyse}}}{analyse}};
     \node [above=of domain_graph,%draw,
            xshift=-5.2em,
            yshift=.1\textheight] (decor) {décor};
@@ -115,140 +127,140 @@
            xshift=9.5em,
            yshift=.02\textheight] (diffusion) {diffusion};
 
-    % france
-    \draw (france) -- (typologie);
-    \draw (france) -- (chronologie);
-    \draw (france) -- (production);
-    \draw (france) -- (diffusion);
-    \draw (france) -- (decor);
-    \draw (france) -- (analyse);
-    \draw (france) -- (repartition);
-    \draw (france) -- (ceramique);
-    % typologie
-    \draw (typologie) -- (chronologie);
-    \draw (typologie) -- (production);
-    \draw (typologie) -- (diffusion);
-    \draw (typologie) -- (decor);
-    \draw (typologie) -- (analyse);
-    \draw (typologie) -- (repartition);
-    \draw (typologie) -- (ceramique);
-    % chronologie
-    \draw (chronologie) -- (production);
-    \draw (chronologie) -- (diffusion);
-    \draw (chronologie) -- (decor);
-    \draw (chronologie) -- (analyse);
-    \draw (chronologie) -- (repartition);
-    \draw (chronologie) -- (ceramique);
-    % production
-    \draw (production) -- (diffusion);
-    \draw (production) -- (decor);
-    \draw (production) -- (analyse);
-    \draw (production) -- (ceramique);
-    % diffusion
-    \draw (diffusion) -- (decor);
-    \draw (diffusion) -- (analyse);
-    \draw (diffusion) -- (ceramique);
-    % decor
-    \draw (decor) -- (analyse);
-    \draw (decor) -- (ceramique);
-    % analyse
-    \draw (analyse) -- (ceramique);
+    \uncover<2->{
+      % france
+      \draw (france) -- (typologie);
+      \draw (france) -- (chronologie);
+      \draw (france) -- (production);
+      \draw (france) -- (diffusion);
+      \draw (france) -- (decor);
+      \draw (france) -- (analyse);
+      \draw (france) -- (repartition);
+      \draw (france) -- (ceramique);
+      % typologie
+      \draw (typologie) -- (chronologie);
+      \draw (typologie) -- (production);
+      \draw (typologie) -- (diffusion);
+      \draw (typologie) -- (decor);
+      \draw (typologie) -- (analyse);
+      \draw (typologie) -- (repartition);
+      \draw (typologie) -- (ceramique);
+      % chronologie
+      \draw (chronologie) -- (production);
+      \draw (chronologie) -- (diffusion);
+      \draw (chronologie) -- (decor);
+      \draw (chronologie) -- (analyse);
+      \draw (chronologie) -- (repartition);
+      \draw (chronologie) -- (ceramique);
+      % production
+      \draw (production) -- (diffusion);
+      \draw (production) -- (decor);
+      \draw (production) -- (analyse);
+      \draw (production) -- (ceramique);
+      % diffusion
+      \draw (diffusion) -- (decor);
+      \draw (diffusion) -- (analyse);
+      \draw (diffusion) -- (ceramique);
+      % decor
+      \draw (decor) -- (analyse);
+      \draw (decor) -- (ceramique);
+      % analyse
+      \draw (analyse) -- (ceramique);
+    }
 
     % document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \node [draw,
-          rectangle,
-          minimum width=1.15\linewidth,
-          minimum height=.5\textheight,
-          xslant=\xslant,
-          yslant=\yslant,
-          above=of domain_graph,
-          xshift=-3.5em] (document_graph) {};
-    \node [below=of document_graph,
-           xshift=-.575\linewidth,
-           yshift=-.5\textheight,
-           anchor=north west] (document_graph_label) {sujets du document (sous-partie)};
+    \uncover<3->{
+      \node [below=of document_graph,
+             xshift=-.575\linewidth,
+             yshift=-.5\textheight,
+             anchor=north west] (document_graph_label) {sujets du document (sous-partie)};
 
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=-4em,
-           yshift=-.05\textheight] (typologie_c) {[typologie]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=10.75em,
-           yshift=-.05\textheight] (chronologie_c) {[chronologie]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=-13.35em,
-           yshift=-.25\textheight] (ceramique_c) {[céramique]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=17em,
-           yshift=-.125\textheight] (production_c) {[production]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=2.5em,
-           yshift=-.25\textheight] (analyse_c) {[analyse]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=.5em,
-           yshift=-.40\textheight] (decor_c) {[décors~; décor]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=-9em,
-           yshift=-.40\textheight] (repartition_c) {[répartition]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=15em,
-           yshift=-.40\textheight] (diffusion_c) {[diffusion]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=7.66em,
-           yshift=-.16\textheight] (etude_preliminaire_c) {[étude préliminaire]};
-    \node [minimum width=2.5em,
-           below=of document_graph,%draw,
-           xshift=17em,
-           yshift=-.25\textheight] (fer_c) {[fer]};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=-4em,
+             yshift=-.05\textheight] (typologie_c) {\alt<6->{\textcolor{termithorange}{\textbf{[typologie]}}}{[typologie]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=10.75em,
+             yshift=-.05\textheight] (chronologie_c) {\alt<6->{\textcolor{termithorange}{\textbf{[chronologie]}}}{[chronologie]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=-13.1em,
+           yshift=-.25\textheight] (ceramique_c) {\alt<6->{\textcolor{termithorange}{\textbf{[céramique]}}}{[céramique]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=17em,
+             yshift=-.125\textheight] (production_c) {\alt<6->{\textcolor{termithorange}{\textbf{[production]}}}{[production]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=2.5em,
+             yshift=-.25\textheight] (analyse_c) {[analyse]};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=.5em,
+             yshift=-.40\textheight] (decor_c) {\alt<6->{\textcolor{termithorange}{\textbf{[décors~; décor]}}}{[décors~; décor]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=-9em,
+             yshift=-.40\textheight] (repartition_c) {\alt<6->{\textcolor{termithorange}{\textbf{[répartition]}}}{[répartition]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=15em,
+             yshift=-.40\textheight] (diffusion_c) {\alt<6->{\textcolor{termithorange}{\textbf{[diffusion]}}}{[diffusion]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=7.66em,
+             yshift=-.16\textheight] (etude_preliminaire_c) {\alt<6->{\textcolor{termithorange}{\textbf{[étude préliminaire]}}}{[étude préliminaire]}};
+      \node [minimum width=2.5em,
+             below=of document_graph,%draw,
+             xshift=17em,
+             yshift=-.25\textheight] (fer_c) {[fer]};
+    }
 
-    % typologie
-    \draw (typologie_c) -- (chronologie_c);
-    \draw (typologie_c) -- (diffusion_c);
-    \draw (typologie_c) -- (decor_c);
-    \draw (typologie_c) -- (analyse_c);
-    \draw (typologie_c) -- (ceramique_c);
-    % chronologie
-    \draw (chronologie_c) -- (production_c);
-    \draw (chronologie_c) -- (diffusion_c);
-    \draw (chronologie_c) -- (ceramique_c);
-    % production
-    \draw (production_c) -- (decor_c);
-    % diffusion
-    \draw (diffusion_c) -- (ceramique_c);
-    % decor
-    \draw (decor_c) -- (analyse_c);
-    \draw (decor_c) -- (repartition_c);
-    \draw (decor_c) -- (ceramique_c);
-    % analyse
-    \draw (analyse_c) -- (ceramique_c);
-    % répartition
-    \draw (repartition_c) -- (ceramique_c);
-    % étude préliminaire
-    \draw (etude_preliminaire_c) -- (ceramique_c);
-    \draw (etude_preliminaire_c) -- (chronologie_c);
-    \draw (etude_preliminaire_c) -- (typologie_c);
-    \draw (etude_preliminaire_c) -- (diffusion_c);
-    % fer
-    \draw (fer_c) -- (chronologie_c);
-    \draw (fer_c) -- (production_c);
+    \uncover<4->{
+      % typologie
+      \draw (typologie_c) -- (chronologie_c);
+      \draw (typologie_c) -- (diffusion_c);
+      \draw (typologie_c) -- (decor_c);
+      \draw (typologie_c) -- (analyse_c);
+      \draw (typologie_c) -- (ceramique_c);
+      % chronologie
+      \draw (chronologie_c) -- (production_c);
+      \draw (chronologie_c) -- (diffusion_c);
+      \draw (chronologie_c) -- (ceramique_c);
+      % production
+      \draw (production_c) -- (decor_c);
+      % diffusion
+      \draw (diffusion_c) -- (ceramique_c);
+      % decor
+      \draw (decor_c) -- (analyse_c);
+      \draw (decor_c) -- (repartition_c);
+      \draw (decor_c) -- (ceramique_c);
+      % analyse
+      \draw (analyse_c) -- (ceramique_c);
+      % répartition
+      \draw (repartition_c) -- (ceramique_c);
+      % étude préliminaire
+      \draw (etude_preliminaire_c) -- (ceramique_c);
+      \draw (etude_preliminaire_c) -- (chronologie_c);
+      \draw (etude_preliminaire_c) -- (typologie_c);
+      \draw (etude_preliminaire_c) -- (diffusion_c);
+      % fer
+      \draw (fer_c) -- (chronologie_c);
+      \draw (fer_c) -- (production_c);
+    }
 
     % extra link %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \draw [dashed] (typologie) -- (typologie_c);
-    \draw [dashed] (chronologie) -- (chronologie_c);
-    \draw [dashed] (ceramique) -- (ceramique_c);
-    \draw [dashed] (production) -- (production_c);
-    \draw [dashed] (analyse) -- (analyse_c);
-    \draw [dashed] (decor) -- (decor_c);
-    \draw [dashed] (repartition) -- (repartition_c);
-    \draw [dashed] (diffusion) -- (diffusion_c);
+    \uncover<5->{
+      \draw [dashed] (typologie) -- (typologie_c);
+      \draw [dashed] (chronologie) -- (chronologie_c);
+      \draw [dashed] (ceramique) -- (ceramique_c);
+      \draw [dashed] (production) -- (production_c);
+      \draw [dashed] (analyse) -- (analyse_c);
+      \draw [dashed] (decor) -- (decor_c);
+      \draw [dashed] (repartition) -- (repartition_c);
+      \draw [dashed] (diffusion) -- (diffusion_c);
+    }
   \end{tikzpicture}
 \end{frame}
 
@@ -265,10 +277,10 @@
         04 & \cellcolor{termithorange!30}{typologie} & \cellcolor{termithorange!30}{chronologie} \\
         05 & \cellcolor{termithorange!30}{production} & \cellcolor{termithorange!30}{production} \\
         06 & fin & étude préliminaire \\
-        07 & étude préliminaire & \cellcolor{Cerulean!30}{diffusion} \\
+        07 & étude préliminaire & \cellcolor{termithorange!30}{diffusion} \\
         08 & fer & \cellcolor{Cerulean!30}{analyse} \\
         09 & deuxième âge & \cellcolor{Cerulean!30}{France} \\
-        10 & aire & \cellcolor{Cerulean!30}{répartition} \\
+        10 & aire & \cellcolor{termithorange!30}{répartition} \\
         \bottomrule
       \end{tabular}
 
@@ -284,29 +296,38 @@
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Évaluation}
-  Trois méthodes de référence~:
-  \begin{itemize}
-    \item{TF-IDF~\cite{salton1975tfidf}}
-    \item{TopicRank~\cite{bougouin2013topicrank}}
-    \item{KEA++~\cite{medelyan2006kea++}}
-  \end{itemize}
+  \begin{columns}
+    \begin{column}{.6\textwidth}
+      Trois méthodes de référence~:
+      \begin{itemize}
+        \item{TF-IDF~\cite{salton1975tfidf}}
+        \item{TopicRank~\cite{bougouin2013topicrank}}
+        \item{KEA++~\cite{medelyan2006kea++}}
+      \end{itemize}
 
-  \vspace{1em}
+      \vspace{1em}
 
-  Deux variantes~:
-  \begin{itemize}
-    \item{TopicCoRank$_\text{extr.}$}
-    \item{TopicCoRank$_\text{assign.}$}
-  \end{itemize}
+      Deux variantes~:
+      \begin{itemize}
+        \item{TopicCoRank$_\text{extr.}$}
+        \item{TopicCoRank$_\text{assign.}$}
+      \end{itemize}
 
-  \vspace{1em}
+      \vspace{1em}
 
-  Évaluation à 10 termes-clés, en termes de~:
-  \begin{itemize}
-    \item{Précision~: $\frac{|\text{correctes}|}{|\text{extraits}|}$}
-    \item{Rappel~: $\frac{|\text{correctes}|}{|\text{references}|}$}
-    \item{F1-mesure~: $2 \times \frac{\text{précision} \times \text{rappel}}{\text{précision} + \text{rappel}}$}
-  \end{itemize}
+      Évaluation à 10 termes-clés, en termes de~:
+      \begin{itemize}
+        \item{Précision (P)~: $\frac{|\text{corrects}|}{|\text{extraits}|}$}
+        \item{Rappel (R)~: $\frac{|\text{corrects}|}{|\text{references}|}$}
+        \item{F1-mesure (F)~: $2 \times \frac{\text{précision} \times \text{rappel}}{\text{précision} + \text{rappel}}$}
+      \end{itemize}
+    \end{column}
+
+    \begin{column}{.4\textwidth}
+      \centering
+      \includegraphics[width=.8\textwidth]{include/topiccorank_graph.eps}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Résultats}
@@ -345,15 +366,14 @@
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Bilan}
-  Méthode supervisée à base graphe qui tire profit du domaine de spécialité pour
-  améliorer l'ordonnancement des sujets de TopicRank et permettre l'assignement
-  de termes-clés.
+  Méthode supervisée à base de graphe qui tire profit du domaine de spécialité
+  pour améliorer l'ordonnancement des sujets de TopicRank et permettre
+  l'assignement de termes-clés
 
   \vspace{1em}
 
   \begin{block}{Avantages}
     \begin{itemize}
-      \item{Ne requière pas de vocabulaire contrôlé}
       \item{Exploite les données d'entraînement plus finement}
       \item{Couvre tous les besoins}
     \end{itemize}
