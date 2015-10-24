@@ -12,7 +12,7 @@
         \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
         \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
 
-        \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+        \node [above=of document, yshift=-2.85cm] (general) {\small Contexte général};
 
         \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
         \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaines de spécialité};
@@ -42,7 +42,7 @@
           \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
           \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
 
-          \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+          \node [above=of document, yshift=-2.85cm] (general) {\small Contexte général};
 
           \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
           \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaines de spécialité};
@@ -64,7 +64,10 @@
       \begin{figure}
         \centering
         \begin{tikzpicture}[scale=.35, node distance=3cm]
-          \node [component] (extraction) {Extraction de termes-clés};
+          \node [component] (extraction) {
+            Extraction de termes-clés\\
+            \Large (ordonnancement ou classification)
+          };
           \node [selectedcomponent, right=of extraction] (assignement) {Assignement de termes-clés};
 
           \node [io, above=of extraction] (document) {document};
@@ -73,7 +76,7 @@
           \node [io, below=of extraction] (termes_cles_extraits) {termes-clés $\subseteq$ document};
           \node [io, below=of assignement] (termes_cles_assignes) {termes-clés $\subseteq$ vocabulaire contrôlé};
 
-          \node [above=of document, yshift=-2.85cm] (general) {\small Général};
+          \node [above=of document, yshift=-2.85cm] (general) {\small Contexte général};
 
           \draw [dashed] ($(extraction.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction.south east)+(.5cm, -5.5cm)$);
           \node [above=of vocabulaire_controle, yshift=-2.9cm] (domaine_de_specialite) {\small Domaines de spécialité};
@@ -91,53 +94,71 @@
     \input{input/indexation_par_termes_cles/assignement_de_termes_cles.tex}
 
     \begin{frame}{Indexation par termes-clés}\framesubtitle{Bilan}
-    Extraction Vs Assignement~:
+    Deux catégories réalisées disjointement~:
     \begin{itemize}
-      \item{Contexte général Vs domaines de spécialité}
-      \item{Limation au document Vs Limitation au vocabulaire contrôlé}
+      \item{Extraction de termes-clés}
+      \begin{itemize}
+        \item{Ordonnancement ou classification}
+        \item{Applicable dans le contexte général}
+      \end{itemize}
+      \item{Assignement de termes-clés}
+      \begin{itemize}
+        \item{Focalisé sur un vocabulaire contrôlé}
+        \item{Adapté aux domaines de spécialité}
+      \end{itemize}
     \end{itemize}
+
+%    Extraction Vs Assignement~:
+%    \begin{itemize}
+%      \item{Contexte général Vs domaines de spécialité}
+%      \item{Limation au document Vs Limitation au vocabulaire contrôlé}
+%    \end{itemize}
 
     \vspace{1em}
 
     \begin{alertblock}{Limite}
       Manque d'exhaustivité
+      \begin{itemize}
+        \item{Extraction limitée au contenu du document}
+        \item{Assignement limitée au vocabulaire du domaine}
+      \end{itemize}
     \end{alertblock}
   \end{frame}
 
   \begin{frame}{Indexation par termes-clés}\framesubtitle{Bilan}
     \vspace{-.33em}
     \begin{exampleblock}{\small
-      Étude préliminaire de la \underline{céramique non tournée}
-      \underline{micacée} du bas Languedoc occidental~: \underline{typologie},
-      \underline{chronologie} et aire de \underline{diffusion}
+      Étude préliminaire de la \textbf{céramique non tournée}
+      \textbf{micacée} du bas Languedoc occidental~: \textbf{typologie},
+      \textbf{chronologie} et aire de \textbf{diffusion}
     }\justifying\small
-      ~~~L'étude présente une variété de \underline{céramique non tournée} dont la
-      \underline{typologie} et l'analyse des \underline{décors} permettent de
+      ~~~L'étude présente une variété de \textbf{céramique non tournée} dont la
+      \textbf{typologie} et l'analyse des \textbf{décors} permettent de
       l'identifier facilement. La nature de l'argile enrichie de mica donne un
-      aspect pailleté à la pâte sur laquelle le \underline{décor} effectué selon
+      aspect pailleté à la pâte sur laquelle le \textbf{décor} effectué selon
       la méthode du brunissoir apparaît en traits brillant sur fond mat. Cette
-      première approche se fonde sur deux séries issues de \underline{fouilles
-      anciennes} menées sur les \underline{oppidums} \underline{du Cayla} à
-      \underline{Mailhac} (\underline{Aude}) et de \underline{Mourrel-Ferrat} à
-      \underline{Olonzac} (\underline{Hérault}). La carte de
-      \underline{répartition} fait état d'\underline{échanges} ou de
-      \underline{commerce} à l'échelon macrorégional rarement mis en évidence pour
-      de la \underline{céramique non tournée}. S'il est difficile de statuer sur
-      l'origine des \underline{décors}, il semble que la \underline{production}
-      s'insère dans une ambiance celtisante. La \underline{chronologie} de cette
-      \underline{production} se situe dans le deuxième \underline{âge du Fer}. La
+      première approche se fonde sur deux séries issues de \textbf{fouilles
+      anciennes} menées sur les \textbf{oppidums} \textbf{du Cayla} à
+      \textbf{Mailhac} (\textbf{Aude}) et de \textbf{Mourrel-Ferrat} à
+      \textbf{Olonzac} (\textbf{Hérault}). La carte de
+      \textbf{répartition} fait état d'\textbf{échanges} ou de
+      \textbf{commerce} à l'échelon macrorégional rarement mis en évidence pour
+      de la \textbf{céramique non tournée}. S'il est difficile de statuer sur
+      l'origine des \textbf{décors}, il semble que la \textbf{production}
+      s'insère dans une ambiance celtisante. La \textbf{chronologie} de cette
+      \textbf{production} se situe dans le deuxième \textbf{âge du Fer}. La
       fourchette proposée entre la fin du IV$^\text{e}$ et la fin du II$^\text{e}$
       s. av. J.-C. reste encore à préciser.
 
-      \begin{exampleblock}{\small Termes-clés}\justifying\small
-        \underline{Mailhac}~; \underline{Aude}~; \underline{Mourrel-Ferrat}~;
-        \underline{Olonzac}~; \underline{Hérault}~; \underline{céramique}~;
-        \underline{typologie}~; \underline{décor}~; \underline{chronologie}~;
-        \underline{diffusion}~; \underline{production}~; \underline{commerce}~;
-        \underline{répartition}~; \underline{oppidum}~; \underline{analyse}~;
-        \underline{fouille ancienne}~; \underline{le Cayla}~;
-        \underline{micassé}~; \underline{céramique non-tournée}~;
-        \underline{echange}~; \underline{age du} \underline{Fer}~; La Tène~;
+      \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+        \textbf{Mailhac}~; \textbf{Aude}~; \textbf{Mourrel-Ferrat}~;
+        \textbf{Olonzac}~; \textbf{Hérault}~; \textbf{céramique}~;
+        \textbf{typologie}~; \textbf{décor}~; \textbf{chronologie}~;
+        \textbf{diffusion}~; \textbf{production}~; \textbf{commerce}~;
+        \textbf{répartition}~; \textbf{oppidum}~; \textbf{analyse}~;
+        \textbf{fouille ancienne}~; \textbf{le Cayla}~;
+        \textbf{micassé}~; \textbf{céramique non-tournée}~;
+        \textbf{echange}~; \textbf{age du} \textbf{Fer}~; La Tène~;
         Europe~; France~; celtes~; distribution~; cartographie~; habitat~; site
         fortifié~; identification~; étude du matériel
       \end{exampleblock}

@@ -9,26 +9,47 @@
 
   \vspace{1em}
 
-  \begin{block}{Hypothèse}
-    Les documents d'apprentissage se suffisent au domaine~:
+  \begin{block}{Hypothèses}
     \begin{itemize}
-      \item{Termes-clés $\simeq$ vocabulaire du domaine}
-      \item{Cohérence entre les termes-clés d'un même document}
+      \item{Le domaine complète le document}
+      \item{Les documents d'apprentissage se suffisent au domaine}
+      \begin{itemize}
+        \item{Termes-clés $\simeq$ vocabulaire du domaine}
+        \item{Cohérence entre les termes-clés d'un même document}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{TopicCoRank}\framesubtitle{TopicCoRank}
+  \begin{block}{Proposition}
+    \begin{itemize}
+      \item{Représentation du domaine par un graphe}
+      \item{Unification du graphe du domaine au graphe de sujets}
+      \item{Ordonnancement conjoint}
     \end{itemize}
   \end{block}
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Aperçu}
-  Méthode en 8 étapes~:
+  Phases préparatoires de TopicRank~:
   \begin{enumerate}
-    \item{Déduction du vocabulaire contrôlé du domaine}
-    \item{Création du graphe des termes-clés du domaine}
-    \vspace{.75em}\hrule\vspace{.5em}
     \item{Sélection des termes-clés candidats du document}
     \item{Groupement des candidats en sujets}
     \item{Création du graphe de sujets}
-    \vspace{.75em}\hrule\vspace{.5em}
-    \item{Unification du graphe de sujets au graphe du domaine}
+  \end{enumerate}
+  \vspace{.25em}\hrule\vspace{.5em}
+  Ajout de la connaissance du domaine~:
+  \begin{enumerate}
+    \setcounter{enumi}{3}
+    \item{Déduction du vocabulaire contrôlé du domaine}
+    \item{Création du graphe des termes-clés du domaine}
+    \item{Unification du graphe du domaine au graphe de sujets}
+  \end{enumerate}
+  \vspace{.25em}\hrule\vspace{.5em}
+  Extraction et assignement conjoints~:
+  \begin{enumerate}
+    \setcounter{enumi}{6}
     \item{Ordonnancement conjoint des sujets et des termes-clés du domaine}
     \item{Sélection des termes-clés parmi les meilleurs sujets et/ou termes-clés
           du domaine}
@@ -37,36 +58,91 @@
 
 \begin{frame}{TopicCoRank}\framesubtitle{Exemple}
   \vspace{-.33em}
-  \begin{exampleblock}{\small
-    Étude préliminaire de la céramique non tournée micacée du bas Languedoc
-    occidental~: typologie, chronologie et aire de diffusion
-  }\justifying\small
-    ~~~L'étude présente une variété de céramique non tournée dont la typologie
-    et l'analyse des décors permettent de l'identifier facilement. La nature de
-    l'argile enrichie de mica donne un aspect pailleté à la pâte sur laquelle le
-    décor effectué selon la méthode du brunissoir apparaît en traits brillant
-    sur fond mat. Cette première approche se fonde sur deux séries issues de
-    fouilles anciennes menées sur les oppidums du Cayla à Mailhac (Aude) et de
-    Mourrel-Ferrat à Olonzac (Hérault). La carte de répartition fait état
-    d'échanges ou de commerce à l'échelon macrorégional rarement mis en évidence
-    pour de la céramique non tournée. S'il est difficile de statuer sur
-    l'origine des décors, il semble que la production s'insère dans une ambiance
-    celtisante. La chronologie de cette production se situe dans le deuxième âge
-    du Fer. La fourchette proposée entre la fin du IV$^\text{e}$ et la fin du
-    II$^\text{e}$ s. av. J.-C. reste encore à préciser.
+  \alt<2->{
+    \begin{exampleblock}{\small
+      \underline{Étude préliminaire} de la \textbf{\underline{céramique} non
+      tournée} \textbf{micacée} du \underline{bas Languedoc occidental}~:
+      \textbf{\underline{typologie}}, \textbf{\underline{chronologie}} et
+      \underline{aire} de \textbf{\underline{diffusion}}
+    }\justifying\small
+    ~~~L'\underline{étude} présente une \underline{variété} de
+      \textbf{\underline{céramique} non tournée} dont la
+      \textbf{\underline{typologie}} et l'\underline{analyse} des
+      \textbf{\underline{décors}} permettent de l'identifier facilement. La
+      \underline{nature} de l'\underline{argile} \underline{enrichie} de \underline{mica}
+      donne un \underline{aspect} pailleté à la \underline{pâte} sur laquelle
+      le \textbf{\underline{décor}} effectué selon la \underline{méthode} du
+      \underline{brunissoir} apparaît en \underline{traits} brillant sur
+      \underline{fond mat}. Cette \underline{première approche} se fonde sur
+      deux \underline{séries issues} de \textbf{\underline{fouilles
+      anciennes}} menées sur les \textbf{\underline{oppidums}} \textbf{du
+      \underline{Cayla}} à \textbf{\underline{Mailhac}}
+      (\textbf{\underline{Aude}}) et de \textbf{\underline{Mourrel-Ferrat}} à
+      \textbf{\underline{Olonzac}} (\textbf{\underline{Hérault}}). La
+      \underline{carte} de \textbf{\underline{répartition}} fait
+      \underline{état} d'\textbf{\underline{échanges}} ou de
+      \textbf{\underline{commerce}} à l'\underline{échelon macrorégional}
+      rarement mis en \underline{évidence} pour de la
+      \textbf{\underline{céramique} non tournée}. S'il est \underline{difficile}
+      de statuer sur l'\underline{origine} des \textbf{\underline{décors}}, il
+      semble que la \textbf{\underline{production}} s'insère dans une
+      \underline{ambiance celtisante}. La \textbf{\underline{chronologie}} de
+      cette \textbf{\underline{produ-} \underline{ction}} se situe dans le \underline{deuxième
+      \textbf{âge}} \textbf{du Fer}. La \underline{fourchette} proposée entre la
+      \underline{fin} du \underline{IV$^\text{e}$} et la \underline{fin} du
+      II$^\text{e}$ s. av. \underline{J.-C.} reste encore à préciser.
 
-    \begin{exampleblock}{\small Termes-clés}\justifying\small
-      \underline{Mailhac}~; \underline{Aude}~; \underline{Mourrel-Ferrat}~;
-      \underline{Olonzac}~; \underline{Hérault}~; \underline{céramique}~;
-      \underline{typologie}~; \underline{décor}~; \underline{chronologie}~;
-      \underline{diffusion}~; \underline{production}~; \underline{commerce}~;
-      \underline{répartition}~; \underline{oppidum}~; \underline{analyse}~;
-      \underline{fouille ancienne}~; Europe~; France~; le Cayla~; La Tène~;
-      celtes~; distribution~; micassé~; céramique non-tournée~; echange~;
-      cartographie~; habitat~; site fortifié~; identification~; étude du
-      matériel~; age du fer.
+      \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+        \textbf{Mailhac}~; \textbf{Aude}~; \textbf{Mourrel-Ferrat}~;
+        \textbf{Olonzac}~; \textbf{Hérault}~; \textbf{céramique}~;
+        \textbf{typologie}~; \textbf{décor}~; \textbf{chronologie}~;
+        \textbf{diffusion}~; \textbf{production}~; \textbf{commerce}~;
+        \textbf{répartition}~; \textbf{oppidum}~; \textbf{analyse}~;
+        \textbf{fouille ancienne}~; \textbf{le Cayla}~;
+        \textbf{micassé}~; \textbf{céramique non-tournée}~;
+        \textbf{echange}~; \textbf{age du} \textbf{Fer}~; La Tène~;
+        Europe~; France~; celtes~; distribution~; cartographie~; habitat~; site
+        fortifié~; identification~; étude du matériel
+      \end{exampleblock}
     \end{exampleblock}
-  \end{exampleblock}
+  }{
+    \begin{exampleblock}{\small
+      Étude préliminaire de la \textbf{céramique non tournée}
+      \textbf{micacée} du bas Languedoc occidental~: \textbf{typologie},
+      \textbf{chronologie} et aire de \textbf{diffusion}
+    }\justifying\small
+      ~~~L'étude présente une variété de \textbf{céramique non tournée} dont la
+      \textbf{typologie} et l'analyse des \textbf{décors} permettent de
+      l'identifier facilement. La nature de l'argile enrichie de mica donne un
+      aspect pailleté à la pâte sur laquelle le \textbf{décor} effectué selon
+      la méthode du brunissoir apparaît en traits brillant sur fond mat. Cette
+      première approche se fonde sur deux séries issues de \textbf{fouilles
+      anciennes} menées sur les \textbf{oppidums} \textbf{du Cayla} à
+      \textbf{Mailhac} (\textbf{Aude}) et de \textbf{Mourrel-Ferrat} à
+      \textbf{Olonzac} (\textbf{Hérault}). La carte de
+      \textbf{répartition} fait état d'\textbf{échanges} ou de
+      \textbf{commerce} à l'échelon macrorégional rarement mis en évidence pour
+      de la \textbf{céramique non tournée}. S'il est difficile de statuer sur
+      l'origine des \textbf{décors}, il semble que la \textbf{production}
+      s'insère dans une ambiance celtisante. La \textbf{chronologie} de cette
+      \textbf{production} se situe dans le deuxième \textbf{âge du Fer}. La
+      fourchette proposée entre la fin du IV$^\text{e}$ et la fin du II$^\text{e}$
+      s. av. J.-C. reste encore à préciser.
+
+      \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+        \textbf{Mailhac}~; \textbf{Aude}~; \textbf{Mourrel-Ferrat}~;
+        \textbf{Olonzac}~; \textbf{Hérault}~; \textbf{céramique}~;
+        \textbf{typologie}~; \textbf{décor}~; \textbf{chronologie}~;
+        \textbf{diffusion}~; \textbf{production}~; \textbf{commerce}~;
+        \textbf{répartition}~; \textbf{oppidum}~; \textbf{analyse}~;
+        \textbf{fouille ancienne}~; \textbf{le Cayla}~;
+        \textbf{micassé}~; \textbf{céramique non-tournée}~;
+        \textbf{echange}~; \textbf{age du} \textbf{Fer}~; La Tène~;
+        Europe~; France~; celtes~; distribution~; cartographie~; habitat~; site
+        fortifié~; identification~; étude du matériel
+      \end{exampleblock}
+    \end{exampleblock}
+  }
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Exemple}
@@ -75,7 +151,7 @@
   \centering
   \begin{tikzpicture}[transform shape, scale=.75]
     % frames %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \uncover<3->{
+    \uncover<1->{
       \node [draw,
              rectangle,
              minimum width=1.15\linewidth,
@@ -83,51 +159,55 @@
              xslant=\xslant,
              yslant=\yslant] (domain_graph) {};
     }
-    \node [draw,
-          rectangle,
-          minimum width=1.15\linewidth,
-          minimum height=.5\textheight,
-          xslant=\xslant,
-          yslant=\yslant,
-          above=of domain_graph,
-          xshift=-3.5em] (document_graph) {};
+    \uncover<3->{
+      \node [draw,
+            rectangle,
+            minimum width=1.15\linewidth,
+            minimum height=.5\textheight,
+            xslant=\xslant,
+            yslant=\yslant,
+            above=of domain_graph,
+            xshift=-3.5em] (document_graph) {};
+    }
 
     % domain %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \node [above=of domain_graph,
-           xshift=.575\linewidth,
-           yshift=.5\textheight,
-           anchor=south east] (domain_graph_label) {termes-clés du domaine (sous-partie)};
+    \uncover<3->{
+      \node [above=of domain_graph,
+             xshift=.575\linewidth,
+             yshift=.5\textheight,
+             anchor=south east] (domain_graph_label) {termes-clés du domaine (sous-partie)};
 
-    % nodes
-    \node [above=of domain_graph,%draw,
-           xshift=-1.9em,
-           yshift=.425\textheight] (france) {\alt<6->{\textcolor{termithorange}{\textbf{France}}}{France}};
-    \node [above=of domain_graph,%draw,
-           xshift=-7.5em,
-           yshift=.29\textheight] (typologie) {typologie};
-    \node [above=of domain_graph,%draw,
-           xshift=4.3em,
-           yshift=.29\textheight] (chronologie) {chronologie};
-    \node [above=of domain_graph,%draw,
-           xshift=-16.5em,
-           yshift=.22\textheight] (ceramique) {céramique};
-    \node [above=of domain_graph,%draw,
-           xshift=13em,
-           yshift=.22\textheight] (production) {production};
-    \node [above=of domain_graph,%draw,
-           xshift=2.2em,
-           yshift=.1\textheight] (analyse) {\alt<6->{\textcolor{termithorange}{\textbf{analyse}}}{analyse}};
-    \node [above=of domain_graph,%draw,
-           xshift=-5.2em,
-           yshift=.1\textheight] (decor) {décor};
-    \node [above=of domain_graph,%draw,
-           xshift=-12.5em,
-           yshift=.01\textheight] (repartition) {répartition};
-    \node [above=of domain_graph,%draw,
-           xshift=9.5em,
-           yshift=.02\textheight] (diffusion) {diffusion};
+      % nodes
+      \node [above=of domain_graph,%draw,
+             xshift=-1.9em,
+             yshift=.425\textheight] (france) {\alt<6->{\textcolor{termithorange}{\textbf{France}}}{France}};
+      \node [above=of domain_graph,%draw,
+             xshift=-7.5em,
+             yshift=.29\textheight] (typologie) {typologie};
+      \node [above=of domain_graph,%draw,
+             xshift=4.3em,
+             yshift=.29\textheight] (chronologie) {chronologie};
+      \node [above=of domain_graph,%draw,
+             xshift=-16.5em,
+             yshift=.22\textheight] (ceramique) {céramique};
+      \node [above=of domain_graph,%draw,
+             xshift=13em,
+             yshift=.22\textheight] (production) {production};
+      \node [above=of domain_graph,%draw,
+             xshift=2.2em,
+             yshift=.1\textheight] (analyse) {\alt<6->{\textcolor{termithorange}{\textbf{analyse}}}{analyse}};
+      \node [above=of domain_graph,%draw,
+             xshift=-5.2em,
+             yshift=.1\textheight] (decor) {décor};
+      \node [above=of domain_graph,%draw,
+             xshift=-12.5em,
+             yshift=.01\textheight] (repartition) {répartition};
+      \node [above=of domain_graph,%draw,
+             xshift=9.5em,
+             yshift=.02\textheight] (diffusion) {diffusion};
+    }
 
-    \uncover<2->{
+    \uncover<4->{
       % france
       \draw (france) -- (typologie);
       \draw (france) -- (chronologie);
@@ -169,7 +249,7 @@
     }
 
     % document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    \uncover<3->{
+    \uncover<1->{
       \node [below=of document_graph,
              xshift=-.575\linewidth,
              yshift=-.5\textheight,
@@ -217,7 +297,7 @@
              yshift=-.25\textheight] (fer_c) {[fer]};
     }
 
-    \uncover<4->{
+    \uncover<2->{
       % typologie
       \draw (typologie_c) -- (chronologie_c);
       \draw (typologie_c) -- (diffusion_c);
@@ -287,47 +367,46 @@
       \caption{Termes-clés}
     \end{table}
 
-    \begin{block}{Observations}
-      \begin{itemize}
-        \item{Amélioration de l'ordonnancement grâce au domaine}
-        \item{Assignement de \og{}France\fg{} (hors document)}
-      \end{itemize}
-    \end{block}
+    \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+      \textbf{Mailhac}~; \textbf{Aude}~; \textbf{Mourrel-Ferrat}~;
+      \textbf{Olonzac}~; \textbf{Hérault}~; \textbf{céramique}~;
+      \textbf{typologie}~; \textbf{décor}~; \textbf{chronologie}~;
+      \textbf{diffusion}~; \textbf{production}~; \textbf{commerce}~;
+      \textbf{répartition}~; \textbf{oppidum}~; \textbf{analyse}~;
+      \textbf{fouille ancienne}~; \textbf{le Cayla}~;
+      \textbf{micassé}~; \textbf{céramique non-tournée}~;
+      \textbf{echange}~; \textbf{age du} \textbf{Fer}~; La Tène~;
+      Europe~; France~; celtes~; distribution~; cartographie~; habitat~; site
+      fortifié~; identification~; étude du matériel
+    \end{exampleblock}
+%    \begin{block}{Observations}
+%      \begin{itemize}
+%        \item{Amélioration de l'ordonnancement grâce au domaine}
+%        \item{Assignement de \og{}France\fg{} (hors document)}
+%      \end{itemize}
+%    \end{block}
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Évaluation}
-  \begin{columns}
-    \begin{column}{.6\textwidth}
-      Trois méthodes de référence~:
-      \begin{itemize}
-        \item{TF-IDF~\cite{salton1975tfidf}}
-        \item{TopicRank~\cite{bougouin2013topicrank}}
-        \item{KEA++~\cite{medelyan2006kea++}}
-      \end{itemize}
+    Trois méthodes de référence~:
+    \begin{itemize}
+      \item{TF-IDF~\cite{salton1975tfidf}}
+      \item{TopicRank~\cite{bougouin2013topicrank}}
+      \item{KEA++~\cite{medelyan2006kea++}}
+    \end{itemize}
 
-      \vspace{1em}
+    \vspace{1em}
 
-      Deux variantes~:
-      \begin{itemize}
-        \item{TopicCoRank$_\text{extr.}$}
-        \item{TopicCoRank$_\text{assign.}$}
-      \end{itemize}
+    Deux variantes~:
+    \begin{itemize}
+      \item{TopicCoRank$_\text{extr.}$}
+      \item{TopicCoRank$_\text{assign.}$}
+    \end{itemize}
 
-      \vspace{1em}
-
-      Évaluation à 10 termes-clés, en termes de~:
-      \begin{itemize}
-        \item{Précision (P)~: $\frac{|\text{corrects}|}{|\text{extraits}|}$}
-        \item{Rappel (R)~: $\frac{|\text{corrects}|}{|\text{references}|}$}
-        \item{F1-mesure (F)~: $2 \times \frac{\text{précision} \times \text{rappel}}{\text{précision} + \text{rappel}}$}
-      \end{itemize}
-    \end{column}
-
-    \begin{column}{.4\textwidth}
+    \begin{textblock*}{.4\textwidth}(.625\textwidth, -.275\textheight)
       \centering
-      \includegraphics[width=.8\textwidth]{include/topiccorank_graph.eps}
-    \end{column}
-  \end{columns}
+      \includegraphics[width=\textwidth]{include/topiccorank_graph.eps}
+    \end{textblock*}
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Résultats}
@@ -357,8 +436,6 @@
   \begin{block}{Observations}
     \begin{itemize}
       \item{Meilleure performance}
-      \item{TopicCoRank$_\text{assign.}$ $>$ TopicCoRank $>$
-            TopicCoRank$_\text{extr.}$}
       \item{TopicCoRank$_\text{extr.}$ $>$ TopicRank $\Rightarrow$ apport du
             domaine}
     \end{itemize}
@@ -366,16 +443,19 @@
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{Bilan}
-  Méthode supervisée à base de graphe qui tire profit du domaine de spécialité
-  pour améliorer l'ordonnancement des sujets de TopicRank et permettre
-  l'assignement de termes-clés
+  Extension supervisée de TopicRank pour assigner des termes-clés
 
   \vspace{1em}
 
-  \begin{block}{Avantages}
+  \begin{block}{Avantage}
     \begin{itemize}
-      \item{Exploite les données d'entraînement plus finement}
-      \item{Couvre tous les besoins}
+      \item{Combine extraction et assignement $\Rightarrow$ meilleure
+            exhaustivité}
+      \item{Adapté à plusieurs scénarii d'utilisation professionnels~:}
+      \begin{itemize}
+        \item{TopicCoRank + validation~/~enrichissement manuel}
+        \item{TopicCoRank$_\text{assign.}$ seul}
+      \end{itemize}
     \end{itemize}
   \end{block}
 

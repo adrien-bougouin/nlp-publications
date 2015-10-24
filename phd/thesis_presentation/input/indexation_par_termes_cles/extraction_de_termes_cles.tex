@@ -62,7 +62,11 @@
   \end{frame}
 
   \begin{frame}{Extraction de termes-clés}\framesubtitle{Sélection des termes-clés candidats}
-    Deux principales méthodes
+    Deux principales méthodes~:
+    \begin{itemize}
+      \item{$N$-grammes ($N = 1..3$)}
+      \item{Séquences grammaticalement définies}
+    \end{itemize}
 
     \begin{exampleblock}{Exemple}\justifying
       \og{}À l'exception de la province de Luxembourg, en alerte jaune,
@@ -70,33 +74,26 @@
 
       \vspace{1em}
 
-      Sélection des termes-clés candidats~:
       \begin{itemize}
-        \item{$N$-grammes ($N = 1..3$)~:}
-          \begin{itemize}
-            \item{$\{1..3\}$-grammes~:}
-            \begin{itemize}\setlength{\itemindent}{.5cm}
-              \item[$(N = 1)$]{
-                exception~; province~; Luxembourg~; alerte~; jaune~; ensemble~;\\
-                \hspace{.5cm}Belgique~; vigilance~; orange~; canicule~;
-              }
-              \item[$(N = 2)$]{
-                alerte jaune~; vigilance orange~;
-              }
-              \item[$(N = 3)$]{
-                province de Luxembourg
-              }
-            \end{itemize}
-          \end{itemize}
-        \item{Séquences grammaticalement définies~:}
-          \begin{itemize}
-            \item{\texttt{/(NOM | ADJ)+/}~:}
-            \begin{itemize}\setlength{\itemindent}{.5cm}
-              \item{exception~; province~; Luxembourg~; alerte jaune~;
-                    ensemble~;\\
-                    \hspace{.5cm}Belgique~; vigilance orange~; canicule}
-            \end{itemize}
-          \end{itemize}
+        \item{$\{1..3\}$-grammes)~:}
+        \begin{itemize}\setlength{\itemindent}{.6cm}
+          \item[$(N = 1)$]{
+            exception~; province~; Luxembourg~; alerte~; jaune~; ensemble~;\\
+            \hspace{.6cm}Belgique~; vigilance~; orange~; canicule~;
+          }
+          \item[$(N = 2)$]{
+            alerte jaune~; vigilance orange~;
+          }
+          \item[$(N = 3)$]{
+            province de Luxembourg
+          }
+        \end{itemize}
+        \item{\texttt{/(NOM | ADJ)+/}~:}
+        \begin{itemize}\setlength{\itemindent}{.6cm}
+          \item[]{exception~; province~; Luxembourg~; alerte jaune~;
+                ensemble~;\\
+                \hspace{.6cm}Belgique~; vigilance orange~; canicule}
+        \end{itemize}
       \end{itemize}
     \end{exampleblock}
   \end{frame}
@@ -149,40 +146,88 @@
   \end{frame}
 
   \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
-    \begin{exampleblock}{\small
-      Météo du 19 \underline{août 2012}~: \underline{alerte} à la
-      \underline{canicule} sur la \underline{Belgique} et le
-      \underline{Luxembourg}
-    }\justifying\small
-      ~~~À l'exception de la province de \underline{Luxembourg}, en
-      \underline{alerte} jaune, l'ensemble de la \underline{Belgique} est en
-      vigilance \underline{orange} à la \underline{canicule}. Le
-      \underline{Luxembourg} n'est pas épargné par la vague du \underline{chaleur}
-      : le nord du pays est en \underline{alerte} \underline{orange}, tandis que
-      le sud a était placé en \underline{alerte} rouge.
+    \alt<2->{
+      \begin{exampleblock}{\small
+        \underline{Météo} du 19 \textbf{\underline{août}
+        \underline{2012}}~: \textbf{\underline{alerte}} à la
+        \textbf{\underline{canicule}} sur la \textbf{\underline{Belgique}} et le
+        \textbf{\underline{Luxembourg}}
+      }\justifying\small
+        ~~~À l'\underline{exception} de la \underline{province} de
+        \textbf{\underline{Luxembourg}}, en \textbf{\underline{alerte}}
+        \underline{jaune}, l'\underline{ensemble} de la
+        \textbf{\underline{Belgique}} est en \underline{vigilance}
+        \textbf{\underline{orange}} à la \textbf{\underline{canicule}}. Le
+        \textbf{\underline{Luxembourg}} n'est pas épargné par la
+        \underline{vague} du \textbf{\underline{chaleur}} : le \underline{nord}
+        du \underline{pays} est en \textbf{\underline{alerte}}
+        \textbf{\underline{orange}}, tandis que le \underline{sud} a était placé
+        en \textbf{\underline{alerte}} \underline{rouge}.
 
-      ~~~En \underline{Belgique}, la \underline{température} n'est pas descendue
-      en dessous des 23\degre{}C cette nuit, ce qui constitue la deuxième nuit
-      \underline{la plus chaude} jamais enregistrée dans le royaume. Il se
-      pourrait que ce dimanche soit la journée \underline{la plus chaude} de
-      l'année. Les \underline{températures} seront comprises entre 33 et
-      38\degre{}C. Une légère brise de côte pourra faiblement rafraichir
-      l'atmosphère. Des orages de \underline{chaleur} sont a prévoir dans la
-      soirée et en début de nuit.
+        ~~~En \textbf{\underline{Belgique}}, la \textbf{\underline{température}}
+        n'est pas descendue en dessous des \underline{23\degre{}C} cette
+        \underline{nuit}, ce qui constitue la \underline{deuxième}
+        \underline{nuit} \textbf{la plus \underline{chaude}} jamais enregistrée
+        dans le \underline{royaume}. Il se pourrait que ce \underline{dimanche}
+        soit la \underline{journée} \textbf{la plus \underline{chaude}} de
+        l'\underline{année}. Les \textbf{\underline{températures}} seront
+        comprises entre 33 et \underline{38\degre{}C}. Une \underline{légère}
+        \underline{brise} de \underline{côte} pourra faiblement rafraichir
+        l'\underline{atmosphère}. Des \underline{orages} de
+        \textbf{\underline{chaleur}} sont a prévoir dans la \underline{soirée}
+        et en \underline{début} de \underline{nuit}.
 
-      ~~~Au \underline{Luxembourg}, le mercure devrait atteindre 32\degre{}C ce
-      dimanche sur l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à
-      32\degre{}C lundi. Une baisse devrait intervenir pour le reste de la
-      semaine. Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait pas
-      être atteint.
+        ~~~Au \textbf{\underline{Luxembourg}}, le \underline{mercure} devrait
+        atteindre 32\degre{}C ce \underline{dimanche} sur l'\underline{Oesling}
+        et jusqu'à 36\degre{}C sur le \underline{sud} du \underline{pays}, et 31
+        à 32\degre{}C \underline{lundi}. Une \underline{baisse} devrait
+        intervenir pour le \underline{reste} de la \underline{semaine}.
+        Néanmoins, le \underline{record} d'\underline{août} \underline{2003}
+        (\underline{37,9\degre{}C}) ne devrait pas être atteint.
 
-      \begin{exampleblock}{\small Termes-clés}\justifying\small
-        \underline{Août 2012}~; \underline{canicule}~;
-        \underline{Belgique}~; \underline{Luxembourg}~; \underline{alerte}~;
-        \underline{orange}~; \underline{chaleur}~; \underline{chaude}~;
-        \underline{température}~; \underline{la plus chaude}
+        \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+          \textbf{Août 2012}~; \textbf{canicule}~;
+          \textbf{Belgique}~; \textbf{Luxembourg}~; \textbf{alerte}~;
+          \textbf{orange}~; \textbf{chaleur}~; \textbf{chaude}~;
+          \textbf{température}~; \textbf{la plus chaude}
+        \end{exampleblock}
       \end{exampleblock}
-    \end{exampleblock}
+    }{
+      \begin{exampleblock}{\small
+        Météo du 19 \textbf{août 2012}~: \textbf{alerte} à la
+        \textbf{canicule} sur la \textbf{Belgique} et le
+        \textbf{Luxembourg}
+      }\justifying\small
+        ~~~À l'exception de la province de \textbf{Luxembourg}, en
+        \textbf{alerte} jaune, l'ensemble de la \textbf{Belgique} est en
+        vigilance \textbf{orange} à la \textbf{canicule}. Le
+        \textbf{Luxembourg} n'est pas épargné par la vague du \textbf{chaleur}
+        : le nord du pays est en \textbf{alerte} \textbf{orange}, tandis que
+        le sud a était placé en \textbf{alerte} rouge.
+
+        ~~~En \textbf{Belgique}, la \textbf{température} n'est pas descendue
+        en dessous des 23\degre{}C cette nuit, ce qui constitue la deuxième nuit
+        \textbf{la plus chaude} jamais enregistrée dans le royaume. Il se
+        pourrait que ce dimanche soit la journée \textbf{la plus chaude} de
+        l'année. Les \textbf{températures} seront comprises entre 33 et
+        38\degre{}C. Une légère brise de côte pourra faiblement rafraichir
+        l'atmosphère. Des orages de \textbf{chaleur} sont a prévoir dans la
+        soirée et en début de nuit.
+
+        ~~~Au \textbf{Luxembourg}, le mercure devrait atteindre 32\degre{}C ce
+        dimanche sur l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à
+        32\degre{}C lundi. Une baisse devrait intervenir pour le reste de la
+        semaine. Néanmoins, le record d'août 2003 (37,9\degre{}C) ne devrait pas
+        être atteint.
+
+        \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+          \textbf{Août 2012}~; \textbf{canicule}~;
+          \textbf{Belgique}~; \textbf{Luxembourg}~; \textbf{alerte}~;
+          \textbf{orange}~; \textbf{chaleur}~; \textbf{chaude}~;
+          \textbf{température}~; \textbf{la plus chaude}
+        \end{exampleblock}
+      \end{exampleblock}
+    }
   \end{frame}
 
   \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
@@ -235,7 +280,7 @@
           \put (9.5, 37.75) {\scriptsize \textcolor{Cerulean}{chaud}}
           \put (4.5, 51.5) {\scriptsize \textcolor{Cerulean}{journée}}
           \put (27, 36) {\scriptsize \textcolor{Cerulean}{météo}}
-          \put (22, 50) {\scriptsize \textcolor{Cerulean}{2002}}
+          \put (22, 50) {\scriptsize \textcolor{Cerulean}{2012}}
           \put (35, 48) {\scriptsize \textcolor{Cerulean}{alerte}}
           \put (49, 46.5) {\scriptsize \textcolor{Cerulean}{orange}}
           \put (62, 44) {\scriptsize \textcolor{Cerulean}{royaume}}
@@ -261,7 +306,7 @@
           \put (43, 59) {\scriptsize \textcolor{Cerulean}{canicule}}
           \put (50, 70) {\scriptsize \textcolor{Cerulean}{Belgique}}
           \put (67, 76.5) {\scriptsize \textcolor{Cerulean}{mercure}}
-          \put (65.5, 59) {\scriptsize \textcolor{Cerulean}{19}}
+          %\put (65.5, 59) {\scriptsize \textcolor{Cerulean}{19}}
           \put (75, 65) {\scriptsize \textcolor{Cerulean}{\OE{}sling}}
           \put (80, 51) {\scriptsize \textcolor{Cerulean}{38\degre{}C}}
         \end{overpic}
@@ -275,6 +320,92 @@
     \begin{align}
       S(\textcolor{Cerulean}{n_i}) &= (1 - \lambda) + \lambda \times \sum_{\textcolor{Cerulean}{n_j} \in \textcolor{termithgreen}{A(n_i)}} \frac{\text{poids}(\textcolor{termithgreen}{n_j, n_i}) \times S(\textcolor{Cerulean}{n_j})}{\sum_{\textcolor{Cerulean}{n_k} \in \textcolor{termithgreen}{A(n_j)}} \text{poids}(\textcolor{termithgreen}{n_j, n_k})} \notag
     \end{align}
+  \end{frame}
+
+  \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
+    \begin{exampleblock}{\small
+      Météo du 19 \textbf{\textcolor{termithorange}{août 2012}}~:
+      \textbf{alerte} à la \textbf{canicule} sur la \textbf{Belgique} et le
+      \textbf{Luxembourg}
+    }\justifying\small
+      ~~~À l'exception de la province de \textbf{Luxembourg}, en
+      \textbf{alerte} jaune, l'ensemble de la \textbf{Belgique} est en
+      \textcolor{termithorange}{vigilance \textbf{orange}} à la
+      \textbf{canicule}. Le \textbf{Luxembourg} n'est pas épargné par la vague
+      du \textbf{chaleur} : le nord du pays est en
+      \textcolor{termithorange}{\textbf{alerte} \textbf{orange}}, tandis que le
+      sud a était placé en \textbf{alerte} rouge.
+
+      ~~~En \textbf{Belgique}, la \textbf{température} n'est pas descendue
+      en dessous des 23\degre{}C cette nuit, ce qui constitue la
+      \textcolor{termithorange}{deuxième nuit} \textbf{la plus chaude} jamais
+      enregistrée dans le royaume. Il se pourrait que ce dimanche soit la
+      journée \textbf{la plus chaude} de l'année. Les \textbf{températures}
+      seront comprises entre 33 et 38\degre{}C. Une
+      \textcolor{termithorange}{légère brise} de côte pourra faiblement
+      rafraichir l'atmosphère. Des orages de \textbf{chaleur} sont a prévoir
+      dans la soirée et en début de nuit.
+
+      ~~~Au \textbf{Luxembourg}, le mercure devrait atteindre 32\degre{}C ce
+      dimanche sur l'Oesling et jusqu'à 36\degre{}C sur le sud du pays, et 31 à
+      32\degre{}C lundi. Une baisse devrait intervenir pour le reste de la
+      semaine. Néanmoins, le record d'\textcolor{termithorange}{août 2003}
+      (37,9\degre{}C) ne devrait pas être atteint.
+
+      \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+        \textbf{Août 2012}~; \textbf{canicule}~;
+        \textbf{Belgique}~; \textbf{Luxembourg}~; \textbf{alerte}~;
+        \textbf{orange}~; \textbf{chaleur}~; \textbf{chaude}~;
+        \textbf{température}~; \textbf{la plus chaude}
+      \end{exampleblock}
+    \end{exampleblock}
+  \end{frame}
+
+  \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
+    \begin{exampleblock}{\small
+      \underline{Météo} du 19 \underline{\textbf{août 2012}}~:
+      \underline{\textbf{alerte}} à la \underline{\textbf{canicule}} sur la
+      \underline{\textbf{Belgique}} et le \underline{\textbf{Luxembourg}}
+    }\justifying\small
+      ~~~À l'\underline{exception} de la \underline{province} de
+      \underline{\textbf{Luxembourg}}, en
+      \underline{\textbf{alerte} jaune}, l'\underline{ensemble} de
+      la \underline{\textbf{Belgique}} est en
+      \underline{vigilance \textbf{orange}} à la
+      \underline{\textbf{canicule}}. Le \underline{\textbf{Luxembourg}} n'est
+      pas épargné par la \underline{vague} du \underline{\textbf{chaleur}}~: le
+      \underline{nord} du \underline{pays} est en
+      \underline{\textbf{alerte} \textbf{orange}}, tandis que
+      le \underline{sud} a était placé en
+      \underline{\textbf{alerte} rouge}.
+
+      ~~~En \underline{\textbf{Belgique}}, la \underline{\textbf{température}}
+      n'est pas descendue en dessous des \underline{23\degre{}C} cette
+      \underline{nuit}, ce qui constitue la \underline{deuxième nuit}
+      \textbf{la plus \underline{chaude}} jamais enregistrée dans le
+      \underline{royaume}. Il se pourrait que ce \underline{dimanche} soit la
+      \underline{journée} \textbf{la plus \underline{chaude}} de l'\underline{année}.
+      Les \underline{\textbf{températures}} seront comprises entre 33 et
+      \underline{38\degre{}C}. Une \underline{légère brise} de
+      \underline{côte} pourra faiblement rafraichir l'\underline{atmosphère}. Des
+      \underline{orages} de \underline{\textbf{chaleur}} sont a prévoir dans la
+      \underline{soirée} et en \underline{début} de \underline{nuit}.
+
+      ~~~Au \underline{\textbf{Luxembourg}}, le \underline{mercure} devrait
+      atteindre \underline{32\degre{}C} ce \underline{dimanche} sur l'\underline{Oesling}
+      et jusqu'à \underline{36\degre{}C} sur le \underline{sud} du \underline{pays}, et
+      31 à 32\degre{}C \underline{lundi}. Une \underline{baisse} devrait intervenir
+      pour le \underline{reste} de la \underline{semaine}. Néanmoins, le
+      \underline{record} d'\underline{août 2003} (\underline{37,9\degre{}C}) ne devrait
+      pas être atteint.
+
+      \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+        \textbf{Août 2012}~; \textbf{canicule}~;
+        \textbf{Belgique}~; \textbf{Luxembourg}~; \textbf{alerte}~;
+        \textbf{orange}~; \textbf{chaleur}~; \textbf{chaude}~;
+        \textbf{température}~; \textbf{la plus chaude}
+      \end{exampleblock}
+    \end{exampleblock}
   \end{frame}
 
   \begin{frame}{Ordonnancement des candidats}\framesubtitle{TextRank -- SingleRank}
@@ -300,12 +431,18 @@
       \caption{Termes-clés}
     \end{table}
 
-    \begin{block}{Observations}
-      \begin{itemize}
-        \item{Faibles performances}
-        \item{Termes-clés redondants}
-      \end{itemize}
-    \end{block}
+    \begin{exampleblock}{\small Termes-clés de référence}\justifying\small
+      \textbf{Août 2012}~; \textbf{canicule}~;
+      \textbf{Belgique}~; \textbf{Luxembourg}~; \textbf{alerte}~;
+      \textbf{orange}~; \textbf{chaleur}~; \textbf{chaude}~;
+      \textbf{température}~; \textbf{la plus chaude}
+    \end{exampleblock}
+%    \begin{block}{Observations}
+%      \begin{itemize}
+%        \item{Faibles performances}
+%        \item{Termes-clés redondants}
+%      \end{itemize}
+%    \end{block}
   \end{frame}
 
 \subsubsection{Classification des candidats}
@@ -349,17 +486,17 @@
 
     Classification des candidats selon divers critères (traits)~:
     \begin{itemize}
-      \item{Fréquenciels~:}
+      \item{Fréquenciels}
       \begin{itemize}
-        \item{\alt<2->{\textbf{TF-IDF~\cite[KEA]{witten1999kea}}}{TF-IDF~\cite[KEA]{witten1999kea}}}
+        \item{TF-IDF~\cite[KEA]{witten1999kea}}
       \end{itemize}
-      \item{Positionnels~:}
+      \item{Positionnels}
       \begin{itemize}
-        \item{\alt<2->{\textbf{Première position~\cite[KEA]{witten1999kea}}}{Première position~\cite[KEA]{witten1999kea}}}
+        \item{Première position~\cite[KEA]{witten1999kea}}
         \item{Apparition dans une section
               particulière~\cite{nguyen2007keadocumentstructure}}
       \end{itemize}
-      \item{Linguistiques~:}
+      \item{Linguistiques}
       \begin{itemize}
         \item{Catégorie grammaticale~\cite{nguyen2007keadocumentstructure}}
       \end{itemize}
@@ -369,9 +506,23 @@
 
     Classification à l'aide de techniques d'apprentissage automatique~:
     \begin{itemize}
-      \item{\alt<2->{\textbf{Classification naîve bayesienne~\cite[KEA]{witten1999kea}}}{Classification naîve bayesienne~\cite[KEA]{witten1999kea}}}
+      \item{Classification naïve bayesienne~\cite[KEA]{witten1999kea}}
       \item{Réseau de neurones~\cite{sarkar2010neuralnetwork}}
     \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Extraction de termes-clés}\framesubtitle{Classification des candidats}
+    \begin{block}{Méthode de référence}
+      KEA~\cite{witten1999kea}~:
+      \begin{itemize}
+        \item{Classification naïve bayesienne}
+        \item{Deux critères}
+        \begin{itemize}
+          \item{TF-IDF}
+          \item{Première position}
+        \end{itemize}
+      \end{itemize}
+    \end{block}
   \end{frame}
 
 %\subsubsection{Bilan}
