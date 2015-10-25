@@ -22,16 +22,16 @@
   \end{block}
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Aperçu}
-  Méthode en 5 étapes~:
-  \begin{enumerate}
-    \item{Sélection des termes-clés candidats}
-    \item{Groupement des candidats en sujets}
-    \item{Création d'un graphe de sujets}
-    \item{Ordonnancement des sujets}
-    \item{Sélection du termes-clés représentatifs des sujets importants}
-  \end{enumerate}
-\end{frame}
+%\begin{frame}{TopicRank}\framesubtitle{Aperçu}
+%  Méthode en 5 étapes~:
+%  \begin{enumerate}
+%    \item{Sélection des termes-clés candidats}
+%    \item{Groupement des candidats en sujets}
+%    \item{Création d'un graphe de sujets}
+%    \item{Ordonnancement des sujets}
+%    \item{Sélection du termes-clés représentatifs des sujets importants}
+%  \end{enumerate}
+%\end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Exemple}
   \alt<2->{
@@ -343,16 +343,16 @@
       \textbf{Rang} & \multicolumn{1}{c|}{\textbf{TextRank}} &
       \multicolumn{1}{c|}{\textbf{SingleRank}} & \multicolumn{1}{c}{\textbf{TopicRank}} \\
       \hline
-      01 & \cellcolor{termithorange!30}{août 2012} & alerte orange & \cellcolor{termithorange!30}{Luxembourg}\\
-      02 & août 2003 & alerte jaune & \cellcolor{termithorange!30}{alerte} \\
+      01 & \cellcolor{termithgreen!30}{août 2012} & alerte orange & \cellcolor{termithgreen!30}{Luxembourg}\\
+      02 & août 2003 & alerte jaune & \cellcolor{termithgreen!30}{alerte} \\
       03 & alerte orange & alerte rouge & nuit \\
-      04 & vigilance orange & \cellcolor{termithorange!30}{alerte} & \cellcolor{termithorange!30}{Belgique} \\
-      05 & deuxième nuit & deuxième nuit & \cellcolor{termithorange!30}{août 2012}\\
-      06 & légère brise & \cellcolor{termithorange!30}{août 2012} & \cellcolor{termithorange!30}{chaleur} \\
-      07 & & août 2003 & \cellcolor{termithorange!30}{température} \\
-      08 & & vigilance orange & \cellcolor{termithorange!30}{chaude} \\
-      09 & & légère brise & \cellcolor{termithorange!30}{canicule} \\
-      10 & & \cellcolor{termithorange!30}{Luxembourg} & dimanche \\
+      04 & vigilance orange & \cellcolor{termithgreen!30}{alerte} & \cellcolor{termithgreen!30}{Belgique} \\
+      05 & deuxième nuit & deuxième nuit & \cellcolor{termithgreen!30}{août 2012}\\
+      06 & légère brise & \cellcolor{termithgreen!30}{août 2012} & \cellcolor{termithgreen!30}{chaleur} \\
+      07 & & août 2003 & \cellcolor{termithgreen!30}{température} \\
+      08 & & vigilance orange & \cellcolor{termithgreen!30}{chaude} \\
+      09 & & légère brise & \cellcolor{termithgreen!30}{canicule} \\
+      10 & & \cellcolor{termithgreen!30}{Luxembourg} & dimanche \\
       \bottomrule
     \end{tabular}
 
@@ -413,17 +413,17 @@
       \end{tabular}
     }
   \end{table}
+
   \begin{block}{Observations}
     \begin{itemize}
-      \item{Meilleure performance globale}
-      \item{Significativement meilleur que TextRank et SingleRank ($^\dagger$)}
-      \item{Plus faible performance sur DUC}
-      \item<2->{Bonne perspective d'amélioration (vers la borne haute)}
+      \item{Faible résultats globaux}
+      \item{Meilleure performance globale de TopicRank}
+      \item{TopicRank significativement meilleur que TextRank et SingleRank $^\dagger$}
     \end{itemize}
   \end{block}
 
   \uncover<2->{
-    \begin{exampleblock}{Exemple d'amélioration avec la borne haute}
+    \begin{exampleblock}{Perspective d'amélioration de la borne haute}
       \begin{itemize}
         \item{Obama $\Rightarrow$ Barack Obama $\in$ [Obama~; Barack Obama]}
         \item{Romney $\Rightarrow$ Mitt Romney $\in$ [Romney~; Mitt Romney]}
@@ -432,36 +432,36 @@
   }
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Résultats dans le contexte général}
-  \begin{table}
-    \resizebox{\linewidth}{!}{
-      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
-        \toprule
-        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
-        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
-        & P & R & F & P & R & F & P & R & F & P & R & F\\
-        \hline
-        SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & \textbf{22,3} & \textbf{28,4} & \textbf{24,6}\\
-        + complet & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 22,2 & 28,1 & 24,5\\
-        + candidats & 10,3 & 19,2 & 13,2$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 10,4 & 13,5 & 11,6\\
-        + sujets & 11,1 & 20,4 & 14,2$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 18,9 & 24,2 & 21,0\\
-        TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
-        \bottomrule
-      \end{tabular}
-    }
-  \end{table}
-
-  \vspace{1em}
-
-  \begin{block}{Observations}
-    \begin{itemize}
-      \item{Faible apport du graphe complet}
-      \item{Apport significatif de l'ordonnancement des candidats}
-      \item{Apport significatif de l'ordonnancement des sujets}
-      \item{Apport du graphe complet pour l'ordonnancement des sujets}
-    \end{itemize}
-  \end{block}
-\end{frame}
+%\begin{frame}{TopicRank}\framesubtitle{Résultats dans le contexte général}
+%  \begin{table}
+%    \resizebox{\linewidth}{!}{
+%      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+%        \toprule
+%        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
+%        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+%        & P & R & F & P & R & F & P & R & F & P & R & F\\
+%        \hline
+%        SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & \textbf{22,3} & \textbf{28,4} & \textbf{24,6}\\
+%        + complet & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 22,2 & 28,1 & 24,5\\
+%        + candidats & 10,3 & 19,2 & 13,2$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 10,4 & 13,5 & 11,6\\
+%        + sujets & 11,1 & 20,4 & 14,2$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 18,9 & 24,2 & 21,0\\
+%        TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
+%        \bottomrule
+%      \end{tabular}
+%    }
+%  \end{table}
+%
+%  \vspace{1em}
+%
+%  \begin{block}{Observations}
+%    \begin{itemize}
+%      \item{Faible apport du graphe complet}
+%      \item{Apport significatif de l'ordonnancement des candidats}
+%      \item{Apport significatif de l'ordonnancement des sujets}
+%      \item{Apport du graphe complet pour l'ordonnancement des sujets}
+%    \end{itemize}
+%  \end{block}
+%\end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Bilan}
   Méthode à base de graphe qui ordonne les sujets du document
@@ -511,9 +511,8 @@
 
   \begin{block}{Observations}
     \begin{itemize}
-      \item{Meilleure performance face à TextRank et SingleRank}
-      \item{Meilleure performance globale pour TF-IDF}
-      \item{Plus faible perspective d'amélioration}
+      \item{TopicRank meilleur que TextRank et SingleRank}
+      \item{TF-IDF meilleur que TopicRank}
     \end{itemize}
   \end{block}
 \end{frame}
