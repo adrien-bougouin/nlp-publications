@@ -1,0 +1,227 @@
+\begin{frame}[label=selection_des_candidats]{Sélection des termes-clés candidats}\framesubtitle{Analyse linguistique}
+  Approche~:
+  \begin{itemize}
+    \item{Analyse de trois collections de documents}
+    \begin{itemize}
+      \item{\textsc{De}ft \textit{(fr)}}
+      \item{SemEval \textit{(en)}}
+      \item{\textsc{Duc} \textit{(en)}}
+    \end{itemize}
+    \item{Analyse en surface}
+    \begin{itemize}
+      \item{Taille d'un termes-clés~?}
+      \item{Classes grammaticales des mots d'un termes-clés~?}
+    \end{itemize}
+    \item{Analyse plus approfondie}
+    \begin{itemize}
+      \item{Quelles classes grammaticales sont intéressantes~?}
+      \item{Pouvons-nous affiner la sélection à partir de ces classes~?}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+\begin{frame}{Sélection des termes-clés candidats}\framesubtitle{Analyse linguistique}
+  Analyse en surface~:
+
+  \begin{center}
+    \resizebox{.79\linewidth}{!}{
+      \begin{tabular}{ll|ccc}
+        \toprule
+        & & \textbf{\textsc{De}ft} \textit{(fr)} & \textbf{SemEval} \textit{(en)} & \textbf{\textsc{Duc}} \textit{(en)}\\
+        \hline
+        \multicolumn{2}{l|}{\textbf{Taux (en \%) de termes-clés~:}}\\
+        & Uni-grammes & 60,2 & 20,2 & 17,1\\
+        & Bi-grammes & 24,5 & 53,4 & 60,8\\
+        & Tri-grammes & 8,8 & 21,3 & 17,8\\
+        \hline
+        \multicolumn{2}{l|}{\textbf{Taux (en \%) de termes-clés}} & & &\\
+        \multicolumn{2}{l|}{\textbf{contenant au moins un(e)~:}} & & &\\
+        & Nom commun & 93,1 & 98,7 & 94,5\\
+        & Nom propre & $~~$6,9 & $~~$4,3 & 17,1\\
+        & Adjectif & 65,5 & 50,2 & 50,0\\
+        & Verbe & $~~$1,0 & $~~$4,0 & $~~$1,0\\
+        & Adverbe & $~~$1,3 & $~~$0,7 & $~~$1,6\\
+        & Préposition & 31,2 & $~~$1,5 & $~~$0,3\\
+        & Déterminant & 20,4 & $~~$0,0 & $~~$0,0\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{center}
+
+  \begin{block}{Observations}
+    \begin{itemize}
+      \item{Termes-clés rarement composés de plus de trois mots}
+      \item{Nom omniprésent dans les termes-clés}
+      \item{\textbf{Adjectif très utilisé (modification du nom)}}
+      \item{Prépositions et déterminants spécifiques au français}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[t]{Sélection des termes-clés candidats}\framesubtitle{Analyse linguistique}
+  Analyse des adjectifs~:
+
+  \begin{block}{Adjectif relationnel}
+    \begin{itemize}
+      \item{Dérivé d'un nom}
+      \begin{itemize}
+        \item{\og{}culture\fg{} $\rightarrow$ \og{}culturel\fg{}}
+      \end{itemize}
+      \item{Établi une relation avec le nom dérivé}
+      \begin{itemize}
+        \item{\og{}héritage culturel\fg{} $\Leftrightarrow$ \og{}héritage de
+              la culture\fg{}}
+      \end{itemize}
+      \item{Privilégié dans les noms de catégories}
+      \begin{itemize}
+        \item{Catégorie Wikipédia \og{}héritage culturel\fg{}}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Adjectif composé}
+    \begin{itemize}
+      \item{Constitué de plusieurs mots}
+      \item{Privilégié pour la formation de néologismes}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}[t]{Sélection des termes-clés candidats}\framesubtitle{Analyse linguistique}
+  Analyse des adjectifs~:
+
+  \begin{table}
+    \centering
+    \resizebox{.7\linewidth}{!}{
+      \begin{tabular}{l|ccc}
+        \toprule
+         & \textbf{\textsc{De}ft} \textit{(fr)} & \textbf{SemEval} \textit{(en)} & \textbf{\textsc{Duc}} \textit{(en)}\\
+        \hline
+        Adjectifs relationnels \hfill(\%) & 87,1 & 43,6 & 53,1\\
+        Adjectifs composés \hfill(\%) & $~~$3,3 & 16,4 & 10,6\\
+        Adjectifs qualificatifs \hfill(\%) & $~~$9,6 & 40,0 & 36,3\\
+        \bottomrule
+      \end{tabular}
+    }
+    \caption{Taux d'adjectifs dans les termes-clés}
+  \end{table}
+
+  \begin{table}
+    \centering
+    \resizebox{.7\linewidth}{!}{
+      \begin{tabular}{l|ccc}
+        \toprule
+        & \textbf{\textsc{De}ft} \textit{(fr)} & \textbf{SemEval} \textit{(en)} & \textbf{\textsc{Duc}} \textit{(en)}\\
+        \hline
+        Adjectifs relationnels \hfill(\%) & 61,9 & 30,7 & 29,9\\
+        Adjectifs composés \hfill(\%) & $~~$0,4 & $~~$7,9 & $~~$8,8\\
+        Adjectifs qualificatifs \hfill(\%) & 37,7 & 61,4 & 61,3\\
+        \bottomrule
+      \end{tabular}
+    }
+    \caption{Taux d'adjectifs dans les documents}
+  \end{table}
+
+  \begin{block}{Observations}
+    \begin{itemize}
+      \item{Adjectifs relationnels très utilisés dans les termes-clés}
+      \item{Adjectifs composés peu utilisés mais peu ambigus}
+      \item{Ambigüité sur les adjectifs qualificatifs}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Sélection des termes-clés candidats}\framesubtitle{Méthode}
+  \begin{enumerate}
+    \item{Présélection des candidats}
+    \begin{itemize}
+      \item{\texttt{/NOM+ ADJ?/} \textit{(fr)}}
+      \item{\texttt{/ADJ? NOM+/} \textit{(en)}}
+    \end{itemize}
+    \item{Filtrage de adjectifs superflus}
+    \begin{itemize}
+      \item{Adjectifs relationnels~: OK}
+      \item{Adjectifs composés~: OK}
+      \item{\textbf{Adjectifs qualificatifs~: OK~/~KO}}
+      \begin{itemize}
+        \item{Si fréquence avec \texttt{ADJ} $>$ fréquence sans
+                  \texttt{ADJ}~: OK}
+      \end{itemize}
+    \end{itemize}
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}{Sélection des termes-clés candidats}\framesubtitle{Évaluation}
+  \begin{itemize}
+    \item{Évaluation en deux temps~:}
+    \begin{enumerate}
+      \item{Intrinsèque}
+      \item{Extrinsèque}
+    \end{enumerate}
+    \item{Trois collections de données~:}
+    \begin{itemize}
+      \item{\textsc{De}ft \textit{(fr)}}
+      \item{SemEval \textit{(en)}}
+      \item{\textsc{Duc} \textit{(en)}}
+    \end{itemize}
+    \item{Deux méthode d'extraction de termes-clés~:}
+    \begin{itemize}
+      \item{\textsc{Tf-Idf}}
+      \item{KEA}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Sélection des termes-clés candidats}\framesubtitle{Évaluation}
+  Évaluation intrinsèque~:
+
+  \begin{center}
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{l|cc|c|cc|c|cc|c}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
+        \cline{2-10}
+        & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$ & Candidats & R$_{\text{max}}$ & $Q$\\
+        \hline
+        $N$-grammes & 2~610,4 & \textbf{74,1} & 0,03 & 1~652,3 & \textbf{71,7} & 0,04 & $~~$478,9 & \textbf{90,4} & 0,19\\
+        \texttt{/(NOM~|~ADJ)+/} & $~~$810,3 & 61,1 & 0,08 & $~~$518,5 & 62,0 & 0,12 & $~~$147,4 & 88,3 & 0,60\\
+        Syntagmes nominaux & $~~$736,5 & 63,0 & \textbf{0,09} & $~~$478,1 & 56,3 & 0,12 & $~~$141,4 & 75,6 & 0,54\\
+        LR-NP & \textbf{$~~$658,2} & 60,1 & \textbf{0,09} & \textbf{$~~$423,8} & 59,0 & \textbf{0,14} & \textbf{$~~$135,3} & 84,8 & \textbf{0,63}\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{center}
+\end{frame}
+
+\begin{frame}{Sélection des termes-clés candidats}\framesubtitle{Évaluation}
+  Évaluation extrinsèque~:
+
+  \begin{center}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{l@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c@{~}|@{~}c}
+      \toprule
+      \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{2}{c@{~}|@{~}}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{2}{c@{~}|@{~}}{\textbf{SemEval} \textit{(en)}} & \multicolumn{2}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
+      \cline{2-7}
+      & \multicolumn{1}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{1}{c@{~}|@{~}}{KEA} & \multicolumn{1}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{1}{c@{~}|@{~}}{KEA} & \multicolumn{1}{c@{~}|@{~}}{\textsc{Tf-Idf}} & \multicolumn{1}{c}{KEA}\\
+      \cline{2-7}
+      & F & F & F & F & F & F\\
+      \hline
+      $N$-grammes & $~~$8,9 & \textbf{20,0} & $~~$7,7$~~$ & 16,2 & 17,7 & 14,3\\
+      \texttt{/(NOM~|~ADJ)+/} & 13,2 & 18,4 & 10,5 & 17,1 & 27,3 & 16,8\\
+      Syntagme nominaux & 12,8 & 18,7 & 10,6 & 16,9 & 24,1 & 15,7\\
+      LR-NP & \textbf{13,3} & 19,2 & \textbf{10,9} & \textbf{17,7} & \textbf{27,4} & \textbf{16,9}\\
+      \bottomrule
+    \end{tabular}
+  }
+  \end{center}
+\end{frame}
+
+\begin{frame}{Sélection des termes-clés candidats}\framesubtitle{Bilan}
+  \begin{itemize}
+    \item{La sélection des termes-clés candidat influe $\pm$ sur
+          l'extraction de termes-clés}
+    \item{Certaines catégories de mots sont plus utiles dans les
+          termes-clés}
+    \item{Les adjectifs ne sont pas tous utiles dans les termes-clés}
+  \end{itemize}
+\end{frame}
+
