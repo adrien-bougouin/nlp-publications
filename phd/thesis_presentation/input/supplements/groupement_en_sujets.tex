@@ -1,0 +1,13 @@
+\begin{frame}[label=groupement_en_sujets]{TopicRank}\framesubtitle{\hyperlink{topicrank_back}{Groupement en sujets}}
+  Groupement hiérarchique~:
+  \begin{enumerate}
+    \item{Un groupe par candidat}
+    \item{Groupement des deux groupes de plus forte similarité moyenne entre
+      tous leurs candidats $c_1$ et $c_2$}
+    \begin{itemize}
+      \item{$\text{sim}(c_1, c_2) = \frac{\text{racines}(c_1) \cap \text{racines}(c_2)}{\text{racines}(c_1) \cup \text{racines}(c_2)}$}
+    \end{itemize}
+    \item{Répéter 2 jusqu'à ce que la plus forte similarité soit $< \sfrac{1}{4}$}
+  \end{enumerate}
+\end{frame}
+

@@ -1,5 +1,5 @@
 \begin{frame}{Contributions}\framesubtitle{TopicRank}
-  Méthode à base de graphe d'extraction non supervisée de termes-clés
+  Méthode d'extraction de termes-clés à base de graphe
 
   \vspace{1em}
 
@@ -33,9 +33,9 @@
 %  \end{enumerate}
 %\end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Aperçu}
-  \includegraphics[width=\textwidth]{include/topicrank_nuage_de_mots.eps}
-\end{frame}
+%\begin{frame}{TopicRank}\framesubtitle{Aperçu}
+%  \includegraphics[width=\textwidth]{include/topicrank_nuage_de_mots.eps}
+%\end{frame}
 
 \begin{frame}{TopicRank}\framesubtitle{Exemple}
   \alt<2->{
@@ -121,7 +121,7 @@
   }
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Exemple}
+\begin{frame}[label=topicrank_back]{TopicRank}\framesubtitle{Exemple}
   \begin{columns}
     \begin{column}{.45\linewidth}
       \begin{enumerate}\setlength{\itemindent}{-.75cm}
@@ -129,7 +129,7 @@
           \begin{itemize}\setlength{\itemindent}{-1.1cm}
           \item{\texttt{/(NOM | ADJ)+/}}
         \end{itemize}
-        \item<2->{Groupement des candidats}
+        \item<2->{\hyperlink{groupement_en_sujets}{Groupement des candidats}}
         \begin{itemize}\setlength{\itemindent}{-1.1cm}
           \item{\textcolor{white}{$\frac{\text{racines}(c_1) \cap \text{racines}(c_2)}{\text{racines}(c_1) \cup \text{racines}(c_2)}$}}
           \begin{textblock*}{\textwidth}(.055\textwidth, -.055\textheight)
@@ -137,7 +137,7 @@
           \end{textblock*}
           \item{$\text{sim}(c_1, c_2) \geq \sfrac{1}{4}$}
         \end{itemize}
-        \item<3->{Construction du graphe}
+        \item<3->{\hyperlink{construction_du_graphe}{Construction du graphe}}
         \begin{itemize}\setlength{\itemindent}{-1.1cm}
           \item{
             Pondération selon la distance\\
@@ -396,7 +396,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Résultats dans le contexte général}
+\begin{frame}[label=resultats_topicrank_1_back]{TopicRank}\framesubtitle{\hyperlink{resultats_topicrank_1}{Résultats dans le contexte général}}
   \begin{table}
     \resizebox{\linewidth}{!}{
       \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
@@ -420,7 +420,7 @@
 
   \begin{block}{Observations}
     \begin{itemize}
-      \item{Faible résultats globaux}
+      \item{Faibles résultats globaux}
       \item{Meilleure performance globale de TopicRank}
       \item{TopicRank significativement meilleur que TextRank et SingleRank $^\dagger$}
     \end{itemize}
@@ -475,7 +475,7 @@
   \begin{block}{Avantages}
     \begin{itemize}
       \item{Applicable dans le contexte général}
-      \item{Non redondant}
+      \item{Termes-clés extraits peu redondants}
     \end{itemize}
   \end{block}
 
@@ -484,14 +484,13 @@
   \begin{alertblock}{Limites}
     \begin{itemize}
       \item{Groupement naïf des candidats en sujets}
-      \item{Stratégie non optimale pour sélectionner le terme-clé d'un sujet}
-      \item{Quelques instabilités}
+      \item{Stratégie sous-optimale pour sélectionner le terme-clé d'un sujet}
       \item{Limité au contenu du document}
     \end{itemize}
   \end{alertblock}
 \end{frame}
 
-\begin{frame}{TopicRank}\framesubtitle{Oui, mais\dots}
+\begin{frame}[label=resultats_topicrank_2_back]{TopicRank}\framesubtitle{\hyperlink{resultats_topicrank_2}{Oui, mais\dots}}
   \begin{table}
     \resizebox{\linewidth}{!}{
       \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~~~~~~}c@{~~~~~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}

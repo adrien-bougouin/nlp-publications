@@ -1,4 +1,4 @@
-\begin{frame}[label=selection_des_candidats]{Sélection des termes-clés candidats}\framesubtitle{Analyse linguistique}
+\begin{frame}[label=selection_des_candidats]{Sélection des termes-clés candidats}\framesubtitle{\hyperlink{selection_des_candidats_back}{Analyse linguistique}}
   Approche~:
   \begin{itemize}
     \item{Analyse de trois collections de documents}
@@ -151,23 +151,27 @@
 \end{frame}
 
 \begin{frame}{Sélection des termes-clés candidats}\framesubtitle{Évaluation}
+  Évaluation en deux temps~:
+  \begin{enumerate}
+    \item{Intrinsèque}
+    \item{Extrinsèque}
+  \end{enumerate}
+
+  \vspace{1em}
+
+  Trois méthodes de référence~:
   \begin{itemize}
-    \item{Évaluation en deux temps~:}
-    \begin{enumerate}
-      \item{Intrinsèque}
-      \item{Extrinsèque}
-    \end{enumerate}
-    \item{Trois collections de données~:}
-    \begin{itemize}
-      \item{\textsc{De}ft \textit{(fr)}}
-      \item{SemEval \textit{(en)}}
-      \item{\textsc{Duc} \textit{(en)}}
-    \end{itemize}
-    \item{Deux méthode d'extraction de termes-clés~:}
-    \begin{itemize}
-      \item{\textsc{Tf-Idf}}
-      \item{KEA}
-    \end{itemize}
+    \item{$\{1..3\}$-grammes}
+    \item{Syntagmes nominaux minimaux}
+    \item{\texttt{/(NOM | ADJ)+/}}
+  \end{itemize}
+
+  \vspace{1em}
+
+  Deux méthode d'extraction de termes-clés~:
+  \begin{itemize}
+    \item{\textsc{Tf-Idf}}
+    \item{KEA}
   \end{itemize}
 \end{frame}
 
@@ -207,7 +211,7 @@
       \hline
       $N$-grammes & $~~$8,9 & \textbf{20,0} & $~~$7,7$~~$ & 16,2 & 17,7 & 14,3\\
       \texttt{/(NOM~|~ADJ)+/} & 13,2 & 18,4 & 10,5 & 17,1 & 27,3 & 16,8\\
-      Syntagme nominaux & 12,8 & 18,7 & 10,6 & 16,9 & 24,1 & 15,7\\
+      Syntagmes nominaux & 12,8 & 18,7 & 10,6 & 16,9 & 24,1 & 15,7\\
       LR-NP & \textbf{13,3} & 19,2 & \textbf{10,9} & \textbf{17,7} & \textbf{27,4} & \textbf{16,9}\\
       \bottomrule
     \end{tabular}

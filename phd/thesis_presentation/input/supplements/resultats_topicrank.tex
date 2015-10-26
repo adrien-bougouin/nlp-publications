@@ -1,0 +1,40 @@
+\begin{frame}[label=resultats_topicrank_1]{TopicRank}\framesubtitle{\hyperlink{resultats_topicrank_1_back}{Résultats supplémentaires 1}}
+  \begin{table}
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{\textsc{De}ft} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Wikinews} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{SemEval} \textit{(en)}} & \multicolumn{3}{c}{\textbf{\textsc{Duc}} \textit{(en)}}\\
+        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
+        \hline
+        SingleRank & $~~$4,5 & $~~$9,0 & $~~$5,9$^{~}$ & 19,4 & 20,7 & 19,7$^{~}$ & $~~$4,6 & $~~$3,2 & $~~$3,7$^{~}$ & \textbf{22,3} & \textbf{28,4} & \textbf{24,6}\\
+        + complet & $~~$4,4 & $~~$9,0 & $~~$5,8$^{~}$ & 20,0 & 21,4 & 20,3${~}$ & $~~$5,5 & $~~$3,8 & $~~$4,4$^{~}$ & 22,2 & 28,1 & 24,5\\
+        + candidats & 10,3 & 19,2 & 13,2$^\dagger$ & 28,5 & 30,0 & 28,8$^\dagger$ & $~~$9,4 & $~~$6,8 & $~~$7,8$^\dagger$ & 10,4 & 13,5 & 11,6\\
+        + sujets & 11,1 & 20,4 & 14,2$^\dagger$ & 30,7 & 32,6 & 31,1$^\dagger$ & 14,2 & $~~$9,9 & 11,6$^\dagger$ & 18,9 & 24,2 & 21,0\\
+        TopicRank & \textbf{11,7} & \textbf{21,7} & \textbf{15,1}$^\dagger$ & \textbf{35,0} & \textbf{37,5} & \textbf{35,6}$^\dagger$ & \textbf{14,9}$^{~}$ & \textbf{10,3} & \textbf{12,1}$^\dagger$ & 18,3 & 23,8 & 20,4\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{table}
+\end{frame}
+
+\begin{frame}[label=resultats_topicrank_2]{TopicRank}\framesubtitle{\hyperlink{resultats_topicrank_2_back}{Résultats supplémentaires 2}}
+  \begin{table}
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{l|c@{~~}c@{~~}c@{~}|c@{~~~~~~~}cc@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
+        \toprule
+        \multirow{2}{*}[-2pt]{\textbf{Méthode}} & \multicolumn{3}{c|}{\textbf{Linguistique} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Sciences de l'info.} \textit{(fr)}} & \multicolumn{3}{c|}{\textbf{Archéologie} \textit{(fr)}} & \multicolumn{3}{c}{\textbf{Chimie} \textit{(fr)}}\\
+        \cline{2-4}\cline{5-7}\cline{8-10}\cline{11-13}
+        & P & R & F & P & R & F & P & R & F & P & R & F\\
+        \hline
+        SingleRank & $~~$9.0 & 10,6 & $~~$9,6 & $~~$9,5 & 10,0 & $~~$9,4 & 12,7 & $~~$8,9 & 10,2 & 13,0 & 10,4 & 11,0\\
+        + complet & 10,0 & 11,9 & 10,7 & $~~$9,9 & 10,2 & $~~$9,8 & 13,5 & $~~$9,5 & 11,0 & 13,0 & 10,7 & 11,2\\
+        + candidats & 10,8 & 12,7 & 11,5 & 11,1 & 11,6 & 11,0 & 25,7 & 17,4 & 20,3 & \textbf{14,2} & \textbf{11,1} & \textbf{11,9}\\
+        + sujets & 10,6 & 12,5 & 11,3 & 10,9 & 11,5 & 10,8 & 26,5 & 18,0 & 20,9 & 13,5 & 10,7 & 11,5\\
+        TopicRank & \textbf{11,2} & \textbf{13,1} & \textbf{11,9} & \textbf{12,1} & \textbf{12,8} & \textbf{12,1} & \textbf{27,5} & \textbf{18,7} & \textbf{21,8} & 13,8 & 11,1 & 11,8\\
+        \bottomrule
+      \end{tabular}
+    }
+  \end{table}
+\end{frame}
+

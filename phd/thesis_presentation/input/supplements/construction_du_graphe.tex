@@ -1,0 +1,12 @@
+\begin{frame}[label=construction_du_graphe]{TopicRank}\framesubtitle{\hyperlink{topicrank_back}{Construction du graphe}}
+  \begin{itemize}
+    \item{Les n\oe{}uds sont les sujets}
+    \item{Tous les n\oe{}uds sont connectés entre eux}
+    \item{Les arêtes entre deux n\oe{}uds $n_1$ et $n_2$ sont pondérées}
+    \begin{itemize}
+      \item{$\text{poids}(n_i, n_j) = \sum_{c_i \in n_i}\ \sum_{c_j \in n_j} \text{dist}(c_i, c_j)$}
+      \item{$\text{dist}(c_i, c_j) = \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|}$}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+

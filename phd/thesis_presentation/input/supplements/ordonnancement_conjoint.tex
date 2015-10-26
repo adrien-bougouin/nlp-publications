@@ -1,0 +1,19 @@
+\begin{frame}[label=ordonnancement_conjoint]{TopicCoRank}\framesubtitle{\hyperlink{ordonnancement_conjoint_back}{Ordonnancement conjoint}}
+  Deux vote pour déterminer l'importance des n\oe{}uds~:
+  \begin{itemize}
+    \item{Interne, c-à-d depuis les n\oe{}uds du même graphe}
+    \begin{itemize}
+      \item{\normalsize $R_{\text{\textit{interne}}}(n_i) = \sum_{n_j \in A_{\text{\textit{interne}}}(n_i)}{\frac{\text{poids}(n_j, n_i) \times S(n_j)}{\sum_{n_k \in A_{\text{\textit{interne}}}(n_j)}{{\text{poids}(n_j, n_k)}}}}$}
+    \end{itemize}
+    \item{Externe, c-à-d depuis les n\oe{}uds de l'autre graphe}
+    \begin{itemize}
+      \item{\normalsize $R_{\text{\textit{externe}}}(n_i) = \sum_{n_j \in A_{\text{\textit{externe}}}(n_i)}{\frac{S(n_j)}{|A_{\text{\textit{externe}}}(n_j)|}}$}
+    \end{itemize}
+  \end{itemize}
+
+  \vspace{2em}
+
+  \centering\Large
+  $S(n_i) = (1 - \lambda)\ R_{\text{\textit{externe}}}(n_i) + \lambda\ R_{\text{\textit{interne}}}(n_i)$
+\end{frame}
+

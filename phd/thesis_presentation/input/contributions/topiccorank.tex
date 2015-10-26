@@ -11,10 +11,10 @@
 
   \begin{block}{Hypothèses}
     \begin{itemize}
-      \item{Les documents d'apprentissage se suffisent au domaine}
+      \item{Les documents d'apprentissage représentent le domaine}
       \begin{itemize}
         \item{Termes-clés $\simeq$ vocabulaire du domaine}
-        \item{Cohérence entre les termes-clés d'un même document}
+        \item{Lien d'association entre les termes-clés d'un même document}
       \end{itemize}
       \item{Le domaine complète le document}
     \end{itemize}
@@ -22,7 +22,7 @@
 \end{frame}
 
 \begin{frame}{TopicCoRank}\framesubtitle{TopicCoRank}
-  \begin{block}{Proposition}
+  \begin{block}{Propositions}
     \begin{itemize}
       \item{Représentation du domaine par un graphe}
       \item{Unification du graphe du domaine au graphe de sujets}
@@ -145,7 +145,7 @@
   }
 \end{frame}
 
-\begin{frame}{TopicCoRank}\framesubtitle{Exemple}
+\begin{frame}[label=ordonnancement_conjoint_back]{TopicCoRank}\framesubtitle{\hyperlink{ordonnancement_conjoint}{Exemple}}
   \newcommand{\xslant}{0.25}
   \newcommand{\yslant}{0}
   \centering
@@ -411,7 +411,7 @@
     \end{textblock*}
 \end{frame}
 
-\begin{frame}{TopicCoRank}\framesubtitle{Résultats}
+\begin{frame}[label=phrase_comme_contexte_back]{TopicCoRank}\framesubtitle{\hyperlink{phrase_comme_contexte}{Résultats}}
   \begin{table}
     \resizebox{\linewidth}{!}{
       \begin{tabular}{@{~}l|c@{~~}c@{~~}c@{~}|c@{~~~~~~~~}c@{~~~~~~}c@{~}|c@{~~}c@{~~}c@{~}|c@{~~}c@{~~}c@{~}}
@@ -467,7 +467,7 @@
   \begin{alertblock}{Limites}
     \begin{itemize}
       \item{Donne autant d'importance aux deux graphes}
-      \item{Plus redondant que TopicRank}
+      \item{Termes-clés extraits plus redondants que ceux de TopicRank}
     \end{itemize}
   \end{alertblock}
 \end{frame}
