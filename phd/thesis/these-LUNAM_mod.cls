@@ -1589,8 +1589,8 @@
    \global\setbox\@abstractBoxGlobal=\vbox{\copy\@abstractBox}
    }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Mots cl'es en franc,ais
+%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mots cl'es en anglais
 %
 
 \newsavebox{\@keywordsBox}
@@ -1607,7 +1607,7 @@
       \begin{minipage}{0.47\textwidth}
          \begin{flushleft}
             \selectlanguage{english}
-            \textbf{Key Words}\par
+            \textbf{Keywords}\par
    }
    {
          \end{flushleft}
@@ -1617,8 +1617,8 @@
    \global\setbox\@keywordsBoxGlobal=\vbox{\copy\@keywordsBox}
    }
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% Mots cl'es en anglais
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mots cl'es en franc,ais
 %
 
 \newsavebox{\@motsclesBox}
@@ -1635,7 +1635,7 @@
       \begin{minipage}{0.47\textwidth}
          \begin{flushleft}
             \selectlanguage{french}
-            \textbf{Mots cl\'es}\par
+            \textbf{Mots-cl\'es}\par
    }
    {
          \end{flushleft}

@@ -4,12 +4,12 @@
   greyCover,        %
   fancyChapter,     %
   fancyPart,        %
-  squeezeCommittee  %
+  squeezeCommittee, %
   %showframe         %
 ]{these-LUNAM_mod}
 
 % TODO utiliser subcaption plutot que subfigure
-%\usepackage{etex}                            % solve compatibility issues
+%\usepackage{etex}                             % solve compatibility issues
 \usepackage[utf8]{inputenc}                   %
 \usepackage[T1]{fontenc}                      %
 \usepackage{textcomp}                         % °, <<, >>, etc.
@@ -34,6 +34,7 @@
 \usepackage{listings}                         %
 \usepackage{units}                            % \unitfrac
 \usepackage{overpic}                          %
+\usepackage{fancyhdr}
 
 \usetikzlibrary{positioning, topaths, shapes, arrows, patterns, calc}
 
@@ -56,6 +57,18 @@
 \geometry{inner=2.5cm, outer=2.5cm, top=2.5cm, bottom=2cm}
 \geometry{inner=3.5cm, outer=3.5cm, top=4cm, bottom=3.5cm} % CUSTOM
 %\geometry{inner=1.5cm, outer=1.5cm, top=2cm, bottom=2cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\thepage\hspace{.5cm}}
+\fancyhead[RO]{\hspace{.5cm}\thepage}
+\fancyhead[LO]{\itshape\nouppercase{\rightmark}}
+\fancyhead[RE]{\itshape\nouppercase{\leftmark}}
+\renewcommand{\headrulewidth}{0pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \setlist[enumerate]{itemsep=0mm}  % minimum spacing between items (it is not
 \setlist[itemize]{itemsep=0mm}    % same as \setlist[...]{noitemsep}
@@ -199,8 +212,8 @@
   %\onehalfspacing   % line spacing (not applied on first and last pages)
   %\frontmatter      % forbidden
 
-%  \input{input/acknowledgment.tex}
   \input{input/quote.tex}
+  \input{input/acknowledgment.tex}
 
   \tableofcontents
   \listoftables
