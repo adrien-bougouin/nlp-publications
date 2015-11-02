@@ -3,13 +3,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % declarations
 
-% jury members 
-\def\jurypresident#1#2#3{\gdef\@jurypresident{\textbf{#1}, #2, #3}}
-\def\juryreviewerone#1#2#3{\gdef\@juryreviewerone{\textbf{#1}, #2, #3}}
-\def\juryreviewertwo#1#2#3{\gdef\@juryreviewertwo{\textbf{#1}, #2, #3}}
-\def\juryexaminatorone#1#2#3{\gdef\@juryexaminatorone{\textbf{#1}, #2, #3}}
-\def\director#1#2#3{\gdef\@director{\textbf{#1}, #2, #3}}
-\def\supervisor#1#2#3{\gdef\@supervisor{\textbf{#1}, #2, #3}}
+% extra information
+\def\titlepageextra#1{\gdef\@titlepageextra{#1}}
 
 % logos
 \def\logos#1{\gdef\@logos{#1}}
@@ -36,28 +31,14 @@
     \usebeamerfont{date}\insertdate
   \end{beamercolorbox}
   %
-  \vspace{1em}
+  \vspace{1.5em}
   %
-  \begin{beamercolorbox}{jury}
+  \begin{beamercolorbox}{titlepageextra}
     \centering
-    \usebeamerfont{jury}\textbf{Jury}
+    \usebeamerfont{titlepageextra}\@titlepageextra
   \end{beamercolorbox}
   %
-  \vspace{1em}
-  %
-  \begin{beamercolorbox}{juryelements}
-    \usebeamerfont{juryelements}
-    \begin{tabular}{ll}
-      \textbf{Président~:} & \@jurypresident\\
-      \textbf{Rapporteurs~:} & \@juryreviewerone\\
-      & \@juryreviewertwo\\
-      \textbf{Examinatrice~:} & \@juryexaminatorone\\
-      \textbf{Directrice~:} & \@director\\
-      \textbf{Encadrant~:} & \@supervisor\\
-    \end{tabular}
-  \end{beamercolorbox}
-  %
-  \vspace{1em}
+  \vspace{1.5em}
   %
   \@logos
 }
