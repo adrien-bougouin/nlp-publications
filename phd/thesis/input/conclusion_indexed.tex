@@ -1,0 +1,285 @@
+\chapter{Conclusion et perspectives}
+\label{chap:main-conclusion}
+  \chaptercite{
+    [...] la tâche est loin d'être résolue [...]
+%    [\dots] the task is far from being solved [\dots]
+  }{
+    \newcite{hasan2014state_of_the_art}
+  }{.75\linewidth}{\hfill}
+
+  Dans cette thèse, nous nous sommes intéressé à la tâche d'indexation par
+  termes-clés\index{terme-cle@Terme-clé} en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}. Étant donné un document\index{document@Document} textuel, cette
+  tâche consiste à lui attribuer les unités textuelles\index{unite textuelle@Unité textuelle} qui décrivent son
+  contenu. Ces unités textuelles\index{unite textuelle@Unité textuelle}, les termes-clés\index{terme-cle@Terme-clé}, permettent de le résumer, de
+  le catégoriser et, surtout, de l'indexer pour la recherche d'information. Les
+  termes-clés\index{terme-cle@Terme-clé} peuvent être attribués par les auteurs, des lecteurs ou des
+  indexeurs professionnels, mais seuls ces derniers réalisent un travail
+  impartial, homogène et conforme à une indexation de qualité en domaines\index{domaine@Domaine} de
+  spécialité\index{specialite@Spécialité}. Notre objectif est de proposer une alternative automatique aux
+  indexeurs professionnels pour une indexation par termes-clés\index{terme-cle@Terme-clé} de documents\index{document@Document}
+  numériques en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}. Tout d'abord, nous avons fait le choix
+  de traiter ce problème dans sa généralité, puis nous nous sommes ensuite
+  concentré sur les documents\index{document@Document} en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité} et sur leur indexation
+  particulière effectuée par des indexeurs professionnels.
+
+  Dans la littérature, de nombreuses méthodes\index{methode@Méthode} sont proposées pour l'indexation
+  automatique par termes-clés\index{terme-cle@Terme-clé}. Elles sont réparties en deux catégories~:
+  l'extraction et l'assignement de termes-clés\index{terme-cle@Terme-clé}. La première extrait les
+  termes-clés\index{terme-cle@Terme-clé} depuis le contenu du document\index{document@Document}. Il s'agit de la catégorie
+  d'indexation par termes-clés\index{terme-cle@Terme-clé} la plus étudiée. Elle est plus simple à mettre en
+  \oe{}uvre, car elle traite les unités textuelles\index{unite textuelle@Unité textuelle} du document\index{document@Document}. Cependant, ces
+  unités textuelles\index{unite textuelle@Unité textuelle} ne sont pas toujours sous une forme appropriée. La seconde
+  assigne les termes-clés\index{terme-cle@Terme-clé} depuis un vocabulaire\index{vocabulaire@Vocabulaire} contrôlé représentatif du
+  langage documentaire. Elle assure donc une indexation de meilleure\index{meilleur@Meilleur} qualité.
+  Cependant, elle est plus difficile à mettre en \oe{}uvre, car les entrées du
+  vocabulaire\index{vocabulaire@Vocabulaire} contrôlé ne sont pas nécessairement présentes dans le document\index{document@Document}.
+  Par ailleurs, elle n'est pas capable d'identifier des termes-clés\index{terme-cle@Terme-clé} très
+  spécifiques au document\index{document@Document} s'ils ne sont pas dans le vocabulaire\index{vocabulaire@Vocabulaire} contrôlé, ni
+  même des nouveaux concepts. Pour traiter le problème d'indexation par
+  termes-clés\index{terme-cle@Terme-clé} dans sa généralité, nous avons travaillé sur l'extraction de
+  termes-clés\index{terme-cle@Terme-clé}. Pour l'indexation en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}, nous avons proposé
+  une extension de ce travail afin d'y intégrer la capacité à réaliser
+  l'assignement.
+
+  \section{Contributions}
+  \label{sec:main-conclusion-contributions}
+    Nos travaux ont fait l'objet de trois contributions~: deux contributions
+    pour l'extraction de termes-clés\index{terme-cle@Terme-clé} et une contribution pour l'indexation par
+    termes-clés\index{terme-cle@Terme-clé} en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}. Nous avons aussi proposé un
+    protocole d'évaluation pour une campagne d'évaluation manuelle\index{evaluation manuelle@Évaluation manuelle} de nos
+    travaux.
+
+    Notre première contribution à l'extraction de termes-clés\index{terme-cle@Terme-clé} concerne l'étape
+    préliminaire de sélection\index{selection@Sélection} des termes-clés\index{terme-cle@Terme-clé} candidats. Elle consiste à
+    identifier les unités textuelles\index{unite textuelle@Unité textuelle} du document\index{document@Document} susceptibles d'être des
+    termes-clés\index{terme-cle@Terme-clé}. Dans la littérature, cette étape est très souvent réalisée à
+    l'aide de règles simples qui ont tendance à sélectionner beaucoup de
+    candidats. Or, nous émettons l'hypothèse que l'indexation gagne en
+    efficacité lorsque la sélection\index{selection@Sélection} des candidats fournie un ensemble\index{ensemble@Ensemble} de petite
+    taille contenant le plus possible de termes-clés\index{terme-cle@Terme-clé} corrects.
+    %
+    En nous fondant sur une analyse des propriétés linguistiques des termes-clés\index{terme-cle@Terme-clé}
+    de référence\index{reference@Référence}, nous avons d'abord proposé une méthode\index{methode@Méthode} qui limite le nombre\index{nombre@Nombre} de
+    candidats sélectionnés en ciblant les séquences de noms\index{nom@Nom} modifiés, ou non,
+    par un adjectif\index{adjectif@Adjectif} utile (non superflu). Un adjectif\index{adjectif@Adjectif} utile se distingue par sa
+    catégorie, relationnel\index{relationnel@Relationnel} ou composé complexe, et son usage fréquent dans le
+    document\index{document@Document}~; un adjectif\index{adjectif@Adjectif} superflu est un adjectif\index{adjectif@Adjectif} qualificatif qui modifie
+    n'importe quel nom\index{nom@Nom}.
+    %
+    Nous avons ensuite vérifié notre hypothèse en évaluant la qualité de
+    l'ensemble\index{ensemble@Ensemble} de candidats sélectionnés par notre méthode\index{methode@Méthode}, ainsi que son impact
+    sur deux méthodes\index{methode@Méthode} d'extraction de termes-clés\index{terme-cle@Terme-clé}~:
+    \textsc{Tf-Idf\index{tf-idf@TF-IDF}}~\cite{salton1975tfidf} et \textsc{Kea}~\cite{witten1999kea}.
+    Les résultats\index{resultat@Résultat} ont montré que notre méthode\index{methode@Méthode} est capable de réduire le nombre\index{nombre@Nombre}
+    de candidats sélectionnés sans éliminer un nombre\index{nombre@Nombre} significatif de
+    termes-clés\index{terme-cle@Terme-clé} corrects. Ils montrent aussi qu'elle a une meilleure\index{meilleur@Meilleur} influence
+    sur la performance\index{performance@Performance} des méthodes\index{methode@Méthode} d'extractions employées.
+
+    Notre seconde contribution à l'extraction de termes-clés\index{terme-cle@Terme-clé} s'intéresse aux
+    méthodes\index{methode@Méthode} qui ordonnent les termes-clés\index{terme-cle@Terme-clé} candidats par importance\index{importance@Importance}, puis
+    extraient les $k$ plus importants en tant que termes-clés\index{terme-cle@Terme-clé}. Selon nous, ce ne
+    sont pas les termes-clés\index{terme-cle@Terme-clé} candidats qui doivent être ordonnés par importance\index{importance@Importance},
+    mais ce qu'ils représentent~: leur sujet\index{sujet@Sujet}. De plus, si plusieurs unités
+    textuelles représentent le même sujet\index{sujet@Sujet}, alors elles doivent être considérées
+    comme une entité unique. Nous avons donc proposé, TopicRank\index{topicrank@TopicRank}, une méthode\index{methode@Méthode} à
+    base de graphe\index{graphe@Graphe} qui commence par grouper les termes-clés\index{terme-cle@Terme-clé} candidats en sujets\index{sujet@Sujet},
+    représente le document\index{document@Document} avec un graphe\index{graphe@Graphe} des sujets\index{sujet@Sujet}, ordonne ces sujets\index{sujet@Sujet} à
+    l'aide d'un algorithme de marche aléatoire dans le graphe\index{graphe@Graphe}, puis extrait un,
+    et un seul, terme-clé\index{terme-cle@Terme-clé} candidat pour chacun des $k$ meilleurs\index{meilleur@Meilleur} sujets\index{sujet@Sujet}. Nos
+    expériences ont montré une amélioration de l'extraction de termes-clés\index{terme-cle@Terme-clé}
+    avec TopicRank\index{topicrank@TopicRank}, comparée à celle réalisée avec les autres méthodes\index{methode@Méthode} à base de
+    graphe\index{graphe@Graphe}, TextRank~\cite{mihalcea2004textrank} et
+    SingleRank~\cite{wan2008expandrank}. Au
+    travers d'évaluations manuelles\index{evaluation manuelle@Évaluation manuelle}, nous avons aussi pu montrer que TopicRank\index{topicrank@TopicRank}
+    extrait des termes-clés\index{terme-cle@Terme-clé} non redondants\index{redondant@Redondant}, lui permettant de mieux couvrir les
+    sujets\index{sujet@Sujet} du document\index{document@Document} que les autres méthodes\index{methode@Méthode}.
+
+    Notre troisième contribution s'intéresse à l'indexation par termes-clés\index{terme-cle@Terme-clé} en
+    domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité} telle qu'elle est effectuée par un indexeur
+    professionnel. Ces indexeurs mêlent extraction et assignement, avec une
+    préférence pour l'assignement. L'assignement permet d'obtenir une indexation
+    homogène de tous les documents\index{document@Document} d'un même domaine\index{domaine@Domaine}, une indexation conforme au
+    vocabulaire\index{vocabulaire@Vocabulaire} de ce domaine\index{domaine@Domaine} et une généralisation du contenu de chaque
+    document\index{document@Document} afin de le situer dans son domaine\index{domaine@Domaine}. L'extraction, quant à elle,
+    permet d'améliorer l'exhaustivité de l'indexation en ajoutant des
+    termes-clés\index{terme-cle@Terme-clé} très spécifiques au document\index{document@Document}, voir même de nouveaux concepts.
+    Nous faisons donc l'hypothèse qu'extraction et assignement doivent être
+    réalisés conjointement grâce à une contextualisation du contenu du
+    document\index{document@Document} dans son domaine\index{domaine@Domaine}. Cette contextualisation doit (1) permettre de
+    déterminer l'importance\index{importance@Importance} des sujets\index{sujet@Sujet} en tenant aussi compte de la place qu'ils
+    occupent dans le domaine\index{domaine@Domaine} et (2) permettre l'assignement en déterminant les
+    termes-clés\index{terme-cle@Terme-clé} du domaines\index{domaine@Domaine} importants vis-à-vis du document\index{document@Document}.
+    %
+    Pour cela, nous avons étendu notre seconde contribution en ajoutant un
+    graphe\index{graphe@Graphe} du domaine\index{domaine@Domaine}, représenté par son vocabulaire\index{vocabulaire@Vocabulaire} contrôlé (ses
+    termes-clés\index{terme-cle@Terme-clé}). Notre nouvelle méthode\index{methode@Méthode}, TopicCoRank\index{topiccorank@TopicCoRank}, représente le domaine\index{domaine@Domaine} du
+    document\index{document@Document} avec un graphe\index{graphe@Graphe} des termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence} attribués à des
+    documents\index{document@Document} du même domaine\index{domaine@Domaine}, le connecte au graphe\index{graphe@Graphe} de sujets\index{sujet@Sujet} et ordonne
+    conjointement sujets\index{sujet@Sujet} et termes-clés\index{terme-cle@Terme-clé} du domaine\index{domaine@Domaine}. Les termes-clés\index{terme-cle@Terme-clé} obtenus à
+    partir du graphe\index{graphe@Graphe} de sujets\index{sujet@Sujet} sont extraits et les termes-clés\index{terme-cle@Terme-clé} obtenus à partir
+    du graphe\index{graphe@Graphe} du domaine\index{domaine@Domaine} sont assignés. En domaine\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}, TopicCoRank\index{topiccorank@TopicCoRank}
+    obtient des résultats\index{resultat@Résultat} supérieurs à l'état de l'art. À notre connaissance, il
+    s'agit de la première méthode\index{methode@Méthode} capable de réaliser simultanément
+    extraction et assignement.
+
+    Enfin, nous avons participé à la mise en place d'une campagne d'évaluation
+    manuelle en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}. Nous avons proposé, en collaboration
+    avec les indexeurs professionnels de l'Inist, un protocole permettant
+    d'évaluer deux aspects de l'indexation~: la pertinence (validité) et le
+    silence (perte d'information). Le premier aspect est celui qui est aussi
+    évalué par l'évaluation automatique. Les résultats\index{resultat@Résultat} obtenus lors de la
+    campagne ont tout de même montré l'importance\index{importance@Importance} de réaliser une évaluation
+    manuelle. Celle-ci est moins pessimiste (plus juste) et nous observons un
+    gain de plus de 20 points de f1-mesure par rapport à l'évaluation
+    automatique. Le second aspect est nouveau pour
+    l'évaluation de méthodes\index{methode@Méthode} d'indexation par termes-clés\index{terme-cle@Terme-clé}. Il est purement
+    sémantique et permet de déterminer si, au delà de fournir un grand nombre\index{nombre@Nombre} de
+    termes-clés\index{terme-cle@Terme-clé} corrects, la méthode\index{methode@Méthode} capture les informations les plus
+    importantes du document\index{document@Document}. Toutes les ressources de cette campagne
+    d'évaluation seront rendues disponibles. Elles sont annotées avec
+    chaque étape (indexation automatique\index{indexation automatique@Indexation automatique} par termes-clés\index{terme-cle@Terme-clé} et évaluation manuelle\index{evaluation manuelle@Évaluation manuelle})
+    afin de permettre l'étude de nouvelle méthodes\index{methode@Méthode} d'évaluation automatique,
+    notamment vérifier leur corrélation avec le jugement humain.
+
+  \section{Perspectives}
+  \label{sec:main-conclusion-contributions}
+    Nos contributions ont montré des améliorations en matière de sélection\index{selection@Sélection} de
+    termes-clés\index{terme-cle@Terme-clé}, d'extraction de termes-clés\index{terme-cle@Terme-clé} et d'indexation par termes-clés\index{terme-cle@Terme-clé} en
+    domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}. Elles ont toutefois des limites et il reste encore
+    plusieurs perspectives de travail.
+
+    Nous identifions trois limites de notre travail s'intéressant à la sélection\index{selection@Sélection}
+    des termes-clés\index{terme-cle@Terme-clé} candidats pour l'extraction de termes-clés\index{terme-cle@Terme-clé}. Premièrement,
+    notre étude linguistique des termes-clés\index{terme-cle@Terme-clé} s'est limitée aux adjectifs\index{adjectif@Adjectif}
+    composés complexes et aux adjectifs\index{adjectif@Adjectif} relationnels\index{relationnel@Relationnel}, alors qu'il existe
+    d'autres catégories d'adjectifs\index{adjectif@Adjectif}. Les adjectifs\index{adjectif@Adjectif} relationnels\index{relationnel@Relationnel}, qui sont des
+    dénominaux, ont montré leur utilité au sein des termes-clés\index{terme-cle@Terme-clé}. Nous
+    envisageons donc d'étudier n'importe quel adjectif\index{adjectif@Adjectif} dénominal, en nous
+    affranchissant de ses autres propriétés, ainsi que les adjectifs\index{adjectif@Adjectif} déverbaux.
+    Ensuite, nous avons mis de côté les prépositions (et les déterminants) en
+    français, alors qu'ils sont constitutifs d'environ $\unitfrac{1}{3}$ des
+    termes-clés\index{terme-cle@Terme-clé}. L'attachement prépositionnel au nom\index{nom@Nom} est
+    ambigu~\cite{colonna2002ambiguitesyntaxique} et les prépositions (et les
+    déterminants) étant d'usage fréquent dans tout discours (prépositions et
+    déterminants font partie des mots\index{mot@Mot} les plus fréquents du français), cette
+    ambiguïté doit absolument être résolue pour éviter d'ajouter un nombre\index{nombre@Nombre}
+    conséquent d'erreurs dans l'ensemble\index{ensemble@Ensemble} des termes-clés\index{terme-cle@Terme-clé} candidats.
+    %
+%    alors n'en
+%    est-il pas de même pour les autres adjectifs\index{adjectif@Adjectif} dénominaux~? N'est-ce pas parce
+%    qu'ils sont dérivé du nom\index{nom@Nom}, élément central du terme-clé\index{terme-cle@Terme-clé}, qu'ils sont si
+%    utiles~? Qu'en est-il pour les autres adjectifs\index{adjectif@Adjectif} dérivés~? Ces questions sont
+%    intéressantes et mérites d'être soulevées. Ensuite, nous avons mis de côté
+%    les prépositions et les déterminants en français, alors qu'ils sont
+%    fréquemment employés au sein de termes-clés\index{terme-cle@Terme-clé}. Ils méritent aussi d'être
+%    étudiés afin de distinguer dans quels cas ils servent de frontière entre
+%    deux candidats (\TODO{exemple\index{exemple@Exemple}}) et dans quels cas ils doivent être
+%    sélectionnés au sein d'eux (\TODO{exemple\index{exemple@Exemple}}).
+    %
+%    Enfin, lors de notre analyse de
+%    TopicRank\index{topicrank@TopicRank} selon les différentes méthodes\index{methode@Méthode} de sélection\index{selection@Sélection} des termes-clés\index{terme-cle@Terme-clé}
+%    candidats, nous avons évoqué la possibilité que certaines méthodes\index{methode@Méthode} (comme
+%    TopicRank\index{topicrank@TopicRank}) soient moins sensibles à la variation de qualité des candidats
+%    que d'autres. Il serait intéressant d'étudier les méthodes\index{methode@Méthode} de sélection\index{selection@Sélection} de
+%    candidats sur un plus large panel de méthodes\index{methode@Méthode}, de vérifier cette hypothèse
+%    et d'identifier quels sont les facteurs en cause d'une sensibilité plus ou
+%    moins forte.
+
+    Notre travail sur TopicRank\index{topicrank@TopicRank} possède aussi quelques limitations. Tout
+    d'abord, le groupement en sujets\index{sujet@Sujet} que nous avons proposé est naïf. Il ne
+    tient pas compte du lien de synonymie des mots\index{mot@Mot}, ni même de leur sens dans
+    leurs contextes (problème d'ambiguïté). Nous avons proposé ce groupement car
+    il permet à TopicRank\index{topicrank@TopicRank} d'être applicable dans toutes les situations, sans
+    nécessiter de ressources particulières. Lorsque les données mises à
+    dispositions le permettent, il serait intéressant d'envisager d'autres
+    méthodes\index{methode@Méthode} de groupement. Nous pourrions analyser la sémantique latente au
+    sein d'une collection donnée, comme l'ont fait
+    \newcite{liu2010topicalpagerank}, \newcite{ding2011binaryintegerprogramming}
+    et \newcite{zhang2013wordtopicmultirank} avec
+    \textsc{Lda}~\cite{blei2003lda}. Nous pourrions aussi nous appuyer sur des
+    ressources lexicales, ou des méthodes\index{methode@Méthode} automatiques, pour détecter les
+    candidats qui sont synonymes et les grouper. Une autre limite de notre
+    travail est le choix non optimal du terme-clé\index{terme-cle@Terme-clé} candidat à extraire pour un
+    sujet\index{sujet@Sujet}. Bien que la stratégie\index{strategie@Stratégie} que nous employons donne des résultats\index{resultat@Résultat}
+    satisfaisants, nous avons établi que la stratégie\index{strategie@Stratégie} optimale permettrait
+    d'atteindre des performances\index{performance@Performance} deux fois supérieures dans certains cas. Une
+    première solution serait d'utiliser une collection d'entraînement pour
+    apprendre à reconnaître le terme-clé\index{terme-cle@Terme-clé} au sein d'un sujet\index{sujet@Sujet}. Certains traits
+    utilisés par les méthodes\index{methode@Méthode} supervisés pourraient servir (position de la
+    première occurrence, nombre\index{nombre@Nombre} de mots\index{mot@Mot}, etc.), ainsi que de nouveaux traits
+    liés à la relation qu'entretient le candidat avec les autres candidats du
+    sujet\index{sujet@Sujet} (degré de similarité avec tous les autres, catégorie grammaticale des
+    mots\index{mot@Mot} en communs avec les autres, etc.). Une autre solution serait
+    d'appliquer des méthodes\index{methode@Méthode} de titrage automatique, telles que celle de
+    \newcite{lau2011topiclabeling}. L'avantage de cette méthode\index{methode@Méthode} est de
+    permettre de générer des unités textuelles\index{unite textuelle@Unité textuelle} à partir d'un sujet\index{sujet@Sujet}. Dans notre
+    cas, elle permet donc de proposer des termes-clés\index{terme-cle@Terme-clé} qui n'occurrent pas
+    nécessairement dans le document\index{document@Document}. Correctement paramétrée avec un vocabulaire\index{vocabulaire@Vocabulaire}
+    contrôlé, une méthode\index{methode@Méthode} de titrage automatique générative peut donc être une
+    alternative à TopicCoRank\index{topiccorank@TopicCoRank} pour réaliser extraction et assignement.
+
+    TopicCoRank\index{topiccorank@TopicCoRank}, qui permet de réaliser simultanément extraction et assignement
+    de ter\-mes-clés possède aussi quelques limites. Premièrement, bien que
+    l'ordonnancement conjoint\index{conjoint@Conjoint} des sujets\index{sujet@Sujet} du document\index{document@Document} et des termes-clés\index{terme-cle@Terme-clé} du
+    domaine\index{domaine@Domaine} améliore l'ordonnancement, nous avons observé que TopicCoRank\index{topiccorank@TopicCoRank} est
+    plus performant en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité} lorsqu'il ne réalise que
+    l'assignement. Cela signifie que les termes-clés\index{terme-cle@Terme-clé} du domaine\index{domaine@Domaine} sont
+    correctement identifiés parmi tous les termes-clés\index{terme-cle@Terme-clé} de celui-ci, mais que
+    leur importance\index{importance@Importance} est trop faible comparée à celle qui est attribuée aux
+    sujets\index{sujet@Sujet} du document\index{document@Document}. Ce problème peut être résolu de deux manières. Il existe
+    peut être un schéma de pondération des arêtes et d'unification des deux
+    graphes\index{graphe@Graphe} plus performant que celui que nous proposons. Pour unifier les deux
+    graphes\index{graphe@Graphe}, nous pourrions par exemple\index{exemple@Exemple} nous intéresser au contenu des documents\index{document@Document}
+    de référence\index{reference@Référence}. Ainsi, un terme-clé\index{terme-cle@Terme-clé} du domaine\index{domaine@Domaine} pourrait être connecté à un
+    sujet\index{sujet@Sujet} lorsqu'il est le terme-clé\index{terme-cle@Terme-clé} d'un document\index{document@Document} dans lequel le sujet\index{sujet@Sujet}
+    apparaît. Une autre manière de résoudre ce problème serait aussi de faire
+    varier l'influence de la recommandation interne (paramètre $\lambda$)
+    différemment pour les sujets\index{sujet@Sujet} et les termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence}. En augmentant
+    plus fortement l'impact de la recommandation issue des sujets\index{sujet@Sujet}
+    (recommandation externe) avec une faible valeur pour $\lambda$,
+    l'importance\index{importance@Importance} des termes-clés\index{terme-cle@Terme-clé} du domaine\index{domaine@Domaine} devrait augmenter, leur permettant
+    de rivaliser avec les sujets\index{sujet@Sujet} dans le classement par importance\index{importance@Importance}. Le paramétrage de
+    $\lambda$ peut aussi résoudre un autre problème de TopicCoRank\index{topiccorank@TopicCoRank}. En effet,
+    nous avons aussi observé que TopicCoRank\index{topiccorank@TopicCoRank} fonctionne moins bien hors domaines\index{domaine@Domaine}
+    de spécialité\index{specialite@Spécialité}, il est difficilement généralisable. Utiliser un paramètre
+    $\lambda$ différent pour calculer l'importance\index{importance@Importance} des sujets\index{sujet@Sujet} et l'importance\index{importance@Importance}
+    des termes-clés\index{terme-cle@Terme-clé} peut aussi résoudre ce problème. Nous pourrions le
+    paramétrer empiriquement avec les données d'entraînement, mais nous
+    aimerions aussi chercher à prédire sa valeur. En effet, nous avons expliqué
+    que le problème de généralisation de TopicCoRank\index{topiccorank@TopicCoRank} est dû au fait que les
+    données d'entraînement des collections que nous avons utilisé hors domaines\index{domaine@Domaine}
+    de spécialité\index{specialite@Spécialité} ne sont pas adaptées. Il serait donc intéressant de voir si
+    nous pouvons évaluer avec quel degré les données sont adaptées et de voir
+    s'il existe une corrélation entre celui-ci et le paramétrage de $\lambda$.
+    Enfin, les données en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité} que nous utilisons ne
+    contiennent que des notices. Il serait intéressant de voir les différences
+    de performance\index{performance@Performance} en utilisant les articles complets que représentent ces notices.
+
+    ~\\L'ensemble\index{ensemble@Ensemble} des travaux de cette thèse permet d'améliorer l'indexation
+    automatique par termes-clés\index{terme-cle@Terme-clé}. Nos travaux en extraction de termes-clés\index{terme-cle@Terme-clé} sont
+    applicables dans presque tous les scénarios d'utilisation. Aucune ressource
+    externe n'est nécessaire à l'exception de celles requises par les outils de
+    prétraitement (segmentation et étiquetage grammatical). Ceux en
+    extraction et assignement simultanés de termes-clés\index{terme-cle@Terme-clé} sont applicables en
+    domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}, dès lors que des données d'entraînement sont
+    disponibles. Dans le cadre du projet Termith, les résultats\index{resultat@Résultat} de nos travaux
+    seront exploités pour faciliter la recherche d'information avec les outils
+    que propose l'Inist. TopicCoRank\index{topiccorank@TopicCoRank} identifie plus de termes-clés\index{terme-cle@Terme-clé} corrects que
+    les autres méthodes\index{methode@Méthode}, ce qui facilitera le travail des indexeurs
+    professionnels.
+    %
+    Il est aussi envisagé de s'en servir pour réaliser de
+    la veille terminologique, c'est-à-dire mettre à jour des bases
+    terminologiques de domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité} avec les termes-clés\index{terme-cle@Terme-clé} validés par
+    un indexeur professionnel.
+
+%    ~\\L'ensemble\index{ensemble@Ensemble} des travaux de cette thèse permet d'améliorer l'indexation par
+%    termes-clés\index{terme-cle@Terme-clé} d'un point de vue linguistique et  d'un point de vue de
+%    modélisation et d'analyse du document\index{document@Document} à l'aide, ou non, de son domaine\index{domaine@Domaine}.
+%    L'indexation par termes-clés\index{terme-cle@Terme-clé} que nous proposons peut-être utilisée pour la
+%    recherche d'information, comme dans le cadre du travail de maintient de
+%    bases de données bibliographiques de l'Inist, mais aussi pour d'autres
+%    applications que nous n'avons pas évoqué, telles que la veille
+%    terminologique, ou encore l'amélioration de l'effort de lecture par la mise
+%    en évidence des termes-clés\index{terme-cle@Terme-clé}.
+

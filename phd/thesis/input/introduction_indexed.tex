@@ -1,0 +1,244 @@
+\chapter{Introduction}
+\label{chap:main-introduction}
+  \chaptercite{
+    Rechercher des informations est une activité fréquente pour quiconque
+    utilise quotidiennement un ordinateur. Alors qu'Internet est une source
+    abondante d'information de tout genre, trouver les documents\index{document@Document} pertinents est
+    encore difficile. [...] Les termes-clés\index{terme-cle@Terme-clé} aident à organiser et retrouver ces
+    documents\index{document@Document} d'après leur contenu.
+%    Seeking information is an important activity for everyone who uses computers
+%    in daily life. While the Internet is a bountiful source of all types of
+%    knowledge, locating relevant documents\index{document@Document} is still a great challenge [\dots]
+%    Keyphrases help organise documents\index{document@Document} and retrieve them based on content.
+  }{
+    \newcite{medelyan2008smalltrainingset}
+  }{.75\linewidth}{\justify}
+
+  %-----------------------------------------------------------------------------
+
+  \section{Contexte}
+  \label{sec:main-introduction-context}
+    La société contemporaine dans laquelle nous vivons se situe en pleine ère de
+    l'information. Cette ère succède l'ère moderne, durant laquelle de
+    nombreuses découvertes et avancées scientifiques ont été faites~; durant
+    laquelle des connaissances considérables ont été acquises. Elle  est aussi
+    marquée par le début de la mondialisation, qui, sur le plan scientifique,
+    favorise la dissémination et la production de nouvelles connaissances.
+    Jusqu'alors rangées sous la forme de documents\index{document@Document} papiers dans des
+    bibliothèques, où des documentalistes les indexent et aident ensuite
+    scientifiques et particuliers à y accéder le plus efficacement possible, les
+    connaissances sont devenues trop nombreuses et leur stockage physique
+    inadapté~\cite{rider1946thegreatdilemmaofworldorganization}. L'ère de
+    l'information débute vers la fin des années 1940 et apporte une solution à
+    ce problème~: l'informatisation des données. Cette informatisation présente
+    tout d'abord l'avantage de pouvoir stocker les connaissances sur des
+    supports pérennes, de capacité de plus en plus grande (de quelques
+    mégaoctets à plusieurs gigaoctets) et de taille de plus en plus réduite (du
+    disque dur au \textsc{Dvd}). Très vite, la communauté scientifique y voit
+    aussi un moyen pour améliorer la recherche d'information, en indexant les
+    documents\index{document@Document} qui contiennent les connaissances, en proposant des interfaces
+    pour permettre à un utilisateur de formuler une requête et en cherchant les
+    documents\index{document@Document} pertinents vis-à-vis de cette requête~\cite{salton1975tfidf}.
+
+    Produit de cette ère de l'information, le réseau informatique mondial
+    Internet en est aussi devenu l'un des acteurs principaux. En effet, si
+    l'informatisation et l'indexation des données facilite leur recherche,
+    Internet facilite leur accès depuis les bases de données informatisées qui y
+    sont connectées. Médium d'information mondial et accessible de
+    tous\footnote{En 2012, l'Institut national de la statistique et des études
+    économiques (Insee) estimait qu'environ 80~\% des français sont connectés à
+    Internet.}, il favorise donc la transition depuis les bibliothèques
+    traditionnelles vers des bibliothèques numériques. Ces dernières combinent
+    le savoir faire des documentalistes avec les techniques du Traitement\index{traitement@Traitement}
+    automatique des langues (\textsc{Tal}) et de la Recherche d'information
+    (\textsc{Ri}) pour informatiser les données et faciliter leur accès et leur
+    recherche.
+
+    Cette thèse s'inscrit dans le cadre du projet \textsc{Anr} Termith
+    (\textsc{Anr-12-Cord-0029}), qui s'intéresse à l'accès à l'information
+    numérique en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité} et qui s'articule lui-même autour du
+    travail de l'Institut de l'information scientifique et technique (Inist). Né
+    en 1988 de la fusion du Centre de documentation scientifique et technique
+    (\textsc{Cdst}) et du Centre de documentation sciences humaines
+    (\textsc{Cdsh}), tout deux fondés en 1970 pendant les débuts de
+    l'informatisation des données, l'Inist possède deux des plus importantes
+    bases de données informatisées d'Europe~: \textsc{Pascal} en sciences
+    exactes et \textsc{Francis} en sciences humaines. Aujourd'hui acteur de la
+    Bibliothèque scientifique numérique (\textsc{Bsn}) fondée en 2009 par le
+    ministère de l'enseignement supérieur et de la recherche français, l'une de
+    ses missions est de faciliter l'accès à la recherche mondiale au travers de
+    la production de notices bibliographiques\footnote{Une notice
+    bibliographique contient les informations factuelles d'un document\index{document@Document} (titre,
+    auteurs, affiliation des auteurs, etc.), ainsi qu'un résumé.} associées à
+    des mots\index{mot@Mot}-clés d'indexation, que nous appelons ici termes-clés\index{terme-cle@Terme-clé}. Avec la
+    croissance du nombre\index{nombre@Nombre} de productions scientifiques, l'indexation manuelle par
+    termes-clés\index{terme-cle@Terme-clé} est de plus en plus difficile. Cette tâche nécessite un travail
+    de maintenance des ressources terminologiques utilisées pour
+    l'indexation~\cite{guinchat1996techniquesdocumentaires} et
+    des effectifs humains conséquents afin de tenir la charge journalière de
+    données à indexer.
+
+    Soucieux de faciliter le travail d'indexation par termes-clés\index{terme-cle@Terme-clé} de toute sorte
+    de document\index{document@Document} (résumé d'une notice bibliographique, article scientifique,
+    article journalistique, nouvelle, etc.) et pour toute sorte d'application
+    (indexation, résumé, publicité ciblée, etc.), de nombreux chercheurs
+    s'intéressent à son automatisation. En témoignent le nombre\index{nombre@Nombre} grandissant
+    d'articles scientifiques à ce sujet\index{sujet@Sujet}~\cite{hasan2014state_of_the_art} ainsi
+    que l'émergence de campagnes
+    d'évaluation~\cite{kim2010semeval,paroubek2012deft}.
+
+  %-----------------------------------------------------------------------------
+
+  \section{Problématique}
+  \label{sec:main-introduction-problem_statement}
+    Étant donné un document\index{document@Document}, l'indexation automatique\index{indexation automatique@Indexation automatique} par termes-clés\index{terme-cle@Terme-clé} consiste à
+    trouver les unités textuelles\index{unite textuelle@Unité textuelle} qui décrivent son contenu principal. La
+    difficulté de cette tâche réside dans l'identification des éléments
+    importants vis-à-vis de son contenu, ainsi que leur représentation avec les
+    unités textuelles\index{unite textuelle@Unité textuelle} appropriées. La première difficulté est d'ordre
+    sémantique~: il faut réussir à comprendre le document\index{document@Document} pour en extraire
+    l'essence~; la seconde est d'ordre linguistique et terminologique~: il faut
+    déterminer les propriétés linguistiques des termes-clés\index{terme-cle@Terme-clé} et connaître le
+    vocabulaire\index{vocabulaire@Vocabulaire} du domaine\index{domaine@Domaine} auquel appartient le document\index{document@Document}. Par ailleurs, la forme
+    la plus appropriée pour un terme-clé\index{terme-cle@Terme-clé} n'est pas nécessairement présente dans
+    le contenu du document\index{document@Document}, elle peut être implicite.
+
+    Plutôt que de comprendre le document\index{document@Document}, les méthodes\index{methode@Méthode} d'indexation automatique\index{indexation automatique@Indexation automatique}
+    par termes-clés\index{terme-cle@Terme-clé} de la littérature se fondent sur des statistiques et
+    des modélisations particulières de celui-ci. Pour ce qui est de l'usage
+    d'unités textuelles\index{unite textuelle@Unité textuelle} appropriées, elles se contentent le plus souvent de
+    celles qui occurrent dans le document\index{document@Document}. De manière générale, des
+    termes-clés\index{terme-cle@Terme-clé} candidats sont sélectionnés dans le document\index{document@Document} d'après des
+    critères prédéfinis (par exemple\index{exemple@Exemple}, ce doit être des groupes nominaux\index{groupe nominal@Groupe nominal}), ces
+    candidats sont analysés et les termes-clés\index{terme-cle@Terme-clé} sont ensuite extraits d'entre eux
+    en fonction du résultat\index{resultat@Résultat} de l'analyse.
+
+    L'analyse des termes-clés\index{terme-cle@Terme-clé} candidats du document\index{document@Document} peut être réalisée avec deux
+    approches~: supervisée ou non supervisée. En général, l'approche supervisée
+    consiste à analyser les caractéristiques des termes-clés\index{terme-cle@Terme-clé} de données
+    manuellement indexées pour apprendre à reconnaître les termes-clés\index{terme-cle@Terme-clé}. Elle
+    consiste donc à chercher les candidats qui sont le plus vraisemblablement
+    les termes-clés\index{terme-cle@Terme-clé}, tandis que l'approche non supervisée consiste à chercher
+    les candidats les plus importants dans le contenu du document\index{document@Document}.
+    
+    Notre objectif est d'améliorer l'indexation par termes-clés\index{terme-cle@Terme-clé} en domaines\index{domaine@Domaine} de
+    spécialité\index{specialite@Spécialité}. Cette indexation doit être de qualité documentaire, c'est-à-dire
+    qu'elle doit respecter les principes que suivent les documentalistes, ou
+    indexeurs professionnels~\cite{guinchat1996techniquesdocumentaires}. Nous
+    travaillons d'abord d'un point de vue généraliste, puis nous nous focalisons
+    sur l'indexation par termes-clés\index{terme-cle@Terme-clé} en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}.
+
+  %-----------------------------------------------------------------------------
+
+  \section{Hypothèses}
+  \label{sec:main-introduction-hypothesis}
+    Dans cette thèse, nous formulons trois hypothèses.
+
+    Notre première hypothèse concerne la sélection\index{selection@Sélection} des termes-clés\index{terme-cle@Terme-clé} candidats et
+    leur impact sur la suite du processus d'indexation par termes-clés\index{terme-cle@Terme-clé}. Selon
+    nous, l'indexation gagne en efficacité lorsque la qualité de l'ensemble\index{ensemble@Ensemble} des
+    candidats sélectionnés augmente.
+    %
+    Il s'agit là d'une hypothèse triviale~: si l'un des composants d'une chaîne
+    de traitement\index{traitement@Traitement} fait des erreurs, alors celles-ci peuvent se répercuter sur
+    les autres composants et dégrader leur performance\index{performance@Performance}. Cependant, de nombreux
+    travaux utilisent encore des méthodes\index{methode@Méthode} de sélection\index{selection@Sélection} de candidats grossières,
+    ou des filtres linguistiques suffisant pour sélectionner des candidats
+    de la même forme que les termes-clés\index{terme-cle@Terme-clé}, mais produisant un nombre\index{nombre@Nombre} important 
+    d'erreurs. Ces méthodes\index{methode@Méthode} présentent l'avantage d'être facile à mettre en
+    \oe{}uvre pour des performances\index{performance@Performance} d'indexation par termes-clés\index{terme-cle@Terme-clé} satisfaisantes.
+    Nous observons toutefois une prise de conscience de l'importance\index{importance@Importance} de la
+    sélection\index{selection@Sélection} des candidats, et des travaux récents montrent que nous gagnerions
+    à affiner sa réalisation~\cite{wang2014keyphraseextractionpreprocessing}.
+    %
+    Pour améliorer la qualité de la sélection\index{selection@Sélection}, nous pensons qu'il faut
+    s'intéresser à deux propriétés de l'ensemble\index{ensemble@Ensemble} de candidats sélectionnés~: le
+    nombre\index{nombre@Nombre} de termes-clés\index{terme-cle@Terme-clé} qui se trouvent parmi les candidats et le nombre\index{nombre@Nombre} total
+    de candidats sélectionnés. Paradoxalement, le premier doit être maximisé,
+    tandis que le second doit être minimisé, car un espace de recherche trop
+    grand augmente la difficulté de
+    l'indexation~\cite{hasan2014state_of_the_art}.
+    %
+    Notre objectif est de trouver des propriétés linguistiques plus fines
+    afin d'obtenir le meilleur\index{meilleur@Meilleur} compromis entre ces deux conditions.
+    
+    Notre seconde hypothèse concerne la détection des mots\index{mot@Mot} et expressions
+    importants vis-à-vis d'un document\index{document@Document}. Selon nous ce n'est pas l'importance\index{importance@Importance} de
+    ces mots\index{mot@Mot} et expressions qui doit être déterminée, mais l'importance\index{importance@Importance} de ce
+    qu'ils représentent. Nous parlons de sujet\index{sujet@Sujet}.
+    %
+    Les sujets\index{sujet@Sujet} abordés dans un document\index{document@Document} sont véhiculés par une ou
+    plusieurs unités textuelles\index{unite textuelle@Unité textuelle}. Il faut donc en déterminer l'importance\index{importance@Importance} en analysant
+    l'usage de ces unités textuelles\index{unite textuelle@Unité textuelle}. Par ailleurs, si plusieurs unités
+    textuelles sont utilisées pour représenter le même sujet\index{sujet@Sujet} dans un document\index{document@Document} il
+    ne faut pas déterminer l'importance\index{importance@Importance} de ce sujet\index{sujet@Sujet} indépendamment de chaque
+    unité textuelle\index{unite textuelle@Unité textuelle}, car cela peut engendrer au moins deux types d'erreurs~:
+    \begin{itemize}
+      \item{Redondance~: plusieurs termes-clés\index{terme-cle@Terme-clé} proposés représentent le
+            même sujet\index{sujet@Sujet}~;}
+      \item{Imprécision~: pour chaque unité textuelle\index{unite textuelle@Unité textuelle}, l'importance\index{importance@Importance} du sujet\index{sujet@Sujet} est
+            différente car elle ne tient pas compte de toutes les références\index{reference@Référence} à ce
+            sujet\index{sujet@Sujet} dans le document\index{document@Document}.}
+    \end{itemize}
+    %
+    Notre objectif est de mutualiser l'analyse des unités textuelles\index{unite textuelle@Unité textuelle} qui
+    véhiculent les mêmes sujets\index{sujet@Sujet} afin d'éviter la redondance et mieux capturer
+    l'importance\index{importance@Importance} de ces sujets\index{sujet@Sujet}.
+    
+    Enfin, notre troisième hypothèse concerne l'usage de données indexées
+    manuellement pour l'indexation automatique\index{indexation automatique@Indexation automatique} d'un document\index{document@Document} du même domaine\index{domaine@Domaine}. Nous pensons qu'il est possible de tirer profit de ces données
+    pour (1) améliorer la précision de l'identification des unités textuelles\index{unite textuelle@Unité textuelle}
+    importantes en situant le document\index{document@Document} dans son contexte global et (2)
+    assigner des termes-clés\index{terme-cle@Terme-clé} du domaine\index{domaine@Domaine} qui sont importants vis-à-vis du document\index{document@Document}.
+    %
+    La première perspective d'amélioration est générique à tout document\index{document@Document}, tandis
+    que la seconde se fonde plus sur l'indexation par termes-clés\index{terme-cle@Terme-clé} telle qu'elle
+    est pratiquée en
+    domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité} (par les indexeurs professionnels). Utiliser des
+    données déjà indexées doit permettre de proposer des termes-clés\index{terme-cle@Terme-clé} conformes
+    au langage documentaire du domaine\index{domaine@Domaine} auquel appartient le
+    document\index{document@Document}. De plus, cela peut résoudre le problème des termes-clés\index{terme-cle@Terme-clé} implicites
+    au document\index{document@Document}.
+    %
+    Notre objectif est de trouver une représentation unifiant celle du
+    document\index{document@Document} à celle de son domaine\index{domaine@Domaine}, puis de proposer une méthode\index{methode@Méthode} d'analyse
+    capable d'identifier les unités textuelles\index{unite textuelle@Unité textuelle} importantes vis-à-vis du document\index{document@Document}
+    et du domaine\index{domaine@Domaine}.
+
+  %-----------------------------------------------------------------------------
+
+  \section{Mise en \oe{}uvre}
+  \label{sec:main-introduction-realisation}
+  Les contributions que nous présentons dans cette thèse sont fondées sur les
+  hypothèses que nous venons d'exprimer. Nous proposons trois contributions,
+  appliquées à deux langues~: français et anglais. Nous disposons de quatre
+  collections de données pour travailler dans le contexte général~: deux en
+  français et deux en anglais. Dans le cadre du projet Termith, l'Inist met à
+  notre disposition quatre autres collections de données en domaines\index{domaine@Domaine} de
+  spécialité\index{specialite@Spécialité}. Ces collections sont en français et couvrent la linguistique, les
+  sciences de l'information, l'archéologie et la chimie. En complément, l'Inist
+  met à notre disposition des indexeurs professionnels. Nous tirons profit de
+  leur expertise pour la réalisation de nos travaux, ainsi que pour la mise en
+  place d'une campagne d'évaluation manuelle\index{evaluation manuelle@Évaluation manuelle} de nos travaux.
+
+  %-----------------------------------------------------------------------------
+
+  \section{Plan de thèse}
+  \label{sec:main-introduction-outline}
+    Cette thèse est organisée de la manière suivante. Tout d'abord, le
+    chapitre~\ref{chap:main-state_of_the_art} présente l'état de l'art en
+    indexation automatique\index{indexation automatique@Indexation automatique} par termes-clés\index{terme-cle@Terme-clé}, puis le
+    chapitre~\ref{chap:main-data_description} introduit les données avec
+    lesquelles nous travaillons. Nos contributions sont détaillées dans les
+    chapitres~\ref{chap:main-domain_independent_keyphrase_extraction}
+    et~\ref{chap:main-domain_specific_keyphrase_annotation}. Le
+    chapitre~\ref{chap:main-domain_independent_keyphrase_extraction} présente
+    nos travaux fondés sur les deux premières hypothèses et le
+    chapitre~\ref{chap:main-domain_specific_keyphrase_annotation} sur la
+    troisième hypothèse. Ce dernier ce concentre sur l'indexation en domaine\index{domaine@Domaine} de
+    spécialité\index{specialite@Spécialité}. Il présente tout d'abord l'indexation manuelle réalisée par les
+    indexeurs professionnel, puis notre contribution et enfin, une campagne
+    d'évaluation manuelle\index{evaluation manuelle@Évaluation manuelle} de nos travaux en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}. Pour
+    terminer, le chapitre~\ref{chap:main-conclusion} dresse le bilan de notre
+    travail et présente quelques perspectives.
+

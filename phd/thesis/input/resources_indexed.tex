@@ -1,0 +1,1005 @@
+\chapter{Ressources}
+\label{chap:main-data_description}
+  \chaptercite{
+    [...] pour comprendre précisément les forces et les faiblesses d'un
+    système d'extraction de termes-clés\index{terme-cle@Terme-clé}, il est essentiel de l'évaluer avec
+    différentes collections de données.
+%    [...] to fully understand the strengths and weaknesses of a keyphrase
+%    extractor, it is essential to evaluate it on multiple datasets.
+  }{
+    \newcite{hassan2010conundrums}
+  }{.75\linewidth}{\justify}
+
+  \section{Introduction}
+  \label{sec:main-data_description-introduction}
+    En indexation automatique\index{indexation automatique@Indexation automatique} par termes-clés\index{terme-cle@Terme-clé}, des
+    collections de données sont nécessaires à l'évaluation et à la comparaison
+    des nouveaux travaux aux précédents. Elles sont généralement réparties en
+    deux ensembles\index{ensemble@Ensemble}~: un ensemble\index{ensemble@Ensemble} de documents\index{document@Document} d'entraînement (ou
+    d'apprentissage), dont les termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence} servent à paramétrer ou
+    à entraîner une méthode\index{methode@Méthode}, et un ensemble\index{ensemble@Ensemble} de documents\index{document@Document} de test, dont les
+    termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence} servent à évaluer les performances\index{performance@Performance} d'une méthode\index{methode@Méthode}.
+    De nombreuses collections sont accessibles publiquement\footnote{Un grand
+    nombre\index{nombre@Nombre} de collections de données est accessible depuis le dépôt GitHub de Su
+    Nam Kim (\textit{snkim})~:
+    \url{https://github.com/snkim/AutomaticKeyphraseExtraction}.}, elles
+    couvrent plusieurs langues (français, anglais, etc.), domaines\index{domaine@Domaine}
+    (météorologie, sciences humaines et sociales, informatique, etc.) et genres
+    de documents\index{document@Document} (résumés, articles scientifiques, articles journalistiques,
+    etc.). Cette diversité est essentielle à la compréhension des points forts
+    et des points faibles d'une méthode\index{methode@Méthode} d'indexation par termes-clés\index{terme-cle@Terme-clé}, car des
+    facteurs différents peuvent influencer ses performances\index{performance@Performance}.
+    \newcite{hasan2014state_of_the_art} en énoncent quatre~:
+    \begin{itemize}
+      \item{si un document\index{document@Document} est long, alors le nombre\index{nombre@Nombre} de termes-clés\index{terme-cle@Terme-clé} candidats
+            pour celui-ci est élevé et l'indexation par termes-clés\index{terme-cle@Terme-clé} est plus
+            difficile que pour un document\index{document@Document} court~;}
+      \item{si le contenu d'un document\index{document@Document} est structuré (par exemple\index{exemple@Exemple} un article
+            scientifique réparti en sections), alors une méthode\index{methode@Méthode} tenant compte
+            de cette structure est avantagée~;}
+      \item{si des changements thématiques surviennent dans un document\index{document@Document}, une
+            méthode\index{methode@Méthode} qui utilise la position de la première occurrence des
+            candidats peut être désavantagée~;}
+      \item{si des sujets\index{sujet@Sujet} sans relation sont abordés dans un même document\index{document@Document},
+            alors une méthode\index{methode@Méthode} qui tisse des liens sémantiques entre les
+            termes-clés\index{terme-cle@Terme-clé} candidats est pénalisée.}
+    \end{itemize}
+    Des variations de performance\index{performance@Performance} dues à la mauvaise qualité de certains
+    documents\index{document@Document} sont aussi constatées. Dans le cas d'articles scientifiques, par
+    exemple\index{exemple@Exemple}, les documents\index{document@Document} sont fréquemment issus d'un \textsc{Pdf}
+    (\textit{Portable Document\index{document@Document} Format}), puis convertis en texte depuis ses flux
+    de données ou avec des outils d'\textsc{Ocr} (\textit{Optical Character
+    Recognition}). Ces procédés ne sont pas parfaits, ils ajoutent parfois des
+    fautes d'orthographe (mauvais caractères et problèmes d'accents) et ils ne
+    traitent pas toujours correctement certains environnements graphiques et
+    textuels tels que les notes de pieds de page, les tableaux\index{tableau@Tableau}, les figures et
+    les équations. Nous identifions deux autres facteurs que
+    \newcite{hasan2014state_of_the_art} n'évoquent pas. Selon les collections de
+    données, la proportion de termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence} n'apparaissant pas dans
+    les documents\index{document@Document} varie d'un extrême à l'autre. Dans le cas où la majorité des
+    termes-clés\index{terme-cle@Terme-clé} n'apparaissent pas dans les documents\index{document@Document}, les méthodes\index{methode@Méthode} d'extraction
+    de termes-clés\index{terme-cle@Terme-clé} sont désavantagées. La qualification des annotateurs des
+    termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence} est le second facteur. Nous observons trois
+    annotateurs différents~: les auteurs des articles, des indexeurs
+    professionnels et des lecteurs. Les auteurs cherchent à attirer le lecteur~;
+    les indexeurs professionnels (ou ingénieurs documentalistes) aspirent à une
+    indexation homogène, et conforme au langage du domaine\index{domaine@Domaine}, de tous les
+    documents\index{document@Document} d'un même domaine\index{domaine@Domaine} grâce à un vocabulaire\index{vocabulaire@Vocabulaire} contrôlé~; les lecteurs
+    sont plus libres que les auteurs et les indexeurs professionnels, ils ne
+    sont influencés ni par les termes-clés\index{terme-cle@Terme-clé} \og{}à la mode\fg{}, ni par un
+    vocabulaire\index{vocabulaire@Vocabulaire} contrôlé.
+
+    Dans nos travaux de recherche, nous utilisons cinq collections de données~:
+    Termith, \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}. En accord avec le
+    point de vue de \newcite{hassan2010conundrums}, celles-ci couvrent deux
+    langues (français et anglais), un large éventail de domaines\index{domaine@Domaine} (sciences
+    humaines et sociales, informatique, météorologie, catastrophes naturelles,
+    etc.) et trois gen\-res de documents\index{document@Document} (résumés, articles scientifiques et
+    articles journalistiques). De plus, les annotateurs de chaque collection ont
+    des qualifications différentes.
+
+  %-----------------------------------------------------------------------------
+
+  \section{Termith}
+  \label{sec:main-data_description-termith_data}
+    Le projet Termith et l'Inist mettent à notre disposition quatre collections
+    de notices bibliographiques en domaines\index{domaine@Domaine} de spécialité\index{specialite@Spécialité}. Une notice
+    bibliographique est une entrée d'un catalogue bibliographique. Elle décrit
+    un document\index{document@Document} avec différentes métadonnées~: des informations factuelles
+    (titre, auteurs, affiliation des auteurs, éditeur, résumé, termes-clés\index{terme-cle@Terme-clé} des
+    auteurs, etc.) et des informations produites par un indexeur professionnel
+    (résumé --- si nécessaire, termes-clés\index{terme-cle@Terme-clé}, etc.). Pour produire les
+    termes-clés\index{terme-cle@Terme-clé}, l'indexeur professionnel a recours à des ressources et des
+    pratiques documentaire~\cite{guinchat1996techniquesdocumentaires} qui
+    assurent une indexation par termes-clés\index{terme-cle@Terme-clé} de qualité~: homogène, conforme au
+    langage du domaine\index{domaine@Domaine} du document\index{document@Document}, spécifique au document\index{document@Document}, général du point de
+    vue de son domaine\index{domaine@Domaine}, exhaustive et impartiale.
+    
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          A. sp. Anglais de spécialité & ~~99 & 2001 -- 2012\\
+          Bulletin d'études orientales & ~~~~8 & 2008 -- 2010\\
+          Cahiers de grammaire & ~~~~4 & ~~~~~~~~~~~~2000\\
+          Cahiers de praxématique~: (Montpellier) & ~~44 & 2006 -- 2009\\
+          Langue française~: (Paris. 1969) & ~~39 & 2011 -- 2012\\
+          Les Cahiers de l'ILCEA & ~~20 & 2004 -- 2007\\
+          Lidil~: (Grenoble) & ~~76 & 2005 -- 2011\\
+          Linx & 146 & 2001 -- 2008\\
+          Mots~: (Paris. 1980) & 112 & 2002 -- 2012\\
+          Recherches linguistiques de Vincennes & ~~37 & 2001 -- 2010\\
+          Travaux de linguistique~: (Gent) & 130 & 2001 -- 2005\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus de linguistique (Termith)
+               \label{tab:linguistics_journals}}
+    \end{table}
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          Communication~: (Montréal) & ~~~~2 & ~~~~~~~~~~~~2005\\
+          Document numérique & 176 & 2001 -- 2012\\
+          Documentaliste~: (Paris) & 385 & 2007 -- 2012\\
+          Questions de communication~: (Nancy) & 135 & 2007 -- 2012\\
+          Études de communication & ~~~~8 & ~~~~~~~~~~~~2009\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus de sciences de l'information
+               (Termith)
+               \label{tab:information_sciences_journals}}
+    \end{table}
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          Annales de Bretagne et des pays de l'Ouest & ~~~~3 & 2001 -- 2008\\
+          Archéosciences & ~~24 & 2007 -- 2011\\
+          Arts asiatiques~: (Paris) & ~~36 & 2001 -- 2006\\
+          Bulletin de correspondance hellénique & ~~~~9 & 2001 -- 2003\\
+          Bulletin de l'Ecole française d'Extrême-Orient & ~~~~4 & ~~~~~~~~~~~~2001\\
+          Bulletin de la Société préhistorique française & 163 & 2007 -- 2012\\
+          Documents d'archéologie méridionale & ~~51 & 2001 -- 2006\\
+          Gallia & ~~22 & 2001 -- 2007\\
+          Gallia. Préhistoire & ~~26 & 2001 -- 2007\\
+          Journal de la Société des océanistes & ~~~~2 & ~~~~~~~~~~~~2001\\
+          Paléo~: (Les Eyzies de Tayac-Sireuil) & 137 & 2001 -- 2009\\
+          Paléorient & ~~43 & 2001 -- 2007\\
+          Préhistoire anthropologie méditerranéennes & ~~30 & 2003 -- 2005\\
+          Revue archéologique de Picardie & ~~10 & 2001 -- 2007\\
+          Revue archéologique de l'Est & ~~35 & 2005 -- 2011\\
+          Revue archéologique de l'Ouest & ~~39 & 2006 -- 2011\\
+          Revue archéologique du centre de la France & ~~13 & 2001 -- 2004\\
+          Revue des études grecques~: (Paris) & ~~11 & 2002 -- 2012\\
+          Revue numismatique~: (Paris) & ~~17 & 2001 -- 2005\\
+          Syria & ~~~~7 & ~~~~~~~~~~~~2001\\
+          Syria~: (Paris) & ~~18 & 2004 -- 2005\\
+          Techniques \& culture~: (Paris) & ~~16 & 2003 -- 2010\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus d'archéologie (Termith)
+               \label{tab:archeology_journals}}
+    \end{table}
+    \begin{table}
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{p{.533\linewidth}|c|c}
+          \toprule
+          Revue & Quantité de documents & Période de publication\\
+          \hline
+          Canadian Journal of Chemistry & 125 & 1983 -- 1991\\
+          Comptes rendus de l'Académie des sciences. Série 2, Mécanique,
+          physique, chimie, sciences de l'univers, sciences de la terre & 265 & 1985 -- 1990\\
+          Comptes rendus de l'Académie des sciences. Série II, Mécanique,
+          physique, chimie, astronomie & ~~70 & 1994 -- 1997\\
+          Comptes rendus de l'académie des sciences. Série IIc, chimie & 124 & 1998 -- 2001\\
+          Comptes rendus. Chimie & 200 & 2002 -- 2012\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Détail des revues du corpus de chimie (Termith)
+               \label{tab:chemestry_journals}}
+    \end{table}
+    Les tableaux\index{tableau@Tableau}~\ref{tab:linguistics_journals}~à~\ref{tab:chemestry_journals}
+    représentent la répartition, revue par revue, de chacune des collections. Le
+    projet Termith s'intéresse principalement aux sciences humaines et sociales
+    (\textsc{Shs}). De ce fait, trois de ses collections de notices représentent
+    un domaine\index{domaine@Domaine} de \textsc{Shs}~: linguistique, sciences de l'information
+    (sciences de l'info.) et archéologie. La quatrième collection représente la
+    chimie. Le corpus de linguistique est constitué de 715 notices d'articles
+    français paru entre 2000 et 2012 dans 11 revues~; le corpus des sciences de
+    l'information contient 706 notices d'articles français publiés entre 2001 et
+    2012 dans cinq revues~; le corpus d'archéologie est composé de 716 notices
+    représentant des articles français paru entre 2001 et 2012 dans 22 revues~;
+    le corpus de chimie est composé de 784 notices d'articles français publiés
+    entre 1983 et 2012 dans cinq revues.
+
+    Le tableau\index{tableau@Tableau}~\ref{tab:termith} présente les caractéristiques du corpus
+    Termith. Chaque domaine\index{domaine@Domaine} est divisé en deux sous-ensembles\index{ensemble@Ensemble}\footnote{Les
+    revues sont réparties équitablement entre chaque ensemble\index{ensemble@Ensemble}.}~: un ensemble\index{ensemble@Ensemble}
+    d'apprentissage (appr.) composé de 506 à 582 notices selon le domaine\index{domaine@Domaine} et un
+    ensemble\index{ensemble@Ensemble} de test contenant 200 notices. S'agissant de résumés, les documents\index{document@Document}
+    sont courts (voir la figure~\ref{fig:example_inist}), ils ont en moyenne 123,9
+    mots\index{mot@Mot}. Quant aux termes-clés\index{terme-cle@Terme-clé}, nous utilisons ceux produits par les indexeurs
+    professionnels. Ils sont concis (un à deux mots\index{mot@Mot} principalement) et, du fait
+    de la méthodologie d'indexation, ils ne sont majoritairement pas présents
+    dans les résumés (ils sont \og{}à assigner\fg{}).
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          Linguistique & & & & & & &\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 515 & 160,5 & Professionnel & $~~$8,6 & 60,6~\% & 1,7\\
+           \hfill{}Test & \ditto & \ditto & 200 & 147,0 & \ditto & $~~$8,9 & 62,8~\% & 1,8\\
+          \hline
+          Sciences de l'info. & & & & & & &\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 506 & 105,0 & Professionnel & $~~$7,8 & 67,9~\% & 1,8\\
+          \hfill{}Test & \ditto & \ditto & 200 & 157,0 & \ditto & 10,2 & 66,9~\% & 1,7\\
+          \hline
+          Archéologie & & & & & & &\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 518 & 221,1 & Professionnel & 16,9 & 37,0~\% & 1,3\\
+          \hfill{}Test & \ditto & \ditto & 200 & 213,9 & \ditto & 15,6 & 37,4~\% & 1,3\\
+          \hline
+          Chimie & & & & & & &\\
+          \hfill{}Appr. & Français & Scientifique (résumé) & 582 & 105,7 &  Professionnel & 12,2 & 75,2~\% & 2,2\\
+          \hfill{}Test & \ditto & \ditto & 200 & 103,9 & \ditto & 14,6 & 78,8~\% & 2,4\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus Termith
+               \label{tab:termith}}
+    \end{table}
+
+    \begin{figure}
+      \framebox[\linewidth]{ % linguistique_11-0080464
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{La cause linguistique}
+          \hfill\underline{\textit{Linguistique}}\\
+
+          L'objectif est de fournir une définition de base du concept
+          linguistique de la cause en observant son expression. Dans un premier
+          temps, l'A. se demande si un tel concept existe en langue. Puis il
+          part des formes de son expression principale et directe (les verbes et
+          les conjonctions de cause) pour caractériser linguistiquement ce qui
+          fonde une telle notion.\\
+
+          \textbf{Termes-clés~:} français~; interprétation sémantique~;
+          \underline{conjonction}~; expression linguistique~; \underline{concept
+          linguistique}~; relation syntaxique~; \underline{cause}. 
+        }
+      }
+      ~\\~\\
+      \framebox[\linewidth]{ % sciencesInfo_08-0149317
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{Congrès de l'ABF~: les publics des bibliothèques}
+          \hfill\underline{\textit{Sciences de l'info.}}\\
+
+          Le cinquante-troisième congrès annuel de l'Association des
+          bibliothécaires de France (ABF) s'est déroulé à Nantes du 8 au 10 juin
+          2007. Centré sur le thème des publics, il a notamment permis de
+          méditer les résultats de diverses enquêtes auprès des usagers,
+          d'examiner de nouvelles formes de partenariats et d'innovations
+          technologiques permettant aux bibliothèques de conquérir de nouveaux
+          publics, et montré des exemples convaincants d'ouverture et
+          d'"hybridation", conditions du développement et de la fidélisation de
+          ces publics.\\
+
+          \textbf{Termes-clés~:} rôle professionnel~; évolution~;
+          \underline{bibliothèque}~; politique bibliothèque~; étude
+          utilisateur~; besoin de l'utilisateur~; \underline{partenariat}~; web
+          2.0~; centre culturel. 
+        }
+      }
+      ~\\~\\
+      \framebox[\linewidth]{ % archeologie_525-02-11060
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{Étude préliminaire de la céramique non tournée micacée du bas
+          Langue-}
+          ~\hfill\underline{\textit{Archéologie}}\\
+          \textbf{doc occidental : typologie, chronologie et aire de diffusion}\\
+
+          L'étude présente une variété de céramique non tournée dont la
+          typologie et l'analyse des décors permettent de l'identifier
+          facilement. La nature de l'argile enrichie de mica donne un aspect
+          pailleté à la pâte sur laquelle le décor effectué selon la méthode du
+          brunissoir apparaît en traits brillant sur fond mat. Cette première
+          approche se fonde sur deux séries issues de fouilles anciennes menées
+          sur les oppidums du Cayla à Mailhac (Aude) et de Mourrel-Ferrat à
+          Olonzac (Hérault). La carte de répartition fait état d'échanges ou de
+          commerce à l'échelon macrorégional rarement mis en évidence pour de la
+          céramique non tournée. S'il est difficile de statuer sur l'origine des
+          décors, il semble que la production s'insère dans une ambiance
+          celtisante. La chronologie de cette production se situe dans le
+          deuxième âge du Fer. La fourchette proposée entre la fin du
+          IV$^\text{e}$ et la fin du II$^\text{e}$ s. av. J.-C. reste encore à
+          préciser.\\
+
+          \textbf{Termes-clés~:} distribution~; \underline{mourrel-ferrat}~;
+          \underline{olonzac}~; le cayla~; \underline{mailhac}~; micassé~;
+          céramique non-tournée~; celtes~; \underline{production}~; echange~;
+          \underline{commerce}~; cartographie~; habitat~; \underline{oppidum}~;
+          site fortifié~; \underline{fouille ancienne}~; identification~;
+          \underline{décor}~; \underline{analyse}~; \underline{répartition}~;
+          \underline{diffusion}~; \underline{chronologie}~;
+          \underline{typologie}~; \underline{céramique}~; étude du matériel~;
+          \underline{hérault}~; \underline{aude}~; france~; europe~; la tène~;
+          age du fer.
+        }
+      }
+%      \framebox[\linewidth]{ % archeologie_09-0054907
+%        \parbox{.99\linewidth}{\small
+%          \textbf{Variabilité du Gravettien de Kostienki (bassin moyen du Don)
+%          et des ter-}
+%          ~\hfill\underline{\textit{Archéologie}}\\
+%          \textbf{ritoires associés}\\
+%
+%          Dans la région de Kostienki-Borschevo, on observe l'expression, à ce
+%          jour, la plus orientale du modèle européen de l'évolution du
+%          Paléolithique supérieur. Elle est différente à la fois du modèle
+%          Sibérien et du modèle de l'Asie centrale. Comme ailleurs en Europe, le
+%          Gravettien apparaît à Kostienki vers 28 ka (Kostienki 8 /II/). Par la
+%          suite, entre 24-20 ka, les techno-complexes gravettiens sont
+%          représentés au moins par quatre faciès dont deux, ceux de Kostienki
+%          21/III/ et Kostienki 4/II/, ressemblent au Gravettien occidental et
+%          deux autres, Kostienki-Avdeevo et Kostienki 11/II/, sont des faciès
+%          propres à l'Europe de l'Est, sans analogie à l'Ouest.\\
+%
+%          \textbf{Termes-clés~:} \underline{Europe}, Kostienko,
+%          \underline{Borschevo}, variation, typologie, industrie osseuse,
+%          industrie lithique, Europe centrale, Avdeevo, \underline{Paléolithique
+%          supérieur}, \underline{Gravettien}.
+%        }
+%      }
+      ~\\~\\
+      \framebox[\linewidth]{ % chimie_84-0048710
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{Réaction entre solvant et espèces intermédiaires apparues lors
+          de l'électroré-}
+          \hfill\underline{\textit{Chimie}}\\
+          \textbf{duction-acylation de la fluorénone et de la fluorénone-anil
+          dans l'acétonitrile}\\
+
+          Étude du comportement des différents acylates de fluorénols-9
+          vis-à-vis des anions CH$_2$CN (électrogénérés par réduction de
+          l'azobenzène en son dianion dans l'acétonitrile). Réduction de la
+          fluorénone dans l'acétonitrile en présence de chlorures d'acides ou
+          d'anhydrides\\
+
+          \textbf{Termes-clés~:} réduction chimique~; acylation~; réaction
+          électrochimique~; \underline{acétonitrile}~; composé aromatique~;
+          composé tricyclique~; cétone~; cétimine~; effet solvant~; effet
+          milieu~; radical libre organique anionique~; mécanisme réaction~;
+          nitrile~; hydroxynitrile~; composé saturé~; composé aliphatique~;
+          anhydride organique~; \underline{fluorénone}~;
+          fluorénone,phénylimine~; fluorénol-9,acylate~;
+          fluorènepropiononitrile-9(hydroxy-9)~; bifluorényle-9,9pdiol-9,9p~;
+          fluorène$\delta$9:$\alpha$-acétonitrile~; butyrique acide(chloro-4)
+          chlorure.
+        }
+      }
+      \caption[Exemple de notices Termith]{
+        Exemple de notices Termith. Les termes-clés soulignés peuvent être
+        extraits depuis le contenu des documents.
+        \label{fig:example_inist}
+      }
+    \end{figure}
+
+  %-----------------------------------------------------------------------------
+
+  \section[\textsc{De}ft]{\textsc{De}ft~\textnormal{\large\cite{paroubek2012deft}}}
+  \label{sec:main-data_description-deft_data}
+    \textsc{De}ft est une campagne d'évaluation francophone qui s'intéresse
+    chaque année à un domaine\index{domaine@Domaine} particulier du \textsc{Tal}. Le corpus éponyme que
+    nous utilisons dans nos travaux est la collection de documents\index{document@Document} construite
+    dans le cadre de l'édition 2012 de \textsc{De}ft, édition portée sur
+    l'extraction de termes-clés\index{terme-cle@Terme-clé}, d'une part, et sur l'assignement de
+    termes-clés\index{terme-cle@Terme-clé}, d'une autre part. Le corpus \textsc{De}ft est composé de 234
+    articles français publiés entre 2003 et 2008 dans quatre revues des Sciences
+    Humaines et Sociales~: \textit{Anthropologie et Sociétés},
+    \textit{\textsc{Ttr}~: traduction, terminologie, rédaction},
+    \textit{\textsc{Meta}: Research in Hermeneutics, Phenomenology, and
+    Practical Philosophy} et \textit{Revue des Sciences de l'Éducation}. Il
+    s'agit du corpus utilisé pour la tâche d'extraction de termes-clés\index{terme-cle@Terme-clé} de
+    \textsc{De}ft-2012.
+    
+    Le tableau\index{tableau@Tableau}~\ref{tab:deft} présente les différentes caractéristiques du
+    corpus \textsc{De}ft. Celui-ci est divisé en deux
+    sous-ensembles\index{ensemble@Ensemble}\footnote{Les revues sont réparties équitablement entre chaque
+    ensemble\index{ensemble@Ensemble}.}~: un ensemble\index{ensemble@Ensemble} d'apprentissage composé de 141 articles et un
+    ensemble\index{ensemble@Ensemble} de test contenant 93 articles. Les documents\index{document@Document} de \textsc{De}ft étant
+    des articles scientifiques, ils contiennent beaucoup d'informations. Ils ont
+    en moyenne 7~102,9 mots\index{mot@Mot}. Les termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence} fournis avec les
+    documents\index{document@Document} de \textsc{De}ft sont ceux donnés par les auteurs. Ces derniers en
+    attribuent en moyenne 5,3 par documents\index{document@Document}. Les termes-clés\index{terme-cle@Terme-clé} ne contiennent en
+    moyenne pas plus de 1,7 mots\index{mot@Mot} et sont majoritairement présent dans le contenu
+    des documents\index{document@Document}.
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Appr. & Français & Scientifique & 141 & 7~276,7 & Auteur & 5,4 & 18,2~\% & 1,7\\
+          \hfill{}Test & \ditto & \ditto & ~~93 & 6~839,4 & \ditto & 5,2 & 21,1~\% & 1,6\\
+          \bottomrule
+        \end{tabular}
+      }
+      \caption{Corpus \textsc{De}ft
+               \label{tab:deft}}
+    \end{table}
+
+    Le corpus \textsc{De}ft est aussi un corpus au contenu bruité, imparfait.
+    Du fait de la conversion en texte, les caractères spéciaux ne sont pas
+    toujours reconnus et la segmentation en paragraphes a parfois lieu en milieu
+    de phrases. Les
+    figures~\ref{fig:example_deft_ko}~et~\ref{fig:example_deft_ok} montrent deux
+    exemples\index{exemple@Exemple} d'un document\index{document@Document} où la segmentation est correcte et d'un document\index{document@Document} où
+    la segmentation est incorrecte, respectivement.
+    \begin{figure}[!h]
+      \framebox[\linewidth]{ % meta_2005_019828ar
+        \parbox{.99\linewidth}{\small
+
+          Considérée comme une \og{}problem solving activity\fg{} (Guilford
+          1975), la créativité, démystifiée, fait partie du quotidien du
+          traducteur. Victimes d'idées préconçues et erronées sur la notion de
+          \og{}fidélité\fg{}, beaucoup de traducteurs sont insécurisés face à
+          leur créativité. Ils peuvent alors, comme en témoigne un de nos
+          exemples, manquer de courage et jouer la carte de la stratégie du
+          \og{}playing it safe\fg{}, ou bien, lorsque, comme dans un autre cas,
+          leur statut social et professionnel leur donne une certaine assurance,
+          garder leurs solutions créatives et revendiquer leur
+          \og{}trahison\fg{}, toutefois sans pour autant essayer de trouver des
+          légitimations à leurs solutions. Légitimations qui restent la plupart
+          du temps au stade de \og{}mécanismes de justification\fg{} ponctuels.
+          Une analyse des besoins nous permet de montrer comment ces
+          justifications hétéroclites et éparses peuvent venir s'intégrer dans
+          un édifice théorique cohérent, s'appuyant notamment sur des fondements
+          cognitivistes, susceptible de donner au traducteur le courage de sa
+          créativité.
+
+          ~~~~Pour pouvoir déterminer l.utilité d.un quelconque apport théorique
+          à la pratique du traducteur, il
+
+          ~~~~faut commencer par examiner s.il existe un besoin en la matière et
+          quelle en est la nature. Nous le
+
+          ~~~~ferons à l.aide de deux corpus qui se complètent. Le premier est
+          la transcription du débat mené par
+
+          ~~~~un groupe de quatre
+          \og{}\&amp;\#x00A0;semi-professionnels\&amp;\#x00A0;\fg{} de
+          l.Institut de traducteurs et interprètes de
+          
+          ~~~~[\dots]\\
+
+          \textbf{Termes-clés~:} \underline{créativité}~; didactique de la
+          traduction~; \underline{cognitivisme}~; analyse conversationnelle~;
+          théorie de la traduction. 
+        }
+      }
+      \caption[Exemple de document de \textsc{De}ft]{
+        Exemple de document de \textsc{De}ft. Les termes-clés soulignés sont
+        ceux qui peuvent être extraits.
+        \label{fig:example_deft_ko}
+      }
+    \end{figure}
+
+    \begin{figure}[!h]
+      \framebox[\linewidth]{ % as_2004_008571ar
+        \parbox{.99\linewidth}{\small
+          Bien qu'un grand nombre de travaux ethnographiques novateurs aient
+          été suscités par l'\og{}espace interculturel\fg{} que se partagent
+          Australiens autochtones et non autochtones, notamment dans le domaine
+          des arts visuels, les chercheurs ont accordé moins d'attention aux
+          représentations rituelles publiques auxquelles les Aborigènes ont
+          donné un nouvel essor en tant qu'instruments politiques. On a encore
+          moins écrit sur la (re)construction interne de l'identité sociale
+          autochtone et sa projection dans la production de rituels publics sur
+          la scène néocoloniale australienne contemporaine. Tout en effectuant
+          une remise à jour des recherches précédentes sur la question, le
+          présent article montre comment, au cours des dix dernières années, les
+          leaders rituelles aînées d'une petite localité d'Australie centrale
+          ont inauguré une phase entièrement nouvelle de représentations
+          rituelles - une phase qui diffère substantiellement des formes
+          antérieures d'expérience cérémonielle, qui étaient étroitement liées à
+          la négociation et à l'échange des matériaux rituels.
+
+          ~~~~Pour M. Nampijinpa L.
+
+          ~~~~Depuis que l'anthropologie \og{}a découvert\fg{} la religion
+          australienne – à partir du milieu du XIXe siècle avec les ouvrages de
+          Spencer et Gillen dont les travaux de terrain ont alimenté les
+          recherches de Durkheim, ethnologue en chambre, et de ses héritiers -
+          on s'est beaucoup intéressé aux manifestations rituelles de la
+          cosmologie aborigène connue sous le nom de \og{}Dreaming\fg{},
+          c'est-à-dire \og{}Rêve\fg{} ou \og{}Récit du Rêve\fg{}. Et bien que la
+          fréquence de ce type de représentations cérémonielles ait diminué chez
+          les Aborigènes, cette diminution quantitative n’affecte en rien les
+          résultats analytiques issus de l’étude des usages contemporains du
+          champ rituel. [\dots]\\
+
+          \textbf{Termes-clés~:} \underline{dussart}~; \underline{aborigènes}~;
+          \underline{femmes}~; \underline{identité}~; \underline{rituel}~;
+          \underline{warlpiri}~; \underline{australie}.
+        }
+      }
+      \caption[Autre exemple de document de \textsc{De}ft]{
+        Autre exemple de document de \textsc{De}ft. Les termes-clés soulignés
+        sont ceux qui peuvent être extraits.
+        \label{fig:example_deft_ok}
+      }
+    \end{figure}
+
+    \newcite{paroubek2012deft} établissent des performances\index{performance@Performance} de référence\index{reference@Référence} en
+    demandant à des étudiants de master en ingénierie multilingue d'indexer par
+    termes-clés\index{terme-cle@Terme-clé} les documents\index{document@Document} de \textsc{De}ft. Le
+    tableau\index{tableau@Tableau}~\ref{tab:deft_human_tests} montre les résultats\index{resultat@Résultat} de l'indexation par
+    termes-clés\index{terme-cle@Terme-clé} obtenus pour chacun de ces étudiants. Ceux-ci ont jugé la tâche
+    difficile, comme en témoigne les faibles résultats\index{resultat@Résultat} obtenus (f1-mesure moyenne
+    de 21,6~\%). L'indexation par termes-clés\index{terme-cle@Terme-clé} est subjective et ils éprouvent des
+    difficultés dans le cas ou une expression dans le texte est reformulée. Ils
+    donnent l'exemple\index{exemple@Exemple} de \og{}traduction française et allemande\fg{} qui est
+    représentée par le terme-clé\index{terme-cle@Terme-clé} \og{}traduction allemande et traduction
+    française\fg{}. Ils notent aussi la présence de termes-clés\index{terme-cle@Terme-clé} d'un même champ
+    sémantique, tels que \og{}interprète\fg{} et \og{}interprétation\fg{}, et
+    soulignent la contre-intuitivité de ce type de redondance. Les conclusions ne
+    sont pas encourageantes pour l'indexation automatique\index{indexation automatique@Indexation automatique} par termes-clés\index{terme-cle@Terme-clé}. Il
+    est possible que les problèmes rencontrés lors des tests humains soient dus
+    à la nature des indexations manuelles. La redondance qui semble contre-intuitive en
+    est un exemple\index{exemple@Exemple}. Nous pouvons en effet supposer qu'un auteur à recours à ce
+    genre de procédé pour être certain d'attirer tout lecteur potentiel, par
+    exemple\index{exemple@Exemple} l'un effectuant une recherche par mot\index{mot@Mot}-clé avec \og{}interprète\fg{}
+    et l'autre avec \og{}interprétation\fg{}.
+    \begin{table}[!h]
+      \centering
+      \begin{tabular}{l|ccccccc}
+        \toprule
+          \textbf{Mesure} & \textbf{P1} & \textbf{P2} & \textbf{P3} & \textbf{P4} & \textbf{P5} & \textbf{P6} & \textbf{P7}\\
+        \hline
+        Précision~\hfill(\%) & 25,0 & 20,0 & 16,7 & 11,8 & 29,2 & 29,2 & 20,8\\
+        Rappel~\hfill(\%) & 25,0 & 20,8 & 16,7 & ~~8,3 & 29,2 & 29,2 & 20,8\\
+        F1-mesure~\hfill(\%) & 25,0 & 20,4 & 16,7 & ~~9,8 & 29,2 & 29,2 & 20,8\\
+        \bottomrule
+      \end{tabular}
+      \caption[Résultats de tests humains sur le corpus \textsc{De}ft]{
+        Résultats de tests humains (sept personnes --- P1$..$P7) sur le corpus
+        \textsc{De}ft
+        \label{tab:deft_human_tests}
+      }
+    \end{table}
+
+  %-----------------------------------------------------------------------------
+
+  \section[Wikinews]{Wikinews~\textnormal{\large\cite{bougouin2013topicrank}}}
+  \label{sec:main-data_description-wikinews_data}
+    Wikinews est une collection de 100 articles journalistiques en français
+    que nous avons collecté sur le site web d'information collabotatif
+    WikiNews\footnote{\url{http://fr.wikinews.org/}} entre les mois de mai et
+    décembre 2012\footnote{Les documents\index{document@Document}, et leur indexation par termes-clés\index{terme-cle@Terme-clé}, du corpus Wikinews
+    sont disponibles sur le dépôt GitHub suivant~:
+    \url{https://github.com/adrien-bougouin/WikinewsKeyphraseCorpus}}.
+    
+    Le tableau\index{tableau@Tableau}~\ref{tab:wikinews} donne les détails de ce corpus. Il est
+    constitué de 100 documents\index{document@Document} de test. S'agissant d'articles journalistiques,
+    ce sont des documents\index{document@Document} de petite taille (voir la
+    figure~\ref{fig:example_wikinews}). Les termes-clés\index{terme-cle@Terme-clé} de référence\index{reference@Référence} sont des
+    termes-clés\index{terme-cle@Terme-clé} de lecteurs. Ces derniers ont attribué 9,6 termes-clés\index{terme-cle@Terme-clé} par
+    document\index{document@Document} en moyenne. Parmi ces termes-clés\index{terme-cle@Terme-clé}, seuls 7,6~\% d'entre eux ne
+    peuvent pas être extraits depuis le contenu des articles.
+
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Test & Français & Journalistique & 100 & 308,5 & Lecteur & 9,6 & 7,6~\% & 1,7\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus Wikinews
+               \label{tab:wikinews}}
+    \end{table}
+
+    \begin{figure}[!h]
+      \framebox[\linewidth]{ % 44960
+        \parbox{.99\linewidth}{\small
+          \textbf{Météo du 19 août 2012~: alerte à la canicule sur la Belgique
+          et le Luxembourg}\\
+
+          A l'exception de la province de Luxembourg, en alerte jaune,
+          l'ensemble de la Belgique est en vigilance orange à la canicule. Le
+          Luxembourg n'est pas épargné par la vague du chaleur : le nord du pays
+          est en alerte orange, tandis que le sud a était placé en alerte rouge.
+
+          ~~~~En Belgique, la température n'est pas descendue en dessous des
+          23°C cette nuit, ce qui constitue la deuxième nuit la plus chaude
+          jamais enregistrée dans le royaume. Il se pourrait que ce dimanche
+          soit la journée la plus chaude de l'année. Les températures seront
+          comprises entre 33 et 38°C. Une légère brise de côte pourra faiblement
+          rafraichir l'atmosphère. Des orages de chaleur sont a prévoir dans la
+          soirée et en début de nuit.
+
+          ~~~~Au Luxembourg, le mercure devrait atteindre 32°C ce dimanche sur
+          l'Oesling et jusqu'à 36°C sur le sud du pays, et 31 à 32°C lundi. Une
+          baisse devrait intervenir pour le reste de la semaine. Néanmoins, le
+          record d'août 2003 (37,9°C) ne devrait pas être atteint.\\
+
+          \textbf{Termes-clés~:} \underline{luxembourg}~; \underline{alerte}~;
+          \underline{météo}~; \underline{belgique}~; \underline{août 2012}~;
+          \underline{chaleur}~; \underline{température}~; \underline{chaude}~;
+          \underline{canicule}~; \underline{orange}~; \underline{la plus
+          chaude}.
+        }
+      }
+      \caption[Exemple de document de Wikinews]{
+        Exemple de document de Wikinews. Les termes-clés soulignés sont ceux qui
+        peuvent être extraits.
+        \label{fig:example_wikinews}
+      }
+    \end{figure}
+
+    Le tableau\index{tableau@Tableau}~\ref{tab:wikinews_kappa} montre l'accord inter-annotateur
+    $\kappa$~\cite{fleiss1971kappa} pour l'indexation manuelle des termes-clés\index{terme-cle@Terme-clé}
+    de Wikinews. Les termes-clés\index{terme-cle@Terme-clé} sont attribués librement, c'est-à-dire sans
+    règles ou méthodologie définie, par au moins trois étudiants de master en
+    \textsc{Tal}. L'accord entre les annotateurs est très faible. Il confirme la
+    subjectivité de la tâche d'indexation par termes-clés\index{terme-cle@Terme-clé} et le besoin de
+    définir une méthodologie et des règles précises pour associer des
+    termes-clés\index{terme-cle@Terme-clé} à un document\index{document@Document}.
+
+    \begin{table}[!h]
+      \centering
+      \begin{tabular}{r|c}
+        \toprule
+        \textbf{Corpus} & $\boldsymbol{\kappa}$\\
+        \hline
+        Test & -0,1\\
+        \bottomrule
+      \end{tabular}
+
+      \caption{Accord inter-annotateur $\kappa$~\cite{fleiss1971kappa} sur le
+               corpus Wikinews
+               \label{tab:wikinews_kappa}}
+    \end{table}
+
+  %-----------------------------------------------------------------------------
+
+  \section[SemEval]{SemEval~\textnormal{\large\cite{kim2010semeval}}}
+  \label{sec:main-data_description-semeval_data}
+    À l'instar de \textsc{De}ft pour le français, SemEval est une campagne
+    d'évaluation pour l'anglais. Le corpus éponyme dont nous disposons est la
+    collection de documents\index{document@Document} construite pour la tâche 5 de l'édition 2010 de
+    SemEval, tâche consacrée à l'extraction de termes-clés\index{terme-cle@Terme-clé} à partir d'articles
+    scientifiques. Le corpus SemEval est constitué de 244 articles scientifiques
+    en anglais issus de la bibliothèque numérique de l'\textsc{Acm}
+    (\textit{Association for Computing Machinery}). Cette bibliothèque regroupe
+    les articles de plusieurs domaines\index{domaine@Domaine}, qu'elle répartie dans différentes
+    catégories. Les documents\index{document@Document} du corpus SemEval concernent les catégories C2.4
+    (\textit{Distributed Systems} --- Systèmes distribués), H3.3
+    (\textit{Information Search and Retrieval} --- Recherche d'information),
+    I2.11 (\textit{Distributed Artificial Intelligence -- Multiagent Systems}
+    --- Intelligence artificielle distribuée -- Systèmes multi-agents) et J4
+    (\textit{Social and Behavioral Sciences -- Economics} --- Sciences sociales
+    et comportementales -- Économie) de la classification \textsc{Acm} de 1998.
+    
+    Le tableau\index{tableau@Tableau}~\ref{tab:semeval} présente les caractéristiques de SemEval. La
+    collection est répartie en deux sous-ensembles\index{ensemble@Ensemble}\footnote{Les quatres
+    catégories \textsc{Acm} sont réparties équitablement entre chaque
+    ensemble\index{ensemble@Ensemble}.}~: un ensemble\index{ensemble@Ensemble} de 144 documents\index{document@Document} d'apprentissage et un ensemble\index{ensemble@Ensemble} de
+    100 documents\index{document@Document} de test. À l'instar des documents\index{document@Document} de \textsc{De}ft, ceux de
+    SemEval sont des articles scientifiques (voir la
+    figure~\ref{fig:example_semeval}) de taille importante (en moyenne 5~152,3
+    mots\index{mot@Mot}). Trois jeux d'indexation par termes-clés\index{terme-cle@Terme-clé} sont fournis avec SemEval~: les termes-clés\index{terme-cle@Terme-clé}
+    des auteurs, les termes-clés\index{terme-cle@Terme-clé} de lecteurs et l'union des deux jeux
+    précédents. Dans nos travaux, nous utilisons la combinaison des termes-clés\index{terme-cle@Terme-clé}
+    des auteurs et des lecteurs. Du fait de cette combinaison, le nombre\index{nombre@Nombre} de
+    termes-clés\index{terme-cle@Terme-clé} par document\index{document@Document} est plus élevé que celui des autres corpus dont
+    nous disposons. Ils contiennent en moyenne 2,1 mots\index{mot@Mot} et sont majoritairement
+    extractibles depuis le contenu des articles.
+
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Appr. & Anglais & Scientifique & 144 & 5~134,6 & Auteur~/~Lecteur & 15,4 & 13,5~\% & 2,1\\
+          \hfill{}Test & \ditto & \ditto & 100 & 5~177,7 & \ditto & 14,7 & 22,1~\% & 2,1\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus SemEval
+               \label{tab:semeval}}
+    \end{table}
+
+    \begin{figure}[!h]
+      \framebox[\linewidth]{ % C-17
+        \parbox{.99\linewidth}{\small
+          \textbf{Deployment Issues of a VoIP Conferencing System in a Virtual
+          Conferencing Environment}\\
+
+          \textbf{ABSTRACT}\\
+
+          Real-time services have been supported by and large on
+          circuitswitched networks. Recent trends favour services ported on
+          packet-switched networks. For audio conferencing, we need to consider
+          many issues - scalability, quality of the conference application,
+          floor control and load on the clients/servers - to name a few. In this
+          paper, we describe an audio service framework designed to provide a
+          Virtual Conferencing Environment (VCE). The system is designed to
+          accommodate a large number of end users speaking at the same time and
+          spread across the Internet. The framework is based on Conference
+          Servers [14], which facilitate the audio handling, while we exploit
+          the SIP capabilities for signaling purposes. Client selection is based
+          on a recent quantifier called "Loudness Number" that helps mimic a
+          physical face-to-face conference. We deal with deployment issues of
+          the proposed solution both in terms of scalability and interactivity,
+          while explaining the techniques we use to reduce the traffic. We have
+          implemented a Conference Server (CS) application on a campus-wide
+          network at our Institute.\\
+
+          \textbf{1. INTRODUCTION}\\
+
+          Today's Internet uses the IP protocol suite that was primarily
+          designed for the transport of data and provides best effort data
+          delivery. Delay-constraints and characteristics separate traditional
+          data on the one hand from voice \& video applications on the other.
+          Hence, as progressively time-sensitive voice and video applications
+          are deployed on the Internet, the inadequacy of the Internet is
+          exposed. Further, we seek to port telephone services on the Internet.
+          [\dots]\\
+
+          \textbf{Termes-clés~:} \underline{voip conferencing system}~;
+          \underline{packet-switched network}~; \underline{audio service
+          framework}~; \underline{virtual conferencing environment}~;
+          \underline{conference server}~; \underline{loudness number}~;
+          \underline{partial mixing}~; \underline{voice activity detectection}~;
+          three simultaneous speakers sufficiency~; \underline{vad technique}~;
+          \underline{vce}~; \underline{voip}~; real-time audio~;
+          \underline{simultaneous speakers}~; \underline{sip}.
+        }
+      }
+      \caption[Exemple de document de SemEval]{
+        Exemple de document de SemEval. Les termes-clés soulignés sont ceux qui
+        peuvent être extraits.
+        \label{fig:example_semeval}
+      }
+    \end{figure}
+
+    Le tableau\index{tableau@Tableau}~\ref{tab:semeval_annotators} montre la quantité de termes-clés\index{terme-cle@Terme-clé}
+    attribués par les auteurs, des lecteurs ou la réunion des deux. Ces chiffres
+    montrent la différence de stratégie\index{strategie@Stratégie} entre les auteurs et des lecteurs.
+    \newcite{kim2010semeval} expliquent que les auteurs donnent peu de
+    termes-clés\index{terme-cle@Terme-clé} comparés aux lecteurs et ils ajoutent que l'intersection des
+    deux indexations de l'ensemble\index{ensemble@Ensemble} de test ne couvre qu'un tiers des termes-clés\index{terme-cle@Terme-clé}
+    des auteurs, soulignant ainsi la différence entre les deux.
+
+    \begin{table}[!h]
+      \centering
+      \begin{tabular}{l|ccc}
+        \toprule
+        \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{3}{c}{\textbf{Annotateur}}\\
+        \cline{2-4}
+        & Auteur & Lecteur & Combinaison\\
+        \hline
+        \hfill{}Appr. & 559 & 1824 & 2223\\
+        \hfill{}Test & 387 & 1217 & 1482\\
+        \bottomrule
+      \end{tabular}
+
+      \caption{Nombre de termes-clés attribués dans SemEval, en fonction des
+               annotateurs
+               \label{tab:semeval_annotators}}
+    \end{table}
+
+  %-----------------------------------------------------------------------------
+
+  \section[\textsc{Duc}]{\textsc{Duc}~\textnormal{\large\cite{wan2008expandrank}}}
+  \label{sec:main-data_description-duc_data}
+    \textsc{Duc} est une campagne d'évaluation internationale portée sur le
+    résumé automatique. Notre collection de documents\index{document@Document} \textsc{Duc} est issue du
+    corpus construit dans le cadre de l'édition 2001 de la
+    campagne~\cite{over2001duc}. Dans leurs travaux en extraction automatique\index{extraction automatique@Extraction automatique} de
+    termes-clés\index{terme-cle@Terme-clé}, \newcite{wan2008expandrank} utilisent les 308 documents\index{document@Document} de test
+    du corpus de la campagne et demandent à deux étudiants de les indexer par
+    termes-clés\index{terme-cle@Terme-clé}. Il s'agit de 308 articles journalistiques  anglais publiés par
+    six média d'information différents~: \textit{Associated Press Newswire},
+    \textit{Foreign Broadcast Information Service}, \textit{Financial Times},
+    \textit{Los Angeles Times}, \textit{San Jose Mercury News} et \textit{Wall
+    Street Journal}. Ceux-ci couvrent 30 sujets\index{sujet@Sujet} d'actualités (tornades, contrôle
+    des armes à feu, etc.), indiqués explicitement pour chaque documents\index{document@Document}.
+    
+    Le tableau\index{tableau@Tableau}~\ref{tab:duc} donne les détails du corpus \textsc{Duc}. Les
+    documents\index{document@Document} sont des articles journalistiques (voir la
+    figure~\ref{fig:example_duc}). Comme ceux de Wikinews, ces documents\index{document@Document} sont
+    courts. Ils sont cependant plus élaborés et sont constitués de 900,7 mots\index{mot@Mot} en
+    moyenne. Cette différence mise à part, \textsc{Duc} et Wikinews sont très
+    similaires. Leur proportion de termes-clés\index{terme-cle@Terme-clé} à assigner est très faible. Ils
+    laissent penser que l'extraction de termes-clés\index{terme-cle@Terme-clé} est plus aisée sur les
+    articles journalistiques.
+
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{2-9}
+          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \hfill{}Test & Anlgais & Journalistique & 308 & 900,7 & Lecteur & 8,1 & 3,5~\% & 2,1\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Corpus \textsc{Duc}
+               \label{tab:duc}}
+    \end{table}
+
+    \begin{figure}[!h]
+      \framebox[\linewidth]{ % FT941-1547
+        \parbox{.99\linewidth}{\small
+          \textbf{Commodities and Agriculture: Germany sets scientist to work on
+                  BSE threat}\\
+
+          The German government yesterday announced the launch of a new
+          research project to examine whether the cattle disease bovine
+          spongiform encephalopathy (BSE) can be transmitted to human beings.
+
+          ~~~~The initiative comes as the country is pushing for a European
+          Union ban on British beef imports, arguing that there is still no
+          conclusive evidence that the disease cannot affect humans.
+
+          ~~~~Seven German universities and research institutes will be
+          sponsored by the country's research and technology ministry to examine
+          possible connections between the origins of BSE and two other
+          diseases, Creutzfeldt Jakob disease and Gerstmann Straussler syndrome,
+          which very rarely affect humans. Several German scientists have
+          expressed concern that BSE --- popularly known as 'mad cow disease'
+          because of the way it debilitates the brains of cattle --- may be
+          transmissible to humans who eat contaminated beef or take medicines
+          made with ingredients from contaminated animals.
+
+          ~~~~``The danger that BSE can be transmitted to humans is minimal or
+          non-existent,'' said Professor Hans Kretzschmar from Gottingen
+          University. ``However, we do not know that it is non-existent. I
+          personally think (British beef) should not be imported.''
+          
+          ~~~~Contaminated British beef will be discussed at a meeting of EU
+          health ministers on March 30, but a German official said that any
+          decisions about a ban would be made by the union's agriculture
+          ministers, who were likely to argue that existing safeguards were
+          sufficient.
+
+          ~~~~In 1992, the last year for which figures are available, Germany
+          imported 2,092 tonnes of British beef --- 2 per cent of all its beef
+          imports from other EU countries --- and 13 tonnes of veal.
+
+          ~~~~The research ministry said that more than 100,000 cattle had died
+          as a result of catching BSE in Britain. A further 50 cases of the
+          disease had been recorded in Switzerland and there were two known
+          cases in Germany, one of which affected a cow imported from Britain.\\
+
+          \textbf{Termes-clés~:} \underline{cattle disease}~; \underline{bovine
+          spongiform encephalopathy}~; \underline{bse}~; \underline{mad cow
+          disease}~; \underline{British beef imports}~; \underline{possible
+          connections}.
+        }
+      }
+      \caption[Exemple de document de \textsc{Duc}]{
+        Exemple de document de \textsc{Duc}. Les termes-clés soulignés sont ceux
+        qui peuvent être extraits.
+        \label{fig:example_duc}
+      }
+    \end{figure}
+%    \begin{figure}[!h]
+%      \framebox[\linewidth]{ % AP890708-0135
+%        \parbox{.99\linewidth}{\small
+%          \textbf{Forests, brush, grass burn in the hot, dry west}\\
+%
+%          ~~~~Thousands more acres of brush and timber went up in smoke Saturday
+%          in seven states in the West, threatening homes in some places, and
+%          firefighters contended with wind and high temperatures.\\
+%
+%          ~~~~``As the day heats up, you'll get these reburns going out and the
+%          trees dry out and they'll torch,'' said Forest Service spokesman Ed
+%          Christian in Wyoming. ``We hope Mother Nature cooperates with us,''
+%          said Mary Plumb of the federal Bureau of Land Management in Utah.
+%          Record highs included 97 at Cheyenne, Wyo., and 100 at Denver, while
+%          Casper, Wyo., tied its record of 100. That was Denver's fifth
+%          consecutive day at 100 degrees or higher
+%          
+%          ~~~~[\dots]\\
+%
+%          \textbf{Termes-clés~:} \underline{forest fires},
+%          \underline{firefighters}, \underline{fire crews}, \underline{fire
+%          lines}, \underline{fire season}, \underline{federal firefighting
+%          efforts}.
+%        }
+%      }
+%      \caption[Exemple de document de \textsc{Duc}]{
+%        Exemple de document de \textsc{Duc}. Les termes-clés soulignés sont ceux
+%        qui peuvent être extraits. \TODO{exemple EMNLP}
+%        \label{fig:example_duc}
+%      }
+%    \end{figure}
+
+  %-----------------------------------------------------------------------------
+
+  \section{Prétraitement des données}
+  \label{sec:main-data_description-preprocessing}
+    Afin de les utiliser en entrées des systèmes d'indexation par termes-clés\index{terme-cle@Terme-clé},
+    les documents\index{document@Document} des collections présentées précédemment subissent des
+    traitements\index{traitement@Traitement} destinés à faciliter leur analyse. Ces traitements\index{traitement@Traitement} permettent de
+    délimiter les phrases dans les documents\index{document@Document}, de délimiter les mots\index{mot@Mot} dans les
+    phrases et d'identifier la catégorie grammaticale de ces derniers.
+
+    En français, nous utilisons un segmenteur à base d'expressions rationnelles
+    pour détecter les phrases. Il s'agit du segmenteur
+    \texttt{PunktSentenceTokenizer} intégré dans le module python \textsc{Nltk}
+    (\textit{Natural Language ToolKit})~\cite{bird2009nltk}. Les phrases ainsi
+    détectées sont ensuite segmentées en mots\index{mot@Mot} à l'aide de l'outil Bonsai, du
+    \textit{Bonsai \textsc{Pcfg-La}
+    parser}\footnote{\url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}},
+    dont se sert l'étiqueteur grammatical, \textsc{Me}lt~\cite{denis2009melt},
+    que nous utilisons.
+
+    En anglais, nous utilisons aussi le segmenteur
+    \texttt{PunktSentenceTokenizer} pour détecter les phrases des documents\index{document@Document}.
+    Celles-ci sont ensuite segmentées en mots\index{mot@Mot} par le
+    \texttt{Tree\-BankWordTokenizer} intégré dans \textsc{Nltk}. Enfin, les mots\index{mot@Mot}
+    sont étiquetés grammaticalement à l'aide du \textit{Stanford \textsc{Pos}
+    tagger}~\cite{toutanova2003stanfordpostagger}.
+
+  %-----------------------------------------------------------------------------
+
+  \section{Conclusion}
+  \label{sec:main-data_description-conclusion}
+    Nous avons présenté les ressources que nous utilisons dans nos
+    travaux de recherche. Pour analyser nos travaux, les évaluer et les comparer
+    aux autres, nous disposons de cinq collections de données différentes~:
+    Termith, \textsc{De}ft, Wikinews, SemEval et \textsc{Duc}. Elles sont
+    monolingues et uniformes en genre. Nous rappelons leurs propriétés dans
+    le tableau\index{tableau@Tableau}~\ref{tab:corpora_recap}.
+
+    \begin{table}[!t]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{r@{~}l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+          \toprule
+          \multicolumn{2}{l|}{\multirow{2}{*}{\textbf{Corpus}}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
+          \cline{3-10}
+          & & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & \og{}À assigner\fg{} & Mots moy.\\
+          \hline
+          \multicolumn{2}{l|}{Termith} & & & & & & & &\\
+          $\drsh$ & Linguistique & Français & Scientifique (résumé) & 715 & $~~~$156.7 & Professionnel & $~~$8,7 & 61,2~\% & 1,7\\
+          $\drsh$ & Sciences de l'info. & \ditto & \ditto & 706 & $~~~$119,7 & \ditto  & $~~$8,5 & 67,6~\% & 1,7\\
+          $\drsh$ & Archéologie & \ditto & \ditto & 718 & $~~~$219,1 & \ditto & 16,5 & 37,1~\% & 1,3\\
+          $\drsh$ & Chimie & \ditto & \ditto & 782 & $~~~$105,2 & \ditto & 12,8 & 76,1~\% & 2,2\\
+          \multicolumn{2}{l|}{\textsc{De}ft} & \ditto & Scientifique & 234 & 7~102,9 & Auteur & $~~$5,3 & 19,4~\% & 1,7\\
+          \multicolumn{2}{l|}{Wikinews} & \ditto & Journalistique & 100 & $~~~$308,5 & Lecteur & $~~$9,6 & $~~$7,6~\% & 1,7\\
+          \multicolumn{2}{l|}{Semeval} & Anglais & Scientifique & 244 & 5~152,3 & Auteur~/~Lecteur & 15,1 & 17,0~\% & 2,1\\
+          \multicolumn{2}{l|}{DUC} & \ditto & Journalistique & 308 & $~~~$900,7 & Lecteur & $~~$8,1 & $~~$3,5~\% & 2,1\\
+          \bottomrule
+        \end{tabular}
+      }
+
+      \caption{Bilan des corpus
+               \label{tab:corpora_recap}}
+    \end{table}
+
