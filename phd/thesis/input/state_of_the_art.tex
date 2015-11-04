@@ -13,9 +13,8 @@
 
   \section{Introduction}
   \label{sec:main-state_of_the_art-introduction}
-    Les termes-clés\index{Terme-cle@Terme-clé \textit{(keyphrase)}|textbf},
-    souvent appelés mots-clés\index{Mot-cle@Mot-clé
-    \textit{(keyword)}|textbf}\footnote{Un terme-clé est plus communément appelé
+    Les termes-clés,
+    souvent appelés mots-clés\footnote{Un terme-clé est plus communément appelé
     mot-clé. Cependant, un mot-clé n'étant pas uniquement monolexical, nous
     utilisons la notion de terme-clé pour lever toute ambiguïté. Lorsque nous parlons de mots-clés, cela ne concerne donc que les
     monolexicaux.}, sont les unités textuelles (mots ou expressions) qui
@@ -24,9 +23,7 @@
     figure~\ref{fig:main-state_of_the_art-introduction-example_keyphrase_annotation}).
     Associés à un document, ils donnent une description précise de son contenu
     et servent à l'indexer pour la recherche d'information (\textsc{Ri}). Nous
-    parlons donc d'indexation par termes-clés\index{Indexation par
-    termes-cles@Indexation par termes-clés \textit{(automatic keyphrase
-    annotation)}|textbf}. Cette indexation ne doit toutefois pas être confondue
+    parlons donc d'indexation par termes-clés. Cette indexation ne doit toutefois pas être confondue
     avec l'indexation dite \og{}plein texte\fg{} au c\oe{}ur de nombreux
     systèmes de \textsc{Ri}. Celle-ci pondère tous les mots d'un document en
     fonction de leur importance relative à son contenu, tandis que l'indexation
@@ -62,21 +59,12 @@
 
     Dans la littérature, nous distinguons deux catégories d'indexation
     automatique par ter\-mes-clés~: l'une libre, l'autre contrôlée. L'indexation
-    libre\index{Indexation libre@Indexation libre \textit{(free indexing)}|see
-    {Extraction automatique de termes-clés \textit{(automatic keyphrase
-    extraction)}}} consiste à extraire d'un document les unités textuelles
+    libre consiste à extraire d'un document les unités textuelles
     jugées les plus importantes vis-à-vis de son contenu. Nous parlons
-    d'\emph{extraction automatique de termes-clés}\index{Extraction automatique
-    de termes-cles@Extraction automatique de termes-clés \textit{(automatic
-    keyphrase extraction)}|textbf}. L'indexation contrôlée\index{Indexation
-    controlee@Indexation contrôlée \textit{(controlled indexing)}|see
-    {Assignement automatique de termes-clés \textit{(automatic keyphrase
-    assignment)}}} fournit les termes-clés en se fondant sur un vocabulaire
+    d'\emph{extraction automatique de termes-clés}. L'indexation contrôlée fournit les termes-clés en se fondant sur un vocabulaire
     contrôlé (une terminologie), sans se restreindre aux unités textuelles
     présentes dans le document. Nous parlons d'\emph{assignement automatique de
-    termes-clés}\index{Assignement automatique de termes-cles@Assignement
-    automatique de termes-clés \textit{(automatic keyphrase
-    assignment)}|textbf}.
+    termes-clés}.
 
     Dans ce chapitre d'introduction à l'indexation automatique par termes-clés,
     nous commençons par présenter l'étape de sélection des termes-clés
@@ -95,10 +83,7 @@
   \section{Sélection des termes-clés candidats}
   \label{sec:main-state_of_the_art-keyphrase_candidate_selection}
     % Quel est l'objectif ?
-    La sélection des termes-clés candidats\index{Selection des termes-cles
-    candidats@Sélection des termes-clés candidats \textit{Keyphrase candidate
-    selection}|textbf}\index{Terme-cle candidat@Terme-clé candidat
-    \textit{(keyphrase candidate)}|textbf} consiste à déterminer quelles sont
+    La sélection des termes-clés candidats consiste à déterminer quelles sont
     les unités textuelles qui sont potentiellement des termes-clés, c'est-à-dire
     les unités textuelles qui ont des particularités similaires à celles des
     termes-clés définis par des humains, telles que la structure
@@ -111,11 +96,9 @@
     %
     unités textuelles non pertinentes pouvant affecter négativement ses
     performances. Pour distinguer les différents candidats sélectionnés, nous
-    définissons deux catégories~: les candidats positifs\index{Candidat
-    positif@Candidat positif \textit{(positive candidate)}|textbf}, qui
+    définissons deux catégories~: les candidats positifs, qui
     correspondent aux termes-clés assignés par des humains (termes-clés de
-    référence), et les candidats négatifs\index{Candidat negatif@Candidat
-    négatif \textit{(negative candidate)}|textbf}. Parmi les candidats négatifs,
+    référence), et les candidats négatifs. Parmi les candidats négatifs,
     nous distinguons les candidats non importants des candidats erronés, tels que les conjonctions, les
     déterminants ou les unités textuelles mal segmentées (par exemple,
     \og{}base du concept\fg{} issu du groupe nominal \og{}une définition de base
@@ -129,15 +112,14 @@
     grammaticalement définies, jusqu'à une méthode plus complexe visant à
     réduire radicalement le nombre de candidats.
 
-    ~\\Les n-grammes\index{N-gramme@N-gramme \textit{(n-gram)}|textbf} sont
+    ~\\Les n-grammes sont
     toutes les séquences ordonnées de $n$ mots adjacents (voir
     l'exemple~\ref{ex:n_grams}). La sélection des n-grammes est très exhaustive,
     elle fournit un grand nombre de termes-clés candidats, ce qui maximise la
     quantité de candidats positifs, la quantité de candidats non importants,
     mais aussi la quantité de candidats erronés. Pour réduire cette dernière, il
     est courant de filtrer les n-grammes avec un
-    antidictionnaire\index{Antidictionnaire@Antidictionnaire
-    \textit{(stopwords)}|textbf} regroupant les mots ne pouvant pas être des
+    antidictionnaire regroupant les mots ne pouvant pas être des
     mots-clés (conjonctions, prépositions, mots d'usage courant, etc.). Si un
     n-gramme contient un mot de l'antidictionnaire en début ou en fin, alors il
     n'est pas considéré comme un terme-clé candidat.
@@ -168,9 +150,8 @@
       \end{center}\vspace{.25em}
     \end{example}
 
-    ~\\Les \textit{chunks} nominaux\index{NP-chunk@NP-\textit{chunk}|textbf}
-    (\textit{NP-chunks}) sont des syntagmes\index{Syntagme@Syntagme
-    \textit{(syntagm)}|textbf}\footnote{Syntagme~: unité syntaxique
+    ~\\Les \textit{chunks} nominaux
+    (\textit{NP-chunks}) sont des syntagmes\footnote{Syntagme~: unité syntaxique
     intermédiaire entre le mot et la phrase. Aussi appelé groupe, le syntagme
     constitue une unité de sens dont chaque constituant conserve sa
     signification et sa syntaxe propre.} non récursifs (ou minimaux) dont la
@@ -206,8 +187,7 @@
     \end{example}
 
     ~\\La sélection d'unités textuelles qui forment des séquences
-    grammaticalement définies\index{Sequence grammaticalement definie@Séquence
-    grammaticalement définie \textit{(POS sequence)}|textbf} permet de contrôler
+    grammaticalement définies permet de contrôler
     avec précision la nature et la grammaticalité des candidats sélectionnés.
     Pour cela, il faut définir des patrons grammaticaux tels que
     \texttt{/(N|A)+/} (voir l'exemple~\ref{ex:na+}), qui représente les plus

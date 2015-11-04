@@ -219,7 +219,7 @@
   \listoftables
   \listoffigures
 
-  \input{input/introduction.tex}
+  \input{input/introduction_indexed.tex}
   \input{input/state_of_the_art.tex}
   \input{input/resources.tex}
   \input{input/domain_independent_keyphrase_extraction.tex}
@@ -233,7 +233,8 @@
   \bibliographystyle{frplainnat}
   \bibliography{../../biblio}
 
-%%  \addcontentsline{toc}{chapter}{Index}
-%%  \printindex
+  \renewcommand*{\indexname}{Index (généré avec TopicRank)}
+  \addcontentsline{toc}{chapter}{Index (généré avec TopicRank)}
+  \printindex
 \end{document}
 
