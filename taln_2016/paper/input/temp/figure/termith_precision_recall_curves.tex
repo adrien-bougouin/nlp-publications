@@ -1,0 +1,163 @@
+\begin{figure}
+  \centering
+  \subfigure[Linguistique \textit{(fr)}]{
+    \begin{tikzpicture}
+      \pgfkeys{/pgf/number format/.cd, fixed}
+      \begin{axis}[x=0.004275\linewidth,
+                   xtick={0, 20, 40, ..., 100},
+                   xmin=0,
+                   xmax=80,
+                   xlabel=rappel (\%),
+                   x label style={yshift=.34em},
+                   y=0.004275\linewidth,
+                   ytick={0, 20, ..., 100},
+                   ymin=0,
+                   ymax=80,
+                   ylabel=précision (\%),
+                   y label style={yshift=-1.1em}]
+        \addplot [green!66, mark=x] file {input/figure/data/linguistique_tfidf.csv};
+        \addplot [red!66, mark=+] file {input/figure/data/linguistique_topicrank.csv};
+        \addplot [cyan!66, mark=o] file {input/figure/data/linguistique_kea_pp.csv};
+        \addplot [orange!66, mark=square] file {input/figure/data/linguistique_topiccorank_extr.csv};
+        \addplot [black!66, mark=triangle] file {input/figure/data/linguistique_topiccorank_assign.csv};
+        \addplot [gray!66, mark=diamond] file {input/figure/data/linguistique_topiccorank.csv};
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \addplot [dotted, domain=55:100] {(70 * x) / ((2 * x) - 70)};
+        \addplot [dotted, domain=45:100] {(60 * x) / ((2 * x) - 60)};
+        \addplot [dotted, domain=35:100] {(50 * x) / ((2 * x) - 50)};
+        \addplot [dotted, domain=25:100] {(40 * x) / ((2 * x) - 40)};
+        \addplot [dotted, domain=15:100] {(30 * x) / ((2 * x) - 30)};
+        \addplot [dotted, domain=10:100] {(20 * x) / ((2 * x) - 20)};
+        \addplot [dotted, domain=5:100] {(10 * x) / ((2 * x) - 10)};
+      \end{axis}
+      \node at (4.85,4.0) [anchor=east] {\footnotesize{F=70,0}};
+      \node at (4.85,3.1) [anchor=east] {\footnotesize{F=60,0}};
+      \node at (4.85,2.4) [anchor=east] {\footnotesize{F=50,0}};
+      \node at (4.85,1.8) [anchor=east] {\footnotesize{F=40,0}};
+      \node at (4.85,1.3) [anchor=east] {\footnotesize{F=30,0}};
+      \node at (4.85,0.85) [anchor=east] {\footnotesize{F=20,0}};
+      \node at (4.85,0.5) [anchor=east] {\footnotesize{F=10,0}};
+    \end{tikzpicture}
+  }
+  \subfigure[Sciences de l'info. \textit{(fr)}]{
+    \begin{tikzpicture}
+      \pgfkeys{/pgf/number format/.cd, fixed}
+      \begin{axis}[x=0.004275\linewidth,
+                   xtick={0, 20, 40, ..., 100},
+                   xmin=0,
+                   xmax=80,
+                   xlabel=rappel (\%),
+                   x label style={yshift=.34em},
+                   y=0.004275\linewidth,
+                   ytick={0, 20, ..., 100},
+                   ymin=0,
+                   ymax=80,
+                   ylabel=précision (\%),
+                   y label style={yshift=-1.1em}]
+        \addplot [green!66, mark=x] file {input/figure/data/sciences_de_l_information_tfidf.csv};
+        \addplot [red!66, mark=+] file {input/figure/data/sciences_de_l_information_topicrank.csv};
+        \addplot [cyan!66, mark=o] file {input/figure/data/sciences_de_l_information_kea_pp.csv};
+        \addplot [orange!66, mark=square] file {input/figure/data/sciences_de_l_information_topiccorank_extr.csv};
+        \addplot [black!66, mark=triangle] file {input/figure/data/sciences_de_l_information_topiccorank_assign.csv};
+        \addplot [gray!66, mark=diamond] file {input/figure/data/sciences_de_l_information_topiccorank.csv};
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %\addplot [dotted, domain=55:100] {(70 * x) / ((2 * x) - 70)};
+        %\addplot [dotted, domain=45:100] {(60 * x) / ((2 * x) - 60)};
+        %\addplot [dotted, domain=35:100] {(50 * x) / ((2 * x) - 50)};
+        %\addplot [dotted, domain=25:100] {(40 * x) / ((2 * x) - 40)};
+        \addplot [dotted, domain=15:100] {(30 * x) / ((2 * x) - 30)};
+        \addplot [dotted, domain=10:100] {(20 * x) / ((2 * x) - 20)};
+        \addplot [dotted, domain=5:100] {(10 * x) / ((2 * x) - 10)};
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \legend{\textsc{Tf-Idf}, TopicRank, \textsc{Kea++},
+                TopicCoRank$_\textnormal{extr.}$,
+                TopicCoRank$_\textnormal{assign.}$, TopicCoRank};
+      \end{axis}
+      %\node at (4.85,4.0) [anchor=east] {\footnotesize{F=70,0}};
+      %\node at (4.85,3.1) [anchor=east] {\footnotesize{F=60,0}};
+      %\node at (4.85,2.4) [anchor=east] {\footnotesize{F=50,0}};
+      %\node at (4.85,1.8) [anchor=east] {\footnotesize{F=40,0}};
+      \node at (4.85,1.3) [anchor=east] {\footnotesize{F=30,0}};
+      \node at (4.85,0.85) [anchor=east] {\footnotesize{F=20,0}};
+      \node at (4.85,0.5) [anchor=east] {\footnotesize{F=10,0}};
+    \end{tikzpicture}
+  }
+  \subfigure[Archeologie \textit{(fr)}]{
+    \begin{tikzpicture}
+      \pgfkeys{/pgf/number format/.cd, fixed}
+      \begin{axis}[x=0.004275\linewidth,
+                   xtick={0, 20, 40, ..., 100},
+                   xmin=0,
+                   xmax=80,
+                   xlabel=rappel (\%),
+                   x label style={yshift=.34em},
+                   y=0.004275\linewidth,
+                   ytick={0, 20, ..., 100},
+                   ymin=0,
+                   ymax=80,
+                   ylabel=précision (\%),
+                   y label style={yshift=-1.1em}]
+        \addplot [green!66, mark=x] file {input/figure/data/archeologie_tfidf.csv};
+        \addplot [red!66, mark=+] file {input/figure/data/archeologie_topicrank.csv};
+        \addplot [cyan!66, mark=o] file {input/figure/data/archeologie_kea_pp.csv};
+        \addplot [orange!66, mark=square] file {input/figure/data/archeologie_topiccorank_extr.csv};
+        \addplot [black!66, mark=triangle] file {input/figure/data/archeologie_topiccorank_assign.csv};
+        \addplot [gray!66, mark=diamond] file {input/figure/data/archeologie_topiccorank.csv};
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        \addplot [dotted, domain=55:100] {(70 * x) / ((2 * x) - 70)};
+        \addplot [dotted, domain=45:100] {(60 * x) / ((2 * x) - 60)};
+        \addplot [dotted, domain=35:100] {(50 * x) / ((2 * x) - 50)};
+        \addplot [dotted, domain=25:100] {(40 * x) / ((2 * x) - 40)};
+        \addplot [dotted, domain=15:100] {(30 * x) / ((2 * x) - 30)};
+        \addplot [dotted, domain=10:100] {(20 * x) / ((2 * x) - 20)};
+        \addplot [dotted, domain=5:100] {(10 * x) / ((2 * x) - 10)};
+      \end{axis}
+      \node at (4.85,4.0) [anchor=east] {\footnotesize{F=70,0}};
+      \node at (4.85,3.1) [anchor=east] {\footnotesize{F=60,0}};
+      \node at (4.85,2.4) [anchor=east] {\footnotesize{F=50,0}};
+      \node at (4.85,1.8) [anchor=east] {\footnotesize{F=40,0}};
+      \node at (4.85,1.3) [anchor=east] {\footnotesize{F=30,0}};
+      \node at (4.85,0.85) [anchor=east] {\footnotesize{F=20,0}};
+      \node at (4.85,0.5) [anchor=east] {\footnotesize{F=10,0}};
+    \end{tikzpicture}
+  }
+  \subfigure[Chimie \textit{(fr)}]{
+    \begin{tikzpicture}
+      \pgfkeys{/pgf/number format/.cd, fixed}
+      \begin{axis}[x=0.00855\linewidth,
+                   xtick={0, 20, 40, ..., 100},
+                   xmin=0,
+                   xmax=40,
+                   xlabel=rappel (\%),
+                   x label style={yshift=.34em},
+                   y=0.00855\linewidth,
+                   ytick={0, 20, ..., 100},
+                   ymin=0,
+                   ymax=40,
+                   ylabel=précision (\%),
+                   y label style={yshift=-1.1em}]
+        \addplot [green!66, mark=x] file {input/figure/data/chimie_tfidf.csv};
+        \addplot [red!66, mark=+] file {input/figure/data/chimie_topicrank.csv};
+        \addplot [cyan!66, mark=o] file {input/figure/data/chimie_kea_pp.csv};
+        \addplot [orange!66, mark=square] file {input/figure/data/chimie_topiccorank_extr.csv};
+        \addplot [black!66, mark=triangle] file {input/figure/data/chimie_topiccorank_assign.csv};
+        \addplot [gray!66, mark=diamond] file {input/figure/data/chimie_topiccorank.csv};
+        %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+        %\addplot [dotted, domain=30:100] {(40 * x) / ((2 * x) - 40)};
+        \addplot [dotted, domain=20:100] {(30 * x) / ((2 * x) - 30)};
+        \addplot [dotted, domain=10:100] {(20 * x) / ((2 * x) - 20)};
+        \addplot [dotted, domain=5:100] {(10 * x) / ((2 * x) - 10)};
+      \end{axis}
+      %\node at (4.85,4.5) [anchor=east] {\footnotesize{F=40,0}};
+      \node at (4.85,3.1) [anchor=east] {\footnotesize{F=30,0}};
+      \node at (4.85,1.8) [anchor=east] {\footnotesize{F=20,0}};
+      \node at (4.85,0.9) [anchor=east] {\footnotesize{F=10,0}};
+    \end{tikzpicture}
+  }
+  \caption{Courbes de rappel-précision de \textsc{Tf-Idf}, TopicRank
+           \textit{\textsc{Kea}++}, TopicCoRank$_\textnormal{extr.}$,
+           TopicCoRank$_\textnormal{assign.}$ et TopicCoRank appliqués aux
+           données Termith
+           \label{fig:topiccorank-pr_curves_termith}}
+\end{figure}
+
