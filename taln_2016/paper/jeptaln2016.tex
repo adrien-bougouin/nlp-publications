@@ -14,11 +14,14 @@
 \usepackage{subfigure}
 \usepackage{pgfplots}
 \usepackage{color}
+\usepackage{units}
 
 \usepackage{jeptaln2016}
 \usepackage[frenchb]{babel}
 
 \usetikzlibrary{positioning, topaths, shapes, arrows, patterns, calc}
+
+\newcommand\ditto{$_{^\textnormal{\normalsize\textquotedbl}}$}
 
 \renewcommand\cite[2][]{\ifthenelse{\equal{#1}{}}{\citep{#2}}{\citep[#1]{#2}}}
 \newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citet{#2}}{\citet[#1]{#2}}}
@@ -41,7 +44,7 @@
 
 \title{
   Modélisation unifiée du document et de son domaine\\
-  de spécialité pour une indexation par termes-clés libre et contrôlée
+  pour une indexation par termes-clés libre et contrôlée
 }
 
 \author{
@@ -70,7 +73,7 @@
     (hybride) libre et contrôlée. Au delà de la capacité de notre méthode à
     fournir des termes-clés ne se trouvant pas nécessairement dans le document,
     nos expériences montrent une amélioration significative vis-à-vis de
-    l'approche à base de graphe classiques, c'est-à-dire ne tenant uniquement
+    l'approche à base de graphe classique, c'est-à-dire tenant uniquement
     compte des informations présentes dans le document.
   }
 
