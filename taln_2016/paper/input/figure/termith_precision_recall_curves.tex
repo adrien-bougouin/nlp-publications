@@ -1,6 +1,6 @@
 \begin{figure}
   \centering
-  \subfigure[Linguistique \textit{(fr)}]{
+  \subfigure[Linguistique]{
     \begin{tikzpicture}[scale=.8]
       \pgfkeys{/pgf/number format/.cd, fixed}
       \begin{axis}[x=0.004275\linewidth,
@@ -39,7 +39,7 @@
       \node at (4.85,0.5) [anchor=east] {\footnotesize{F=10,0}};
     \end{tikzpicture}
   }
-  \subfigure[Sciences de l'info. \textit{(fr)}]{
+  \subfigure[Sciences de l'info.]{
     \begin{tikzpicture}[scale=.8]
       \pgfkeys{/pgf/number format/.cd, fixed}
       \begin{axis}[x=0.004275\linewidth,
@@ -70,8 +70,8 @@
         \addplot [dotted, domain=5:100] {(10 * x) / ((2 * x) - 10)};
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         \legend{\textsc{Tf-Idf}, TopicRank, \textsc{Kea++},
-                TopicCoRank$_\textnormal{extr.}$,
-                TopicCoRank$_\textnormal{assign.}$, TopicCoRank};
+                TopicRankSpe$_\textnormal{libre}$,
+                TopicRankSpe$_\textnormal{contrôlé}$, TopicRankSpe};
       \end{axis}
       %\node at (4.85,4.0) [anchor=east] {\footnotesize{F=70,0}};
       %\node at (4.85,3.1) [anchor=east] {\footnotesize{F=60,0}};
@@ -82,7 +82,7 @@
       \node at (4.85,0.5) [anchor=east] {\footnotesize{F=10,0}};
     \end{tikzpicture}
   }
-  \subfigure[Archeologie \textit{(fr)}]{
+  \subfigure[Archeologie]{
     \begin{tikzpicture}[scale=.8]
       \pgfkeys{/pgf/number format/.cd, fixed}
       \begin{axis}[x=0.004275\linewidth,
@@ -121,7 +121,7 @@
       \node at (4.85,0.5) [anchor=east] {\footnotesize{F=10,0}};
     \end{tikzpicture}
   }
-  \subfigure[Chimie \textit{(fr)}]{
+  \subfigure[Chimie]{
     \begin{tikzpicture}[scale=.8]
       \pgfkeys{/pgf/number format/.cd, fixed}
       \begin{axis}[x=0.00855\linewidth,
@@ -155,8 +155,8 @@
     \end{tikzpicture}
   }
   \caption{Courbes de rappel-précision de \textsc{Tf-Idf}, TopicRank
-           \textit{\textsc{Kea}++}, TopicCoRank$_\textnormal{extr.}$,
-           TopicCoRank$_\textnormal{assign.}$ et TopicCoRank appliqués aux
+           \textit{\textsc{Kea}++}, TopicRankSpe$_\textnormal{libre}$,
+           TopicRankSpe$_\textnormal{contrôlé}$ et TopicRankSpe appliqués aux
            données Termith
            \label{fig:topiccorank-pr_curves_termith}}
 \end{figure}
