@@ -85,12 +85,12 @@
     expressions du document qui contiennent uniquement des mots-clés.
 
     L'ordonnancement par importance au sein du graphe repose sur le principe de
-    la recommandation, ou du vote. Soit le graph $G = (N, A)$, un graphe
-    non-orienté constitués de n\oe{}uds représentant chacun un mots et un
+    la recommandation, ou du vote. Soit le graphe $G = (N, A)$, un graphe
+    non-orienté constitué de n\oe{}uds représentant chacun un mot et un
     ensemble d'arêtes reliant deux n\oe{}uds si les mots qu'ils représentent
     cooccurrent dans le document. Alors, un n\oe{}ud $n_i$ est d'autant plus
     important qu'il est connecté à beaucoup d'autres n\oe{}uds et que les
-    n\oe{}uds avec lesquels il est connecté sont eux mêmes importants~:
+    n\oe{}uds auxquels il est connecté sont eux mêmes importants~:
     \begin{align}
       \text{Importance}(n_i) = (1 - \lambda) \times \lambda \sum_{n_j \in A(n_i)}\frac{\text{Importance}(n_j)}{|A(n_j)|}
     \end{align}
@@ -108,7 +108,7 @@
     analysé. \newcite{liu2010topicalpagerank}, quant à eux, ont préféré utiliser
     un modèle de sémantique latente~\cite[LDA]{blei2003lda} pour biaiser $k$
     ordonnancements, selon chacun des $k$ sujets identifiés par l'algorithme LDA.
-    Les $k$ ordonnancement par importance des mots sont ensuite fusionnés pour
+    Les $k$ ordonnancements par importance des mots sont ensuite fusionnés pour
     obtenir un unique ordonnancement.
     \begin{align}
       \text{Importance}(n_i) = (1 - \lambda) \times \lambda \sum_{n_j \in A(n_i)}\frac{c_{i, j} \times \text{Importance}(n_j)}{\mathlarger\sum_{n_k \in A(n_j)}c_{j, k}}\label{math:singlerank}
@@ -125,7 +125,7 @@
     Quant à \newcite{bougouin2013topicrank}, ils ont décidé de
     représenter plus simplement les sujets par des groupes de termes-clés
     candidats partageant un nombre suffisant de mots, d'ordonner uniquement les
-    sujets, puis d'extraire un termes-clés candidat par sujet en temps que
+    sujets, puis d'extraire un terme-clé candidat par sujet en tant que
     terme-clé. Notre travail étend celui de \newcite{bougouin2013topicrank},
     nous reviendront donc plus en détails sur cette méthode dans la
     section~\ref{sec:main-domain_specific_keyphrase_annotation-topiccorank}.
@@ -160,8 +160,8 @@
     étiquettes au document en choisissant leur valeur parmi les entrées du
     vocabulaire contrôlé, soit les classes que peut prendre le document. Le
     problème de classification multi-étiquette multi-classe est généralement
-    considéré comme de multiples problèmes de classification binaire. Soit un
-    classifieur est appris pour chaque classe~; Soit un classifieur est appris
+    considéré comme plusieurs problèmes de classification binaire. Soit un
+    classifieur est appris pour chaque classe. Soit un classifieur est appris
     pour chaque paire de classes et les classes retenues sont celles proposées
     par le plus de classifieurs.
 
@@ -179,7 +179,7 @@
           tant que termes-clés candidats.}
     \item{\textbf{Groupement en sujets.} Tous les termes-clés candidats sont
           réduits à des sacs de mots racinisés et ceux partageant
-          $\unitfrac{1}{4}$ de leurs mots racinisés sont groupés et au sein du
+          un quart de leurs mots racinisés sont groupés et au sein du
           même sujet.}
     \item{\textbf{Construction du graphe.} Le document est représenté par un
           graphe complet où les n\oe{}uds sont les sujets. Chaque sujets est
@@ -204,9 +204,9 @@
   Notre méthode modifie TopicRank au niveau des étapes de construction du
   graphe, d'ordonnancement par importance et de sélection des termes-clés. La
   construction du graphe étend le graphe de sujet initial de TopicRank en
-  l'unifiant à un graphe des termes-clés de référence du domaine~;
-  l'ordonnancement est désormais conjoint pour les sujets du document et les
-  termes-clés du domaine~; la sélection des termes-clés ajoute la possibilité de
+  l'unifiant à un graphe des termes-clés de référence du domaine.
+  L'ordonnancement est désormais conjoint pour les sujets du document et les
+  termes-clés du domaine. La sélection des termes-clés ajoute la possibilité de
   puiser dans le graphe du domaine afin de réaliser une indexation contrôlée.
 
   \subsection{Construction du graphe}
@@ -550,6 +550,9 @@
     Nous représentons aussi les résultats sous la forme de courbes de
     rappel--précision. Celles-ci permettent d'observer si une méthode domine
     les autres pour les critères de rappel et de précision.
+    Une méthode dominante est une méthode pour laquelle quelque soient les
+    valeurs de précision et de rappel, celles-ci sont toujours supérieures à
+    celles des autres méthodes.
     Pour générer ces courbes, nous calculons la précision et
     le rappel lorsque  le nombre de termes-clés proposés varie de
     un jusqu'au nombre total de termes-clés candidats.
@@ -674,7 +677,7 @@
   TopicRankSpe lorsque le taux d'indexation contrôlée varie de 0~\% à 100~\% avec un
   pas de 10~\%. À chaque augmentation du taux d'indexation contrôlé, la
   performance de TopicRankSpe augmente. L'ordonnancement des termes-clés du
-  domaine fait donc émerger efficacement ceux les plus
+  domaine fait donc émerger efficacement les plus
   importants vis-à-vis du document.
   \input{input/figure/termith_assignment_curves.tex}
 
@@ -688,6 +691,6 @@
   un graphe représentant les termes de son domaine de spécialité, puis les
   ordonne conjointement. Comparée à l'état de l'art, notre méthode a montrée de
   meilleures performances en termes de précision, de rappel et de f-mesure. En
-  domaines de spécialité, la connaissance du domaine joue un rôle cruciale pour
+  domaines de spécialité, la connaissance du domaine joue un rôle crucial pour
   améliorer l'indexation automatique par termes-clés.
 
