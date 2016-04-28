@@ -1,7 +1,10 @@
 \section{Introduction}
 \label{sec:main:domain_specific_keyphrase_annotation-introduction}
   Les termes-clés sont des mots et expressions qui caractérisent le contenu le
-  plus important d'un document. La tâche d'indexation par termes-clés consiste à
+  plus important d'un document. Ceuxx-ci sont plus communément appelés
+  mots-clés, mais afin d4éviter toute ambigüité sur leur forme  syntagmatique,
+  nous prefferons l'appelation \og{}terme-clé\fg{} et reservons l'usage de
+  \og{}mot-clé\fg{} aux cas non-ambigües. La tâche d'indexation par termes-clés consiste à
   identifier automatiquement les termes-clés d'un document. Dans la littérature,
   elle se divise en deux catégories~: l'indexation libre, qui fournit des
   termes-clés apparaissant dans le contenu du document, et l'indexation
@@ -72,62 +75,49 @@
     termes-clés candidats~\cite{witten1999kea}, en passant par un ordonnancement
     à base de graphe des mots du document~\cite{mihalcea2004textrank}. Comme
     notre travail repose sur la technique de l'ordonnancement à base de graphe,
-    nous allons nous concentrer sur les méthodes qui l'emploient dans le reste
-    de cette section.
+    nous ne décrivons que cette dernière catégorie de méthodes.
 
     Depuis les travaux fondateurs de \newcite{mihalcea2004textrank} avec
     TextRank, la technique d'ordonnancement à base de graphe pour l'indexation
-    automatique par termes-clés est devenue populaire. L'idée originale de cette
+    automatique par termes-clés est très populaire. L'idée originale de cette
     technique est de représenter le document sous la forme d'un graphe de
     cooccurrences de mots, puis d'ordonner les mots par importance au sein du
-    graphe. Ensuite, les $k$ mots les plus importants, appelés mots-clés, sont
-    utilisés pour extraire les termes-clés. Ces derniers ne sont autres que les
+    graphe. Ensuite, les $k$ mots les plus importants (mots-clés), sont
+    utilisés pour extraire les termes-clés, qui ne sont autres que les
     expressions du document qui contiennent uniquement des mots-clés.
 
     L'ordonnancement par importance au sein du graphe repose sur le principe de
     la recommandation, ou du vote. Soit le graphe $G = (N, A)$, un graphe
     non-orienté constitué de n\oe{}uds représentant chacun un mot et un
     ensemble d'arêtes reliant deux n\oe{}uds si les mots qu'ils représentent
-    cooccurrent dans le document. Alors, un n\oe{}ud $n_i$ est d'autant plus
+    cooccurrent dans le document. Un n\oe{}ud $n_i$ est d'autant plus
     important qu'il est connecté à beaucoup d'autres n\oe{}uds et que les
     n\oe{}uds auxquels il est connecté sont eux mêmes importants~:
     \begin{align}
       \text{Importance}(n_i) = (1 - \lambda) \times \lambda \sum_{n_j \in A(n_i)}\frac{\text{Importance}(n_j)}{|A(n_j)|}
     \end{align}
     où $A(n_i)$ est l'ensemble des n\oe{}uds connectés au n\oe{}ud $n_i$ et
-    $\lambda$ est un facteur de lissage fixé à 0.85 par
+    $\lambda$ est un facteur de lissage fixé à 0,85 par
     \newcite{brin1998pagerank}.
 
     Dans la continuité des travaux de \newcite{mihalcea2004textrank},
     \newcite{wan2008expandrank} ont proposés de pondérer les arêtes selon le
     nombre de cooccurrences $c_{i, j}$ entre les mots des n\oe{}uds $n_i$ et
-    $n_j$, de sorte que ceux qui cooccurrent le plus ensemble se transfèrent
+    $n_j$, de sorte que ceux qui cooccurrent le plus fréquemment se transfèrent
     plus d'importance (voir l'équation~\ref{math:singlerank}).
-    \newcite{wan2008expandrank} ont aussi proposé de compléter le graphe à
-    l'aide de cooccurrences capturés dans des documents similaires à celui
-    analysé. \newcite{liu2010topicalpagerank}, quant à eux, ont préféré utiliser
-    un modèle de sémantique latente~\cite[LDA]{blei2003lda} pour biaiser $k$
-    ordonnancements, selon chacun des $k$ sujets identifiés par l'algorithme LDA.
-    Les $k$ ordonnancements par importance des mots sont ensuite fusionnés pour
-    obtenir un unique ordonnancement.
     \begin{align}
       \text{Importance}(n_i) = (1 - \lambda) \times \lambda \sum_{n_j \in A(n_i)}\frac{c_{i, j} \times \text{Importance}(n_j)}{\mathlarger\sum_{n_k \in A(n_j)}c_{j, k}}\label{math:singlerank}
     \end{align}
 
-    Plus récemment, \newcite{zhang2013wordtopicmultirank}, ainsi que
-    \newcite{bougouin2013topicrank}, ont suivi la démarche de
-    \newcite{liu2010topicalpagerank} et ont cherché à tirer profit des sujets
-    abordés dans le document. \newcite{zhang2013wordtopicmultirank} ont décidé
-    de réutiliser un modèle LDA pour détecter les sujets du document, mais cette
-    fois-ci en les insérant comme n\oe{}uds du graphe, en les connectant aux
-    mots qui vraisemblablement les représentent, puis en les ordonnant
-    conjointement afin d'améliorer l'ordonnancement des mots.
-    Quant à \newcite{bougouin2013topicrank}, ils ont décidé de
-    représenter plus simplement les sujets par des groupes de termes-clés
-    candidats partageant un nombre suffisant de mots, d'ordonner uniquement les
-    sujets, puis d'extraire un terme-clé candidat par sujet en tant que
-    terme-clé. Notre travail étend celui de \newcite{bougouin2013topicrank},
-    nous reviendront donc plus en détails sur cette méthode dans la
+    Plus récemment, \newcite{bougouin2013topicrank}, ont cherché à tirer profit
+    des sujets abordés dans le document. Leur définition de sujets est très simpliste,
+    ils considèrent comme sujet toute information pouvant être transmise par
+    différentes unités textuelles (mots ou expressions). Les sujets sont donc des
+    groupes de termes-clés candidats partageant un nombre suffisant de mots. Ces sujets
+    sont ensuite ordonnés, puis les termes-clés sont extraits des sujets les
+    plus importants (un terme-clé par sujet). Notre travail étend celui de
+    \newcite{bougouin2013topicrank}, nous revenons donc plus en détails sur
+    cette méthode dans la
     section~\ref{sec:main-domain_specific_keyphrase_annotation-topiccorank}.
 
   \subsection{Indexation contrôlée}
@@ -136,7 +126,7 @@
     vocabulaire spécifique au domaine du document analysé. Elle a pour objectif
     d'indexer les documents de manière homogène (un seul terme-clé par concept,
     quelques soient les documents) et spécifique au domaine (respectueuse du
-    language du domaine). Dans ce but,
+    langage du domaine). Dans ce but,
     l'indexation contrôlée est plus difficile, car elle doit être capable de
     trouver des termes-clés qui ne sont pas obligatoirement présents dans le
     contenu du document.
@@ -148,16 +138,16 @@
     document et ceux présents dans le document sont retenus comme termes-clés
     candidats. Dans un second temps, les termes-clés candidats sont classés en
     tant que \og{}terme-clé\fg{} ou \og{}non terme-clé\fg{} avec un classifieur
-    naïf bayésien et trois traits~: le TF-IDF du terme-clé
+    naïf bayésien et trois traits statistiques~: le TF-IDF du terme-clé
     candidat~\cite{witten1999kea}, sa première position~\cite{witten1999kea} et
-    le nombre de relations d'association qu'entretien le candidat avec les
-    autres dans le thésaurus.
+    le nombre de relations d'association qu'il entretien avec les autres au sein
+    du thésaurus.
 
     Au cours de la campagne d'évaluation
     Bio\textsc{Asq}~\cite{partalas2013bioasq}, l'indexation contrôlée par
     termes-clés a été formulée en un problème de classification multi-étiquette
     multi-classe. Les systèmes proposés lors de cette campagne attribuent des
-    étiquettes au document en choisissant leur valeur parmi les entrées du
+    étiquettes au document en choisissant leur valeur parmi les entrées d'un
     vocabulaire contrôlé, soit les classes que peut prendre le document. Le
     problème de classification multi-étiquette multi-classe est généralement
     considéré comme plusieurs problèmes de classification binaire. Soit un
@@ -169,6 +159,11 @@
 
 \section{Notre approche}
 \label{sec:main-domain_specific_keyphrase_annotation-topiccorank}
+  L'approche que nous proposons résoud le problème d'indexation par termes-clés
+  de manière globale en effectuant les deux catégories d'indexation libre et
+  contrôlée, ceci afin de s'approcher d'une indexation manuelle réalisée dans un
+  cadre professionnel, celui des bibliothèques numériques.
+
   La méthode que nous proposons étend la méthode
   TopicRank~\cite{bougouin2013topicrank}. TopicRank est une méthode à base de
   graphe fonctionnant en cinq grandes étapes~:
@@ -179,49 +174,49 @@
           tant que termes-clés candidats.}
     \item{\textbf{Groupement en sujets.} Tous les termes-clés candidats sont
           réduits à des sacs de mots racinisés et ceux partageant
-          un quart de leurs mots racinisés sont groupés et au sein du
+          un quart de leurs mots racinisés sont groupés au sein du
           même sujet.}
     \item{\textbf{Construction du graphe.} Le document est représenté par un
           graphe complet où les n\oe{}uds sont les sujets. Chaque sujets est
           connecté aux autres par une arête pondérée selon la force du lien
-          sémantique entre les sujets. Contrairement aux travaux précédents,
-          TopicRank pondère les arêtes selon la distance (en nombre de mots),
-          dans le document, entre les termes-clés candidats des sujets. Plus les
+          sémantique entre les sujets. Plus les
           termes-clés candidats de deux sujets sont proches dans le document,
-          plus élévée est la pondération de l'arête entre les deux sujets.}
+          plus élevée est la pondération de l'arête entre les deux sujets.}
     \item{\textbf{Ordonnancement des sujets.} À la manière de
           TextRank~\cite{mihalcea2004textrank}, les sujets sont ordonnés par
           importance de sorte que plus un sujets est fortement connecté à un
-          grand nombre de sujets, plus il est important. De plus, plus les
+          grand nombre de sujets, plus il gagne d'importance, et plus les
           sujets avec lesquels il est fortement connecté sont importants, plus
-          il gagne d'importance.}
+          il l'importance qu'il gagne est forte.}
     \item{\textbf{Extraction des termes-clés.} Un unique terme-clé est extrait
           pour chacun des $k$ plus importants sujets.
           \newcite{bougouin2013topicrank} ont choisi de sélectionner dans chaque
           sujet le terme-clé candidat qui apparaît en premier dans le document.}
   \end{enumerate}
   
-  Notre méthode modifie TopicRank au niveau des étapes de construction du
-  graphe, d'ordonnancement par importance et de sélection des termes-clés. La
-  construction du graphe étend le graphe de sujet initial de TopicRank en
+  Notre méthode modifie les étapes de construction du graphe, d'ordonnancement
+  par importance et de sélection des termes-clés de TopicRank. La
+  construction du graphe étend le graphe de sujet en
   l'unifiant à un graphe des termes-clés de référence du domaine.
-  L'ordonnancement est désormais conjoint pour les sujets du document et les
-  termes-clés du domaine. La sélection des termes-clés ajoute la possibilité de
-  puiser dans le graphe du domaine afin de réaliser une indexation contrôlée.
+  L'ordonnancement est désormais conjoint entre les sujets du document et les
+  termes-clés du domaine. Enfin, la sélection des termes-clés ajoute la
+  possibilité de puiser dans le graphe du domaine afin de réaliser une
+  indexation contrôlée.
 
   \subsection{Construction du graphe}
   \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-graph_construction}
     Afin de réaliser simultanément indexation libre et contrôlée, nous unifions
-    deux graphes représentant le document (graphe de sujets) et les termes-clés
-    de référence de son domaine (graphe du domaine). Ce dernier graphe est
-    construi à partir des termes-clés de référence de documents d'entraînement.
-    Comme \newcite{chaimongkol2013technicaltermextraction} l'ont fait avant nous
-    pour l'extraction de termes techniques, nous faisons l'hypothèse que les
+    deux graphes~: l'un représentant le document (graphe de sujets) et l'autre
+    les termes-clés de référence de son domaine (graphe du domaine). Le premier
+    graphe sert à l'indexation libre. Le second, construit à partir des
+    termes-clés de référence de documents d'entraînement, sert à l'indexation
+    contrôlée. À l'instar de \newcite{chaimongkol2013technicaltermextraction} en
+    extraction de termes techniques, nous faisons l'hypothèse que les
     termes-clés de référence des documents d'entraînement constituent la
     terminologie du domaine et nous les utilisons comme substituts au
-    vocabulaire contrôlé. Contrairement aux termes-clés candidats sélectionnés
-    dans le document, les termes-clés de référence ne sont pas redondants et ne
-    sont donc pas groupés en sujets.
+    vocabulaire contrôlé usuel en indexation contrôlée. Contrairement aux
+    termes-clés candidats sélectionnés dans le document, les termes-clés de
+    référence ne sont pas redondants et ne sont donc pas groupés en sujets.
 
     Soit le graphe unifié non orienté $G = (N, A =
     A_{\textnormal{\textit{interne}}} \cup
@@ -370,13 +365,12 @@
     domaine sur le document, et du document sur le domaine, sera marginal. Pour
     obtenir un graphe unifié homogène, nous connectons deux sujets ou deux
     termes-clés du domaine $n_i$ et $n_j$ lorsqu'ils apparaissent dans le même
-    contexte et pondère leur arête par le nombre de fois que cela se produit
+    contexte et nous pondèrons leur arête par le nombre de fois que cela se produit
     ($\textnormal{poids}(n_i, n_j)$). Lorsqu'il s'agit des sujets, le contexte
     est une phrase du document~; lorsqu'il s'agit des termes-clés du domaine, le
     contexte est l'ensemble des termes-clés de référence d'un document
-    d'entraînement. Les contextes étant utilisés pour la création du graphe, le
-    graphe de sujets n'est plus complet comme celui de TopicRank. Ici, nous
-    utilisons la phrase comme alternative à la fenêtre de cooccurrence.
+    d'entraînement\footnote{Les contextes étant utilisés pour la création du
+    graphe, le graphe de sujets n'est plus complet comme celui de TopicRank.}.
 
   \subsection{Ordonnancement conjoint des sujets et des termes-clés du domaine}
   \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-co_ranking}
@@ -387,7 +381,7 @@
 %
     Nous reprenons le principe de la recommandation de TopicRank et
     l'adaptons au problème d'ordonnancement conjoint. Les premières
-    hypothèses de recommandation sont donc les mêmes que celle de
+    hypothèses de recommandation sont donc les mêmes que celles de
     TopicRank~:
     \begin{itemize}
       \item{un sujet est d'autant plus important s'il est fortement connecté
@@ -408,7 +402,7 @@
     qualifions d'externes~:
     \begin{itemize}
       \item{un sujet est d'autant plus important s'il est représenté par
-            (connecté à) des termes-clés du domaine importants~;}
+            (connecté à) d'importants termes-clés du domaine~;}
       \item{un terme-clé du domaine est d'autant plus important vis-à-vis
             du contenu du document s'il véhicule (est connecté à) l'un de
             ses sujets importants.}
@@ -441,13 +435,13 @@
   \subsection{Sélection des termes-clés}
   \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_extraction-topiccorank-keyphrase_selection}
     Nous utilisons l'ordre d'importance établit avec le score $S$ des sujets et
-    termes-clés du domaine pour déterminer les termes-clés du document. Les $k$
-    n\oe{}uds du graphe unifié ayant obtenu les meilleurs scores sont retenus,
-    qu'ils soient des sujets ou des termes-clés du domaine.
+    des termes-clés du domaine pour déterminer les termes-clés du document. Les
+    $k$ n\oe{}uds du graphe unifié ayant obtenu les meilleurs scores sont
+    retenus, qu'ils soient des sujets ou des termes-clés du domaine.
 
     Lorsqu'un terme-clé du domaine doit être assigné (indexation contrôlée), une
     étape de vérification supplémentaire est effectuée pour s'assurer que son
-    importance calculée relève aussi bien du domaine que du document. En effet,
+    importance relève aussi bien du domaine que du document. En effet,
     il est possible que le graphe du domaine soit constitué de composantes
     connexes, soit de sous-graphes dont les n\oe{}uds ne sont connectés qu'entre
     eux. Dans ce cas, il se peut qu'un terme-clé du domaine d'un sous-graphe ne
@@ -470,8 +464,9 @@
     nous voyons que le graphe du domaine permet l'assignement du termes-clés
     générique \og{}France\fg{} qui n'est pas présent dans le document. Ensuite,
     nous voyons que les relations de \og{}diffusion\fg{}, \og{}analyse\fg{} et
-    \og{}répartition\fg{} dans le graphe du domaine permettent de mieux les
-    ordonner.
+    \og{}répartition\fg{} dans le graphe du domaine permettent de les ordonner
+    mieux qu'avec TopicRank (ils font maintenant partit des termes-clés
+    correctement extraits).
     \input{input/figure/topiccorank_example.tex}
 
 \section{Paramètres expérimentaux}
@@ -480,40 +475,39 @@
   \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-evaluation_data}
     Nous conduisons nos expériences sur quatre collections de notices
     bibliographiques en domaines de spécialité~: Linguistique, Sciences de
-    l'information, Archéologie et Chimie. Le tableau~\ref{tab:termith},
-    présente ces collections. Chaque collection est répartie en deux
+    l'information, Archéologie et Chimie. Chaque collection est constituée
+    d'environ 700 notices en français extraites depuis les bases de données de
+    l'Inist. Les notices sont constituées d'un titre, d'un résumé d'article
+    scientifique et de termes-clés annotés manuellement par des indexeurs
+    professionnels. Le tableau~\ref{tab:termith},
+    présente ces collections. Chacune d'elles est répartie en deux
     sous-ensembles~: un ensemble d'apprentissage, que nous utilisons pour
-    représenter le domaine, et un ensemble de test, pour l'évaluation. Les
-    termes-clés de référence de chaque notice ont été proposés par les indexeurs
-    professionnels de l'Inist (Institut de l’information scientifique et
-    technique).
+    représenter le domaine, et un ensemble de test, pour l'évaluation.
     \begin{table}[!h]
       \centering
-      \resizebox{\linewidth}{!}{
-        \begin{tabular}{l|c@{~~}c@{~~}c@{~~}c|c@{~~}c@{~~}c@{~~}c}
-          \toprule
-          \multirow{2}{*}{\textbf{Collection}} & \multicolumn{4}{c|}{\textbf{Documents}} & \multicolumn{4}{c}{\textbf{Termes-clés}}\\
-          \cline{2-9}
-          & Langue & Genre & Quantité & Mots moy. & Annotateur & Quantité moy. & Contrôlés & Mots moy.\\
-          \hline
-          Linguistique & & & & & & &\\
-          \hfill{}Appr. & Français & Scientifique (résumé) & 515 & 160,5 & Professionnel & $~~$8,6 & 60,6~\% & 1,7\\
-           \hfill{}Test & \ditto & \ditto & 200 & 147,0 & \ditto & $~~$8,9 & 62,8~\% & 1,8\\
-          \hline
-          Sciences de l'info. & & & & & & &\\
-          \hfill{}Appr. & Français & Scientifique (résumé) & 506 & 105,0 & Professionnel & $~~$7,8 & 67,9~\% & 1,8\\
-          \hfill{}Test & \ditto & \ditto & 200 & 157,0 & \ditto & 10,2 & 66,9~\% & 1,7\\
-          \hline
-          Archéologie & & & & & & &\\
-          \hfill{}Appr. & Français & Scientifique (résumé) & 518 & 221,1 & Professionnel & 16,9 & 37,0~\% & 1,3\\
-          \hfill{}Test & \ditto & \ditto & 200 & 213,9 & \ditto & 15,6 & 37,4~\% & 1,3\\
-          \hline
-          Chimie & & & & & & &\\
-          \hfill{}Appr. & Français & Scientifique (résumé) & 582 & 105,7 &  Professionnel & 12,2 & 75,2~\% & 2,2\\
-          \hfill{}Test & \ditto & \ditto & 200 & 103,9 & \ditto & 14,6 & 78,8~\% & 2,4\\
-          \bottomrule
-        \end{tabular}
-      }
+      \begin{tabular}{l|c@{~~}c|c@{~~}c@{~~}c@{~~}c}
+        \toprule
+        \multirow{2}{*}{\textbf{Collection}} & \multicolumn{2}{c|}{\textbf{Documents}} & \multicolumn{3}{c}{\textbf{Termes-clés}}\\
+        \cline{2-6}
+        & Quantité & Mots moy. & Quantité moy. & Contrôlés & Mots moy.\\
+        \hline
+        Linguistique & & & &\\
+        \hfill{}Appr. & 515 & 160,5 & $~~$8,6 & 60,6~\% & 1,7\\
+         \hfill{}Test & 200 & 147,0 & $~~$8,9 & 62,8~\% & 1,8\\
+        \hline
+        Sciences de l'info. & & & &\\
+        \hfill{}Appr. & 506 & 105,0 & $~~$7,8 & 67,9~\% & 1,8\\
+        \hfill{}Test & 200 & 157,0 & 10,2 & 66,9~\% & 1,7\\
+        \hline
+        Archéologie & & & &\\
+        \hfill{}Appr. & 518 & 221,1 & 16,9 & 37,0~\% & 1,3\\
+        \hfill{}Test & 200 & 213,9 & 15,6 & 37,4~\% & 1,3\\
+        \hline
+        Chimie & & & &\\
+        \hfill{}Appr. 582 & 105,7 & 12,2 & 75,2~\% & 2,2\\
+        \hfill{}Test & 200 & 103,9 & 14,6 & 78,8~\% & 2,4\\
+        \bottomrule
+      \end{tabular}
 
       \caption{Collections de données
                \label{tab:termith}}
@@ -526,7 +520,7 @@
 
   \subsection{Méthodes de référence}
   \label{subsec:main-domain_specific_keyphrase_annotation-supervised_automatic_keyphrase_annotation-evaluation-baselines}
-    Dans nos expériences, nous comparons notre méthode, que nous appelerons
+    Dans nos expériences, nous comparons notre méthode, que nous appelons
     TopicRankSpe à \textsc{Tf-Idf}, TopicRank et \textsc{Kea++}. Pour cette
     dernière, nous utilisons les thésaurus décrivant les vocabulaires contrôlés
     de l'Inist en linguistique, sciences de l'information, archéologie et chimie.
@@ -620,11 +614,15 @@
     \label{tab:topiccorank-comparison_results_termith}}
   \end{table}
   
-  La figure~\ref{fig:topiccorank-pr_curves_termith} permet de comparer le
+  Les courbes de précision et de rappel de la
+  figure~\ref{fig:topiccorank-pr_curves_termith} permettent de comparer le
   comportement respectif des méthodes de référence, de Topic\-RankSpe et de
-  ses variantes. Elle montre que TopicRankSpe et ses variantes dominent les
-  méthodes de référence selon les critères de précision
-  et de rappel. Parmi elles, nous observons aussi que la variante
+  ses variantes\footnote{Notez que le rappel maximum affiché pour TopicRankSpe
+  est supérieur à celui des autres méthodes, car TopicRankSpe propose des
+  termes-clés absents des documents, contrairement aux autres méthodes.}. Elle
+  montre que TopicRankSpe et ses variantes dominent les méthodes de référence
+  selon les critères de précision et de rappel.
+  Parmi elles, nous observons aussi que la variante
   TopicRankSpe$_\textnormal{contrôlé}$ domine la variante
   TopicRankSpe$_\textnormal{libre}$, mais que TopicRankSpe n'est, ni
   dominante, ni dominé par elles. Bien que l'amélioration significative de
@@ -634,18 +632,19 @@
   reste difficile.
   \input{input/figure/termith_precision_recall_curves.tex}
 
-  Afin d'observer la place que prend l'indexation contrôlé dans TopicRankSpe, et
-  pour comprendre pourquoi sa variante TopicRankSpe$_\textnormal{contrôlé}$
-  est plus performante, nous nous intéressons maintenant aux taux de
-  termes-clés proposés par indexation libre ou contrôlé par TopicRankSpe, présentés dans le
-  tableau~\ref{tab:assignment_ratio_termith}. Nous observons que
-  l'indexation libre est légèrement prédominante face à l'indexation contrôlé. Les deux
+  Afin d'observer la place que prend l'indexation contrôlée dans TopicRankSpe,
+  nous nous intéressons maintenant aux taux de
+  termes-clés proposés par indexation libre ou contrôlée par TopicRankSpe.
+  Le table tableau~\ref{tab:assignment_ratio_termith} montre les taux
+  d'indexation libre et contrôlée pour chaque collection de notices.
+  Nous observons que l'indexation libre est légèrement prédominante face à
+  l'indexation contrôlé. Les deux
   catégories d'indexation par termes-clés sont effectivement réalisées
   conjointement, mais l'ordonnancement donne plus d'importance aux sujets
-  du document qu'aux termes-clés de référence du domaine. En domaines de
+  du document qu'aux termes-clés du domaine. En domaines de
   spécialité où l'indexation contrôlée est préférée, cela peut être résolu en
   travaillant sur un affinage des schémas de connexion des n\oe{}uds de
-  chaque graphe et d'unification de ceux-ci.
+  chaque graphe.
   \begin{table}
     \centering
     \begin{tabular}{l|c|c}
@@ -666,14 +665,15 @@
   Au delà du fait que TopicRankSpe$_\textnormal{contrôlé}$ obtient de
   meilleures performances que TopicRankSpe et
   TopicRankSpe$_\textnormal{libre}$, nous faisons une expérience dans
-  laquelle nous forçons le taux d'indexation contrôlé afin de déterminer si
+  laquelle nous modifions l'étape de sélection des termes-clés de TopicRankSpe
+  afin de forcer le taux d'indexation contrôlé pour déterminer si
   l'ordonnancement des termes-clés du domaine est efficace.
   Un ordonnancement efficace des termes-clés du domaine doit induire une
   courbe de performance cumulative quand nous faisons croître le taux
   d'indexation contrôlé\footnote{Dans cette situation, cela signifie que la
   performance obtenue avec TopicRankSpe$_\textnormal{contrôlé}$ est la
-  performance maximale avec TopicRankSpe}. La
-  figure~\ref{fig:assignment_variations_termith} montre la performance de
+  performance maximale avec TopicRankSpe}.
+  La figure~\ref{fig:assignment_variations_termith} montre la performance de
   TopicRankSpe lorsque le taux d'indexation contrôlée varie de 0~\% à 100~\% avec un
   pas de 10~\%. À chaque augmentation du taux d'indexation contrôlé, la
   performance de TopicRankSpe augmente. L'ordonnancement des termes-clés du
@@ -689,7 +689,7 @@
   de réaliser simultanément une indexation par termes-clés libre et contrôlée.
   Notre méthode, qui étend TopicRank, unifie le graphe des sujets du document à
   un graphe représentant les termes de son domaine de spécialité, puis les
-  ordonne conjointement. Comparée à l'état de l'art, notre méthode a montrée de
+  ordonne conjointement. Comparée à l'état de l'art, notre méthode a montré de
   meilleures performances en termes de précision, de rappel et de f-mesure. En
   domaines de spécialité, la connaissance du domaine joue un rôle crucial pour
   améliorer l'indexation automatique par termes-clés.
