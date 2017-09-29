@@ -1,0 +1,70 @@
+\section{Introduction}
+\label{sec:introduction}
+
+\blfootnote{
+    %
+    % for review submission
+    %
+    %\hspace{-0.65cm}  % space normally used by the marker
+    %Place licence statement here for the camera-ready version, see
+    %Section~\ref{licence} of the instructions for preparing a
+    %manuscript.
+    %
+    % % final paper: en-uk version (to license, a licence)
+    %
+    \hspace{-0.65cm}  % space normally used by the marker
+    This work is licensed under a Creative Commons 
+    Attribution 4.0 International Licence.
+    Licence details:
+    \url{http://creativecommons.org/licenses/by/4.0/}
+    % 
+    % % final paper: en-us version (to licence, a license)
+    %
+    % \hspace{-0.65cm}  % space normally used by the marker
+    % This work is licenced under a Creative Commons 
+    % Attribution 4.0 International License.
+    % License details:
+    % \url{http://creativecommons.org/licenses/by/4.0/}
+}
+
+Keyphrases are words and phrases that give a synoptic picture of what is important within a document.
+%
+They are useful in many tasks such as document indexing~\cite{gutwin1999keyphrasesfordigitallibraries}, text categorization~\cite{hulth-megyesi:2006:COLACL} or summarization~\cite{litvak2008graphbased}.
+%
+However, most documents do not provide keyphrases, and the daily flow of new documents makes the manual
+keyphrase annotation impractical.
+%
+As a consequence, automatic keyphrase annotation has received special attention in the NLP community and many methods have been proposed~\cite{hasan2014state_of_the_art}.
+
+
+The task of automatic keyphrase annotation consists in identifying the main concepts, or topics, addressed in a document.
+%
+Such task is crucial to access relevant scientific documents that could be useful for researchers.
+%
+Keyphrase annotation methods fall into two broad categories: keyphrase extraction and keyphrase assignment methods.
+%
+Keyphrase extraction methods extract the most important words or phrases occurring in a document, while assignment methods provide controlled keyphrases from a domain-specific terminology (controlled vocabulary).
+
+The automatic keyphrase annotation task is often reduced to the sole keyphrase extraction task.
+%
+Unlike assignment methods, extraction methods do not require domain specific controlled vocabularies that are costly to create and to maintain.
+%
+Furthermore, they are able to identify new concepts that have not been yet recorded in the thesaurus or ontologies.
+%
+However, extraction methods often output ill-formed or inappropriate keyphrases~\cite{medelyan2008smalltrainingset}, and they produce only keyphrases that actually occur in the document.
+
+Observations made on manually assigned keyphrases from scientific papers of specialized domains show that professional human indexers both extract keyphrases from the content of the document and assign keyphrases based on their knowledge of the domain~\cite{liu2011vocabularygap}.
+Here, we propose an approach that mimics this behaviour and jointly extracts and assigns keyphrases.
+%
+We use two graph representations, one for the document and one for the specialized domain.
+%
+Then, we apply a co-ranking algorithm to perform both keyphrase extraction and assignment in a mutually reinforcing manner.
+%
+%We perform experiments on the DEFT-2016 benchmark datasets~\cite{daille-et-al:2016:DEFT} in three domains belonging to humanities and social sciences: linguistics, information science and archaeology. 
+We perform experiments on bibliographic records in three domains belonging to humanities and social sciences: linguistics, information science and archaeology. 
+%
+Along with this approach come two contributions.
+%
+First, we present a simple yet efficient assignment extension of a state-of-the-art graph-based keyphrase extraction method, TopicRank~\cite{bougouin2013topicrank}.
+%
+Second, we circumvent the need for a controlled vocabulary by leveraging reference keyphrases from training data and further take advantage of their relationship within the training data.

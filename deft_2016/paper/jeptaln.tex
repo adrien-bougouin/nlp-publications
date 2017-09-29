@@ -1,0 +1,355 @@
+\documentclass[10pt,twoside]{article}
+\usepackage{times}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{xifthen}
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{relsize}
+\usepackage{booktabs}
+
+\usepackage{jeptaln2016}
+%\usepackage[frenchb]{babel}
+
+\usetikzlibrary{positioning, topaths, shapes, arrows, patterns, calc}
+
+\renewcommand\cite[2][]{\ifthenelse{\equal{#1}{}}{\citep{#2}}{\citep[#1]{#2}}}
+\newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citet{#2}}{\citet[#1]{#2}}}
+
+\newcommand{\og}{"}
+\newcommand{\fg}{"}
+
+\title{TopicRank en domaines de spécialité~:\\participation du LINA à DEFT 2016}
+
+\author{
+    Adrien Bougouin \quad{} Florian Boudin \quad{} Béatrice Daille\\
+    {\small
+        LINA -- UMR CNRS 6241,
+        2 rue de la Houssinièe,
+        44322 Nantes Cedex 3,
+        France\\
+        \texttt{<prenom.nom>@univ-nantes.fr}
+    }
+}
+
+\begin{document}
+    \maketitle
+    
+    \resume{
+      Cet article présente la participation de l'équipe TALN du LINA au défi fouille de textes (DEFT) 2016.
+      Développé pour l'indexation de mots-clés, notre système reprend une méthode à base de graphe état de l'art dans le domaine (TopicRank) et l'étend afin de mieux répondre aux attentes d'une indexation professionnelle réalisée dans le cadre d'une bibliothèque scientifique numérique.
+      Notre système s'est classé à la troisième place sur un total de cinq participants.
+    }
+    
+    \abstract{LINA at DEFT 2016}{
+      This article presents the participation of the TALN group at LINA to the défi fouille de textes (DEFT) 2016.
+      Developed specifically for automatic keyphrase annotation, our system improves an existing method (TopicRank), mimicking professional indexers of Digital Libraries.
+      Our system ranked third out of a total of five systems.
+    }
+    
+    \motsClefs{DEFT 2016, extraction de mots-clés, assignement de mots-clés, méthode à base de graphe, domaine de spécialité}
+              {DEFT 2016, keyphrase extraction, keyphrase assignment, graph-based method, specific domain}
+    
+    \section{Introduction}
+        L'indexation automatique consiste à identifier un ensemble de mots-clés (e.g. mots, termes) qui décrit le contenu d'un document.
+        Les mots-clés peuvent ensuite être utilisés, entre autres, pour faciliter la recherche d'information ou la navigation dans les collections de documents.
+        L'édition 2016 du défi fouille de textes (DEFT) porte sur l'extraction automatique de mots-clés à partir d'articles scientifiques en français.
+        
+        L'objectif du défi DEFT 2016 est de retrouver, à partir du contenu d'articles scientifiques, les mots-clés qui ont été attribués par des indexeurs professionnels.
+        Les documents sont issus de quatre domaines de spécialité~: la linguistique, les sciences de l'information, l'archéologie et la chimie.
+        %
+        Cet article décrit le système que nous avons mis au point pour le défi.
+        
+        Le reste de cet article est organisé comme suit.
+       Nous commençons par présenter les données (cf~Section~\ref{sec:data}), puis notre approche (cf~Section~\ref{sec:approche}) et enfin, nos résultats comparés à ceux des autres participants de DEFT 2016 (cf~Section~\ref{sec:res}).
+    
+    \section{Données du défi DEFT 2016}
+    \label{sec:data}
+        %\textcolor{red}{ TODO Béatrice}
+        
+    Les données mises à disposition par les organisateurs du défi DEFT 2016 sont composées de quatre corpus traitant chacun d'un domaine de spécialité parmi la linguistique, les sciences de l'information, l'archéologie et la chimie.
+    %
+    Chaque corpus consiste en un ensemble de notices bibliographiques (titre, résumé) aux formats TEI et TXT (texte pré-traité de la notice), et un thésaurus au format SKOS.
+    %
+    Les corpus sont divisés en trois sous-ensembles~: jeu d’apprentissage, de développement et de test.
+    %
+    Pour les deux premiers jeux, nous disposons des mots-clés de référence assignés par des indexeurs professionnel de l’Inist.
+
+
+    
+    \section{Approche}
+    \label{sec:approche}
+        Nous proposons une approche fondée sur celle de TopicRank~\cite{bougouin2014topicrank}.
+        TopicRank est une méthode à base de graphe pour l'extraction de mots-clés.
+        Elle sélectionne d'abord des mots-clés candidats au sein du document à analyser, les groupes en sujets, projette les sujets dans un graphe et les ordonnent à la manière de TextRank~\cite{mihalcea2004textrank}.
+        Contrairement à d'autres méthodes d'extraction de mots-clés, TopicRank est capable de réduire considérablement la redondance des mots-clés extraits.
+        
+        Dans ce travail, nous reprenons TopicRank et en améliorons ses performances en tirant partie des éléments du domaine des collections de DEFT 2016.
+        Notre approche utilise les mots-clés des notices d'entrainement comme éléments du domaine et n'utilise pas les thésaurus fournis par les organisateurs.
+        De cette manière, son usage ne se restreint pas uniquement aux données similaires à celles présentées dans le cadre de DEFT 2016.
+        
+        \subsection{TopicRank}
+            TopicRank repose sur cinq grandes étapes~:
+            \begin{enumerate}
+                \item{\textbf{Sélection des mots-clés candidats.} Suivant les travaux précédents~\cite{wan2008expandrank,hassan2010conundrums}, TopicRank sélectionne les plus longues séquences de noms et d'adjectifs en tant que mots-clés candidats~:
+                      \begin{align}
+                        \textnormal{mots\_cles\_candidat} = (NOM | ADJ)+
+                      \end{align}}
+                \item{\textbf{Groupement en sujets.} TopicRank groupe les mots-clés candidats similaires en sujets.
+                      Deux candidats $c_i$ et $c_j$ sont jugés similaires lorsqu'ils partagent au moins un quart de leurs mots,
+                      racinisés d'après la méthode de \cite{porter1980suffixstripping}~:
+                      \begin{align}
+                        \textnormal{sim}(c_i, c_j) &= \frac{|\textnormal{Porter}(c_i) \cap \textnormal{Porter}(c_j)|}{|\textnormal{Porter}(c_i) \cup \textnormal{Porter}(c_j)|}\\
+                        \forall{c_i, c_j \in CANDIDATS}&, c_j \in \textnormal{sujet}(c_i) \Rightarrow \textnormal{sim}(c_i, c_j) \geq \frac{1}{4}
+                      \end{align}
+                      Le groupement est réalisé avec un algorithme de groupement hiérarchique agglomératif.}
+                \item{\textbf{Construction du graphe.} TopicRank représente le document par un graphe complet \mbox{$G = (N, A \subseteq N \times N)$} où les n\oe{}uds $N$ sont les sujets.
+                      Chaque sujet $n \in N$ est connecté aux autres par une arête pondérée $a \in A$ selon la force du lien sémantique entre les sujets~:
+                      \begin{align}
+                        \text{poids}(n_i, n_j) &= \sum_{c_i \in n_i}\ \sum_{c_j \in n_j} \text{distance}(c_i, c_j)\\
+      \text{distance}(c_i, c_j) &= \sum_{p_i \in \text{positions}(c_i)}\ \sum_{p_j \in \text{positions}(c_j)} \frac{1}{|p_i - p_j|}
+                      \end{align}
+                      Plus faible est la distance entre les mots-clés candidats de deux sujets dans le document, plus élevé est le poids de l'arête entre les deux sujets.}
+                \item{\textbf{Ordonnancement des sujets.} À la manière de
+                      TextRank~\cite{mihalcea2004textrank}, TopicRank ordonne les sujets par importance selon le principe de recommandation.
+                      Plus un sujet est fortement connecté à un grand nombre de sujets, plus il gagne d'importance, et plus les sujets avec lesquels il est fortement connecté sont importants, plus l'importance qu'il gagne est forte~:
+                      \begin{align}
+                        \text{importance}(n_i) = (1 - \lambda) + \lambda \times \sum_{n_j \in A(n_i)} \frac{\text{poids}(n_i, n_j) \times \text{importance}(n_j)}{\sum_{n_k \in A(n_j)} \text{poids}(n_j, n_k)} \label{math:textrank}
+                      \end{align}
+                      Où $\lambda$ est un facteur de lissage fixé à 0,85 par \newcite{brin1998pagerank}.}
+                \item{\textbf{Extraction des mots-clés.} TopicRank extrait un unique mot-clé pour chacun des $k$ plus importants sujets.
+                      \newcite{bougouin2013topicrank} ont choisi de sélectionner dans chaque sujet le mot-clé candidat qui apparaît en premier dans le document.}
+            \end{enumerate}
+            
+            Notre approche modifie les étapes de construction du graphe, d'ordonnancement par importance et de sélection des mots-clés de TopicRank.
+            La construction du graphe étend le graphe de sujet en l'unifiant à un graphe des mots-clés de référence du domaine.
+            L'ordonnancement est désormais conjoint entre les sujets du document et les mots-clés du domaine.
+            Enfin, la sélection des mots-clés ajoute la possibilité de puiser dans le graphe du domaine.
+            De cette manière, notre méthode est capable de réaliser simultanément deux catégories d'indexation par mots-clés~:
+            \begin{itemize}
+                \item{\textbf{Extraction de mots-clés}~: les mots-clés sont sélectionnés parmi les unités textuelles du document (e.g.~TopicRank)~;}
+                \item{\textbf{Assignement de mots-clés}~: les mots-clés ne sont pas restreints au contenu du document et doivent faire partie d'un vocabulaire contrôlé construit pour cette tâche.}
+            \end{itemize}
+        
+        \subsection{Extraction et assignement (M1)}
+            \begin{figure}
+                \newcommand{\xslant}{0.25}
+                \newcommand{\yslant}{0}
+                
+                \centering
+                \begin{tikzpicture}[transform shape, scale=.45]
+                % frame
+                \node [draw,
+                       rectangle,
+                       minimum width=.7\linewidth,
+                       minimum height=8em,
+                       xslant=\xslant,
+                       yslant=\yslant] (domain_graph) {};
+                \node [above=of domain_graph,
+                       xshift=.36\linewidth,
+                       yshift=8em,
+                       anchor=south east] (domain_graph_label) {mots-clés du domaine};
+                
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=.3\linewidth,
+                     yshift=5em] (domain_node1) {$N_1$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=-.3\linewidth,
+                       yshift=5em] (domain_node2) {$N_2$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       yshift=5em] (domain_node3) {$N_3$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=.15\linewidth,
+                       yshift=.75em] (domain_node4) {$N_4$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=-.15\linewidth,
+                       yshift=.75em] (domain_node5) {$N_5$};
+                
+                \draw (domain_node1) -- (domain_node3);
+                \draw (domain_node2) -- (domain_node3);
+                \draw (domain_node2) -- (domain_node4);
+                \draw (domain_node4) -- (domain_node5);
+                \draw (domain_node4) -- (domain_node3);
+                
+                % document
+                \node [draw,
+                       rectangle,
+                       minimum width=.7\linewidth,
+                       minimum height=8em,
+                       xslant=\xslant,
+                       yslant=\yslant,
+                       above=of domain_graph,
+                       xshift=-2em] (document_graph) {};
+                \node [below=of document_graph,
+                       xshift=-.36\linewidth,
+                       yshift=-8em,
+                       anchor=north west] (document_graph_label) {sujets du document};
+                
+                \node [draw,
+                       circle,
+                       regular polygon sides=8,
+                       below=of document_graph,
+                       xshift=.3\linewidth,
+                       yshift=-5em] (document_node1) {$N_6$};
+                \node [draw,
+                       circle,
+                       regular polygon sides=8,
+                       below=of document_graph,
+                       xshift=-.3\linewidth,
+                       yshift=-5em] (document_node2) {$N_7$};
+                \node [draw,
+                       circle,
+                       regular polygon sides=8,
+                       below=of document_graph,
+                     yshift=-5em] (document_node3) {$N_8$};
+                \node [draw,
+                       circle,
+                       regular polygon sides=8,
+                       below=of document_graph,
+                       xshift=.15\linewidth,
+                       yshift=-.75em] (document_node4) {$N_9$};
+                
+                \draw (document_node2) -- (document_node3);
+                \draw (document_node3) -- (document_node1);
+                \draw (document_node1) -- (document_node4);
+                \draw (document_node3) -- (document_node4);
+                
+                % extra link
+                \draw [dashed] (document_node2) -- (domain_node2);
+                \draw [dashed] (document_node3) -- (domain_node3);
+                \draw [dashed] (document_node4) -- (domain_node1);
+                \draw [dashed] (document_node3) -- (domain_node4);
+                
+                % legend
+                \node [right=of document_graph, xshift=2em, yshift=-9.25em] (legend_title) {\underline{Légende~:}};
+                \node [below=of legend_title, xshift=-1em, yshift=2em] (begin_inner) {};
+                \node [right=of begin_inner] (end_inner) {: $A_\textnormal{\textit{interne}}$};
+                \node [below=of begin_inner, yshift=1.5em] (begin_outer) {};
+                \node [right=of begin_outer] (end_outer) {: $A_\textnormal{\textit{externe}}$};
+                
+                \draw (legend_title.north  -| end_outer.east) rectangle (end_outer.south -| legend_title.west);
+                
+                \draw (begin_inner) -- (end_inner);
+                \draw [dashed] (begin_outer) -- (end_outer);
+                \end{tikzpicture}
+                \caption{Illustration du graphe unifié que nous proposons 
+                       \label{fig:topiccorank_graph}}
+            \end{figure}
+            
+            Afin de réaliser simultanément extraction et assignement de mots-clés, nous unifions deux graphes~: l'un représentant le document (graphe de sujets) et l'autre les mots-clés de référence de son domaine (graphe du domaine).
+            Le premier graphe sert à l'extraction de mots-clés.
+            Le second, construit à partir des mots-clés de référence de documents d'apprentissage, sert à l'assignement.
+            Ainsi, nous faisons l'hypothèse que les mots-clés de référence des documents d'apprentissage constituent la terminologie du domaine et nous les utilisons comme substituts au vocabulaire contrôlé usuel en assignement de mots-clés.
+            Contrairement aux mots-clés candidats sélectionnés dans le document, les mots-clés de référence ne sont pas redondants et ne sont donc pas groupés en sujets.
+
+        Soit le graphe unifié non orienté \mbox{$G = (N, A = A_{\textnormal{\textit{interne}}} \cup A_{\textnormal{\textit{externe}}})$}.
+        $N$ dénote indifféremment les sujets et les mots-clés du domaine.
+        $A$ regroupe les arêtes $A_{\textnormal{\textit{interne}}}$, qui connectent deux sujets ou deux mots-clés du domaine, et les arêtes $A_{\textnormal{\textit{externe}}}$, qui connectent un sujet à un mot-clé du domaine (voir la figure~\ref{fig:topiccorank_graph}).
+        Nous connectons deux sujets ou deux mots-clés du domaine lorsqu'ils apparaissent dans le même contexte et nous pondèrons leur arête par le nombre de fois que cela se produit.
+        Lorsqu'il s'agit des sujets, le contexte est une phrase du document~; lorsqu'il s'agit des mots-clés du domaine, le contexte est l'ensemble des mots-clés du domaine d'un document d'apprentissage.
+        Les contextes étant utilisés pour la création du graphe, le graphe de sujets n'est plus complet comme celui de TopicRank.
+
+        Le graphe de sujets et le graphe du domaine sont unifiés grâce aux arêtes $A_{\textnormal{\textit{externe}}}$.
+        L'objectif des arêtes $A_{\textnormal{\textit{externe}}}$ est de connecter le document  à son domaine par l'intermédiaire des concepts qu'ils partagent.
+        Une arête $A_{\textnormal{\textit{externe}}}$ est donc créée entre un sujet et un mot-clé du domaine si ce dernier appartient au sujet, c'est-à-dire correspond à l'un de ses mots-clés candidats.
+        
+        À partir du graphe unifié, nous ordonnons simultanément sujets $s \in N$ du document et mots-clés $m \in N$ du domaine par importance.
+        Pour cela, nous reprenons le même principe que TopicRank et l'adaptons de sorte que sujets et mots-clés du domaine se transfèrent de l'importance.
+        Nous proposons deux formes de recommandation~: une recommandation interne $R_{\textnormal{\textit{interne}}}$ qui intervient entre deux n\oe{}uds du même type (sujets ou mots-clés du domaine) et une recommandation externe $R_{\textnormal{\textit{externe}}}$ qui intervient entre un sujet et un mot-clé du domaine.
+        \begin{align}
+          \textnormal{importance}(s_i) &= (1 - \lambda_s)\ R_{\textnormal{\textit{externe}}}(s_i) + \lambda_s\ R_{\textnormal{\textit{interne}}}(s_i)\label{math:topiccorank_t}\\
+          \textnormal{importance}(m_i) &= (1 - \lambda_m)\ R_{\textnormal{\textit{externe}}}(m_i) + \lambda_m\ R_{\textnormal{\textit{interne}}}(m_i)\label{math:topiccorank_k}\\
+          R_{\textnormal{\textit{interne}}}(n_i) &= \sum_{n_j \in A_{\textnormal{\textit{interne}}}(n_i)}{\frac{\textnormal{poids}(n_i, n_j) \textnormal(n_j)}{\mathlarger\sum_{n_k \in A(n_j)}{{\textnormal{poids}(n_j, n_k)}}}}\label{math:rin}\\
+          R_{\textnormal{\textit{externe}}}(n_i) &= \sum_{n_j \in A_{\textnormal{\textit{externe}}}(n_i)}{\frac{\textnormal{importance}(n_j)}{|A_{\textnormal{\textit{out}}}(n_j)|}}\label{math:rout}
+        \end{align}
+        Où $\lambda_s$ et $\lambda_m$ sont deux facteurs de lissage définis empiriquement pour l'ordonnancement par importance des sujets et des mots-clés du domaine, respectivement.
+        
+        Pour finir, indifféremment de leur type nous identifions dix mots-clés parmi les sujets et/ou mots-clés du domaine les plus importants.
+        
+        \subsection{Extraction seule (V1.1)}
+            Nous proposons une variante de notre approche qui ne consiste qu'à identifier les mots-clés parmi les sujets.
+            Le graphe unifié est toujours utilisé et les mots-clés du domaine sont tout de même utilisés pour l'ordonnancement.
+        
+        \subsection{Assignement seul (V1.2)}
+            Nous proposons une seconde variante de notre approche qui ne consiste qu'à identifier les mots-clés parmi les mots-clés du domaine.
+            Le graphe unifié est toujours utilisé et les sujets du document sont tout de même utilisés pour l'ordonnancement.
+    
+    \section{Résultats}
+    \label{sec:res}
+        Nous présentons dans cette section les résultats officiels de la campagne DEFT 2016.
+        Nous avons soumis trois exécutions pour chaque collection~: l'une pour notre approche (M1) et deux autres pour ses variantes (V1.1 et V1.2).
+        
+        \begin{table}[htb!]
+            \centering
+            \resizebox{\linewidth}{!}{\begin{tabular}{l|ccc|ccc|ccc|ccc}
+            \toprule
+            & \multicolumn{3}{c|}{\textbf{Archéologie}} & \multicolumn{3}{c|}{\textbf{Chimie}} & \multicolumn{3}{c|}{\textbf{Linguistique}} & \multicolumn{3}{c}{\textbf{Sciences de l'information}}\\
+            \cline{2-13}
+            \textbf{Méthode} & Précision & Rappel & F-mesure & Précision & Rappel & F-mesure & Précision & Rappel & F-mesure & Précision & Rappel & F-mesure\\
+            \hline
+            M1   & 49,86 & 31,16 & 37,28 & 20,87 & 17,45 & 18,11 & 22,23 & 24,87 & 23,24 & 20,61 & 20,65 & 20,21\\
+            V1.1 & 43,63 & 26,63 & 32,17 & 15,77 & 13,10 & 13,60 & 13,77 & 15,56 & 14,47 & 15,67 & 15,87 & 15,39\\
+            V1.2 & \textbf{53,77} & \textbf{33,46} & \textbf{40,11} & \textbf{21,15} & \textbf{17,54} & \textbf{18,28} & \textbf{23,16} & \textbf{25,85} & \textbf{24,19} & \textbf{21,93} & \textbf{21,83} & \textbf{21,45}\\
+            \bottomrule
+            \end{tabular}}
+            \caption{Résultats de nos trois exécutions pour les collections d'archéologie, de chimie, de linguistique et de sciences de l'information\label{tab:us}}
+        \end{table}
+        
+        Le tableau~\ref{tab:us} présente les résultats de nos trois exécutions pour les collections d'archéologie, de chimie, de linguistique et de sciences de l'information.
+        Nous constatons que la variante V1.2 obtient les meilleurs résultats.
+        Compte tenu de la nature des collections de données, cette observation semble normale.
+        En effet, les notices sont indexées par des indexeurs professionnels utilisant principalement un vocabulaire controlé.
+        Cela révèle toutefois que notre modèle ne fait pas suffisamment émerger les mots-clés du domaine pour M1.
+        
+        \begin{table}[htb!]
+            \centering
+            \resizebox{\linewidth}{!}{\begin{tabular}{l|lc|lc|lc|lc}
+            \toprule
+            & \multicolumn{2}{c|}{\textbf{Archéologie}} & \multicolumn{2}{c|}{\textbf{Chimie}} & \multicolumn{2}{c|}{\textbf{Linguistique}} & \multicolumn{2}{c}{\textbf{Sciences de l'information}}\\
+            \cline{2-9}
+            \textbf{Rang} & Équipe & F-mesure & Équipe & F-mesure & Équipe & F-mesure & Équipe & F-mesure\\
+            \hline
+            1 & EXENSA & 45,59 & EXENSA & 21,46 & EBSIUM & 31,75 & EBSIUM & 28,98,\\
+            2 & LIMSI & 43,26 & EBSIUM & 21,07 & EXENSA & 26,30 & EXENSA & 23,86\\
+            \textbf{3} & \textbf{LINA} & \textbf{40,11} & \textbf{LINA} & \textbf{18,28} & \textbf{LINA} & \textbf{24,19} & \textbf{LINA} & \textbf{21,45}\\
+            4 & EBSIUM & 34,96 & LIPN & 15,31 & LIPN & 19,07 & LIPN & 15,34\\
+            5 & LIPN & 30,75 & LIMSI & 15,29 & LIMSI & 15,63 & LIMSI & 12,49\\
+            \bottomrule
+            \end{tabular}}
+            \caption{Classement de DEFT 2016 sur la base des meilleures soumissions pour les collections d'archéologie, de chimie, de linguistique et de sciences de l'information. Notre classement est indiqué en gras.\label{tab:all}}
+        \end{table}
+        
+        Le tableau~\ref{tab:all} présente, pour les collections d'archéologie, de chimie, de linguistique et de sciences de l'information, le classement des différentes équipes sur la base de la meilleure soumission.
+        Notre soumission est classée au rang 3 sur 5.
+    
+    \section{Conclusion}
+        Nous avons décrit la participation du LINA à DEFT 2016.
+        Notre système est le résultat d'une analyse approfondie du mode de fonctionnement d'un indexeur professionnel de l'INIST.
+        Il combine deux graphes représentant le document à analyser et son domaine de spécialité, lui permettant d'extraire des mots-clés du document et d'en assigner à partir de son domaine.
+        Ces derniers n'apparaissent pas nécessairement dans le document.
+        Notre système s'est classé à la troisième place sur un total de cinq systèmes.
+
+        Parmi les trois variantes que nous avons proposées, celle qui ne réalise que l'assignement de mots-clés est la meilleure.
+        Cela signifie que notre modèle hybride pour l'extraction et l'assignement simultanés de mots-clés n'est pas optimal.
+        Nous envisageons d'étendre ce travail en affinant le schéma de connection des deux graphes afin de faciliter l'émergence des mots-clés à assigner.
+
+    \section*{Remerciements}
+        Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche portant la référence \mbox{(ANR-12-CORD-0029)}.
+    
+    %\section{Références}
+    \bibliographystyle{jeptaln2016}
+    \renewcommand\refname{Références}
+    \bibliography{biblio}
+\end{document}

@@ -1,0 +1,139 @@
+\section{Experimental Setup}
+\label{sec:experimental_setup}
+    \subsection{Datasets}
+    \label{subsec:datasets}
+    
+        We conduct our experiments on data from the DEFT-2016 benchmark datasets~\cite{daille-et-al:2016:DEFT}\footnote{Data has been provided by the TermITH project for both DEFT-2016 and this work. Parallely, the subset division has been modified for the purpose of DEFT-2016. Therefore, we use the same data as DEFT-2016, but the subset division is different. The subset division we used for our experiences can be found here: \url{https://github.com/adrien-bougouin/KeyBench/tree/coling_2016/datasets/}} in three domains: linguistics, information Science and archaeology.
+        %
+        Table~\ref{tab:dataset_statistics} shows the factual information about the datasets.
+        %
+        Each dataset is a collection of 706 up to 718 French bibliographic records collected from the database of the French Institute for Scientific and Technical Information\footnote{\url{http://www.inist.fr}} (Inist).
+        The bibliographic records contain a title of one scientific paper, its abstract and its keyphrases that were annotated by professional indexers (one per bibliographic record).
+        Indexers were given the instruction to assign reference keyphrases from a controlled vocabulary and to extract new concepts or very specific keyphrases from the titles and the abstracts.
+        %We divided each corpora into three sets: a test set, used for evaluation; a training set (denoted as train), used to represent the domain; and a development set (denoted as dev), used for parameter tuning.
+        Each dataset is divided into three sets: a test set, used for evaluation; a training set (denoted as train), used to represent the domain; and a development set (denoted as dev), used for parameter tuning.
+        %
+        %The test set is composed of 200 bibliographic records, the train set is composed of the remaining and the development includes 100 of the bibliographic records from the training set.
+        
+        \input{input/tables/stats.tex}
+
+        The amount of missing keyphrases, i.e.~keyphrases that cannot be extracted from the documents, shows the importance of keyphrase assignment in the context of scientific domains.
+        More than half of the keyphrases of linguistics and information science domains can only be assigned, which confirms that these two datasets are difficult to process with keyword extraction approaches alone. 
+        %Other non domain-specific and non scientific datasets used in the keyphrase extraction community contain much lower amounts of missing keyphrases, such as the DUC dataset~\cite{wan2008expandrank} that contains about 4\% of missing keyphrases.
+
+    \subsection{Document preprocessing}
+    \label{subsec:document_preprocessing}
+        We apply the following preprocessing steps to each document: sentence segmentation, word tokenization and Part-of-Speech (POS) tagging.
+        Sentence segmentation is performed with the PunktSentenceTokenizer provided by the Python Natural Language ToolKit (NLTK)~\cite{bird2009nltk}, word tokenization using the Bonsai word tokenizer\footnote{The Bonsai word tokenizer is a tool provided with the Bonsai PCFG-LA parser: \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}} and POS tagging with MElt~\cite{denis2009melt}.
+
+    \subsection{Baselines}
+    \label{subsec:baselines}
+        To show the effectiveness of our approach, we compare TopicCoRank and its variants (TopicCoRank$_\textnormal{\textit{extr}}$ and TopicCoRank$_\textnormal{\textit{assign}}$) with TopicRank and KEA++.
+        For KEA++, we use the thesauri maintained by Inist\footnote{Thesauri are available from: \url{http://deft2016.univ-nantes.fr/download/traindev/}} to index the bibliographic records of Linguistics, Information Science and Archaeology.
+    
+    % \subsection{Evaluation measures}
+    % \label{subsec:evaluation_measures}
+    %     To evaluate the performance of the keyphrase extraction methods, we use the common measures of precision (P), recall (R) and f1-score (F).
+    %     Following previous work~\cite{bougouin2013topicrank}, we cut off the extracted keyphrases at the ten best ranked ones and perform the comparisons with stemmed keyphrases.
+    
+    %     Consistent with \newcite{hassan2010conundrums}, we also report the performance of TopicCoRank and the baselines in terms of precision-recall curves.
+    %     Such representation gives a good appreciation of the advantage of a method compared to others, especially if the other methods achieve performances in the \textit{Area Under the Curve} (AUC).
+    %     To generate the curves, we vary the evaluation cut-off from 1 to the total number of extracted/assigned keyphrases and compute the precision and recall for each cut-off.
+
+    \subsection{TopicCoRank setting}
+    \label{subsec:topiccorank_settings}
+        \REVIEWOK{Empirically, we'd tune the parameters on development set, which is independant of evaluation dataset}
+        The $\lambda_t$ and $\lambda_k$ parameters of TopicCoRank were tuned on the development sets, and set to 0.1 and 0.5 respectively.
+        %To achieve a near-optimal performance with TopicCoRank, we empirically tune $\lambda_t$ and $\lambda_k$ on the development sets.
+        %For each dataset, the near-optimal value of $\lambda_t$ is 0.1 and the near-optimal value of $\lambda_k$ is 0.5.
+        This empirical setup means that the importance of topics is much more influenced by controlled keyphrases than other topics, and that the importance of controlled keyphrases is equally influenced by controlled keyphrases and topics.
+        In other words, the domain has a positive influence on the joint task of keyphrase extraction and assignment.
+        % \begin{table}
+        %     \centering
+        %     \begin{tabular}{l|c|c|c|c|c|c|c|c|c}
+        %         \toprule
+        %         \multirow{2}{*}{$\lambda_k$} & \multicolumn{9}{c}{$\lambda_t$}\\
+        %         \cline{2-10}
+        %         & \textbf{0.10} & 0.20 & 0.30 & 0.40 & 0.50 & 0.60 & 0.70 & 0.80 & 0.90\\
+        %         \hline
+        %         0.10 & 0.265929 & 0.223061 & 0.220135 & 0.210187 & 0.205136 & 0.200050 & 0.182961 & 0.163289 & 0.152953\\
+        %         \hline
+        %         0.20 & 0.308469 & 0.268461 & 0.235401 & 0.220135 & 0.208541 & 0.200926 & 0.180708 & 0.163300 & 0.145991\\
+        %         \hline
+        %         0.30 & 0.328994 & 0.299389 & 0.268872 & 0.239055 & 0.216093 & 0.198867 & 0.175048 & 0.159956 & 0.140896\\
+        %         \hline
+        %         0.40 & 0.356845 & 0.329772 & 0.300162 & 0.272695 & 0.229187 & 0.199256 & 0.170756 & 0.149463 & 0.128656\\
+        %         \hline
+        %         \textbf{0.50} & \textbf{0.369872} & 0.357373 & 0.332364 & 0.302425 & 0.252934 & 0.201961 & 0.168769 & 0.138578 & 0.114714\\
+        %         \hline
+        %         0.60 & 0.329932 & 0.316328 & 0.304142 & 0.287540 & 0.273105 & 0.232559 & 0.172237 & 0.130202 & 0.099038\\
+        %         \hline
+        %         0.70 & 0.190299 & 0.190299 & 0.194126 & 0.197638 & 0.205074 & 0.209377 & 0.199643 & 0.117608 & 0.089627\\
+        %         \hline
+        %         0.80 & 0.175659 & 0.176659 & 0.176940 & 0.178260 & 0.178260 & 0.178260 & 0.183054 & 0.184146 & 0.086289\\
+        %         \hline
+        %         0.90 & 0.170923 & 0.170923 & 0.170871 & 0.171871 & 0.171994 & 0.171994 & 0.171994 & 0.169994 & 0.180775\\
+        %         \bottomrule
+        %     \end{tabular}
+        %     \caption{F1-scores of TopicCoRank on Linguistics according to $\lambda_k$ and $\lambda_t$ \TODO{remove}}
+        % \end{table}
+        
+        % \begin{table}
+        %     \centering
+        %     \begin{tabular}{l|c|c|c|c|c|c|c|c|c}
+        %         \toprule
+        %         \multirow{2}{*}{$\lambda_k$} & \multicolumn{9}{c}{$\lambda_t$}\\
+        %         \cline{2-10}
+        %         & \textbf{0.10} & 0.20 & 0.30 & 0.40 & 0.50 & 0.60 & 0.70 & 0.80 & 0.90\\
+        %         \hline
+        %         0.10 & 0.287552 & 0.263499 & 0.258782 & 0.256730 & 0.251521 & 0.241996 & 0.233082 & 0.228069 & 0.207586\\
+        %         \hline
+        %         0.20 & 0.315930 & 0.288671 & 0.268896 & 0.261621 & 0.260268 & 0.252238 & 0.239033 & 0.225557 & 0.199013\\
+        %         \hline
+        %         0.30 & 0.332686 & 0.308754 & 0.288124 & 0.266357 & 0.261329 & 0.252295 & 0.239102 & 0.208736 & 0.193353\\
+        %         \hline
+        %         0.40 & 0.346112 & 0.328580 & 0.304048 & 0.283733 & 0.260291 & 0.252718 & 0.232835 & 0.198415 & 0.185377\\
+        %         \hline
+        %         \textbf{0.50} & \textbf{0.370700} & 0.353686 & 0.330340 & 0.298682 & 0.267274 & 0.246244 & 0.225128 & 0.192599 & 0.171164\\
+        %         \hline
+        %         0.60 & 0.333296 & 0.324421 & 0.322860 & 0.310443 & 0.282135 & 0.246035 & 0.217478 & 0.176974 & 0.158986\\
+        %         \hline
+        %         0.70 & 0.193747 & 0.178799 & 0.174778 & 0.169829 & 0.175432 & 0.202766 & 0.216087 & 0.163864 & 0.140023\\
+        %         \hline
+        %         0.80 & 0.097146 & 0.097183 & 0.095015 & 0.091848 & 0.090515 & 0.096530 & 0.113824 & 0.162864 & 0.131422\\
+        %         \hline
+        %         0.90 & 0.073907 & 0.071554 & 0.071554 & 0.070645 & 0.070645 & 0.070645 & 0.070645 & 0.070645 & 0.131578\\
+        %         \bottomrule
+        %     \end{tabular}
+        %     \caption{F1-scores of TopicCoRank on Information Science according to $\lambda_k$ and $\lambda_t$ \TODO{remove}}
+        % \end{table}
+
+        % \begin{table}
+        %     \centering
+        %     \begin{tabular}{l|c|c|c|c|c|c|c|c|c}
+        %         \toprule
+        %         \multirow{2}{*}{$\lambda_k$} & \multicolumn{9}{c}{$\lambda_t$}\\
+        %         \cline{2-10}
+        %         & \textbf{0.10} & 0.20 & 0.30 & 0.40 & 0.50 & 0.60 & 0.70 & 0.80 & 0.90\\
+        %         \hline
+        %         0.10 & 0.413157 & 0.393052 & 0.373521 & 0.364198 & 0.352233 & 0.333856 & 0.317894 & 0.283662 & 0.256224\\
+        %         \hline
+        %         0.20 & 0.440457 & 0.410872 & 0.393465 & 0.384026 & 0.363234 & 0.338660 & 0.312442 & 0.278358 & 0.237849\\
+        %         \hline
+        %         0.30 & 0.454136 & 0.420689 & 0.404031 & 0.389898 & 0.366015 & 0.338598 & 0.304129 & 0.260972 & 0.227070\\
+        %         \hline
+        %         0.40 & 0.454808 & 0.439736 & 0.414329 & 0.395066 & 0.365365 & 0.329143 & 0.291480 & 0.241169 & 0.219739\\
+        %         \hline
+        %         \textbf{0.50} & \textbf{0.468462} & 0.465186 & 0.444262 & 0.410748 & 0.369891 & 0.320035 & 0.275065 & 0.226923 & 0.199869\\
+        %         \hline
+        %         0.60 & 0.408617 & 0.418801 & 0.405849 & 0.394795 & 0.375971 & 0.340019 & 0.270603 & 0.213206 & 0.177203\\
+        %         \hline
+        %         0.70 & 0.253766 & 0.253212 & 0.253855 & 0.256144 & 0.270933 & 0.299230 & 0.290054 & 0.207877 & 0.161434\\
+        %         \hline
+        %         0.80 & 0.209198 & 0.209768 & 0.208443 & 0.207140 & 0.208652 & 0.215149 & 0.218337 & 0.254218 & 0.155159\\
+        %         \hline
+        %         0.90 & 0.197547 & 0.197547 & 0.199225 & 0.200134 & 0.200848 & 0.200848 & 0.201589 & 0.202472 & 0.233327\\
+        %         \bottomrule
+        %     \end{tabular}
+        %     \caption{F1-scores of TopicCoRank on Archaeology according to $\lambda_k$ and $\lambda_t$ \TODO{remove}}
+        % \end{table}

@@ -1,0 +1,27 @@
+\subsection{Qualitative example}
+\label{subsec:qualitative_example}
+    \REVIEWOK{We need the authors to explain clearly and deeply why TopicCoRank can outperform TopicRank}
+    To show the benefit of TopicCoRank, we compare it to TopicRank on one of our bibliographic records in Linguistics (see Figure~\ref{fig:example}).
+    Over the nine reference keyphrases, TopicRank successfully identifies two of the reference keyphrases: ``lexical semantics'' and ``semantic variation''. TopicCoRank successfully identifies seven of them: ``lexical semantics'', ``verb'', ``semantic variation'', ``French'', ``syntax'', ``semantic interpretation'' and ``distributional analysis''.
+    
+    \begin{figure}
+      \centering
+      \framebox[\linewidth]{
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{\textit{Toucher : le tango des sens. Problèmes de sémantique lexicale} (The French verb 'toucher': the tango of senses. A problem of lexical)}\\
+    
+          \textit{A partir d'une hypothèse sur la sémantique de l'unité lexicale 'toucher' formulée en termes de forme schématique, cette étude vise à rendre compte de la variation sémantique manifestée par les emplois de ce verbe dans la construction transitive directe 'C0 toucher C1'. Notre étude cherche donc à articuler variation sémantique et invariance fonctionnelle. Cet article concerne essentiellement le mode de variation co-textuelle : en conséquence, elle ne constitue qu'une première étape dans la compréhension de la construction des valeurs référentielles que permet 'toucher'. Une étude minutieuse de nombreux exemples nous a permis de dégager des constantes impératives sous la forme des 4 notions suivantes : sous-détermination sémantique, contact, anormalité, et contingence. Nous avons tenté de montrer comment ces notions interprétatives sont directement dérivables de la forme schématique proposée.}\\
+    
+          \textbf{Keyphrases~}:
+            \textit{Français} (French); \textit{modélisation} (modelling); \textit{analyse distributionnelle} (distributional analysis); \textit{interprétation sémantique} (semantic interpretation); \textit{variation sémantique} (semantic variation); \textit{transitif} (transitive); \textit{verbe} (verb); \textit{syntaxe} (syntax) and \textit{sémantique lexicale} (lexical semantics).
+        }
+      }
+      \caption{Example of a bibliographic record in Linguistics (\url{http://cat.inist.fr/?aModele=afficheN&cpsidt=16471543})\label{fig:example}}
+    \end{figure}
+
+    TopicCoRank mostly outperforms TopicRank because it finds key\-phrases that do not occur within the document: ``French'', ``syntax'', ``semantic interpretation'', and ``distributional analysis''.
+    Some keyphrases, such as ``French'', are frequently assigned because they are part of most of the bibliographic records of our dataset\footnote{Yet, TopicCoRank does not assign ``French'' to every bibliographic records.} (48.9\% of the Linguistics records contain ``French'' as a keyphrase);
+    Other keyphrases, such as ``semantic interpretation'', are assigned thanks to their strong connection with controlled keyphrases occurring in the abstract (e.g.~``lexical semantics'').
+
+    Interestingly, the performance of TopicCoRank is not only better thanks to the assignment.
+    For instance, we observe keyphrases, such as ``verb'', that emerge from topics connected to other topics that distribute importance from controlled keyphrases (e.g.~``semantic variation'').

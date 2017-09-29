@@ -1,0 +1,80 @@
+\section{Introduction}
+\label{sec: introduction}
+  Keyphrases are words or phrases that give a synoptic picture of what is
+  important within a document. They are useful in many tasks such as
+  document indexing~\cite{gutwin1999keyphrasesfordigitallibraries}, text
+  categorization~\cite{hulth-megyesi:2006:COLACL} or
+  summarization~\cite{litvak2008graphbased}. However, most documents do not
+  provide keyphrases, and the daily flow of new documents makes the manual
+  keyphrase annotation impractical. As a consequence, automatic keyphrase
+  annotation has received special attention in the Natural Language
+  Processing (NLP) community and many different methods have been 
+  proposed~\cite{hasan2014state_of_the_art}.
+
+
+  The task of automatic keyphrase annotation consists in identifying the main 
+  concepts, or topics, addressed in a document.
+  Keyphrase annotation methods fall into two broad categories: keyphrase 
+  extraction and keyphrase assignment methods.
+  Keyphrase extraction methods extract the most important words or phrases
+  occurring in a document, while assignment methods provide controlled 
+  keyphrases from a domain-specific terminology (controlled vocabulary).
+
+  The automatic keyphrase annotation task is often reduced to the sole 
+  keyphrase extraction task.
+  Unlike assignment methods, extraction methods do not require controlled 
+  vocabularies that are costly to create and to maintain. 
+  Furthermore, they are able to identify new concepts.
+  However, extraction methods often output ill-formed or inappropriate
+  keyphrases~\cite{medelyan2008smalltrainingset}, and they produce only
+  keyphrases that actually occur in the document.
+  %Our intuition is that keyphrase annotation must output appropriate
+  %keyphrases, i.e., mostly from controlled vocabulary, and extract
+  %keyphrases that represent new concepts, i.e., within the document.
+
+  
+  Observations made on manually annotated keyphrases show that human annotators both extract keyphrases from the content of the document and
+  assign keyphrases based on their knowledge of the domain~\cite{liu2011vocabularygap}. Here, we
+  propose an approach that mimics this behavior and jointly extracts and assigns keyphrases.
+  We use two graph representations, one for the document and one for the domain, and apply a co-ranking algorithm to perform both keyphrase extraction and assignment in a mutual reinforcing manner.
+  %
+  %We automatically allow this behavior by
+  %unifying a graph representing reference keyphrases of a document's specific
+  %domain to another graph representing keyphrase candidates selected from its
+  %content. The first graph contains potential keyphrases that can be assigned,
+  %while the second graph contains the potential keyphrases that can be extracted.
+  %Then, we apply a co-ranking algorithm to infer the most important keyphrases.
+  %
+  %This paper presents a new keyphrase annotation method that uses a
+  %unified-graph to represent the context of a document and its specific
+  %domain, then applies a co-ranking algorithm to extract and assign the
+  %keyphrases in a collaborative manner.
+  
+  Along with this approach come two contributions.
+  First, we propose a reproducible extension to graph-based keyphrase
+  extraction methods for assigning keyphrases. Second, we circumvent the need of controlled vocabulary by leveraging the reference keyphrases from training
+  data.
+%
+%  In this work, we present a graph co-ranking approach to keyphrase 
+%  annotation that simultaneously performs keyphrase assignment and 
+%  extraction in a mutually reinforcing manner.
+%  We rely on documents annotated with keyphrases to build a co-occurrence 
+%  graph representation of the controlled vocabulary.
+%  A second co-occurrence graph is built from the document and connected 
+%  to the latter.
+%  Keyphrase candidates extracted from the document and entries 
+%  from the controlled vocabulary are then simultaneously ranked.
+%  \ANNOTATE{Our assumption is that there is a mutually reinforcing relationship between
+%  the ranking of the keyphrases in the document and the ranking of
+%  the entries in the controlled vocabulary.}{More details to show our originality}
+
+  We perform experiments on four datasets of different languages and domains.
+  Results show that our co-ranking approach significantly improves performance over state-of-the-art approaches.
+
+  The rest of this paper is organized as follows. Section~\ref{sec:related_work}
+  presents the previous work on automatic keyphrase annotation,
+  section~\ref{sec:topicrankpp} describes our method,
+  section~\ref{sec:experimental_settings} presents our experimental settings and
+  section~\ref{sec:results} discusses the results.
+  Finally, section~\ref{sec:conclusion} concludes and shows some directions 
+  for future work.

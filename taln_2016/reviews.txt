@@ -1,0 +1,224 @@
+----------------------- REVIEW 1 ---------------------
+PAPER: 3
+TITLE: Modélisation unifiée du document et de son domaine pour une indexation
+par termes-clés libre et contrôlée
+AUTHORS: Adrien Bougouin, Florian Boudin and Beatrice Daille
+
+Adéquation: 3 (Pas sûr)
+Clarté: 2 (Des aspects importants restent confus même en faisant un effort.)
+Originalité: 3 (Respectable : une contribution originale qui représente une
+extension notable par rapport à l'existant.)
+Justesse: 4 (Solide : propos généralement bien étayés même si certains aspects
+de l'approche ou de l'évaluation ne sont pas tout à fait convaincants.)
+Comparaison à l'état de l'art: 4 (Références bibliographiques solides mais
+quelques travaux manquent.)
+Impact: 4 (Certaines idées vont être très utiles à un bon nombre de
+chercheurs.)
+RECOMMANDATION: 3 (Ambivalent : article de qualité raisonnable mais il n'est
+pas vraiment à la hauteur des standards.)
+CONFIANCE DU RELECTEUR: 3 (Mon évaluation est correcte. J'ai lu l'article avec
+beaucoup d'attention et je connais très bien le domaine.)
+Respect du format: 2 (conforme)
+Pertinence pour les deux communautés JEP et TALN ?: 1 (non)
+
+----------- Commentaires à destination des auteurs -----------
+Les auteurs proposent un travail sur la détection de termes-clés pour
+l'indexation d'articles de recherche. 
+La méthode proposée se base et modifie les travaux précédents pour apporter
+une amélioration des résultats. Du point de vue des résultats, qui sont
+effectivement améliorés par rapport à des travaux proches de l'état de l'art,
+le travail présente un intérêt.
+Cependant, la présentation du travail n'est pas suffisante. À part le fait que
+la rédaction n'est pas claire et avec de très nombreuses coquilles et erreurs,
+cela ressemble à une traduction rapide de l'anglais.
+D'autres remarques doivent être prises en compte :
+ - il est nécessaire de définir plusieurs notions qui sont utilisées dans le
+travail (domaine, sujet, mot-clé, terme-clé...)
+ - il n'est pas clair comment sont définis les sujets
+ - des exemples sont nécessaires pour illustrer mieux la méthode
+ - 2 corpus sont utilisés (entraînement test) : il est nécessaire de décrire
+ces corpus, au moins d'en indiquer la taille et la composition
+ - les résumés en français et en anglais ne correspondent pas
+ - il est difficile de retrouver sur la figure 2 les explications qui en sont
+données dans le texte
+ - la méthode doit être décrite plus consciencieusement (par exemple, le
+thesaurus Termith n'est jamais décrit)
+ - comment est forcée le taux d'indexation contrôlée ?
+Les auteurs peuvent participer à la compétition DEFT, qui est consacrée cette
+année à l'indexation et la recherche de mots-clés de publications
+scientifiques.
+
+
+----------------------- REVIEW 2 ---------------------
+PAPER: 3
+TITLE: Modélisation unifiée du document et de son domaine pour une indexation
+par termes-clés libre et contrôlée
+AUTHORS: Adrien Bougouin, Florian Boudin and Beatrice Daille
+
+Adéquation: 4 (Probablement)
+Clarté: 3 (Partiellement compréhensible, nécessite un effort.)
+Originalité: 3 (Respectable : une contribution originale qui représente une
+extension notable par rapport à l'existant.)
+Justesse: 3 (Raisonnable : l'approche n'est pas fondamentalement mauvaise et
+au moins une des propositions est probablement correcte.)
+Comparaison à l'état de l'art: 4 (Références bibliographiques solides mais
+quelques travaux manquent.)
+Impact: 3 (Intéressant mais pas trop influent. Les travaux seront cités mais
+principalement à titre comparatif ou en tant que source mineure
+d'inspiration.)
+RECOMMANDATION: 4 (Article de qualité correcte qui vaut la peine d'être
+présenté.)
+CONFIANCE DU RELECTEUR: 3 (Mon évaluation est correcte. J'ai lu l'article avec
+beaucoup d'attention et je connais très bien le domaine.)
+Respect du format: 2 (conforme)
+Pertinence pour les deux communautés JEP et TALN ?: 1 (non)
+
+----------- Commentaires à destination des auteurs -----------
+Modélisation unifiée du document et de son domaine  pour une indexation par
+termes-clés libre et contrôlée
+
+Article intéressant et bonne expérimentation, bien que les résultats sont
+faibles.
+
+Fautes de frappe (quelques unes...) :
+
+- du language du domaine → du langage du domaine
+- plus élévée est la pondération → plus élevée est la pondération
+- Ce dernier graphe est construi → Ce dernier graphe est construit
+- d’un artice d’archéologie → d’un article d’archéologie
+- (c) Archeologie → (c) Archéologie   (dans la figure 3)
+- de lissage fixé à 0.85 → de lissage fixé à 0,85
+- l’aide de cooccurrences capturés → l’aide de cooccurrences capturées
+- relations d’association qu’entretien le candidat → relations d’association
+qu’entretient le candidat
+- sont donc les mêmes que celle de → sont donc les mêmes que celles de
+- f1-mesure (F). → f1-mesure (F). ??
+
+
+Commentaires :
+
+0. Les résumé et le Abstract sont differents!
+
+1. Légende de figures et tables sans point à la fin, vérifier figure 2 et
+table 2.
+
+2. Dans la figure 2 les mots « echange » et « etude », « age » n'ont pas
+d'accent et les autres oui. Quelle est la raison ?  Le terme « la tène »  est
+il correct ?  
+
+Termes-clés de référence : distribution ; mourrel-ferrat ; olonzac ; le cayla
+; mailhac ; micassé ; céramique non-tournée ; celtes ; production ; echange ;
+commerce ; cartographie ; habitat ; oppidum ; site fortifié ; fouille ancienne
+; identification ; décor ; analyse ; répartition ; diffusion ; chronologie ;
+typologie ; céramique ; etude du matériel ; hérault ; aude ; france ; europe ;
+la tène ; age du fer.
+
+3. Quelles et où sont les collections  « Termith » ? Sont elles tellement
+connues que n'ont pas besoin de citation ?
+« KEA ++ se limite aux entrées du thésaurus qui occurrent dans le document,
+alors que la majorité des termes-clés des collections Termith n’apparaissent
+pas dans les documents. »
+
+4. Pour quoi dans les graphiques P-R les méthodes TFIDF, KEA++ et TopicRank
+n'affichent pas des valeurs P et R dans le même rang que TopicRankSpe ?
+
+5. Quelle est la raison de montrer que 10 termes ? La comparaison vs les
+références porte sur 10 termes uniquement ?
+
+6. Comment détectez vous les termes multi-mots ? Il y a un impact direct sur
+l'extraction des mots-clés.
+
+7. Les résultats P R F me semblent très faibles… avez vous une explication ?
+L'évaluation de la tâche est-elle bien définie? 
+
+8. Quelle est la raison que le domaine archéologie (table 2) donne les
+meilleures performances en SPE contrôle et dans la Table 1 ce même domaine
+possède le plus faible nb de termes contrôlés ?
+
+9. Dans la table 1, les colonnes "Langue", "Genre" et "Annotateur" sont
+inutiles: placer dans la légende de la figure une petite explication.
+
+Je recommande faire un bon effort concernant la rédaction  en français
+(lecture par an francophone natif) pour éliminer un maximumn de très
+nombreuses coquilles...
+
+10. Le DEFT 2016 porte sur la même tâche... Ne serait-il plus intéressant de
+mesurer vos systèmes vis à vis d'autres équipes dans le cadre de DEFT ?
+
+
+----------------------- REVIEW 3 ---------------------
+PAPER: 3
+TITLE: Modélisation unifiée du document et de son domaine pour une indexation
+par termes-clés libre et contrôlée
+AUTHORS: Adrien Bougouin, Florian Boudin and Beatrice Daille
+
+Adéquation: 4 (Probablement)
+Clarté: 3 (Partiellement compréhensible, nécessite un effort.)
+Originalité: 3 (Respectable : une contribution originale qui représente une
+extension notable par rapport à l'existant.)
+Justesse: 4 (Solide : propos généralement bien étayés même si certains aspects
+de l'approche ou de l'évaluation ne sont pas tout à fait convaincants.)
+Comparaison à l'état de l'art: 4 (Références bibliographiques solides mais
+quelques travaux manquent.)
+Impact: 3 (Intéressant mais pas trop influent. Les travaux seront cités mais
+principalement à titre comparatif ou en tant que source mineure
+d'inspiration.)
+RECOMMANDATION: 4 (Article de qualité correcte qui vaut la peine d'être
+présenté.)
+CONFIANCE DU RELECTEUR: 2 (Relativement sûr mais j'ai peut-être raté quelque
+chose. Je connais assez bien le domaine, j'ai pu oublier quelques détails, par
+exemple dans les formules, les expériences ou les travaux reliés.)
+Respect du format: 2 (conforme)
+Pertinence pour les deux communautés JEP et TALN ?: 1 (non)
+
+----------- Commentaires à destination des auteurs -----------
+3        Modélisation unifiée du document et de son domaine pour une indexation par
+termes-clés libre et contrôlée
+
+L'article présente une approche d'indexation (de documents de spécialité) 
+hybride (libre et contrôle) à base de graphes.
+La méthode proposée est une extension de TopicRank (Bougouin, Boudin et
+Daille) où la construction du graphe (ordonnancement des termes clés) est
+étendu avec une unification à un graphe des termes clés du domaine.
+L'indexation contrôlée est ainsi réalisée à l'aide du graphe du domaine comme
+support d'information.
+
+L'article est très touffu, parfois difficile à suivre.
+
+D'après la description de la méthode, et les exemple donnée - l'approche
+semble se focaliser majoritairement sur la précision, et non pas sur le
+rappel. Est-ce exact ? ce point n'est pas tres clair. Y a-t-il une pondération
+explicite des termes clés ou juste un ordonnnancement ? Rien n'est dit sur la
+polysémie qui peut exister même au sein d'un domaine de spécialité.
+
+Remarques:
+* d'apres les exemples, tous les termes semblent mis en minuscule - n'est ce
+pas un problème ? ou pour le moins une source d'ambiguité supplémentaire.
+
+* les figures (3) sont assez peu lisibles en l'état (les faire plus grosses)
+
+Quelques questions :
+En quoi une base de connaissance générale contenant le domaine visé (entre
+autres domaines) ne ferait pas l'affaire ? L'ambiguité potentielle d'un terme
+appartenant à plusieurs domaine est-elle un obstacle ?
+
+référence potentiellement utile : M. Lafourcade and L. Ramadier (2015) Medical
+Imaging Report Indexing: Enrichment of Index through an Algorithm of Spreading
+over a Lexico-Semantic Network . In proc International Conference on Recent
+Advances in Natural Language Processing (RANLP 2015), Hissar, Bulgaria,
+September 5-11, 2015, 9 p.
+
+
+-------------------------  METAREVIEW  ------------------------
+PAPER: 3
+TITLE: Modélisation unifiée du document et de son domaine pour une indexation
+par termes-clés libre et contrôlée
+
+RECOMMENDATION: no recommendation
+
+L'article présente une modification d'une approche présentée
+précédemment pour détecter les termes-clés des articles scientifiques.
+
+Les relectures montrent que la présentation du travail réalisé est
+confuse et que la rédaction de l'article est à revoir. L'amélioration
+des résultats semble assez faible.

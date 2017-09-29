@@ -1,0 +1,469 @@
+\documentclass[10pt,twoside]{article}
+\usepackage{times}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{jeptaln2016}
+%\usepackage[frenchb]{babel}
+\usepackage{booktabs}
+\usepackage{amsmath}
+
+\newcommand{\fscore}{f-score}
+\newcommand{\og}{"}
+\newcommand{\fg}{"}
+
+\title{Indexation d'articles scientifiques \\ Présentation et résultats du défi fouille de texes DEFT 2016}
+
+\author{
+     Béatrice Daille$^*$ \quad{}  Saine Barreaux$^{\dag}$   \quad{} Florian Boudin$^*$  \quad{} Adrien Bougouin$^*$ \quad{} Damien Cram$^*$ \quad{} Amir Hazem$^*$\\
+    {\small
+        $^*$LINA -- UMR CNRS 6241,
+        2 rue de la Houssinièe,
+        44322 Nantes Cedex 3,
+        France\\
+        $^\dag$ INIST CNRS, 2, allée du Parc de Brabois, 54519 Vandœuvre-lès-Nancy, France\\
+         \texttt{<prenom.nom>@univ-nantes.fr, <prenom.nom>@inist.fr}
+    }\\
+}
+
+\begin{document}
+    \maketitle
+    
+    \resume{
+      Nous présentons la campagne 2016 du défi fouille de textes (DEFT),  qui pour sa douzième édition a proposé aux participants de travailler sur la problématique de l'indexation de documents scientifiques. La tâche à  consister  en l'indexation à l'aide de mots-clés des notices bibliographiques, en français, dans quatre domaines de spécialité (linguistique, sciences de l'information, archéologie et chimie) et dont l'indexation de référence a été réalisée par des indexeurs professionnels. Les résultats ont été évalués en terme de Les mesures qui ont été retenues pour l'évaluation 2016 sont les mesures de précision, rappel, et f1-mesure, calculés avec une macro-moyenne.
+    }
+    
+    \abstract{DEFT2016}{
+      Here an abstract in English (max. 150 words).
+    }
+    
+    \motsClefs{
+        indexation automatique, mots-clé, domaines de spécialité, articles scientifiques, français
+    }{
+        document indexing, keyphrase, specialized domains, scientific aricles, French
+    }
+    
+    \section{Introduction}
+        L’indexation automatique consiste à identifier un ensemble de mots clés (e.g. mots, termes) qui décrit le contenu d’un document. Les mots clés peuvent ensuite être utilisés, entre autres, pour faciliter la recherche d’information ou la navigation dans les collections de documents.
+À l’instar de l’édition 2012 de DEFT \cite{paroubek2012deft}, nous proposons de travailler sur l’indexation de documents scientifiques par l’intermédiaire de mots-clés. Alors que l’édition 2012 visait l’identification des mots-clés d’auteurs, nous avons proposé de travailler sur l’identification des mots-clés proposés par des indexeurs professionnes (ingénieurs documentalistes).
+
+Contrairement aux mots-clés d’auteurs, ceux proposés par des indexeurs professionnels sont issue d’une démarche documentaire étudiée pour l’indexation de documents dans le contexte de la recherche d’information. S’appuyant sur le contenu du document et sur un thésaurus du domaine, les indexeurs professionnels fournissent des mots-clés cohérents et exhaustifs. La cohérence implique qu’un concept est toujours représenté par le même mot-clé pour les documents d’un même domaine. Le thésaurus du domaine est donc privilégié pour l’identification des mots-clés, nous parlons d’indexation contrôlée. Toutefois, l’exhaustivité implique aussi que l’indexeur fournisse des mots-clés relatifs à des concepts importants n’appartenant pas nécessairement au thésaurus, nous parlons d’indexation libre.
+
+Les méthodes devront identifier les concepts importants permettant d’indexer les documents. Comme l’indexation proposée par les indexeurs professionnels, les méthodes pourront proposer une indexation contrôlée, libre ou mixte.
+    
+    \section{Données}
+        % Beatrice + Sabine
+   Les données sont composées de quatre corpus traitant chacun d’un domaine de spécialité : la linguistique, les sciences de l’information, l’archéologie et la chimie et de quatre thesaurus. 
+
+    \subsection{Corpus}
+    
+    Chaque corpus est constitué d'un ensemble de notices issues des bases de données bibliographiques Pascal et Francis de l’INIST-CNRS e qui sont fournies aux formats TEI et texte. Chaque notice est composée de :
+        \begin{itemize}
+        \item un titre,
+        \item un résumé,
+        \item une liste de mots-clés attribuée par l’ingénieur documentaliste,
+        \item le texte pré-traité de la notice.
+        \end{itemize}
+
+La figure~\ref{fig:example_inist} donne un exemple de notice pour chaque domaine. Les textes des notices sont courts~: ils ont en moyenne 156,7 mots. Quant aux mots-clés, l'indexation par des professionens privilégie l'emploi de descripteurs appartenant à un vocabulaire controlé. Peu de mots-clés occurrent dans les résumés. L'exemple de notice dans le domaine de la chimie propose 25 mots clés dont seuls deux occurrent dans le résumé. Le nombre de mots-clés varie selon les notices entre 7 mots clés et 30.  Un mot clé est généralement une unité linguistique concise, un mot simple ou un expression de deux mots qui sont tous des noms. On peut noter des spécificités par domaine : de nombreux mots clés de l'archéologie sont des noms propres~; des formules chimiques sont employées comme mots clés pour la chimie.
+
+Le tableau~\ref{tab:termith} résume les caractéristiques du corpus de chaque domaine. Le corpus de linguistique est constitué de 715 notices d'articles
+    français paru entre 2000 et 2012 dans 11 revues~; le corpus des sciences de
+    l'information contient 706 notices d'articles français publiés entre 2001 et
+    2012 dans cinq revues~; le corpus d'archéologie est composé de 716 notices
+    représentant des articles français paru entre 2001 et 2012 dans 22 revues~;
+    le corpus de chimie est composé de 784 notices d'articles français publiés
+    entre 1983 et 2012 dans cinq revues. Pour chaque domaine de spécialité, dans la partie Documents, nous indiquons sous la légende Quantité, le nombre de notices, sous la légende Mots moy., le nombre moyen de mots des notices, et sous la légende Quantité moy., le nombre moyen de mots clés associé à la notice. Toujours pour chaque domaine de spécialité, dans la partie Mots-clés, sous la légende \'A assigner, nous indiquons le pourcentage de mots clés qui n'occurrent pas dans la notice, et sous la légende Long. moy., la taille moyenne en nombre de mots d'un mot-clé.
+
+        \begin{figure}
+      \framebox[\linewidth]{ % linguistique_11-0080464
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{La cause linguistique}
+          \hfill\underline{\textit{Linguistique}}\\
+
+          L'objectif est de fournir une définition de base du concept
+          linguistique de la cause en observant son expression. Dans un premier
+          temps, l'A. se demande si un tel concept existe en langue. Puis il
+          part des formes de son expression principale et directe (les verbes et
+          les conjonctions de cause) pour caractériser linguistiquement ce qui
+          fonde une telle notion.\\
+
+          \textbf{Termes-clés~:} français~; interprétation sémantique~;
+          \underline{conjonction}~; expression linguistique~; \underline{concept
+          linguistique}~; relation syntaxique~; \underline{cause}. 
+        }
+      }
+      ~\\~\\
+      \framebox[\linewidth]{ % sciencesInfo_08-0149317
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{Congrès de l'ABF~: les publics des bibliothèques}
+          \hfill\underline{\textit{Sciences de l'info.}}\\
+
+          Le cinquante-troisième congrès annuel de l'Association des
+          bibliothécaires de France (ABF) s'est déroulé à Nantes du 8 au 10 juin
+          2007. Centré sur le thème des publics, il a notamment permis de
+          méditer les résultats de diverses enquêtes auprès des usagers,
+          d'examiner de nouvelles formes de partenariats et d'innovations
+          technologiques permettant aux bibliothèques de conquérir de nouveaux
+          publics, et montré des exemples convaincants d'ouverture et
+          d'"hybridation", conditions du développement et de la fidélisation de
+          ces publics.\\
+
+          \textbf{Termes-clés~:} rôle professionnel~; évolution~;
+          \underline{bibliothèque}~; politique bibliothèque~; étude
+          utilisateur~; besoin de l'utilisateur~; \underline{partenariat}~; web
+          2.0~; centre culturel. 
+        }
+      }
+      ~\\~\\
+      \framebox[\linewidth]{ % archeologie_525-02-11060
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{Étude préliminaire de la céramique non tournée micacée du bas
+          Langue-}
+          ~\hfill\underline{\textit{Archéologie}}\\
+          \textbf{doc occidental : typologie, chronologie et aire de diffusion}\\
+
+          L'étude présente une variété de céramique non tournée dont la
+          typologie et l'analyse des décors permettent de l'identifier
+          facilement. La nature de l'argile enrichie de mica donne un aspect
+          pailleté à la pâte sur laquelle le décor effectué selon la méthode du
+          brunissoir apparaît en traits brillant sur fond mat. Cette première
+          approche se fonde sur deux séries issues de fouilles anciennes menées
+          sur les oppidums du Cayla à Mailhac (Aude) et de Mourrel-Ferrat à
+          Olonzac (Hérault). La carte de répartition fait état d'échanges ou de
+          commerce à l'échelon macrorégional rarement mis en évidence pour de la
+          céramique non tournée. S'il est difficile de statuer sur l'origine des
+          décors, il semble que la production s'insère dans une ambiance
+          celtisante. La chronologie de cette production se situe dans le
+          deuxième âge du Fer. La fourchette proposée entre la fin du
+          IV$^\textnormal{e}$ et la fin du II$^\textnormal{e}$ s. av. J.-C. reste encore à
+          préciser.\\
+
+          \textbf{Termes-clés~:} distribution~; \underline{mourrel-ferrat}~;
+          \underline{olonzac}~; le cayla~; \underline{mailhac}~; micassé~;
+          céramique non-tournée~; celtes~; \underline{production}~; echange~;
+          \underline{commerce}~; cartographie~; habitat~; \underline{oppidum}~;
+          site fortifié~; \underline{fouille ancienne}~; identification~;
+          \underline{décor}~; \underline{analyse}~; \underline{répartition}~;
+          \underline{diffusion}~; \underline{chronologie}~;
+          \underline{typologie}~; \underline{céramique}~; étude du matériel~;
+          \underline{hérault}~; \underline{aude}~; france~; europe~; la tène~;
+          age du fer.
+        }
+      }
+       ~\\~\\
+       \framebox[\linewidth]{ % chimie_84-0048710
+        \parbox{.99\linewidth}{\footnotesize
+          \textbf{Réaction entre solvant et espèces intermédiaires apparues lors
+          de l'électroré-}
+          \hfill\underline{\textit{Chimie}}\\
+          \textbf{duction-acylation de la fluorénone et de la fluorénone-anil
+          dans l'acétonitrile}\\
+
+          Étude du comportement des différents acylates de fluorénols-9
+          vis-à-vis des anions CH$_2$CN (électrogénérés par réduction de
+          l'azobenzène en son dianion dans l'acétonitrile). Réduction de la
+          fluorénone dans l'acétonitrile en présence de chlorures d'acides ou
+          d'anhydrides\\
+
+          \textbf{Termes-clés~:} réduction chimique~; acylation~; réaction
+          électrochimique~; \underline{acétonitrile}~; composé aromatique~;
+          composé tricyclique~; cétone~; cétimine~; effet solvant~; effet
+          milieu~; radical libre organique anionique~; mécanisme réaction~;
+          nitrile~; hydroxynitrile~; composé saturé~; composé aliphatique~;
+          anhydride organique~; \underline{fluorénone}~;
+          fluorénone,phénylimine~; fluorénol-9,acylate~;
+          fluorènepropiononitrile-9(hydroxy-9)~; bifluorényle-9,9pdiol-9,9p~;
+          fluorène$\delta$9:$\alpha$-acétonitrile~; butyrique acide(chloro-4)
+          chlorure.
+        }
+      }
+      \caption[Exemple de notices Termith]{
+        Exemple de notices Termith pour chaque domaine. Les termes-clés soulignés occurrent dans la notice.
+        \label{fig:example_inist}
+      }
+      \end{figure}
+   
+    Chacun de ces corpus est divisé en trois jeux :
+\begin{itemize}
+    \item Jeu d’apprentissage~: ce jeu se compose de notices bibliographiques (titres et résumés), au format TEI, dans quatre domaines de spécialités explicités (linguistique, sciences de l’information, archéologie et chimie) et indexées par les indexeurs professionnel de l’Inist.
+    \item Jeu de développement~: ce jeu reprend les mêmes caractéristiques que celles du jeu d’apprentissage.
+    \item Jeu de test (d’évaluation)~: ce jeu reprend les mêmes caractéristiques que celles du jeu d’apprentissage ; la liste des mots clés n’est n'a pas été fournie et constituera la référence pour l'évaluation.  
+    \end{itemize}
+     
+    \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{~~}c@{~~}c|c@{~~}c}
+          \toprule
+          \textbf{Corpus} & \multicolumn{3}{c|}{\textbf{Documents}} & \multicolumn{2}{c}{\textbf{Mots-clés}}\\
+          \cline{2-6}
+          & Quantité & Mots moy. & Quantité moy. & \og{}À assigner\fg{} & Long. moy.\\
+          \hline
+          Linguistique & & & & &\\
+          \hfill{}Appr.  & 515 & 160,5  & $~~$8,6 & 60,6~\% & 1,7\\
+           \hfill{}Test  & 200 & 147,0 &  $~~$8,9 & 62,8~\% & 1,8\\
+          \hline
+          Sciences de l'info. & & & & &\\
+          \hfill{}Appr.  & 506 & 105,0  & $~~$7,8 & 67,9~\% & 1,8\\
+          \hfill{}Test & 200 & 157,0  & 10,2 & 66,9~\% & 1,7\\
+          \hline
+          Archéologie & & & & &\\
+          \hfill{}Appr.  & 518 & 221,1 & 16,9 & 37,0~\% & 1,3\\
+          \hfill{}Test & 200 & 213,9 & 15,6 & 37,4~\% & 1,3\\
+          \hline
+          Chimie & & & & &\\
+          \hfill{}Appr.  & 582 & 105,7  & 12,2 & 75,2~\% & 2,2\\
+          \hfill{}Test  & 200 & 103,9 &  14,6 & 78,8~\% & 2,4\\
+          \bottomrule
+        \end{tabular}
+      }
+      \caption{Caractéristiques des corpus DEFT
+               \label{tab:termith}}
+    \end{table}
+  
+     
+     \begin{table}[!h]
+      \centering
+      \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|r | l@{~~}r@{~~}}
+          \toprule
+          \textbf{Domaine} & \textbf{Total } & \multicolumn{2}{c}{\textbf{Composition}}\\
+          \cline{3-4}
+          & \textbf{entrées } & Vocabulaire controlé & Volume entrées\\
+          \hline
+          Linguistique & 13\,968 & ML (sciences du langage) & 6\,079\\
+                        &        & MC (sciences de l'éducation) & 2\,681\\
+                &        & MS (sociologie) & 5\,208\\
+          \hline
+          Sciences de l'info. & 92\,472 & MX (Sciences exactes, sciences & 92\,472\\
+                        &        & de l'ingénieur et technologies)& \,\\
+          
+          \hline
+          Archéologie & 4\,905 & MA (art et archéologie)  & 1\,849 \\
+                        &        &  MH (préhistoire et & 3\,056\\
+                        &        &  MH protohistoire) &\,\\
+          \hline
+          Chimie & 122\,359 &  MX (Sciences exactes, sciences& 92\,472\\
+                      &        & de l'ingénieur et technologies)& \,\\
+                        &        & M3 (Physique)  & 29\,887\\
+ 
+          \bottomrule
+        \end{tabular}
+      }
+      \caption{Caractéristiques des thésaurus
+               \label{tab:thesaurus}}
+    \end{table}
+  
+   Nous avons aussi fourni une version analysée linguistiquement du corpus où nous avons appliqué les traitements lingusitiques suivant~: 
+   \begin{itemize}
+   \item segmentation en phrases par l’outil \textsc{PunktSentenceTokenizer} disponible avec la librairie Python NLTK
+   \item segmentation en mots par l’outil  \textsc{Bonsai} du 
+   \textsc{Bonsai PCFG-LA parser 3}
+   \item étiquetage syntaxique réalisé par MElt.
+   \end{itemize}
+    Cette mise à disposition visait à d'encourager les participants à utiliser ces corpus analysés plutot que leurs propres outils afin d'évaluer plutôt les algorithmes d'indexation que les traitements du TALN. 
+    \subsection{Référentiels}
+        % Sabine
+        Les référentiels correspondent aux vocabulaires contrôlés utilisés pour l’indexation des bases de données bibliographiques de l’INIST-CNRS.
+        
+     Le vocabulaire contrôlé est une liste de mots-clés possibles dans un
+        domaine  de spécialité. Cette liste est plus ou moins structurée en
+        fonction des domaines.
+        Les mots-clés sont mis en relations s'ils sont associés à un même
+        concept (par exemple, \og{}nom composé\fg{} et \og{}substantif
+        composé\fg{} en linguistique) ou si l'un est l'hyperonyme de l'autre,
+        c'est-à-dire plus  générique (par exemple \og{}allemand\fg{} par
+        rapport à \og{}haut-allemand\fg{} et \og{}bas-allemand\fg{}).
+        
+        En définissant le langage documentaire à utiliser pour indexer les
+        documents du même domaine, le vocabulaire contrôlé contribue à la
+        conformité et à l'homogénéité de l'indexation. Il n'assure cependant pas
+        l'exhaustivité et doit être mis à jour régulièrement, soit par une
+        veille terminologique, soit au fur et à mesure des indexations
+        manuelles, pour intégrer les nouveaux concepts. 
+         
+         Pour le défi, certains domaines ont fait l’objet d’un regroupement de vocabulaires afin de se rapprocher de la couverture du corpus de notices, par exemple, en archéologie, regroupement de deux vocabulaires (MA – MH), en  linguistique, regroupement de trois vocabulaires (ML – MC – MS) et en chimie, regroupement de deux vocabulaires (MX – M3). D’autres vocabulaires sont quant à eux inclus dans un seul vocabulaire très multidisciplinaire (MX), c’est le cas pour les sciences de l’information et la chimie. 
+         Le détail des regroupements de vocabulaires est donné dans le tableau~\ref{tab:thesaurus}.
+         
+         Les  vocabulaires contrôlés ou référentiels, associés à chaque domaine de  spécialité ont été fournis au format SKOS (Simple Knowledge Organization System). La figure \ref{} montre un extrait de thésaurus dans ce format. Les entrées du thésaurus sont les balises Concept.
+Chaque concept possède un identifiant de concept (l’attribut \textsc{rdf:about}), une sous-balise \textsc{prefLabel} donnant l’étiquette principale du concept (le terme préférentiel), et éventuellement une ou plusieurs sous-balises \textsc{altLabel} donnant les étiquettes alternatives du concept (les synonymes ou les anciens préférentiels). Comme stipulé dans la spécification SKOS, les concepts peuvent également posséder des sous-balises indiquant des relations sémantiques entre eux.
+Par exemple, la balise \textsc{broader} renvoie vers un concept générique. La balise related renvoie vers un concept associé. La documentation des balises sémantiques du format SKOS est donnée par la section 8 des spécifications SKOS\footnote{\url{https://www.w3.org/TR/2009/REC-skos-reference-20090818/#semantic-relations}}.
+
+
+
+    \section{Tache proposée}
+    
+    La tâche consiste à fournir pour une notice bibliographique (titre + résumé) les mots-clés la caractérisant au mieux. Cette tâche simule l’indexation réalisée par un professionnel, qui s’appuie sur des référentiels (des thesaurus), et éventuellement complète la liste issue des référentiels par des mots-clés apparaissant ou non dans la notice. Les données porteront sur quatre domaines de spécialité (linguistique, sciences de l’information, archéologie et chimie). L’indexation de référence a été revue dans le cadre du projet TermiTH\footnote{\url{http://www.atilf.fr/ressources/termith/}}.
+    
+    \section{\'Evaluation}
+    Les mesures qui ont été retenues pour l'évaluation 2016 sont les mesures de
+précision, rappel, et f1-mesure \cite{Manning:1999}, calculés avec une macro-moyenne \cite{}. Ce sont ces mesures qui ont été utilisées pour la piste 5 de la campagne
+SemEval-2010 \cite{kim2010semeval}.
+
+La précision (P) capture la capacité d'une méthode à minimiser les erreurs. Inversement, le rappel (R) mesure la capacité de
+    la méthode à fournir le plus possible de mots-clés corrects. Quant à la f-mesure (F), elle évalue le compromis
+    entre précision et rappel, c'est-à-dire la capacité de la méthode à extraire
+    un maximum de mots-clés corrects tout en faisant un minimum d'erreurs.
+  \begin{center}  
+    \begin{align}
+      \textnormal{P}(d) &= \frac{\#\textsc{nb mots-clés extraits corrects}(d)}
+      {\#\textsc{nb mots-clés extraits} (d)} \\[1 ex]
+      \textnormal{R}(d) &= \frac{\#\textsc{nb mots-clés extraits corrects} (d)}
+      {\#\textsc{nb mots-clés de référence} (d)} \\[1 ex]
+      \textnormal{F}(d) &= 2 \times \frac{\textnormal{P}(d) \textnormal{R}(d)}
+      {\textnormal{P}(d) + \textnormal{R}(d)}
+    \end{align}
+  \end{center}  
+      
+
+Pour comparer les mots-clés fournis par les participant à la référence, nous avons  utilisé l'égalité stricte sur les mots-clés.  Afin de ne pas biaiser l'évaluation par rapport à une ontologie
+particulière; nous avons décidé de ne pas recourir à l'emploi d'une distance sémantique qui permettrait par exemple de s’apercevoir que
+\textit{recherche d'information} est plus proche de \textit{fouille de données} que
+d'\textit{algorithmique}, ni de  prendre en compte les recouvrements
+partiels de termes comme ayant une certaine validité pour éviter de récompenser
+un système qui retournerait \textit{fouilles archéologiques} alors que la bonne réponse
+est \textit{fouille de données}. Bien entendu, ce choix a pour résultat que par exemple
+l'identification d'un hyponymes d'un mot-clé au lieu du mot-clé sera considérée
+comme aussi fausse que l'identification de n'importe quel autre mot. En
+revanche, nous acceptons les variantes flexionnelles.
+
+Les résultats officiels de la campagne ont été établi sur la seule performance en f-mesure en macro-moyenne. Pour chaque méthode, les résultats de l'évaluation sont donnés par~:
+\begin{center}  
+\begin{align}
+      \textnormal{P} &= 100 \times \frac{\sum \textnormal{limits}_d \textnormal{P}(d)}{N} \label{}\\
+      \textnormal{R} &= 100 \times \frac{\sum \textnormal{limits}_d \textnormal{R}(d)}{N} \label{}\\
+      \textnormal{F} &= 100 \times \frac{\sum \textnormal{limits}_d \textnormal{F}(d)}{N} \label{}\\
+    \end{align}
+     \end{center}  
+
+\section{Résultats}
+    
+\subsection{Classement général}
+\label{sec:classement-general}
+
+L'équipe candidate qui arrive en tête du concours DEFT2016 est l'équipe Exensa\footnote{\url{http://www.exensa.com/}}.
+
+\subsubsection{Classement général des équipes candidates}
+
+Le classement général des équipes est obtenu en ne retenant pour chaque corpus et pour chaque équipe candidate que la meilleure méthode en \fscore. Ces classements sont publiés en section~\ref{sec:fscore}. Pour chaque corpus, 5 points sont attribués à l'équipe qui arrive en tête, puis 4 à la deuxième, et ainsi de suite. Le total des points donne le classement général suivant :
+
+\begin{center}
+\large
+\begin{tabular}{l | l r}
+Rang & Équipe candidate & Points \\
+\hline
+\hline
+\textbf{1\textsuperscript{er}} & \textbf{Exensa} & \textbf{18} \\
+2\textsuperscript{ième} & Ebsium & 16 \\
+3\textsuperscript{ième} & Lina & 12 \\
+4\textsuperscript{ième} & Limsi & 7 \\
+4\textsuperscript{ième} & Lipn & 7 \\
+\end{tabular}
+\end{center}
+    
+\subsubsection{Classement général des méthodes}
+
+Ce classement donne le positionnement global de chaque méthode candidate. Le score de chaque méthode est obtenu est effectuant une moyenne des quatre valeurs de \fscore{} obtenues pour chacun des quatre corpus.
+
+\begin{center}
+\large
+\begin{tabular}{l | l | c c c}
+Rang & Méthode & Moy(Préc.) & Moy(Rap.) & \textbf{Moy(F-score)} \\
+\hline
+\hline
+1\textsuperscript{ier} & exensa-m1 & $28.24$  &  $34.37$  &  $\mathbf{29.30}$ \\
+2\textsuperscript{ième} & ebsium-m2 & $27.44$  &  $33.05$  &  $\mathbf{29.13}$ \\
+3\textsuperscript{ième} & ebsium-m1 & $27.73$  &  $32.24$  &  $\mathbf{28.88}$ \\
+4\textsuperscript{ième} & ebsium-m3 & $25.78$  &  $30.85$  &  $\mathbf{27.28}$ \\
+5\textsuperscript{ième} & lina-m3 & $30.00$  &  $24.67$  &  $\mathbf{26.01}$ \\
+6\textsuperscript{ième} & lina-m1 & $28.39$  &  $23.53$  &  $\mathbf{24.71}$ \\
+7\textsuperscript{ième} & limsi-m2 & $25.75$  &  $20.23$  &  $\mathbf{21.65}$ \\
+8\textsuperscript{ième} & limsi-m1 & $24.31$  &  $21.88$  &  $\mathbf{21.42}$ \\
+9\textsuperscript{ième} & limsi-m3 & $25.24$  &  $19.79$  &  $\mathbf{21.20}$ \\
+10\textsuperscript{ième} & lipn-m3 & $13.28$  &  $39.66$  &  $\mathbf{19.04}$ \\
+11\textsuperscript{ième} & lina-m2 & $22.21$  &  $17.79$  &  $\mathbf{18.91}$ \\
+12\textsuperscript{ième} & lipn-m1 & $16.67$  &  $21.59$  &  $\mathbf{17.12}$ \\
+13\textsuperscript{ième} & lipn-m2 & $14.12$  &  $24.03$  &  $\mathbf{17.11}$ \\
+\end{tabular}
+\end{center}
+
+    
+\subsection{Classement F-score par corpus}
+\label{sec:fscore}
+
+Pour chacun des quatre corpus, on ne retient que la meilleure méthode en \fscore{} de chaque équipe candidate.
+
+\begin{center}
+
+\begin{tabular}{| r l | c c c c |}
+\hline
+\multicolumn{6}{|c|}{\texttt{linguistique}} \\
+\hline
+\# & Candidat & Préc. & Rap. & \textbf{F-score} & Points \\
+\hline
+1. & ebsium-m2 & $30.26$ & $34.16$ & $\mathbf{31.75}$ & 5  \\
+2. & exensa-m1 & $23.28$ & $32.73$ & $\mathbf{26.30}$ & 4  \\
+3. & lina-m3 & $23.16$ & $25.85$ & $\mathbf{24.19}$ & 3  \\
+4. & lipn-m2 & $13.98$ & $30.81$ & $\mathbf{19.07}$ & 2  \\
+5. & limsi-m2 & $15.67$ & $16.10$ & $\mathbf{15.63}$ & 1  \\
+\hline
+\end{tabular}
+
+    
+    
+\begin{tabular}{| r l | c c c c |}
+\hline
+\multicolumn{6}{|c|}{\texttt{sciences-info}} \\
+\hline
+\# & Candidat & Préc. & Rap. & \textbf{F-score} & Points \\
+\hline
+1. & ebsium-m1 & $31.03$ & $28.23$ & $\mathbf{28.98}$ & 5  \\
+2. & exensa-m1 & $21.26$ & $30.32$ & $\mathbf{23.86}$ & 4  \\
+3. & lina-m3 & $21.93$ & $21.83$ & $\mathbf{21.45}$ & 3  \\
+4. & lipn-m2 & $11.72$ & $23.54$ & $\mathbf{15.34}$ & 2  \\
+5. & limsi-m2 & $13.83$ & $12.01$ & $\mathbf{12.49}$ & 1  \\
+\hline
+\end{tabular}
+
+
+\begin{tabular}{| r l | c c c c |}
+\hline
+\multicolumn{6}{|c|}{\texttt{archeologie}} \\
+\hline
+\# & Candidat & Préc. & Rap. & \textbf{F-score} & Points \\
+\hline
+1. & exensa-m1 & $43.48$ & $52.71$ & $\mathbf{45.59}$ & 5  \\
+2. & limsi-m3 & $55.26$ & $38.03$ & $\mathbf{43.26}$ & 4  \\
+3. & lina-m3 & $53.77$ & $33.46$ & $\mathbf{40.11}$ & 3  \\
+4. & ebsium-m2 & $30.77$ & $43.24$ & $\mathbf{34.96}$ & 2  \\
+5. & lipn-m1 & $33.93$ & $31.25$ & $\mathbf{30.75}$ & 1  \\
+\hline
+\end{tabular}
+
+
+\begin{tabular}{| r l | c c c c |}
+\hline
+\multicolumn{6}{|c|}{\texttt{chimie}} \\
+\hline
+\# & Candidat & Préc. & Rap. & \textbf{F-score} & Points \\
+\hline
+1. & exensa-m1 & $24.92$ & $21.73$ & $\mathbf{21.46}$ & 5  \\
+2. & ebsium-m2 & $19.67$ & $25.07$ & $\mathbf{21.07}$ & 4  \\
+3. & lina-m3 & $21.15$ & $17.54$ & $\mathbf{18.28}$ & 3  \\
+4. & lipn-m3 & $10.88$ & $30.25$ & $\mathbf{15.31}$ & 2  \\
+5. & limsi-m2 & $18.19$ & $14.90$ & $\mathbf{15.29}$ & 1  \\
+\hline
+\end{tabular}
+
+\end{center}
+    
+    \section{Conclusion}
+        
+
+    \section*{Remerciements}
+        Ce travail a bénéficié d'une aide de l'Agence Nationale de la Recherche portant la référence \mbox{(ANR-12-CORD-0029)}.
+
+    \bibliographystyle{jeptaln2016}
+    \bibliography{biblio}
+\end{document}

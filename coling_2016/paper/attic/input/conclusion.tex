@@ -1,0 +1,31 @@
+\section{Conclusion and Future Work}
+\label{sec:conclusion}
+  In this paper, we have proposed a co-ranking approach to performing keyphrase
+  extraction and keyphrase assignment jointly. Our method,
+  TopicCoRank, builds two graphs: one with the
+  document topics and one with controlled keyphrases (training keyphrases). We
+  design a strategy to unify the two graphs and rank by importance topics and
+  controlled keyphrases using a co-ranking vote.
+  
+  We performed experiments on four datasets of different languages and
+  domains. Results showed that our approach benefits from both controlled
+  keyphrases and document topics, improving both keyphrase extraction and keyphrase assignment
+  baselines.
+  %
+  TopicCoRank can be used to annotate keyphrases in the way of professional
+  indexers.
+  %TopicCoRank can also be adapted to more specific problems. For instance,
+  %in some cases it might be interesting to assign very specific keyphrases to the
+  %document, whereas in other cases it may be interesting to assign more general keyphrases. The
+  %minimum depth between a controlled keyphrase and a document topic within the unified graph encodes this
+  %degree of generalization. A controlled keyphrase directly connected to a
+  %document topic has the lowest generalization regarding the document,
+  %followed by its connected controlled keyphrases, etc.
+  %
+  %In future work, we plan to investigate unsupervised variants of TopicCoRank.
+  %Indeed, Wikipedia or Freebase data could be used to replace training keyphrases as controlled keyphrases.
+
+  In future work, we will explore unsupervised constructions of the domain
+  graph (using Wikipedia data, bootstrapping techniques, etc.) and explore
+  more complex unification strategies in order to more accurately connect the
+  document and the domain graph.

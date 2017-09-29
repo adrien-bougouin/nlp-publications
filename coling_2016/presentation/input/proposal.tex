@@ -1,0 +1,22 @@
+\section{Proposal}
+\begin{frame}{Proposal}
+  \begin{figure}
+    \centering
+    \begin{tikzpicture}[scale=.35, node distance=3cm]
+      \node [component, minimum width=29cm, text width=28cm] (extraction_assignment) {Keyphrase Extraction \hspace{4.25em} \& \hspace{3.66em} Keyphrase Assignment};
+  
+      \node [io, above=of extraction_assignment, xshift=-8cm] (document) {document};
+      \node [io, above=of extraction_assignment, xshift=8cm] (controlled_vocabulary) {controlled vocabulary};
+  
+      \node [io, below=of extraction_assignment] (keyphrases) {keyphrases $\subseteq$ document $\cup$ controlled vocabulary};
+  
+      \draw [dashed] ($(extraction_assignment.north west)+(-.5cm, 5.5cm)$) rectangle ($(extraction_assignment.south east)+(1cm, -5.5cm)$);
+      \node [above=of document, yshift=-2.9cm, xshift=2.75cm] (document_centric) {\small keyphrase annotation};
+  
+      \path [->] (document) edge (extraction_assignment);
+      \path [->] (extraction_assignment) edge (keyphrases);
+      \path [->] (controlled_vocabulary) edge (extraction_assignment);
+    \end{tikzpicture}
+  \end{figure}
+\end{frame}
+

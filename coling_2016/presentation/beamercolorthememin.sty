@@ -1,0 +1,105 @@
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% color definition
+
+\definecolor{mingrey}{HTML}{434A54}
+
+\definecolor{termithgreen}{HTML}{8CC152}
+\definecolor{termithorange}{HTML}{E9573F}
+
+\definecolor{linared}{HTML}{DA2209}
+\definecolor{linaorange}{HTML}{F6BB42}
+\definecolor{linagreen}{HTML}{37BC9B}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% option declaration
+
+\DeclareOptionBeamer{style}{\def\beamer@min@defcolor{#1}}
+\ExecuteOptionsBeamer{style=default}
+
+\ProcessOptionsBeamer
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% themes
+
+\def\beamer@min@defaulttext{default}
+\ifx\beamer@min@defcolor\beamer@min@defaulttext
+  \setbeamercolor*{palette primary}{fg=white, bg=black}
+  \setbeamercolor*{palette reverseprimary}{fg=black, bg=white}
+  \setbeamercolor*{palette lightprimary}{fg=black, bg=black!10}
+  \setbeamercolor*{palette secondary}{fg=white, bg=red}
+  \setbeamercolor*{palette reversesecondary}{fg=red, bg=white}
+  \setbeamercolor*{palette lightsecondary}{fg=red, bg=red!10}
+  \setbeamercolor*{palette tertiary}{fg=white, bg=green}
+  \setbeamercolor*{palette reversetertiary}{fg=green, bg=white}
+  \setbeamercolor*{palette lighttertiary}{fg=green, bg=green!10}
+
+  \setbeamercolor{item projected}{fg=white, bg=black}
+\fi
+
+\def\beamer@min@linatext{lina}
+\ifx\beamer@min@defcolor\beamer@min@linatext
+  \setbeamercolor*{palette primary}{fg=white, bg=linared}
+  \setbeamercolor*{palette reverseprimary}{fg=linared, bg=white}
+  \setbeamercolor*{palette lightprimary}{fg=mingrey, bg=linared!10}
+  \setbeamercolor*{palette secondary}{fg=white, bg=linaorange}
+  \setbeamercolor*{palette reversesecondary}{fg=linaorange, bg=white}
+  \setbeamercolor*{palette lightsecondary}{fg=mingrey, bg=linaorange!10}
+  %\setbeamercolor*{palette tertiary}{fg=white, bg=linagreen}
+  %\setbeamercolor*{palette reversetertiary}{fg=linagreen, bg=white}
+  %\setbeamercolor*{palette lighttertiary}{fg=mingrey, bg=linagreen!10}
+  \setbeamercolor*{palette tertiary}{fg=white, bg=mingrey}
+  \setbeamercolor*{palette reversetertiary}{fg=mingrey, bg=white}
+  \setbeamercolor*{palette lighttertiary}{fg=mingrey, bg=mingrey!10}
+
+  \setbeamercolor{item projected}{fg=white, bg=linared}
+\fi
+
+\def\beamer@min@termithtext{termith}
+\ifx\beamer@min@defcolor\beamer@min@termithtext
+  \setbeamercolor*{palette primary}{fg=white, bg=termithgreen}
+  \setbeamercolor*{palette reverseprimary}{fg=termithgreen, bg=white}
+  \setbeamercolor*{palette lightprimary}{fg=mingrey, bg=termithgreen!10}
+  \setbeamercolor*{palette secondary}{fg=white, bg=termithorange}
+  \setbeamercolor*{palette reversesecondary}{fg=termithorange, bg=white}
+  \setbeamercolor*{palette lightsecondary}{fg=mingrey, bg=termithorange!10}
+  \setbeamercolor*{palette tertiary}{fg=white, bg=mingrey}
+  \setbeamercolor*{palette reversetertiary}{fg=mingrey, bg=white}
+  \setbeamercolor*{palette lighttertiary}{fg=mingrey, bg=mingrey!10}
+
+  \setbeamercolor{item projected}{fg=white, bg=termithgreen}
+\fi
+
+\setbeamercolor*{normal text}{fg=mingrey, bg=white}
+
+\setbeamercolor*{title page header}{parent=palette reverseprimary}
+
+\setbeamercolor*{frametitle}{parent=palette primary}
+\setbeamercolor*{framenumber}{parent=palette reverseprimary}
+
+\setbeamercolor{section in toc}{parent=palette reverseprimary}
+
+\setbeamercolor{itemize item}{parent=palette reverseprimary}
+\setbeamercolor{itemize subitem}{parent=palette reverseprimary}
+\setbeamercolor{itemize subsubitem}{parent=palette reverseprimary}
+
+\setbeamercolor{block title}{parent=palette primary}
+\setbeamercolor{block body}{parent=palette lightprimary}
+\setbeamercolor{block title alerted}{parent=palette secondary}
+\setbeamercolor{block body alerted}{parent=palette lightsecondary}
+\setbeamercolor{block title example}{parent=palette tertiary}
+\setbeamercolor{block body example}{parent=palette lighttertiary}
+\AtBeginEnvironment{alertblock}{
+  \setbeamercolor{itemize item}{parent=palette reversesecondary}
+  \setbeamercolor{itemize subitem}{parent=palette reversesecondary}
+  \setbeamercolor{itemize subsubitem}{parent=palette reversesecondary}
+}
+\AtBeginEnvironment{exampleblock}{
+  \setbeamercolor{itemize item}{parent=palette reversetertiary}
+  \setbeamercolor{itemize subitem}{parent=palette reversetertiary}
+  \setbeamercolor{itemize subsubitem}{parent=palette reversetertiary}
+}
+
+\mode<all>
+

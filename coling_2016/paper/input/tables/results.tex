@@ -1,0 +1,22 @@
+\begin{table}[htb!]
+            \centering
+            \begin{tabular}{l|c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c}
+                \toprule
+                \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Linguistics}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Information Science}} & \multicolumn{3}{c}{\textbf{Archaeology}}\\
+                \cline{2-10}
+                & P & R & F$^{~~}$ & P & R & F$^{~~}$ & P & R & F\\
+                \hline
+                TopicRank & 11.82 & 13.1 & 11.9$^{~~}$ & 12.1 & 12.8 & 12.1 & 27.5 & 19.7 & 21.8$^{~~}$\\
+                KEA++ & 11.6 & 13.0 & 12.1$^{~~}$ & $~~$9.5 & 10.2 & $~~$9.6 & 23.5 & 16.2 & 18.8$^{~~}$\\
+                \hline
+                TopicCoRank$_\textnormal{\textit{extr}}$ & 15.9 & 18.2 & 16.7$^{\dagger}$ & 15.9 & 16.2 & 15.6$^{\dagger}$ & 39.6 & 26.4 & 31.0$^{\dagger}$\\
+                TopicCoRank$_\textnormal{\textit{assign}}$ & \textbf{25.8} & \textbf{29.6} & \textbf{27.2}$^{\dagger}$ & \textbf{19.9} & \textbf{20.0} & \textbf{19.5}$^{\dagger}$ & \textbf{49.6} & \textbf{33.3} & \textbf{39.0}$^{\dagger}$\\
+                \hline
+                TopicCoRank & 24.5 & 28.3 & 25.9$^{\dagger}$ & 19.4 & 19.6 & 19.0$^{\dagger}$ & 46.6 & 31.4 & 36.7$^{\dagger}$\\
+                \bottomrule
+            \end{tabular}
+            \caption{
+                Results of TopicCoRank and the baselines at 10 keyphrases for each dataset.
+                Precision (P), Recall (R) and F-score (F) are reported in percentages. $\dagger$ indicates a significant F-score improvement over TopicRank and KEA++ at 0.001 level using Student’s t-test.
+                \label{tab:comparison_results}}
+        \end{table}

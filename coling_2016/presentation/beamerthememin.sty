@@ -1,0 +1,24 @@
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% packages
+
+\RequirePackage{etoolbox}
+\RequirePackage{tikz}
+\RequirePackage{ragged2e}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% options
+\DeclareOptionBeamer{style}{\PassOptionsToPackage{style=#1}{beamercolorthememin}}
+
+\ProcessOptionsBeamer
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% main settings
+\usefonttheme{min}
+\usecolortheme{min}
+\useinnertheme{min}
+\useoutertheme{min}
+
+\mode<all>
+

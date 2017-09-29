@@ -1,0 +1,17 @@
+\section{TermITH-Eval Format}
+\label{sec:termith_eval_format}
+    In the purpose of the TermITH-Eval dataset, we had to tackle the challenge that complex annotations combining automatic extractions, manual annotations, as well as scoring information, would occur within our document.
+    Our choice for dealing with such a complex document structure was to use the TEI guidelines, which particularly offer customization facilities for the identification of an optimal trade-off between full compliance to the TEI architecture and integration of project specific constraints.
+    More precisely we integrated two extensions to the TEI standard representation:
+    \begin{itemize}
+        \item{
+            We used the work done in~\cite{romary2010tbxgoestei} to complement the TEI guidelines with terminological entries compliant to ISO standard 30042 (TBX, TermBase eXchange).
+            This in turn has now become a proposal to the TEI consortium;
+        }
+        \item{
+            We heavily experimented with the new proposal (\url{https://github.com/TEIC/TEI/issues/374}) for an in-document stand-off annotation element, which would allow to class together groups of annotations (e.g. from the same term extraction process).
+            We also added TBX entries as possible body objects (in the sense of the Open Annotation framework) to the stand-off proposal.
+        }
+    \end{itemize}
+    
+    All in all, this work of compiling the best of existing but also on-going standardisation efforts, has proved to be highly effective for our project, especially when keyphrase extraction outputs had to be sent for evaluation, and we see this as a possible reference framework for similar projects.

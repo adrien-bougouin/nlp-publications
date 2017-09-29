@@ -1,0 +1,19 @@
+    \begin{table}[htb!]
+            \centering
+            \begin{tabular}{l|c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c}
+            \toprule
+                \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Linguistics}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Information Science}} & \multicolumn{3}{c}{\textbf{Archaeology}}\\
+                \cline{2-10}
+                & \multicolumn{1}{c@{~$\supset$}}{train} & dev & test & \multicolumn{1}{c@{~$\supset$}}{train} & dev & test & \multicolumn{1}{c@{~$\supset$}}{train} & dev & test\\
+                \hline
+                Documents & 515 & 100 & 200  & 506 & 100 & 200 & 518 & 100 & 200\\
+                Tokens/Document & 161 & 151 & 147 & 105 & 152 & 157 & 221 & 201 & 214\\
+                Keyphrases & 8.6 & 8.8 & 8.9 & 7.8 & 10.0 & 10.2 & 16.9 & 16.4 & 15.6\\
+                Missing Keyphrases (\%) & 60.6 & 63.2 & 62.8 & 67.9 & 63.1 & 66.9 & 37.0 & 48.4 & 37.4\\
+                \bottomrule
+            \end{tabular}
+            \caption{
+                Dataset statistics.
+                ``Missing'' represents the percentage of keyphrases that cannot be retrieved within the documents.
+                \label{tab:dataset_statistics}}
+        \end{table}

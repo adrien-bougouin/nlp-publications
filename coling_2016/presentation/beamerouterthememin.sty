@@ -1,0 +1,63 @@
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% frame title
+
+\setbeamertemplate{frametitle continuation}{}
+
+\defbeamertemplate*{frametitle}{min}[1][]{
+  \nointerlineskip
+  \begin{beamercolorbox}[wd=\paperwidth,ht=.7cm]{frametitle}
+    \begin{tikzpicture}
+      \useasboundingbox (0, 0) rectangle (\the\paperwidth, .7cm);
+      \ifx\insertframesubtitle\@empty{
+        \node[anchor=west] at (0, .35){
+          \usebeamerfont{frametitle}\insertframetitle\hspace{\paperwidth}\usebeamerfont{frametitlesep}$\rangle$
+        };
+      }\else{
+        \node[anchor=west] at (0, .35){
+          \usebeamerfont{frametitle}\insertframetitle\hspace{.25em}\usebeamerfont{frametitlesep}$\rangle$\hspace{.15em}\usebeamerfont{framesubtitle}\insertframesubtitle
+        };
+      }\fi
+    \end{tikzpicture}
+  \end{beamercolorbox}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% block
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% itemize
+\setbeamertemplate{itemize item}[square]
+\setbeamertemplate{itemize subitem}[triangle]
+\setbeamertemplate{itemize subsubitem}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% enumerate
+\setbeamertemplate{enumerate items}[square]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% footline
+\setbeamertemplate{footline}{
+  \raisebox{5pt}{
+    \makebox[\paperwidth]{
+      \hfill\makebox[10pt]{
+        \hspace{12.1cm}
+        \begin{beamercolorbox}{framenumber}
+          \usebeamerfont{framenumber}\insertframenumber
+        \end{beamercolorbox}
+      }
+    }
+  }
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% miscelaneous settings
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+\setbeamertemplate{caption}{\raggedright\insertcaption\par}
+\setbeamertemplate{section in toc}[sections numbered]
+\setbeamertemplate{subsection in toc}[subsections numbered]
+
+\mode<all>
+

@@ -1,0 +1,200 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% File acl2015.tex
+%
+% Contact: car@ir.hit.edu.cn, gdzhou@suda.edu.cn
+%
+% Based on the style files for ACL-2014, which were, in turn,
+% Based on the style files for ACL-2013, which were, in turn,
+% Based on the style files for ACL-2012, which were, in turn,
+% based on the style files for ACL-2011, which were, in turn, 
+% based on the style files for ACL-2010, which were, in turn, 
+% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+% based on the style files for EACL-2009 and IJCNLP-2008...
+
+% Based on the style files for EACL 2006 by 
+% e.agirre@ehu.es or Sergi.Balari@uab.es
+% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{acl2015}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{lipsum}
+\usepackage{units}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{subfigure}
+\usepackage[inline]{enumitem}
+\usepackage{varwidth}
+\usepackage{mathabx}
+
+%\setlength\titlebox{5cm}
+
+\usetikzlibrary{arrows, backgrounds, decorations.markings, positioning, shapes}
+
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\ANNOTATE[2]{\textcolor{blue}{[#1 \textbf{$\rightarrow$ #2}]}}
+\newcommand\FILL[1]{\textcolor{red}{\lipsum[#1]}}
+
+%% tikz pictures %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\tikzstyle{arrow}=[
+  decoration={markings, mark=at position 1 with {\arrow[scale=2.5]{>}}},
+  postaction={decorate}
+]
+
+%-- database -------------------------------------------------------------------
+% http://tex.stackexchange.com/questions/123854/display-database-instance-relationship-with-tikz
+\tikzstyle{database}=[
+  draw,
+  color=black,
+  align=center,
+  minimum width=5.5em,
+  minimum height=6.5em,
+  cylinder,
+  cylinder uses custom fill,
+  cylinder body fill=White,
+  cylinder end fill=White,
+  shape border rotate=90,
+  aspect=0.5
+]
+\newcommand\drawdatabase[1]{
+  \begin{tikzpicture}
+    \node[database] (db) {#1};
+  \end{tikzpicture}
+}
+
+%-- document -------------------------------------------------------------------
+% http://tex.stackexchange.com/questions/103688/folded-paper-shape-tikz
+\makeatletter
+\pgfdeclareshape{doc}{
+  \inheritsavedanchors[from=rectangle] % this is nearly a rectangle
+  \inheritanchorborder[from=rectangle]
+  \inheritanchor[from=rectangle]{center}
+  \inheritanchor[from=rectangle]{north}
+  \inheritanchor[from=rectangle]{south}
+  \inheritanchor[from=rectangle]{west}
+  \inheritanchor[from=rectangle]{east}
+  % ... and possibly more
+  \backgroundpath{% this is new
+    % store lower right in xa/ya and upper right in xb/yb
+    \southwest \pgf@xa=\pgf@x \pgf@ya=\pgf@y
+    \northeast \pgf@xb=\pgf@x \pgf@yb=\pgf@y
+    % compute corner of ‘‘flipped page’’
+    \pgf@xc=\pgf@xb \advance\pgf@xc by-10pt % this should be a parameter
+    \pgf@yc=\pgf@yb \advance\pgf@yc by-10pt
+    % construct main path
+    \pgfpathmoveto{\pgfpoint{\pgf@xa}{\pgf@ya}}
+    \pgfpathlineto{\pgfpoint{\pgf@xa}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@ya}}
+    \pgfpathclose
+    % add little corner
+    \pgfpathmoveto{\pgfpoint{\pgf@xc}{\pgf@yb}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xb}{\pgf@yc}}
+    \pgfpathlineto{\pgfpoint{\pgf@xc}{\pgf@yc}}
+  }
+}
+\makeatother
+\tikzstyle{document}=[
+  draw,
+  align=center,
+  color=black,
+  fill=white,
+  minimum width=5.5em,
+  minimum height=6.5em,
+  shape=doc,
+  inner sep=2ex
+]
+\newcommand\drawdocument[2]{
+  \begin{tikzpicture}
+    \node[document, scale=#2] (doc) {#1};
+  \end{tikzpicture}
+}
+
+%-- corpus ---------------------------------------------------------------------
+\newcommand\drawcorpus[2]{
+  \begin{tikzpicture}
+    \node[document, scale=#2] (background) {#1};
+    \node[document, scale=#2, anchor=west] at ([xshift=.25em, yshift=-.25em]background.west) (middle) {#1};
+    \node[document, scale=#2, anchor=west] at ([xshift=.25em, yshift=-.25em]middle.west) (foreground) {#1};
+  \end{tikzpicture}
+}
+
+%-- component ------------------------------------------------------------------
+\tikzstyle{component}=[
+  draw,
+  fill=white,
+  align=center,
+  rectangle,
+  minimum width=12em,
+  minimum height=3em,
+  transform shape
+]
+\newcommand\drawcomponent[2]{
+  \begin{tikzpicture}
+    \node[component, scale=#2] (cmp) {#1};
+  \end{tikzpicture}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Keyphrase Annotation with Graph Co-Ranking}
+
+\author{
+%    Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
+%    Université de Nantes, LINA, France\\
+%    \normalsize\texttt{\{adrien.bougouin,florian.boudin,beatrice.daille\}@univ-nantes.fr}
+}
+
+\date{}
+
+\begin{document}
+  \maketitle
+
+  \begin{abstract}
+  Keyphrases are words or phrases that summarize the content of a document.
+  In previous work, automatic keyphrase annotation is either carried out 
+  by extracting the most important phrases from a document (keyphrase 
+  extraction), or by assigning entries from controlled vocabulary 
+  (keyphrase assignment).
+  On the one hand, assignment methods provide better-formed keyphrases, 
+  as well as keyphrases that do not occur in the document.
+  On the other hand, extraction methods do not depend on manually built 
+  resources and are able to provide new (not already assigned) keyphrases.
+%
+  This paper proposes a new method that uses graph co-ranking to perform both
+  keyphrase extraction and keyphrase assignment, in a mutual reinforcing manner.
+  Experimental results show the effectiveness of the proposed method, which
+  outperforms both keyphrase extraction and keyphrase assignment baselines.
+%
+%  This paper proposes a co-ranking approach that performs keyphrase 
+%  extraction and assignment simultaneously in a mutually reinforcing manner.
+%  Experimental results show the effectiveness of the proposed approach 
+%  for the two tasks, both individually and simultaneously.
+  \end{abstract}
+
+  \input{input/introduction.tex}
+  \input{input/related_work.tex}
+  \input{input/topicrankpp.tex}
+  \input{input/experimental_settings.tex}
+  \input{input/results2.tex}
+  \input{input/conclusion.tex}
+
+%  \section*{Acknowledgments}
+%    The authors would like to thank the anonymous reviewers for their useful
+%    advice and comments. This work was supported by the French National Research
+%    Agency (TermITH project -- ANR-12-CORD-0029).
+
+  \bibliographystyle{acl}
+  \bibliography{biblio}
+\end{document}

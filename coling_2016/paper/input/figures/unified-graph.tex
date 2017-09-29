@@ -1,0 +1,112 @@
+\begin{figure}[htb!]
+            \newcommand{\xslant}{0.25}
+            \newcommand{\yslant}{0}
+        
+            \centering
+            \begin{tikzpicture}[transform shape, scale=.65]
+                % frame
+                \node [draw,
+                       rectangle,
+                       minimum width=.8\linewidth,
+                       minimum height=7em,
+                       xslant=\xslant,
+                       yslant=\yslant] (domain_graph) {};
+                \node [above=of domain_graph,
+                       xshift=.4\linewidth,
+                       yshift=5.5em,
+                       anchor=south east] (domain_graph_label) {controlled keyphrases};
+            
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=.3\linewidth,
+                       yshift=2.5em] (domain_node1) {$k_1$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=-.3\linewidth,
+                       yshift=2.5em] (domain_node2) {$k_2$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       yshift=2.5em] (domain_node3) {$k_3$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=.15\linewidth,
+                       yshift=-.75em] (domain_node4) {$k_4$};
+                \node [draw,
+                       circle,
+                       above=of domain_graph,
+                       xshift=-.15\linewidth,
+                       yshift=-.75em] (domain_node5) {$k_5$};
+            
+                \draw (domain_node1) -- (domain_node3);
+                \draw (domain_node2) -- (domain_node3);
+                \draw (domain_node2) -- (domain_node4);
+                \draw (domain_node4) -- (domain_node5);
+                \draw (domain_node4) -- (domain_node3);
+            
+                % document
+                \node [draw,
+                       rectangle,
+                       minimum width=.8\linewidth,
+                       minimum height=7em,
+                       xslant=\xslant,
+                       yslant=\yslant,
+                       above=of domain_graph,
+                       xshift=-1.5em,
+                       yshift=-1.5em] (document_graph) {};
+                \node [below=of document_graph,
+                       xshift=-.4\linewidth,
+                       yshift=-5.56em,
+                       anchor=north west] (document_graph_label) {document topics};
+            
+                \node [draw,
+                       circle,
+                       below=of document_graph,
+                       xshift=.3\linewidth,
+                       yshift=-2.5em] (document_node1) {$t_1$};
+                \node [draw,
+                       circle,
+                       below=of document_graph,
+                       xshift=-.3\linewidth,
+                       yshift=-2.5em] (document_node2) {$t_2$};
+                \node [draw,
+                       circle,
+                       below=of document_graph,
+                       yshift=-2.5em] (document_node3) {$t_3$};
+                \node [draw,
+                       circle,
+                       below=of document_graph,
+                       xshift=.15\linewidth,
+                       yshift=.5em] (document_node4) {$t_4$};
+            
+                \draw (document_node2) -- (document_node3);
+                \draw (document_node3) -- (document_node1);
+                \draw (document_node1) -- (document_node4);
+                \draw (document_node3) -- (document_node4);
+            
+                % extra link
+                \draw [dashed] (document_node2) -- (domain_node2);
+                \draw [dashed] (document_node3) -- (domain_node3);
+                \draw [dashed] (document_node4) -- (domain_node1);
+                \draw [dashed] (document_node3) -- (domain_node4);
+            
+                % legend
+                \node [right=of document_graph, yshift=-6.5em] (legend_title) {\underline{Legend:}};
+                \node [below=of legend_title, xshift=-1em, yshift=2em] (begin_inner) {};
+                \node [right=of begin_inner] (end_inner) {: $E_\textnormal{\textit{in}}$};
+                \node [below=of begin_inner, yshift=1.5em] (begin_outer) {};
+                \node [right=of begin_outer] (end_outer) {: $E_\textnormal{\textit{out}}$};
+            
+                \draw (legend_title.north  -| end_outer.east) rectangle (end_outer.south -| legend_title.west);
+            
+                \draw (begin_inner) -- (end_inner);
+                \draw [dashed] (begin_outer) -- (end_outer);
+            \end{tikzpicture}
+            \caption{
+                Example of a unified graph constructed by TopicCoRank and its two kinds of edges
+                \label{fig:topicrankpp_graph}
+            }
+        \end{figure}

@@ -1,0 +1,144 @@
+\documentclass[10pt, xcolor={usenames, dvipsnames, table}]{beamer}
+%\documentclass[handout, 10pt, xcolor={usenames, dvipsnames}]{beamer}
+
+\usepackage{etex}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage[round]{natbib}
+\usepackage{tikz}
+\usepackage{colortbl}
+\usepackage{ulem}
+\usepackage{multicol}
+\usepackage[overlay]{textpos}
+\usepackage{multirow}
+\usepackage{ifthen}
+\usepackage{ragged2e}
+\usepackage{rotating}
+\usepackage{pgfplots}
+\usepackage{fancybox}
+\usepackage{ulem}
+\usepackage{overpic}
+\usepackage{enumerate}
+\usepackage{xfrac}
+
+\setcounter{tocdepth}{2}
+
+\usetheme[style=lina]{min}
+
+\pgfplotsset{compat=1.8}
+\usetikzlibrary{positioning, topaths, shapes, arrows, patterns, calc}
+\newcount\mycount
+\tikzstyle{io}=[
+  ellipse,
+  minimum width=5cm,
+  minimum height=2cm,
+  fill=linagreen!30,
+  draw=linagreen!40,
+  transform shape,
+  font={\huge}
+]
+\tikzstyle{selectedio}=[
+  io,
+  fill=linared!30,
+  draw=linared!40,
+]
+\tikzstyle{component}=[
+  thick,
+  rectangle,
+  minimum width=13cm,
+  minimum height=2cm,
+  text centered,
+  text width=12.5cm,
+  fill=Cerulean!20,
+  draw=Cerulean!30,
+  transform shape,
+  font={\huge\bfseries}
+]
+\tikzstyle{selectedcomponent}=[
+  component,
+  fill=linared!30,
+  draw=linared!40,
+]
+
+\title{Keyphrase Annotation\\with Graph Co-Ranking}
+\author{
+  \textbf{Adrien \textsc{Bougouin}},
+  Florian \textsc{Boudin},
+  Béatrice \textsc{Daille}
+ }
+\institute{Université de Nantes, LINA}
+\date{December 16$^{\textnormal{th}}$, 2016}
+\titlepageextra{
+  \vfill{}
+  \includegraphics[height=6em]{logo/coling_2016.png}
+  \vfill{}
+}
+\logos{
+  \hfill{}\includegraphics[height=2.4em]{logo/univ_nantes.eps}
+  \hfill{}\includegraphics[height=2.4em]{logo/lina.eps}
+  \hfill{}\includegraphics[height=2.4em]{logo/termith.eps}
+  \hfill{}
+}
+
+\makeatletter
+\def\rowcolor{\noalign{\ifnum0=`}\fi\bmr@rowcolor}
+\newcommand<>{\bmr@rowcolor}{%
+    \alt#1%
+        {\global\let\CT@do@color\CT@@do@color\@ifnextchar[\CT@rowa\CT@rowb}% 
+        {\ifnum0=`{\fi}\@gooble@rowcolor}% 
+}
+
+\newcommand{\@gooble@rowcolor}[2][]{\@gooble@rowcolor@}
+\newcommand{\@gooble@rowcolor@}[1][]{\@gooble@rowcolor@@}
+\newcommand{\@gooble@rowcolor@@}[1][]{\ignorespaces}
+\makeatother
+
+
+
+\makeatletter
+\def\cellcolor{{\ifnum0=`}\fi\bmr@cellcolor}
+\newcommand<>{\bmr@cellcolor}{%
+    \alt#1%
+        {\global\let\CT@do@color\CT@@do@color\@ifnextchar[\CT@rowa\CT@rowb}% 
+        {\ifnum0=`{\fi}\@gooble@cellcolor}% 
+}
+
+\newcommand{\@gooble@cellcolor}[2][]{\@gooble@cellcolor@}
+\newcommand{\@gooble@cellcolor@}[1][]{\@gooble@cellcolor@@}
+\newcommand{\@gooble@cellcolor@@}[1][]{\ignorespaces}
+\makeatother
+
+\begin{document}
+  \begin{frame}[plain, noframenumbering]
+    \titlepage
+  \end{frame}
+  
+  \input{input/introduction.tex}
+  \begin{frame}{Outline}
+    \tableofcontents
+  \end{frame}
+  \input{input/related_work.tex}
+  \AtBeginSection[]{
+    \begin{frame}{Outline}
+      \tableofcontents[currentsection]
+    \end{frame}
+  }
+  \input{input/proposal.tex}
+  \input{input/topiccorank.tex}
+  \input{input/evaluation.tex}
+  \input{input/conclusion.tex}
+  
+  \section*{References}
+  \begin{frame}[allowframebreaks]{References}
+    \def\newblock{\hskip .11em plus .33em minus .07em}
+    \bibliographystyle{plainnat}
+    \bibliography{biblio}
+  \end{frame}
+\end{document}

@@ -1,0 +1,83 @@
+\section{Evaluation}
+\begin{frame}{Evaluation}\framesubtitle{Datasets}
+  3 French corpora covering 3 domains of Humanities and Social Sciences
+  \begin{itemize}
+    \item{Manually annotated by professional indexers}
+    \item{Provided with controlled vocabularies}
+    \item{Annotated based on both controlled vocabulary and content}
+  \end{itemize}
+  
+  \begin{center}
+    \resizebox{\linewidth}{!}{
+        \begin{tabular}{l|c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c}
+         \toprule
+          \multirow{2}{*}{\textbf{Corpus}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Linguistics}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Information Science}} & \multicolumn{3}{c}{\textbf{Archaeology}}\\
+          \cline{2-10}
+          & \multicolumn{1}{c@{~$\supset$}}{train} & dev & test & \multicolumn{1}{c@{~$\supset$}}{train} & dev & test & \multicolumn{1}{c@{~$\supset$}}{train} & dev & test\\
+          \hline
+          \rowcolor<2>{linared!20} Doc. & 515 & 100 & 200  & 506 & 100 & 200 & 518 & 100 & 200\\
+          \rowcolor<3>{linared!20} Tokens/Doc. & 161 & 151 & 147 & 105 & 152 & 157 & 221 & 201 & 214\\
+          \rowcolor<4>{linared!20} Keyphrases & 8.6 & 8.8 & 8.9 & 7.8 & 10.0 & 10.2 & 16.9 & 16.4 & 15.6\\
+          \rowcolor<5>{linared!20} Silence (\%) & 60.6 & 63.2 & 62.8 & 67.9 & 63.1 & 66.9 & 37.0 & 48.4 & 37.4\\
+          \bottomrule
+        \end{tabular}
+    }
+  \end{center}
+\end{frame}
+
+\begin{frame}{Evaluation}\framesubtitle{Baselines}
+  Related work:
+  \begin{itemize}
+    \item{TopicRank\hfill{}\uncover<2->{\textit{Extraction}}}
+    \item{Kea$++$\hfill{}\uncover<3->{\textit{Assignment}}}
+  \end{itemize}
+  
+  \vspace{1em}
+  
+  TopicCoRank alternatives:
+  \begin{itemize}
+    \item{TopicCoRank$_{\text{extr}}$\hfill{}\uncover<4->{\textit{Extraction}}}
+    \item{TopicCoRank$_{\text{assign}}$\hfill{}\uncover<5->{\textit{Assignment}}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluation}\framesubtitle{Measures}
+  Stem-based comparisons at the top 10 outputed keyphrases
+  \begin{itemize}
+    \item{Recall}%: true positive maximization}
+    \item{Precision}%: false positive minimization}
+    \item{F1-score}%: recall and precision trade-off}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Evaluation}\framesubtitle{Results}
+  \begin{center}
+    \resizebox{\linewidth}{!}{
+      \begin{tabular}{l|c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c@{\hspace{.5em}}|@{\hspace{.5em}}c@{\hspace{1em}}c@{\hspace{1em}}c}
+          \toprule
+          \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Linguistics}} & \multicolumn{3}{c@{\hspace{.5em}}|@{\hspace{.5em}}}{\textbf{Information Science}} & \multicolumn{3}{c}{\textbf{Archaeology}}\\
+          \cline{2-10}
+          & P & R & F$$ & P & R & F$$ & P & R & F\\
+          \hline
+          TopicRank & 11.82 & 13.1 & 11.9 & 12.1 & 12.8 & 12.1 & 27.5 & 19.7 & 21.8\\
+          KEA++ & 11.6 & 13.0 & 12.1 & $~~$9.5 & 10.2 & $~~$9.6 & 23.5 & 16.2 & 18.8\\
+          \alt<4->{TopicCoRank & 24.5 & 28.3 & 25.9 & 19.4 & 19.6 & 19.0 & 46.6 & 31.4 & 36.7\\
+          }{TopicCoRank & \textbf{24.5} & \textbf{28.3} & \textbf{25.9} & \textbf{19.4} & \textbf{19.6} & \textbf{19.0} & \textbf{46.6} & \textbf{31.4} & \textbf{36.7}\\
+          }
+          \hline
+          \uncover<2->{TopicCoRank$_\textnormal{extr}$ & 15.9 & 18.2 & 16.7 & 15.9 & 16.2 & 15.6 & 39.6 & 26.4 & 31.0}\\
+          \uncover<3->{\alt<4->{TopicCoRank$_\textnormal{assign}$ & \textbf{25.8} & \textbf{29.6} & \textbf{27.2} & \textbf{19.9} & \textbf{20.0} & \textbf{19.5} & \textbf{49.6} & \textbf{33.3} & \textbf{39.0}
+          }{TopicCoRank$_\textnormal{assign}$ & 25.8 & 29.6 & 27.2 & 19.9 & 20.0 & 19.5 & 49.6 & 33.3 & 39.0
+          }}\\
+          \bottomrule
+      \end{tabular}
+    }
+  \end{center}
+  
+  \begin{itemize}
+    \item{TopicCoRank outperforms baselines}
+    \item<2->{Graph-based co-ranking is succesful for extraction alone}
+    \item<3->{Graph-based co-ranking is succesful for assignment alone}
+    \item<4->{TopicCoRank$_\text{assign}$ performs best due to datasets specificities}
+  \end{itemize}
+\end{frame}

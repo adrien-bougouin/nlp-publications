@@ -1,0 +1,154 @@
+
+============================================================================ 
+COLING 2016 Reviews for Submission #267
+============================================================================ 
+
+Title: Keyphrase Annotation with Graph Co-Ranking
+
+Authors: Adrien Bougouin, Florian Boudin and Beatrice Daille
+============================================================================
+                           REVIEWER #1
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+                              Relevance: 5
+                            Originality: 3
+      Technical correctness / soundness: 5
+                Readability and clarity: 3
+                  Meaningful comparison: 4
+                              Substance: 4
+                        Impact of ideas: 4
+                    Impact of resources: 4
+                 Overall recommendation: 4
+                    Reviewer Confidence: 3
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This article presents a system for the related tasks of  keyphrase extraction
+and assignment that uses two graph representations, namely one for the document
+at hand, and one for the specialized domain. The authors apply a co-ranking
+algorithm to both tasks. Keyphrases are extracted from the N-best ranked topics
+and controlled keyphrases. 
+
+The system outperforms its baselines by a fair margin. In addition to 
+precision, recall and F1, the authors provide the precision-recall curves of
+the systems, and justify the recall improvement of TopicCoRank in terms of the
+contribution of keyphrase assignment. 
+
+In all, the paper is well-justified and the evaluation is conducted in a
+serious manner. While the structure is good, there are some parts where the
+English is a bit off. I provide some editing comments at the end of the review.
+
+Editing
+- "to accept flexion" -- the linguistic phenomenon is called "inflection" in
+English.
+- "Thus, the sole domain is not sufficient" -- seems a calque from French. I
+would say "Only the - domain is not.." or "The domain alone is not ..."
+- "scenarii" is a hypercorrection, just say "scenarios"
+- "without domain specific resources" - "domain-specific"
+
+============================================================================
+                           REVIEWER #2
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+                              Relevance: 5
+                            Originality: 4
+      Technical correctness / soundness: 4
+                Readability and clarity: 4
+                  Meaningful comparison: 3
+                              Substance: 4
+                        Impact of ideas: 4
+                    Impact of resources: 3
+                 Overall recommendation: 5
+                    Reviewer Confidence: 3
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This paper presents an extension to a graph-based keyphrase extraction
+algorithm that now accomodates domain-specific keyphrase assignment
+from a controlled vocabulary. The presented architecture is
+interesting and the research is well organized and presented. The
+F-scores of the TopicCoRank algorithm (and its TopicCoRank_assign
+variation) reported, are significantly better than the scores of the
+TopicRank algorithm and the KEA++ system, as applied by the authors on
+the same French dataset.
+
+It would be beneficial for section 4 (Experimental setup) if authors
+dedicated more space to summarize some aspects of the dataset, instead
+of just providing a bibliographic reference. For example, how many
+indexers worked on each record and what was the interannotator
+aggreement if any? What explains the difference between assigned and
+missing keyphrases across three domains?  I would also like to read in
+Section 5 (Experimental Results) details on the scores other
+researchers have reported on the three-domain dataset used, if
+any. This would make the evaluation more convincing. I also think that
+a more qualitative discussion should be included in the same section,
+including examples of false negatives and positives; and why the
+F-measure in the Archaeology domain is almost double the one for the
+Information Science. I assume from the tokens/document ratio in Table
+1 that the authors examined only the abstract of the articles
+(although this could be made more clear in the paper). Have the
+authors tested their approach on longer documents without abstracts
+where, presumably, the task becomes more difficult? Or in datasets in
+other languages where researchers have already reported results?
+
+Typos and possible stylistic improvements: 3.3 gain more importance ->
+gains ...; 3.4 "then its improvement ... the document" -> (maybe) "it
+should not be assigned as it's considered not related to the content
+of the document"
+
+============================================================================
+                           REVIEWER #3
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+                              Relevance: 5
+                            Originality: 3
+      Technical correctness / soundness: 4
+                Readability and clarity: 4
+                  Meaningful comparison: 4
+                              Substance: 4
+                        Impact of ideas: 3
+                    Impact of resources: 3
+                 Overall recommendation: 5
+                    Reviewer Confidence: 3
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+Some comments about the PageRank:
+
+Shouldn't it be initialized with 1/|V|? Also the decay factor (1-\delta) should
+be devided by |V|. Otherwise you have far to much mass in the system (no
+probability distribution).
+
+To avoid confusion you could add an iteration index to S(v_i) and S(v_j), i.e.
+S^t(v_i) and S^(t-1)(v_j)
+
+Suggestion: You are actually removing the damping factor, so your system is not
+guaranteed to converge (but it works because you are using an undirected
+graph). Why not treating the entire unified graph as one, setting the edge
+weight in E_out by hyperparameter and then applying normal PageRank? You can
+even set different weights for t->k and k->t so this would correspond to
+\delta_t and \delta_k.

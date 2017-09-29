@@ -1,0 +1,110 @@
+%
+% File acl2016.tex
+%
+%% Based on the style files for ACL-2015, with some improvements
+%%  taken from the NAACL-2016 style
+%% Based on the style files for ACL-2014, which were, in turn,
+%% Based on the style files for ACL-2013, which were, in turn,
+%% Based on the style files for ACL-2012, which were, in turn,
+%% based on the style files for ACL-2011, which were, in turn, 
+%% based on the style files for ACL-2010, which were, in turn, 
+%% based on the style files for ACL-IJCNLP-2009, which were, in turn,
+%% based on the style files for EACL-2009 and IJCNLP-2008...
+
+%% Based on the style files for EACL 2006 by 
+%%e.agirre@ehu.es or Sergi.Balari@uab.es
+%% and that of ACL 08 by Joakim Nivre and Noah Smith
+
+\documentclass[11pt,a4paper]{article}
+\usepackage{coling2016}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+
+%\aclfinalcopy % Uncomment this line for the final submission
+%\def\aclpaperid{***} %  Enter the acl Paper ID here
+
+%\setlength\titlebox{5cm}
+% You can expand the titlebox if you need extra space
+% to show all the authors. Please do not make the titlebox
+% smaller than 5cm (the original size); we will check this
+% in the camera-ready version and ask you to change it back.
+
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{lipsum}
+\usepackage{units}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{subfigure}
+\usepackage[inline]{enumitem}
+\usepackage{varwidth}
+\usepackage{mathabx}
+%\usepackage[square,numbers,sectionbib]{natbib}
+%\usepackage{marginnote}
+
+\pgfplotsset{compat=1.12}
+\usetikzlibrary{arrows, backgrounds, decorations.markings, positioning, shapes}
+
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\REVIEW[1]{}%\textcolor{green}{[REVIEW \textit{``#1''}]}}
+\newcommand\REVIEWOK[1]{}%\marginnote{\textcolor{green}{\underline{Reviewer said:} \textit{``#1''}}}}
+\newcommand\ANNOTATE[2]{\textcolor{blue}{[#1 \textbf{$\rightarrow$ #2}]}}
+\newcommand\FILL[1]{\textcolor{red}{\lipsum[#1]}}
+
+\newcommand\BibTeX{B{\sc ib}\TeX}
+
+\title{Keyphrase Annotation with Graph Co-Ranking}
+
+\author{
+  Adrien Bougouin \and Florian Boudin \and Béatrice Daille\\
+  Université de Nantes, LINA, France\\
+  {\normalsize\tt \{adrien.bougouin,florian.boudin,beatrice.daille\}@univ-nantes.fr}\\
+}
+
+\date{}
+
+\begin{document}
+  \maketitle
+  
+  \begin{abstract}
+    Keyphrase annotation is the task of identifying textual units that represent the main content of a document.
+    %
+    Keyphrase annotation is either carried out by extracting the most important phrases from a document, keyphrase extraction, or by assigning entries from a controlled domain-specific vocabulary, keyphrase assignment.
+    %
+    Assignment methods are generally more reliable.
+    %
+    They provide better-formed keyphrases, as well as keyphrases that do not occur in the document.
+    %
+    But they are often silent on the contrary of extraction methods that do not depend on manually built resources.
+    %
+    This paper proposes a new method to perform both keyphrase extraction and keyphrase assignment in an integrated and mutual reinforcing manner.
+    %
+    Experiments have been carried out on datasets covering different domains of humanities and social sciences.
+    %
+    They show statistically significant improvements compared to both keyphrase extraction and keyphrase assignment state-of-the art methods.
+  \end{abstract}
+    
+  \input{input/introduction.tex}
+  \input{input/related_work.tex}
+  \input{input/topiccorank.tex}
+  \input{input/experimental_setup.tex}
+  \input{input/experimental_results.tex}
+  \input{input/qualitative_example.tex}
+  %\vspace{-1em} % Pour que cela rentre
+  \input{input/conclusion.tex}
+  
+  \section*{Acknowledgments}
+  This work was supported by the French National Research Agency (TermITH project – ANR-12-CORD-0029) and by the TALIAS project (grant of CNRS PEPS INS2I 2016, \url{https://boudinfl.github.io/talias/}).
+
+  \bibliography{biblio}
+  \bibliographystyle{coling2016}
+\end{document}

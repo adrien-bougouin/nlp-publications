@@ -1,0 +1,117 @@
+\section{Co-ranking for Keyphrase Annotation}
+\label{sec:topicrankpp}
+    This section presents TopicCoRank\footnote{TopicCoRank is open source and publicly available at \url{https://github.com/adrien-bougouin/KeyBench/tree/coling_2016/}}, our keyphrase annotation method built on the existing method TopicRank~\cite{bougouin2013topicrank} to which we add keyphrase assignment.
+    We first detail TopicRank, then present our contributions.
+    
+    \subsection{TopicRank}
+    \label{subsec:topicrank}
+        TopicRank is a graph-based keyphrase extraction method that relies on the following five steps:
+        \begin{enumerate}
+            \item{\textbf{Keyphrase candidate selection.}
+                Following previous work~\cite{hassan2010conundrums,wan2008expandrank}, keyphrase candidates are selected from the sequences of adjacent nouns and adjectives that occur within the document (\texttt{/(N|A)+/}).
+            }
+            \item{\textbf{Topical clustering.}
+                Similar keyphrase candidates $c$ are clustered into topics based on the words they share.
+                \newcite{bougouin2013topicrank} use a Hierarchical Agglomerative Clustering (HAC) with a stem overlap similarity (see equation~\ref{math:jaccard}) and an average linkage.
+                At the beginning, each keyphrase candidate is a single cluster, then candidates sharing an average of $\unitfrac{1}{4}$ stemmed words with the candidates of another cluster are iteratively added to the latter.
+                 
+                \vspace{-1em}\begin{align}
+                    \text{sim}(c_i, c_j) &= \frac{|\text{stems}(c_i) \cap \text{stems}(c_j)|}{|\text{stems}(c_i) \cup \text{stems}(c_j)|} \label{math:jaccard}
+                \end{align}
+                where $\text{stems}(c_i)$ is the set of stemmed words of the keyphrase candidate $c_i$.
+            }
+            \item{\textbf{Graph construction.}
+                A complete graph is built, in which nodes are topics and edges are weighted according to the strength of the semantic relation between the connected topics.
+                The closer are the pairs of candidates $\langle{}c_i, c_j\rangle{}$ of two topics $t_i$ and $t_j$ within the document, the stronger is their semantic relation $w_{i,j}$:
+                
+                \vspace{-1em}\begin{align}
+                    w_{i, j} &= \mathlarger{\sum}_{c_i \in t_i}\ \mathlarger{\sum}_{c_j \in t_j} \text{dist}(c_i, c_j) \label{math:semantic_relatedness}\\
+                    \text{dist}(c_i, c_j) &= \sum_{p_i \in \text{pos}(c_i)}\ \sum_{p_j \in \text{pos}(c_j)} \frac{1}{|p_i - p_j|} \label{math:distance}
+                \end{align}
+                where $\text{pos}(c_i)$ represents all of the offset positions of the first word of the keyphrase candidate $c_i$.
+            }
+            \item{\textbf{Topic ranking.}
+                Topics $t$ are ranked using the importance score $S(t_i)$ of the Text\-Rank formula, as modified by \newcite{wan2008expandrank} to leverage edge weights:
+                 
+                \vspace{-1em}\begin{align}
+                    S(t_i) = (1 - \lambda) + \lambda \sum_{t_j \in E(t_i)}{\frac{w_{ij}S(t_j)}{\mathlarger\sum_{t_k \in E(t_j)}{w_{jk}}}}\label{math:singlerank}
+                \end{align}
+            }
+            \item{\textbf{Keyphrase selection.}
+                One keyphrase candidate is selected from each of the $N$ most important topics: the first occurring keyphrase candidate.
+            }
+        \end{enumerate}
+        
+    %\TODO{modification of TopicCoRank compared to TopicRank}
+    Our work extends TopicRank to assign domain-specific keyphrases that do not necessarily occur within the document.
+    First, we add a second graph representing the domain and unify it to the topic graph.
+    Second, we define a co-ranking scheme that leverages the new graph.
+    Finally, we redefine the keyphrase selection step for both extracting and assigning keyphrases.
+
+    \subsection{Unified graph construction}
+    \label{subsec:graph_construction}
+        TopicCoRank operates over a unified graph that connects two graphs representing the document topics, the controlled keyphrases and the relations between them (see Fig.~\ref{fig:topicrankpp_graph}).
+        The controlled keyphrases are the keyphrases that were manually assigned to training documents.
+        Considering the manually assigned keyphrases as the controlled vocabulary circumvents the need for a manually produced controlled vocabulary and also allows us to further take advantage of the semantic relatonship between the domain-specific (controlled) keyphrases.
+        Because controlled keyphrases are presumably non-redundant, we do not topically cluster them as we do for keyphrase candidates.
+        
+        \input{input/figures/unified-graph.tex}
+    
+        \REVIEWOK{The notations of the vertices for the controlled keyphrases and topics are very confused.}
+        Let $G = (V=T \cup K, E=E_{\textnormal{\textit{in}}} \cup E_{\textnormal{\textit{out}}})$ denote the unified graph.
+        Topics $T=\{t_1, t_2, ..., t_n\}$ and controlled keyphrases $K=\{k_1, k_2, ..., k_m\}$ are vertices $V$ connected to their fellows by edges $E_\textnormal{\textit{in}} \subseteq T \times T \cup K \times K$ and connected to the other vertices by edges $E_\textnormal{\textit{out}} \subseteq K \times T$ (see Fig.~\ref{fig:topicrankpp_graph}).
+
+        To unify the two graphs, we consider the controlled keyphrases as a category map and connect the document to its potential categories.
+        We create an unweighted edge $\langle{}k_i, t_j\rangle{} \in E_{\textnormal{\textit{out}}}$ to connect a controlled keyphrase $k_i$ and a topic $t_j$ if the controlled keyphrase is a member of the topic, i.e. a keyphrase candidate of the topic\footnote{To accept inflexions, such as plural inflexions, we follow \newcite{bougouin2013topicrank} and perform the comparison with stems.}.
+        We create an edge $\langle{}t_i, t_j\rangle{} \in E_\textnormal{\textit{in}}$ or $\langle{}k_i, k_j\rangle{} \in E_\textnormal{\textit{in}}$ between two topics $t_i$ and $t_j$ or two controlled keyphrases $k_i$ and $k_j$ when they co-occur within a sentence of the document or as keyphrases of a training document, respectively.
+        Edges $\langle{}t_i, t_j\rangle{} \in E_{\textnormal{\textit{in}}}$ are weighted by the number of times ($w_{i, j}$) topics $t_i$ and $t_j$ occur in the same sentence within the document.
+        Edges $\langle{}k_i, k_j\rangle{} \in E_{\textnormal{\textit{in}}}$ are weighted by the number of times ($w_{i, j}$) keyphrases $k_i$ and $k_j$ are associated to the same document among the training documents.
+        Doing so, the weighting scheme of edges $E_\textnormal{\textit{in}}$ is equivalent for both topics and controlled keyphrases.
+        This equivalence is essential to ensure that not only controlled keyphrases occurring in the document can be assigned by properly co-ranking topics and controlled keyphrases.
+
+    \subsection{Graph-based co-ranking}
+    \label{subsec:graph_based_co_ranking}
+        TopicCoRank gives an importance score $S(t_i)$ or $S(k_i)$ to every topic or controlled keyphrase using graph co-ranking (see equations~\ref{math:topiccorank_t} and~\ref{math:topiccorank_k}).
+%        Graph co-ranking has been applied with success to many Natural Language Processing tasks  such as
+%        %text summarization~\cite{wan2011corankingsummarization},
+%        tweet recommendation~\cite{yan2012corankingtweetrecommendation} or 
+%        opinion mining~\cite{liu2014corankingopinionmining}.
+        %
+        Our graph co-ranking simulates the voting concept based on inner and outer recommendations.
+        
+        The inner recommendation is similar to the recommendation computed in previous work~\cite{bougouin2013topicrank,mihalcea2004textrank,wan2008expandrank}.
+        The inner recommendation $R_\textnormal{\textit{in}}$ comes from nodes of the same graph (see equation~\ref{math:rin}). %:
+        A topic or a controlled keyphrase is important if it is strongly connected to other topics or controlled keyphrases, respectively.
+        %\begin{itemize}
+        %  \item{a topic is important if it is strongly connected to other topics;}
+        %  \item{a controlled keyphrase is important if it is strongly connected to other controlled keyphrases.}
+        %\end{itemize}
+        
+        The outer recommendation influences the ranking of topics by controlled keyphrases and of controlled keyphrases by topics.
+        The outer recommendation $R_\textnormal{\textit{out}}$ comes from nodes of the other graph (see equation~\ref{math:rout}). %:
+        A topic or a controlled keyphrase gain more importance if it is connected to important controlled keyphrases or an important topic, respectively.
+        
+        \begin{align}
+          S(t_i) &= (1 - \lambda_t)\ R_{out}(t_i) + \lambda_t\ R_{in}(t_i)\label{math:topiccorank_t}\\[1em]
+          S(k_i) &= (1 - \lambda_k)\ R_{out}(k_i) + \lambda_k\ R_{in}(k_i)\label{math:topiccorank_k}\\[1em]
+          R_{in}(v_i) &= \sum_{v_j \in E_{\text{in}}(v_i)}{\frac{w_{ij} S(v_j)}{\mathlarger\sum_{v_k \in E_{\text{in}}(v_j)}{{w_{jk}}}}}\label{math:rin}\\[1em]
+          R_{out}(v_i) &= \sum_{v_j \in E_{\text{out}}(v_i)}{\frac{S(v_j)}{|E_{\text{\textit{out}}}(v_j)|}}\label{math:rout}
+        \end{align}
+        
+        
+        \noindent where $v_i$ is a node representing a keyphrase or a topic.
+        $\lambda_t$ and $\lambda_k$ are parameters that control the influence of the inner recommendation over the outer recommendation ($0~\leq~\lambda_t~\leq~1$ and $0~\leq~\lambda_k~\leq~1$) for the topics and the controlled keyphrases, respectively.
+        %A higher $\lambda_t$ or $\lambda_k$ gives more influence to the inner recommendation.
+
+    \subsection{Keyphrase annotation}
+    \label{subsec:keyphrase_assignment_and_extraction}
+        Keyphrases are extracted and assigned from the N-best ranked topics and controlled keyphrases, regardless of their nature.
+        
+        We extract topic keyphrases using the former TopicRank strategy. Only one keyphrase is extracted per topic: the keyphrase candidate that first occurs within the document.
+        
+        We assign controlled keyphrases only if they are directly or transitively connected to a topic of the document. If the ranking of a controlled keyphrase has not been affected by a topic of the document nor by controlled keyphrases connected to topics, then its importance score is not related to the content of the document and it should not be assigned.
+
+
+        At this step, two variants of TopicCoRank performing either extraction or assignment can be proposed, namely TopicCoRank$_\textit{extr}$ and TopicCoRank$_\textit{assign}$.
+        If keyphrases are only extracted from the topics, we obtain TopicCoRank$_\textit{extr}$.
+        If keyphrases are only assigned from the controlled keyphrases, we obtain TopicCoRank$_\textit{assign}$.

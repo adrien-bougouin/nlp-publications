@@ -1,0 +1,71 @@
+\section{Related Work}
+\label{sec:related_work}
+    \subsection{Keyphrase extraction}
+    \label{subsec:ake}
+        Keyphrase extraction is the most common approach to tackle the automatic keyphrase annotation task. Previous work includes many approaches~\cite{hasan2014state_of_the_art}, from statistical ranking~\cite{salton1975tfidf} to  binary classification~\cite{witten1999kea}, through graph-based ranking~\cite{mihalcea2004textrank} of keyphrase candidates.
+        As our approach uses graph-based ranking, we focus on the latter. For a detailed overview of
+    keyphrase extraction methods, refer to~\cite{hassan2010conundrums,hasan2014state_of_the_art}.
+    
+        Since the seminal work of \newcite{mihalcea2004textrank}, graph-based ranking approaches to keyphrase extraction are becoming increasingly popular.
+        The original idea behind these approaches is to build a graph from the document and rank its nodes according to their importance using centrality measures.
+    
+        In TextRank~\cite{mihalcea2004textrank}, the input document is represented as
+    a co-occurrence graph in which nodes are words.
+    Two words are connected by an edge if they co-occur in a fixed-sized window of words.
+    A random walk algorithm is used to iteratively rank the words, then extract the
+    keyphrases by concatenating the most important words. 
+        
+        
+        The random walk algorithm simulates the ``voting concept'', or recommendation: a node is 
+    important if it is connected to many other nodes, and if many of those are 
+    important.
+        Thus, let $G=(V,E)$ be an undirected graph with a set of vertices $V$ and a  set of edges $E$, and let $E(v_i)$ be the set of nodes connected to the node $v_i$.
+        The score $S(v_i)$ of a vertex $v_i$ is initialized to 1 and computed iteratively until convergence using the following equation:
+        
+        \begin{align}
+          S(v_i) = (1 - \lambda) + \lambda \sum_{v_j \in E(v_i)}{\frac{S(v_j)}{|E(v_j)|}}
+        \end{align}
+        
+        \noindent where $\lambda$ is a damping factor that has been set to $0.85$ by \newcite{brin1998pagerank} for a trade-off between ranking accuracy and fast convergence.
+    
+        Following up the work of \newcite{mihalcea2004textrank}, \newcite{wan2008expandrank} added edge weights (co-occurrence numbers) to the random walk and further improved the graph with co-occurrence information borrowed from similar documents. To extract keyphrases from a document, they first look for
+    five similar documents, then use them to add new edges between words within
+    the graph and reinforce the weight of existing edges.
+        %
+        \newcite{liu2010topicalpagerank}  biased multiple graphs with topic probabilities drawn from LDA (Latent Dirichlet Allocation)~\cite{blei2003lda}, to rank the words regarding each graph and to merge the rankings together. This method
+    performs as many rankings as the number of topics and gives higher importance
+    scores to high-ranking words for as many topics as possible. By doing so,
+    \newcite{liu2010topicalpagerank} 
+    increase the topic coverage provided by the extracted keyphrases.
+        %
+        %\newcite{zhang2013wordtopicmultirank} explored further the idea of %\newcite{liu2010topicalpagerank}.
+        %Rather than using  multiple graphs biased by single topics, they added topics to graph nodes %and performed co-ranking between words and topics.
+        %Topics are important if they are connected to important words and words are important if they %are highly connected to important topics, to important words and to other words.
+        %At the end, only words are used for the keyphrase extraction.
+
+        Most recently, \newcite{zhang2013wordtopicmultirank} and \newcite{bougouin2013topicrank} explored further the value of topics for keyphrase extraction. 
+        \newcite{zhang2013wordtopicmultirank} used graph co-ranking to improve the method of \newcite{liu2010topicalpagerank} by introducing LDA topics right inside the graph.
+        \newcite{bougouin2013topicrank} proposed to represent topics as clusters of similar keyphrase candidates within the document (i.e. words and phrases from the document), to rank these topics instead of the words and to extract the most representative candidate as keyphrase for each important topic.
+        %
+        As our work extends that of \newcite{bougouin2013topicrank}, we present a detailed description of their method in Section~\ref{subsec:topicrank}.
+    
+        %Graph-based methods have been well studied in the past few years.
+        %However, none of the proposed approaches have considered the keyphrase assignment problem nor used a %similar representation to analyze and leverage reference keyphrase relations within training data.
+
+    \subsection{Keyphrase assignment}
+    \label{subsec:aka}
+        Keyphrase assignment provides keyphrases for every document of a specific domain using a controlled vocabulary. Dissimilar to keyphrase extraction, keyphrase assignment also
+    aims to provide keyphrases that do not occur within the document. This task is more
+    difficult than keyphrase extraction and has, therefore, seldom been employed for automatic
+    keyphrase annotation.  The state-of-the art method for keyphrase assignment is KEA++~\cite{medelyan2006kea++}.
+
+        KEA++ uses a domain-specific thesaurus to assign keyphrases to a document.
+        First, keyphrase candidates are selected among the n-grams of the document.
+        N-grams that do not match a thesaurus entry are either removed or substituted by a synonym that matches a thesaurus entry.
+        This candidate selection approach induces a limitation of keyphrase assignment, refered to as keyphrase indexing by \newcite{medelyan2006kea++}, because it only assigns keyphrases if they occur within the document.
+        Second, KEA++ exploits the semantic relationships between keyphrase candidates within the thesaurus as the main feature of a Naive Bayes classifier.
+        Compared to similar methods without domain specific resources, KEA++ achieves better performance.
+        However, such resources are not readily available for most domains, and if so, they could be quickly out of date. 
+        The application scenario of KEA++ are thus restricted.
+    
+  Our proposition is to model  with graphs both keyphrase extraction and assignment and to take benefit of this unified modelling to perform accurate keyphrase annotation. 

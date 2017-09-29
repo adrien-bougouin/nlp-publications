@@ -1,0 +1,145 @@
+\section{TermITH-Eval Dataset}
+\label{sec:termith_eval_dataset}
+    We selected 400 French bibliographic records from the FRANCIS and PASCAL databases of the French Institute for Scientific and Technical Information (Inist).
+    The records cover four specific-domains (100 each): Linguistics, Information Science, Archaeology and Chemistry.
+    Every bibliographic record contains a title, an abstract, author keyphrases and reference keyphrases assigned by professional indexers.
+    This work only take into account the titles, abstracts and keyphrases assigned by professional indexers (see Figure~\ref{fig:example_bibliographic_record}).
+    \begin{figure*}
+        \framebox[\linewidth]{ % linguistique_11-0080464_tei.xml
+            \parbox{.99\linewidth}{\footnotesize
+                \textbf{La cause linguistique}
+                \hfill\underline{\textit{Linguistics}}\\
+
+                L'objectif est de fournir une définition de base du concept linguistique de la cause en observant son expression.
+                Dans un premier temps, l'A. se demande si un tel concept existe en langue.
+                Puis il part des formes de son expression principale et directe (les verbes et les conjonctions de cause) pour caractériser linguistiquement ce qui fonde une telle notion.\\
+
+                \textbf{Reference keyphrases:} Français; interprétation sémantique; conjonction; expression linguistique; concept linguistique; relation syntaxique; cause. 
+        }
+      }
+      \caption{
+        Example of the content of a bibliographic record
+        \label{fig:example_bibliographic_record}
+      }
+    \end{figure*}
+
+
+    The following subsections present the guidelines given to professional indexers for assigning the reference keyphrases, the three keyphrase extraction methods used to automatically extract keyphrases and the guidelines given to professional indexers for the evaluation of automatically extracted keyphrases.
+
+    \subsection{Indexing Guidelines}
+    \label{subsec:annotation_guidelines}
+        Indexing is the process of describing and identifying a document in terms of its subject content, in order to facilitate the retrieval of information from a collection of documents.
+        Professional indexers at the Inist work in their own specialized fields and follow five principles to ensure quality indexing: conformity, exhaustivity, consistency, specificity and impartiality.
+
+        Conformity relies on a domain terminology (indexing language).
+        Bibliographic records from a given research area are mainly indexed in accordance with the same indexing language and its usage rules.
+
+        Exhaustivity completes keyphrases obtained when focusing on conformity.
+        Professional indexers must identify every keyphrase, for a document, that has potential value for information retrieval.
+        Professional indexers also need to include implicit keyphrases if they are useful for the contextualisation of a given keyphrase.
+
+        Consistency increases the quality of document indexing and retrieval.
+        If the same concept is important in two bibliographic records of the same domain, then the concept must be represented by the same keyphrase (preferably from the indexing language).
+
+        Specificity relies on the term hierarchy in the domain.
+        As a rule, keyphrases must be as specific as possible and more general ones can be added to point their place within the domain (e.g. \textit{Français} -- French -- in Figure~\ref{fig:example_bibliographic_record}).
+
+        Impartiality is a required quality for professional indexers to posses.
+        Keyphrases associated to documents must not convey the personal opinion of the indexer regarding the bibliographic record.
+        
+        To cope with the increasing amount of documents to be referenced, Inist indexers are helped by a pre-indexing system which proposes keyphrases to be validated and enriched.
+        The pre-indexing system relies on pattern matching between text and predefined expressions related to potential keyphrases.
+        The predefined expressions requires constant updating in order to generate appropriate keyphrases.
+
+    \subsection{Automatic Keyphrase Extraction}
+    \label{subsec:automatic_keyphrase_extraction}
+        We selected three keyphrase extraction methods to extract 30 keyphrases (10 each) per bibliographic record.
+        The methods cover the main techniques used for automatic keyphrase extraction: the statistical method TF-IDF~\cite{salton1975tfidf}, the classification method KEA~\cite{witten1999kea} and the graph-based method TopicRank~\cite{bougouin2013topicrank}.
+        
+        TF-IDF is a simple and common keyphrase extraction method that ranks the textual units of a document according to their TF-IDF score, frequently used in Information Retrieval.
+        The idea is to give a high importance score to textual units which are both frequent in the document and specific to it.
+        The specificity of a textual unit regarding a document is obtained using a collection of documents.
+        The lower the number of documents in which a textual unit occurs, the more specific this textual unit is.
+        
+        KEA also relies on simple statistics.
+        According to KEA, a keyphrase can be recognized by its importance (TF-IDF) and the position of its first occurrence within the document.
+        Indeed, \newcite{witten1999kea} observed that keyphrases tend to appear earlier than later in a document.
+        The two properties (TF-IDF and first position) are used as features of a Naive Bayes classifier that labels either the class of ``\textit{keyphrase}'' or ``\textit{non keyphrase}'' to every textual unit of the document.
+        
+        TopicRank is a graph-based method that ranks topics by importance and extracts one representative keyphrase for each important topic.
+        Topics are clusters of textual units which ``contain'' the same concept and the representative keyphrase for each topic is its textual unit that appears first within the document.
+
+        For comparison purposes, we implemented each method and integrated them on top of the same preprocessing tools.
+        Every document is first segmented into sentences, sentences are tokenized into words and words are labelled according their morphological class (Part-of-Speech tagging --- POS tagging).
+        We performed sentence segmentation with the PunktSentenceTokenizer provided by the Python Natural Language ToolKit (NLTK)\cite{bird2009nltk}, word tokenization using the French tokenizer Bonsai included with the French POS tagger MElt~\cite{denis2009melt}, which we use for POS tagging.
+
+    \subsection{Manual Evaluation Guidelines}
+    \label{subsec:manual_evaluation_guidelines}
+        Four evaluators took part in the manual evaluation.
+        Being chosen for their indexing experience and their expertise in the selected scientific disciplines, evaluators have been asked to follow the guidelines described below.
+       
+        After reading the title and the abstract of a bibliographic record, evaluators needed to assess if the automatically extracted keyphrases were relevant to the bibliographic record.
+        This assessment is made regarding two aspects: appropriateness and silence.
+
+        \subsubsection{Appropriateness}
+        \label{subsubsec:appropriateness}
+            Appropriateness is a property of an extracted keyphrase.
+            Appropriate keyphrases suitably represents the subjects and questions discussed in the document described by the bibliographic record.
+            The evaluation of appropriateness is formalized by assigning a score from 2 down to 0, for each extracted keyphrase:
+            \begin{etaremune}[start=2]
+                \item{
+                    The extracted keyphrase is correct, appropriate.
+                }
+                \item{
+                    The extracted keyphrase represents a subject or question discussed in the document but its textual form is not the most appropriate.
+                    The extracted keyphrase is a synonym, a spelling variant, a morphosyntactic variant, an acronym, an abbreviation or a phrase with the wrong boundaries.
+                    In all these cases, the extracted keyphrase is considered as a variant of a preferred form that is present in the text.
+                    This preferred form can be proposed as a keyphrase, with a score of 2, and must be linked as the preferred form of the extracted keyphrase with score 1.
+                }
+                \item{
+                    The extracted keyphrase is inappropriate.
+                }
+            \end{etaremune}
+        
+        \subsubsection{Silence}
+        \label{subsubsec:silence}
+            Silence is the property attached to reference keyphrases.
+            A silence means that the information held by a given reference keyphrase is not represented by one or more extracted keyphrases.
+            In order to evaluate the silence of the keyphrase extraction method, the evaluators need to check every reference keyphrase and determine whether it complements the assessed method or not.
+            The evaluation of silence is formalized by assigning a score from 2 down to 0, for each reference keyphrase:
+                \begin{etaremune}[start=2]
+                    \item{
+                        The reference keyphrase is highly complementary to the keyphrase extraction method.
+                        The reference keyphrase contains a very important information missing from the extracted keyphrases.
+                    }
+                    \item{
+                        The reference keyphrase is moderately complementary to the keyphrase extraction method.
+                        The reference keyphrase contains a secondary or implicit information missing (or partially missing) from the extracted keyphrases.
+                    }
+                    \item{
+                        The reference keyphrase is not complementary to the keyphrase extraction method.
+                        The reference keyphrase has been extracted by the method or cannot be extracted because the notion is absent from the text.
+                    }
+                \end{etaremune}
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%    ~\\Table~\ref{tab:termith_eval} \TODO{...}
+%    \begin{table*}
+%        \centering
+%        \resizebox{\linewidth}{!}{
+%            \begin{tabular}{l|ccccc}
+%                \toprule
+%                \textbf{Corpus} & \textbf{Documents} & \textbf{Words/Doc.} & \textbf{Ref. keyphrases/Doc.} & \textbf{Words/Ref. keyphrase} & \textbf{Missing ref. keyphrases (\%)} \\
+%                \hline
+%                Linguistics & 200 & 147.0 & $~~$8.9 & 1.8 & 62.8\% \\
+%                Information Science & 200 & 157.0 & 10.2 & 1.7 & 66.9\% \\
+%                Archaeology & 200 & 213.9 & 15.6 & 1.3 & 37.4\% \\
+%                Chemestry & 200 & 103.9 & 14.6 & 2.4 & 78.8\% \\
+%                \bottomrule
+%            \end{tabular}
+%        }
+%        
+%        \caption{Statistics of the TermITH-Eval datasets \TODO{update to 100 documents per corpus}
+%                 \label{tab:termith_eval}}
+%    \end{table*}

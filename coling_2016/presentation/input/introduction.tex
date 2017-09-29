@@ -1,0 +1,59 @@
+\section*{Introduction}
+\begin{frame}{Introduction}\framesubtitle{Problem statement}
+  How to infer the main content of a domain-specific document?
+  
+  \vspace{1em}
+  
+  \begin{block}{Keyphrases}
+    \begin{itemize}
+      \item{Single- or multi-word expressions}
+      \item{Important topics/concepts}
+      %\item{5$\sim$15 per document}
+      \item{Useful to multiple Information Retrieval tasks:}
+      \begin{itemize}
+        \item{Document indexing}
+        \item{Text summarization}
+        \item{Query expansion}
+        \item{etc.}
+      \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{Introduction}\framesubtitle{Example}
+    \vfill{}
+    \begin{exampleblock}{\normalsize
+      \textit{Toucher~: le tango des sens. Problèmes de \textbf{sémantique lexicale}}
+    }\justifying\footnotesize
+      \textit{À partir d'une hypothèse sur la sémantique de l'unité lexicale `toucher' formulée en termes de forme schématique, cette étude vise à rendre compte de la \textbf{variation sémantique} manifestée par les emplois de ce \textbf{verbe} dans la construction \textbf{transitive} directe `C0 toucher C1'. Notre étude cherche donc à articuler variation sémantique et invariance fonctionnelle. Cet article concerne essentiellement le mode de variation co-textuelle~: en conséquence, elle ne constitue qu'une première étape dans la compréhension de la construction des valeurs référentielles que permet 'toucher'. Une étude minutieuse de nombreux exemples nous a permis de dégager des constantes impératives sous la forme des 4 notions suivantes~: sous-détermination sémantique, contact, anormalité, et contingence. Nous avons tenté de montrer comment ces notions interprétatives sont directement dérivables de la forme schématique proposée.}
+    
+      \begin{exampleblock}{\normalsize Reference keyphrases (French):}
+        \textit{Français}; \textit{modélisation}; \textit{analyse distributionnelle}; \textit{interprétation sémantique}; \textbf{\textit{variation sémantique}}; \textbf{\textit{transitif}}; \textbf{\textit{verbe}}; \textit{syntaxe}; \textbf{\textit{sémantique lexicale}}.
+      \end{exampleblock}
+      
+      \vspace{-.75em}
+      
+      \begin{exampleblock}{\normalsize \textbf{Reference keyphrases (English):}}
+        French; modelling; distributional analysis; semantic interpretation; \textbf{semantic variation}; \textbf{transitive}; \textbf{verb}; syntax; \textbf{lexical semantics}.
+      \end{exampleblock}
+    \end{exampleblock}
+    \vfill{}
+\end{frame}
+
+\begin{frame}{Introduction}\framesubtitle{Difficulties}
+  \begin{itemize}
+    \item{\alt<2->{\textbf{Silence\hfill{}\textcolor{termithorange}{$\bigodot$}~~}}{Silence}}
+    \item{\alt<2->{\textbf{Domain consistency\hfill{}\textcolor{linared}{$\bigodot$}~~}}{Domain consistency}}
+    \item{\alt<3->{Free syntax \textit{(e.g. syntax, semantic variation, transitive, etc.)}\hfill{}\textcolor{linagreen}{\checkmark}$^{*}$}{Free syntax \textit{(e.g. syntax, semantic variation, transitive, etc.)}}}
+    \item{\alt<3->{Risks of semantic redundancy/over generation\hfill{}\textcolor{linagreen}{\checkmark}$^{*}$}{Risks of semantic redundancy (over generation)}}
+  \end{itemize}
+
+  \vfill{}
+
+  \visible<3->{
+    \begin{center}
+      $^{*}$ \cite[TopicRank]{bougouin2013topicrank}
+    \end{center}
+  }
+\end{frame}
+

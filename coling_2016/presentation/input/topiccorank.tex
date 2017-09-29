@@ -1,0 +1,419 @@
+\section{TopicCoRank}
+\begin{frame}{TopicCoRank}
+  Supervised extension of TopicRank to add assignment capabilities alongside extraction
+  
+  \vspace{1em}
+  
+  \begin{block}{Hypothesis}
+    \begin{itemize}
+      \item{The domain supplements the document}
+      \item[$\Rightarrow$]{improves keyphrase extraction}
+      \item{The training documents represent the domain}
+      \item[$\Rightarrow$]{keyphrases circumvents use of controlled vocabulary}
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}{TopicCoRank}\framesubtitle{Domain representation}\vspace{3em}
+  Undirected graph of keyphrases annotated to training documents
+  \begin{itemize}
+    \item<+->{Each keyphrase is represented by a vertex}
+    \item<+->{Keyphrases of the same documents are connected}
+    \item<+->{Edges are weighted by the number of documents containing both keyphrases}
+  \end{itemize}
+  
+  \vspace{1em}
+  
+  \begin{center}
+    \newcommand{\xslant}{0.2}
+    \newcommand{\yslant}{0}
+    
+    \begin{tikzpicture}[transform shape, scale=.75]
+      % frame
+      \node [draw=white,
+             rectangle,
+             minimum width=1.1\linewidth,
+             minimum height=8em,
+             xslant=\xslant,
+             yslant=\yslant] (domain_graph) {};
+      \visible<1->{
+          \node [above=of domain_graph,
+                 xshift=.54\linewidth,
+                 yshift=8em,
+                 anchor=south east] (domain_graph_label) {domain graph};
+          \node [draw,
+                 circle,
+                 above=of domain_graph,
+                 xshift=.4\linewidth,
+                 yshift=5em] (domain_node1) {$k_3$};
+          \node [draw,
+                 circle,
+                 above=of domain_graph,
+                 xshift=-.4\linewidth,
+                 yshift=5em] (domain_node2) {$k_1$};
+          \node [draw,
+                 circle,
+                 above=of domain_graph,
+                 yshift=5em] (domain_node3) {$k_2$};
+          \node [draw,
+                 circle,
+                 above=of domain_graph,
+                 xshift=.15\linewidth,
+                 yshift=.75em] (domain_node4) {$k_5$};
+          \node [draw,
+                 circle,
+                 above=of domain_graph,
+                 xshift=-.25\linewidth,
+                 yshift=.75em] (domain_node5) {$k_4$};
+      }
+    
+      \visible<2->{
+          \draw[line width=.1mm] (domain_node1) -- (domain_node3);
+          \draw[line width=.1mm] (domain_node2) -- (domain_node3);
+          \draw[line width=.1mm] (domain_node2) -- (domain_node4);
+          \draw[line width=.1mm] (domain_node4) -- (domain_node5);
+          \draw[line width=.1mm] (domain_node4) -- (domain_node3);
+      }
+      \visible<3->{
+          \draw[line width=1mm] (domain_node2) -- (domain_node3);
+          \draw[line width=.6mm] (domain_node4) -- (domain_node3);
+          \draw[line width=.4mm] (domain_node4) -- (domain_node5);
+      }
+    
+      % document
+      \visible<1->{
+          \node [draw,
+                 rectangle,
+                 minimum width=1.1\linewidth,
+                 minimum height=8em,
+                 xslant=\xslant,
+                 yslant=\yslant,
+                 above=of domain_graph,
+                 xshift=-1.55em] (document_graph) {};
+      }
+      \node [draw=white,
+             below=of document_graph,
+             xshift=-.54\linewidth,
+             yshift=-8em,
+             anchor=north west] (document_graph_label) {};
+    
+      \node [draw=white,
+             circle,
+             below=of document_graph,
+             xshift=.4\linewidth,
+             yshift=-5em] (document_node1) {};
+      \node [draw=white,
+             circle,
+             below=of document_graph,
+             xshift=-.4\linewidth,
+             yshift=-5em] (document_node2) {};
+      \node [draw=white,
+             circle,
+             below=of document_graph,
+             yshift=-5em] (document_node3) {};
+      \node [draw=white,
+             circle,
+             below=of document_graph,
+             xshift=.25\linewidth,
+             yshift=-.75em] (document_node4) {};
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{TopicCoRank}\framesubtitle{Integration with TopicRank}\vspace{1em}
+  Domain graph unified to TopicRank's topic graph
+  \begin{itemize}
+    \item<+->{Each topic is represented by a vertex}
+    \item<+->{Topics referred to within the same sentences are connected}
+    \item<+->{Edges are weighted by the number of sentences containing both topics}
+  \end{itemize}
+  
+  \begin{center}
+      \newcommand{\xslant}{0.2}
+      \newcommand{\yslant}{0}
+      
+      \centering
+      \begin{tikzpicture}[transform shape, scale=.75]
+        % frame
+        \node [draw,
+               rectangle,
+               minimum width=1.1\linewidth,
+               minimum height=8em,
+               xslant=\xslant,
+               yslant=\yslant] (domain_graph) {};
+        \node [above=of domain_graph,
+               xshift=.54\linewidth,
+               yshift=8em,
+               anchor=south east] (domain_graph_label) {domain graph};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=.4\linewidth,
+               yshift=5em] (domain_node1) {$k_3$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=-.4\linewidth,
+               yshift=5em] (domain_node2) {$k_1$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               yshift=5em] (domain_node3) {$k_2$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=.15\linewidth,
+               yshift=.75em] (domain_node4) {$k_5$};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=-.25\linewidth,
+               yshift=.75em] (domain_node5) {$k_4$};
+      
+        \draw[line width=.1mm] (domain_node1) -- (domain_node3);
+        \draw[line width=1mm] (domain_node2) -- (domain_node3);
+        \draw[line width=.1mm] (domain_node2) -- (domain_node4);
+        \draw[line width=.4mm] (domain_node4) -- (domain_node5);
+        \draw[line width=.6mm] (domain_node4) -- (domain_node3);
+      
+        % document
+        \node [draw,
+               rectangle,
+               minimum width=1.1\linewidth,
+               minimum height=8em,
+               xslant=\xslant,
+               yslant=\yslant,
+               above=of domain_graph,
+               xshift=-1.55em] (document_graph) {};
+        \node [below=of document_graph,
+               xshift=-.54\linewidth,
+               yshift=-8em,
+               anchor=north west] (document_graph_label) {topic graph};
+      
+        \node [draw,
+               circle,
+               below=of document_graph,
+               xshift=.4\linewidth,
+               yshift=-5em] (document_node1) {$t_3$};
+        \node [draw,
+               circle,
+               below=of document_graph,
+               xshift=-.4\linewidth,
+               yshift=-5em] (document_node2) {$t_1$};
+        \node [draw,
+               circle,
+               below=of document_graph,
+               yshift=-5em] (document_node3) {$t_2$};
+        \node [draw,
+               circle,
+               below=of document_graph,
+               xshift=.25\linewidth,
+               yshift=-.75em] (document_node4) {$t_4$};
+      
+        \visible<2->{
+            \draw[line width=.1mm] (document_node2) -- (document_node3);
+            \draw[line width=.1mm] (document_node3) -- (document_node1);
+            \draw[line width=.1mm] (document_node1) -- (document_node4);
+            \draw[line width=.1mm] (document_node3) -- (document_node4);
+        }
+      
+        \visible<3->{
+            \draw[line width=.5mm] (document_node1) -- (document_node3);
+            \draw[line width=.8mm] (document_node1) -- (document_node4);
+        }
+        
+        % extra link
+        \visible<4->{
+            \draw [dashed] (document_node2) -- (domain_node2);
+            \draw [dashed] (document_node3) -- (domain_node3);
+            \draw [dashed] (document_node4) -- (domain_node1);
+            \draw [dashed] (document_node3) -- (domain_node4);
+        }
+      \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{TopicCoRank}\framesubtitle{Graph-based co-ranking I}
+  \begin{itemize}
+    \item<+->{Domain keyphrases \textcolor{linared}{$k_i$} are as much important as they are \textcolor{linagreen}{strongly connected} to as much other important keyphrases \textcolor{blue}{$k_j$} as possible}
+    \begin{large}
+      \begin{align}
+        R_{in}(\textcolor{linared}{k_i}) = \sum_{\textcolor{blue}{k_j} \in E_{\text{in}}(\textcolor{linared}{k_i})}{\frac{\textcolor{linagreen}{w_{ij}} S(\textcolor{blue}{k_j})}{\sum_{k_k \in E_{\text{in}}(\textcolor{blue}{k_j})}{{w_{jk}}}}}\nonumber
+      \end{align}
+    \end{large}
+    \item<+->{Document topics \textcolor{linared}{$t_i$} are as much important as they are \textcolor{linagreen}{strongly connected} to as much other important topics \textcolor{blue}{$t_j$} as possible}
+    \begin{large}
+      \begin{align}
+        R_{in}(\textcolor{linared}{t_i}) = \sum_{\textcolor{blue}{t_j} \in E_{\text{in}}(\textcolor{linared}{t_i})}{\frac{\textcolor{linagreen}{w_{ij}} S(\textcolor{blue}{t_j})}{\sum_{t_k \in E_{\text{in}}(\textcolor{blue}{t_j})}{{w_{jk}}}}}\nonumber
+      \end{align}
+    \end{large}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{TopicCoRank}\framesubtitle{Graph-based co-ranking II}
+  \begin{itemize}
+    \item<+->{Domain keyphrases and document topics \textcolor{linared}{$v_i$} gain importance from \textcolor{blue}{each other}}
+    \begin{large}
+      \begin{align}
+        R_{out}(\textcolor{linared}{v_i}) &= \sum_{\textcolor{blue}{v_j} \in E_{\text{out}}(\textcolor{linared}{v_i})}{\frac{S(\textcolor{blue}{v_j})}{|E_{\text{\textit{out}}}(\textcolor{blue}{v_j})|}}\nonumber
+      \end{align}
+    \end{large}
+    \item<+->{Both \textcolor{linared}{inner-} and \textcolor{blue}{outer-} recommendation are combined with empirically tuned \textcolor{linagreen}{damping factor\underline{s}}}
+    \begin{large}
+      \begin{align}
+        S(k_i) &= (1 - \textcolor{linagreen}{\lambda_k})\ \textcolor{blue}{R_{out}(k_i)} + \textcolor{linagreen}{\lambda_k}\ \textcolor{linared}{R_{in}(k_i)}\nonumber\\[1em]
+        S(t_i) &= (1 - \textcolor{linagreen}{\lambda_t})\ \textcolor{blue}{R_{out}(t_i)} + \textcolor{linagreen}{\lambda_t}\ \textcolor{linared}{R_{in}(t_i)}\nonumber
+      \end{align}
+    \end{large}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{TopicCoRank}\framesubtitle{Keyphrase extraction/annotation}
+  \begin{center}
+      \newcommand{\xslant}{0.2}
+      \newcommand{\yslant}{0}
+      
+      \centering
+      \begin{tikzpicture}[transform shape, scale=.85]
+        % frame
+        \node [draw,
+               rectangle,
+               minimum width=1.1\linewidth,
+               minimum height=8em,
+               xslant=\xslant,
+               yslant=\yslant] (domain_graph) {};
+        \node [above=of domain_graph,
+               xshift=.54\linewidth,
+               yshift=8em,
+               anchor=south east] (domain_graph_label) {domain graph};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=.4\linewidth,
+               yshift=5em] (domain_node1) {$k_3$};
+        \node [draw=linared,
+               line width=.5mm,
+               circle,
+               above=of domain_graph,
+               xshift=-.4\linewidth,
+               yshift=5em] (domain_node2) {\textcolor{linared}{\textbf{$k_1$}}};
+        \node [draw=linared,
+               line width=.5mm,
+               circle,
+               above=of domain_graph,
+               yshift=5em] (domain_node3) {\textcolor{linared}{\textbf{$k_2$}}};
+        \node [draw=linared,
+               line width=.5mm,
+               circle,
+               above=of domain_graph,
+               xshift=.15\linewidth,
+               yshift=.75em] (domain_node4) {\textcolor{linared}{\textbf{$k_5$}}};
+        \node [draw,
+               circle,
+               above=of domain_graph,
+               xshift=-.25\linewidth,
+               yshift=.75em] (domain_node5) {$k_4$};
+      
+        \draw[line width=.1mm] (domain_node1) -- (domain_node3);
+        \draw[line width=1mm] (domain_node2) -- (domain_node3);
+        \draw[line width=.1mm] (domain_node2) -- (domain_node4);
+        \draw[line width=.4mm] (domain_node4) -- (domain_node5);
+        \draw[line width=.6mm] (domain_node4) -- (domain_node3);
+      
+        % document
+        \node [draw,
+               rectangle,
+               minimum width=1.1\linewidth,
+               minimum height=8em,
+               xslant=\xslant,
+               yslant=\yslant,
+               above=of domain_graph,
+               xshift=-1.55em] (document_graph) {};
+        \node [below=of document_graph,
+               xshift=-.54\linewidth,
+               yshift=-8em,
+               anchor=north west] (document_graph_label) {topic graph};
+      
+        \node [draw,
+               circle,
+               below=of document_graph,
+               xshift=.4\linewidth,
+               yshift=-5em] (document_node1) {$t_3$};
+        \node [draw,
+               circle,
+               below=of document_graph,
+               xshift=-.4\linewidth,
+               yshift=-5em] (document_node2) {$t_1$};
+        \node [draw=linared,
+               line width=.5mm,
+               circle,
+               below=of document_graph,
+               yshift=-5em] (document_node3) {\textcolor{red}{\textbf{$t_2$}}};
+        \node [draw=linared,
+               line width=.5mm,
+               circle,
+               below=of document_graph,
+               xshift=.25\linewidth,
+               yshift=-.75em] (document_node4) {\textcolor{red}{\textbf{$t_4$}}};
+      
+        \draw[line width=.1mm] (document_node2) -- (document_node3);
+        \draw[line width=.1mm] (document_node3) -- (document_node1);
+        \draw[line width=.1mm] (document_node1) -- (document_node4);
+        \draw[line width=.1mm] (document_node3) -- (document_node4);
+      
+        \draw[line width=.5mm] (document_node1) -- (document_node3);
+        \draw[line width=.8mm] (document_node1) -- (document_node4);
+        
+        % extra link
+        \draw [dashed] (document_node2) -- (domain_node2);
+        \draw [dashed] (document_node3) -- (domain_node3);
+        \draw [dashed] (document_node4) -- (domain_node1);
+        \draw [dashed] (document_node3) -- (domain_node4);
+      \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+\begin{frame}{TopicCoRank}\framesubtitle{Example}
+  \vfill{}
+  \begin{exampleblock}{\normalsize
+    \textit{Toucher~: le tango des sens. Problèmes de \textbf{sémantique lexicale}}
+  }\justifying\footnotesize
+    \textit{À partir d'une hypothèse sur la sémantique de l'unité lexicale `toucher' formulée en termes de forme schématique, cette étude vise à rendre compte de la \textbf{variation sémantique} manifestée par les emplois de ce \textbf{verbe} dans la construction \textbf{transitive} directe `C0 toucher C1'. Notre étude cherche donc à articuler variation sémantique et invariance fonctionnelle. Cet article concerne essentiellement le mode de variation co-textuelle~: en conséquence, elle ne constitue qu'une première étape dans la compréhension de la construction des valeurs référentielles que permet 'toucher'. Une étude minutieuse de nombreux exemples nous a permis de dégager des constantes impératives sous la forme des 4 notions suivantes~: sous-détermination sémantique, contact, anormalité, et contingence. Nous avons tenté de montrer comment ces notions interprétatives sont directement dérivables de la forme schématique proposée.}
+  
+    \begin{exampleblock}{\normalsize Reference keyphrases (French):}
+      \textit{Français}; \textit{modélisation}; \textit{analyse distributionnelle}; \textit{interprétation sémantique}; \textbf{\textit{variation sémantique}}; \textbf{\textit{transitif}}; \textbf{\textit{verbe}}; \textit{syntaxe}; \textbf{\textit{sémantique lexicale}}.
+    \end{exampleblock}
+    
+    \vspace{-.75em}
+    
+    \begin{exampleblock}{\normalsize \textbf{TopicCoRank 10 keyphrases (French):}}
+      \underline{\textit{Sémantique lexicale}};
+      \textit{sémantique};
+      \underline{\textit{verbe}};
+      \underline{\textit{variation sémantique}};
+      \underline{\textit{français}};
+      \textit{hypothèse};
+      \underline{\textit{syntaxe}};
+      \textit{pragmatique};
+      \underline{\textit{interprétation sémantique}};
+      \underline{\textit{analyse distributionnelle}};
+    \end{exampleblock}
+  \end{exampleblock}
+  \vfill{}
+\end{frame}
+
+
+\begin{frame}{TopicCoRank}
+  Benefits
+  \begin{itemize}
+    \item[+]{Combines extraction and assignment: \textcolor{red}{$\nearrow$} recall \& \textcolor{red}{$\nearrow$} precision}
+    \item[+]{Circumvents the need of a controlled vocabulary}
+  \end{itemize}
+  
+  \vspace{1em}
+  
+  %Drawback
+  %\begin{itemize}
+  %  \item[-]{More redundancy than TopicRank}
+  %\end{itemize}
+\end{frame}

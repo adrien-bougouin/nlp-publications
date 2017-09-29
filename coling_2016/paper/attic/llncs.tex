@@ -1,0 +1,99 @@
+\documentclass{llncs}
+
+%\usepackage{showframe}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{url}
+\usepackage{latexsym}
+\usepackage{color}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{lipsum}
+\usepackage{units}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{subfigure}
+\usepackage[inline]{enumitem}
+\usepackage{varwidth}
+\usepackage{mathabx}
+\usepackage[square,numbers,sectionbib]{natbib}
+\usepackage{marginnote}
+
+\usetikzlibrary{arrows, backgrounds, decorations.markings, positioning, shapes}
+
+\renewcommand\bibnumfmt[1]{#1.}
+
+\newcommand\newcite[2][]{\ifthenelse{\equal{#1}{}}{\citet{#2}}{\citet[#1]{#2}}}
+
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+\newcommand\REVIEW[1]{}%\textcolor{green}{[REVIEW \textit{``#1''}]}}
+\newcommand\REVIEWOK[1]{}%\marginnote{\textcolor{green}{\underline{Reviewer said:} \textit{``#1''}}}}
+\newcommand\ANNOTATE[2]{\textcolor{blue}{[#1 \textbf{$\rightarrow$ #2}]}}
+\newcommand\FILL[1]{\textcolor{red}{\lipsum[#1]}}
+
+\title{Graph Co-Ranking Approach to Keyphrase Annotation\\for Digital Libraries}
+
+\author{
+%  Adrien Bougouin\thanks{
+%    The authors would like to thank the anonymous reviewers for their useful
+%    advice and comments. This work was supported by the French National Research
+%    Agency (TermITH project -- ANR-12-CORD-0029).
+%  } \and Florian Boudin \and Béatrice Daille
+}
+\institute{
+%  Université de Nantes, LINA, France
+}
+
+\begin{document}
+  \maketitle
+
+  \begin{abstract}
+    % abstract similar to http://www.dcs.gla.ac.uk/~zhouke/papers/ecir2015-zhou.pdf
+    Keyphrase annotation is the task of identifying textual units that represent the main content of a document.
+    Automatic keyphrase annotation methods fall into two disjoint categories: extraction, which outputs keyphrases directly from the textual units within the content of the document; and assignment, which identifies keyphra\-ses controlled by domain-specific vocabularies.
+    Many keyphrase extraction methods have been proposed, whereas keyphrase assignment methods have rarely been proposed. %because of assignment difficulty compared to extraction.
+    However, keyphrase-based document indexing for Digital Libraries requires both categories of methods.
+    % abstract similar to http://frncsrss.github.io/papers/rousseau-ecir2015.pdf
+    In this paper, we apply the concept of co-ranking for simultaneously extracting and assigning keyphrases from a graph combining document topics and domain-specific keyphrases.
+    This approach leverages the global context --- the domain --- of the document to better extract key\-phrases from the topics, and the local context --- the document --- of domain-specific keyphrases to better assign keyphrases that cannot be extracted from the document.
+    To the best of our knowledge, this is the first attempt to simultaneously perform both keyphrase extraction and assignment.
+    Experiments on three evaluation datasets show statistically significant improvements in f1-score compared to state-of-the-art results.
+
+%    Keyphrases are words or phrases that summarize the content of a document.
+%    In previous work, automatic keyphrase annotation is either carried out 
+%    by extracting the most important phrases from a document (keyphrase 
+%    extraction), or by assigning entries from controlled vocabulary 
+%   (keyphrase assignment).
+%    On the one hand, assignment methods provide better-formed keyphrases, 
+%   as well as keyphrases that do not occur in the document.
+%    On the other hand, extraction methods do not depend on manually built 
+%    resources and are able to provide new (not already assigned) keyphrases.
+%    This paper proposes a new method that uses graph co-ranking to perform both
+%    keyphrase extraction and keyphrase assignment, in a mutual reinforcing manner.
+%    Experimental results show the effectiveness of the proposed method, which
+%    outperforms both keyphrase extraction and keyphrase assignment baselines.
+
+    \keywords{
+        Digital Libraries;
+        keyphrase annotation;
+        graph co-ranking;
+        keyphrase extraction;
+        keyphrase assignment.
+    }
+  \end{abstract}
+
+  \input{input/introduction.tex}
+  \input{input/related_work.tex}
+  \input{input/topiccorank.tex}
+  \input{input/experimental_setup.tex}
+  \input{input/experimental_results.tex}
+  \input{input/qualitative_example.tex}
+  \input{input/conclusion.tex}
+
+  \bibliographystyle{plainnat.min}
+  \renewcommand\bibname{References}
+  \bibliography{biblio}
+\end{document}

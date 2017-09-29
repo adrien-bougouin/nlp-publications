@@ -1,0 +1,75 @@
+\documentclass[10pt, a4paper]{article}
+%\documentclass[12pt, a4paper]{article}
+
+\usepackage{lrec2006}
+\usepackage{graphicx}
+%
+\usepackage[utf8]{inputenc}
+\usepackage{color}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{varwidth}
+\usepackage{etaremune}
+\usepackage{url}
+
+\newcommand\example[1]{
+    \begin{center}
+        \begin{varwidth}{.9\linewidth}
+            \textit{\noindent
+                #1
+            }
+        \end{varwidth}
+    \end{center}
+}
+\newcommand\TODO[1]{\textcolor{red}{[TODO #1]}}
+
+\title{TermITH-Eval: a French Standard-Based Resource\\for Keyphrase Extraction Evaluation}
+
+\name{
+    Adrien Bougouin$^1$,
+    Sabine Barreaux$^2$,
+    Laurent Romary$^3$,
+    Florian Boudin$^1$,
+    Béatrice Daille$^1$
+}
+
+\address{
+    $^1$~Université de Nantes, LINA, 2 rue de la Houssinière, 44322 Nantes, France\\
+    $^2$~INIST-CNRS, 2, allée du parc de Brabois, 54519 Vandoeuvre-lès-Nancy, France\\
+    $^3$~Humboldt-Universität zu Berlin, Dorotheenstraße 24, 10117 Berlin, Germany\\
+    E-mail: adrien.bougouin@univ-nantes.fr, sabine.barreaux@inist.fr, laurent.romary@inria.fr,\\
+    florian.boudin@univ-nantes.fr, beatrice.daille@univ-nantes.fr
+}
+
+
+\abstract{
+    Keyphrase extraction is the task of finding phrases that represent the important content of a document.
+    The main aim of keyphrase extraction is to propose textual units that represent the most important topics developed in a document.
+    The output keyphrases of automatic keyphrase extraction methods for test documents are typically evaluated by comparing them to manually assigned reference keyphrases.
+    Each output keyphrase is considered correct if it matches one of the reference keyphrases.
+    However, the choice of the appropriate textual unit (keyphrase) for a topic is sometimes subjective and evaluating by exact matching underestimates the performance.
+    This paper presents a dataset of evaluation scores assigned to automatically extracted keyphrases by human evaluators.
+    Along with the reference keyphrases, the manual evaluations can be used to validate new evaluation measures.
+    Indeed, an evaluation measure that is highly correlated to the manual evaluation is appropriate for the evaluation of automatic keyphrase extraction methods.
+    ~\\~\\
+    \Keywords{
+        TermITH-Eval, structured resource, automatic evaluation, keyphrase extraction.
+    }
+}
+
+\begin{document}
+    \maketitleabstract
+
+    \input{input/introduction.tex}
+    \input{input/termith_eval_dataset.tex}
+    \input{input/termith_eval_format.tex}
+    \input{input/termith_eval_analysis.tex}
+    \input{input/conclusion.tex}
+
+    \section{Acknowledgments}
+    This work was partially supported by the French National Research Agency (TermITH project --- ANR--12--CORD--0029) and by the French National Center for Scientific Research (GOLEM project --- grant of CNRS PEPS FaSciDo 2015, \url{http://boudinfl.github.io/GOLEM/}).
+
+    \bibliographystyle{lrec2006}
+    \bibliography{biblio}
+\end{document}

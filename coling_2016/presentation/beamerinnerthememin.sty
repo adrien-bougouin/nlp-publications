@@ -1,0 +1,54 @@
+\mode<presentation>
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% declarations
+
+% extra information
+\def\titlepageextra#1{\gdef\@titlepageextra{#1}}
+
+% logos
+\def\logos#1{\gdef\@logos{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% title page
+\defbeamertemplate*{title page}{min}[1][]{
+  \begin{beamercolorbox}{title page header}
+    \centering
+    \usebeamerfont{title}\textbf{\inserttitle}\par
+  \end{beamercolorbox}
+  %
+  \vspace{1em}
+  %
+  \begin{beamercolorbox}{author}
+    \centering
+    \usebeamerfont{author}\insertauthor
+  \end{beamercolorbox}
+  %
+  \vspace{1em}
+  %
+  \begin{beamercolorbox}{author}
+    \centering
+    \usebeamerfont{author}\insertinstitute
+  \end{beamercolorbox}
+  %
+  \vspace{1em}
+  %
+  \begin{beamercolorbox}{date}
+    \centering
+    \usebeamerfont{date}\insertdate
+  \end{beamercolorbox}
+  %
+  \vspace{1.5em}
+  %
+  \begin{beamercolorbox}{titlepageextra}
+    \centering
+    \usebeamerfont{titlepageextra}\@titlepageextra
+  \end{beamercolorbox}
+  %
+  \vspace{1.5em}
+  %
+  \@logos
+}
+
+\mode<all>
+

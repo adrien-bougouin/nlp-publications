@@ -1,0 +1,31 @@
+\section{Introduction and Motivation}
+\label{sec:introduction}
+    Keyphrases are textual units (words and phrases) that represent the most important topics of a document.
+    %
+    Keyphrase extraction is the task of automatically detecting those topics in the content of a document.
+    %
+    The common practice to evaluate the performance of keyphrase extraction systems is to compute the number of exact matches between extracted keyphrases and (human assigned) reference keyphrases~\cite{hasan2014state_of_the_art}.
+    %
+    However, this leads to overly pessimistic scores since variations in the extracted keyphrases that might be judged as correct cannot be taken into account~\cite{zesch2009rprecision}.
+    
+    
+    Producing a more reliable estimate of system performance is not an easy task as assessing whether a textual unit is a keyphrase is highly subjective~\cite{kim2010rprecision}.
+    %
+    Yet, a handful of attempts have been made in this direction~\cite{zesch2009rprecision,kim2010rprecision} but with limited success.
+    %
+    The initiating work of \newcite{zesch2009rprecision} stated the need for partial matching instead of exact matching but did not show the effectiveness of their measure compared with a human evaluation.
+    \newcite{kim2010rprecision} improved the measure of \newcite{zesch2009rprecision} and evaluated the correlation of both the original and improved measures with human evaluations.
+    Computing the correlation between an automatic evaluation measure and human evaluators is an effective way of measuring how close the automatic judgment is to human judgment.
+    However, the results shown by \newcite{kim2010rprecision} were not significant enough to influence automatic evaluation in recent work.
+    Also, \newcite{kim2010rprecision} did not provide the manual evaluation data they used to correlate the evaluation measures with the manual evaluation.
+    Researchers would benefit from such data and the problem would be more effectively addressed.
+    %
+    % One reason for this is the lack of a corpus that researchers could use to develop and validate new evaluation measures.
+
+    This paper describes the construction of a corpus for which the outputs of three keyphrase extraction systems were manually evaluated\footnote{\scriptsize\url{https://github.com/termith-anr/TermITH-Eval}}.
+    %
+    More specifically, our work has three main contributions.
+    %
+    First, we present evaluation guidelines for manual keyphrase evaluation regarding two aspects: appropriateness and silence (Section~\ref{sec:termith_eval_dataset}).
+    Second, we propose a structured format to ease data access and analysis (Section~\ref{sec:termith_eval_format}).
+    Finally, we provide an analysis of the manual evaluations and show why it is important to work on new evaluation measures for automatic keyphrase extraction (Section~\ref{sec:termith_eval_analysis}).

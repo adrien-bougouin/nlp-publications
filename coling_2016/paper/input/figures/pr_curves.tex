@@ -1,0 +1,102 @@
+ \begin{figure}[htb!]
+            \centering
+            \subfigure[Linguistics]{
+                \begin{tikzpicture}[scale=.7]
+                    \pgfkeys{/pgf/number format/.cd, fixed}
+                    \begin{axis}[x=0.0050692\linewidth,
+                                 xtick={0, 10, 20, ..., 100},
+                                 xmin=0,
+                                 xmax=60,
+                                 xlabel=recall (\%),
+                                 x label style={yshift=.34em},
+                                 y=0.0050692\linewidth,
+                                 ytick={0, 10, 20, ..., 100},
+                                 ymin=0,
+                                 ymax=60,
+                                 ylabel=precision (\%),
+                                 y label style={yshift=-.5em}]
+                        \addplot [cyan, mark=+] file {input/data/linguistique_topicrank.csv};
+                        \addplot [magenta, mark=o] file {input/data/linguistique_kea_pp.csv};
+                        \addplot [blue, mark=x] file {input/data/linguistique_topiccorank.csv};
+                        \addplot [dotted, domain=30:60] {(50 * x) / ((2 * x) - 50)};
+                        \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
+                        \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
+                        \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
+                        \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
+                        \legend{TopicRank, KEA++, TopicCoRank};
+                    \end{axis}
+                    %\node at (3.8,2.9) [anchor=east] {\scriptsize{F=50.0}};
+                    \node at (4.9,2.6) [anchor=east] {\scriptsize{F=40.0}};
+                    \node at (4.9,1.8) [anchor=east] {\scriptsize{F=30.0}};
+                    \node at (4.9,1.15) [anchor=east] {\scriptsize{F=20.0}};
+                    \node at (4.9,0.6) [anchor=east] {\scriptsize{F=10.0}};
+                \end{tikzpicture}
+            }
+            \subfigure[Information Science]{
+                \begin{tikzpicture}[scale=.7]
+                    \pgfkeys{/pgf/number format/.cd, fixed}
+                    \begin{axis}[x=0.0050692\linewidth,
+                                 xtick={0, 10, 20, ..., 100},
+                                 xmin=0,
+                                 xmax=60,
+                                 xlabel=recall (\%),
+                                 x label style={yshift=.34em},
+                                 y=0.0050692\linewidth,
+                                 ytick={0, 10, 20, ..., 100},
+                                 ymin=0,
+                                 ymax=60,
+                                 ylabel=precision (\%),
+                                 y label style={yshift=-.5em}]
+                        \addplot [cyan, mark=+] file {input/data/sciences_de_l_information_topicrank.csv};
+                        \addplot [magenta, mark=o] file {input/data/sciences_de_l_information_kea_pp.csv};
+                        \addplot [blue, mark=x] file {input/data/sciences_de_l_information_topiccorank.csv};
+                        \addplot [dotted, domain=30:60] {(50 * x) / ((2 * x) - 50)};
+                        \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
+                        \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
+                        \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
+                        \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
+                    \end{axis}
+                    \node at (4.9,3.7) [anchor=east] {\scriptsize{F=50.0}};
+                    \node at (4.9,2.6) [anchor=east] {\scriptsize{F=40.0}};
+                    \node at (4.9,1.8) [anchor=east] {\scriptsize{F=30.0}};
+                    \node at (4.9,1.15) [anchor=east] {\scriptsize{F=20.0}};
+                    \node at (4.9,0.6) [anchor=east] {\scriptsize{F=10.0}};
+                \end{tikzpicture}
+            }
+            \subfigure[Archaeology]{
+                \begin{tikzpicture}[scale=.7]
+                    \pgfkeys{/pgf/number format/.cd, fixed}
+                    \begin{axis}[x=0.0050692\linewidth,
+                                 xtick={0, 10, 20, ..., 100},
+                                 xmin=0,
+                                 xmax=60,
+                                 xlabel=recall (\%),
+                                 x label style={yshift=.34em},
+                                 y=0.0050692\linewidth,
+                                 ytick={0, 10, 20, ..., 100},
+                                 ymin=0,
+                                 ymax=60,
+                                 ylabel=precision (\%),
+                                 y label style={yshift=-.5em},
+                                 legend style={font=\footnotesize}]
+                        \addplot [cyan, mark=+] file {input/data/archeologie_topicrank.csv};
+                        \addplot [magenta, mark=o] file {input/data/archeologie_kea_pp.csv};
+                        \addplot [blue, mark=x] file {input/data/archeologie_topiccorank.csv};
+                        \addplot [dotted, domain=30:60] {(50 * x) / ((2 * x) - 50)};
+                        \addplot [dotted, domain=30:60] {(40 * x) / ((2 * x) - 40)};
+                        \addplot [dotted, domain=20:60] {(30 * x) / ((2 * x) - 30)};
+                        \addplot [dotted, domain=10:60] {(20 * x) / ((2 * x) - 20)};
+                        \addplot [dotted, domain=5:60] {(10 * x) / ((2 * x) - 10)};
+                    \end{axis}
+                    \node at (4.9,3.7) [anchor=east] {\scriptsize{F=50.0}};
+                    \node at (4.9,2.6) [anchor=east] {\scriptsize{F=40.0}};
+                    \node at (4.9,1.8) [anchor=east] {\scriptsize{F=30.0}};
+                    \node at (4.9,1.15) [anchor=east] {\scriptsize{F=20.0}};
+                    \node at (4.9,0.6) [anchor=east] {\scriptsize{F=10.0}};
+                \end{tikzpicture}
+            }
+            \caption{
+                Precision-recall curves of TopicRank, KEA++ and TopicCoRank for each dataset
+                \label{fig:pr_curves}
+            }
+        \end{figure}

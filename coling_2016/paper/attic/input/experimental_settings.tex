@@ -1,0 +1,122 @@
+\section{Experimental Settings}
+\label{sec:experimental_settings}
+  \subsection{Datasets}
+  \label{subsec:datasets}
+    We conduct our experiments on four datasets: Linguistics, Archaeology, DUC
+    and SemEval. They differ in terms of language, nature and size. The following
+    is the description of each dataset.
+
+    \paragraph{Linguistics} is a collection of 715 bibliographic records that we
+    collected from the French digital library Inist\footnote{The dataset will
+    soon be available.}. The bibliographic records
+    contain abstracts of scientific papers in the Linguistics area. The
+    keyphrases are annotated by professional indexers. Indexers were
+    given the instruction to assign keyphrases from a controlled vocabulary and to extract new
+    concepts or very specific keyphrases from the bibliographic records. We divided the
+    corpus into two disjoint sets: a training set containing 515 bibliographic
+    records and a test set containing 200 bibliographic records.
+    
+    \paragraph{Archaeology} is a collection of 718 bibliographic records that we
+    also collected from the French digital library Inist\footnote{The dataset will
+    soon be available.}. The bibliographic records
+    contain abstracts of scientific papers in the Archaeology area. Similar to
+    the Linguistics dataset, the keyphrases are annotated by professional
+    indexers. We divided the corpus into two disjoint sets: a training set
+    containing 515 bibliographic records and a test set containing 200
+    bibliographic records.
+
+    \paragraph{DUC~\textnormal{\cite{wan2008expandrank}}} is a collection of 308
+    news articles categorized within 30 topics. The documents have been manually
+    annotated by students with 0.70 of inter-agreement (Kappa). DUC has no
+    training set. For each document, we use the other
+    documents of its topic to build the controlled graph.
+
+    \paragraph{SemEval~\textnormal{\cite{kim2010semeval}}} contains 244 English
+    scientific papers collected from the ACM Digital Libraries (conference and
+    workshop papers). The papers represent four areas of Computer Science:
+    Distributed Systems; Information Search and Retrieval; Distributed
+    Artificial Intelligence -- Multiagent Systems; Social and Behavioral
+    Sciences -- Economics. SemEval is divided into two disjoint sets: a training
+    set containing 144 documents and a test set containing 100 documents. The
+    associated keyphrases are provided by both authors and readers. As we do for
+    DUC, we use keyphrases annotated on training documents of the same Computer Science
+    area to build the controlled graph.
+    
+    \begin{table*}
+        \centering
+        \resizebox{\linewidth}{!}{
+          \begin{tabular}{l|ccc|ccc|ccc|ccc}
+            \toprule
+            \multirow{2}{*}{\textbf{Method}} & \multicolumn{3}{c|}{\textbf{Linguistics}} & \multicolumn{3}{c|}{\textbf{Archaeology}} & \multicolumn{3}{c|}{\textbf{DUC}} & \multicolumn{3}{c}{\textbf{SemEval}}\\
+            \cline{2-13}
+            & P & R & F$^{~~}$ & P & R & F$^{~~}$ & P & R & F$^{~~}$ & P & R & F\\
+            \hline
+            TopicRank & 11.3 & 13.1 & 12.0$^{~~}$ & 28.1 & 19.1 & 22.2$^{~~}$ & 17.8 & 22.7 & 19.7$^{~~}$ & 14.6 & 10.1 & 11.8\\
+            KEA++ & 11.6 & 13.0 & 12.1$^{~~}$ & 23.5 & 16.2 & 18.8$^{~~}$ & --- & --- & ---$^{~~}$ & --- & --- & ---\\
+            \hline
+            TopicCoRank$_\textnormal{\textit{extr}}$ & 14.6 & 16.8 & 15.4$^{\dagger}$ & 36.4 & 24.6 & 28.7$^{\dagger}$ & 25.5 & 32.4 & 28.1$^{\dagger}$ & 15.2 & 10.6 & 12.4\\
+            TopicCoRank$_\textnormal{\textit{assign}}$ & \textbf{24.9} & \textbf{28.9} & \textbf{26.4$^{\dagger}$} & \textbf{49.1} & \textbf{33.3} & \textbf{38.8}$^{\dagger}$ & 25.9 & 33.3 & 28.8$^{\dagger}$ & 11.6 & ~~8.3 & ~~9.5\\
+            \hline
+            TopicCoRank & 19.0 & 22.0 & 20.1$^{\dagger}$ & 39.5 & 26.6 & 31.1$^{\dagger}$ & \textbf{28.4} & \textbf{36.6} & \textbf{31.5$^{\dagger}$} & \textbf{16.4} & \textbf{11.6} & \textbf{13.4}\\
+            \bottomrule
+          \end{tabular}
+        }
+        \caption{Results of TopicCoRank and the baselines at 10 keyphrases for each datasets.
+                 Precision (P), Recall (R) and F-score (F) are reported in percentages. $\dagger$ indicates
+                 a significant F-score improvement over TopicRank and KEA++ at 0.001
+                 level using Student’s t-test.
+                 \label{tab:comparison_results}}
+    \end{table*}
+    
+    \paragraph{}
+    Table~\ref{tab:corpus_statistics} shows factual information about the
+    datasets. These datasets cover different types of document. Linguistics and Archeology
+    contain the shortest documents within which a sizable amount of reference
+    keyphrases cannot be extracted from the content of the documents (missing keyphrases), DUC contains larger documents where
+    most keyphrases can be found within the text and SemEval is composed of the largest
+    documents with fewer missing keyphrases than Linguistics and Archaeology, but still more
+    than DUC.
+
+  \subsection{Preprocessing}
+  \label{subsec:preprocessing}
+    We apply the following preprocessing steps to each document: sentence segmentation, word tokenization and Part-of-Speech (POS)
+    tagging. We perform sentence segmentation with the PunktSentenceTokenizer
+    provided by the Python Natural Language ToolKit~\cite[NLTK]{bird2009nltk}.
+    We tokenize the sentences into words using the NLTK TreebankWordTokenizer for
+    English and the Bonsai word tokenizer\footnote{The Bonsai word tokenizer is
+    a tool provided with the Bonsai PCFG-LA parser:
+    \url{http://alpage.inria.fr/statgram/frdep/fr_stat_dep_parsing.html}.} for
+    French. Finally, we use the Stanford POS
+    tagger~\cite{toutanova2003stanfordpostagger} for English POS tagging and
+    MElt~\cite{denis2009melt} for French POS tagging.
+
+  \subsection{Baselines}
+  \label{subsec:baselines}
+    To show the effectiveness of our approach, we
+    compare TopicCoRank with TopicRank and KEA++. We use the official KEA++
+    release\footnote{\url{http://www.nzdl.org/Kea/download.html}} and apply it to
+    the Linguistics and Archaeology datasets with the Inist's thesauri\footnote{The thesauri will be soon available}. For DUC and
+    SemEval, thesauri are not available. We cannot apply KEA++ to DUC and SemEval.
+
+    We also show the performance of TopicCoRank when it only extracts keyphrases
+    (TopicCoRank$_\textnormal{\textit{extr}}$) and when it only assigns keyphrases
+    (TopicCoRank$_\textnormal{\textit{assign}}$).
+    
+  \subsection{Evaluation measures}
+  \label{subsec:evaluation_measures}
+    To evaluate the performance of the keyphrase extraction methods, we use the
+    common measures of precision (P), recall (R) and f-score (F):
+    \begin{align}
+        \text{P} = \frac{\text{\textit{TP}}}{\text{\textit{TP}}+\text{\textit{FP}}},\ \text{R} = \frac{\text{\textit{TP}}}{\text{\textit{TP}} + \text{\textit{FN}}},\ \text{F} = \frac{2 \text{PR}}{\text{P} + \text{R}}
+    \end{align}
+    where $\textnormal{\textit{TP}}$ is the total number of correctly extracted keyphrases (true positives),
+    $\textnormal{\textit{FP}}$ is the total number of erroneously extracted keyphrases (false positives) and
+    $\textnormal{\textit{FN}}$ is the total number of positive keyphrases that have not been extracted (false negatives).
+    We cut off the extracted keyphrases at the 10 best ranking ones and perform the
+    comparisons with stemmed keyphrases.
+    
+    Consistent with \newcite{hassan2010conundrums}, we also report the performance of
+    TopicCoRank and the baselines in terms of precision-recall curves. To generate the
+    curves, we vary the evaluation cut-off from 1 to the total number of
+    extracted/assigned keyphrases.
+

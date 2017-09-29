@@ -1,0 +1,104 @@
+\section{TermITH-Eval Analysis}
+\label{sec:termith_eval_analysis}
+
+    %\subsection{Automatic Evaluation Vs. Manual Evaluation}
+    %\label{subsec:automatic_evaluation_vs_manual_evaluation}
+        Here, we present and analyse the evaluation scores given by human evaluators regarding the three automatic keyphrase extraction methods applied to each specific domain of our dataset.
+        To allow comparison with automatic keyphrases, Table~\ref{tab:automatic_evaluation} shows the f1-scores obtained by each method using the standard automatic evaluation approach.
+        \begin{table}[h]
+            \resizebox{\linewidth}{!}{
+                \begin{tabular}{l|cccc}
+                    \toprule
+                    \textbf{Method} & \textbf{Linguistics} & \textbf{Information Science} & \textbf{Archaeology} & \textbf{Chemistry} \\
+                    \hline
+                    TF-IDF & 14.0 & \textbf{13.2} & 22.1 & 12.6 \\
+                    KEA & \textbf{14.7} & 12.5 & \textbf{23.9} & \textbf{12.8} \\
+                    TopicRank & 11.9 & 12.1 & 21.8 & 11.8 \\
+                    \bottomrule
+                \end{tabular}
+            }
+            \caption{
+                Results of the automatic evaluation of TF-IDF, KEA and TopicRank in term of f1-score on each specific domain
+                \label{tab:automatic_evaluation}
+            }
+        \end{table}
+        
+        Table~\ref{tab:appropriateness_manual_evaluation} shows the ratios of appropriateness scores per each method per specific domain of our dataset.
+        To judge if one method outperforms others, we looked for a highest ratio of keyphrases with score 2, a highest ratio of non redundant keyphrases with score 1, a lowest ratio of redundant keyphrases with score 1 and a lowest ratio of keyphrases with score 0.
+        Non redundant and redundant keyphrases with score 1 are distinguished by the \texttt{PreferedForm} given by the evaluator.
+        If the extracted keyphrase with a score of 1 has a specified \texttt{PreferedForm}, then it is considered redundant because it is similar to another keyphrase that has also been extracted.
+        First, we observe that our guidelines enable a deeper analysis of the methods.
+        Indeed, looking at the results of TopicRank proves that it is less redundant than other methods.
+        The latter observation is one of the main objectives of the author~\cite{bougouin2013topicrank} of TopicRank.
+        However, their evaluation using the standard approach did not show that TopicRank extracts less redundant keyphrases than other methods.
+        Secondly, the ordering of the methods from the best performing to the worst performing changed according to whether evaluation was automatic or manual.
+        With the automatic evaluation, TopicRank is the method that performs the worst yet it performs better than TF-IDF in every case and better than KEA in half of the cases when analysed with manual evaluation.
+        This is due to the fact that automatic evaluation is much more pessimistic than manual evaluation, which deals with subjectivity.
+        As a few researchers have stated~\cite{zesch2009rprecision,kim2010rprecision}, the automatic evaluation of keyphrase extraction methods must change to enable it to take subjectivity into account, e.g. by accepting variant forms of reference keyphrases.
+        \begin{table*}[t]
+            \resizebox{\linewidth}{!}{
+                \begin{tabular}{l|ccc|ccc|ccc|ccc}
+                    \toprule
+                    \multirow{2}{*}{\textbf{Score}} & \multicolumn{3}{c|}{\textbf{Linguistics}} & \multicolumn{3}{c|}{\textbf{Information Science}} & \multicolumn{3}{c|}{\textbf{Archaeology}} & \multicolumn{3}{c}{\textbf{Chemistry}} \\
+                    \cline{2-13}
+                    & TF-IDF & KEA & TopicRank & TF-IDF & KEA & TopicRank & TF-IDF & KEA & TopicRank & TF-IDF & KEA & TopicRank \\
+                    \hline
+                    2 & 35.3 & \textbf{37.2} & 37.1 & 34.7 & 34.2 & \textbf{36.3} & 46.0 & 49.9 & \textbf{51.6} & 50.9 & \textbf{54.0} & 53.7 \\
+                    1 -- non redundant & $~~$4.2 & \textbf{$~~$9.8} & $~~$5.7 & 15.3 & 18.3 & \textbf{18.5} & 14.1 & \textbf{16.3} & 15.4 & 25.9 & 24.1 & \textbf{29.1} \\
+                    1 -- redundant & $~~$6.8 & $~~$8.9 & \textbf{$~~$0.9} & $~~$8.1 & $~~$7.6 & \textbf{$~~$2.8} & $~~$4.0 & $~~$5.7 & \textbf{$~~$0.8} & $~~$4.6 & $~~$5.7 & \textbf{$~~$1.2} \\
+                    0 & 53.8 & \textbf{44.0} & 56.3 & 41.9 & \textbf{39.9} & 42.4 & 35.9 & \textbf{28.1} & 32.2 & 18.7 & 16.3 & \textbf{16.0} \\
+                    \bottomrule
+                \end{tabular} 
+            }
+            \caption{
+                Appropriateness ratios of TF-IDF, KEA and TopicRank on each specific domain
+                \label{tab:appropriateness_manual_evaluation}
+            }
+        \end{table*}
+        
+        Table~\ref{tab:silence_manual_evaluation} shows the ratios of silence scores per each method per specific domain of our dataset.
+        To judge if a method outperforms others, we look for a lowest ratio of reference keyphrases with score of 2, a lowest ratio of reference keyphrases with score 1 and a higher ratio of keyphrases with score 0.
+        This new aspect for the evaluation of keyphrases is interesting because it compares the methods regarding the importance of information held by the extracted keyphrases.
+        Once again, the finding vary according to whether the evaluation is automatic or manual.
+        In the future, it would be interesting to see new automatic evaluation measurement techniques that could assess whether a keyphrase extraction method outputs the most important keyphrases first when given ordered reference keyphrase to analyse.
+        \begin{table*}[t]
+            \resizebox{\linewidth}{!}{
+                \begin{tabular}{l|ccc|ccc|ccc|ccc}
+                    \toprule
+                    \multirow{2}{*}{\textbf{Score}} & \multicolumn{3}{c|}{\textbf{Linguistics}} & \multicolumn{3}{c|}{\textbf{Information Science}} & \multicolumn{3}{c|}{\textbf{Archaeology}} & \multicolumn{3}{c}{\textbf{Chemistry}} \\
+                    \cline{2-13}
+                    & TF-IDF & KEA & TopicRank & TF-IDF & KEA & TopicRank & TF-IDF & KEA & TopicRank & TF-IDF & KEA & TopicRank \\
+                    \hline
+                    2 & 20.1 & \textbf{16.2} & 16.8 & 25.5 & 22.0 & \textbf{21.6} & 38.2 & 33.0 & \textbf{32.8} & 22.0 & \textbf{17.1} & 19.2 \\
+                    1 & 48.5 & \textbf{45.3} & 48.3 & 25.8 & 25.8 & \textbf{25.3} & 23.3 & 23.2 & \textbf{22.7} & \textbf{32.0} & 32.2 & 32.2 \\
+                    0 & 31.4 & \textbf{38.5} & 35.0 & 48.7 & 52.2 & \textbf{53.1} & 38.5 & 43.9 & \textbf{44.5} & 46.0 & \textbf{50.7} & 48.6 \\
+                    \bottomrule
+                \end{tabular} 
+            }
+            \caption{
+                Silence ratios of TF-IDF, KEA and TopicRank on each specific domain
+                \label{tab:silence_manual_evaluation}
+            }
+        \end{table*}
+
+%    \subsection{Correlation Analysis}
+%    \label{subsec:correlation_analysis}
+%        \TODO{show the correlation of Precicision, Recall, F-measure and R-precision with the human evaluation}
+%        \TODO{discuss the correlation results}
+%        \begin{table*}
+%            \centering
+%            \begin{tabular}{l|cccc}
+%                \toprule
+%                \textbf{Corpus} & \textbf{P} & \textbf{R} & \textbf{F1} & \textbf{\newcite{kim2010rprecision}} \\
+%                \hline
+%                Linguistics & 0.000 & 0.000 & 0.000 & 0.000 \\
+%                Information Science & 0.000 & 0.000 & 0.000 & 0.000 \\
+%                Archaeology & 0.000 & 0.000 & 0.000 & 0.000 \\
+%                Chemestry & 0.000 & 0.000 & 0.000 & 0.000 \\
+%                \bottomrule
+%            \end{tabular}
+%            
+%            \caption{
+%                Correlation of four automatic evaluation measures to human evaluation \TODO{...}
+%                \label{tab:evaluation_correlations}}
+%        \end{table*}
